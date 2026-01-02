@@ -160,12 +160,63 @@
                     ✅ 成功讀取 ${data.length} 筆記錄
                 </div>`;
                 
+                // Count rows with actual data
+                const withSorties = data.filter(r => r.pla_aircraft_sorties && r.pla_aircraft_sorties !== '').length;
+                const withCarrier = data.filter(r => r.china_carrier_present && r.china_carrier_present !== '' && r.china_carrier_present !== '0').length;
+                const withUSTaiwan = data.filter(r => r.US_Taiwan_interaction && r.US_Taiwan_interaction !== '' && r.US_Taiwan_interaction !== '0').length;
+                const withPolitical = data.filter(r => r.Political_statement && r.Political_statement !== '' && r.Political_statement !== '0').length;
+                const withForeignShip = data.filter(r => r.Foreign_battleship && r.Foreign_battleship !== '' && r.Foreign_battleship !== '0').length;
+                
+                results.innerHTML += `<div class="test-result">
+                    <strong>數據統計:</strong><br>
+                    - 有 PLA 架次數據: ${withSorties} 筆<br>
+                    - 有航母活動: ${withCarrier} 筆<br>
+                    - 有美台互動: ${withUSTaiwan} 筆<br>
+                    - 有政治聲明: ${withPolitical} 筆<br>
+                    - 有外國軍艦: ${withForeignShip} 筆
+                </div>`;
+                
                 if (data.length > 0) {
                     const columns = Object.keys(data[0]);
                     results.innerHTML += `<div class="test-result">
                         <strong>欄位名稱:</strong>
                         <pre>${JSON.stringify(columns, null, 2)}</pre>
                     </div>`;
+                    
+                    // Show some rows with data
+                    const rowsWithData = data.filter(r => 
+                        r.pla_aircraft_sorties || r.china_carrier_present || 
+                        r.US_Taiwan_interaction || r.Political_statement || 
+                        r.Foreign_battleship
+                    ).slice(-10);
+                    
+                    if (rowsWithData.length > 0) {
+                        results.innerHTML += `<h3>最近 10 筆有數據的記錄:</h3>`;
+                        const table = document.createElement('table');
+                        
+                        // Header
+                        const thead = table.createTHead();
+                        const headerRow = thead.insertRow();
+                        ['Date', 'Sorties', 'Carrier', 'US-Taiwan', 'Political', 'Foreign Ship'].forEach(col => {
+                            const th = document.createElement('th');
+                            th.textContent = col;
+                            headerRow.appendChild(th);
+                        });
+                        
+                        // Body
+                        const tbody = table.createTBody();
+                        rowsWithData.forEach(row => {
+                            const tr = tbody.insertRow();
+                            tr.insertCell().textContent = row.date || '-';
+                            tr.insertCell().textContent = row.pla_aircraft_sorties || '-';
+                            tr.insertCell().textContent = row.china_carrier_present ? '✅' : '-';
+                            tr.insertCell().textContent = row.US_Taiwan_interaction ? '✅' : '-';
+                            tr.insertCell().textContent = row.Political_statement ? '✅' : '-';
+                            tr.insertCell().textContent = row.Foreign_battleship ? '✅' : '-';
+                        });
+                        
+                        results.appendChild(table);
+                    }
                 }
                 
             } catch (error) {

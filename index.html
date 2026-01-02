@@ -313,10 +313,11 @@
                             <th>Month</th>
                             <th>Weekday</th>
                             <th>PLA Sorties</th>
-                            <th>Carrier Present</th>
+                            <th>Carrier</th>
                             <th>US-Taiwan</th>
                             <th>Political</th>
                             <th>Foreign Ship</th>
+                            <th>Details</th>
                         </tr>
                     </thead>
                     <tbody id="comprehensiveTableBody">
@@ -695,23 +696,47 @@ function updateCharts() {
 
 function updateTables() {
     // Update Comprehensive Table
-    const comprehensiveFiltered = comprehensiveData.slice(-100).reverse();
+    // Filter to only show rows with data (not all empty)
+    const comprehensiveWithData = comprehensiveData.filter(row => {
+        return row.pla_aircraft_sorties || 
+               row.china_carrier_present || 
+               row.US_Taiwan_interaction || 
+               row.Political_statement || 
+               row.Foreign_battleship;
+    });
+    
+    const comprehensiveFiltered = comprehensiveWithData.slice(-100).reverse();
     const comprehensiveTbody = document.getElementById('comprehensiveTableBody');
     comprehensiveTbody.innerHTML = '';
-    document.getElementById('comprehensiveCount').textContent = `${comprehensiveData.length.toLocaleString()} records (showing latest 100)`;
+    document.getElementById('comprehensiveCount').textContent = `${comprehensiveWithData.length.toLocaleString()} records with data (showing latest 100)`;
     
     comprehensiveFiltered.forEach(row => {
         const tr = document.createElement('tr');
+        
+        // Helper to check if field has meaningful value
+        const hasData = (val) => val && val !== '' && val !== '0';
+        
+        // Prepare details text
+        let details = [];
+        if (hasData(row.Political_statement)) {
+            details.push('📢 ' + (row.Political_statement.substring(0, 50) + '...'));
+        }
+        if (hasData(row.Foreign_battleship)) {
+            details.push('🚢 ' + row.Foreign_battleship);
+        }
+        const detailsText = details.join(' | ') || '-';
+        
         tr.innerHTML = `
             <td>${row.date || '-'}</td>
             <td>${row.year || '-'}</td>
             <td>${row.month || '-'}</td>
-            <td><small>${row.weekday || '-'}</small></td>
+            <td><small>${row.weekday || row.weekday_zh || '-'}</small></td>
             <td><strong>${row.pla_aircraft_sorties || '-'}</strong></td>
-            <td>${row.china_carrier_present === '1' ? '✅' : '-'}</td>
-            <td>${row.US_Taiwan_interaction === '1' ? '✅' : '-'}</td>
-            <td>${row.Political_statement === '1' ? '✅' : '-'}</td>
-            <td>${row.Foreign_battleship === '1' ? '✅' : '-'}</td>
+            <td>${hasData(row.china_carrier_present) ? '✅' : '-'}</td>
+            <td>${hasData(row.US_Taiwan_interaction) ? '✅' : '-'}</td>
+            <td>${hasData(row.Political_statement) ? '✅' : '-'}</td>
+            <td>${hasData(row.Foreign_battleship) ? '✅' : '-'}</td>
+            <td><small style="cursor: pointer;" title="${detailsText}">${details.length > 0 ? '👁️' : '-'}</small></td>
         `;
         comprehensiveTbody.appendChild(tr);
     });
