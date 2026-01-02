@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="utf-8">
+    <title>PLA Aircraft Sorties Data Dashboard - Chen Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Interactive dashboard for PLA aircraft sorties and military activities analysis">
+    <meta name="author" content="Jeremy Chen">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <!-- PapaParse for CSV parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+        
+        .dashboard-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .filter-section {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .data-table {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: #667eea;
+        }
+        
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #653b8a 100%);
+        }
+        
+        table {
+            font-size: 0.9rem;
+        }
+        
+        table thead {
+            background-color: #667eea;
+            color: white;
+        }
+        
+        .download-btn {
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="dashboard-header">
+    <div class="container">
+        <h1 class="display-4">🛩️ PLA Aircraft Sorties Data Dashboard</h1>
+        <p class="lead">Interactive Military Activities Analysis (2020-2025)</p>
+    </div>
+</div>
+
+<!-- Loading Indicator -->
+<div id="loading" class="loading">
+    <div class="loading-spinner"></div>
+    <p>Loading data...</p>
+</div>
+
+<!-- Main Content -->
+<div id="mainContent" class="container" style="display: none;">
+    
+    <!-- Statistics Cards -->
+    <div class="row" id="statsCards">
+        <div class="col-md-3 col-sm-6">
+            <div class="stat-card">
+                <div class="stat-label">Total Records</div>
+                <div class="stat-value" id="totalRecords">-</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="stat-card">
+                <div class="stat-label">Avg Daily Sorties</div>
+                <div class="stat-value" id="avgSorties">-</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="stat-card">
+                <div class="stat-label">Max Sorties</div>
+                <div class="stat-value" id="maxSorties">-</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="stat-card">
+                <div class="stat-label">Carrier Events</div>
+                <div class="stat-value" id="carrierEvents">-</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-section">
+        <h4>📊 Data Filters</h4>
+        <div class="row">
+            <div class="col-md-3">
+                <label>Start Date</label>
+                <input type="date" id="startDate" class="form-control" value="2022-01-01">
+            </div>
+            <div class="col-md-3">
+                <label>End Date</label>
+                <input type="date" id="endDate" class="form-control" value="2025-12-31">
+            </div>
+            <div class="col-md-3">
+                <label>Dataset</label>
+                <select id="datasetSelect" class="form-control">
+                    <option value="comprehensive">Comprehensive Data</option>
+                    <option value="strait">Strait Transit Data</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label>&nbsp;</label>
+                <button class="btn btn-primary btn-block" onclick="applyFilters()">Apply Filters</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="chart-container">
+                <h5>📈 PLA Aircraft Sorties Time Series</h5>
+                <canvas id="timeSeriesChart"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="chart-container">
+                <h5>📊 Monthly Distribution</h5>
+                <canvas id="monthlyChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="chart-container">
+                <h5>📅 Yearly Comparison</h5>
+                <canvas id="yearlyChart"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="chart-container">
+                <h5>🗓️ Weekday Pattern</h5>
+                <canvas id="weekdayChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="data-table">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5>📋 Raw Data View (Latest 100 Records)</h5>
+            <div>
+                <button class="btn btn-success btn-sm download-btn" onclick="downloadCSV()">
+                    ⬇️ Download Filtered Data
+                </button>
+            </div>
+        </div>
+        <div style="overflow-x: auto;">
+            <table class="table table-striped table-hover" id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>PLA Sorties</th>
+                        <th>Carrier</th>
+                        <th>US-Taiwan</th>
+                        <th>Political</th>
+                        <th>Foreign Ship</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Documentation -->
+    <div class="chart-container">
+        <h5>📖 Data Documentation</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <h6>Comprehensive Dataset</h6>
+                <ul>
+                    <li><strong>Date Range:</strong> 2020-2025</li>
+                    <li><strong>Records:</strong> ~2,462 entries</li>
+                    <li><strong>Fields:</strong> Date, PLA Sorties, Carrier Presence, US-Taiwan Interactions, Political Statements, Foreign Battleships</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h6>Strait Transit Dataset</h6>
+                <ul>
+                    <li><strong>Date Range:</strong> 2022-2025</li>
+                    <li><strong>Records:</strong> ~1,356 entries</li>
+                    <li><strong>Straits:</strong> Yonaguni (與那國), Miyako (宮古), Osumi (大禹), Tsushima (對馬)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="text-center py-4 mt-5" style="background-color: #343a40; color: white;">
+    <div class="container">
+        <p>© 2025 Jeremy Chen | PLA Military Data Analysis Dashboard</p>
+        <p>
+            <a href="https://github.com/s0914712" target="_blank" style="color: #667eea;">GitHub</a> |
+            <a href="https://s0914712.github.io" target="_blank" style="color: #667eea;">Blog</a>
+        </p>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script>
+let comprehensiveData = [];
+let straitData = [];
+let currentData = [];
+let charts = {};
+
+// Load data on page load
+window.addEventListener('load', async function() {
+    await loadData();
+    initializeCharts();
+    updateDashboard();
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+});
+
+async function loadData() {
+    try {
+        // Load comprehensive data
+        const comprehensiveResponse = await fetch('data/merged_comprehensive_data_clean.csv');
+        const comprehensiveText = await comprehensiveResponse.text();
+        const comprehensiveParsed = Papa.parse(comprehensiveText, {
+            header: true,
+            skipEmptyLines: true
+        });
+        comprehensiveData = comprehensiveParsed.data;
+
+        // Load strait data
+        const straitResponse = await fetch('data/JapanandBattleship.csv');
+        const straitText = await straitResponse.text();
+        const straitParsed = Papa.parse(straitText, {
+            header: true,
+            skipEmptyLines: true
+        });
+        straitData = straitParsed.data;
+
+        currentData = comprehensiveData;
+        console.log('Data loaded successfully');
+    } catch (error) {
+        console.error('Error loading data:', error);
+        alert('Error loading data. Please make sure CSV files are in the data/ folder.');
+    }
+}
+
+function applyFilters() {
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const dataset = document.getElementById('datasetSelect').value;
+    
+    // Switch dataset
+    const sourceData = dataset === 'comprehensive' ? comprehensiveData : straitData;
+    
+    // Filter by date
+    currentData = sourceData.filter(row => {
+        const rowDate = new Date(row.date);
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        return rowDate >= start && rowDate <= end;
+    });
+    
+    updateDashboard();
+}
+
+function updateDashboard() {
+    updateStats();
+    updateCharts();
+    updateTable();
+}
+
+function updateStats() {
+    const totalRecords = currentData.length;
+    const sortiesData = currentData.filter(r => r.pla_aircraft_sorties && r.pla_aircraft_sorties !== '').map(r => parseFloat(r.pla_aircraft_sorties));
+    const avgSorties = sortiesData.length > 0 ? (sortiesData.reduce((a, b) => a + b, 0) / sortiesData.length).toFixed(1) : 0;
+    const maxSorties = sortiesData.length > 0 ? Math.max(...sortiesData) : 0;
+    const carrierEvents = currentData.filter(r => r.china_carrier_present === '1').length;
+    
+    document.getElementById('totalRecords').textContent = totalRecords.toLocaleString();
+    document.getElementById('avgSorties').textContent = avgSorties;
+    document.getElementById('maxSorties').textContent = maxSorties;
+    document.getElementById('carrierEvents').textContent = carrierEvents;
+}
+
+function initializeCharts() {
+    // Time Series Chart
+    charts.timeSeries = new Chart(document.getElementById('timeSeriesChart'), {
+        type: 'line',
+        data: { labels: [], datasets: [] },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    // Monthly Chart
+    charts.monthly = new Chart(document.getElementById('monthlyChart'), {
+        type: 'bar',
+        data: { labels: [], datasets: [] },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+
+    // Yearly Chart
+    charts.yearly = new Chart(document.getElementById('yearlyChart'), {
+        type: 'bar',
+        data: { labels: [], datasets: [] },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+
+    // Weekday Chart
+    charts.weekday = new Chart(document.getElementById('weekdayChart'), {
+        type: 'radar',
+        data: { labels: [], datasets: [] },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+}
+
+function updateCharts() {
+    // Update Time Series
+    const timeSeriesData = currentData
+        .filter(r => r.pla_aircraft_sorties && r.pla_aircraft_sorties !== '')
+        .slice(-180) // Last 180 records
+        .map(r => ({
+            x: r.date,
+            y: parseFloat(r.pla_aircraft_sorties)
+        }));
+    
+    charts.timeSeries.data.labels = timeSeriesData.map(d => d.x);
+    charts.timeSeries.data.datasets = [{
+        label: 'PLA Aircraft Sorties',
+        data: timeSeriesData.map(d => d.y),
+        borderColor: '#667eea',
+        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+        tension: 0.4
+    }];
+    charts.timeSeries.update();
+
+    // Update Monthly Chart
+    const monthlyData = {};
+    currentData.forEach(r => {
+        if (r.month && r.pla_aircraft_sorties && r.pla_aircraft_sorties !== '') {
+            const month = parseInt(r.month);
+            if (!monthlyData[month]) monthlyData[month] = [];
+            monthlyData[month].push(parseFloat(r.pla_aircraft_sorties));
+        }
+    });
+    
+    const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const monthlyAvg = monthLabels.map((_, i) => {
+        const data = monthlyData[i + 1] || [];
+        return data.length > 0 ? data.reduce((a, b) => a + b, 0) / data.length : 0;
+    });
+    
+    charts.monthly.data.labels = monthLabels;
+    charts.monthly.data.datasets = [{
+        label: 'Average Sorties',
+        data: monthlyAvg,
+        backgroundColor: '#667eea'
+    }];
+    charts.monthly.update();
+
+    // Update Yearly Chart
+    const yearlyData = {};
+    currentData.forEach(r => {
+        if (r.year && r.pla_aircraft_sorties && r.pla_aircraft_sorties !== '') {
+            const year = r.year;
+            if (!yearlyData[year]) yearlyData[year] = [];
+            yearlyData[year].push(parseFloat(r.pla_aircraft_sorties));
+        }
+    });
+    
+    const years = Object.keys(yearlyData).sort();
+    const yearlyAvg = years.map(year => {
+        const data = yearlyData[year];
+        return data.reduce((a, b) => a + b, 0) / data.length;
+    });
+    
+    charts.yearly.data.labels = years;
+    charts.yearly.data.datasets = [{
+        label: 'Average Sorties',
+        data: yearlyAvg,
+        backgroundColor: '#764ba2'
+    }];
+    charts.yearly.update();
+
+    // Update Weekday Chart
+    const weekdayData = {
+        'Monday': [], 'Tuesday': [], 'Wednesday': [], 'Thursday': [],
+        'Friday': [], 'Saturday': [], 'Sunday': []
+    };
+    
+    currentData.forEach(r => {
+        if (r.weekday && r.pla_aircraft_sorties && r.pla_aircraft_sorties !== '') {
+            const day = r.weekday;
+            if (weekdayData[day]) {
+                weekdayData[day].push(parseFloat(r.pla_aircraft_sorties));
+            }
+        }
+    });
+    
+    const weekdayLabels = Object.keys(weekdayData);
+    const weekdayAvg = weekdayLabels.map(day => {
+        const data = weekdayData[day];
+        return data.length > 0 ? data.reduce((a, b) => a + b, 0) / data.length : 0;
+    });
+    
+    charts.weekday.data.labels = weekdayLabels;
+    charts.weekday.data.datasets = [{
+        label: 'Average Sorties',
+        data: weekdayAvg,
+        backgroundColor: 'rgba(102, 126, 234, 0.2)',
+        borderColor: '#667eea',
+        borderWidth: 2
+    }];
+    charts.weekday.update();
+}
+
+function updateTable() {
+    const tbody = document.getElementById('tableBody');
+    tbody.innerHTML = '';
+    
+    const displayData = currentData.slice(-100).reverse(); // Show latest 100
+    
+    displayData.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${row.date || '-'}</td>
+            <td><strong>${row.pla_aircraft_sorties || '-'}</strong></td>
+            <td>${row.china_carrier_present === '1' ? '✓' : '-'}</td>
+            <td>${row.US_Taiwan_interaction === '1' ? '✓' : '-'}</td>
+            <td>${row.Political_statement === '1' ? '✓' : '-'}</td>
+            <td>${row.Foreign_battleship === '1' ? '✓' : '-'}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+function downloadCSV() {
+    const csv = Papa.unparse(currentData);
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `filtered_data_${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+    window.URL.revokeObjectURL(url);
+}
+</script>
+
+</body>
+</html>
