@@ -433,18 +433,28 @@ async function loadData() {
         // Load comprehensive data
         const comprehensiveResponse = await fetch('data/merged_comprehensive_data_clean.csv');
         const comprehensiveText = await comprehensiveResponse.text();
-        const comprehensiveParsed = Papa.parse(comprehensiveText, {
+        
+        // Remove UTF-8 BOM if present
+        const comprehensiveClean = comprehensiveText.replace(/^\uFEFF/, '');
+        
+        const comprehensiveParsed = Papa.parse(comprehensiveClean, {
             header: true,
-            skipEmptyLines: true
+            skipEmptyLines: true,
+            encoding: 'UTF-8'
         });
         comprehensiveData = comprehensiveParsed.data;
 
         // Load strait data
         const straitResponse = await fetch('data/JapanandBattleship.csv');
         const straitText = await straitResponse.text();
-        const straitParsed = Papa.parse(straitText, {
+        
+        // Remove UTF-8 BOM if present
+        const straitClean = straitText.replace(/^\uFEFF/, '');
+        
+        const straitParsed = Papa.parse(straitClean, {
             header: true,
-            skipEmptyLines: true
+            skipEmptyLines: true,
+            encoding: 'UTF-8'
         });
         straitData = straitParsed.data;
 
@@ -457,6 +467,12 @@ async function loadData() {
         console.log('Data loaded successfully');
         console.log('Comprehensive:', comprehensiveData.length, 'records');
         console.log('Strait:', straitData.length, 'records');
+        
+        // Debug: Check column names
+        if (straitData.length > 0) {
+            console.log('Strait columns:', Object.keys(straitData[0]));
+            console.log('First row sample:', straitData[0]);
+        }
     } catch (error) {
         console.error('Error loading data:', error);
         alert('Error loading data. Please make sure CSV files are in the data/ folder.');
@@ -708,17 +724,21 @@ function updateTables() {
     
     straitFiltered.forEach(row => {
         const tr = document.createElement('tr');
+        
+        // Helper function to check if value exists and is not empty
+        const hasValue = (val) => val && val !== '' && val !== 'FALSE' && val !== '0';
+        
         tr.innerHTML = `
             <td>${row.date || '-'}</td>
             <td><strong>${row.pla_aircraft_sorties || '-'}</strong></td>
-            <td>${row['與那國'] ? '✅' : '-'}</td>
-            <td>${row['宮古'] ? '✅' : '-'}</td>
-            <td>${row['大禹'] ? '✅' : '-'}</td>
-            <td>${row['對馬'] ? '✅' : '-'}</td>
-            <td>${row['聯合演訓'] ? '✅' : '-'}</td>
-            <td><small>${row['進'] ? '進' : row['出'] ? '出' : '-'}</small></td>
+            <td>${hasValue(row['與那國']) ? '✅' : '-'}</td>
+            <td>${hasValue(row['宮古']) ? '✅' : '-'}</td>
+            <td>${hasValue(row['大禹']) ? '✅' : '-'}</td>
+            <td>${hasValue(row['對馬']) ? '✅' : '-'}</td>
+            <td>${hasValue(row['聯合演訓']) ? '✅' : '-'}</td>
+            <td><small>${hasValue(row['進']) ? '進' : hasValue(row['出']) ? '出' : '-'}</small></td>
             <td><small>${row['艦型'] || '-'}</small></td>
-            <td><small>${row['備考'] || '-'}</small></td>
+            <td><small>${row['備考'] || row['remark'] || '-'}</small></td>
         `;
         straitTbody.appendChild(tr);
     });
