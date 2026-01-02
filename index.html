@@ -73,6 +73,7 @@
             background: white;
             border-radius: 10px;
             padding: 1.5rem;
+            margin-bottom: 2rem;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             overflow-x: auto;
         }
@@ -108,7 +109,7 @@
         }
         
         table {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
         
         table thead {
@@ -118,6 +119,57 @@
         
         .download-btn {
             margin: 1rem 0;
+        }
+        
+        .dataset-tabs {
+            margin-bottom: 2rem;
+        }
+        
+        .dataset-tab {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            margin-right: 1rem;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .dataset-tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        
+        .dataset-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .table-container {
+            display: none;
+        }
+        
+        .table-container.active {
+            display: block;
+        }
+        
+        .badge-info {
+            background-color: #17a2b8;
+        }
+        
+        .badge-success {
+            background-color: #28a745;
+        }
+        
+        .table-responsive {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(102, 126, 234, 0.05);
         }
     </style>
 </head>
@@ -162,8 +214,8 @@
         </div>
         <div class="col-md-3 col-sm-6">
             <div class="stat-card">
-                <div class="stat-label">Carrier Events</div>
-                <div class="stat-value" id="carrierEvents">-</div>
+                <div class="stat-label">Date Range</div>
+                <div class="stat-value" style="font-size: 1.2rem;" id="dateRange">-</div>
             </div>
         </div>
     </div>
@@ -183,8 +235,8 @@
             <div class="col-md-3">
                 <label>Dataset</label>
                 <select id="datasetSelect" class="form-control">
-                    <option value="comprehensive">Comprehensive Data</option>
-                    <option value="strait">Strait Transit Data</option>
+                    <option value="comprehensive">Comprehensive Data (2020-2025)</option>
+                    <option value="strait">Strait Transit Data (2022-2025)</option>
                 </select>
             </div>
             <div class="col-md-3">
@@ -225,52 +277,123 @@
         </div>
     </div>
 
-    <!-- Data Table -->
+    <!-- Data Tables Section -->
     <div class="data-table">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h5>📋 Raw Data View (Latest 100 Records)</h5>
-            <div>
-                <button class="btn btn-success btn-sm download-btn" onclick="downloadCSV()">
-                    ⬇️ Download Filtered Data
-                </button>
+        <h4>📋 Raw Data View</h4>
+        
+        <!-- Dataset Tabs -->
+        <div class="dataset-tabs">
+            <div class="dataset-tab active" onclick="switchDatasetTable('comprehensive')">
+                <strong>📊 Comprehensive Dataset</strong>
+                <br><small>2020-2025 | Complete Military Activities</small>
+            </div>
+            <div class="dataset-tab" onclick="switchDatasetTable('strait')">
+                <strong>🚢 Strait Transit Dataset</strong>
+                <br><small>2022-2025 | Naval Transit Events</small>
             </div>
         </div>
-        <div style="overflow-x: auto;">
-            <table class="table table-striped table-hover" id="dataTable">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>PLA Sorties</th>
-                        <th>Carrier</th>
-                        <th>US-Taiwan</th>
-                        <th>Political</th>
-                        <th>Foreign Ship</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                </tbody>
-            </table>
+
+        <!-- Comprehensive Data Table -->
+        <div id="comprehensiveTable" class="table-container active">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5>
+                    📊 Comprehensive Dataset 
+                    <span class="badge badge-info" id="comprehensiveCount">0 records</span>
+                </h5>
+                <button class="btn btn-success btn-sm" onclick="downloadCSV('comprehensive')">
+                    ⬇️ Download
+                </button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Year</th>
+                            <th>Month</th>
+                            <th>Weekday</th>
+                            <th>PLA Sorties</th>
+                            <th>Carrier Present</th>
+                            <th>US-Taiwan</th>
+                            <th>Political</th>
+                            <th>Foreign Ship</th>
+                        </tr>
+                    </thead>
+                    <tbody id="comprehensiveTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Strait Transit Data Table -->
+        <div id="straitTable" class="table-container">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5>
+                    🚢 Strait Transit Dataset 
+                    <span class="badge badge-success" id="straitCount">0 records</span>
+                </h5>
+                <button class="btn btn-success btn-sm" onclick="downloadCSV('strait')">
+                    ⬇️ Download
+                </button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>PLA Sorties</th>
+                            <th>Yonaguni<br>與那國</th>
+                            <th>Miyako<br>宮古</th>
+                            <th>Osumi<br>大禹</th>
+                            <th>Tsushima<br>對馬</th>
+                            <th>Joint Exercise<br>聯合演訓</th>
+                            <th>Direction<br>進/出</th>
+                            <th>Vessel Type<br>艦型</th>
+                            <th>Remarks<br>備考</th>
+                        </tr>
+                    </thead>
+                    <tbody id="straitTableBody">
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <!-- Documentation -->
     <div class="chart-container">
-        <h5>📖 Data Documentation</h5>
+        <h5>📖 Dataset Information</h5>
         <div class="row">
             <div class="col-md-6">
-                <h6>Comprehensive Dataset</h6>
+                <h6>📊 Comprehensive Dataset</h6>
                 <ul>
+                    <li><strong>Source:</strong> merged_comprehensive_data_clean.csv</li>
                     <li><strong>Date Range:</strong> 2020-2025</li>
-                    <li><strong>Records:</strong> ~2,462 entries</li>
-                    <li><strong>Fields:</strong> Date, PLA Sorties, Carrier Presence, US-Taiwan Interactions, Political Statements, Foreign Battleships</li>
+                    <li><strong>Total Records:</strong> <span id="comprehensiveTotalRecords">-</span></li>
+                    <li><strong>Key Fields:</strong> 
+                        <ul>
+                            <li>PLA Aircraft Sorties</li>
+                            <li>China Carrier Presence</li>
+                            <li>US-Taiwan Interactions</li>
+                            <li>Political Statements</li>
+                            <li>Foreign Battleship Activities</li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <div class="col-md-6">
-                <h6>Strait Transit Dataset</h6>
+                <h6>🚢 Strait Transit Dataset</h6>
                 <ul>
-                    <li><strong>Date Range:</strong> 2022-2025</li>
-                    <li><strong>Records:</strong> ~1,356 entries</li>
-                    <li><strong>Straits:</strong> Yonaguni (與那國), Miyako (宮古), Osumi (大禹), Tsushima (對馬)</li>
+                    <li><strong>Source:</strong> JapanandBattleship.csv</li>
+                    <li><strong>Date Range:</strong> 2015-2025</li>
+                    <li><strong>Total Records:</strong> <span id="straitTotalRecords">-</span></li>
+                    <li><strong>Monitored Straits:</strong>
+                        <ul>
+                            <li>Yonaguni (與那國) - Near Taiwan</li>
+                            <li>Miyako (宮古) - Key passage</li>
+                            <li>Osumi (大禹) - Southern route</li>
+                            <li>Tsushima (對馬) - Korea Strait</li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -293,6 +416,7 @@
 let comprehensiveData = [];
 let straitData = [];
 let currentData = [];
+let currentDataset = 'comprehensive';
 let charts = {};
 
 // Load data on page load
@@ -325,23 +449,48 @@ async function loadData() {
         straitData = straitParsed.data;
 
         currentData = comprehensiveData;
+        
+        // Update total counts
+        document.getElementById('comprehensiveTotalRecords').textContent = comprehensiveData.length.toLocaleString();
+        document.getElementById('straitTotalRecords').textContent = straitData.length.toLocaleString();
+        
         console.log('Data loaded successfully');
+        console.log('Comprehensive:', comprehensiveData.length, 'records');
+        console.log('Strait:', straitData.length, 'records');
     } catch (error) {
         console.error('Error loading data:', error);
         alert('Error loading data. Please make sure CSV files are in the data/ folder.');
     }
 }
 
+function switchDatasetTable(dataset) {
+    // Update tab active state
+    const tabs = document.querySelectorAll('.dataset-tab');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    event.target.closest('.dataset-tab').classList.add('active');
+    
+    // Show/hide tables
+    document.getElementById('comprehensiveTable').classList.remove('active');
+    document.getElementById('straitTable').classList.remove('active');
+    
+    if (dataset === 'comprehensive') {
+        document.getElementById('comprehensiveTable').classList.add('active');
+    } else {
+        document.getElementById('straitTable').classList.add('active');
+    }
+}
+
 function applyFilters() {
     const startDate = document.getElementById('startDate').value;
     const endDate = document.getElementById('endDate').value;
-    const dataset = document.getElementById('datasetSelect').value;
+    currentDataset = document.getElementById('datasetSelect').value;
     
     // Switch dataset
-    const sourceData = dataset === 'comprehensive' ? comprehensiveData : straitData;
+    const sourceData = currentDataset === 'comprehensive' ? comprehensiveData : straitData;
     
     // Filter by date
     currentData = sourceData.filter(row => {
+        if (!row.date) return false;
         const rowDate = new Date(row.date);
         const start = new Date(startDate);
         const end = new Date(endDate);
@@ -354,7 +503,7 @@ function applyFilters() {
 function updateDashboard() {
     updateStats();
     updateCharts();
-    updateTable();
+    updateTables();
 }
 
 function updateStats() {
@@ -362,12 +511,17 @@ function updateStats() {
     const sortiesData = currentData.filter(r => r.pla_aircraft_sorties && r.pla_aircraft_sorties !== '').map(r => parseFloat(r.pla_aircraft_sorties));
     const avgSorties = sortiesData.length > 0 ? (sortiesData.reduce((a, b) => a + b, 0) / sortiesData.length).toFixed(1) : 0;
     const maxSorties = sortiesData.length > 0 ? Math.max(...sortiesData) : 0;
-    const carrierEvents = currentData.filter(r => r.china_carrier_present === '1').length;
+    
+    // Get date range
+    const dates = currentData.filter(r => r.date).map(r => new Date(r.date)).sort((a, b) => a - b);
+    const dateRange = dates.length > 0 ? 
+        `${dates[0].toLocaleDateString('en-US', {month: 'short', year: 'numeric'})} - ${dates[dates.length-1].toLocaleDateString('en-US', {month: 'short', year: 'numeric'})}` : 
+        '-';
     
     document.getElementById('totalRecords').textContent = totalRecords.toLocaleString();
     document.getElementById('avgSorties').textContent = avgSorties;
     document.getElementById('maxSorties').textContent = maxSorties;
-    document.getElementById('carrierEvents').textContent = carrierEvents;
+    document.getElementById('dateRange').textContent = dateRange;
 }
 
 function initializeCharts() {
@@ -426,7 +580,7 @@ function initializeCharts() {
 function updateCharts() {
     // Update Time Series
     const timeSeriesData = currentData
-        .filter(r => r.pla_aircraft_sorties && r.pla_aircraft_sorties !== '')
+        .filter(r => r.pla_aircraft_sorties && r.pla_aircraft_sorties !== '' && r.date)
         .slice(-180) // Last 180 records
         .map(r => ({
             x: r.date,
@@ -523,33 +677,61 @@ function updateCharts() {
     charts.weekday.update();
 }
 
-function updateTable() {
-    const tbody = document.getElementById('tableBody');
-    tbody.innerHTML = '';
+function updateTables() {
+    // Update Comprehensive Table
+    const comprehensiveFiltered = comprehensiveData.slice(-100).reverse();
+    const comprehensiveTbody = document.getElementById('comprehensiveTableBody');
+    comprehensiveTbody.innerHTML = '';
+    document.getElementById('comprehensiveCount').textContent = `${comprehensiveData.length.toLocaleString()} records (showing latest 100)`;
     
-    const displayData = currentData.slice(-100).reverse(); // Show latest 100
+    comprehensiveFiltered.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${row.date || '-'}</td>
+            <td>${row.year || '-'}</td>
+            <td>${row.month || '-'}</td>
+            <td><small>${row.weekday || '-'}</small></td>
+            <td><strong>${row.pla_aircraft_sorties || '-'}</strong></td>
+            <td>${row.china_carrier_present === '1' ? '✅' : '-'}</td>
+            <td>${row.US_Taiwan_interaction === '1' ? '✅' : '-'}</td>
+            <td>${row.Political_statement === '1' ? '✅' : '-'}</td>
+            <td>${row.Foreign_battleship === '1' ? '✅' : '-'}</td>
+        `;
+        comprehensiveTbody.appendChild(tr);
+    });
     
-    displayData.forEach(row => {
+    // Update Strait Table
+    const straitFiltered = straitData.slice(-100).reverse();
+    const straitTbody = document.getElementById('straitTableBody');
+    straitTbody.innerHTML = '';
+    document.getElementById('straitCount').textContent = `${straitData.length.toLocaleString()} records (showing latest 100)`;
+    
+    straitFiltered.forEach(row => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td>${row.date || '-'}</td>
             <td><strong>${row.pla_aircraft_sorties || '-'}</strong></td>
-            <td>${row.china_carrier_present === '1' ? '✓' : '-'}</td>
-            <td>${row.US_Taiwan_interaction === '1' ? '✓' : '-'}</td>
-            <td>${row.Political_statement === '1' ? '✓' : '-'}</td>
-            <td>${row.Foreign_battleship === '1' ? '✓' : '-'}</td>
+            <td>${row['與那國'] ? '✅' : '-'}</td>
+            <td>${row['宮古'] ? '✅' : '-'}</td>
+            <td>${row['大禹'] ? '✅' : '-'}</td>
+            <td>${row['對馬'] ? '✅' : '-'}</td>
+            <td>${row['聯合演訓'] ? '✅' : '-'}</td>
+            <td><small>${row['進'] ? '進' : row['出'] ? '出' : '-'}</small></td>
+            <td><small>${row['艦型'] || '-'}</small></td>
+            <td><small>${row['備考'] || '-'}</small></td>
         `;
-        tbody.appendChild(tr);
+        straitTbody.appendChild(tr);
     });
 }
 
-function downloadCSV() {
-    const csv = Papa.unparse(currentData);
-    const blob = new Blob([csv], { type: 'text/csv' });
+function downloadCSV(dataset) {
+    const data = dataset === 'comprehensive' ? comprehensiveData : straitData;
+    const csv = Papa.unparse(data);
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `filtered_data_${new Date().toISOString().split('T')[0]}.csv`;
+    a.download = `${dataset}_data_${new Date().toISOString().split('T')[0]}.csv`;
     a.click();
     window.URL.revokeObjectURL(url);
 }
