@@ -7,17 +7,3 @@ numpy>=1.24.0
 scikit-learn>=1.3.0
 catboost>=1.2.0
 joblib>=1.3.0
-
-```
-
-## 4. 目錄結構
-```
-your-repo/
-├── .github/
-│   └── workflows/
-│       └── update_data.yml
-├── data/
-│   └── JapanandBattleship.csv
-├── scraper.py
-├── requirements.txt
-└── README.md
