@@ -1,0 +1,43 @@
+name: 每日更新國防部資料
+
+on:
+  schedule:
+    # 每天 UTC 時間 00:00 執行 (台北時間 08:00)
+    - cron: '0 0 * * *'
+  workflow_dispatch:  # 允許手動觸發
+
+jobs:
+  scrape-and-update:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+        
+    - name: Install Chrome
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget gnupg
+        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+        
+    - name: Install Python dependencies
+      run: |
+        pip install selenium webdriver-manager beautifulsoup4 pandas
+        
+    - name: Run scraper
+      run: python scraper.py
+      
+    - name: Commit and push if changes
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add data/JapanandBattleship.csv
+        git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 自動更新國防部資料 $(date +'%Y-%m-%d %H:%M:%S')" && git push)
