@@ -1,0 +1,45 @@
+name: 爬取日本防衛省中國海軍艦艇動向
+
+on:
+  schedule:
+    # 每天台北時間 14:00 執行 (UTC 06:00)
+    - cron: '0 6 * * *'
+  workflow_dispatch:  # 允許手動觸發
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+        
+    - name: Install Chrome
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget gnupg
+        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+        
+    - name: Install Python dependencies
+      run: |
+        pip install selenium webdriver-manager beautifulsoup4 pandas lxml PyPDF2 openai
+        
+    - name: Run Japan MOD scraper
+      env:
+        STIMA_API_KEY: ${{ secrets.STIMA_API_KEY }}
+      run: python scraper_japan_mod.py
+      
+    - name: Commit and push if changes
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add data/JapanandBattleship.csv
+        git diff --quiet && git diff --staged --quiet || (git commit -m "🇯🇵 更新日本防衛省資料 $(date +'%Y-%m-%d %H:%M')" && git push)
