@@ -1,0 +1,18 @@
+selenium>=4.15.0
+webdriver-manager>=4.0.0
+beautifulsoup4>=4.12.0
+pandas>=2.1.0
+lxml>=4.9.0
+```
+
+## 4. 目錄結構
+```
+your-repo/
+├── .github/
+│   └── workflows/
+│       └── update_data.yml
+├── data/
+│   └── JapanandBattleship.csv
+├── scraper.py
+├── requirements.txt
+└── README.md
