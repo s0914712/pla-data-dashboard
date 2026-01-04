@@ -1,0 +1,67 @@
+name: Daily PLA Sortie Prediction
+
+on:
+  schedule:
+    # 每天 UTC 時間 00:00 運行 (台灣時間 08:00)
+    - cron: '0 0 * * *'
+  
+  # 允許手動觸發
+  workflow_dispatch:
+  
+  # 當 data 文件夾有更新時也觸發
+  push:
+    paths:
+      - 'data/JapanandBattleship.csv'
+
+jobs:
+  train-and-predict:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Run training and prediction
+        run: |
+          python train_and_predict.py
+      
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if [[ -n $(git status --porcelain output/) ]]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Commit and push predictions
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add output/
+          git commit -m "🔮 Daily prediction update - $(date +'%Y-%m-%d %H:%M UTC')"
+          git push
+      
+      - name: Upload prediction artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: prediction-results
+          path: output/
+          retention-days: 30
