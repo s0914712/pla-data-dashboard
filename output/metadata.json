@@ -1,49 +1,49 @@
 {
-  "last_update": "2026-01-09 02:22:44",
+  "last_update": "2026-01-10 02:12:38",
   "data_range": {
     "start": "2022-01-01",
-    "end": "2026-01-08"
+    "end": "2026-01-10"
   },
-  "train_samples": 1077,
+  "train_samples": 1079,
   "test_samples": 270,
-  "best_rmse": 2.79729316518358,
+  "best_rmse": 2.8957585253574454,
   "prediction_days": 7,
   "event_weights": {
     "聯合演訓": {
       "avg_sorties": 15.380952380952381,
-      "relative_impact": 1.1672270091802224
+      "relative_impact": 1.1680776758901759
     },
     "艦通過": {
       "avg_sorties": 16.71186440677966,
-      "relative_impact": 1.2682270269237383
+      "relative_impact": 1.2691513017254543
     },
     "航母活動": {
       "avg_sorties": 36.857142857142854,
-      "relative_impact": 2.7970083749396037
+      "relative_impact": 2.7990468146718146
     },
     "與那國": {
       "avg_sorties": 18.9,
-      "relative_impact": 1.4342798759864712
+      "relative_impact": 1.4353251689189188
     },
     "宮古": {
       "avg_sorties": 16.724137931034484,
-      "relative_impact": 1.269158437973798
+      "relative_impact": 1.2700833915812366
     },
     "大禹": {
       "avg_sorties": 14.571428571428571,
-      "relative_impact": 1.1057940086970528
+      "relative_impact": 1.1065999034749034
     },
     "對馬": {
       "avg_sorties": 14.352941176470589,
-      "relative_impact": 1.0892134756946747
+      "relative_impact": 1.0900072866984631
     },
     "進": {
       "avg_sorties": 21.45,
-      "relative_impact": 1.6277938275084556
+      "relative_impact": 1.628980152027027
     },
     "出": {
       "avg_sorties": 13.289473684210526,
-      "relative_impact": 1.0085092416780395
+      "relative_impact": 1.0092442360123282
     }
   }
 }
