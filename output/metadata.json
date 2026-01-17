@@ -1,12 +1,12 @@
 {
-  "last_update": "2026-01-16 02:23:33",
+  "last_update": "2026-01-17 02:10:57",
   "data_range": {
     "start": "2022-01-01",
-    "end": "2026-01-16"
+    "end": "2026-01-17"
   },
   "train_samples": 1084,
-  "test_samples": 271,
-  "best_rmse": 2.973298422848156,
+  "test_samples": 272,
+  "best_rmse": 2.97310335002476,
   "prediction_days": 7,
   "event_weights": {
     "聯合演訓": {
