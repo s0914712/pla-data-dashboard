@@ -23,13 +23,23 @@ class BaseScraper(ABC):
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     ]
     
+    # 標準請求頭
+    DEFAULT_HEADERS = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+        "Accept-Language": "zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+    }
+    
     def __init__(self, name: str, timeout: int = 30, delay: float = 1.0):
         self.name = name
         self.timeout = timeout
-        self.delay = delay
+        self.delay = delay 
         self.client = httpx.Client(
             timeout=timeout,
-            headers={"User-Agent": self.USER_AGENTS[0]},
+            headers=self.DEFAULT_HEADERS,
             follow_redirects=True
         )
     
