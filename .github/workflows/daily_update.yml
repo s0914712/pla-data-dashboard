@@ -1,0 +1,99 @@
+name: Daily Data Update
+
+on:
+  schedule:
+    # 每天 UTC 00:00 執行 (台北時間 08:00)
+    - cron: '0 0 * * *'
+  
+  # 允許手動觸發
+  workflow_dispatch:
+    inputs:
+      days_back:
+        description: '爬取過去幾天的新聞'
+        required: false
+        default: '7'
+        type: string
+      skip_push:
+        description: '跳過推送到 GitHub'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write  # 允許推送
+    
+    steps:
+      # 1. 檢出代碼
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0  # 完整歷史
+      
+      # 2. 設置 Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      # 3. 安裝依賴
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      # 4. 執行更新腳本
+      - name: Run update script
+        env:
+          GROK_API_KEY: ${{ secrets.GROK_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd scripts
+          python main.py \
+            --days ${{ github.event.inputs.days_back || '7' }} \
+            ${{ github.event.inputs.skip_push == 'true' && '--no-push' || '' }}
+      
+      # 5. 提交變更（如果腳本沒有自動推送）
+      - name: Commit and push changes
+        if: ${{ github.event.inputs.skip_push != 'true' }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # 添加更新的文件
+          git add data/merged_comprehensive_data_M.csv || true
+          git add data/logs/*.json || true
+          
+          # 檢查是否有變更
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-update: $(date +'%Y-%m-%d %H:%M')"
+            git push
+          fi
+      
+      # 6. 上傳日誌作為 Artifact（可選）
+      - name: Upload logs
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: update-logs-${{ github.run_number }}
+          path: data/logs/
+          retention-days: 30
+
+  # 可選：發送通知
+  notify:
+    needs: update-data
+    runs-on: ubuntu-latest
+    if: failure()
+    
+    steps:
+      - name: Notify on failure
+        run: |
+          echo "Update job failed. Check the logs for details."
+          # 可以在這裡添加 Slack/Discord/Email 通知
