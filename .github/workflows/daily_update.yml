@@ -50,6 +50,7 @@ jobs:
       # 4. 執行更新腳本
       - name: Run news scraper and classifier
         env:
+          SERPAPI_KEY : ${{ secrets.SERPAPI_KEY  }}
           GROK_API_KEY: ${{ secrets.GROK_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
