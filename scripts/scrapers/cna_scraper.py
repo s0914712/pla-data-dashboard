@@ -1,4 +1,4 @@
-python#!/usr/bin/env python3
+
 import re
 import httpx
 import time
