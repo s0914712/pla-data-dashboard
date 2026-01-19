@@ -1,11 +1,11 @@
-#!/usr/bin/env python3
+python#!/usr/bin/env python3
 import re
 import httpx
 import time
 from datetime import datetime
 from typing import List, Dict, Optional
 from urllib.parse import quote
-from .base_scraper import BaseScraper # 確保路徑正確
+from .base_scraper import BaseScraper
 
 class CNAScraper(BaseScraper):
     """
@@ -98,6 +98,16 @@ class CNAScraper(BaseScraper):
     def run(self, days_back: int = 7) -> List[Dict]:
         """
         執行爬取主流程
+        
+        Returns:
+            標準格式的新聞列表，每個元素包含:
+            - date: str (YYYY-MM-DD)
+            - title: str
+            - content: str
+            - url: str
+            - source: str ('cna')
+            - category: str (空字串，待分類)
+            - sentiment: str (空字串，待分析)
         """
         print(f"[{self.name}] 正在開始任務，追蹤過去 {days_back} 天內容...")
         raw_articles = []
@@ -128,16 +138,31 @@ class CNAScraper(BaseScraper):
                             collected_urls.add(item['url'])
                             raw_articles.append(item)
 
-        # 3. 爬取內文並封裝
+        # 3. 爬取內文
         print(f"[{self.name}] 總計找到 {len(raw_articles)} 篇符合日期的潛在新聞，開始抓取內文...")
         for article in raw_articles:
             article['content'] = self.scrape_full_content(article['url'])
 
-        # 4. 調用父類別方法轉換為標準格式回傳
-        return self.to_standard_format(raw_articles)
+        # 4. 調用父類別方法轉換為標準格式
+        standardized = self.to_standard_format(raw_articles)
+        
+        print(f"[{self.name}] 完成！成功爬取 {len(standardized)} 篇新聞")
+        return standardized
+
 
 if __name__ == "__main__":
     with CNAScraper(delay=1.0) as scraper:
         results = scraper.run(days_back=7)
-        for news in results:
-            print(f"[{news['date']}] {news['title']} - {news['source']}")
+        
+        print(f"\n{'='*70}")
+        print(f"總計爬取: {len(results)} 篇新聞")
+        print(f"{'='*70}\n")
+        
+        for i, news in enumerate(results[:5], 1):  # 只顯示前 5 篇
+            print(f"{i}. [{news['date']}] {news['title']}")
+            print(f"   來源: {news['source']}")
+            print(f"   URL: {news['url']}")
+            print(f"   內文長度: {len(news['content'])} 字元")
+            print(f"   Category: {news['category']}")
+            print(f"   Sentiment: {news['sentiment']}")
+            print()
