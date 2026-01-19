@@ -21,7 +21,7 @@ CLASSIFICATION_SYSTEM_PROMPT = """你是一個專業的軍事新聞分析師，�
 - US_Statement: 美國政府/國務院/國防部的官方聲明或行動
 - TW_Statement: 台灣政府/國防部/外交部的官方聲明
 - Military_Exercise: 軍事演習相關新聞
-- Battleship_Transit: 軍艦通過台灣海峽或周邊海域
+- Battleship_Transit: 軍艦通過台灣海峽或周邊海域(美軍艦艇或外國艦艇)
 - US_TW_Interaction: 美台互動（軍售、訪問、合作等）
 - Regional_Security: 區域安全相關（日本、菲律賓、其他國家反應）
 - Not_Relevant: 與台海軍事/政治無直接關係
@@ -45,7 +45,7 @@ CLASSIFICATION_SYSTEM_PROMPT = """你是一個專業的軍事新聞分析師，�
 
 範例：
 - "中共對台軍演" → country1: CN, country2: TW
-- "美艦穿越台海" → country1: US, country2: CN (或 TW，視報導角度)
+- "美艦穿越台海" → country1: US, country2: CN (或 TW，視報導角度，歸類在軍艦通過欄位)
 - "國台辦批評民進黨" → country1: CN, country2: TW
 - "美國務院回應中國軍演" → country1: US, country2: CN
 - "日本關切台海情勢" → country1: JP, country2: TW (或 CN)
