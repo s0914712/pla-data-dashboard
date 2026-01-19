@@ -35,7 +35,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from config import Config
 from scrapers import XinhuaTWScraper, CNAScraper
 from classifiers import GrokNewsClassifier
-from updaters import CSVUpdater, GitHubUpdater
+from updaters import CSVUpdater, GitHubUpdater, DataMerger
 
 
 def parse_args():
@@ -206,6 +206,27 @@ def main():
     try:
         updater = CSVUpdater(csv_path)
         updated_count = updater.update_from_classified(classified_news)
+        
+        # 3.1 從 GitHub 合併 pla_aircraft_sorties 資料
+        print("\n[3.1] Merging pla_aircraft_sorties from JapanandBattleship.csv...")
+        try:
+            local_path = str(Config.JAPAN_BATTLESHIP_LOCAL) if Config.JAPAN_BATTLESHIP_LOCAL.exists() else None
+            with DataMerger(local_path=local_path) as merger:
+                updater.df = merger.merge_pla_sorties(updater.df)
+                merger_stats = merger.get_stats()
+                log['steps'].append({
+                    'merger': 'japan_battleship',
+                    'stats': merger_stats,
+                    'status': 'success'
+                })
+        except Exception as e:
+            print(f"      ⚠️ Merger warning: {e}")
+            log['steps'].append({
+                'merger': 'japan_battleship',
+                'error': str(e),
+                'status': 'warning'
+            })
+        
         output_path = updater.save()
         
         stats = updater.get_stats()
