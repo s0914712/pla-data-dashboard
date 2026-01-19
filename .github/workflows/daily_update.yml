@@ -1,4 +1,4 @@
-name: Daily Data Update
+name: Daily News Data Update
 
 on:
   schedule:
@@ -48,52 +48,85 @@ jobs:
           pip install -r requirements.txt
       
       # 4. 執行更新腳本
-      - name: Run update script
+      - name: Run news scraper and classifier
         env:
           GROK_API_KEY: ${{ secrets.GROK_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cd scripts
-          python main.py \
+          python scripts/main.py \
             --days ${{ github.event.inputs.days_back || '7' }} \
             ${{ github.event.inputs.skip_push == 'true' && '--no-push' || '' }}
       
-      # 5. 提交變更（如果腳本沒有自動推送）
-      - name: Commit and push changes
+      # 5. 顯示更新摘要（可選）
+      - name: Show update summary
+        if: always()
+        run: |
+          if [ -f data/last_update.json ]; then
+            echo "📊 Update Summary:"
+            cat data/last_update.json
+          fi
+      
+      # 6. 提交變更（僅在腳本未自動推送時）
+      - name: Commit and push data changes
         if: ${{ github.event.inputs.skip_push != 'true' }}
         run: |
           git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.name "GitHub Action Bot"
           
-          # 添加更新的文件
-          git add data/merged_comprehensive_data_M.csv || true
+          # 添加數據文件（不包含程式碼）
+          git add data/*.csv || true
+          git add data/*.json || true
           git add data/logs/*.json || true
           
           # 檢查是否有變更
           if git diff --staged --quiet; then
-            echo "No changes to commit"
+            echo "✓ No changes to commit"
           else
-            git commit -m "Auto-update: $(date +'%Y-%m-%d %H:%M')"
+            # 獲取變更統計
+            git diff --staged --stat
+            
+            # 提交並推送
+            git commit -m "🤖 Auto-update data: $(date +'%Y-%m-%d %H:%M:%S')"
             git push
+            echo "✓ Changes pushed successfully"
           fi
       
-      # 6. 上傳日誌作為 Artifact（可選）
-      - name: Upload logs
+      # 7. 上傳日誌作為 Artifact
+      - name: Upload execution logs
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: update-logs-${{ github.run_number }}
           path: data/logs/
           retention-days: 30
+      
+      # 8. 上傳數據文件作為 Artifact（用於備份）
+      - name: Upload data files
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: data-snapshot-${{ github.run_number }}
+          path: |
+            data/*.csv
+            data/*.json
+          retention-days: 7
 
-  # 可選：發送通知
-  notify:
+  # 失敗通知
+  notify-on-failure:
     needs: update-data
     runs-on: ubuntu-latest
     if: failure()
     
     steps:
-      - name: Notify on failure
+      - name: Send failure notification
         run: |
-          echo "Update job failed. Check the logs for details."
-          # 可以在這裡添加 Slack/Discord/Email 通知
+          echo "❌ Daily update job failed"
+          echo "Run number: ${{ github.run_number }}"
+          echo "Triggered by: ${{ github.event_name }}"
+          echo "Check logs at: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          
+          # TODO: 可以在這裡添加 Slack/Discord/Email 通知
+          # 例如：
+          # curl -X POST ${{ secrets.SLACK_WEBHOOK_URL }} \
+          #   -H 'Content-Type: application/json' \
+          #   -d '{"text":"❌ PLA Data Update Failed: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}'
