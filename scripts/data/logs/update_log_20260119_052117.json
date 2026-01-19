@@ -1,0 +1,89 @@
+{
+  "timestamp": "2026-01-19T05:18:23.018400",
+  "args": {
+    "days": 7,
+    "scrape_only": false,
+    "no_push": false,
+    "output": null,
+    "debug": false
+  },
+  "steps": [
+    {
+      "scraper": "xinhua",
+      "count": 13,
+      "status": "success"
+    },
+    {
+      "scraper": "cna",
+      "count": 0,
+      "status": "success"
+    },
+    {
+      "classifier": "grok",
+      "total": 13,
+      "relevant": 11,
+      "categories": {
+        "Not_Relevant": 3,
+        "CN_Statement": 10
+      },
+      "sentiments": {
+        "positive": 2,
+        "neutral": 1,
+        "negative": 10
+      },
+      "status": "success"
+    },
+    {
+      "merger": "japan_battleship",
+      "stats": {
+        "status": "loaded",
+        "total_rows": 1755,
+        "columns": [
+          "date",
+          "空中",
+          "聯合演訓",
+          "艦通過",
+          "航母活動",
+          "與那國",
+          "宮古",
+          "大禹",
+          "對馬",
+          "進",
+          "出",
+          "艦型",
+          "備考",
+          "pla_aircraft_sorties",
+          "plan_vessel_sorties",
+          "remark",
+          "date_normalized"
+        ],
+        "pla_aircraft_sorties": {
+          "non_null": 1754,
+          "min": 0.0,
+          "max": 153.0
+        }
+      },
+      "status": "success"
+    },
+    {
+      "updater": "csv",
+      "updated": 0,
+      "output": "/home/runner/work/pla-data-dashboard/pla-data-dashboard/data/merged_comprehensive_data_M.csv",
+      "stats": {
+        "total_rows": 1012,
+        "date_range": {
+          "min": "2020-02-15",
+          "max": "2026-01-17"
+        },
+        "non_null_counts": {
+          "US_Taiwan_interaction": 21,
+          "Political_statement": 41,
+          "Foreign_battleship": 12,
+          "sentiment_score": 3
+        }
+      },
+      "status": "success"
+    }
+  ],
+  "status": "running"
+}
