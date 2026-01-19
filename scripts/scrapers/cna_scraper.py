@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python3
 """
 ===============================================================================
 CNA 新聞爬蟲 (SerpAPI 版本)
@@ -24,13 +24,14 @@ class CNAScraper(BaseScraper):
     BASE_URL = "https://www.cna.com.tw"
     SERPAPI_URL = "https://serpapi.com/search.json"
     
-    # 搜尋關鍵字
+    # 搜尋關鍵字 - 精準聚焦台海軍事活動
     KEYWORDS = [
-        "共軍 site:cna.com.tw",
-        "東部戰區 site:cna.com.tw",
-        "台海 site:cna.com.tw",
-        "解放軍 site:cna.com.tw",
-        "國防部 共機 site:cna.com.tw"
+        "共機 site:cna.com.tw",           # 共軍飛機活動
+        "美艦台海 site:cna.com.tw",        # 美艦通過台海
+        "軍演 台海 site:cna.com.tw",       # 軍事演習
+        "軍售台灣 site:cna.com.tw",        # 對台軍售
+        "訪台 site:cna.com.tw",           # 官員訪台
+        "東部戰區 site:cna.com.tw",       # 東部戰區公告
     ]
 
     def __init__(self, timeout: int = 30, delay: float = 1.5):
@@ -58,6 +59,50 @@ class CNAScraper(BaseScraper):
             d = match.group(1)
             return f"{d[:4]}-{d[4:6]}-{d[6:8]}"
         return ""
+
+    def _is_relevant_title(self, title: str) -> bool:
+        """
+        檢查標題是否相關
+        必須包含至少一個核心關鍵字
+        """
+        # 核心關鍵字 - 至少要有其中一個
+        core_keywords = [
+            '共機', '共艦', '共軍', '解放軍',
+            '美艦', '美軍',
+            '軍演', '演習', '戰備',
+            '軍售', '軍購',
+            '訪台', '過境',
+            '東部戰區', '南部戰區',
+            '台海', '海峽',
+            '國防部', '國防部長',
+            '飛彈', '導彈',
+            '戰機', '軍機',
+            '航母', '艦隊',
+        ]
+        
+        # 排除關鍵字 - 包含這些的直接排除
+        exclude_keywords = [
+            '股市', '股價', '匯率',
+            '天氣', '氣象',
+            '藝人', '明星', '電影',
+            '演唱會', '音樂',
+            '選舉', '投票',  # 除非有其他軍事關鍵字
+            '疫情', 'COVID',
+        ]
+        
+        title_lower = title.lower()
+        
+        # 先檢查排除關鍵字
+        for exclude in exclude_keywords:
+            if exclude in title:
+                return False
+        
+        # 檢查是否包含核心關鍵字
+        for keyword in core_keywords:
+            if keyword in title:
+                return True
+        
+        return False
 
     def _search_with_serpapi(self, query: str, days_back: int = 7) -> List[Dict]:
         """
@@ -89,7 +134,10 @@ class CNAScraper(BaseScraper):
             articles = []
             news_results = data.get('news_results', [])
             
-            print(f"[{self.name}] 📥 返回 {len(news_results)} 筆結果")
+            total_results = len(news_results)
+            filtered_count = 0
+            
+            print(f"[{self.name}] 📥 返回 {total_results} 筆結果")
             
             for item in news_results:
                 # 提取基本資訊
@@ -98,6 +146,11 @@ class CNAScraper(BaseScraper):
                 
                 # 只處理 CNA 的連結
                 if 'cna.com.tw' not in link:
+                    continue
+                
+                # 🔍 標題相關性過濾
+                if not self._is_relevant_title(title):
+                    filtered_count += 1
                     continue
                 
                 # 提取日期
@@ -140,7 +193,7 @@ class CNAScraper(BaseScraper):
                     'date': date_str
                 })
             
-            print(f"[{self.name}] ✓ 找到 {len(articles)} 篇符合日期的新聞")
+            print(f"[{self.name}] ✓ 找到 {len(articles)} 篇相關新聞 (過濾掉 {filtered_count} 篇不相關)")
             time.sleep(self.delay)  # 避免 API 限流
             return articles
             
