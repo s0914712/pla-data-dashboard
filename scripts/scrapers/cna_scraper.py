@@ -9,12 +9,15 @@
 - https://www.cna.com.tw/search/hysearchws.aspx?q=軍艦
 - https://www.cna.com.tw/search/hysearchws.aspx?q=台海
 - https://www.cna.com.tw/search/hysearchws.aspx?q=國台辦
+- https://www.cna.com.tw/list/acn.aspx (兩岸新聞列表)
+- https://www.cna.com.tw/list/aipl.aspx (政治新聞列表)
 
 用途: 提取軍演、軍艦、美台互動、政治聲明等新聞
 """
 
 import re
 import json
+import httpx
 from datetime import datetime
 from typing import List, Dict, Optional
 from urllib.parse import quote
@@ -27,22 +30,76 @@ class CNAScraper(BaseScraper):
     BASE_URL = "https://www.cna.com.tw"
     SEARCH_URL = "https://www.cna.com.tw/search/hysearchws.aspx"
     
-    # 搜索關鍵字
-    KEYWORDS = ["軍演", "軍艦通過"]
-    
-    # 列表頁面 URL（兩岸新聞）
-    LIST_URLS = [
-        "https://www.cna.com.tw/list/acn.aspx",  # 兩岸新聞列表
+    # 擴展搜索關鍵字
+    KEYWORDS = [
+        "軍演", "軍艦", "台海", "國台辦", "解放軍", 
+        "共軍", "軍事", "東部戰區"
     ]
     
+    # 列表頁面 URL
+    LIST_URLS = [
+        "https://www.cna.com.tw/list/acn.aspx",   # 兩岸新聞列表
+        "https://www.cna.com.tw/list/aipl.aspx",  # 政治新聞列表
+    ]
+    
+    # CNA 專用請求頭
+    CNA_HEADERS = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+        "Accept-Language": "zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+        "Cache-Control": "max-age=0",
+        "Referer": "https://www.cna.com.tw/",
+    }
+    
     def __init__(self):
-        super().__init__(name="cna", timeout=30, delay=1.5)
+        super().__init__(name="cna", timeout=30, delay=2.0)
+        # 重新建立 client 使用 CNA 專用頭
+        self.client.close()
+        self.client = httpx.Client(
+            timeout=self.timeout,
+            headers=self.CNA_HEADERS,
+            follow_redirects=True
+        )
     
     def build_search_url(self, keyword: str, page: int = 1) -> str:
         """構建搜索 URL"""
         encoded_keyword = quote(keyword)
-        # 加入更多參數確保獲取完整結果
         return f"{self.SEARCH_URL}?q={encoded_keyword}"
+    
+    def fetch_page(self, url: str, retries: int = 3) -> Optional[str]:
+        """
+        獲取網頁內容（覆寫父類方法，增加調試）
+        """
+        import time
+        for attempt in range(retries):
+            try:
+                time.sleep(self.delay)
+                response = self.client.get(url)
+                response.raise_for_status()
+                content = response.text
+                
+                # 調試: 顯示內容長度
+                print(f"[{self.name}] Fetched {url[:60]}... ({len(content)} chars)")
+                
+                # 檢查是否被阻擋
+                if len(content) < 1000:
+                    print(f"[{self.name}] Warning: Response too short, might be blocked")
+                    print(f"[{self.name}] Content preview: {content[:500]}")
+                
+                return content
+                
+            except httpx.HTTPError as e:
+                print(f"[{self.name}] Attempt {attempt + 1} failed for {url}: {e}")
+                if attempt < retries - 1:
+                    time.sleep(self.delay * (attempt + 1))
+        return None
     
     def parse_search_results(self, content: str) -> List[Dict]:
         """
@@ -171,6 +228,50 @@ class CNAScraper(BaseScraper):
                             'content': ''
                         })
         
+        # ============================================================
+        # 模式 6: JSON 資料 (有些頁面可能嵌入 JSON)
+        # ============================================================
+        if len(articles) == 0:
+            # 嘗試找 JSON 格式的新聞資料
+            json_pattern = r'"HeadLine"\s*:\s*"([^"]+)"[^}]*"PageUrl"\s*:\s*"([^"]+)"'
+            json_matches = re.findall(json_pattern, content)
+            
+            for title, url_part in json_matches:
+                title = title.strip()
+                if '/news/' in url_part:
+                    full_url = url_part if url_part.startswith('http') else f"{self.BASE_URL}{url_part}"
+                    if full_url not in seen_urls and len(title) >= 5:
+                        seen_urls.add(full_url)
+                        date_str = self._extract_date_from_url(full_url)
+                        articles.append({
+                            'title': title,
+                            'url': full_url,
+                            'date': date_str,
+                            'content': ''
+                        })
+        
+        # ============================================================
+        # 模式 7: 任何包含 /news/ 的連結 (最寬鬆)
+        # ============================================================
+        if len(articles) == 0:
+            # 找所有新聞連結
+            all_links = re.findall(r'href=["\']([^"\']*?/news/[a-z]+/\d+\.aspx)["\']', content)
+            print(f"[{self.name}] Found {len(all_links)} news links in fallback mode")
+            
+            for url_part in all_links:
+                full_url = url_part if url_part.startswith('http') else f"{self.BASE_URL}{url_part}"
+                if full_url not in seen_urls:
+                    seen_urls.add(full_url)
+                    date_str = self._extract_date_from_url(full_url)
+                    # 用 URL 中的 ID 作為臨時標題
+                    articles.append({
+                        'title': f"新聞 {url_part.split('/')[-1]}",
+                        'url': full_url,
+                        'date': date_str,
+                        'content': '',
+                        'needs_title': True  # 標記需要獲取真實標題
+                    })
+        
         print(f"[{self.name}] Parsed {len(articles)} articles from page")
         return articles
     
@@ -204,12 +305,30 @@ class CNAScraper(BaseScraper):
         
         return text.strip()[:500] if text else ''
     
-    def scrape_article(self, url: str) -> Optional[str]:
-        """爬取單篇文章內容"""
+    def scrape_article(self, url: str) -> tuple:
+        """
+        爬取單篇文章內容和標題
+        
+        Returns:
+            (content, title) 元組
+        """
         html = self.fetch_page(url)
         if html:
-            return self.parse_article_page(html)
-        return None
+            content = self.parse_article_page(html)
+            
+            # 提取標題
+            title = ''
+            title_match = re.search(r'<h1[^>]*>([^<]+)</h1>', html)
+            if title_match:
+                title = title_match.group(1).strip()
+            else:
+                # 嘗試 og:title
+                og_match = re.search(r'<meta[^>]+property=["\']og:title["\'][^>]+content=["\']([^"\']+)["\']', html)
+                if og_match:
+                    title = og_match.group(1).strip()
+            
+            return content, title
+        return '', ''
     
     def search_keyword(self, keyword: str, days_back: int = 7, max_pages: int = 3) -> List[Dict]:
         """
@@ -315,14 +434,23 @@ class CNAScraper(BaseScraper):
         
         print(f"[{self.name}] Total unique articles: {len(all_articles)}")
         
-        # 爬取文章內容
+        # 爬取文章內容（並獲取缺失的標題）
         for article in all_articles:
-            content = self.scrape_article(article['url'])
+            content, title = self.scrape_article(article['url'])
             if content:
                 article['content'] = content
+            # 如果需要獲取真實標題
+            if article.get('needs_title') and title:
+                article['title'] = title
+                del article['needs_title']
+        
+        # 過濾掉沒有有效標題的文章
+        valid_articles = [a for a in all_articles if not a.get('needs_title') and len(a.get('title', '')) >= 5]
+        
+        print(f"[{self.name}] Valid articles with titles: {len(valid_articles)}")
         
         # 轉換為標準格式
-        return self.to_standard_format(all_articles)
+        return self.to_standard_format(valid_articles)
 
 
 def test_with_sample_data():
