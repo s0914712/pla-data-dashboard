@@ -46,85 +46,55 @@ class CNAScraper(BaseScraper):
     
     def parse_search_results(self, content: str) -> List[Dict]:
         """
-        解析搜索結果頁面
+        解析搜索結果頁面 - 修正版
         
-        支援 HTML 和 Markdown 格式
+        CNA 搜索結果 HTML 結構:
+        <li>
+          <a href="/news/acn/202601170192.aspx">
+            <div class="listInfo">
+              <h2>共軍通報美國2艘軍艦穿越台海 川習會後首次</h2>
+              <div class="date">2026/01/17 19:56</div>
+            </div>
+          </a>
+        </li>
         """
         articles = []
         seen_urls = set()
         
-        # 模式 1: Markdown 格式 (Claude web_fetch 輸出)
-        # [標題](https://www.cna.com.tw/news/acn/202601170192.aspx)
-        md_pattern = r'\[([^\]]+)\]\((https?://www\.cna\.com\.tw/news/[a-z]+/\d+\.aspx)\)'
-        md_matches = re.findall(md_pattern, content)
+        # ============================================================
+        # 模式 1: CNA 搜索結果 - listInfo 結構 (主要模式!)
+        # ============================================================
+        listinfo_pattern = r'<a[^>]+href=["\']([/]?news/[a-z]+/\d+\.aspx)["\'][^>]*>.*?<div[^>]+class=["\']listInfo["\'][^>]*>.*?<h2[^>]*>([^<]+)</h2>.*?<div[^>]+class=["\']date["\'][^>]*>([^<]+)</div>'
+        listinfo_matches = re.findall(listinfo_pattern, content, re.DOTALL)
         
-        for title, url in md_matches:
+        for url_part, title, date_text in listinfo_matches:
             title = title.strip()
-            # 過濾掉導航文字和太短的標題
-            if url not in seen_urls and len(title) >= 8:
-                # 排除非新聞連結
-                if not any(x in title.lower() for x in ['下載', '訂閱', '更多', '首頁', 'app']):
-                    seen_urls.add(url)
-                    
-                    # 從 URL 提取日期 (格式: /news/acn/202601170192.aspx)
-                    date_match = re.search(r'/(\d{8})\d+\.aspx', url)
-                    date_str = ''
-                    if date_match:
-                        date_raw = date_match.group(1)
-                        date_str = f"{date_raw[:4]}-{date_raw[4:6]}-{date_raw[6:8]}"
-                    
-                    articles.append({
-                        'title': title,
-                        'url': url,
-                        'date': date_str,
-                        'content': ''
-                    })
-        
-        # 模式 2: HTML 格式 - 搜索結果列表
-        # <a href="/news/aipl/202601170192.aspx">標題</a>
-        html_pattern = r'<a[^>]+href=["\']([/]?news/[a-z]+/\d+\.aspx)["\'][^>]*>([^<]+)</a>'
-        html_matches = re.findall(html_pattern, content)
-        
-        for url, title in html_matches:
-            title = title.strip()
-            full_url = url if url.startswith('http') else f"{self.BASE_URL}{url}"
+            full_url = url_part if url_part.startswith('http') else f"{self.BASE_URL}{url_part}"
             
-            if full_url not in seen_urls and len(title) >= 8:
-                if not any(x in title.lower() for x in ['下載', '訂閱', '更多', '首頁', 'app']):
-                    seen_urls.add(full_url)
-                    
-                    date_match = re.search(r'/(\d{8})\d+\.aspx', url)
-                    date_str = ''
-                    if date_match:
-                        date_raw = date_match.group(1)
-                        date_str = f"{date_raw[:4]}-{date_raw[4:6]}-{date_raw[6:8]}"
-                    
-                    articles.append({
-                        'title': title,
-                        'url': full_url,
-                        'date': date_str,
-                        'content': ''
-                    })
-        
-        # 模式 3: 列表頁面格式 (## 標題 + URL 組合)
-        # ## 共軍通報美國2艘軍艦穿越台海　川習會後首次
-        # 2026/01/17 19:56](/news/acn/202601170192.aspx)
-        list_pattern = r'##\s*([^\n]+)\n[^\n]*\]\(/news/([a-z]+/\d+\.aspx)\)'
-        list_matches = re.findall(list_pattern, content)
-        
-        for title, url_part in list_matches:
-            title = title.strip()
-            full_url = f"{self.BASE_URL}/news/{url_part}"
-            
-            if full_url not in seen_urls and len(title) >= 8:
+            if full_url not in seen_urls and len(title) >= 5:
                 seen_urls.add(full_url)
-                
-                date_match = re.search(r'/(\d{8})\d+\.aspx', url_part)
-                date_str = ''
-                if date_match:
-                    date_raw = date_match.group(1)
-                    date_str = f"{date_raw[:4]}-{date_raw[4:6]}-{date_raw[6:8]}"
-                
+                date_str = self._extract_date_from_url(full_url)
+                articles.append({
+                    'title': title,
+                    'url': full_url,
+                    'date': date_str,
+                    'date_text': date_text.strip(),
+                    'content': ''
+                })
+        
+        # ============================================================
+        # 模式 2: <a> 內的 <h2> 標籤 (更寬鬆匹配)
+        # ============================================================
+        h2_pattern = r'<a[^>]+href=["\']([/]?news/[a-z]+/\d+\.aspx)["\'][^>]*>[\s\S]*?<h2[^>]*>([^<]+)</h2>'
+        h2_matches = re.findall(h2_pattern, content)
+        
+        for url_part, title in h2_matches:
+            title = title.strip()
+            full_url = url_part if url_part.startswith('http') else f"{self.BASE_URL}{url_part}"
+            
+            if full_url not in seen_urls and len(title) >= 5:
+                seen_urls.add(full_url)
+                date_str = self._extract_date_from_url(full_url)
                 articles.append({
                     'title': title,
                     'url': full_url,
@@ -132,8 +102,85 @@ class CNAScraper(BaseScraper):
                     'content': ''
                 })
         
+        # ============================================================
+        # 模式 3: mainList 內的 <li> 項目
+        # ============================================================
+        main_list_match = re.search(r'<ul[^>]+class=["\']mainList["\'][^>]*>([\s\S]*?)</ul>', content)
+        if main_list_match:
+            main_list_content = main_list_match.group(1)
+            li_pattern = r'<li[^>]*>([\s\S]*?)</li>'
+            li_matches = re.findall(li_pattern, main_list_content)
+            
+            for li_content in li_matches:
+                url_match = re.search(r'href=["\']([/]?news/[a-z]+/\d+\.aspx)["\']', li_content)
+                h2_match = re.search(r'<h2[^>]*>([^<]+)</h2>', li_content)
+                
+                if url_match and h2_match:
+                    url_part = url_match.group(1)
+                    title = h2_match.group(1).strip()
+                    full_url = url_part if url_part.startswith('http') else f"{self.BASE_URL}{url_part}"
+                    
+                    if full_url not in seen_urls and len(title) >= 5:
+                        seen_urls.add(full_url)
+                        date_str = self._extract_date_from_url(full_url)
+                        articles.append({
+                            'title': title,
+                            'url': full_url,
+                            'date': date_str,
+                            'content': ''
+                        })
+        
+        # ============================================================
+        # 模式 4: 備用 - Markdown 格式 (Claude web_fetch)
+        # ============================================================
+        md_pattern = r'\[([^\]]+)\]\((https?://www\.cna\.com\.tw/news/[a-z]+/\d+\.aspx)\)'
+        md_matches = re.findall(md_pattern, content)
+        
+        for title, url in md_matches:
+            title = title.strip()
+            if url not in seen_urls and len(title) >= 8:
+                if not any(x in title.lower() for x in ['下載', '訂閱', '更多', '首頁', 'app']):
+                    seen_urls.add(url)
+                    date_str = self._extract_date_from_url(url)
+                    articles.append({
+                        'title': title,
+                        'url': url,
+                        'date': date_str,
+                        'content': ''
+                    })
+        
+        # ============================================================
+        # 模式 5: 備用 - 直接 <a> 文字 (最後手段)
+        # ============================================================
+        if len(articles) == 0:
+            html_pattern = r'<a[^>]+href=["\']([/]?news/[a-z]+/\d+\.aspx)["\'][^>]*>([^<]+)</a>'
+            html_matches = re.findall(html_pattern, content)
+            
+            for url_part, title in html_matches:
+                title = title.strip()
+                full_url = url_part if url_part.startswith('http') else f"{self.BASE_URL}{url_part}"
+                
+                if full_url not in seen_urls and len(title) >= 8:
+                    if not any(x in title.lower() for x in ['下載', '訂閱', '更多', '首頁', 'app']):
+                        seen_urls.add(full_url)
+                        date_str = self._extract_date_from_url(full_url)
+                        articles.append({
+                            'title': title,
+                            'url': full_url,
+                            'date': date_str,
+                            'content': ''
+                        })
+        
         print(f"[{self.name}] Parsed {len(articles)} articles from page")
         return articles
+    
+    def _extract_date_from_url(self, url: str) -> str:
+        """從 URL 提取日期"""
+        match = re.search(r'/(\d{8})\d+\.aspx', url)
+        if match:
+            date_raw = match.group(1)
+            return f"{date_raw[:4]}-{date_raw[4:6]}-{date_raw[6:8]}"
+        return ''
     
     def parse_article_page(self, content: str) -> str:
         """解析文章頁面，提取正文"""
