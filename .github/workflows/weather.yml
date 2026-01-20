@@ -13,7 +13,7 @@ on:
     branches:
       - main
     paths:
-      - 'weather_scraper.py'
+      - 'scripts/scrapers/weather_scraper.py'
       - '.github/workflows/weather.yml'
 
 jobs:
