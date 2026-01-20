@@ -37,7 +37,7 @@ jobs:
       - name: Run weather scraper
         env:
           WINDY_API_KEY: ${{ secrets.WINDY_API_KEY }}
-        run: python weather_scraper.py
+        run: python scripts/scrapers/weather_scraper.py
       
       - name: Commit and push results
         run: |
