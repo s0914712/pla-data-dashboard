@@ -35,20 +35,22 @@ jobs:
       - name: Generate prediction with timestamp
         run: |
           # 建立歷史記錄目錄
-          mkdir -p predictions/history
+          mkdir -p data/predictions/history
+          
+          # 複製到 data 目錄
+          cp prediction.csv data/prediction.csv
           
           # 複製到歷史記錄 (以日期命名)
           DATE=$(date +%Y-%m-%d)
-          cp prediction.csv predictions/history/prediction_${DATE}.csv
+          cp prediction.csv data/predictions/history/prediction_${DATE}.csv
           
           # 更新最新預測
-          cp prediction.csv predictions/latest_prediction.csv
+          cp prediction.csv data/predictions/latest_prediction.csv
       
       - name: Commit and push predictions
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add prediction.csv predictions/
+          git add data/prediction.csv data/predictions/
           git diff --staged --quiet || git commit -m "Update daily prediction $(date +%Y-%m-%d)"
           git push
-
