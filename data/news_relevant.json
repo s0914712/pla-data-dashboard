@@ -4,7 +4,31 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.6,
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部發布：6艘共艦及4架次共機逾越台海中線侵擾西南空域，國軍嚴密監控應處。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-01-21",
+      "title": "6艘共艦4架次共機擾台國軍嚴密監控應處| 政治",
+      "content": "（中央社記者游凱翔台北21日電）國防部今天發布共機艦動態，統計自昨天上午6時起至今天上午6時止，國軍偵獲6艘共艦，以及4架次共機逾越台海中線侵擾西南空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲6艘共艦及4架次共機逾越台灣海峽中線進入西南空域，持續在台海周邊活動。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aipl/202601210036.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
@@ -34,7 +58,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "國防部：3架次共機逾越台海中線侵擾西南空域，9艘共艦及9架次共機活動，國軍嚴密監控應處。"
+      "Political_statement": "3架次共機逾越台海中線侵擾西南空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -52,19 +76,19 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "",
+      "Military_exercise": "2架次共機（1架逾越中線進入北部空域）、6艘共艦台海周邊活動",
       "Foreign_battleship": "",
-      "Political_statement": "國防部：自昨早6時至今早6時，偵獲2架次共機（1架逾越中線進入北部空域）、6艘共艦在台海周邊活動，國軍嚴密監控應處。"
+      "Political_statement": "國防部公布共軍8機艦台海周邊活動，國軍嚴密監控與應處。"
     },
     "confidence": 0.95,
     "original_article": {
       "date": "2026-01-20",
       "title": "共軍8機艦台海周邊活動國軍嚴密監控應處| 政治",
-      "content": "（中央社記者吳書緯台北20日電）國防部指出，自昨天上午6時至今天上午6時，偵獲2架次共機，其中1架次逾越中線進入北部空域，以及6艘共艦，總計共軍8機艦持續在台海周邊活動，國軍嚴密監控與應處。 根據國防部今天公布「中共解放軍進入台海周邊空域活動示意圖」，國軍於昨天下午1時5分至昨天下午3時30分，在台灣海峽空域偵獲中共2架次主、輔戰機，其中1架次逾越海峽中線進入台灣北部空域。 國防部指出，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：張良知）1150120",
+      "content": "（中央社記者吳書緯台北20日電）國防部指出，自昨天上午6時至今天上午6時，偵獲2架次共機，其中1架次逾越中線進入北部空域，以及6艘共艦，總計共軍8機艦持續在台海周邊活動，國軍嚴密監控與應處。 根據國防部今天公布「中共解放軍進入台海周邊空域活動示意圖」，國軍於昨天下午1時5分至昨天下午3時30分，在台灣海峽空域偵獲中共2架次主、輔戰機，其中1架次逾越海峽中線進入台灣北部空域。 國防部指出，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：張良知）1150120 #中共",
       "url": "https://www.cna.com.tw/news/aipl/202601200029.aspx",
       "source": "cna",
       "category": "",
@@ -82,9 +106,9 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "國防部譴責共軍無人機進入東沙島領空，高度挑釁、不負責任，嚴重破壞區域和平穩定，違反國際法。"
+      "Political_statement": "國防部：共軍無人機進入東沙島領空，高度挑釁、不負責任，嚴重破壞區域和平穩定，違反國際法。"
     },
-    "confidence": 0.95,
+    "confidence": 0.98,
     "original_article": {
       "date": "2026-01-17",
       "title": "共軍無人機進入東沙島領空國防部：嚴重破壞和平穩定| 政治",
@@ -96,17 +120,17 @@
     }
   },
   {
-    "category": "TW_Statement",
+    "category": "Military_Exercise",
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.6,
+    "sentiment_score": -0.5,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "",
+      "Military_exercise": "11艘共艦及18架次共機逾越台海中線侵擾北部、中部、西南及東部空域",
       "Foreign_battleship": "",
-      "Political_statement": "國防部發布：自昨日上午6時起至今日上午6時，偵獲11艘共艦、18架次共機逾越台海中線侵擾，國軍嚴密監控應處。"
+      "Political_statement": "國軍運用任務機艦及岸置飛彈系統嚴密監控與應處"
     },
     "confidence": 0.95,
     "original_article": {
@@ -124,11 +148,11 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.8,
+    "sentiment_score": -0.7,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "28架次中共軍機出海，18架次逾越台灣海峽中線侵擾北部、中部、東部及西南空域，配合共艦聯合戰備警巡騷擾台灣周邊",
+      "Military_exercise": "28架次共機出海，18架次逾越台灣海峽中線侵擾北部、中部、東部及西南空域，配合共艦戰備警巡",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
@@ -152,7 +176,7 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "11艘共艦及9架次共機逾越台海中線侵擾北部、西南及東部空域，國軍嚴密監控；偵獲1枚中共空飄氣球",
+      "Military_exercise": "11艘共艦及9架次共機逾越台海中線侵擾北部、西南及東部空域；偵獲1枚中共空飄氣球",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
@@ -172,20 +196,20 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.6,
+    "sentiment_score": -0.7,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "共軍29機9艦台海周邊活動，20架次逾越中線進入北部、西南及東部空域",
+      "Military_exercise": "南部戰區組織無人機在東沙島附近空域進行正常飛行訓練",
       "Foreign_battleship": "",
-      "Political_statement": "國軍嚴密監控與應處"
+      "Political_statement": "南部戰區新聞發言人田軍里宣稱完全正當合法"
     },
     "confidence": 0.95,
     "original_article": {
-      "date": "2026-01-14",
-      "title": "共軍29機艦台海周邊活動國軍嚴密監控應處| 政治",
-      "content": "（中央社記者吳書緯台北14日電）國防部指出，自昨天上午6時至今天上午6時，偵獲20架次共機，其中17架次逾越中線進入北部、西南及東部空域，以及9艘共艦，總計共軍29機艦持續在台海周邊活動，國軍嚴密監控與應處。 根據國防部今天公布「中共解放軍進入台海周邊空域活動示意圖」，國軍於昨天上午6時至昨天晚間6時30分，在台灣海峽空域偵獲中共10架次主戰機及無人機，其中7架次逾越海峽中線。 透過 Google News 追蹤中央社",
-      "url": "https://www.cna.com.tw/news/aipl/202601140040.aspx",
+      "date": "2026-01-17",
+      "title": "共軍無人機侵入東沙島領空宣稱正常飛行訓練| 兩岸",
+      "content": "（中央社台北17日電）國防部表示，今天凌晨偵獲1架中共監偵無人機進入東沙島領空。對此，共軍南部戰區傍晚宣稱這是「進行正常飛行訓練，完全正當合法」。 共軍南部戰區微信公眾號17日傍晚發布，南部戰區新聞發言人田軍里宣稱，近日，南部戰區組織無人機位「中國東沙島」附近空域進行正常飛行訓練，完全正當合法。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/acn/202601170178.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -202,7 +226,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "中共火箭經台灣中部發射，國軍適切警戒應處；26架次共機7架逾越中線，8艘共艦活動。"
+      "Political_statement": "中共火箭經台灣中部發射，國軍嚴密掌握適切應處無危害；26架次共機逾越中線，8艘共艦周邊活動。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -220,13 +244,13 @@
     "is_relevant": true,
     "country1": "TW",
     "country2": "CN",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "國防部公開1.25兆特別預算，籌購精準火砲、遠程飛彈、防空飛彈等7類武器，無人機逾20萬架、無人艇逾千艘，強化防衛韌性。"
+      "Political_statement": "國防部公開1.25兆元特別預算，籌購7類武器如精準火砲60門、無人機逾20萬架、無人艇逾千艘，強化防衛韌性及不對稱戰力。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -234,54 +258,6 @@
       "title": "1.25兆元特別預算國防部公開籌購7類武器數量| 政治",
       "content": "（中央社記者游凱翔台北19日電）國防部今天在立院以機密方式專報國防特別條例，會後針對擬籌購項目釋出可公開資訊，涵蓋精準火砲、遠程打擊飛彈、防空反裝甲飛彈、AI輔助與C5ISR等7類的武器採購數量與規劃，而無人載具包括各型攻偵無人機生產逾20萬架、無人艇逾千艘。 行政院會去年11月27日通過預算規模新台幣1.25兆元「強化防衛韌性及不對稱戰力計畫採購特別條例」草案送立院審議，但數度遭藍白封殺至今無法付委。 立法院外交及國防委員會上午邀請國防部長顧立雄進行專案報告並備質詢，全程採機密方式並未對外公開；顧立雄在會前指出，盼藉此向朝野立委詳盡說明，希望儘速交付委員會審查。 國防部在機密專報結束後，針對可公開部分向立委提交「『強化防衛韌性及不對稱戰力計畫採購特別條例』規劃執行說明資料」，強調特別預算涵蓋建構防衛體系、打造「台灣之盾」；引進高科技與AI、加速擊殺鏈；厚植國防產業、打造非紅供應鏈等3大特色，內涵結構分明，聚焦不對稱戰力的整合與強化防衛韌性。 說明資料提到，「籌購品項」共7類。一是精準火砲，籌購M109A7自走砲60門、精準彈藥4080發、彈藥車60輛、救濟車13輛、榴彈及附屬裝備。二是遠程精準打擊飛彈，籌購海馬士多管火箭飛彈系統82套、精準火箭1203箱、戰術區域飛彈420枚。 三是無人載具及反制系統，包括反甲型無人機飛彈系（ALTIUS-700M共1554架、ALTIUS-600ISR共478架）；濱海監偵型、濱海攻擊型（沉浸、投彈、自殺）等各類無人機約20萬架、無人艇1000餘艘；以及各類別的無人機反制系統。 四是防空、反彈道及反裝甲飛彈，包括標槍反裝甲飛彈70套、1050枚；拖式2B反裝甲飛彈24套、1545枚及各式防空飛彈系統（含彈藥）。五是人工智慧（AI）輔助與C5ISR等部分，包括人工智慧決策支援系統、戰術網路及部隊快速情資分享應用套件。 六是強化作戰持續量能相關裝備，包括子項一「因應戰時高消耗擴增軍備產線」，為籌建各類型彈藥、發射藥產線、各式槍彈底火生產線、各式新型甲車組裝線、高能炸藥生產線、化學防護面具生產線、夜視鏡生產線等。 子項二「機動阻絕器材」目的提升戰場阻絕能力。子項三說明在產線未建立前，為滿足戰備存量提升與基本訓耗需求，籌購重要急缺彈藥項目，包括120公厘戰車彈、105公厘戰車彈、30公厘機砲彈、155公厘榴彈發射藥包及強力高能炸藥。 七是台美共同研發及採購合作之裝備、系統，將採購台美共同研發及採購合作的裝備、系統，以獲取新興科技系統，以利強化作戰韌性及提升不對稱戰力。 國防部也說明軍購案項合約（發價書）執行進度，目前已獲M109A7自走砲、海馬士多管火箭飛彈系統、ALTIUS反甲型無人機飛彈系統、標槍反裝甲飛彈及拖式2B反裝甲飛彈等5項進行知會國會程序。",
       "url": "https://www.cna.com.tw/news/aipl/202601190177.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "CN",
-    "sentiment_score": -0.5,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "習近平清洗共軍高層苗華，主要動機剷除東南幫影響力，效忠成繼任標準。"
-    },
-    "confidence": 0.92,
-    "original_article": {
-      "date": "2026-01-15",
-      "title": "共軍高層清洗學者：主要動機在剷除影響力| 兩岸",
-      "content": "（中央社記者李雅雯台北15日電）淡江大學國際事務與戰略研究所兼任助理教授揭仲今天在一場論壇上表示，共軍高層遭到清洗，主要動機不在肅貪，在於剷除影響力，效忠將是後續最重要的用人標準。 政治大學國際關係研究中心今天下午在政治大學國際關係研究中心圖書暨會議大樓一樓國際會議廳召開「2025年中國大陸情勢總結與未來發展趨勢觀察」論壇，多名專家學者與會。 揭仲提到，中共總書記、中共軍委主席習近平對於共軍高層持續進行清洗，中共四中全會後也沒有停。前中央軍委委員苗華被清洗，習的主要動機不在肅貪，是為了剷除苗華與東南幫的影響力。 他解析，苗華是習近平以外唯一具備跨軍種、跨機構影響力的高級將領，影響力遍及各軍兵種司令員與政委、五大戰區司令員與政委、軍委職能機關等高階職務；不排除習周邊有人點出這個「隱患」，讓習認為必定要剷除苗華影響力。 「繼任人員對於習近平的效忠可能成為最重要的標準」，揭仲說，習清洗範圍太大，繼任人選的經驗與歷練恐普遍低於先前將領；不過清洗主要動機在於剷除苗華影響力，顯然接下來找繼任人選將以效忠為最重要標準，而非專業程度考慮。 揭仲認為，習從事軍事改革後，共軍大規模動員執行任務均需要好幾個單位共同合作；不過在現在單位指揮人員、領導人員均為資歷較顯不足的情況下，恐將影響重大突發事件的應變與執行。 中央研究院政治學研究所研究員蔡文軒表示，習對於共軍高層大清洗主要是出現「保衛者困境」，如同當年蘇聯領導人史達林對紅軍大清洗，獨裁者需要保衛者，當保衛者太強時，獨裁者會被震撼，獨裁者可以忍受不太會打仗；不過不能忍受太會打仗影響獨裁者安全的情況。 他說，對於習來說，共軍高層被清洗後，恐使對外作戰能力少一點，由於不一定會發生戰爭，這樣的風險是可以被承受的；獨裁者不能承受軍隊太會打仗或是高層能力太強帶來的風險。習整頓共軍，確實涉及貪腐等問題，不過最大的直接原因還是在於習的權力受到威脅、挑戰。 透過 Google News 追蹤中央社",
-      "url": "https://www.cna.com.tw/news/acn/202601150362.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "TW_Statement",
-    "is_relevant": true,
-    "country1": "TW",
-    "country2": "CN",
-    "sentiment_score": -0.5,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "憲兵228營新增防空連，配備刺針標槍飛彈，強化首都衛戍戰力因應中共威脅。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-01-18",
-      "title": "憲兵228營強化首都防禦增防空連配備刺針標槍飛彈| 政治",
-      "content": "（中央社記者游凱翔台北18日電）為強化首都衛戍戰力，軍方人士今天指出，憲兵唯一砲兵單位、駐守台北士林的228營轄下新增一防空連，並標配人攜式刺針飛彈及標槍飛彈；憲指部回應，此舉為因應敵情威脅調整結構，將持續強化衛戍及作戰效能。 中共頻對台文攻武嚇，除以機艦侵擾台灣防空識別區、不時逾越台灣海峽中線，已嚴重衝擊區域和平穩定；國軍為防範中共犯台，除對外軍購、強化國防自主，也改革深化訓練。 為強化首都衛戍區反斬首戰力及關鍵基礎設施防護，憲兵202指揮部已在民國113年起將原本5000名員額，逐步、逐年提升至約1萬名，擴編後的員額與一年期義務役單位配合，戍守關鍵基礎設施。 憲兵202指揮部目前下轄7個憲兵營，分別為負責總統府安全、有「天下第一營」稱號的211營；332營負責正副總統官邸及周邊維安；229營為國防部大直憲兵營；239營是憲兵唯一裝甲部隊，同樣駐守大直；228砲兵營駐守士林；261營則分散於各駐地，包括松山機場松南營區、憲指部忠貞營區等處；262營則尚未成編。 值得注意的是，228營為憲兵中唯一的砲兵營。軍方人士透露，為強化衛戍地區防空作戰並強化防空量能，近期已在228營轄下成立防空連，並配賦新接裝的刺針飛彈、標槍飛彈。 憲指部對此回應，因應敵情威脅，憲兵實施兵力結構調整與裝備籌補，以提升防衛作戰韌性；同時感謝各界對憲兵建軍備戰的關注與支持，將持續建構堅實戰力、落實戰訓整備，強化衛戍作戰效能。 國防部智庫、國防安全研究學者蘇紫雲指出，過往的砲兵也涵蓋防砲，因此在砲兵營編制內成立防空連是合宜的做法，且配置短程防空的人攜式刺針飛彈有助於機動防空，而標槍飛彈則能應對突襲淡水河口的中共登陸快艇，有助強化反突襲及反斬首能力。 蘇紫雲表示，台灣可參考他國首都特區禁航區的防空圈常態部署做法。例如，美國華盛頓特區則設置「國家首都防空區」（ National Capital Region Air Defense，NCRAD）， 由174防砲團第2營、263防砲團等單位輪流部署，在周邊大樓常態配置哨兵雷達（Sentinel A4）、國家先進地對空飛彈系統（NASAMS）、復仇者系統、刺針等，以保護白宮、副總統與國安會所在地的艾森豪大樓、五角大廈等。 透過 Google News 追蹤中央社",
-      "url": "https://www.cna.com.tw/news/aipl/202601180052.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -297,8 +273,32 @@
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
-      "Foreign_battleship": "US USS John Finn, USNS Mary Sears transit Taiwan Strait",
-      "Political_statement": "Eastern Theater Command monitors and warns throughout"
+      "Foreign_battleship": "US USS John Finn and USNS Mary Sears transit",
+      "Political_statement": ""
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-01-20",
+      "title": "美第七艦隊證實2艘美軍艦今年首度穿越台海| 國際",
+      "content": "（中央社華盛頓20日綜合外電報導）美國軍方媒體「星條報」（Stars and Stripes）報導，根據美國第七艦隊今天發出的未署名電子郵件，2艘美國軍艦於16至17日通過台灣海峽，為美國海軍今年首度穿越台海。 共軍東部戰區微信公眾號曾於17日晚間發布，東部戰區新聞發言人徐承華表示，本月16日至17日，美軍飛彈驅逐艦芬恩號（USS John Finn）與海軍測量船瑪麗西爾斯號（USNS Mary Sears）過航台灣海峽。 根據美國第七艦隊今天發出的未署名電子郵件，芬恩號與瑪麗西爾斯號於16日至17日完成穿越台海的「例行性」通行。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aopl/202601200334.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "US USS John Finn, USNS Mary Sears transit",
+      "Political_statement": ""
     },
     "confidence": 0.95,
     "original_article": {
@@ -312,17 +312,89 @@
     }
   },
   {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "US USS John Finn and USNS Mary Sears transit",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-01-21",
+      "title": "美軍艦今年首度穿越台海測量船具水下情蒐能力| 政治",
+      "content": "（中央社記者林宏翰洛杉磯20日專電）2艘美國軍艦16、17日通過台灣海峽，為今年首例；除了飛彈驅逐艦，一艘海洋測量船同行，它具備水下探測功能，可以支援潛艦、反潛作戰、水雷戰及特種作戰需求。 美國海軍研究協會新聞（USNI News）刊登第7艦隊聲明，證實美軍飛彈驅逐艦芬恩號（USS John Finn）與海軍測量船瑪麗西爾斯號（USNS Mary Sears）16至17日通過台灣海峽。 聲明強調，這次通行發生於「不屬任何沿岸國領海」的區域，通過台灣海峽展現美國捍衛所有國家航行自由的承諾。 美國軍艦航行經過台灣海峽，大多數為飛彈驅逐艦，不過驅逐艦搭配測量船的組合也有前例。 美軍飛彈驅逐艦芬恩號（圖）與海軍測量船瑪麗西爾斯號16至17日穿越台灣海峽。（Jason Waite/U.S. Navy/Handout via 路透社）",
+      "url": "https://www.cna.com.tw/news/aipl/202601210018.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部公開1.25兆元特別預算籌購7類武器數量"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-01-20",
+      "title": "早安世界》1.25兆元特別預算國防部公開籌購7類武器數量| 生活",
+      "content": "今晨最新",
+      "url": "https://www.cna.com.tw/news/ahel/202601205001.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
     "category": "Regional_Security",
     "is_relevant": true,
     "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.5,
+    "country2": "US",
+    "sentiment_score": -0.7,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "新加坡李顯龍與學者警告中國軍演凸顯台海危機，不穩定將衝擊區域經濟，呼籲緩和避免衝突。"
+      "Political_statement": "中國官媒披露雙座殲-20S具備對海精準打擊能力，增美第一島鏈風險。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-01-15",
+      "title": "美軍媒：雙座殲-20可對海打擊美第一島鏈風險再增| 兩岸",
+      "content": "（中央社北京15日綜合外電報導）美國海軍研究協會新聞（USNI News）引述中國官媒披露，共軍殲-20（J-20）戰機的雙座型已具備對海精準打擊能力，恐使美國及盟國在第一島鏈或周邊行動時的風險大增。 美國海軍研究協會新聞指出，中國中央電視台披露雙座版殲-20S（J-20S）「具備卓越的中、遠程制空作戰，以及對地與對海目標的精準打擊能力，還擁有突出的態勢感知、電子干擾以及戰術指揮與控制能力，並可執行有人-無人協同作戰任務」。 美國海軍研究協會新聞指出，殲-20S是中國匿蹤戰機殲-20系列公開的第3種型號，於去年93閱兵與一些最新電戰機、無人機一同亮相，北京選在今年殲-20首飛15週年之際，透過新聞公開殲-20S部分任務定位。 雖然殲-20S對海打擊能力與載彈量不明，但美國海軍研究協會新聞認為，這項發展顯示殲-20這款匿蹤載台正朝具備更多用途的方向發展。 配合大規模的藍水海軍擴張計畫與反艦飛彈研發，北京持續擴展並現代化空對海打擊能力，包括研製新型極音速飛彈、改良轟炸機；去年93閱兵也展出一款空射型的鷹擊-21（YJ-21）反艦飛彈。 專門追蹤中國軍事動向與發展的PLATracker網站，創辦人路易斯（Ben Lewis）告訴美國海軍研究協會新聞，殲-20擁有精確對海打擊能力，恐使在第一島鏈或周邊行動的美國及盟國部隊風險驟增。 路易斯說：「值得注意的是，相較單座版殲-20，雙座版的殲-20S在海上打擊任務中可能扮演更重要角色。一款具備對海打擊能力的匿蹤戰機，將大幅提高在第一島鏈內或周邊行動的美軍與盟國部隊所承受風險。」 他表示雙座版代表殲-20重要進化，可能有更多不同武器系統與電子設備，而兩名乘員則更有利引導無人機群作戰。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/acn/202601150246.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Regional_Security",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "李顯龍與新加坡學者指中國軍演凸顯台海危機，不穩定將衝擊區域經貿科技，呼籲緩和避免衝突升級。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -346,7 +418,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "英國前內政副大臣Tom Tugendhat訪台，拜會國安會、調查局及台灣民主實驗室。外交部歡迎。"
+      "Political_statement": "英國前內政副大臣Tom Tugendhat再度訪台，拜會國安會、調查局及台灣民主實驗室，外交部歡迎。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -360,65 +432,17 @@
     }
   },
   {
-    "category": "Regional_Security",
-    "is_relevant": true,
-    "country1": "JP",
-    "country2": "TW",
-    "sentiment_score": 0.7,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "日本自民黨眾議員加藤勝信、西銘恒三郎等3人訪台，拜會總統賴清德，交換雙方關係與地區情勢意見。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-01-14",
-      "title": "日媒：日本眾議員加藤勝信與西銘恒三郎擬訪台| 政治",
-      "content": "（中央社東京14日綜合外電報導）日本朝日電視台今天報導，日本自民黨籍眾議院議員加藤勝信與西銘恒三郎，正在協調今天起訪問台灣2天。加藤與西銘先前分別擔任過財務大臣與復興大臣。 報導也指出，日本方面這次共有3人計劃訪台，他們預計在訪問期間拜會總統賴清德，並就雙方關係與地區情勢交換意見。 從去年12月起到本月上旬，自民黨相繼有國會議員訪台，像是自民黨幹事長代行萩生田光一，以及前數位大臣 河野太郎 河野太郎 生日：1963年1月10日 學歷：美國喬治城大學畢業，主修比較政治學 經歷：數位大臣、眾議員、行政改革大臣、外務大臣、防衛大臣 派閥：麻生派",
-      "url": "https://www.cna.com.tw/news/aipl/202601140159.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "US_TW_Interaction",
-    "is_relevant": true,
-    "country1": "US",
-    "country2": "TW",
-    "sentiment_score": 0.85,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "美國亞利桑納州鳳凰城市長Kate Gallego訪台，晉見總統賴清德、副總統蕭美琴，深化高科技合作，包括半導體、AI、航太、生技，強化供應鏈韌性。",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-01-14",
-      "title": "美國鳳凰城市長訪台深化雙邊前瞻科技合作| 政治",
-      "content": "（中央社記者吳書緯台北14日電）外交部長林佳龍昨天晚宴歡迎美國亞利桑納州鳳凰城市長蓋雷哥訪問團。蓋雷哥指出，隨著台積電宣布在美投資1650億美元，鳳凰城將持續與台灣攜手深化高科技合作，確保供應鏈韌性，並在航太及生技醫藥等前瞻科技領域，拓展合作機會。 外交部今天發布新聞稿指出，蓋雷哥（Kate Gallego）第三度訪台，此行晉見總統賴清德、副總統蕭美琴，拜會台南市政府及台北市政府，並與台灣高科技產業代表交流，就雙邊經貿合作進行交流，拓展合作機會。 林佳龍於晚宴致詞表示，台灣在半導體、人工智慧及先進製造等高科技產業具備關鍵優勢，在全球供應鏈中扮演重要角色，也是美國在科技領域值得信賴的合作夥伴。鳳凰城及亞利桑納州近年已成為台灣企業在美重要據點，持續拓展雙邊高科技產業合作成果。 林佳龍也歡迎星宇航空開啟台北－鳳凰城直航班機，有助促進人流、物流與資金往來，強化產業鏈結。台灣與鳳凰城市將持續推動產業合作與人才交流，深化雙邊夥伴關係，打造更具韌性的高科技供應鏈。 透過 Google News 追蹤中央社",
-      "url": "https://www.cna.com.tw/news/aipl/202601140092.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Regional_Security",
+    "category": "US_Statement",
     "is_relevant": true,
     "country1": "US",
     "country2": "CN",
-    "sentiment_score": -0.2,
-    "sentiment_label": "neutral",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "從日本延伸至台灣、南海的第一島鏈展開軍事演習",
       "Foreign_battleship": "",
-      "Political_statement": "美戰爭部長赫格塞斯：第一島鏈軍演必不可少，以實力求和平。日美強化同盟，擴大南西諸島存在，增產SM-3 Block 2A，因應中國台灣周邊活動。"
+      "Political_statement": "美國戰爭部長赫格塞斯：軍演延伸至台灣南海必不可少，以實力求和平；日美強化同盟嚇阻力，針對中國台灣周邊活動。"
     },
     "confidence": 0.95,
     "original_article": {
