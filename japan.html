@@ -132,6 +132,60 @@
         .source-link:hover {
             color: #4b134f;
         }
+
+        .latest-event-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #c94b4b;
+        }
+
+        .latest-event-card .event-date {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .latest-event-card .event-strait {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-right: 0.3rem;
+        }
+
+        .latest-event-card .event-remark {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-top: 0.5rem;
+        }
+
+        .event-popup {
+            min-width: 280px;
+            max-width: 350px;
+        }
+
+        .event-popup h6 {
+            margin-bottom: 0.5rem;
+            color: #c94b4b;
+        }
+
+        .event-popup .badge {
+            font-size: 0.7rem;
+            margin-right: 0.25rem;
+        }
+
+        .pulse-marker {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
     </style>
 </head>
 <body>
@@ -201,9 +255,21 @@
         </div>
     </div>
 
+    <!-- Latest Events Section -->
+    <div class="card-custom">
+        <h5>Latest Naval Transit Reports (最新艦艇動向)</h5>
+        <div class="row" id="latestEventsContainer">
+            <!-- Latest events will be populated by JavaScript -->
+            <div class="col-12 text-center py-3">
+                <span class="text-muted">Loading latest events...</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Map -->
     <div class="card-custom">
-        <h5>Strait Locations & Transit Routes</h5>
+        <h5>Strait Locations & Latest Transit Events</h5>
+        <p class="text-muted mb-2">Click on markers to see detailed transit information</p>
         <div id="map"></div>
     </div>
 
@@ -299,10 +365,13 @@ const straitCoords = {
     'tsushima': { lat: 34.2000, lng: 129.3000, name: '對馬海峽 (Tsushima)', color: '#9b59b6' }
 };
 
+let latestEventMarkers = [];
+
 window.addEventListener('load', async function() {
     initMap();
     await loadTransitData();
     updateStatistics();
+    renderLatestEvents();
     renderCharts();
     renderTable();
 });
@@ -388,6 +457,137 @@ async function loadTransitData() {
 
 function hasValue(val) {
     return val && val !== '' && val !== 'FALSE' && val !== '0' && val !== 'false';
+}
+
+function getStraitForEvent(row) {
+    // Determine which strait the event occurred at
+    if (hasValue(row['與那國'])) return 'yonaguni';
+    if (hasValue(row['宮古'])) return 'miyako';
+    if (hasValue(row['大禹'])) return 'osumi';
+    if (hasValue(row['對馬'])) return 'tsushima';
+    return null;
+}
+
+function renderLatestEvents() {
+    const container = document.getElementById('latestEventsContainer');
+
+    // Find latest 3 events with remarks (sorted by date descending)
+    const eventsWithRemarks = transitData
+        .filter(row => row.remark && row.remark.trim() !== '' && row.remark !== '-')
+        .sort((a, b) => {
+            const dateA = new Date(a.date?.replace(/\//g, '-') || '1970-01-01');
+            const dateB = new Date(b.date?.replace(/\//g, '-') || '1970-01-01');
+            return dateB - dateA;
+        })
+        .slice(0, 3);
+
+    if (eventsWithRemarks.length === 0) {
+        container.innerHTML = `
+            <div class="col-12 text-center py-3">
+                <span class="text-muted">No recent transit events with detailed reports</span>
+            </div>
+        `;
+        return;
+    }
+
+    // Render event cards
+    container.innerHTML = '';
+    eventsWithRemarks.forEach((event, index) => {
+        const straitKey = getStraitForEvent(event);
+        const straitInfo = straitKey ? straitCoords[straitKey] : null;
+
+        // Build strait badges
+        let straitBadges = '';
+        if (hasValue(event['與那國'])) straitBadges += '<span class="event-strait strait-yonaguni">與那國</span>';
+        if (hasValue(event['宮古'])) straitBadges += '<span class="event-strait strait-miyako">宮古</span>';
+        if (hasValue(event['大禹'])) straitBadges += '<span class="event-strait strait-osumi">大禹</span>';
+        if (hasValue(event['對馬'])) straitBadges += '<span class="event-strait strait-tsushima">對馬</span>';
+
+        const direction = hasValue(event['進']) ? '← 進入東海' : (hasValue(event['出']) ? '→ 出向太平洋' : '');
+
+        const cardHtml = `
+            <div class="col-md-4 mb-3">
+                <div class="latest-event-card">
+                    <div class="event-date">
+                        <strong>${event.date || 'Unknown Date'}</strong>
+                        ${direction ? `<span class="ml-2 badge badge-secondary">${direction}</span>` : ''}
+                    </div>
+                    <div class="mt-2">
+                        ${straitBadges || '<span class="text-muted">No specific strait</span>'}
+                    </div>
+                    ${event['艦型'] && event['艦型'] !== '未提及' ? `<div class="mt-2"><small><strong>艦型:</strong> ${event['艦型']}</small></div>` : ''}
+                    <div class="event-remark mt-2">
+                        ${event.remark || 'No details available'}
+                    </div>
+                </div>
+            </div>
+        `;
+        container.innerHTML += cardHtml;
+
+        // Add marker on map for this event
+        if (straitInfo) {
+            addEventMarker(event, straitInfo, index);
+        }
+    });
+}
+
+function addEventMarker(event, straitInfo, index) {
+    // Offset slightly to prevent overlap
+    const latOffset = (index - 1) * 0.3;
+    const lngOffset = (index - 1) * 0.5;
+
+    const icon = L.divIcon({
+        className: 'custom-event-marker',
+        html: `<div class="pulse-marker" style="
+            background: linear-gradient(135deg, #c94b4b 0%, #4b134f 100%);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        ">${index + 1}</div>`,
+        iconSize: [30, 30],
+        iconAnchor: [15, 15]
+    });
+
+    const marker = L.marker(
+        [straitInfo.lat + latOffset, straitInfo.lng + lngOffset],
+        { icon: icon, zIndexOffset: 1000 }
+    ).addTo(map);
+
+    // Build strait badges for popup
+    let straitBadges = '';
+    if (hasValue(event['與那國'])) straitBadges += '<span class="badge" style="background:#e74c3c;color:white;">與那國</span> ';
+    if (hasValue(event['宮古'])) straitBadges += '<span class="badge" style="background:#3498db;color:white;">宮古</span> ';
+    if (hasValue(event['大禹'])) straitBadges += '<span class="badge" style="background:#2ecc71;color:white;">大禹</span> ';
+    if (hasValue(event['對馬'])) straitBadges += '<span class="badge" style="background:#9b59b6;color:white;">對馬</span> ';
+
+    const direction = hasValue(event['進']) ? '← 進入東海 (In)' : (hasValue(event['出']) ? '→ 出向太平洋 (Out)' : '');
+
+    const popupContent = `
+        <div class="event-popup">
+            <h6>Latest Event #${index + 1}</h6>
+            <div style="margin-bottom:8px;">
+                <strong>Date:</strong> ${event.date || '-'}<br>
+                ${direction ? `<strong>Direction:</strong> ${direction}<br>` : ''}
+                <strong>Straits:</strong> ${straitBadges || '-'}
+            </div>
+            ${event['艦型'] && event['艦型'] !== '未提及' ? `<div style="margin-bottom:8px;"><strong>艦型 (Vessel Type):</strong><br><small>${event['艦型']}</small></div>` : ''}
+            <div style="background:#f8f9fa;padding:8px;border-radius:5px;font-size:0.85rem;line-height:1.5;">
+                <strong>Report:</strong><br>
+                ${event.remark || 'No details available'}
+            </div>
+        </div>
+    `;
+
+    marker.bindPopup(popupContent, { maxWidth: 350 });
+    latestEventMarkers.push(marker);
 }
 
 function updateStatistics() {
