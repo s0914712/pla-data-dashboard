@@ -175,11 +175,30 @@
 </head>
 <body>
 
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container">
+        <a class="navbar-brand" href="index.html" style="color: white;">PLA Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a class="nav-link" href="index.html" style="color: white;">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="prediction.html" style="color: white;">ML Prediction</a></li>
+                <li class="nav-item"><a class="nav-link" href="weather.html" style="color: white;">Airport Weather</a></li>
+                <li class="nav-item"><a class="nav-link" href="japan.html" style="color: white;">Japan MOD</a></li>
+                <li class="nav-item"><a class="nav-link" href="news.html" style="color: white;">News</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <!-- Header -->
 <div class="dashboard-header">
     <div class="container">
-        <h1 class="display-4">🛩️ PLA Aircraft Sorties Data Dashboard</h1>
-        <p class="lead">Interactive Military Activities Analysis (2020-2025)</p>
+        <h1 class="display-4">PLA Aircraft Sorties Data Dashboard</h1>
+        <p class="lead">Interactive Military Activities Analysis powered by Multi-Agent System</p>
     </div>
 </div>
 
@@ -191,7 +210,54 @@
 
 <!-- Main Content -->
 <div id="mainContent" class="container" style="display: none;">
-    
+
+    <!-- Agent Overview Cards -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h4 class="mb-3">Data Collection Agents</h4>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-3">
+            <a href="prediction.html" style="text-decoration: none;">
+                <div class="stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; cursor: pointer;">
+                    <div style="font-size: 2rem;">🤖</div>
+                    <h5>ML Prediction</h5>
+                    <p style="font-size: 0.85rem; opacity: 0.9;">7-day sortie forecast with ensemble model</p>
+                    <span class="badge badge-light">View Details →</span>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-3">
+            <a href="weather.html" style="text-decoration: none;">
+                <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; cursor: pointer;">
+                    <div style="font-size: 2rem;">🌤️</div>
+                    <h5>Airport Weather</h5>
+                    <p style="font-size: 0.85rem; opacity: 0.9;">Weather monitoring for PLA airfields</p>
+                    <span class="badge badge-light">View Map →</span>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-3">
+            <a href="japan.html" style="text-decoration: none;">
+                <div class="stat-card" style="background: linear-gradient(135deg, #c94b4b 0%, #4b134f 100%); color: white; cursor: pointer;">
+                    <div style="font-size: 2rem;">🚢</div>
+                    <h5>Japan MOD</h5>
+                    <p style="font-size: 0.85rem; opacity: 0.9;">Naval transit data from Joint Staff</p>
+                    <span class="badge badge-light">View Data →</span>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-3">
+            <a href="news.html" style="text-decoration: none;">
+                <div class="stat-card" style="background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%); color: white; cursor: pointer;">
+                    <div style="font-size: 2rem;">📰</div>
+                    <h5>News Classifier</h5>
+                    <p style="font-size: 0.85rem; opacity: 0.9;">AI-classified Taiwan Strait news</p>
+                    <span class="badge badge-light">View News →</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
     <!-- Statistics Cards -->
     <div class="row" id="statsCards">
         <div class="col-md-3 col-sm-6">
@@ -781,6 +847,10 @@ function downloadCSV(dataset) {
     window.URL.revokeObjectURL(url);
 }
 </script>
+
+<!-- Bootstrap JS for navbar -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

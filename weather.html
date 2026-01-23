@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="utf-8">
+    <title>Airport Weather - PLA Sorties Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Airport weather forecast for PLA military airfields">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- PapaParse for CSV parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .navbar-custom {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: white !important;
+        }
+
+        .navbar-custom .nav-link:hover {
+            color: #ddd !important;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .card-custom {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        #map {
+            height: 500px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .weather-card {
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .weather-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .weather-low {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+
+        .weather-high {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            color: white;
+        }
+
+        .temp-display {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .weather-detail {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .flight-ok-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.3);
+            overflow: hidden;
+        }
+
+        .flight-ok-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.9);
+        }
+
+        .date-filter {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .legend {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        table thead {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .badge-low { background-color: #28a745; }
+        .badge-high { background-color: #dc3545; }
+
+        .update-info {
+            background: #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">PLA Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="prediction.html">ML Prediction</a></li>
+                <li class="nav-item active"><a class="nav-link" href="weather.html">Airport Weather</a></li>
+                <li class="nav-item"><a class="nav-link" href="japan.html">Japan MOD</a></li>
+                <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<div class="page-header">
+    <div class="container">
+        <h1>Airport Weather Agent</h1>
+        <p class="lead">Weather forecast monitoring for key PLA airfields (7-day forecast)</p>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+    <!-- Update Info -->
+    <div class="update-info">
+        <strong>Last Updated:</strong> <span id="lastUpdated">-</span> |
+        <strong>Forecast Days:</strong> 8 days |
+        <strong>Airports Monitored:</strong> 3
+    </div>
+
+    <!-- Date Filter -->
+    <div class="date-filter">
+        <div class="row align-items-center">
+            <div class="col-md-4">
+                <label for="dateSelect">Select Date:</label>
+                <select id="dateSelect" class="form-control" onchange="filterByDate()">
+                </select>
+            </div>
+            <div class="col-md-8">
+                <p class="mb-0 text-muted">Filter weather data by forecast date. Each day shows conditions for all monitored airports.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map -->
+    <div class="card-custom">
+        <h5>Airport Locations & Current Conditions</h5>
+        <div id="map"></div>
+    </div>
+
+    <!-- Weather Cards -->
+    <h5 class="mb-3">Airport Weather Summary</h5>
+    <div class="row" id="weatherCards">
+        <!-- Cards will be generated by JavaScript -->
+    </div>
+
+    <!-- Data Table -->
+    <div class="card-custom">
+        <h5>Detailed Weather Data</h5>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Airport</th>
+                        <th>City</th>
+                        <th>Temp (Min/Max)</th>
+                        <th>Wind (Avg/Max)</th>
+                        <th>Gust</th>
+                        <th>Precip</th>
+                        <th>Cloud %</th>
+                        <th>Flight OK</th>
+                        <th>Risk</th>
+                    </tr>
+                </thead>
+                <tbody id="weatherTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="card-custom">
+        <h5>Risk Level Definitions</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <h6>Flight Conditions</h6>
+                <ul>
+                    <li><strong>Flight OK Ratio:</strong> Percentage of hours with acceptable flight conditions</li>
+                    <li><strong>Cloud Avg:</strong> Average cloud coverage percentage</li>
+                    <li><strong>Gust Max:</strong> Maximum wind gust speed (m/s)</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h6>Risk Assessment</h6>
+                <ul>
+                    <li><span class="badge badge-low">LOW</span> - Good flying conditions expected</li>
+                    <li><span class="badge badge-high">HIGH</span> - Poor conditions, reduced flight operations likely</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="text-center py-4 mt-5" style="background-color: #343a40; color: white;">
+    <div class="container">
+        <p>PLA Military Data Analysis Dashboard</p>
+        <p>
+            <a href="https://github.com/s0914712" target="_blank" style="color: #4facfe;">GitHub</a> |
+            <a href="https://s0914712.github.io" target="_blank" style="color: #4facfe;">Blog</a>
+        </p>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+let weatherData = [];
+let map = null;
+let markers = [];
+
+// Airport coordinates
+const airportCoords = {
+    'ZGGG': { lat: 23.3924, lng: 113.2988, name: '廣州白雲國際機場', city: '廣州' },
+    'ZSFZ': { lat: 25.9355, lng: 119.6633, name: '福州長樂國際機場', city: '福州' },
+    'ZSPD': { lat: 31.1434, lng: 121.8052, name: '上海浦東國際機場', city: '上海' }
+};
+
+window.addEventListener('load', async function() {
+    initMap();
+    await loadWeatherData();
+    populateDateSelect();
+    filterByDate();
+});
+
+function initMap() {
+    // Center on Taiwan Strait area
+    map = L.map('map').setView([27.5, 118], 5);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Add legend
+    const legend = L.control({ position: 'bottomright' });
+    legend.onAdd = function(map) {
+        const div = L.DomUtil.create('div', 'legend');
+        div.innerHTML = `
+            <div class="legend-item">
+                <div class="legend-color" style="background: #28a745;"></div>
+                <span>LOW Risk</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #dc3545;"></div>
+                <span>HIGH Risk</span>
+            </div>
+        `;
+        return div;
+    };
+    legend.addTo(map);
+}
+
+async function loadWeatherData() {
+    try {
+        const response = await fetch('data/airport_weather_forecast.csv');
+        const text = await response.text();
+        const cleanText = text.replace(/^\uFEFF/, '');
+
+        const parsed = Papa.parse(cleanText, {
+            header: true,
+            skipEmptyLines: true
+        });
+
+        weatherData = parsed.data;
+
+        if (weatherData.length > 0) {
+            document.getElementById('lastUpdated').textContent = weatherData[0].updated_at || '-';
+        }
+    } catch (error) {
+        console.error('Error loading weather data:', error);
+    }
+}
+
+function populateDateSelect() {
+    const dates = [...new Set(weatherData.map(r => r.date))].sort();
+    const select = document.getElementById('dateSelect');
+    select.innerHTML = '';
+
+    dates.forEach((date, index) => {
+        const option = document.createElement('option');
+        option.value = date;
+        option.textContent = date;
+        if (index === 0) option.selected = true;
+        select.appendChild(option);
+    });
+}
+
+function filterByDate() {
+    const selectedDate = document.getElementById('dateSelect').value;
+    const filteredData = weatherData.filter(r => r.date === selectedDate);
+
+    updateMarkers(filteredData);
+    renderWeatherCards(filteredData);
+    renderTable(filteredData);
+}
+
+function updateMarkers(data) {
+    // Clear existing markers
+    markers.forEach(m => map.removeLayer(m));
+    markers = [];
+
+    data.forEach(row => {
+        const coords = airportCoords[row.airport_icao];
+        if (!coords) return;
+
+        const isLow = row.daily_risk === 'LOW';
+        const color = isLow ? '#28a745' : '#dc3545';
+
+        const icon = L.divIcon({
+            className: 'custom-marker',
+            html: `<div style="
+                background: ${color};
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                border: 3px solid white;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-weight: bold;
+                font-size: 12px;
+            ">${row.airport_iata}</div>`,
+            iconSize: [30, 30],
+            iconAnchor: [15, 15]
+        });
+
+        const marker = L.marker([coords.lat, coords.lng], { icon: icon }).addTo(map);
+
+        const popupContent = `
+            <div style="min-width: 200px;">
+                <h6>${coords.name}</h6>
+                <p><strong>Date:</strong> ${row.date}</p>
+                <p><strong>Temperature:</strong> ${parseFloat(row.temp_min).toFixed(1)}°C - ${parseFloat(row.temp_max).toFixed(1)}°C</p>
+                <p><strong>Wind:</strong> Avg ${parseFloat(row.wind_avg).toFixed(1)} m/s, Max ${parseFloat(row.wind_max).toFixed(1)} m/s</p>
+                <p><strong>Gust:</strong> ${parseFloat(row.gust_max).toFixed(1)} m/s</p>
+                <p><strong>Cloud Cover:</strong> ${parseFloat(row.cloud_avg).toFixed(1)}%</p>
+                <p><strong>Flight OK:</strong> ${row.flight_ok_count}/${row.flight_total_count} (${parseFloat(row.flight_ok_ratio).toFixed(0)}%)</p>
+                <p><strong>Risk:</strong> <span style="color: ${color}; font-weight: bold;">${row.daily_risk}</span></p>
+            </div>
+        `;
+
+        marker.bindPopup(popupContent);
+        markers.push(marker);
+    });
+}
+
+function renderWeatherCards(data) {
+    const container = document.getElementById('weatherCards');
+    container.innerHTML = '';
+
+    data.forEach(row => {
+        const isLow = row.daily_risk === 'LOW';
+        const cardClass = isLow ? 'weather-low' : 'weather-high';
+        const flightRatio = parseFloat(row.flight_ok_ratio);
+
+        const cardHtml = `
+            <div class="col-md-4">
+                <div class="weather-card ${cardClass}">
+                    <h5>${row.airport_name}</h5>
+                    <p class="weather-detail">${row.city} (${row.airport_iata})</p>
+                    <div class="temp-display">
+                        ${parseFloat(row.temp_min).toFixed(0)}° - ${parseFloat(row.temp_max).toFixed(0)}°C
+                    </div>
+                    <div class="weather-detail mt-2">
+                        <div>Wind: ${parseFloat(row.wind_avg).toFixed(1)} m/s (max ${parseFloat(row.wind_max).toFixed(1)})</div>
+                        <div>Gust: ${parseFloat(row.gust_max).toFixed(1)} m/s</div>
+                        <div>Cloud: ${parseFloat(row.cloud_avg).toFixed(0)}%</div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="weather-detail mb-1">Flight OK: ${flightRatio.toFixed(0)}%</div>
+                        <div class="flight-ok-bar">
+                            <div class="flight-ok-fill" style="width: ${flightRatio}%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        container.innerHTML += cardHtml;
+    });
+}
+
+function renderTable(data) {
+    const tbody = document.getElementById('weatherTableBody');
+    tbody.innerHTML = '';
+
+    // Show all data, not just filtered
+    weatherData.forEach(row => {
+        const badgeClass = row.daily_risk === 'LOW' ? 'badge-low' : 'badge-high';
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${row.date}</td>
+            <td>${row.airport_iata}</td>
+            <td>${row.city}</td>
+            <td>${parseFloat(row.temp_min).toFixed(1)}° / ${parseFloat(row.temp_max).toFixed(1)}°</td>
+            <td>${parseFloat(row.wind_avg).toFixed(1)} / ${parseFloat(row.wind_max).toFixed(1)}</td>
+            <td>${parseFloat(row.gust_max).toFixed(1)}</td>
+            <td>${parseFloat(row.precip_total).toFixed(1)}</td>
+            <td>${parseFloat(row.cloud_avg).toFixed(0)}%</td>
+            <td>${row.flight_ok_count}/${row.flight_total_count}</td>
+            <td><span class="badge ${badgeClass}">${row.daily_risk}</span></td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+</script>
+
+</body>
+</html>

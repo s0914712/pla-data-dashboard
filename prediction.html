@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="utf-8">
+    <title>ML Prediction - PLA Sorties Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Machine Learning predictions for PLA aircraft sorties">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <!-- PapaParse for CSV parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .navbar-custom {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: white !important;
+        }
+
+        .navbar-custom .nav-link:hover {
+            color: #ddd !important;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .card-custom {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .risk-low {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+
+        .risk-medium {
+            background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+            color: white;
+        }
+
+        .risk-high {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            color: white;
+        }
+
+        .prediction-card {
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .prediction-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .prediction-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .prediction-range {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .update-info {
+            background: #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .table-responsive {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        table thead {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .badge-risk-low {
+            background-color: #28a745;
+        }
+
+        .badge-risk-medium {
+            background-color: #ffc107;
+            color: #333;
+        }
+
+        .badge-risk-high {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">PLA Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item active"><a class="nav-link" href="prediction.html">ML Prediction</a></li>
+                <li class="nav-item"><a class="nav-link" href="weather.html">Airport Weather</a></li>
+                <li class="nav-item"><a class="nav-link" href="japan.html">Japan MOD</a></li>
+                <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<div class="page-header">
+    <div class="container">
+        <h1>ML Prediction Agent</h1>
+        <p class="lead">Machine Learning predictions for PLA aircraft sorties (7-day forecast)</p>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+    <!-- Update Info -->
+    <div class="update-info mb-4">
+        <strong>Model:</strong> <span id="modelVersion">-</span> |
+        <strong>Data Latest:</strong> <span id="dataLatest">-</span> |
+        <strong>Generated:</strong> <span id="generatedAt">-</span>
+    </div>
+
+    <!-- Prediction Cards -->
+    <div class="row" id="predictionCards">
+        <!-- Cards will be generated by JavaScript -->
+    </div>
+
+    <!-- Chart -->
+    <div class="chart-container">
+        <h5>7-Day Forecast Trend</h5>
+        <canvas id="forecastChart"></canvas>
+    </div>
+
+    <!-- Data Table -->
+    <div class="card-custom">
+        <h5>Detailed Prediction Data</h5>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Day</th>
+                        <th>Predicted Sorties</th>
+                        <th>Range (95% CI)</th>
+                        <th>High Event Prob.</th>
+                        <th>Risk Level</th>
+                        <th>Normal Model</th>
+                        <th>High Model</th>
+                    </tr>
+                </thead>
+                <tbody id="predictionTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Model Information -->
+    <div class="card-custom">
+        <h5>About the Prediction Model</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <h6>Ensemble Model (v2.0)</h6>
+                <ul>
+                    <li>Combines normal activity and high-activity models</li>
+                    <li>Uses political signals (3-day and 7-day windows)</li>
+                    <li>Incorporates day-of-week patterns</li>
+                    <li>Provides confidence intervals</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h6>Risk Level Definitions</h6>
+                <ul>
+                    <li><span class="badge badge-risk-low">LOW</span> - Normal activity expected</li>
+                    <li><span class="badge badge-risk-medium">MEDIUM</span> - Elevated activity possible</li>
+                    <li><span class="badge badge-risk-high">HIGH</span> - High activity likely</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="text-center py-4 mt-5" style="background-color: #343a40; color: white;">
+    <div class="container">
+        <p>PLA Military Data Analysis Dashboard</p>
+        <p>
+            <a href="https://github.com/s0914712" target="_blank" style="color: #f093fb;">GitHub</a> |
+            <a href="https://s0914712.github.io" target="_blank" style="color: #f093fb;">Blog</a>
+        </p>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+let predictionData = [];
+let forecastChart = null;
+
+window.addEventListener('load', async function() {
+    await loadPredictionData();
+    renderPredictionCards();
+    renderChart();
+    renderTable();
+});
+
+async function loadPredictionData() {
+    try {
+        const response = await fetch('data/prediction.csv');
+        const text = await response.text();
+        const cleanText = text.replace(/^\uFEFF/, '');
+
+        const parsed = Papa.parse(cleanText, {
+            header: true,
+            skipEmptyLines: true
+        });
+
+        predictionData = parsed.data;
+
+        if (predictionData.length > 0) {
+            const first = predictionData[0];
+            document.getElementById('modelVersion').textContent = first.model_version || '-';
+            document.getElementById('dataLatest').textContent = first.data_latest_date || '-';
+            document.getElementById('generatedAt').textContent = first.generated_at || '-';
+        }
+    } catch (error) {
+        console.error('Error loading prediction data:', error);
+    }
+}
+
+function getRiskClass(level) {
+    switch(level?.toUpperCase()) {
+        case 'LOW': return 'risk-low';
+        case 'MEDIUM': return 'risk-medium';
+        case 'HIGH': return 'risk-high';
+        default: return 'risk-low';
+    }
+}
+
+function getRiskBadgeClass(level) {
+    switch(level?.toUpperCase()) {
+        case 'LOW': return 'badge-risk-low';
+        case 'MEDIUM': return 'badge-risk-medium';
+        case 'HIGH': return 'badge-risk-high';
+        default: return 'badge-risk-low';
+    }
+}
+
+function renderPredictionCards() {
+    const container = document.getElementById('predictionCards');
+    container.innerHTML = '';
+
+    predictionData.forEach((row, index) => {
+        const riskClass = getRiskClass(row.risk_level);
+        const predicted = parseFloat(row.predicted_sorties).toFixed(1);
+        const lower = parseFloat(row.lower_bound).toFixed(1);
+        const upper = parseFloat(row.upper_bound).toFixed(1);
+        const highProb = parseFloat(row.high_event_probability).toFixed(1);
+
+        const date = new Date(row.date);
+        const dateStr = date.toLocaleDateString('zh-TW', { month: 'short', day: 'numeric' });
+
+        const cardHtml = `
+            <div class="col-md-3 col-sm-6">
+                <div class="prediction-card ${riskClass}">
+                    <div class="text-center">
+                        <div style="font-size: 0.9rem; opacity: 0.9;">${dateStr} (${row.day_of_week})</div>
+                        <div class="prediction-value">${predicted}</div>
+                        <div class="prediction-range">Range: ${lower} - ${upper}</div>
+                        <div style="margin-top: 0.5rem;">
+                            <small>High Event: ${highProb}%</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        container.innerHTML += cardHtml;
+    });
+}
+
+function renderChart() {
+    const ctx = document.getElementById('forecastChart').getContext('2d');
+
+    const labels = predictionData.map(r => {
+        const date = new Date(r.date);
+        return date.toLocaleDateString('zh-TW', { month: 'short', day: 'numeric' });
+    });
+
+    const predicted = predictionData.map(r => parseFloat(r.predicted_sorties));
+    const lower = predictionData.map(r => parseFloat(r.lower_bound));
+    const upper = predictionData.map(r => parseFloat(r.upper_bound));
+    const normalModel = predictionData.map(r => parseFloat(r.normal_model_pred));
+    const highModel = predictionData.map(r => parseFloat(r.high_model_pred));
+
+    forecastChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Predicted Sorties',
+                    data: predicted,
+                    borderColor: '#f5576c',
+                    backgroundColor: 'rgba(245, 87, 108, 0.1)',
+                    borderWidth: 3,
+                    fill: false,
+                    tension: 0.4
+                },
+                {
+                    label: 'Upper Bound (95% CI)',
+                    data: upper,
+                    borderColor: 'rgba(245, 87, 108, 0.3)',
+                    borderWidth: 1,
+                    borderDash: [5, 5],
+                    fill: false,
+                    pointRadius: 0
+                },
+                {
+                    label: 'Lower Bound (95% CI)',
+                    data: lower,
+                    borderColor: 'rgba(245, 87, 108, 0.3)',
+                    borderWidth: 1,
+                    borderDash: [5, 5],
+                    fill: '-1',
+                    backgroundColor: 'rgba(245, 87, 108, 0.1)',
+                    pointRadius: 0
+                },
+                {
+                    label: 'Normal Model',
+                    data: normalModel,
+                    borderColor: '#28a745',
+                    borderWidth: 2,
+                    borderDash: [3, 3],
+                    fill: false,
+                    tension: 0.4,
+                    hidden: true
+                },
+                {
+                    label: 'High Activity Model',
+                    data: highModel,
+                    borderColor: '#dc3545',
+                    borderWidth: 2,
+                    borderDash: [3, 3],
+                    fill: false,
+                    tension: 0.4,
+                    hidden: true
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top'
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Aircraft Sorties'
+                    }
+                }
+            }
+        }
+    });
+}
+
+function renderTable() {
+    const tbody = document.getElementById('predictionTableBody');
+    tbody.innerHTML = '';
+
+    predictionData.forEach(row => {
+        const badgeClass = getRiskBadgeClass(row.risk_level);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${row.date}</td>
+            <td>${row.day_of_week}</td>
+            <td><strong>${parseFloat(row.predicted_sorties).toFixed(1)}</strong></td>
+            <td>${parseFloat(row.lower_bound).toFixed(1)} - ${parseFloat(row.upper_bound).toFixed(1)}</td>
+            <td>${parseFloat(row.high_event_probability).toFixed(1)}%</td>
+            <td><span class="badge ${badgeClass}">${row.risk_level}</span></td>
+            <td>${parseFloat(row.normal_model_pred).toFixed(1)}</td>
+            <td>${parseFloat(row.high_model_pred).toFixed(1)}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+</script>
+
+</body>
+</html>
