@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="utf-8">
+    <title>News Classifier - PLA Sorties Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Classified news articles related to Taiwan Strait military activities">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .navbar-custom {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: white !important;
+        }
+
+        .navbar-custom .nav-link:hover {
+            color: #ddd !important;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .card-custom {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .filter-section {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s;
+        }
+
+        .news-card:hover {
+            transform: translateX(5px);
+        }
+
+        .news-card.TW_Statement { border-left-color: #28a745; }
+        .news-card.CN_Statement { border-left-color: #dc3545; }
+        .news-card.US_Statement { border-left-color: #007bff; }
+        .news-card.US_TW_Interaction { border-left-color: #17a2b8; }
+        .news-card.Military_Exercise { border-left-color: #fd7e14; }
+        .news-card.Foreign_battleship { border-left-color: #6f42c1; }
+        .news-card.Regional_Security { border-left-color: #20c997; }
+        .news-card.Not_Relevant { border-left-color: #6c757d; }
+
+        .category-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .category-TW_Statement { background: #28a745; color: white; }
+        .category-CN_Statement { background: #dc3545; color: white; }
+        .category-US_Statement { background: #007bff; color: white; }
+        .category-US_TW_Interaction { background: #17a2b8; color: white; }
+        .category-Military_Exercise { background: #fd7e14; color: white; }
+        .category-Foreign_battleship { background: #6f42c1; color: white; }
+        .category-Regional_Security { background: #20c997; color: white; }
+        .category-Not_Relevant { background: #6c757d; color: white; }
+
+        .sentiment-positive { color: #28a745; }
+        .sentiment-negative { color: #dc3545; }
+        .sentiment-neutral { color: #6c757d; }
+
+        .news-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .news-title a:hover {
+            color: #667eea;
+        }
+
+        .news-content {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .news-meta {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 0.5rem;
+        }
+
+        .extracted-data {
+            background: #f8f9fa;
+            border-radius: 5px;
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+            font-size: 0.85rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1a2a6c;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.85rem;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .update-info {
+            background: #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .confidence-bar {
+            height: 6px;
+            background: #e9ecef;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 3px;
+        }
+
+        .filter-btn {
+            margin: 0.25rem;
+        }
+
+        .filter-btn.active {
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">PLA Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="prediction.html">ML Prediction</a></li>
+                <li class="nav-item"><a class="nav-link" href="weather.html">Airport Weather</a></li>
+                <li class="nav-item"><a class="nav-link" href="japan.html">Japan MOD</a></li>
+                <li class="nav-item active"><a class="nav-link" href="news.html">News</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<div class="page-header">
+    <div class="container">
+        <h1>News Classifier Agent</h1>
+        <p class="lead">AI-classified news articles related to Taiwan Strait military activities</p>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+    <!-- Update Info -->
+    <div class="update-info">
+        <strong>Total Articles:</strong> <span id="totalArticles">-</span> |
+        <strong>Relevant Articles:</strong> <span id="relevantArticles">-</span> |
+        <strong>Sources:</strong> CNA, MOD, and more
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-2 col-sm-4 mb-3">
+            <div class="stat-card">
+                <div class="stat-value" id="twCount">-</div>
+                <div class="stat-label">TW Statement</div>
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-4 mb-3">
+            <div class="stat-card">
+                <div class="stat-value" id="cnCount">-</div>
+                <div class="stat-label">CN Statement</div>
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-4 mb-3">
+            <div class="stat-card">
+                <div class="stat-value" id="usCount">-</div>
+                <div class="stat-label">US Statement</div>
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-4 mb-3">
+            <div class="stat-card">
+                <div class="stat-value" id="interactionCount">-</div>
+                <div class="stat-label">US-TW Interaction</div>
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-4 mb-3">
+            <div class="stat-card">
+                <div class="stat-value" id="exerciseCount">-</div>
+                <div class="stat-label">Military Exercise</div>
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-4 mb-3">
+            <div class="stat-card">
+                <div class="stat-value" id="shipCount">-</div>
+                <div class="stat-label">Foreign Ship</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="chart-container">
+                <h5>Articles by Category</h5>
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="chart-container">
+                <h5>Sentiment Distribution</h5>
+                <canvas id="sentimentChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <h5>Filter by Category</h5>
+        <div id="filterButtons">
+            <button class="btn btn-outline-secondary filter-btn active" onclick="filterNews('all')">All</button>
+            <button class="btn btn-outline-success filter-btn" onclick="filterNews('TW_Statement')">TW Statement</button>
+            <button class="btn btn-outline-danger filter-btn" onclick="filterNews('CN_Statement')">CN Statement</button>
+            <button class="btn btn-outline-primary filter-btn" onclick="filterNews('US_Statement')">US Statement</button>
+            <button class="btn btn-outline-info filter-btn" onclick="filterNews('US_TW_Interaction')">US-TW Interaction</button>
+            <button class="btn btn-outline-warning filter-btn" onclick="filterNews('Military_Exercise')">Military Exercise</button>
+            <button class="btn btn-outline-purple filter-btn" style="border-color: #6f42c1; color: #6f42c1;" onclick="filterNews('Foreign_battleship')">Foreign Ship</button>
+            <button class="btn btn-outline-success filter-btn" style="border-color: #20c997; color: #20c997;" onclick="filterNews('Regional_Security')">Regional Security</button>
+        </div>
+    </div>
+
+    <!-- News List -->
+    <h5 class="mb-3">News Articles (<span id="displayCount">-</span>)</h5>
+    <div id="newsContainer">
+        <!-- News cards will be generated by JavaScript -->
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="text-center py-4 mt-5" style="background-color: #343a40; color: white;">
+    <div class="container">
+        <p>PLA Military Data Analysis Dashboard</p>
+        <p>
+            <a href="https://github.com/s0914712" target="_blank" style="color: #fdbb2d;">GitHub</a> |
+            <a href="https://s0914712.github.io" target="_blank" style="color: #fdbb2d;">Blog</a>
+        </p>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+let newsData = [];
+let currentFilter = 'all';
+
+window.addEventListener('load', async function() {
+    await loadNewsData();
+    updateStatistics();
+    renderCharts();
+    renderNews();
+});
+
+async function loadNewsData() {
+    try {
+        const response = await fetch('data/news_classified.json');
+        newsData = await response.json();
+        console.log('Loaded news data:', newsData.length, 'articles');
+    } catch (error) {
+        console.error('Error loading news data:', error);
+    }
+}
+
+function updateStatistics() {
+    const relevant = newsData.filter(n => n.is_relevant);
+    document.getElementById('totalArticles').textContent = newsData.length;
+    document.getElementById('relevantArticles').textContent = relevant.length;
+
+    // Count by category
+    const counts = {
+        TW_Statement: 0,
+        CN_Statement: 0,
+        US_Statement: 0,
+        US_TW_Interaction: 0,
+        Military_Exercise: 0,
+        Foreign_battleship: 0,
+        Regional_Security: 0
+    };
+
+    newsData.forEach(article => {
+        if (counts.hasOwnProperty(article.category)) {
+            counts[article.category]++;
+        }
+    });
+
+    document.getElementById('twCount').textContent = counts.TW_Statement;
+    document.getElementById('cnCount').textContent = counts.CN_Statement;
+    document.getElementById('usCount').textContent = counts.US_Statement;
+    document.getElementById('interactionCount').textContent = counts.US_TW_Interaction;
+    document.getElementById('exerciseCount').textContent = counts.Military_Exercise;
+    document.getElementById('shipCount').textContent = counts.Foreign_battleship;
+}
+
+function renderCharts() {
+    // Category distribution
+    const categoryCounts = {};
+    newsData.forEach(article => {
+        const cat = article.category || 'Unknown';
+        categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+    });
+
+    const categoryColors = {
+        'TW_Statement': '#28a745',
+        'CN_Statement': '#dc3545',
+        'US_Statement': '#007bff',
+        'US_TW_Interaction': '#17a2b8',
+        'Military_Exercise': '#fd7e14',
+        'Foreign_battleship': '#6f42c1',
+        'Regional_Security': '#20c997',
+        'Not_Relevant': '#6c757d'
+    };
+
+    new Chart(document.getElementById('categoryChart'), {
+        type: 'doughnut',
+        data: {
+            labels: Object.keys(categoryCounts),
+            datasets: [{
+                data: Object.values(categoryCounts),
+                backgroundColor: Object.keys(categoryCounts).map(c => categoryColors[c] || '#999')
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        boxWidth: 12,
+                        font: { size: 10 }
+                    }
+                }
+            }
+        }
+    });
+
+    // Sentiment distribution
+    const sentimentCounts = { positive: 0, negative: 0, neutral: 0 };
+    newsData.forEach(article => {
+        const sentiment = article.sentiment_label || 'neutral';
+        sentimentCounts[sentiment] = (sentimentCounts[sentiment] || 0) + 1;
+    });
+
+    new Chart(document.getElementById('sentimentChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Positive', 'Neutral', 'Negative'],
+            datasets: [{
+                label: 'Articles',
+                data: [sentimentCounts.positive, sentimentCounts.neutral, sentimentCounts.negative],
+                backgroundColor: ['#28a745', '#6c757d', '#dc3545']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+}
+
+function filterNews(category) {
+    currentFilter = category;
+
+    // Update active button
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+
+    renderNews();
+}
+
+function renderNews() {
+    const container = document.getElementById('newsContainer');
+    container.innerHTML = '';
+
+    let filtered = newsData;
+    if (currentFilter !== 'all') {
+        filtered = newsData.filter(n => n.category === currentFilter);
+    }
+
+    // Only show relevant articles, sorted by date
+    filtered = filtered
+        .filter(n => n.is_relevant)
+        .sort((a, b) => {
+            const dateA = a.original_article?.date || '';
+            const dateB = b.original_article?.date || '';
+            return dateB.localeCompare(dateA);
+        });
+
+    document.getElementById('displayCount').textContent = filtered.length;
+
+    filtered.forEach(article => {
+        const original = article.original_article || {};
+        const sentimentClass = `sentiment-${article.sentiment_label}`;
+        const sentimentScore = article.sentiment_score !== undefined ?
+            (article.sentiment_score >= 0 ? '+' : '') + article.sentiment_score.toFixed(2) : '-';
+
+        // Build extracted data display
+        let extractedHtml = '';
+        const extracted = article.extracted_data || {};
+        if (extracted.Political_statement) {
+            extractedHtml += `<div><strong>Political Statement:</strong> ${extracted.Political_statement}</div>`;
+        }
+        if (extracted.US_Taiwan_interaction) {
+            extractedHtml += `<div><strong>US-TW Interaction:</strong> ${extracted.US_Taiwan_interaction}</div>`;
+        }
+        if (extracted.Military_exercise) {
+            extractedHtml += `<div><strong>Military Exercise:</strong> ${extracted.Military_exercise}</div>`;
+        }
+        if (extracted.Foreign_battleship) {
+            extractedHtml += `<div><strong>Foreign Battleship:</strong> ${extracted.Foreign_battleship}</div>`;
+        }
+
+        const cardHtml = `
+            <div class="news-card ${article.category}">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <span class="category-badge category-${article.category}">${article.category.replace(/_/g, ' ')}</span>
+                    <span class="${sentimentClass}">
+                        Sentiment: ${sentimentScore}
+                    </span>
+                </div>
+                <div class="news-title">
+                    <a href="${original.url}" target="_blank">${original.title || 'No Title'}</a>
+                </div>
+                <div class="news-content">
+                    ${(original.content || '').substring(0, 300)}${(original.content || '').length > 300 ? '...' : ''}
+                </div>
+                ${extractedHtml ? `<div class="extracted-data">${extractedHtml}</div>` : ''}
+                <div class="news-meta">
+                    <span>Source: ${original.source || '-'}</span> |
+                    <span>Date: ${original.date || '-'}</span> |
+                    <span>Confidence: ${((article.confidence || 0) * 100).toFixed(0)}%</span>
+                    <div class="confidence-bar mt-1">
+                        <div class="confidence-fill" style="width: ${(article.confidence || 0) * 100}%;"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+        container.innerHTML += cardHtml;
+    });
+}
+</script>
+
+</body>
+</html>

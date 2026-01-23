@@ -18,7 +18,7 @@ import requests
 from datetime import datetime
 import PyPDF2
 import io
-from openai import OpenAI
+import httpx
 import json
 import os
 import pandas as pd
@@ -28,9 +28,10 @@ import pandas as pd
 # CSV 文件路徑
 CSV_FILE = 'data/JapanandBattleship.csv'
 
-# Stima API 設定（從環境變量讀取）
-STIMA_API_KEY = os.getenv('STIMA_API_KEY')
-STIMA_MODEL = 'grok-4.1-fast:free'
+# Apertis API 設定（從環境變量讀取）
+APERTIS_API_KEY = os.getenv('APERTIS_API_KEY') or os.getenv('STIMA_API_KEY')
+APERTIS_MODEL = 'grok-4.1-fast:free'
+APERTIS_BASE_URL = 'https://api.apertis.ai/v1'
 
 # 日本防衛省網站
 BASE_URL = 'https://www.mod.go.jp/js/press/index.html'
@@ -77,8 +78,8 @@ def extract_text_from_pdf(pdf_url):
         return None
 
 
-def analyze_with_stima(pdf_text, date):
-    """使用 Stima API 分析 PDF 文本"""
+def analyze_with_apertis(pdf_text, date):
+    """使用 Apertis API 分析 PDF 文本"""
 
     prompt = f"""你是一個專門分析中國海軍艦艇動向的專家。請仔細閱讀以下日本防衛省發布的中國海軍艦艇動向報告，並提取關鍵資訊。
 
@@ -130,20 +131,28 @@ def analyze_with_stima(pdf_text, date):
 """
 
     try:
-        client = OpenAI(
-            api_key=STIMA_API_KEY,
-            base_url="https://api.stima.tech/v1/"
-        )
+        # 使用 httpx 發送請求到 Apertis API
+        with httpx.Client(timeout=60.0) as client:
+            response = client.post(
+                f"{APERTIS_BASE_URL}/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {APERTIS_API_KEY}",
+                    "Content-Type": "application/json"
+                },
+                json={
+                    "model": APERTIS_MODEL,
+                    "messages": [
+                        {"role": "user", "content": prompt}
+                    ],
+                    "max_tokens": 1024,
+                    "temperature": 0.1
+                }
+            )
 
-        chat_completion = client.chat.completions.create(
-            model=STIMA_MODEL,
-            messages=[
-                {"role": "user", "content": prompt}
-            ],
-            temperature=0.1
-        )
+            response.raise_for_status()
+            result_json = response.json()
 
-        response_text = chat_completion.choices[0].message.content
+            response_text = result_json["choices"][0]["message"]["content"]
 
         # 提取 JSON
         response_text = response_text.strip()
@@ -160,8 +169,14 @@ def analyze_with_stima(pdf_text, date):
 
         return result
 
+    except httpx.HTTPStatusError as e:
+        print(f"    ❌ Apertis API HTTP 錯誤: {e.response.status_code} - {e.response.text}")
+        return None
+    except httpx.ConnectError as e:
+        print(f"    ❌ Apertis API 連接錯誤: {e}")
+        return None
     except Exception as e:
-        print(f"    ❌ Stima API 分析失敗: {e}")
+        print(f"    ❌ Apertis API 分析失敗: {e}")
         return None
 
 
@@ -264,8 +279,9 @@ def main():
     print("="*60)
     
     # 檢查 API Key
-    if not STIMA_API_KEY:
-        print("❌ 錯誤：未設置 STIMA_API_KEY 環境變量")
+    if not APERTIS_API_KEY:
+        print("❌ 錯誤：未設置 APERTIS_API_KEY 環境變量")
+        print("   請設置 APERTIS_API_KEY 或 STIMA_API_KEY")
         return
 
     # 讀取 CSV
@@ -374,9 +390,9 @@ def main():
 
                 print(f"✓ ({len(pdf_text)} 字)")
 
-                # 使用 Stima API 分析
+                # 使用 Apertis API 分析
                 print(f"      🤖 AI 分析中...", end=" ")
-                analysis = analyze_with_stima(pdf_text, date)
+                analysis = analyze_with_apertis(pdf_text, date)
 
                 if not analysis:
                     print("失敗\n")
