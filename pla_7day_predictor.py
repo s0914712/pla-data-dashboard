@@ -527,7 +527,9 @@ class PLAPredictor:
 
         combined = combined.sort_values('date').reset_index(drop=True)
 
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        output_dir = os.path.dirname(output_path)
+        if output_dir:
+            os.makedirs(output_dir, exist_ok=True)
         combined.to_csv(output_path, index=False, encoding='utf-8-sig')
         print(f"    Saved: {output_path} ({len(combined)} records)")
 
