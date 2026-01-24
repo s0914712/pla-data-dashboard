@@ -39,7 +39,7 @@ DATA_SOURCES = {
     'weather': 'https://raw.githubusercontent.com/s0914712/pla-data-dashboard/main/data/airport_weather_forecast.csv',
 }
 
-OUTPUT_PATH = 'data/prediction.csv'
+OUTPUT_PATH = 'prediction.csv'
 HIGH_THRESHOLD = 60
 PREDICTION_DAYS = 7
 
