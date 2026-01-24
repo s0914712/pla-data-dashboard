@@ -408,49 +408,143 @@ class PLAPredictor:
     
     def run(self, sorties_path=None, political_path=None, output_path='prediction.csv'):
         """執行完整預測流程"""
-        
+
         # 載入資料
         df_sorties, df_political = self.load_data(sorties_path, political_path)
-        
+
         # 準備特徵
         df = self.prepare_features(df_sorties, df_political)
-        
+
         # 訓練模型
         self.train(df)
-        
+
         # 預測
         predictions = self.predict_7_days()
-        
+
         # 輸出
         print(f"\n[5] 輸出預測結果...")
-        
+
         # 加入 metadata
         predictions['generated_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         predictions['model_version'] = '2.0-ensemble'
         predictions['data_latest_date'] = self.latest_date.strftime('%Y-%m-%d')
-        
-        # 儲存
-        predictions.to_csv(output_path, index=False, encoding='utf-8-sig')
-        print(f"  已儲存: {output_path}")
-        
+
+        # 初始化新欄位
+        predictions['actual_sorties'] = np.nan
+        predictions['prediction_error'] = np.nan
+
+        # ========== 歷史記錄管理 (Append + Merge) ==========
+        print(f"\n[6] 比較實際值並更新歷史記錄...")
+
+        # 載入實際值資料
+        actual_data = df_sorties[['date', 'pla_aircraft_sorties']].copy()
+        actual_data['date'] = actual_data['date'].dt.strftime('%Y-%m-%d')
+        actual_dict = dict(zip(actual_data['date'], actual_data['pla_aircraft_sorties']))
+
+        # 讀取現有歷史記錄
+        existing_history = pd.DataFrame()
+        if os.path.exists(output_path):
+            try:
+                existing_history = pd.read_csv(output_path, encoding='utf-8-sig')
+                print(f"  讀取現有記錄: {len(existing_history)} 筆")
+            except:
+                existing_history = pd.DataFrame()
+
+        # 更新現有記錄的實際值
+        if not existing_history.empty:
+            for idx, row in existing_history.iterrows():
+                pred_date = row['date']
+                if pred_date in actual_dict:
+                    actual_val = actual_dict[pred_date]
+                    existing_history.loc[idx, 'actual_sorties'] = actual_val
+                    if pd.notna(row['predicted_sorties']) and pd.notna(actual_val):
+                        existing_history.loc[idx, 'prediction_error'] = actual_val - row['predicted_sorties']
+
+        # 合併新預測與歷史記錄
+        if not existing_history.empty:
+            # 移除與新預測重複的日期
+            existing_dates = set(existing_history['date'])
+            new_dates = set(predictions['date'])
+            overlap_dates = existing_dates & new_dates
+
+            if overlap_dates:
+                print(f"  覆蓋日期: {', '.join(sorted(overlap_dates))}")
+                existing_history = existing_history[~existing_history['date'].isin(overlap_dates)]
+
+            # 合併
+            combined = pd.concat([existing_history, predictions], ignore_index=True)
+        else:
+            combined = predictions.copy()
+
+        # 再次更新所有記錄的實際值
+        for idx, row in combined.iterrows():
+            pred_date = row['date']
+            if pred_date in actual_dict:
+                actual_val = actual_dict[pred_date]
+                combined.loc[idx, 'actual_sorties'] = actual_val
+                if pd.notna(row['predicted_sorties']) and pd.notna(actual_val):
+                    combined.loc[idx, 'prediction_error'] = actual_val - row['predicted_sorties']
+
+        # 排序並儲存
+        combined = combined.sort_values('date').reset_index(drop=True)
+        combined.to_csv(output_path, index=False, encoding='utf-8-sig')
+        print(f"  已儲存: {output_path} ({len(combined)} 筆記錄)")
+
+        # ========== 計算預測準確度統計 ==========
+        print(f"\n[7] 預測準確度分析...")
+
+        has_actual = combined[combined['actual_sorties'].notna()]
+        if len(has_actual) > 0:
+            errors = has_actual['prediction_error'].dropna()
+            if len(errors) > 0:
+                mae = np.abs(errors).mean()
+                rmse = np.sqrt((errors ** 2).mean())
+                mape = (np.abs(errors) / (has_actual['actual_sorties'].dropna() + 1)).mean() * 100
+
+                # 方向準確率 (預測高低方向是否正確)
+                correct_direction = 0
+                total_comparisons = 0
+                for idx, row in has_actual.iterrows():
+                    if pd.notna(row['predicted_sorties']) and pd.notna(row['actual_sorties']):
+                        # 以 30 架次作為高低分界
+                        pred_high = row['predicted_sorties'] >= 30
+                        actual_high = row['actual_sorties'] >= 30
+                        if pred_high == actual_high:
+                            correct_direction += 1
+                        total_comparisons += 1
+
+                direction_accuracy = (correct_direction / total_comparisons * 100) if total_comparisons > 0 else 0
+
+                print(f"  歷史預測數: {len(has_actual)}")
+                print(f"  MAE (平均絕對誤差): {mae:.2f} 架次")
+                print(f"  RMSE (均方根誤差): {rmse:.2f} 架次")
+                print(f"  MAPE (平均百分比誤差): {mape:.1f}%")
+                print(f"  方向準確率: {direction_accuracy:.1f}%")
+        else:
+            print("  尚無可比較的歷史預測")
+
         # 顯示預測
-        print("\n" + "=" * 70)
+        print("\n" + "=" * 80)
         print("【7 天預測結果】")
-        print("=" * 70)
-        print(f"\n{'日期':<12} {'星期':<10} {'預測':>8} {'95% CI':>15} {'高架次機率':>10} {'風險'}")
-        print("-" * 70)
-        
+        print("=" * 80)
+        print(f"\n{'日期':<12} {'星期':<10} {'預測':>8} {'95% CI':>15} {'高架次機率':>10} {'風險':<8} {'實際':>6} {'誤差':>8}")
+        print("-" * 80)
+
         for _, row in predictions.iterrows():
             ci = f"[{row['lower_bound']:.0f}-{row['upper_bound']:.0f}]"
             risk_emoji = {'HIGH': '🔴', 'MEDIUM-HIGH': '🟠', 'MEDIUM': '🟡', 'LOW': '🟢'}
             emoji = risk_emoji.get(row['risk_level'], '')
+
+            actual_str = f"{row['actual_sorties']:.0f}" if pd.notna(row['actual_sorties']) else '-'
+            error_str = f"{row['prediction_error']:+.1f}" if pd.notna(row['prediction_error']) else '-'
+
             print(f"{row['date']:<12} {row['day_of_week']:<10} {row['predicted_sorties']:>8.1f} {ci:>15} "
-                  f"{row['high_event_probability']:>9.1f}% {emoji} {row['risk_level']}")
-        
-        print("-" * 70)
+                  f"{row['high_event_probability']:>9.1f}% {emoji} {row['risk_level']:<8} {actual_str:>6} {error_str:>8}")
+
+        print("-" * 80)
         print(f"平均預測: {predictions['predicted_sorties'].mean():.1f} 架次")
         print(f"最高風險日: {predictions.loc[predictions['high_event_probability'].idxmax(), 'date']}")
-        
+
         return predictions
 
 
