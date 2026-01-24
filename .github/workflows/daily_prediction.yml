@@ -36,7 +36,11 @@ jobs:
           echo "Files in data/:"
           ls -la data/ || echo "No data directory"
           echo ""
-          python pla_7day_predictor.py --output prediction.csv
+          # Use local files instead of fetching from GitHub URLs
+          python pla_7day_predictor.py \
+            --sorties data/JapanandBattleship.csv \
+            --political data/merged_comprehensive_data_M.csv \
+            --output prediction.csv
           echo ""
           echo "=== Prediction script completed ==="
 

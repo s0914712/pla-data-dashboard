@@ -440,6 +440,11 @@ class PLAPredictor:
     def run(self, sorties_path=None, political_path=None, output_path='prediction.csv'):
         """執行完整預測流程"""
 
+        # Ensure output directory exists (only if path has a directory component)
+        output_dir = os.path.dirname(output_path)
+        if output_dir:  # Only create if not empty string
+            os.makedirs(output_dir, exist_ok=True)
+
         # 載入資料
         df_sorties, df_political = self.load_data(sorties_path, political_path)
 
