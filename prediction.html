@@ -264,7 +264,7 @@
         </ul>
         <div class="tab-content" id="chartTabContent">
             <div class="tab-pane fade show active" id="forecastPane" role="tabpanel">
-                <h5 class="mt-3">7-Day Forecast Trend</h5>
+                <h5 class="mt-3">Historical Sorties (60 Days) + 7-Day Forecast (近60天實際值 + 7天預測)</h5>
                 <canvas id="forecastChart"></canvas>
             </div>
             <div class="tab-pane fade" id="accuracyPane" role="tabpanel">
@@ -345,12 +345,16 @@
 <script>
 let predictionData = [];
 let allHistoricalData = [];
+let actualSortiesData = [];
 let forecastChart = null;
 let accuracyChart = null;
 let errorChart = null;
 
 window.addEventListener('load', async function() {
-    await loadPredictionData();
+    await Promise.all([
+        loadPredictionData(),
+        loadActualSortiesData()
+    ]);
     calculateAccuracyStats();
     renderPredictionCards();
     renderForecastChart();
@@ -358,6 +362,33 @@ window.addEventListener('load', async function() {
     renderErrorChart();
     renderTable();
 });
+
+async function loadActualSortiesData() {
+    try {
+        const response = await fetch('data/JapanandBattleship.csv');
+        const text = await response.text();
+        const cleanText = text.replace(/^\uFEFF/, '');
+
+        const parsed = Papa.parse(cleanText, {
+            header: true,
+            skipEmptyLines: true
+        });
+
+        // Filter and sort by date, get last 60 days
+        actualSortiesData = parsed.data
+            .filter(row => row.date && row.pla_aircraft_sorties && !isNaN(parseFloat(row.pla_aircraft_sorties)))
+            .map(row => ({
+                date: row.date.replace(/\//g, '-'),
+                sorties: parseFloat(row.pla_aircraft_sorties)
+            }))
+            .sort((a, b) => new Date(a.date) - new Date(b.date))
+            .slice(-60);
+
+        console.log('Loaded actual sorties:', actualSortiesData.length, 'records');
+    } catch (error) {
+        console.error('Error loading actual sorties data:', error);
+    }
+}
 
 async function loadPredictionData() {
     try {
@@ -506,47 +537,75 @@ function renderPredictionCards() {
 function renderForecastChart() {
     const ctx = document.getElementById('forecastChart').getContext('2d');
 
-    const labels = predictionData.map(r => {
-        const date = new Date(r.date);
-        return date.toLocaleDateString('zh-TW', { month: 'short', day: 'numeric' });
+    // Combine historical actual data (60 days) + future predictions (7 days)
+    const combinedLabels = [];
+    const actualData = [];
+    const predictedData = [];
+    const upperData = [];
+    const lowerData = [];
+
+    // Add historical actual data (last 60 days)
+    actualSortiesData.forEach(row => {
+        const date = new Date(row.date);
+        combinedLabels.push(date.toLocaleDateString('zh-TW', { month: 'numeric', day: 'numeric' }));
+        actualData.push(row.sorties);
+        predictedData.push(null);  // No prediction for historical dates
+        upperData.push(null);
+        lowerData.push(null);
     });
 
-    const predicted = predictionData.map(r => parseFloat(r.predicted_sorties));
-    const lower = predictionData.map(r => parseFloat(r.lower_bound));
-    const upper = predictionData.map(r => parseFloat(r.upper_bound));
-    const actual = predictionData.map(r => {
-        return r.actual_sorties && r.actual_sorties !== '' ? parseFloat(r.actual_sorties) : null;
+    // Add 7-day predictions
+    predictionData.forEach(row => {
+        const date = new Date(row.date);
+        const dateLabel = date.toLocaleDateString('zh-TW', { month: 'numeric', day: 'numeric' });
+
+        // Check if this date already exists in labels (might have actual data)
+        const existingIdx = combinedLabels.indexOf(dateLabel);
+        if (existingIdx === -1) {
+            combinedLabels.push(dateLabel);
+            actualData.push(row.actual_sorties && row.actual_sorties !== '' ? parseFloat(row.actual_sorties) : null);
+            predictedData.push(parseFloat(row.predicted_sorties));
+            upperData.push(parseFloat(row.upper_bound));
+            lowerData.push(parseFloat(row.lower_bound));
+        } else {
+            // Update existing entry with prediction data
+            predictedData[existingIdx] = parseFloat(row.predicted_sorties);
+            upperData[existingIdx] = parseFloat(row.upper_bound);
+            lowerData[existingIdx] = parseFloat(row.lower_bound);
+        }
     });
 
     forecastChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: labels,
+            labels: combinedLabels,
             datasets: [
                 {
-                    label: 'Predicted Sorties',
-                    data: predicted,
+                    label: 'Actual Sorties (實際架次)',
+                    data: actualData,
+                    borderColor: '#667eea',
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    borderWidth: 2,
+                    fill: false,
+                    tension: 0.3,
+                    pointRadius: 2,
+                    pointBackgroundColor: '#667eea'
+                },
+                {
+                    label: 'Predicted (預測)',
+                    data: predictedData,
                     borderColor: '#f5576c',
                     backgroundColor: 'rgba(245, 87, 108, 0.1)',
                     borderWidth: 3,
                     fill: false,
-                    tension: 0.4
-                },
-                {
-                    label: 'Actual Sorties',
-                    data: actual,
-                    borderColor: '#28a745',
-                    backgroundColor: 'rgba(40, 167, 69, 0.1)',
-                    borderWidth: 3,
-                    fill: false,
                     tension: 0.4,
-                    pointRadius: 6,
-                    pointBackgroundColor: '#28a745'
+                    pointRadius: 5,
+                    pointBackgroundColor: '#f5576c'
                 },
                 {
                     label: 'Upper Bound (95% CI)',
-                    data: upper,
-                    borderColor: 'rgba(245, 87, 108, 0.3)',
+                    data: upperData,
+                    borderColor: 'rgba(245, 87, 108, 0.4)',
                     borderWidth: 1,
                     borderDash: [5, 5],
                     fill: false,
@@ -554,8 +613,8 @@ function renderForecastChart() {
                 },
                 {
                     label: 'Lower Bound (95% CI)',
-                    data: lower,
-                    borderColor: 'rgba(245, 87, 108, 0.3)',
+                    data: lowerData,
+                    borderColor: 'rgba(245, 87, 108, 0.4)',
                     borderWidth: 1,
                     borderDash: [5, 5],
                     fill: '-1',
@@ -568,12 +627,35 @@ function renderForecastChart() {
             responsive: true,
             plugins: {
                 legend: { position: 'top' },
-                tooltip: { mode: 'index', intersect: false }
+                tooltip: { mode: 'index', intersect: false },
+                annotation: {
+                    annotations: {
+                        line1: {
+                            type: 'line',
+                            xMin: actualSortiesData.length - 0.5,
+                            xMax: actualSortiesData.length - 0.5,
+                            borderColor: 'rgba(0, 0, 0, 0.3)',
+                            borderWidth: 2,
+                            borderDash: [6, 6],
+                            label: {
+                                content: 'Forecast Start',
+                                enabled: true
+                            }
+                        }
+                    }
+                }
             },
             scales: {
+                x: {
+                    ticks: {
+                        maxTicksLimit: 15,
+                        maxRotation: 45,
+                        minRotation: 0
+                    }
+                },
                 y: {
                     beginAtZero: true,
-                    title: { display: true, text: 'Aircraft Sorties' }
+                    title: { display: true, text: 'Aircraft Sorties (架次)' }
                 }
             }
         }
