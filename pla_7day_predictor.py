@@ -3,22 +3,26 @@
 """
 PLA 7-Day Sorties Prediction System
 ====================================
-整合模型：政治事件高架次預警 + 正常日回歸預測
+GitHub 部署版本 - 自動更新 prediction.csv
 
 功能：
 1. 載入最新資料
-2. 訓練整合模型
+2. 訓練模型（時間衰減 + 假日特徵）
 3. 生成未來7天預測
-4. 輸出 prediction.csv
+4. 更新 data/prediction.csv
+
+Usage:
+    python pla_predictor.py
 
 Author: PLA Data Dashboard
+Version: 1.0.0
 """
 
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
-from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import RobustScaler
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingRegressor
 from imblearn.over_sampling import SMOTE
 import warnings
 import os
@@ -29,355 +33,375 @@ warnings.filterwarnings('ignore')
 # 配置
 # ============================================================
 
-# 資料來源 (可設為本地路徑或 GitHub raw URL)
 DATA_SOURCES = {
     'sorties': 'https://raw.githubusercontent.com/s0914712/pla-data-dashboard/main/data/JapanandBattleship.csv',
-    'political': 'https://raw.githubusercontent.com/s0914712/pla-data-dashboard/main/data/merged_comprehensive_data_M.csv'
+    'political': 'https://raw.githubusercontent.com/s0914712/pla-data-dashboard/main/data/merged_comprehensive_data_M.csv',
+    'weather': 'https://raw.githubusercontent.com/s0914712/pla-data-dashboard/main/data/airport_weather_forecast.csv',
 }
 
-# 模型參數
-HIGH_THRESHOLD = 60  # 高架次門檻
-PREDICTION_DAYS = 7  # 預測天數
+OUTPUT_PATH = 'data/prediction.csv'
+HIGH_THRESHOLD = 60
+PREDICTION_DAYS = 7
+
+# ============================================================
+# 中國假日資料 (2020-2026)
+# ============================================================
+
+CN_HOLIDAY_DATES = set()
+
+# 2020-2026 假日
+for d in ['2020-01-01'] + [f'2020-01-{d:02d}' for d in range(24, 32)] + [f'2020-02-{d:02d}' for d in range(1, 3)]:
+    CN_HOLIDAY_DATES.add(d)
+for d in [f'2020-04-{d:02d}' for d in range(4, 7)] + [f'2020-05-{d:02d}' for d in range(1, 6)]:
+    CN_HOLIDAY_DATES.add(d)
+for d in [f'2020-06-{d:02d}' for d in range(25, 28)] + [f'2020-10-{d:02d}' for d in range(1, 9)]:
+    CN_HOLIDAY_DATES.add(d)
+
+for d in [f'2021-01-{d:02d}' for d in range(1, 4)] + [f'2021-02-{d:02d}' for d in range(11, 18)]:
+    CN_HOLIDAY_DATES.add(d)
+for d in [f'2021-04-{d:02d}' for d in range(3, 6)] + [f'2021-05-{d:02d}' for d in range(1, 6)]:
+    CN_HOLIDAY_DATES.add(d)
+for d in [f'2021-06-{d:02d}' for d in range(12, 15)] + [f'2021-09-{d:02d}' for d in range(19, 22)]:
+    CN_HOLIDAY_DATES.add(d)
+for d in [f'2021-10-{d:02d}' for d in range(1, 8)]:
+    CN_HOLIDAY_DATES.add(d)
+
+for d in [f'2022-01-{d:02d}' for d in range(1, 4)] + ['2022-01-31'] + [f'2022-02-{d:02d}' for d in range(1, 7)]:
+    CN_HOLIDAY_DATES.add(d)
+for d in [f'2022-04-{d:02d}' for d in range(3, 6)] + ['2022-04-30'] + [f'2022-05-{d:02d}' for d in range(1, 5)]:
+    CN_HOLIDAY_DATES.add(d)
+for d in [f'2022-06-{d:02d}' for d in range(3, 6)] + [f'2022-09-{d:02d}' for d in range(10, 13)]:
+    CN_HOLIDAY_DATES.add(d)
+for d in [f'2022-10-{d:02d}' for d in range(1, 8)]:
+    CN_HOLIDAY_DATES.add(d)
+
+for d in ['2022-12-31'] + [f'2023-01-{d:02d}' for d in range(1, 3)] + [f'2023-01-{d:02d}' for d in range(21, 28)]:
+    CN_HOLIDAY_DATES.add(d)
+for d in ['2023-04-05'] + [f'2023-04-{d:02d}' for d in [29, 30]] + [f'2023-05-{d:02d}' for d in range(1, 4)]:
+    CN_HOLIDAY_DATES.add(d)
+for d in [f'2023-06-{d:02d}' for d in range(22, 25)] + [f'2023-09-{d:02d}' for d in [29, 30]]:
+    CN_HOLIDAY_DATES.add(d)
+for d in [f'2023-10-{d:02d}' for d in range(1, 7)]:
+    CN_HOLIDAY_DATES.add(d)
+
+for d in ['2023-12-30', '2023-12-31', '2024-01-01'] + [f'2024-02-{d:02d}' for d in range(10, 18)]:
+    CN_HOLIDAY_DATES.add(d)
+for d in [f'2024-04-{d:02d}' for d in range(4, 7)] + [f'2024-05-{d:02d}' for d in range(1, 6)]:
+    CN_HOLIDAY_DATES.add(d)
+for d in [f'2024-06-{d:02d}' for d in range(8, 11)] + [f'2024-09-{d:02d}' for d in range(15, 18)]:
+    CN_HOLIDAY_DATES.add(d)
+for d in [f'2024-10-{d:02d}' for d in range(1, 8)]:
+    CN_HOLIDAY_DATES.add(d)
+
+for d in ['2025-01-01'] + [f'2025-01-{d:02d}' for d in range(28, 32)] + [f'2025-02-{d:02d}' for d in range(1, 5)]:
+    CN_HOLIDAY_DATES.add(d)
+for d in [f'2025-04-{d:02d}' for d in range(4, 7)] + [f'2025-05-{d:02d}' for d in range(1, 6)] + ['2025-05-31']:
+    CN_HOLIDAY_DATES.add(d)
+for d in [f'2025-06-{d:02d}' for d in range(1, 3)] + [f'2025-10-{d:02d}' for d in range(1, 9)]:
+    CN_HOLIDAY_DATES.add(d)
+
+for d in [f'2026-01-{d:02d}' for d in range(1, 4)] + [f'2026-02-{d:02d}' for d in range(15, 24)]:
+    CN_HOLIDAY_DATES.add(d)
+for d in [f'2026-04-{d:02d}' for d in range(4, 7)] + [f'2026-05-{d:02d}' for d in range(1, 6)]:
+    CN_HOLIDAY_DATES.add(d)
+for d in [f'2026-06-{d:02d}' for d in range(19, 22)] + [f'2026-09-{d:02d}' for d in range(25, 28)]:
+    CN_HOLIDAY_DATES.add(d)
+for d in [f'2026-10-{d:02d}' for d in range(1, 8)]:
+    CN_HOLIDAY_DATES.add(d)
+
+
+def get_holiday_features(date):
+    """取得假日特徵"""
+    date_str = date.strftime('%Y-%m-%d')
+    next_day = (date + timedelta(days=1)).strftime('%Y-%m-%d')
+    is_holiday = date_str in CN_HOLIDAY_DATES
+    is_pre_holiday = next_day in CN_HOLIDAY_DATES and not is_holiday
+    return int(is_holiday), int(is_pre_holiday)
 
 
 class PLAPredictor:
-    """
-    PLA 架次預測系統
-    
-    整合：
-    1. 分類模型：預測高架次機率 (>=60)
-    2. 正常日回歸：預測正常狀態基線
-    3. 高架次回歸：預測高強度狀態
-    """
-    
-    def __init__(self, high_threshold=60):
-        self.high_threshold = high_threshold
+    """PLA 架次預測系統"""
+
+    def __init__(self):
         self.clf_model = None
         self.reg_normal = None
         self.reg_high = None
-        self.scaler = StandardScaler()
-        self.feature_cols = []
+        self.scaler_continuous = RobustScaler()
+        self.scaler_counts = RobustScaler()
         self.political_events = None
+        self.weather_data = None
         self.latest_data = None
         self.latest_date = None
-        
-    def load_data(self, sorties_path=None, political_path=None):
-        """載入資料"""
-        print("=" * 60)
-        print("PLA 7-Day Prediction System")
-        print("=" * 60)
-        print(f"\n[1] 載入資料...")
-        
-        sorties_path = sorties_path or DATA_SOURCES['sorties']
-        political_path = political_path or DATA_SOURCES['political']
-        
-        # 載入架次資料
-        try:
-            df_sorties = pd.read_csv(sorties_path, encoding='utf-8-sig')
-        except:
-            df_sorties = pd.read_csv(sorties_path, encoding='utf-8')
-        
-        df_sorties['date'] = pd.to_datetime(df_sorties['date'])
-        df_sorties = df_sorties[df_sorties['pla_aircraft_sorties'].notna()].copy()
-        df_sorties = df_sorties.sort_values('date').reset_index(drop=True)
-        
-        # 載入政治事件資料
-        try:
-            df_political = pd.read_csv(political_path, encoding='utf-8-sig')
-        except:
-            df_political = pd.read_csv(political_path, encoding='utf-8')
-        
-        df_political['date'] = pd.to_datetime(df_political['date'], errors='coerce')
-        df_political = df_political[df_political['date'].notna()].copy()
-        
-        self.political_events = df_political
-        self.latest_date = df_sorties['date'].max()
-        
-        print(f"  架次資料: {len(df_sorties)} 筆")
-        print(f"  政治事件: {len(df_political)} 筆")
-        print(f"  最新日期: {self.latest_date.strftime('%Y-%m-%d')}")
-        
-        return df_sorties, df_political
-    
-    def _create_political_features(self, df, df_events, window_days):
-        """建立政治事件特徵"""
-        features = []
-        
-        for _, row in df.iterrows():
-            current_date = row['date']
-            
-            mask = (df_events['date'] >= current_date - timedelta(days=window_days)) & \
-                   (df_events['date'] < current_date)
-            past_events = df_events[mask]
-            
-            # 美台互動
-            us_tw = 0
-            if 'US_Taiwan_interaction' in past_events.columns:
-                us_tw = (past_events['US_Taiwan_interaction'].notna() & 
-                         (past_events['US_Taiwan_interaction'].astype(str).str.len() > 2)).sum()
-            
-            # 中共政治聲明
-            cn_stmt = 0
-            if 'Political_statement' in past_events.columns:
-                cn_stmt = past_events['Political_statement'].astype(str).str.contains(
-                    '中共|中國|中方|國台辦', na=False).sum()
-            
-            # 外艦通過
-            foreign_ship = 0
-            if 'Foreign_battleship' in past_events.columns:
-                foreign_ship = (past_events['Foreign_battleship'].notna() & 
-                                (past_events['Foreign_battleship'].astype(str).str.len() > 2)).sum()
-            
-            feat = {
-                f'us_tw_{window_days}d': us_tw,
-                f'cn_stmt_{window_days}d': cn_stmt,
-                f'foreign_ship_{window_days}d': foreign_ship,
-            }
-            features.append(feat)
-        
-        return pd.DataFrame(features)
-    
-    def prepare_features(self, df_sorties, df_political):
-        """準備訓練特徵"""
-        print(f"\n[2] 特徵工程...")
-        
-        df = df_sorties.copy()
-        target = 'pla_aircraft_sorties'
-        
-        # 時間特徵
-        df['month'] = df['date'].dt.month
-        df['day_of_week'] = df['date'].dt.dayofweek
-        df['high_risk_month'] = df['date'].dt.month.isin([4, 8, 9, 10]).astype(int)
-        df['is_weekend'] = (df['day_of_week'] >= 5).astype(int)
-        
-        # Lag 特徵
-        for lag in [1, 2, 3, 7, 14, 30]:
-            df[f'lag_{lag}'] = df[target].shift(lag)
-        
-        # 移動統計
-        for window in [3, 7, 14, 30]:
-            df[f'ma_{window}'] = df[target].shift(1).rolling(window, min_periods=1).mean()
-            df[f'min_{window}'] = df[target].shift(1).rolling(window, min_periods=1).min()
-            df[f'max_{window}'] = df[target].shift(1).rolling(window, min_periods=1).max()
-            df[f'std_{window}'] = df[target].shift(1).rolling(window, min_periods=1).std()
-        
-        df['has_zero_7d'] = (df['min_7'] == 0).astype(int)
-        df['compression'] = df['ma_3'] / (df['ma_14'] + 1)
-        
-        # 海軍活動
-        if '艦通過' in df.columns:
-            df['naval_pass'] = df['艦通過'].fillna(0)
-        else:
-            df['naval_pass'] = 0
-            
-        if '航母活動' in df.columns:
-            df['carrier'] = df['航母活動'].fillna(0)
-        else:
-            df['carrier'] = 0
-        
-        # 政治事件特徵
-        for window in [3, 7]:
-            pol_feat = self._create_political_features(df, df_political, window)
-            for col in pol_feat.columns:
-                df[col] = pol_feat[col].values
-        
-        # 目標變數
-        df['is_high'] = (df[target] >= self.high_threshold).astype(int)
-        
-        # 移除 NaN
-        df = df.dropna(subset=['lag_30', 'ma_30']).copy()
-        
-        # 定義特徵
-        self.feature_cols = [
-            'month', 'day_of_week', 'high_risk_month', 'is_weekend',
+
+        self.cyclic_cols = ['month_sin', 'month_cos', 'dow_sin', 'dow_cos']
+        self.binary_cols = ['high_risk_month', 'is_weekend', 'has_zero_7d']
+        self.continuous_cols = [
             'lag_1', 'lag_2', 'lag_3', 'lag_7', 'lag_14', 'lag_30',
             'ma_3', 'ma_7', 'ma_14', 'ma_30',
             'min_3', 'min_7', 'min_14', 'min_30',
             'max_3', 'max_7', 'max_14', 'max_30',
             'std_3', 'std_7', 'std_14', 'std_30',
-            'has_zero_7d', 'compression',
+            'compression', 'trend_3d', 'trend_7d', 'volatility_ratio'
+        ]
+        self.count_cols = [
             'naval_pass', 'carrier',
             'us_tw_3d', 'cn_stmt_3d', 'foreign_ship_3d',
             'us_tw_7d', 'cn_stmt_7d', 'foreign_ship_7d'
         ]
-        
+        self.holiday_cols = ['is_holiday', 'holiday_1']
+
+    def load_data(self):
+        """載入資料"""
+        print("[1] Loading data...")
+
+        try:
+            df_sorties = pd.read_csv(DATA_SOURCES['sorties'], encoding='utf-8-sig')
+        except:
+            df_sorties = pd.read_csv(DATA_SOURCES['sorties'], encoding='utf-8')
+
+        df_sorties['date'] = pd.to_datetime(df_sorties['date'])
+        df_sorties = df_sorties[df_sorties['pla_aircraft_sorties'].notna()].copy()
+        df_sorties = df_sorties.sort_values('date').reset_index(drop=True)
+
+        try:
+            df_political = pd.read_csv(DATA_SOURCES['political'], encoding='utf-8-sig')
+        except:
+            df_political = pd.read_csv(DATA_SOURCES['political'], encoding='utf-8')
+
+        df_political['date'] = pd.to_datetime(df_political['date'], errors='coerce')
+        df_political = df_political[df_political['date'].notna()].copy()
+
+        self.political_events = df_political
+        self.latest_date = df_sorties['date'].max()
+
+        try:
+            self.weather_data = pd.read_csv(DATA_SOURCES['weather'], encoding='utf-8-sig')
+            self.weather_data['date'] = pd.to_datetime(self.weather_data['date'])
+        except:
+            self.weather_data = None
+
+        print(f"    Sorties: {len(df_sorties)} | Political: {len(df_political)} | Latest: {self.latest_date.strftime('%Y-%m-%d')}")
+        return df_sorties, df_political
+
+    def _create_political_features(self, df, df_events, window_days):
+        features = []
+        for _, row in df.iterrows():
+            current_date = row['date']
+            mask = (df_events['date'] >= current_date - timedelta(days=window_days)) & (df_events['date'] < current_date)
+            past = df_events[mask]
+
+            us_tw = (past['US_Taiwan_interaction'].notna() & (past['US_Taiwan_interaction'].astype(str).str.len() > 2)).sum() if 'US_Taiwan_interaction' in past.columns else 0
+            cn_stmt = past['Political_statement'].astype(str).str.contains('中共|中國|中方|國台辦', na=False).sum() if 'Political_statement' in past.columns else 0
+            foreign_ship = (past['Foreign_battleship'].notna() & (past['Foreign_battleship'].astype(str).str.len() > 2)).sum() if 'Foreign_battleship' in past.columns else 0
+
+            features.append({f'us_tw_{window_days}d': us_tw, f'cn_stmt_{window_days}d': cn_stmt, f'foreign_ship_{window_days}d': foreign_ship})
+        return pd.DataFrame(features)
+
+    def prepare_features(self, df_sorties, df_political):
+        """準備特徵"""
+        print("[2] Feature engineering...")
+
+        df = df_sorties.copy()
+        target = 'pla_aircraft_sorties'
+
+        df['month_sin'] = np.sin(2 * np.pi * df['date'].dt.month / 12)
+        df['month_cos'] = np.cos(2 * np.pi * df['date'].dt.month / 12)
+        df['dow_sin'] = np.sin(2 * np.pi * df['date'].dt.dayofweek / 7)
+        df['dow_cos'] = np.cos(2 * np.pi * df['date'].dt.dayofweek / 7)
+
+        df['high_risk_month'] = df['date'].dt.month.isin([4, 8, 9, 10]).astype(int)
+        df['is_weekend'] = (df['date'].dt.dayofweek >= 5).astype(int)
+
+        for lag in [1, 2, 3, 7, 14, 30]:
+            df[f'lag_{lag}'] = df[target].shift(lag)
+
+        for window in [3, 7, 14, 30]:
+            df[f'ma_{window}'] = df[target].shift(1).rolling(window, min_periods=1).mean()
+            df[f'min_{window}'] = df[target].shift(1).rolling(window, min_periods=1).min()
+            df[f'max_{window}'] = df[target].shift(1).rolling(window, min_periods=1).max()
+            df[f'std_{window}'] = df[target].shift(1).rolling(window, min_periods=1).std().fillna(0)
+
+        df['has_zero_7d'] = (df['min_7'] == 0).astype(int)
+        df['compression'] = (df['ma_3'] / (df['ma_14'] + 1)).clip(0, 3)
+        df['trend_3d'] = df['ma_3'] - df['ma_7']
+        df['trend_7d'] = df['ma_7'] - df['ma_14']
+        df['volatility_ratio'] = df['std_7'] / (df['ma_7'] + 1)
+
+        df['naval_pass'] = df['艦通過'].fillna(0) if '艦通過' in df.columns else 0
+        df['carrier'] = df['航母活動'].fillna(0) if '航母活動' in df.columns else 0
+
+        for window in [3, 7]:
+            pol_feat = self._create_political_features(df, df_political, window)
+            for col in pol_feat.columns:
+                df[col] = pol_feat[col].values
+
+        holiday_data = df['date'].apply(lambda d: get_holiday_features(d))
+        df['is_holiday'] = [h[0] for h in holiday_data]
+        df['holiday_1'] = [h[1] for h in holiday_data]
+
+        # 時間衰減權重
+        max_date = df['date'].max()
+        days_ago = (max_date - df['date']).dt.days
+        df['time_weight'] = np.exp(-0.002 * days_ago)
+        df['time_weight'] = df['time_weight'] / df['time_weight'].sum() * len(df)
+
+        df['is_high'] = (df[target] >= HIGH_THRESHOLD).astype(int)
+        df = df.dropna(subset=['lag_30', 'ma_30']).copy()
+
         self.latest_data = df
-        
-        print(f"  特徵數: {len(self.feature_cols)}")
-        print(f"  訓練樣本: {len(df)}")
-        print(f"  高架次樣本: {df['is_high'].sum()} ({df['is_high'].mean()*100:.2f}%)")
-        
+        print(f"    Features: 43 | Samples: {len(df)}")
         return df
-    
+
+    def _scale_features(self, df, fit=True):
+        X_cyclic = df[self.cyclic_cols].values
+        X_binary = df[self.binary_cols].values
+        X_continuous = df[self.continuous_cols].values
+        X_counts = df[self.count_cols].values
+
+        if fit:
+            X_continuous_scaled = self.scaler_continuous.fit_transform(X_continuous)
+            X_counts_scaled = self.scaler_counts.fit_transform(X_counts)
+        else:
+            X_continuous_scaled = self.scaler_continuous.transform(X_continuous)
+            X_counts_scaled = self.scaler_counts.transform(X_counts)
+
+        return np.hstack([X_cyclic, X_binary, X_continuous_scaled, X_counts_scaled])
+
     def train(self, df):
         """訓練模型"""
-        print(f"\n[3] 訓練模型...")
-        
+        print("[3] Training model...")
+
         target = 'pla_aircraft_sorties'
-        X = df[self.feature_cols].values
+        X_base = self._scale_features(df, fit=True)
+        X_high = np.hstack([X_base, df[self.holiday_cols].values])
+
         y_reg = df[target].values
         y_clf = df['is_high'].values
-        
-        # 標準化
-        X_scaled = self.scaler.fit_transform(X)
-        
-        # ========== 1. 分類模型 ==========
-        print("  訓練分類模型 (高架次預警)...")
+        weights = df['time_weight'].values
+
+        # 分類模型
         k = min(5, int(y_clf.sum()) - 1)
         if k >= 1:
             smote = SMOTE(random_state=42, k_neighbors=k)
-            X_res, y_res = smote.fit_resample(X_scaled, y_clf)
+            X_res, y_res = smote.fit_resample(X_base, y_clf)
+            w_res = np.ones(len(X_res))
         else:
-            X_res, y_res = X_scaled, y_clf
-        
-        self.clf_model = RandomForestClassifier(
-            n_estimators=200, max_depth=6, 
-            class_weight='balanced', random_state=42
-        )
-        self.clf_model.fit(X_res, y_res)
-        
-        # ========== 2. 正常日回歸模型 ==========
-        print("  訓練正常日回歸模型...")
-        normal_mask = y_reg < self.high_threshold
-        X_normal = X[normal_mask]
-        y_normal = y_reg[normal_mask]
-        
-        from sklearn.ensemble import GradientBoostingRegressor
-        self.reg_normal = GradientBoostingRegressor(
-            n_estimators=200, max_depth=4, learning_rate=0.05,
-            random_state=42
-        )
-        self.reg_normal.fit(X_normal, y_normal)
-        
-        # ========== 3. 高架次回歸模型 ==========
-        print("  訓練高架次回歸模型...")
-        high_mask = y_reg >= 30  # 用較低門檻增加樣本
-        X_high = X[high_mask]
-        y_high = y_reg[high_mask]
-        
-        self.reg_high = GradientBoostingRegressor(
-            n_estimators=150, max_depth=4, learning_rate=0.05,
-            random_state=42
-        )
-        self.reg_high.fit(X_high, y_high)
-        
-        print("  模型訓練完成！")
-        
+            X_res, y_res, w_res = X_base, y_clf, weights
+
+        self.clf_model = RandomForestClassifier(n_estimators=200, max_depth=6, class_weight='balanced', random_state=42)
+        self.clf_model.fit(X_res, y_res, sample_weight=w_res)
+
+        # 正常日回歸
+        normal_mask = y_reg < HIGH_THRESHOLD
+        self.reg_normal = GradientBoostingRegressor(n_estimators=200, max_depth=4, learning_rate=0.05, loss='huber', random_state=42)
+        self.reg_normal.fit(X_base[normal_mask], np.log1p(y_reg[normal_mask]), sample_weight=weights[normal_mask])
+
+        # 高架次回歸（含假日）
+        high_mask = y_reg >= 30
+        self.reg_high = GradientBoostingRegressor(n_estimators=150, max_depth=4, learning_rate=0.05, loss='huber', random_state=42)
+        self.reg_high.fit(X_high[high_mask], np.log1p(y_reg[high_mask]), sample_weight=weights[high_mask])
+
+        print("    Model trained!")
         return self
-    
+
+    def _get_weather_adjustment(self, target_date):
+        if self.weather_data is None:
+            return 1.0, "N/A"
+
+        weather = self.weather_data[
+            (self.weather_data['date'] == target_date) &
+            (self.weather_data['city'].str.contains('福州|廈門|Fuzhou|Xiamen', na=False, case=False))
+        ]
+        if weather.empty:
+            weather = self.weather_data[self.weather_data['date'] == target_date]
+        if weather.empty:
+            return 1.0, "N/A"
+
+        row = weather.iloc[0]
+        risk = str(row.get('risk_level', 'LOW')).upper()
+
+        if risk == 'HIGH':
+            return 0.75, "High weather risk"
+        elif risk == 'MEDIUM':
+            return 0.9, "Medium weather risk"
+        return 1.0, "Good weather"
+
     def _get_future_political_features(self, target_date, window_days):
-        """取得未來日期的政治事件特徵"""
         if self.political_events is None:
             return {f'us_tw_{window_days}d': 0, f'cn_stmt_{window_days}d': 0, f'foreign_ship_{window_days}d': 0}
-        
-        mask = (self.political_events['date'] >= target_date - timedelta(days=window_days)) & \
-               (self.political_events['date'] < target_date)
+
+        mask = (self.political_events['date'] >= target_date - timedelta(days=window_days)) & (self.political_events['date'] < target_date)
         past = self.political_events[mask]
-        
-        us_tw = 0
-        if 'US_Taiwan_interaction' in past.columns:
-            us_tw = (past['US_Taiwan_interaction'].notna() & 
-                     (past['US_Taiwan_interaction'].astype(str).str.len() > 2)).sum()
-        
-        cn_stmt = 0
-        if 'Political_statement' in past.columns:
-            cn_stmt = past['Political_statement'].astype(str).str.contains(
-                '中共|中國|中方|國台辦', na=False).sum()
-        
-        foreign_ship = 0
-        if 'Foreign_battleship' in past.columns:
-            foreign_ship = (past['Foreign_battleship'].notna() & 
-                            (past['Foreign_battleship'].astype(str).str.len() > 2)).sum()
-        
-        return {
-            f'us_tw_{window_days}d': us_tw,
-            f'cn_stmt_{window_days}d': cn_stmt,
-            f'foreign_ship_{window_days}d': foreign_ship
-        }
-    
+
+        us_tw = (past['US_Taiwan_interaction'].notna() & (past['US_Taiwan_interaction'].astype(str).str.len() > 2)).sum() if 'US_Taiwan_interaction' in past.columns else 0
+        cn_stmt = past['Political_statement'].astype(str).str.contains('中共|中國|中方|國台辦', na=False).sum() if 'Political_statement' in past.columns else 0
+        foreign_ship = (past['Foreign_battleship'].notna() & (past['Foreign_battleship'].astype(str).str.len() > 2)).sum() if 'Foreign_battleship' in past.columns else 0
+
+        return {f'us_tw_{window_days}d': us_tw, f'cn_stmt_{window_days}d': cn_stmt, f'foreign_ship_{window_days}d': foreign_ship}
+
     def predict_7_days(self):
         """預測未來7天"""
-        print(f"\n[4] 生成 7 天預測...")
-        
+        print("[4] Generating 7-day predictions...")
+
         df = self.latest_data
         target = 'pla_aircraft_sorties'
-        
-        # 準備滾動窗口
-        recent = df.tail(60)
-        current_window = recent[target].tolist()
-        
-        # 計算歷史基線
-        normal_baseline = np.mean([x for x in current_window if x < self.high_threshold])
-        
-        # 預測結果
+        current_window = df.tail(60)[target].tolist()
+
         predictions = []
-        
+
         for i in range(PREDICTION_DAYS):
             target_date = self.latest_date + timedelta(days=i+1)
-            
-            # 建立特徵
+            is_holiday, holiday_1 = get_holiday_features(target_date)
             pol_3d = self._get_future_political_features(target_date, 3)
             pol_7d = self._get_future_political_features(target_date, 7)
-            
+
             features = {
-                'month': target_date.month,
-                'day_of_week': target_date.dayofweek,
+                'month_sin': np.sin(2 * np.pi * target_date.month / 12),
+                'month_cos': np.cos(2 * np.pi * target_date.month / 12),
+                'dow_sin': np.sin(2 * np.pi * target_date.dayofweek / 7),
+                'dow_cos': np.cos(2 * np.pi * target_date.dayofweek / 7),
                 'high_risk_month': 1 if target_date.month in [4, 8, 9, 10] else 0,
                 'is_weekend': 1 if target_date.dayofweek >= 5 else 0,
-                'lag_1': current_window[-1],
-                'lag_2': current_window[-2],
-                'lag_3': current_window[-3],
-                'lag_7': current_window[-7],
-                'lag_14': current_window[-14],
-                'lag_30': current_window[-30],
-                'ma_3': np.mean(current_window[-3:]),
-                'ma_7': np.mean(current_window[-7:]),
-                'ma_14': np.mean(current_window[-14:]),
-                'ma_30': np.mean(current_window[-30:]),
-                'min_3': np.min(current_window[-3:]),
-                'min_7': np.min(current_window[-7:]),
-                'min_14': np.min(current_window[-14:]),
-                'min_30': np.min(current_window[-30:]),
-                'max_3': np.max(current_window[-3:]),
-                'max_7': np.max(current_window[-7:]),
-                'max_14': np.max(current_window[-14:]),
-                'max_30': np.max(current_window[-30:]),
-                'std_3': np.std(current_window[-3:]),
-                'std_7': np.std(current_window[-7:]),
-                'std_14': np.std(current_window[-14:]),
-                'std_30': np.std(current_window[-30:]),
+                'lag_1': current_window[-1], 'lag_2': current_window[-2], 'lag_3': current_window[-3],
+                'lag_7': current_window[-7], 'lag_14': current_window[-14], 'lag_30': current_window[-30],
+                'ma_3': np.mean(current_window[-3:]), 'ma_7': np.mean(current_window[-7:]),
+                'ma_14': np.mean(current_window[-14:]), 'ma_30': np.mean(current_window[-30:]),
+                'min_3': np.min(current_window[-3:]), 'min_7': np.min(current_window[-7:]),
+                'min_14': np.min(current_window[-14:]), 'min_30': np.min(current_window[-30:]),
+                'max_3': np.max(current_window[-3:]), 'max_7': np.max(current_window[-7:]),
+                'max_14': np.max(current_window[-14:]), 'max_30': np.max(current_window[-30:]),
+                'std_3': np.std(current_window[-3:]), 'std_7': np.std(current_window[-7:]),
+                'std_14': np.std(current_window[-14:]), 'std_30': np.std(current_window[-30:]),
                 'has_zero_7d': 1 if np.min(current_window[-7:]) == 0 else 0,
-                'compression': np.mean(current_window[-3:]) / (np.mean(current_window[-14:]) + 1),
-                'naval_pass': 0,
-                'carrier': 0,
-                **pol_3d,
-                **pol_7d
+                'compression': min(3, np.mean(current_window[-3:]) / (np.mean(current_window[-14:]) + 1)),
+                'trend_3d': np.mean(current_window[-3:]) - np.mean(current_window[-7:]),
+                'trend_7d': np.mean(current_window[-7:]) - np.mean(current_window[-14:]),
+                'volatility_ratio': np.std(current_window[-7:]) / (np.mean(current_window[-7:]) + 1),
+                'naval_pass': 0, 'carrier': 0, **pol_3d, **pol_7d
             }
-            
-            X_step = pd.DataFrame([features])[self.feature_cols].values
-            X_step_scaled = self.scaler.transform(X_step)
-            
-            # 分類預測
-            prob_high = self.clf_model.predict_proba(X_step_scaled)[0, 1]
-            
-            # 回歸預測
-            pred_normal = max(0, self.reg_normal.predict(X_step)[0])
-            pred_high = max(0, self.reg_high.predict(X_step)[0])
-            
-            # 整合預測
+
+            feat_df = pd.DataFrame([features])
+            X_base = self._scale_features(feat_df, fit=False)
+            X_high = np.hstack([X_base, [[is_holiday, holiday_1]]])
+
+            prob_high = self.clf_model.predict_proba(X_base)[0, 1]
+            pred_normal = max(0, np.expm1(self.reg_normal.predict(X_base)[0]))
+            pred_high = max(0, np.expm1(self.reg_high.predict(X_high)[0]))
+
             if prob_high > 0.5:
-                pred_ensemble = pred_high
+                pred = pred_high
             elif prob_high > 0.3:
-                pred_ensemble = 0.5 * pred_normal + 0.5 * pred_high
+                pred = 0.5 * pred_normal + 0.5 * pred_high
             else:
-                pred_ensemble = pred_normal
-            
-            # 信心區間
+                pred = pred_normal
+
+            weather_adj, weather_reason = self._get_weather_adjustment(target_date)
+            pred_final = pred * weather_adj
+
             uncertainty = 8 * (1 + i * 0.15)
-            lower = max(0, pred_ensemble - 1.96 * uncertainty)
-            upper = pred_ensemble + 1.96 * uncertainty
-            
-            # 風險等級
+            lower = max(0, pred_final - 1.96 * uncertainty)
+            upper = pred_final + 1.96 * uncertainty
+
             if prob_high > 0.5:
                 risk_level = 'HIGH'
             elif prob_high > 0.3:
@@ -386,186 +410,108 @@ class PLAPredictor:
                 risk_level = 'MEDIUM'
             else:
                 risk_level = 'LOW'
-            
+
             predictions.append({
                 'date': target_date.strftime('%Y-%m-%d'),
                 'day_of_week': target_date.strftime('%A'),
-                'predicted_sorties': round(pred_ensemble, 1),
+                'predicted_sorties': round(pred_final, 1),
                 'lower_bound': round(lower, 1),
                 'upper_bound': round(upper, 1),
                 'high_event_probability': round(prob_high * 100, 1),
                 'risk_level': risk_level,
                 'normal_model_pred': round(pred_normal, 1),
                 'high_model_pred': round(pred_high, 1),
+                'is_cn_holiday': is_holiday,
+                'is_pre_holiday': holiday_1,
+                'weather_adjustment': round(weather_adj, 2),
                 'political_signal_3d': pol_3d['cn_stmt_3d'] + pol_3d['us_tw_3d'],
                 'political_signal_7d': pol_7d['cn_stmt_7d'] + pol_7d['us_tw_7d']
             })
-            
-            # 更新窗口
-            current_window.append(pred_ensemble)
-        
+
+            current_window.append(pred_final)
+
         return pd.DataFrame(predictions)
-    
-    def run(self, sorties_path=None, political_path=None, output_path='prediction.csv'):
-        """執行完整預測流程"""
 
-        # 載入資料
-        df_sorties, df_political = self.load_data(sorties_path, political_path)
+    def run(self, output_path=OUTPUT_PATH):
+        """執行完整流程"""
+        print("=" * 60)
+        print("PLA 7-Day Prediction System")
+        print("=" * 60)
 
-        # 準備特徵
+        df_sorties, df_political = self.load_data()
         df = self.prepare_features(df_sorties, df_political)
-
-        # 訓練模型
         self.train(df)
-
-        # 預測
         predictions = self.predict_7_days()
-
-        # 輸出
-        print(f"\n[5] 輸出預測結果...")
 
         # 加入 metadata
         predictions['generated_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        predictions['model_version'] = '2.0-ensemble'
+        predictions['model_version'] = '1.0.0'
         predictions['data_latest_date'] = self.latest_date.strftime('%Y-%m-%d')
 
-        # 初始化新欄位
+        # 初始化實際值欄位
         predictions['actual_sorties'] = np.nan
         predictions['prediction_error'] = np.nan
 
-        # ========== 歷史記錄管理 (Append + Merge) ==========
-        print(f"\n[6] 比較實際值並更新歷史記錄...")
+        # 讀取現有記錄並合併
+        print("[5] Updating prediction history...")
 
-        # 載入實際值資料
         actual_data = df_sorties[['date', 'pla_aircraft_sorties']].copy()
         actual_data['date'] = actual_data['date'].dt.strftime('%Y-%m-%d')
         actual_dict = dict(zip(actual_data['date'], actual_data['pla_aircraft_sorties']))
 
-        # 讀取現有歷史記錄
-        existing_history = pd.DataFrame()
+        existing = pd.DataFrame()
         if os.path.exists(output_path):
             try:
-                existing_history = pd.read_csv(output_path, encoding='utf-8-sig')
-                print(f"  讀取現有記錄: {len(existing_history)} 筆")
+                existing = pd.read_csv(output_path, encoding='utf-8-sig')
+                print(f"    Existing records: {len(existing)}")
             except:
-                existing_history = pd.DataFrame()
+                pass
 
-        # 更新現有記錄的實際值
-        if not existing_history.empty:
-            for idx, row in existing_history.iterrows():
-                pred_date = row['date']
-                if pred_date in actual_dict:
-                    actual_val = actual_dict[pred_date]
-                    existing_history.loc[idx, 'actual_sorties'] = actual_val
-                    if pd.notna(row['predicted_sorties']) and pd.notna(actual_val):
-                        existing_history.loc[idx, 'prediction_error'] = actual_val - row['predicted_sorties']
+        if not existing.empty:
+            for idx, row in existing.iterrows():
+                if row['date'] in actual_dict:
+                    existing.loc[idx, 'actual_sorties'] = actual_dict[row['date']]
+                    if pd.notna(row['predicted_sorties']):
+                        existing.loc[idx, 'prediction_error'] = actual_dict[row['date']] - row['predicted_sorties']
 
-        # 合併新預測與歷史記錄
-        if not existing_history.empty:
-            # 移除與新預測重複的日期
-            existing_dates = set(existing_history['date'])
-            new_dates = set(predictions['date'])
-            overlap_dates = existing_dates & new_dates
+            overlap = set(existing['date']) & set(predictions['date'])
+            if overlap:
+                existing = existing[~existing['date'].isin(overlap)]
 
-            if overlap_dates:
-                print(f"  覆蓋日期: {', '.join(sorted(overlap_dates))}")
-                existing_history = existing_history[~existing_history['date'].isin(overlap_dates)]
-
-            # 合併
-            combined = pd.concat([existing_history, predictions], ignore_index=True)
+            combined = pd.concat([existing, predictions], ignore_index=True)
         else:
             combined = predictions.copy()
 
-        # 再次更新所有記錄的實際值
         for idx, row in combined.iterrows():
-            pred_date = row['date']
-            if pred_date in actual_dict:
-                actual_val = actual_dict[pred_date]
-                combined.loc[idx, 'actual_sorties'] = actual_val
-                if pd.notna(row['predicted_sorties']) and pd.notna(actual_val):
-                    combined.loc[idx, 'prediction_error'] = actual_val - row['predicted_sorties']
+            if row['date'] in actual_dict:
+                combined.loc[idx, 'actual_sorties'] = actual_dict[row['date']]
+                if pd.notna(row['predicted_sorties']):
+                    combined.loc[idx, 'prediction_error'] = actual_dict[row['date']] - row['predicted_sorties']
 
-        # 排序並儲存
         combined = combined.sort_values('date').reset_index(drop=True)
+
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
         combined.to_csv(output_path, index=False, encoding='utf-8-sig')
-        print(f"  已儲存: {output_path} ({len(combined)} 筆記錄)")
-
-        # ========== 計算預測準確度統計 ==========
-        print(f"\n[7] 預測準確度分析...")
-
-        has_actual = combined[combined['actual_sorties'].notna()]
-        if len(has_actual) > 0:
-            errors = has_actual['prediction_error'].dropna()
-            if len(errors) > 0:
-                mae = np.abs(errors).mean()
-                rmse = np.sqrt((errors ** 2).mean())
-                mape = (np.abs(errors) / (has_actual['actual_sorties'].dropna() + 1)).mean() * 100
-
-                # 方向準確率 (預測高低方向是否正確)
-                correct_direction = 0
-                total_comparisons = 0
-                for idx, row in has_actual.iterrows():
-                    if pd.notna(row['predicted_sorties']) and pd.notna(row['actual_sorties']):
-                        # 以 30 架次作為高低分界
-                        pred_high = row['predicted_sorties'] >= 30
-                        actual_high = row['actual_sorties'] >= 30
-                        if pred_high == actual_high:
-                            correct_direction += 1
-                        total_comparisons += 1
-
-                direction_accuracy = (correct_direction / total_comparisons * 100) if total_comparisons > 0 else 0
-
-                print(f"  歷史預測數: {len(has_actual)}")
-                print(f"  MAE (平均絕對誤差): {mae:.2f} 架次")
-                print(f"  RMSE (均方根誤差): {rmse:.2f} 架次")
-                print(f"  MAPE (平均百分比誤差): {mape:.1f}%")
-                print(f"  方向準確率: {direction_accuracy:.1f}%")
-        else:
-            print("  尚無可比較的歷史預測")
+        print(f"    Saved: {output_path} ({len(combined)} records)")
 
         # 顯示預測
         print("\n" + "=" * 80)
-        print("【7 天預測結果】")
+        print("[7-Day Prediction]")
         print("=" * 80)
-        print(f"\n{'日期':<12} {'星期':<10} {'預測':>8} {'95% CI':>15} {'高架次機率':>10} {'風險':<8} {'實際':>6} {'誤差':>8}")
-        print("-" * 80)
+        print(f"\n{'Date':<12} {'Day':<10} {'Pred':>8} {'95% CI':>15} {'High%':>8} {'Risk':<12}")
+        print("-" * 70)
 
         for _, row in predictions.iterrows():
             ci = f"[{row['lower_bound']:.0f}-{row['upper_bound']:.0f}]"
-            risk_emoji = {'HIGH': '🔴', 'MEDIUM-HIGH': '🟠', 'MEDIUM': '🟡', 'LOW': '🟢'}
-            emoji = risk_emoji.get(row['risk_level'], '')
+            print(f"{row['date']:<12} {row['day_of_week']:<10} {row['predicted_sorties']:>8.1f} {ci:>15} {row['high_event_probability']:>7.1f}% {row['risk_level']:<12}")
 
-            actual_str = f"{row['actual_sorties']:.0f}" if pd.notna(row['actual_sorties']) else '-'
-            error_str = f"{row['prediction_error']:+.1f}" if pd.notna(row['prediction_error']) else '-'
-
-            print(f"{row['date']:<12} {row['day_of_week']:<10} {row['predicted_sorties']:>8.1f} {ci:>15} "
-                  f"{row['high_event_probability']:>9.1f}% {emoji} {row['risk_level']:<8} {actual_str:>6} {error_str:>8}")
-
-        print("-" * 80)
-        print(f"平均預測: {predictions['predicted_sorties'].mean():.1f} 架次")
-        print(f"最高風險日: {predictions.loc[predictions['high_event_probability'].idxmax(), 'date']}")
+        print("-" * 70)
+        print(f"Average: {predictions['predicted_sorties'].mean():.1f} sorties")
+        print("=" * 80)
 
         return predictions
 
 
-# ============================================================
-# 主程式
-# ============================================================
-
 if __name__ == "__main__":
-    import argparse
-    
-    parser = argparse.ArgumentParser(description='PLA 7-Day Sorties Prediction')
-    parser.add_argument('--sorties', type=str, default=None, help='Path to sorties data')
-    parser.add_argument('--political', type=str, default=None, help='Path to political events data')
-    parser.add_argument('--output', type=str, default='prediction.csv', help='Output file path')
-    
-    args = parser.parse_args()
-    
-    predictor = PLAPredictor(high_threshold=HIGH_THRESHOLD)
-    predictions = predictor.run(
-        sorties_path=args.sorties,
-        political_path=args.political,
-        output_path=args.output
-    )
-
+    predictor = PLAPredictor()
+    predictor.run()
