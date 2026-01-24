@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="utf-8">
+    <title>Data Download - PLA Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Download PLA military activity datasets">
+    <meta name="author" content="Jeremy Chen">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .download-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 5px solid #667eea;
+        }
+
+        .download-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .download-card.primary {
+            border-left-color: #28a745;
+        }
+
+        .download-card.secondary {
+            border-left-color: #17a2b8;
+        }
+
+        .download-card.tertiary {
+            border-left-color: #ffc107;
+        }
+
+        .download-card h4 {
+            color: #343a40;
+            margin-bottom: 1rem;
+        }
+
+        .download-card .description {
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .download-card .meta-info {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .meta-info .meta-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .meta-info .meta-item:last-child {
+            border-bottom: none;
+        }
+
+        .meta-info .meta-label {
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .meta-info .meta-value {
+            color: #343a40;
+            font-weight: 600;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-download:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-github {
+            background: #24292e;
+            border: none;
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            margin-left: 0.5rem;
+        }
+
+        .btn-github:hover {
+            background: #1a1e22;
+        }
+
+        .fields-list {
+            column-count: 2;
+            column-gap: 2rem;
+        }
+
+        .fields-list li {
+            padding: 0.25rem 0;
+            color: #495057;
+        }
+
+        .api-section {
+            background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .api-section h4 {
+            color: white;
+        }
+
+        .code-block {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            color: #fff;
+            overflow-x: auto;
+        }
+
+        @media (max-width: 768px) {
+            .fields-list {
+                column-count: 1;
+            }
+            .btn-download, .btn-github {
+                display: block;
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container">
+        <a class="navbar-brand" href="index.html" style="color: white;">PLA Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html" style="color: white;">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="prediction.html" style="color: white;">ML Prediction</a></li>
+                <li class="nav-item"><a class="nav-link" href="weather.html" style="color: white;">Airport Weather</a></li>
+                <li class="nav-item"><a class="nav-link" href="japan.html" style="color: white;">Japan MOD</a></li>
+                <li class="nav-item"><a class="nav-link" href="news.html" style="color: white;">News</a></li>
+                <li class="nav-item active"><a class="nav-link" href="download.html" style="color: white;">Download</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Header -->
+<div class="dashboard-header">
+    <div class="container">
+        <h1 class="display-4">Data Download Center</h1>
+        <p class="lead">Access and download all PLA military activity datasets</p>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+
+    <!-- Strait Transit Dataset -->
+    <div class="download-card primary">
+        <h4>Strait Transit Dataset (JapanandBattleship.csv)</h4>
+        <p class="description">
+            Comprehensive dataset of PLA aircraft sorties and naval transit activities through key straits in the Western Pacific.
+            Data sourced from Japan Joint Staff Office (JSO) official reports on Chinese military activities.
+        </p>
+
+        <div class="meta-info">
+            <div class="meta-item">
+                <span class="meta-label">Date Range</span>
+                <span class="meta-value">2015 - Present</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Update Frequency</span>
+                <span class="meta-value">Daily (Automated)</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Format</span>
+                <span class="meta-value">CSV (UTF-8)</span>
+            </div>
+        </div>
+
+        <h6>Key Fields:</h6>
+        <ul class="fields-list mb-4">
+            <li><code>date</code> - Event date</li>
+            <li><code>pla_aircraft_sorties</code> - Aircraft count</li>
+            <li><code>Yonaguni / Miyako / Osumi / Tsushima</code> - Strait transits</li>
+            <li><code>vessel_type</code> - Ship classification</li>
+            <li><code>remark</code> - JSO report details</li>
+            <li><code>pdf_link</code> - Original PDF source</li>
+        </ul>
+
+        <a href="data/JapanandBattleship.csv" download class="btn btn-success btn-download">
+            Download CSV
+        </a>
+        <a href="https://github.com/s0914712/pla-data-dashboard/blob/main/data/JapanandBattleship.csv"
+           target="_blank" class="btn btn-github text-white">
+            View on GitHub
+        </a>
+    </div>
+
+    <!-- Comprehensive Dataset -->
+    <div class="download-card secondary">
+        <h4>Comprehensive Military Dataset (merged_comprehensive_data_M.csv)</h4>
+        <p class="description">
+            Merged dataset combining multiple data sources including PLA aircraft activities, carrier presence,
+            US-Taiwan interactions, political statements, and foreign naval activities. Ideal for cross-correlation analysis.
+        </p>
+
+        <div class="meta-info">
+            <div class="meta-item">
+                <span class="meta-label">Date Range</span>
+                <span class="meta-value">2020 - 2025</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Update Frequency</span>
+                <span class="meta-value">Monthly</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Format</span>
+                <span class="meta-value">CSV (UTF-8)</span>
+            </div>
+        </div>
+
+        <h6>Key Fields:</h6>
+        <ul class="fields-list mb-4">
+            <li><code>date</code> - Event date</li>
+            <li><code>pla_aircraft_sorties</code> - Aircraft count</li>
+            <li><code>china_carrier_present</code> - Carrier activity</li>
+            <li><code>US_Taiwan_interaction</code> - Diplomatic events</li>
+            <li><code>Political_statement</code> - Official statements</li>
+            <li><code>Foreign_battleship</code> - Foreign naval presence</li>
+        </ul>
+
+        <a href="data/merged_comprehensive_data_M.csv" download class="btn btn-info btn-download">
+            Download CSV
+        </a>
+        <a href="https://github.com/s0914712/pla-data-dashboard/blob/main/data/merged_comprehensive_data_M.csv"
+           target="_blank" class="btn btn-github text-white">
+            View on GitHub
+        </a>
+    </div>
+
+    <!-- ML Prediction Data -->
+    <div class="download-card tertiary">
+        <h4>ML Prediction Results (prediction.csv)</h4>
+        <p class="description">
+            7-day forward predictions of PLA aircraft sorties generated by ensemble machine learning model.
+            Includes prediction confidence intervals and accuracy tracking against actual values.
+        </p>
+
+        <div class="meta-info">
+            <div class="meta-item">
+                <span class="meta-label">Model</span>
+                <span class="meta-value">Ensemble (RandomForest + GradientBoosting)</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Update Frequency</span>
+                <span class="meta-value">Daily (Automated)</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Format</span>
+                <span class="meta-value">CSV (UTF-8)</span>
+            </div>
+        </div>
+
+        <h6>Key Fields:</h6>
+        <ul class="fields-list mb-4">
+            <li><code>date</code> - Prediction date</li>
+            <li><code>predicted_sorties</code> - Forecasted count</li>
+            <li><code>lower_bound / upper_bound</code> - Confidence interval</li>
+            <li><code>risk_level</code> - Activity assessment</li>
+            <li><code>actual_sorties</code> - Real value (when available)</li>
+            <li><code>prediction_error</code> - Accuracy metric</li>
+        </ul>
+
+        <a href="data/prediction.csv" download class="btn btn-warning btn-download text-dark">
+            Download CSV
+        </a>
+        <a href="https://github.com/s0914712/pla-data-dashboard/blob/main/data/prediction.csv"
+           target="_blank" class="btn btn-github text-white">
+            View on GitHub
+        </a>
+    </div>
+
+    <!-- API / Programmatic Access -->
+    <div class="api-section">
+        <h4>Programmatic Access</h4>
+        <p>Access data directly via GitHub raw URLs for automated pipelines:</p>
+
+        <div class="code-block">
+<pre style="margin: 0; color: #fff;">
+# Python Example
+import pandas as pd
+
+# Load Strait Transit Data
+df = pd.read_csv('https://raw.githubusercontent.com/s0914712/pla-data-dashboard/main/data/JapanandBattleship.csv')
+
+# Load Comprehensive Data
+df2 = pd.read_csv('https://raw.githubusercontent.com/s0914712/pla-data-dashboard/main/data/merged_comprehensive_data_M.csv')
+</pre>
+        </div>
+
+        <p class="mt-3 mb-0">
+            <a href="https://github.com/s0914712/pla-data-dashboard" target="_blank" class="text-white" style="text-decoration: underline;">
+                Full Repository on GitHub
+            </a>
+        </p>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="text-center py-4 mt-5" style="background-color: #343a40; color: white;">
+    <div class="container">
+        <p>2025 Jeremy Chen | PLA Military Data Analysis Dashboard</p>
+        <p>
+            <a href="https://github.com/s0914712" target="_blank" style="color: #667eea;">GitHub</a> |
+            <a href="https://s0914712.github.io" target="_blank" style="color: #667eea;">Blog</a>
+        </p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
