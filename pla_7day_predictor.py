@@ -122,7 +122,7 @@ def get_holiday_features(date):
 class PLAPredictor:
     """PLA 架次預測系統"""
 
-    def __init__(self):
+    def __init__(self, high_threshold=None):
         self.clf_model = None
         self.reg_normal = None
         self.reg_high = None
@@ -132,6 +132,7 @@ class PLAPredictor:
         self.weather_data = None
         self.latest_data = None
         self.latest_date = None
+        self.high_threshold = high_threshold or HIGH_THRESHOLD
 
         self.cyclic_cols = ['month_sin', 'month_cos', 'dow_sin', 'dow_cos']
         self.binary_cols = ['high_risk_month', 'is_weekend', 'has_zero_7d']
@@ -150,7 +151,7 @@ class PLAPredictor:
         ]
         self.holiday_cols = ['is_holiday', 'holiday_1']
 
-    def load_data(self):
+    def load_data(self, sorties_path=None, political_path=None):
         """載入資料"""
         print("=" * 60)
         print("PLA 7-Day Prediction System")
@@ -468,13 +469,13 @@ class PLAPredictor:
 
         return pd.DataFrame(predictions)
 
-    def run(self, output_path=OUTPUT_PATH):
+    def run(self, sorties_path=None, political_path=None, output_path=OUTPUT_PATH):
         """執行完整流程"""
         print("=" * 60)
         print("PLA 7-Day Prediction System")
         print("=" * 60)
 
-        df_sorties, df_political = self.load_data()
+        df_sorties, df_political = self.load_data(sorties_path, political_path)
         df = self.prepare_features(df_sorties, df_political)
         self.train(df)
         predictions = self.predict_7_days()
