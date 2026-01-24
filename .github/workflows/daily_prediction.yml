@@ -55,12 +55,6 @@ jobs:
             exit 1
           fi
 
-          # 建立歷史記錄目錄
-          mkdir -p data/predictions/history
-
-          # 複製到 data 目錄
-          cp prediction.csv data/prediction.csv
-
           # 複製到歷史記錄 (以日期命名)
           DATE=$(date +%Y-%m-%d)
           cp prediction.csv data/predictions/history/prediction_${DATE}.csv
