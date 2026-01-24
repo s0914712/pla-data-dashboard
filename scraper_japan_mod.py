@@ -1,21 +1,6 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-日本防衛省中國海軍艦艇動向爬蟲 - GitHub Actions 版本
-"""
-
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.chrome import ChromeDriverManager
-from bs4 import BeautifulSoup
-import time
 import re
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 import PyPDF2
 import io
 import httpx
@@ -23,46 +8,88 @@ import json
 import os
 import pandas as pd
 
-# ==================== 設定區 ====================
+
 
 # CSV 文件路徑
 CSV_FILE = 'data/JapanandBattleship.csv'
 
-# Apertis API 設定（從環境變量讀取）
 APERTIS_API_KEY = os.getenv('APERTIS_API_KEY') or os.getenv('STIMA_API_KEY')
 APERTIS_MODEL = 'grok-4.1-fast:free'
 APERTIS_BASE_URL = 'https://api.apertis.ai/v1'
 
-# 日本防衛省網站
-BASE_URL = 'https://www.mod.go.jp/js/press/index.html'
+# PDF 基礎 URL
+PDF_BASE_URL = 'https://www.mod.go.jp/js/pdf'
 
-# 要爬取的頁數
-MAX_PDFS = 10
+# 要爬取的天數（從今天往回推）
+DAYS_TO_CHECK = 30
+
+# 每天最多檢查幾個 PDF 編號
+MAX_PDF_NUM_PER_DAY = 10
+
+# 目標年份
+TARGET_YEAR = '2026'
+
+# HTTP 請求設定
+HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+}
 
 # 0/1 分析欄位
 BINARY_FIELDS = ['空中', '聯合演訓', '艦通過', '航母活動', '與那國', '宮古', '大禹', '對馬', '進', '出']
 
 # =================================================
 
+def generate_pdf_urls(start_date, end_date):
+    """生成日期範圍內所有可能的 PDF URL"""
+    urls = []
+    current_date = start_date
 
-def init_driver():
-    """初始化 Selenium WebDriver"""
-    chrome_options = Options()
-    chrome_options.add_argument('--headless')
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-dev-shm-usage')
-    chrome_options.add_argument('--disable-gpu')
-    chrome_options.add_argument('--window-size=1920,1080')
-    chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36')
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=chrome_options)
-    return driver
+    while current_date <= end_date:
+        year = current_date.strftime('%Y')
+        date_str = current_date.strftime('%Y%m%d')
+
+        # 每天可能有多個 PDF (01, 02, 03...)
+        for num in range(1, MAX_PDF_NUM_PER_DAY + 1):
+            pdf_filename = f"p{date_str}_{num:02d}.pdf"
+            pdf_url = f"{PDF_BASE_URL}/{year}/{pdf_filename}"
+            csv_date = current_date.strftime('%Y/%m/%d')
+            urls.append({
+                'url': pdf_url,
+                'date': csv_date,
+                'filename': pdf_filename
+            })
+
+        current_date += timedelta(days=1)
+
+    return urls
+
+
+def download_pdf(url):
+    """下載 PDF 並返回內容，404 返回 None"""
+    try:
+        response = requests.get(url, headers=HEADERS, timeout=30)
+        if response.status_code == 200:
+            return response.content
+        return None
+    except Exception as e:
+        print(f"    ❌ 下載失敗: {e}")
+        return None
+
+
+def is_china_navy_pdf(pdf_text):
+    """判斷 PDF 是否為中國海軍艦艇相關"""
+    keywords = ['中国', '艦艇', '海軍', '護衛艦', '駆逐艦', '空母', '補給艦']
+    return any(kw in pdf_text for kw in keywords)
 
 
 def extract_text_from_pdf(pdf_url):
     """從 PDF URL 提取文本"""
     try:
-        response = requests.get(pdf_url, timeout=30)
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        }
+        response = requests.get(pdf_url, timeout=30, headers=headers)
         response.raise_for_status()
 
         pdf_file = io.BytesIO(response.content)
@@ -131,7 +158,6 @@ def analyze_with_apertis(pdf_text, date):
 """
 
     try:
-        # 使用 httpx 發送請求到 Apertis API
         with httpx.Client(timeout=60.0) as client:
             response = client.post(
                 f"{APERTIS_BASE_URL}/chat/completions",
@@ -164,9 +190,7 @@ def analyze_with_apertis(pdf_text, date):
             response_text = response_text[:-3]
         response_text = response_text.strip()
 
-        # 解析 JSON
         result = json.loads(response_text)
-
         return result
 
     except httpx.HTTPStatusError as e:
@@ -186,28 +210,26 @@ def get_latest_date_from_csv():
         if not os.path.exists(CSV_FILE):
             print(f"⚠️ CSV 檔案不存在: {CSV_FILE}")
             return None
-            
+
         df = pd.read_csv(CSV_FILE, encoding='utf-8-sig')
-        
+
         if df.empty or 'date' not in df.columns:
             return None
-        
-        # 過濾出有艦型或 remark 數據的行（表示已處理過日本防衛省數據）
-        df_filtered = df[(df['艦型'].notna() & (df['艦型'] != '')) | 
+
+        df_filtered = df[(df['艦型'].notna() & (df['艦型'] != '')) |
                          (df['remark'].notna() & (df['remark'] != ''))]
-        
+
         if df_filtered.empty:
             return None
-        
-        # 轉換日期並找出最新的
+
         dates = pd.to_datetime(df_filtered['date'], format='%Y/%m/%d', errors='coerce')
         latest_date = dates.max()
-        
+
         if pd.isna(latest_date):
             return None
-            
+
         return latest_date
-        
+
     except Exception as e:
         print(f"讀取 CSV 時發生錯誤: {e}")
         return None
@@ -216,23 +238,21 @@ def get_latest_date_from_csv():
 def check_date_data_validity(date, df):
     """檢查指定日期的資料是否有效（至少有一個0/1欄位為1）"""
     try:
-        # 找到對應日期的行
         mask = df['date'] == date
-        
+
         if not mask.any():
             return False
-        
+
         row = df[mask].iloc[0]
-        
-        # 檢查所有 0/1 欄位
+
         for field in BINARY_FIELDS:
             if field in row and pd.notna(row[field]):
                 value = str(row[field]).strip()
                 if value in ['1', '1.0']:
                     return True
-        
+
         return False
-        
+
     except Exception as e:
         print(f"      ⚠️  檢查資料完整性時發生錯誤: {e}")
         return False
@@ -244,26 +264,23 @@ def update_csv(date, data):
         if not os.path.exists(CSV_FILE):
             print(f"❌ CSV 檔案不存在: {CSV_FILE}")
             return False
-            
+
         df = pd.read_csv(CSV_FILE, encoding='utf-8-sig')
-        
-        # 找到對應日期的行
+
         mask = df['date'] == date
-        
+
         if not mask.any():
             print(f"      ⚠️  找不到日期 {date} 的行")
             return False
-        
-        # 更新數據
+
         for key, value in data.items():
             if key in df.columns:
                 df.loc[mask, key] = value
-        
-        # 儲存（保持原有的編碼和格式）
+
         df.to_csv(CSV_FILE, index=False, encoding='utf-8-sig')
         print(f"      ✓ 已更新日期 {date} 的資料")
         return True
-        
+
     except Exception as e:
         print(f"      ❌ 更新資料時發生錯誤: {e}")
         import traceback
@@ -273,15 +290,14 @@ def update_csv(date, data):
 
 def main():
     """主程式"""
+    import time
 
     print("="*60)
-    print("日本防衛省中國海軍艦艇動向爬蟲 V3 - GitHub Actions 版")
+    print("日本防衛省中國海軍艦艇動向爬蟲 V5 - 直接下載 PDF 版")
     print("="*60)
-    
-    # 檢查 API Key
+
     if not APERTIS_API_KEY:
         print("❌ 錯誤：未設置 APERTIS_API_KEY 環境變量")
-        print("   請設置 APERTIS_API_KEY 或 STIMA_API_KEY")
         return
 
     # 讀取 CSV
@@ -294,7 +310,6 @@ def main():
         print(f"❌ 讀取失敗: {e}")
         return
 
-    # 取得最新日期
     latest_date = get_latest_date_from_csv()
     if latest_date:
         print(f"📅 最新日本防衛省資料日期: {latest_date.strftime('%Y/%m/%d')}")
@@ -302,144 +317,110 @@ def main():
         print(f"📅 無現有日本防衛省資料")
         latest_date = datetime.min
 
-    # 開始爬取
     print(f"\n{'='*60}")
-    print("🚀 開始爬取日本防衛省資料...")
+    print("🚀 開始爬取日本防衛省資料（直接下載 PDF）...")
     print(f"{'='*60}\n")
 
-    driver = init_driver()
-    print("✓ 瀏覽器啟動成功\n")
+    # 生成要檢查的 PDF URL 列表
+    end_date = datetime.now()
+    start_date = end_date - timedelta(days=DAYS_TO_CHECK)
+
+    # 確保在目標年份範圍內
+    if TARGET_YEAR:
+        year_start = datetime(int(TARGET_YEAR), 1, 1)
+        if start_date < year_start:
+            start_date = year_start
+
+    print(f"📅 檢查日期範圍: {start_date.strftime('%Y/%m/%d')} ~ {end_date.strftime('%Y/%m/%d')}")
+
+    pdf_urls = generate_pdf_urls(start_date, end_date)
+    print(f"📋 共生成 {len(pdf_urls)} 個可能的 PDF URL\n")
 
     updated_pdfs = 0
+    found_pdfs = 0
 
-    try:
-        print(f"📄 訪問: {BASE_URL}")
-        driver.get(BASE_URL)
-        WebDriverWait(driver, 15).until(
-            EC.presence_of_element_located((By.TAG_NAME, "body"))
-        )
-        time.sleep(3)
+    for idx, pdf_info in enumerate(pdf_urls, 1):
+        pdf_url = pdf_info['url']
+        date = pdf_info['date']
 
-        soup = BeautifulSoup(driver.page_source, "html.parser")
+        # 檢查是否已存在有效資料
+        try:
+            current_date = datetime.strptime(date, '%Y/%m/%d')
+            if current_date <= latest_date:
+                is_valid = check_date_data_validity(date, df)
+                if is_valid:
+                    continue  # 靜默跳過已有資料的日期
+        except:
+            pass
 
-        # 找所有 PDF 連結
-        all_links = soup.find_all('a', href=re.compile(r'\.pdf$', re.I))
+        # 嘗試下載 PDF
+        pdf_content = download_pdf(pdf_url)
 
-        china_navy_links = []
-        for link in all_links:
-            text = link.get_text(strip=True)
-            if '中国' in text or '艦艇' in text or '動向' in text:
-                china_navy_links.append(link)
-            else:
-                parent = link.find_parent(['p', 'li', 'div'])
-                if parent:
-                    parent_text = parent.get_text()
-                    if '中国' in parent_text and '艦艇' in parent_text:
-                        china_navy_links.append(link)
+        if not pdf_content:
+            continue  # 404 或下載失敗，靜默跳過
 
-        print(f"  找到 {len(china_navy_links)} 個中國海軍相關 PDF\n")
+        found_pdfs += 1
+        print(f"[{found_pdfs}] 📥 找到: {pdf_info['filename']}")
+        print(f"    📅 日期: {date}")
 
-        for idx, link in enumerate(china_navy_links[:MAX_PDFS], 1):
-            try:
-                href = link.get('href')
+        # 解析 PDF
+        try:
+            pdf_file = io.BytesIO(pdf_content)
+            pdf_reader = PyPDF2.PdfReader(pdf_file)
 
-                # 構建完整 URL
-                if href.startswith('http'):
-                    pdf_url = href
-                elif href.startswith('/'):
-                    pdf_url = f"https://www.mod.go.jp{href}"
-                else:
-                    pdf_url = f"https://www.mod.go.jp/js/press/{href}"
+            pdf_text = ""
+            for page in pdf_reader.pages:
+                page_text = page.extract_text()
+                if page_text:
+                    pdf_text += page_text + "\n"
 
-                print(f"  [{idx:2d}/{min(len(china_navy_links), MAX_PDFS)}] 📥 {pdf_url}")
+            pdf_text = pdf_text.strip()
+        except Exception as e:
+            print(f"    ❌ PDF 解析失敗: {e}\n")
+            continue
 
-                # 提取日期
-                link_text = link.get_text(strip=True)
-                date_match = re.search(r'(\d{4})[年/.-](\d{1,2})[月/.-](\d{1,2})', link_text + href)
+        if not pdf_text:
+            print(f"    ⚠️ PDF 無文字內容\n")
+            continue
 
-                if date_match:
-                    year = date_match.group(1)
-                    month = date_match.group(2).zfill(2)
-                    day = date_match.group(3).zfill(2)
-                    date = f"{year}/{month}/{day}"
-                else:
-                    date = datetime.now().strftime('%Y/%m/%d')
+        # 檢查是否為中國海軍相關
+        if not is_china_navy_pdf(pdf_text):
+            print(f"    ⏭️ 非中國海軍艦艇相關\n")
+            continue
 
-                print(f"      📅 日期: {date}")
+        print(f"    📄 提取文本: {len(pdf_text)} 字")
 
-                # 檢查日期和資料完整性
-                try:
-                    current_date = datetime.strptime(date, '%Y/%m/%d')
-                    if current_date <= latest_date:
-                        is_valid = check_date_data_validity(date, df)
-                        if is_valid:
-                            print(f"      ⏭️  已存在且資料有效，跳過\n")
-                            continue
-                        else:
-                            print(f"      ⚠️  已存在但資料全為0，重新處理")
-                except:
-                    pass
+        # AI 分析
+        print(f"    🤖 AI 分析中...", end=" ")
+        analysis = analyze_with_apertis(pdf_text, date)
 
-                # 提取 PDF 文本
-                print(f"      📄 提取文本...", end=" ")
-                pdf_text = extract_text_from_pdf(pdf_url)
+        if not analysis:
+            print("失敗\n")
+            continue
 
-                if not pdf_text:
-                    print("失敗\n")
-                    continue
+        print("✓")
 
-                print(f"✓ ({len(pdf_text)} 字)")
+        # 更新 CSV
+        if update_csv(date, analysis):
+            updated_pdfs += 1
 
-                # 使用 Apertis API 分析
-                print(f"      🤖 AI 分析中...", end=" ")
-                analysis = analyze_with_apertis(pdf_text, date)
+        print(f"    ✅ {date}:")
+        binary_str = " | ".join([f"{k}:{v}" for k, v in analysis.items() if k in BINARY_FIELDS and v == 1])
+        if binary_str:
+            print(f"       {binary_str}")
+        if '艦型' in analysis and analysis['艦型'] and analysis['艦型'] != '未提及':
+            print(f"       艦型: {analysis['艦型']}")
+        if 'remark' in analysis and analysis['remark']:
+            remark_display = analysis['remark'][:50] + '...' if len(analysis['remark']) > 50 else analysis['remark']
+            print(f"       備註: {remark_display}")
+        print()
 
-                if not analysis:
-                    print("失敗\n")
-                    continue
+        time.sleep(1.5)  # 避免請求過快
 
-                print("✓")
-
-                # 更新 CSV
-                if update_csv(date, analysis):
-                    updated_pdfs += 1
-
-                # 顯示結果
-                print(f"      ✅ {date}:")
-                binary_str = " | ".join([f"{k}:{v}" for k, v in analysis.items() if k in BINARY_FIELDS and v == 1])
-                if binary_str:
-                    print(f"         {binary_str}")
-                if '艦型' in analysis and analysis['艦型'] and analysis['艦型'] != '未提及':
-                    print(f"         艦型: {analysis['艦型']}")
-                if 'remark' in analysis and analysis['remark']:
-                    remark_display = analysis['remark'][:50] + '...' if len(analysis['remark']) > 50 else analysis['remark']
-                    print(f"         備註: {remark_display}")
-                print()
-
-                time.sleep(2)  # 避免請求過快
-
-            except Exception as e:
-                print(f"      ❌ 處理失敗: {e}\n")
-                import traceback
-                traceback.print_exc()
-                continue
-
-    except Exception as e:
-        print(f"❌ 爬取失敗: {e}")
-        import traceback
-        traceback.print_exc()
-
-    finally:
-        driver.quit()
-        print("✓ 瀏覽器已關閉")
-
-    # 顯示總結
     print(f"\n{'='*60}")
-    if updated_pdfs > 0:
-        print(f"✅ 完成！")
-        print(f"📊 總共更新 {updated_pdfs} 筆資料")
-    else:
-        print("ℹ️  沒有需要更新的資料")
+    print(f"📊 掃描完成:")
+    print(f"   找到 PDF: {found_pdfs} 個")
+    print(f"   更新資料: {updated_pdfs} 筆")
     print(f"{'='*60}")
 
 
