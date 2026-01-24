@@ -8,14 +8,12 @@ import json
 import os
 import pandas as pd
 
-# ==================== 設定區 ====================
-from google.colab import userdata
+
 
 # CSV 文件路徑
 CSV_FILE = 'data/JapanandBattleship.csv'
 
-# Apertis API 設定（從環境變量讀取）
-APERTIS_API_KEY = userdata.get('STIMA_API_KEY')
+APERTIS_API_KEY = os.getenv('APERTIS_API_KEY') or os.getenv('STIMA_API_KEY')
 APERTIS_MODEL = 'grok-4.1-fast:free'
 APERTIS_BASE_URL = 'https://api.apertis.ai/v1'
 
