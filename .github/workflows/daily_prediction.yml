@@ -30,22 +30,45 @@ jobs:
       
       - name: Run prediction
         run: |
+          echo "=== Starting prediction script ==="
+          echo "Python version: $(python --version)"
+          echo "Working directory: $(pwd)"
+          echo "Files in data/:"
+          ls -la data/ || echo "No data directory"
+          echo ""
           python pla_7day_predictor.py --output prediction.csv
-      
-      - name: Generate prediction with timestamp
+          echo ""
+          echo "=== Prediction script completed ==="
+
+      - name: Verify and copy prediction
         run: |
+          echo "Checking for prediction.csv..."
+          if [ -f "prediction.csv" ]; then
+            echo "prediction.csv found!"
+            echo "File size: $(wc -c < prediction.csv) bytes"
+            echo "First 10 lines:"
+            head -10 prediction.csv
+          else
+            echo "ERROR: prediction.csv not found!"
+            echo "Files in current directory:"
+            ls -la
+            exit 1
+          fi
+
           # 建立歷史記錄目錄
           mkdir -p data/predictions/history
-          
+
           # 複製到 data 目錄
           cp prediction.csv data/prediction.csv
-          
+
           # 複製到歷史記錄 (以日期命名)
           DATE=$(date +%Y-%m-%d)
           cp prediction.csv data/predictions/history/prediction_${DATE}.csv
-          
+
           # 更新最新預測
           cp prediction.csv data/predictions/latest_prediction.csv
+
+          echo "Files copied successfully!"
       
       - name: Commit and push predictions
         run: |

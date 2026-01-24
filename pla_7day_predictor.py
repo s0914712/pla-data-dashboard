@@ -152,35 +152,71 @@ class PLAPredictor:
 
     def load_data(self):
         """載入資料"""
-        print("[1] Loading data...")
+        print("=" * 60)
+        print("PLA 7-Day Prediction System")
+        print("=" * 60)
+        print(f"\n[1] 載入資料...")
 
-        try:
-            df_sorties = pd.read_csv(DATA_SOURCES['sorties'], encoding='utf-8-sig')
-        except:
-            df_sorties = pd.read_csv(DATA_SOURCES['sorties'], encoding='utf-8')
+        sorties_path = sorties_path or DATA_SOURCES['sorties']
+        political_path = political_path or DATA_SOURCES['political']
 
-        df_sorties['date'] = pd.to_datetime(df_sorties['date'])
+        print(f"  架次資料來源: {sorties_path}")
+        print(f"  政治事件來源: {political_path}")
+
+        # 載入架次資料
+        df_sorties = None
+        for encoding in ['utf-8-sig', 'utf-8', 'latin-1']:
+            try:
+                df_sorties = pd.read_csv(sorties_path, encoding=encoding)
+                print(f"  成功載入架次資料 (encoding: {encoding})")
+                break
+            except Exception as e:
+                print(f"  嘗試 {encoding} 編碼失敗: {e}")
+
+        if df_sorties is None:
+            raise ValueError(f"無法載入架次資料: {sorties_path}")
+
+        # 檢查必要欄位
+        required_cols = ['date', 'pla_aircraft_sorties']
+        missing_cols = [c for c in required_cols if c not in df_sorties.columns]
+        if missing_cols:
+            print(f"  警告: 架次資料缺少欄位: {missing_cols}")
+            print(f"  可用欄位: {list(df_sorties.columns)}")
+            raise ValueError(f"架次資料缺少必要欄位: {missing_cols}")
+
+        df_sorties['date'] = pd.to_datetime(df_sorties['date'], errors='coerce')
+        df_sorties = df_sorties[df_sorties['date'].notna()].copy()
         df_sorties = df_sorties[df_sorties['pla_aircraft_sorties'].notna()].copy()
         df_sorties = df_sorties.sort_values('date').reset_index(drop=True)
 
-        try:
-            df_political = pd.read_csv(DATA_SOURCES['political'], encoding='utf-8-sig')
-        except:
-            df_political = pd.read_csv(DATA_SOURCES['political'], encoding='utf-8')
+        if len(df_sorties) < 60:
+            raise ValueError(f"架次資料筆數不足: {len(df_sorties)} (需要至少 60 筆)")
 
-        df_political['date'] = pd.to_datetime(df_political['date'], errors='coerce')
-        df_political = df_political[df_political['date'].notna()].copy()
+        # 載入政治事件資料
+        df_political = None
+        for encoding in ['utf-8-sig', 'utf-8', 'latin-1']:
+            try:
+                df_political = pd.read_csv(political_path, encoding=encoding)
+                print(f"  成功載入政治事件資料 (encoding: {encoding})")
+                break
+            except Exception as e:
+                print(f"  嘗試 {encoding} 編碼失敗: {e}")
+
+        if df_political is None:
+            print(f"  警告: 無法載入政治事件資料，將使用空資料集")
+            df_political = pd.DataFrame({'date': []})
+
+        if 'date' in df_political.columns:
+            df_political['date'] = pd.to_datetime(df_political['date'], errors='coerce')
+            df_political = df_political[df_political['date'].notna()].copy()
 
         self.political_events = df_political
         self.latest_date = df_sorties['date'].max()
 
-        try:
-            self.weather_data = pd.read_csv(DATA_SOURCES['weather'], encoding='utf-8-sig')
-            self.weather_data['date'] = pd.to_datetime(self.weather_data['date'])
-        except:
-            self.weather_data = None
+        print(f"  架次資料: {len(df_sorties)} 筆")
+        print(f"  政治事件: {len(df_political)} 筆")
+        print(f"  最新日期: {self.latest_date.strftime('%Y-%m-%d')}")
 
-        print(f"    Sorties: {len(df_sorties)} | Political: {len(df_political)} | Latest: {self.latest_date.strftime('%Y-%m-%d')}")
         return df_sorties, df_political
 
     def _create_political_features(self, df, df_events, window_days):
@@ -513,5 +549,51 @@ class PLAPredictor:
 
 
 if __name__ == "__main__":
-    predictor = PLAPredictor()
-    predictor.run()
+    import argparse
+    import traceback
+    import sys
+
+    parser = argparse.ArgumentParser(description='PLA 7-Day Sorties Prediction')
+    parser.add_argument('--sorties', type=str, default=None, help='Path to sorties data')
+    parser.add_argument('--political', type=str, default=None, help='Path to political events data')
+    parser.add_argument('--output', type=str, default='prediction.csv', help='Output file path')
+
+    args = parser.parse_args()
+
+    try:
+        predictor = PLAPredictor(high_threshold=HIGH_THRESHOLD)
+        predictions = predictor.run(
+            sorties_path=args.sorties,
+            political_path=args.political,
+            output_path=args.output
+        )
+        print(f"\nPrediction completed successfully!")
+        sys.exit(0)
+    except Exception as e:
+        print(f"\n{'='*60}")
+        print(f"ERROR: Prediction failed!")
+        print(f"{'='*60}")
+        print(f"Error type: {type(e).__name__}")
+        print(f"Error message: {str(e)}")
+        print(f"\nFull traceback:")
+        traceback.print_exc()
+
+        # Create a minimal error output file so the workflow doesn't fail on cp
+        try:
+            error_df = pd.DataFrame([{
+                'date': datetime.now().strftime('%Y-%m-%d'),
+                'error': str(e),
+                'status': 'FAILED',
+                'predicted_sorties': None,
+                'lower_bound': None,
+                'upper_bound': None,
+                'high_event_probability': None,
+                'risk_level': 'ERROR'
+            }])
+            error_df.to_csv(args.output, index=False, encoding='utf-8-sig')
+            print(f"\nCreated error output file: {args.output}")
+        except Exception as e2:
+            print(f"Failed to create error output: {e2}")
+
+        sys.exit(1)
+
