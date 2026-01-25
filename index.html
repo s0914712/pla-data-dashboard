@@ -542,7 +542,7 @@
         <div class="section-header">
             <h4 class="section-title">Research Articles</h4>
             <a href="articles.html" class="view-all-btn">
-                View All <span>→</span>
+                More Articles <span>→</span>
             </a>
         </div>
         <div class="row" id="articlesContainer">
@@ -732,9 +732,9 @@ async function loadArticles() {
         }
     }
 
-    // Sort by date descending and take first 6
+    // Sort by date descending and take first 3 for homepage
     articles.sort((a, b) => new Date(b.date) - new Date(a.date));
-    const displayArticles = articles.slice(0, 6);
+    const displayArticles = articles.slice(0, 3);
 
     renderArticleCards(displayArticles, container);
 }
