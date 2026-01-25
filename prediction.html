@@ -346,16 +346,17 @@
 <script>
 let predictionData = [];
 let allHistoricalData = [];
-let actualSortiesData = [];
+let actualSortiesData = {};  // Map: date -> sorties
+let actualSortiesArray = []; // Array for chart display
 let forecastChart = null;
 let accuracyChart = null;
 let errorChart = null;
 
 window.addEventListener('load', async function() {
-    await Promise.all([
-        loadPredictionData(),
-        loadActualSortiesData()
-    ]);
+    await loadActualSortiesData();
+    await loadPredictionData();
+    await loadHistoricalPredictions();
+    mergeActualWithPredictions();
     calculateAccuracyStats();
     renderPredictionCards();
     renderForecastChart();
@@ -375,17 +376,24 @@ async function loadActualSortiesData() {
             skipEmptyLines: true
         });
 
-        // Filter and sort by date, get last 60 days
-        actualSortiesData = parsed.data
+        // Build a map of date -> sorties for quick lookup
+        const tempArray = parsed.data
             .filter(row => row.date && row.pla_aircraft_sorties && !isNaN(parseFloat(row.pla_aircraft_sorties)))
             .map(row => ({
                 date: row.date.replace(/\//g, '-'),
                 sorties: parseFloat(row.pla_aircraft_sorties)
             }))
-            .sort((a, b) => new Date(a.date) - new Date(b.date))
-            .slice(-60);
+            .sort((a, b) => new Date(a.date) - new Date(b.date));
 
-        console.log('Loaded actual sorties:', actualSortiesData.length, 'records');
+        // Create lookup map
+        tempArray.forEach(row => {
+            actualSortiesData[row.date] = row.sorties;
+        });
+
+        // Get last 60 days for chart
+        actualSortiesArray = tempArray.slice(-60);
+
+        console.log('Loaded actual sorties:', Object.keys(actualSortiesData).length, 'records');
     } catch (error) {
         console.error('Error loading actual sorties data:', error);
     }
@@ -393,7 +401,8 @@ async function loadActualSortiesData() {
 
 async function loadPredictionData() {
     try {
-        const response = await fetch('data/prediction.csv');
+        // Load from new location: data/predictions/latest_prediction.csv
+        const response = await fetch('data/predictions/latest_prediction.csv');
         const text = await response.text();
         const cleanText = text.replace(/^\uFEFF/, '');
 
@@ -402,37 +411,124 @@ async function loadPredictionData() {
             skipEmptyLines: true
         });
 
-        allHistoricalData = parsed.data;
-
-        // Sort by date descending
-        allHistoricalData.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-        // Get latest 7 predictions for the forecast view
-        const today = new Date();
-        predictionData = allHistoricalData.filter(row => {
-            const rowDate = new Date(row.date);
-            return rowDate >= today || allHistoricalData.indexOf(row) < 7;
-        }).slice(0, 7);
+        // Get the 7-day forecast
+        predictionData = parsed.data.filter(row => row.date && row.predicted_sorties);
 
         // Sort ascending for display
         predictionData.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-        if (allHistoricalData.length > 0) {
-            const latest = allHistoricalData[0];
+        if (predictionData.length > 0) {
+            const latest = predictionData[0];
             document.getElementById('modelVersion').textContent = latest.model_version || '-';
             document.getElementById('dataLatest').textContent = latest.data_latest_date || '-';
             document.getElementById('generatedAt').textContent = latest.generated_at || '-';
         }
+
+        console.log('Loaded latest predictions:', predictionData.length, 'records');
     } catch (error) {
         console.error('Error loading prediction data:', error);
     }
 }
 
+async function loadHistoricalPredictions() {
+    try {
+        // Try to load historical prediction files
+        const historyFiles = [];
+        const today = new Date();
+
+        // Try to load the last 30 days of predictions
+        for (let i = 1; i <= 30; i++) {
+            const date = new Date(today);
+            date.setDate(date.getDate() - i);
+            const dateStr = date.toISOString().split('T')[0];
+            historyFiles.push(`data/predictions/history/prediction_${dateStr}.csv`);
+        }
+
+        const loadPromises = historyFiles.map(async (file) => {
+            try {
+                const response = await fetch(file);
+                if (!response.ok) return [];
+                const text = await response.text();
+                const cleanText = text.replace(/^\uFEFF/, '');
+                const parsed = Papa.parse(cleanText, { header: true, skipEmptyLines: true });
+                return parsed.data;
+            } catch {
+                return [];
+            }
+        });
+
+        const results = await Promise.all(loadPromises);
+
+        // Flatten and deduplicate by date (keep earliest prediction for each date)
+        const predictionMap = new Map();
+
+        results.flat().forEach(row => {
+            if (row.date && row.predicted_sorties) {
+                // Only keep predictions for dates that have passed (we can compare with actual)
+                const predDate = new Date(row.date);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                if (predDate < today) {
+                    // Keep the earliest prediction made for this date
+                    if (!predictionMap.has(row.date)) {
+                        predictionMap.set(row.date, row);
+                    }
+                }
+            }
+        });
+
+        allHistoricalData = Array.from(predictionMap.values());
+
+        // Sort by date descending
+        allHistoricalData.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        console.log('Loaded historical predictions:', allHistoricalData.length, 'records');
+    } catch (error) {
+        console.error('Error loading historical predictions:', error);
+    }
+}
+
+function mergeActualWithPredictions() {
+    // Merge actual values into historical predictions
+    allHistoricalData = allHistoricalData.map(row => {
+        const actualValue = actualSortiesData[row.date];
+        if (actualValue !== undefined) {
+            const predicted = parseFloat(row.predicted_sorties);
+            const error = actualValue - predicted;
+            return {
+                ...row,
+                actual_sorties: actualValue,
+                prediction_error: error
+            };
+        }
+        return row;
+    });
+
+    // Also update current predictions with actual values if available
+    predictionData = predictionData.map(row => {
+        const actualValue = actualSortiesData[row.date];
+        if (actualValue !== undefined) {
+            const predicted = parseFloat(row.predicted_sorties);
+            const error = actualValue - predicted;
+            return {
+                ...row,
+                actual_sorties: actualValue,
+                prediction_error: error
+            };
+        }
+        return row;
+    });
+
+    console.log('Merged actual values with predictions');
+}
+
 function calculateAccuracyStats() {
-    // Filter records with actual values
-    const withActual = allHistoricalData.filter(row =>
-        row.actual_sorties && row.actual_sorties !== '' && !isNaN(parseFloat(row.actual_sorties))
-    );
+    // Filter records with actual values (actual_sorties can be number or string)
+    const withActual = allHistoricalData.filter(row => {
+        const actual = row.actual_sorties;
+        return actual !== undefined && actual !== null && actual !== '' && !isNaN(parseFloat(actual));
+    });
 
     if (withActual.length === 0) {
         document.getElementById('accuracySection').style.display = 'none';
@@ -450,7 +546,7 @@ function calculateAccuracyStats() {
 
     withActual.forEach(row => {
         const predicted = parseFloat(row.predicted_sorties);
-        const actual = parseFloat(row.actual_sorties);
+        const actual = typeof row.actual_sorties === 'number' ? row.actual_sorties : parseFloat(row.actual_sorties);
 
         if (!isNaN(predicted) && !isNaN(actual)) {
             const error = actual - predicted;
@@ -467,7 +563,7 @@ function calculateAccuracyStats() {
 
     const mae = sumAbsError / withActual.length;
     const rmse = Math.sqrt(sumSquaredError / withActual.length);
-    const directionAcc = (correctDirection / totalComparisons * 100);
+    const directionAcc = totalComparisons > 0 ? (correctDirection / totalComparisons * 100) : 0;
 
     document.getElementById('maeValue').textContent = mae.toFixed(1);
     document.getElementById('rmseValue').textContent = rmse.toFixed(1);
@@ -546,7 +642,7 @@ function renderForecastChart() {
     const lowerData = [];
 
     // Add historical actual data (last 60 days)
-    actualSortiesData.forEach(row => {
+    actualSortiesArray.forEach(row => {
         const date = new Date(row.date);
         combinedLabels.push(date.toLocaleDateString('zh-TW', { month: 'numeric', day: 'numeric' }));
         actualData.push(row.sorties);
@@ -633,8 +729,8 @@ function renderForecastChart() {
                     annotations: {
                         line1: {
                             type: 'line',
-                            xMin: actualSortiesData.length - 0.5,
-                            xMax: actualSortiesData.length - 0.5,
+                            xMin: actualSortiesArray.length - 0.5,
+                            xMax: actualSortiesArray.length - 0.5,
                             borderColor: 'rgba(0, 0, 0, 0.3)',
                             borderWidth: 2,
                             borderDash: [6, 6],
@@ -666,15 +762,20 @@ function renderForecastChart() {
 function renderAccuracyChart() {
     const ctx = document.getElementById('accuracyChart').getContext('2d');
 
-    // Get last 60 days with actual values
+    // Get records with actual values (actual_sorties can be number or string)
     const withActual = allHistoricalData
-        .filter(r => r.actual_sorties && r.actual_sorties !== '' && !isNaN(parseFloat(r.actual_sorties)))
+        .filter(r => {
+            const actual = r.actual_sorties;
+            return actual !== undefined && actual !== null && actual !== '' && !isNaN(parseFloat(actual));
+        })
         .slice(0, 60)
         .reverse();
 
     if (withActual.length === 0) {
         ctx.font = '16px Arial';
-        ctx.fillText('No historical data with actual values available yet', 50, 100);
+        ctx.fillStyle = '#666';
+        ctx.fillText('No historical prediction data with actual values available yet.', 50, 100);
+        ctx.fillText('Data will appear once predictions have been made and actual values are recorded.', 50, 130);
         return;
     }
 
@@ -684,7 +785,7 @@ function renderAccuracyChart() {
     });
 
     const predicted = withActual.map(r => parseFloat(r.predicted_sorties));
-    const actual = withActual.map(r => parseFloat(r.actual_sorties));
+    const actual = withActual.map(r => typeof r.actual_sorties === 'number' ? r.actual_sorties : parseFloat(r.actual_sorties));
 
     accuracyChart = new Chart(ctx, {
         type: 'line',
@@ -692,22 +793,26 @@ function renderAccuracyChart() {
             labels: labels,
             datasets: [
                 {
-                    label: 'Predicted',
+                    label: 'Predicted (預測值)',
                     data: predicted,
                     borderColor: '#f5576c',
                     backgroundColor: 'rgba(245, 87, 108, 0.1)',
                     borderWidth: 2,
                     fill: false,
-                    tension: 0.3
+                    tension: 0.3,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#f5576c'
                 },
                 {
-                    label: 'Actual',
+                    label: 'Actual (實際值)',
                     data: actual,
                     borderColor: '#28a745',
                     backgroundColor: 'rgba(40, 167, 69, 0.1)',
                     borderWidth: 2,
                     fill: false,
-                    tension: 0.3
+                    tension: 0.3,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#28a745'
                 }
             ]
         },
@@ -715,12 +820,24 @@ function renderAccuracyChart() {
             responsive: true,
             plugins: {
                 legend: { position: 'top' },
-                tooltip: { mode: 'index', intersect: false }
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                    callbacks: {
+                        afterBody: function(context) {
+                            const idx = context[0].dataIndex;
+                            const pred = predicted[idx];
+                            const act = actual[idx];
+                            const err = act - pred;
+                            return `Error: ${err > 0 ? '+' : ''}${err.toFixed(1)}`;
+                        }
+                    }
+                }
             },
             scales: {
                 y: {
                     beginAtZero: true,
-                    title: { display: true, text: 'Aircraft Sorties' }
+                    title: { display: true, text: 'Aircraft Sorties (架次)' }
                 }
             }
         }
@@ -730,15 +847,20 @@ function renderAccuracyChart() {
 function renderErrorChart() {
     const ctx = document.getElementById('errorChart').getContext('2d');
 
-    // Get last 60 days with actual values
+    // Get records with prediction_error (can be number from merge or string from CSV)
     const withActual = allHistoricalData
-        .filter(r => r.prediction_error && r.prediction_error !== '' && !isNaN(parseFloat(r.prediction_error)))
+        .filter(r => {
+            const err = r.prediction_error;
+            return err !== undefined && err !== null && err !== '' && !isNaN(parseFloat(err));
+        })
         .slice(0, 60)
         .reverse();
 
     if (withActual.length === 0) {
         ctx.font = '16px Arial';
-        ctx.fillText('No historical error data available yet', 50, 100);
+        ctx.fillStyle = '#666';
+        ctx.fillText('No historical prediction error data available yet.', 50, 100);
+        ctx.fillText('Data will appear once predictions have been made and actual values are recorded.', 50, 130);
         return;
     }
 
@@ -747,7 +869,7 @@ function renderErrorChart() {
         return date.toLocaleDateString('zh-TW', { month: 'numeric', day: 'numeric' });
     });
 
-    const errors = withActual.map(r => parseFloat(r.prediction_error));
+    const errors = withActual.map(r => typeof r.prediction_error === 'number' ? r.prediction_error : parseFloat(r.prediction_error));
     const colors = errors.map(e => e > 0 ? 'rgba(220, 53, 69, 0.7)' : 'rgba(40, 167, 69, 0.7)');
 
     errorChart = new Chart(ctx, {
@@ -755,7 +877,7 @@ function renderErrorChart() {
         data: {
             labels: labels,
             datasets: [{
-                label: 'Prediction Error (Actual - Predicted)',
+                label: 'Prediction Error (預測誤差: 實際 - 預測)',
                 data: errors,
                 backgroundColor: colors,
                 borderColor: colors.map(c => c.replace('0.7', '1')),
@@ -770,14 +892,14 @@ function renderErrorChart() {
                     callbacks: {
                         label: function(context) {
                             const value = context.raw;
-                            return `Error: ${value > 0 ? '+' : ''}${value.toFixed(1)} (${value > 0 ? 'Underestimated' : 'Overestimated'})`;
+                            return `Error: ${value > 0 ? '+' : ''}${value.toFixed(1)} (${value > 0 ? 'Underestimated 低估' : 'Overestimated 高估'})`;
                         }
                     }
                 }
             },
             scales: {
                 y: {
-                    title: { display: true, text: 'Error (Actual - Predicted)' }
+                    title: { display: true, text: 'Error (Actual - Predicted) 誤差' }
                 }
             }
         }
@@ -788,19 +910,35 @@ function renderTable() {
     const tbody = document.getElementById('predictionTableBody');
     tbody.innerHTML = '';
 
-    // Show all historical data sorted by date descending
-    const sortedData = [...allHistoricalData].sort((a, b) => new Date(b.date) - new Date(a.date));
+    // Combine current predictions with historical data for the table
+    const allData = [...predictionData, ...allHistoricalData];
+
+    // Deduplicate by date (prefer entries with actual values)
+    const dateMap = new Map();
+    allData.forEach(row => {
+        if (!row.date) return;
+        const existing = dateMap.get(row.date);
+        const hasActual = row.actual_sorties !== undefined && row.actual_sorties !== null && row.actual_sorties !== '';
+        if (!existing || (hasActual && !existing.actual_sorties)) {
+            dateMap.set(row.date, row);
+        }
+    });
+
+    // Sort by date descending
+    const sortedData = Array.from(dateMap.values()).sort((a, b) => new Date(b.date) - new Date(a.date));
 
     sortedData.forEach(row => {
         const badgeClass = getRiskBadgeClass(row.risk_level);
-        const hasActual = row.actual_sorties && row.actual_sorties !== '' && !isNaN(parseFloat(row.actual_sorties));
-        const actualVal = hasActual ? parseFloat(row.actual_sorties).toFixed(0) : '-';
+        const actual = row.actual_sorties;
+        const hasActual = actual !== undefined && actual !== null && actual !== '' && !isNaN(parseFloat(actual));
+        const actualVal = hasActual ? (typeof actual === 'number' ? actual.toFixed(0) : parseFloat(actual).toFixed(0)) : '-';
 
         let errorHtml = '-';
-        if (row.prediction_error && row.prediction_error !== '' && !isNaN(parseFloat(row.prediction_error))) {
-            const err = parseFloat(row.prediction_error);
-            const errorClass = err > 0 ? 'error-positive' : (err < 0 ? 'error-negative' : 'error-zero');
-            errorHtml = `<span class="${errorClass}">${err > 0 ? '+' : ''}${err.toFixed(1)}</span>`;
+        const err = row.prediction_error;
+        if (err !== undefined && err !== null && err !== '' && !isNaN(parseFloat(err))) {
+            const errNum = typeof err === 'number' ? err : parseFloat(err);
+            const errorClass = errNum > 0 ? 'error-positive' : (errNum < 0 ? 'error-negative' : 'error-zero');
+            errorHtml = `<span class="${errorClass}">${errNum > 0 ? '+' : ''}${errNum.toFixed(1)}</span>`;
         }
 
         const tr = document.createElement('tr');
