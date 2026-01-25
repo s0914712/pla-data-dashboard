@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="utf-8">
+    <title>Research Articles - PLA Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Collection of research articles on PLA military activities analysis, machine learning applications, and Taiwan Strait security monitoring.">
+    <meta name="keywords" content="PLA research, military analysis articles, Taiwan Strait studies, AI defense, machine learning military">
+    <meta name="author" content="Jeremy Chen">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://s0914712.github.io/pla-data-dashboard/articles.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://s0914712.github.io/pla-data-dashboard/articles.html">
+    <meta property="og:title" content="Research Articles - PLA Dashboard">
+    <meta property="og:description" content="Collection of research articles on PLA military activities analysis and Taiwan Strait security.">
+    <meta property="og:image" content="https://s0914712.github.io/pla-data-dashboard/images/og-image.png">
+    <meta property="og:locale" content="zh_TW">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Research Articles - PLA Dashboard">
+    <meta name="twitter:description" content="Collection of research articles on PLA military activities analysis.">
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Research Articles - PLA Dashboard",
+        "description": "Collection of research articles on PLA military activities analysis",
+        "url": "https://s0914712.github.io/pla-data-dashboard/articles.html",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "PLA Dashboard",
+            "url": "https://s0914712.github.io/pla-data-dashboard/"
+        }
+    }
+    </script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .navbar-custom {
+            background: var(--primary-gradient);
+        }
+
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: white !important;
+        }
+
+        .page-header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .page-header .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .article-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f5576c 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .article-card:hover::before {
+            opacity: 1;
+        }
+
+        .article-image {
+            height: 180px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.3));
+        }
+
+        .article-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            opacity: 0.3;
+        }
+
+        .article-category {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(255,255,255,0.95);
+            color: #667eea;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 1;
+        }
+
+        .article-body {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .article-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .article-title a:hover {
+            color: #667eea;
+        }
+
+        .article-excerpt {
+            font-size: 0.9rem;
+            color: #718096;
+            line-height: 1.6;
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1rem;
+            border-top: 1px solid #edf2f7;
+            font-size: 0.8rem;
+            color: #a0aec0;
+        }
+
+        .article-date {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .article-read-more {
+            color: #667eea;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: gap 0.2s ease;
+        }
+
+        .article-read-more:hover {
+            gap: 8px;
+            text-decoration: none;
+            color: #764ba2;
+        }
+
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 0.75rem;
+        }
+
+        .article-tag {
+            background: #f7fafc;
+            color: #667eea;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 4rem;
+            color: #667eea;
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .article-card-wrapper {
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .article-card-wrapper:nth-child(1) { animation-delay: 0.1s; }
+        .article-card-wrapper:nth-child(2) { animation-delay: 0.15s; }
+        .article-card-wrapper:nth-child(3) { animation-delay: 0.2s; }
+        .article-card-wrapper:nth-child(4) { animation-delay: 0.25s; }
+        .article-card-wrapper:nth-child(5) { animation-delay: 0.3s; }
+        .article-card-wrapper:nth-child(6) { animation-delay: 0.35s; }
+
+        footer {
+            background-color: #1a202c;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">PLA Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="prediction.html">ML Prediction</a></li>
+                <li class="nav-item"><a class="nav-link" href="weather.html">Airport Weather</a></li>
+                <li class="nav-item"><a class="nav-link" href="japan.html">Japan MOD</a></li>
+                <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+                <li class="nav-item active"><a class="nav-link" href="articles.html">Articles</a></li>
+                <li class="nav-item"><a class="nav-link" href="download.html">Download</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<div class="page-header">
+    <div class="container">
+        <h1>Research Articles</h1>
+        <p class="lead mb-0">In-depth analysis and research on PLA military activities</p>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
+        <p>Loading articles...</p>
+    </div>
+    <div class="row" id="articlesContainer" style="display: none;">
+        <!-- Articles will be loaded here -->
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <p>© 2025 Jeremy Chen | PLA Military Data Analysis Dashboard</p>
+        <p>
+            <a href="https://github.com/s0914712" target="_blank">GitHub</a> |
+            <a href="https://s0914712.github.io" target="_blank">Blog</a>
+        </p>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+const articleFiles = ['post-1.md', 'post-2.md', 'post-3.md', 'post-4.md', 'post-5.md'];
+const gradients = [
+    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+    'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+    'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+    'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+    'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)'
+];
+const icons = ['📊', '📈', '🔬', '🎯', '💡', '📡'];
+
+window.addEventListener('load', async function() {
+    await loadArticles();
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('articlesContainer').style.display = 'flex';
+});
+
+async function loadArticles() {
+    const container = document.getElementById('articlesContainer');
+    const articles = [];
+
+    for (const file of articleFiles) {
+        try {
+            const response = await fetch(`articles/${file}`);
+            if (!response.ok) continue;
+            const text = await response.text();
+            const parsed = parseMarkdownFrontMatter(text);
+            if (parsed) {
+                parsed.filename = file;
+                articles.push(parsed);
+            }
+        } catch (error) {
+            console.error(`Error loading ${file}:`, error);
+        }
+    }
+
+    // Sort by date descending
+    articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    renderArticleCards(articles, container);
+}
+
+function parseMarkdownFrontMatter(content) {
+    const frontMatterRegex = /^---\s*\n([\s\S]*?)\n---/;
+    const match = content.match(frontMatterRegex);
+
+    if (!match) return null;
+
+    const frontMatter = match[1];
+    const result = {};
+
+    const titleMatch = frontMatter.match(/title:\s*["']?([^"'\n]+)["']?/);
+    if (titleMatch) result.title = titleMatch[1].trim();
+
+    const dateMatch = frontMatter.match(/date:\s*([^\n]+)/);
+    if (dateMatch) result.date = dateMatch[1].trim().split('T')[0];
+
+    const descMatch = frontMatter.match(/description:\s*["']?([^"'\n]+)["']?/);
+    if (descMatch) result.description = descMatch[1].trim();
+
+    const catSection = frontMatter.match(/categories:\s*\n((?:\s+-\s*["']?[^"'\n]+["']?\n?)+)/);
+    if (catSection) {
+        result.categories = catSection[1].match(/["']?([^"'\n-]+)["']?/g)?.map(c => c.replace(/["'-\s]/g, '').trim()).filter(c => c) || [];
+    }
+
+    const tagSection = frontMatter.match(/tags:\s*\n((?:\s+-\s*["']?[^"'\n]+["']?\n?)+)/);
+    if (tagSection) {
+        result.tags = tagSection[1].match(/["']?([^"'\n-]+)["']?/g)?.map(t => t.replace(/["'-\s]/g, '').trim()).filter(t => t) || [];
+    }
+
+    const contentAfterFrontMatter = content.slice(match[0].length).trim();
+    const firstParagraph = contentAfterFrontMatter.split(/\n\n/)[0]?.replace(/<[^>]*>/g, '').replace(/[#*_\[\]]/g, '').trim();
+    result.excerpt = firstParagraph?.slice(0, 180) + (firstParagraph?.length > 180 ? '...' : '') || result.description || '';
+
+    return result;
+}
+
+function renderArticleCards(articles, container) {
+    container.innerHTML = '';
+
+    articles.forEach((article, index) => {
+        const gradient = gradients[index % gradients.length];
+        const icon = icons[index % icons.length];
+        const category = article.categories?.[0] || 'Article';
+        const tags = article.tags?.slice(0, 4) || [];
+
+        const formattedDate = article.date ? new Date(article.date).toLocaleDateString('zh-TW', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        }) : '';
+
+        const cardHtml = `
+            <div class="col-lg-4 col-md-6 mb-4 article-card-wrapper">
+                <div class="article-card">
+                    <div class="article-image" style="background: ${gradient}">
+                        <span class="article-category">${category}</span>
+                        <span class="article-icon">${icon}</span>
+                    </div>
+                    <div class="article-body">
+                        <h5 class="article-title">
+                            <a href="article.html?file=${article.filename}">${article.title || 'Untitled'}</a>
+                        </h5>
+                        <div class="article-tags">
+                            ${tags.map(tag => `<span class="article-tag">${tag}</span>`).join('')}
+                        </div>
+                        <p class="article-excerpt">${article.excerpt}</p>
+                        <div class="article-meta">
+                            <span class="article-date">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                ${formattedDate}
+                            </span>
+                            <a href="article.html?file=${article.filename}" class="article-read-more">
+                                Read More <span>→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        container.innerHTML += cardHtml;
+    });
+}
+</script>
+
+</body>
+</html>
