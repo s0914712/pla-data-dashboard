@@ -1,0 +1,38 @@
+# robots.txt for PLA Data Dashboard
+# https://s0914712.github.io/pla-data-dashboard/
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://s0914712.github.io/pla-data-dashboard/sitemap.xml
+
+# Allow all search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
+
+# Block access to data files directly (optional - remove if you want data indexed)
+# Disallow: /data/
+
+# Allow CSS, JS, and images for proper rendering
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.gif$
+Allow: /*.svg$
