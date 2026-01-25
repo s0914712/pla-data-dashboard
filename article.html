@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="utf-8">
+    <title>Article - PLA Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Research article on PLA military activities analysis">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <!-- Marked.js for Markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --bg-light: #f7fafc;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        /* Navigation */
+        .navbar-custom {
+            background: var(--primary-gradient);
+        }
+
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: white !important;
+        }
+
+        .navbar-custom .nav-link:hover {
+            color: rgba(255,255,255,0.8) !important;
+        }
+
+        /* Article Header */
+        .article-header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 4rem 0 3rem;
+            margin-bottom: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .article-header .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .article-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .article-meta-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .article-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Article Content */
+        .article-content-wrapper {
+            background: white;
+            border-radius: 20px 20px 0 0;
+            margin-top: -2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .article-content h1,
+        .article-content h2,
+        .article-content h3,
+        .article-content h4,
+        .article-content h5,
+        .article-content h6 {
+            color: var(--text-primary);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .article-content h1 { font-size: 2rem; }
+        .article-content h2 { font-size: 1.75rem; }
+        .article-content h3 { font-size: 1.5rem; }
+        .article-content h4 { font-size: 1.25rem; }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .article-content a {
+            color: #667eea;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+
+        .article-content a:hover {
+            border-bottom-color: #667eea;
+        }
+
+        .article-content blockquote {
+            border-left: 4px solid #667eea;
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .article-content pre {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        .article-content code {
+            background: #edf2f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #e53e3e;
+        }
+
+        .article-content pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .article-content th,
+        .article-content td {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        .article-content th {
+            background: var(--bg-light);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .article-content ul,
+        .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .article-content hr {
+            border: none;
+            height: 1px;
+            background: var(--border-color);
+            margin: 2rem 0;
+        }
+
+        /* Tags Section */
+        .article-tags-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .tag-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            color: #667eea;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        /* Loading State */
+        .loading-article {
+            text-align: center;
+            padding: 4rem;
+            color: #667eea;
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a202c;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: #667eea;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 1.75rem;
+            }
+
+            .article-content {
+                padding: 2rem 1rem;
+            }
+
+            .article-header {
+                padding: 3rem 0 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">PLA Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="prediction.html">ML Prediction</a></li>
+                <li class="nav-item"><a class="nav-link" href="weather.html">Airport Weather</a></li>
+                <li class="nav-item"><a class="nav-link" href="japan.html">Japan MOD</a></li>
+                <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+                <li class="nav-item"><a class="nav-link" href="download.html">Download</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Article Header -->
+<div class="article-header" id="articleHeader">
+    <div class="container">
+        <a href="index.html" class="back-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Back to Home
+        </a>
+        <h1 class="article-title" id="articleTitle">Loading...</h1>
+        <div class="article-meta-header" id="articleMeta">
+            <!-- Meta info will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<!-- Article Content -->
+<div class="article-content-wrapper">
+    <div class="article-content" id="articleContent">
+        <div class="loading-article">
+            <div class="loading-spinner"></div>
+            <p>Loading article...</p>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <p>© 2025 Jeremy Chen | PLA Military Data Analysis Dashboard</p>
+        <p>
+            <a href="https://github.com/s0914712" target="_blank">GitHub</a> |
+            <a href="https://s0914712.github.io" target="_blank">Blog</a>
+        </p>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+window.addEventListener('load', async function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const filename = urlParams.get('file');
+
+    if (!filename) {
+        showError('No article specified');
+        return;
+    }
+
+    try {
+        const response = await fetch(`articles/${filename}`);
+        if (!response.ok) throw new Error('Article not found');
+
+        const content = await response.text();
+        const parsed = parseArticle(content);
+
+        renderArticle(parsed);
+    } catch (error) {
+        showError(error.message);
+    }
+});
+
+function parseArticle(content) {
+    const frontMatterRegex = /^---\s*\n([\s\S]*?)\n---/;
+    const match = content.match(frontMatterRegex);
+
+    const result = {
+        title: 'Untitled',
+        date: '',
+        categories: [],
+        tags: [],
+        content: content
+    };
+
+    if (match) {
+        const frontMatter = match[1];
+
+        // Parse title
+        const titleMatch = frontMatter.match(/title:\s*["']?([^"'\n]+)["']?/);
+        if (titleMatch) result.title = titleMatch[1].trim();
+
+        // Parse date
+        const dateMatch = frontMatter.match(/date:\s*([^\n]+)/);
+        if (dateMatch) result.date = dateMatch[1].trim().split('T')[0];
+
+        // Parse categories
+        const catSection = frontMatter.match(/categories:\s*\n((?:\s+-\s*["']?[^"'\n]+["']?\n?)+)/);
+        if (catSection) {
+            result.categories = catSection[1].match(/["']?([^"'\n-]+)["']?/g)?.map(c => c.replace(/["'-\s]/g, '').trim()).filter(c => c) || [];
+        }
+
+        // Parse tags
+        const tagSection = frontMatter.match(/tags:\s*\n((?:\s+-\s*["']?[^"'\n]+["']?\n?)+)/);
+        if (tagSection) {
+            result.tags = tagSection[1].match(/["']?([^"'\n-]+)["']?/g)?.map(t => t.replace(/["'-\s]/g, '').trim()).filter(t => t) || [];
+        }
+
+        // Get content after front matter
+        result.content = content.slice(match[0].length).trim();
+    }
+
+    return result;
+}
+
+function renderArticle(article) {
+    // Update page title
+    document.title = `${article.title} - PLA Dashboard`;
+
+    // Update header
+    document.getElementById('articleTitle').textContent = article.title;
+
+    // Update meta
+    const metaHtml = [];
+
+    if (article.date) {
+        const formattedDate = new Date(article.date).toLocaleDateString('zh-TW', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        metaHtml.push(`
+            <span class="article-meta-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                ${formattedDate}
+            </span>
+        `);
+    }
+
+    if (article.categories.length > 0) {
+        metaHtml.push(`
+            <span class="article-meta-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                ${article.categories.join(', ')}
+            </span>
+        `);
+    }
+
+    document.getElementById('articleMeta').innerHTML = metaHtml.join('');
+
+    // Render markdown content
+    const htmlContent = marked.parse(article.content);
+
+    // Add tags section
+    let tagsHtml = '';
+    if (article.tags.length > 0) {
+        tagsHtml = `
+            <div class="article-tags-section">
+                <strong>Tags:</strong><br><br>
+                ${article.tags.map(tag => `<span class="tag-badge">${tag}</span>`).join('')}
+            </div>
+        `;
+    }
+
+    document.getElementById('articleContent').innerHTML = htmlContent + tagsHtml;
+}
+
+function showError(message) {
+    document.getElementById('articleTitle').textContent = 'Error';
+    document.getElementById('articleMeta').innerHTML = '';
+    document.getElementById('articleContent').innerHTML = `
+        <div style="text-align: center; padding: 3rem;">
+            <h3 style="color: #e53e3e;">Article Not Found</h3>
+            <p style="color: #718096;">${message}</p>
+            <a href="index.html" class="btn btn-primary mt-3">Return to Home</a>
+        </div>
+    `;
+}
+</script>
+
+</body>
+</html>

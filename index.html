@@ -90,7 +90,243 @@
         .btn-primary:hover {
             background: linear-gradient(135deg, #5568d3 0%, #653b8a 100%);
         }
-        
+
+        /* Articles Section Styles */
+        .articles-section {
+            margin-top: 3rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin: 0;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .article-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f5576c 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .article-card:hover::before {
+            opacity: 1;
+        }
+
+        .article-image {
+            height: 160px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.3));
+        }
+
+        .article-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            opacity: 0.3;
+        }
+
+        .article-category {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(255,255,255,0.95);
+            color: #667eea;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 1;
+        }
+
+        .article-body {
+            padding: 1.25rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .article-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .article-title a:hover {
+            color: #667eea;
+        }
+
+        .article-excerpt {
+            font-size: 0.85rem;
+            color: #718096;
+            line-height: 1.6;
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 0.75rem;
+            border-top: 1px solid #edf2f7;
+            font-size: 0.75rem;
+            color: #a0aec0;
+        }
+
+        .article-date {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .article-read-more {
+            color: #667eea;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: gap 0.2s ease;
+        }
+
+        .article-read-more:hover {
+            gap: 8px;
+            text-decoration: none;
+            color: #764ba2;
+        }
+
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 0.75rem;
+        }
+
+        .article-tag {
+            background: #f7fafc;
+            color: #667eea;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .view-all-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #667eea;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .view-all-btn:hover {
+            background: rgba(102, 126, 234, 0.1);
+            text-decoration: none;
+            color: #764ba2;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .article-card-wrapper {
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .article-card-wrapper:nth-child(1) { animation-delay: 0.1s; }
+        .article-card-wrapper:nth-child(2) { animation-delay: 0.2s; }
+        .article-card-wrapper:nth-child(3) { animation-delay: 0.3s; }
+        .article-card-wrapper:nth-child(4) { animation-delay: 0.4s; }
+        .article-card-wrapper:nth-child(5) { animation-delay: 0.5s; }
+        .article-card-wrapper:nth-child(6) { animation-delay: 0.6s; }
+
     </style>
 </head>
 <body>
@@ -109,6 +345,7 @@
                 <li class="nav-item"><a class="nav-link" href="weather.html" style="color: white;">Airport Weather</a></li>
                 <li class="nav-item"><a class="nav-link" href="japan.html" style="color: white;">Japan MOD</a></li>
                 <li class="nav-item"><a class="nav-link" href="news.html" style="color: white;">News</a></li>
+                <li class="nav-item"><a class="nav-link" href="articles.html" style="color: white;">Articles</a></li>
                 <li class="nav-item"><a class="nav-link" href="download.html" style="color: white;">Download</a></li>
             </ul>
         </div>
@@ -235,6 +472,19 @@
             </div>
         </div>
     </div>
+
+    <!-- Articles Section -->
+    <div class="articles-section">
+        <div class="section-header">
+            <h4 class="section-title">Research Articles</h4>
+            <a href="articles.html" class="view-all-btn">
+                View All <span>→</span>
+            </a>
+        </div>
+        <div class="row" id="articlesContainer">
+            <!-- Articles will be loaded dynamically -->
+        </div>
+    </div>
 </div>
 
 <!-- Footer -->
@@ -258,6 +508,7 @@ window.addEventListener('load', async function() {
     await loadData();
     initializeCharts();
     updateDashboard();
+    await loadArticles();
     document.getElementById('loading').style.display = 'none';
     document.getElementById('mainContent').style.display = 'block';
 });
@@ -383,6 +634,138 @@ function updateCharts() {
         pointBackgroundColor: '#667eea'
     }];
     charts.weekday.update();
+}
+
+// Articles loading functions
+const articleFiles = ['post-1.md', 'post-2.md', 'post-3.md', 'post-4.md', 'post-5.md'];
+const gradients = [
+    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+    'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+    'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+    'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+    'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)'
+];
+
+const icons = ['📊', '📈', '🔬', '🎯', '💡', '📡'];
+
+async function loadArticles() {
+    const container = document.getElementById('articlesContainer');
+    const articles = [];
+
+    for (const file of articleFiles) {
+        try {
+            const response = await fetch(`articles/${file}`);
+            if (!response.ok) continue;
+            const text = await response.text();
+            const parsed = parseMarkdownFrontMatter(text);
+            if (parsed) {
+                parsed.filename = file;
+                articles.push(parsed);
+            }
+        } catch (error) {
+            console.error(`Error loading ${file}:`, error);
+        }
+    }
+
+    // Sort by date descending and take first 6
+    articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+    const displayArticles = articles.slice(0, 6);
+
+    renderArticleCards(displayArticles, container);
+}
+
+function parseMarkdownFrontMatter(content) {
+    const frontMatterRegex = /^---\s*\n([\s\S]*?)\n---/;
+    const match = content.match(frontMatterRegex);
+
+    if (!match) return null;
+
+    const frontMatter = match[1];
+    const result = {};
+
+    // Parse title
+    const titleMatch = frontMatter.match(/title:\s*["']?([^"'\n]+)["']?/);
+    if (titleMatch) result.title = titleMatch[1].trim();
+
+    // Parse date
+    const dateMatch = frontMatter.match(/date:\s*([^\n]+)/);
+    if (dateMatch) result.date = dateMatch[1].trim().split('T')[0];
+
+    // Parse description
+    const descMatch = frontMatter.match(/description:\s*["']?([^"'\n]+)["']?/);
+    if (descMatch) result.description = descMatch[1].trim();
+
+    // Parse categories
+    const catSection = frontMatter.match(/categories:\s*\n((?:\s+-\s*["']?[^"'\n]+["']?\n?)+)/);
+    if (catSection) {
+        result.categories = catSection[1].match(/["']?([^"'\n-]+)["']?/g)?.map(c => c.replace(/["'-\s]/g, '').trim()).filter(c => c) || [];
+    }
+
+    // Parse tags
+    const tagSection = frontMatter.match(/tags:\s*\n((?:\s+-\s*["']?[^"'\n]+["']?\n?)+)/);
+    if (tagSection) {
+        result.tags = tagSection[1].match(/["']?([^"'\n-]+)["']?/g)?.map(t => t.replace(/["'-\s]/g, '').trim()).filter(t => t) || [];
+    }
+
+    // Get excerpt from content (first paragraph after front matter)
+    const contentAfterFrontMatter = content.slice(match[0].length).trim();
+    const firstParagraph = contentAfterFrontMatter.split(/\n\n/)[0]?.replace(/<[^>]*>/g, '').replace(/[#*_\[\]]/g, '').trim();
+    result.excerpt = firstParagraph?.slice(0, 150) + (firstParagraph?.length > 150 ? '...' : '') || result.description || '';
+
+    return result;
+}
+
+function renderArticleCards(articles, container) {
+    container.innerHTML = '';
+
+    articles.forEach((article, index) => {
+        const gradient = gradients[index % gradients.length];
+        const icon = icons[index % icons.length];
+        const category = article.categories?.[0] || 'Article';
+        const tags = article.tags?.slice(0, 3) || [];
+
+        const formattedDate = article.date ? new Date(article.date).toLocaleDateString('zh-TW', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        }) : '';
+
+        const cardHtml = `
+            <div class="col-lg-4 col-md-6 mb-4 article-card-wrapper">
+                <div class="article-card">
+                    <div class="article-image" style="background: ${gradient}">
+                        <span class="article-category">${category}</span>
+                        <span class="article-icon">${icon}</span>
+                    </div>
+                    <div class="article-body">
+                        <h5 class="article-title">
+                            <a href="article.html?file=${article.filename}">${article.title || 'Untitled'}</a>
+                        </h5>
+                        <div class="article-tags">
+                            ${tags.map(tag => `<span class="article-tag">${tag}</span>`).join('')}
+                        </div>
+                        <p class="article-excerpt">${article.excerpt}</p>
+                        <div class="article-meta">
+                            <span class="article-date">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                ${formattedDate}
+                            </span>
+                            <a href="article.html?file=${article.filename}" class="article-read-more">
+                                Read More <span>→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        container.innerHTML += cardHtml;
+    });
 }
 </script>
 
