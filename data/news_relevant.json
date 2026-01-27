@@ -4,13 +4,37 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "國防部發布：自昨日上午6時起至今日上午6時，偵獲8艘共艦、3艘公務船及5架次共機逾越台海中線進入西南空域，國軍監控應處。"
+      "Political_statement": "國防部發布：自昨晨6時至今晨6時，偵獲5艘共艦、1艘公務船、2架次共機在台海周邊活動，國軍嚴密監控應處。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-01-27",
+      "title": "偵獲5艘共艦2架次共機國軍監控| 政治",
+      "content": "（中央社記者游凱翔台北27日電）國防部今天發布共機艦動態，統計自昨天上午6時起至今天上午6時止，國軍偵獲5艘共艦、1艘公務船，以及2架次共機持續在台海周邊活動，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲5艘共艦、1艘公務船及2架次共機，持續在台海周邊活動。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：張良知）1150127",
+      "url": "https://www.cna.com.tw/news/aipl/202601270037.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.7,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "5架次共機逾越台海中線進入西南空域，8艘共艦、3艘公務船侵擾",
+      "Foreign_battleship": "",
+      "Political_statement": ""
     },
     "confidence": 0.95,
     "original_article": {
@@ -34,7 +58,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "2架次共機逾越台海中線侵擾中部及西南空域，國軍運用任務機艦及岸置飛彈系統嚴密監控應處。"
+      "Political_statement": "國防部發布：2架次共機逾越台海中線侵擾中部及西南空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -56,7 +80,7 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "17架次中共軍機（殲10、轟6K、空警500等）逾越台海中線進入台灣北部、中部及西南空域，配合共艦聯合戰備警巡",
+      "Military_exercise": "17架次中共軍機（殲10、轟6K、空警500等）逾越台海中線進入台灣北部、中部及西南空域，配合共艦假借聯合戰備警巡擾台",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
@@ -72,17 +96,17 @@
     }
   },
   {
-    "category": "TW_Statement",
+    "category": "Military_Exercise",
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "",
+      "Military_exercise": "9架次中國軍機逾越台灣海峽中線侵擾北部及西南空域，5艘中國軍艦在台海周邊活動，台灣國軍運用任務機艦及岸置飛彈系統監控應處。",
       "Foreign_battleship": "",
-      "Political_statement": "9架次共機逾越台海中線侵擾北部、西南空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。"
+      "Political_statement": ""
     },
     "confidence": 0.95,
     "original_article": {
@@ -100,13 +124,13 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.8,
+    "sentiment_score": -0.7,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "共軍無人機闖東沙島領空，國台辦稱正常訓練合法，批評民進黨台獨挑釁；陸委會駁斥為高度挑釁、不負責任行為。"
+      "Political_statement": "CN無人機17日闖東沙島領空。國台辦：正常飛行訓練，正當合法，批台灣台獨挑釁。陸委會：高度挑釁、不負責任。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -124,13 +148,13 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.6,
+    "sentiment_score": -0.4,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "6艘共艦及4架次共機逾越台海中線侵擾西南空域",
+      "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "國防部：偵獲6艘共艦、4架次共機逾越中線，國軍嚴密監控應處"
+      "Political_statement": "國防部發布：6艘共艦及4架次共機逾越台海中線侵擾西南空域，國軍任務機艦及岸置飛彈系統嚴密監控應處。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -138,30 +162,6 @@
       "title": "6艘共艦4架次共機擾台國軍嚴密監控應處| 政治",
       "content": "（中央社記者游凱翔台北21日電）國防部今天發布共機艦動態，統計自昨天上午6時起至今天上午6時止，國軍偵獲6艘共艦，以及4架次共機逾越台海中線侵擾西南空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲6艘共艦及4架次共機逾越台灣海峽中線進入西南空域，持續在台海周邊活動。 透過 Google News 追蹤中央社",
       "url": "https://www.cna.com.tw/news/aipl/202601210036.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "TW_Statement",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "國防部公布共軍2架次戰機（1架逾越中線）及6艘艦艇在台海周邊活動，國軍嚴密監控應處。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-01-20",
-      "title": "共軍8機艦台海周邊活動國軍嚴密監控應處| 政治",
-      "content": "（中央社記者吳書緯台北20日電）國防部指出，自昨天上午6時至今天上午6時，偵獲2架次共機，其中1架次逾越中線進入北部空域，以及6艘共艦，總計共軍8機艦持續在台海周邊活動，國軍嚴密監控與應處。 根據國防部今天公布「中共解放軍進入台海周邊空域活動示意圖」，國軍於昨天下午1時5分至昨天下午3時30分，在台灣海峽空域偵獲中共2架次主、輔戰機，其中1架次逾越海峽中線進入台灣北部空域。 國防部指出，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：張良知）1150120 #中共",
-      "url": "https://www.cna.com.tw/news/aipl/202601200029.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -178,7 +178,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "習近平整肅解放軍高層張又俠等，專家指需時間培養新軍官，短期內攻台機率降低。"
+      "Political_statement": "習近平整肅解放軍菁英，張又俠落馬，專家指短期內攻台機率降低。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -192,72 +192,48 @@
     }
   },
   {
-    "category": "US_Statement",
+    "category": "CN_Statement",
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.75,
+    "sentiment_score": -0.7,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "習近平下令解放軍2027年底前具備奪台能力，美專家預測今年軍力擴張、周邊行動更挑釁。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-01-23",
-      "title": "中共目標2027具奪台能力美專家：共軍行動恐更挑釁| 政治",
-      "content": "（中央社記者侯姿瑩華盛頓22日專電）美國情報評估，中國國家主席習近平已下令解放軍在2027年底前做好奪取台灣的準備。美專家今天表示，有鑒於此，今年可能會看到中共軍力大規模擴張，解放軍在台灣周邊的行動可能更加挑釁、更具野心。 華府智庫全球台灣研究中心（GTI）今天舉行座談，邀請GTI主任鄭哲軒（John Dotson）、GTI非常駐資深研究員梁安妮（Annie Kowalewski）及華特斯（Riley Walters）與會，討論2026年台灣政策展望。 美國海軍出身的鄭哲軒表示，習近平為解放軍設定一項目標，在2027年做好執行對台重大行動的準備，因此，今年解放軍可能會在台灣周邊進行更加挑釁、更具野心的行動，藉以向上表態「老闆，我們收到指示了，看看我們現在多厲害」。 他說，這是需要考量的一個可能性。 對於習近平要求解放軍在2027年底前具備奪台能力，曾任美國聯邦眾議院外交事務委員會職員、聯邦參院外交委員會資深印太政策分析師的梁安妮表示，這意味著今年是中共達成這項能力的最後一年，目前許多政治與軍事分析指出，中共尚未完全達標。 因此，她分析，今年可能會看到中國軍事能力大規模擴張。 對於中國國家主席習近平要求解放軍在2027年底前具備奪台能力，華府智庫全球台灣研究中心（GTI）非常駐資深研究員梁安妮（Annie Kowalewski）22日在座談會表示，今年可能會看到中共軍力大規模擴張。（GTI提供）中央社記者侯姿瑩華盛頓傳真 115年1月23日",
-      "url": "https://www.cna.com.tw/news/aipl/202601230037.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "CN",
-    "sentiment_score": 0.4,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "中共中央決定對軍委副主席張又俠、參謀長劉振立立案審查調查，軍委領導班子剩2人。"
+      "Political_statement": "張又俠落馬未改變共軍奪台時間表，2027年具備對台戰略勝利能力，可能加快實戰演習。"
     },
     "confidence": 0.92,
     "original_article": {
-      "date": "2026-01-24",
-      "title": "中共軍委副主席張又俠、參謀長劉振立被查落馬| 兩岸",
-      "content": "（中央社台北24日電）據中國國防部官網，中共中央政治局委員、中央軍委副主席張又俠，中央軍委委員、中央軍委聯合參謀部參謀長劉振立涉嫌嚴重違紀違法，中共中央決定對張又俠、劉振立立案審查調查。 張又俠劉振立被查落馬 中央軍委7人領導班子剩2人",
-      "url": "https://www.cna.com.tw/news/acn/202601240110.aspx",
+      "date": "2026-01-27",
+      "title": "張又俠落馬學者：共軍奪台時間不變、實戰演習倉促| 政治",
+      "content": "（中央社記者鍾佑貞華盛頓26日專電）解放軍高層張又俠落馬，各方解讀甚囂塵上。美、台兩地的學者今天分析，這並未實質改變兩岸軍力對比，不會明顯影響軍事行動時間。繼任者可能會在習近平巨大壓力下加快聯合作戰訓練，更倉促地推進實戰演習。 中國國防部24日公告，中共中央政治局委員、中央軍委副主席張又俠，中央軍委委員、中央軍委聯合參謀部參謀長劉振立涉嫌嚴重違紀違法，立案調查。如今2022年組成的20屆中央軍委7人領導層有5人落馬，只剩主席習近平、副主席張升民2人。 美國學者強生（Matthew Johnson）在華府智庫詹姆士敦基金會（Jamestown Foundation）今天刊出的分析中指出，這波共軍高層人事動盪，未根本上改變奪台時間表。 美國戰爭部去年底發布的「中國軍力報告」指出，解放軍正穩步推進2027年必須具備在台灣議題上取得「戰略決定性勝利」的能力。 美報告：北京預期2027年對台取得戰略決定性勝利",
+      "url": "https://www.cna.com.tw/news/aipl/202601270014.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
     }
   },
   {
-    "category": "CN_Statement",
+    "category": "TW_Statement",
     "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": 0.4,
-    "sentiment_label": "positive",
+    "country1": "TW",
+    "country2": "CN",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
     "extracted_data": {
-      "US_Taiwan_interaction": "",
+      "US_Taiwan_interaction": "台灣國防部推動1.25兆國防特別條例以獲美軍售案發價書，包括防空飛彈、反裝甲武器等，延遲恐影響交貨及國內無人機投資",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "中共中央軍委副主席張又俠、劉振立被立案審查；習近平清洗軍隊高層穩固權力，台灣軍方可把握契機強化國防。"
+      "Political_statement": "國防部警告預算未付委將拖延軍備取得，影響對中共等威脅整備期程"
     },
     "confidence": 0.95,
     "original_article": {
-      "date": "2026-01-24",
-      "title": "中共軍委副主席張又俠落馬學者：習近平恐想長久執政| 政治",
-      "content": "（中央社記者吳書緯台北24日電）中共中央軍委副主席張又俠，中央軍委劉振立遭中共中央立案審查調查。學者楊太源分析，中共領導人習近平除開鍘解放軍上將，也正清洗中、少將階層將領，為的是權力穩固，更可能為了未來5年至10年的長久執政做準備。 學者林穎佑分析，面對解放軍高層人事屢遭鉅變，台灣軍方可善加把握契機，強化轉型。 根據中國國防部官網，中共中央政治局委員、中央軍委副主席張又俠，中央軍委委員、中央軍委聯合參謀部參謀長劉振立涉嫌嚴重違紀違法，中共中央決定對張又俠、劉振立立案審查調查。 社團法人安全台灣學會理事長楊太源告訴中央社記者，習近平現在全面清洗解放軍各階層將領，因為懷疑將領對他不夠忠誠，顯示他只要軍隊「姓習」，要的是權力穩固，更可能為了未來5年至10年的長久執政做準備。 針對解放軍高階將領人事動盪，楊太源表示，對於解放軍內部一定有影響，但軍隊還是存在，也代表習近平有把握軍隊不會亂，才會處理高階將領，透過目前軍委副主席張升民的軍紀委系統，牢牢掌握解放軍，而對於台灣軍方來說，應該趁此時強化國防建設。 張又俠劉振立被查落馬 中央軍委7人領導班子剩2人",
-      "url": "https://www.cna.com.tw/news/aipl/202601240165.aspx",
+      "date": "2026-01-26",
+      "title": "國防特別條例未付委國防部：拖延軍備取得| 政治",
+      "content": "（中央社記者楊堯茹台北26日電）朝野關注8年新台幣1.25兆元國防特別條例，國防部長顧立雄今天表示，不付委審查就無法討論每個項目的迫切性；戰略規劃司長黃文啓則說，已知會美國國會的每一項都是各國大量採購項目，若無法簽署發價書將拖延軍備取得期程，且軍購案若延後，將影響國內無人機廠商投資意願。 立法院外交及國防委員會今天邀請國防部長顧立雄報告「我國武器採購策略暨國防預算（公務、基金暨特別預算）編列結構之適切性」，經濟部、國發會、國科會列席，並備質詢。 多位民進黨立委質詢時關切8年1.25兆元國防特別條例以及年度國防預算至今未付委。陳俊宇詢問，國防部先前示警預算審議延宕恐導致裝備交貨期被他國插隊，哪些武器會特別受到衝擊，對整備期程影響為何。 國防部戰略規劃司長黃文啓答詢指出，目前已知會美國國會的項目，幾乎每一項都是各國將大量採購的項目，各國面對主要威脅包含中共、俄羅斯以及北韓，防空飛彈跟反彈道飛彈的需求幾乎一致，而地面作戰，輕便的反裝甲武器以及精準火砲，尤其是155公厘彈藥明顯需求。 黃文啓補充說，近期應會拿到美方5項軍售案的發價書，如果在45天效期內沒有處理，而美方不同意延長，台灣得重新走一次整個程序，而上次從台灣提出需求到美國國會被知會，中間花了8個月時間。若與美方議談、簽署發價書的時程延宕，拖延時間會更進一步擴大。 關於國防產業建構，黃文啓回覆民進黨立委王定宇時指出，國防特別條例包含20餘萬架小型無人機，這是希望帶動國內廠商進行初步投資產線，軍備局已進行兩年期4萬5000架的招商說明，若這時軍購案延後，恐怕廠商就會觀望。 王定宇追問，是否錯過就很難了，黃文啓點頭回覆。黃文啓另說明，戰備軍需還有急缺彈藥項目以及軍備產線擴張，都會受到影響。 至於跨年期特別預算必要性，顧立雄答詢時表示，上週機密會議已全盤說明8年1.25兆元國防特別條例的項目，特別是不對稱戰力以及防衛韌性的籌獲。在預算規模的完整性與穩定性下，才能建構高度強韌、全面嚇阻的防衛能力。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aipl/202601260102.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -278,58 +254,10 @@
     },
     "confidence": 0.95,
     "original_article": {
-      "date": "2026-01-20",
-      "title": "美第七艦隊證實2艘美軍艦今年首度穿越台海| 國際",
-      "content": "（中央社華盛頓20日綜合外電報導）美國軍方媒體「星條報」（Stars and Stripes）報導，根據美國第七艦隊今天發出的未署名電子郵件，2艘美國軍艦於16至17日通過台灣海峽，為美國海軍今年首度穿越台海。 共軍東部戰區微信公眾號曾於17日晚間發布，東部戰區新聞發言人徐承華表示，本月16日至17日，美軍飛彈驅逐艦芬恩號（USS John Finn）與海軍測量船瑪麗西爾斯號（USNS Mary Sears）過航台灣海峽。 根據美國第七艦隊今天發出的未署名電子郵件，芬恩號與瑪麗西爾斯號於16日至17日完成穿越台海的「例行性」通行。 透過 Google News 追蹤中央社",
-      "url": "https://www.cna.com.tw/news/aopl/202601200334.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Foreign_battleship",
-    "is_relevant": true,
-    "country1": "US",
-    "country2": "CN",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "US USS John Finn and USNS Mary Sears transit Taiwan Strait",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
       "date": "2026-01-21",
       "title": "美軍艦今年首度穿越台海測量船具水下情蒐能力| 政治",
       "content": "（中央社記者林宏翰洛杉磯20日專電）2艘美國軍艦16、17日通過台灣海峽，為今年首例；除了飛彈驅逐艦，一艘海洋測量船同行，它具備水下探測功能，可以支援潛艦、反潛作戰、水雷戰及特種作戰需求。 美國海軍研究協會新聞（USNI News）刊登第7艦隊聲明，證實美軍飛彈驅逐艦芬恩號（USS John Finn）與海軍測量船瑪麗西爾斯號（USNS Mary Sears）16至17日通過台灣海峽。 聲明強調，這次通行發生於「不屬任何沿岸國領海」的區域，通過台灣海峽展現美國捍衛所有國家航行自由的承諾。 美國軍艦航行經過台灣海峽，大多數為飛彈驅逐艦，不過驅逐艦搭配測量船的組合也有前例。 美軍飛彈驅逐艦芬恩號（圖）與海軍測量船瑪麗西爾斯號16至17日穿越台灣海峽。（Jason Waite/U.S. Navy/Handout via 路透社）",
       "url": "https://www.cna.com.tw/news/aipl/202601210018.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Regional_Security",
-    "is_relevant": true,
-    "country1": "EU",
-    "country2": "CN",
-    "sentiment_score": 0.4,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "歐洲議會通過決議，關切中國軍演威脅台海穩定，支持深化台歐盟合作，反對中國改變現狀。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-01-23",
-      "title": "歐洲議會關切中國危害台海和平林佳龍感謝| 政治",
-      "content": "（中央社記者吳書緯台北23日電）外交部今天指出，歐洲議會21日通過歐盟「共同外交暨安全政策」及「共同安全暨防衛政策」2025年度執行報告兩決議文，關切中國危害台海和平穩定，並支持深化台歐盟多面向合作交流，部長林佳龍對此表示歡迎與感謝。 外交部中午發布新聞稿指出，歐洲議會21日通過歐盟「共同外交暨安全政策」（Common Foreign and Security Policy, CFSP）及「共同安全暨防衛政策」（Common Security and Defence Policy, CSDP）兩項2025年度執行報告的決議文，重申反對中國扭曲聯合國大會第2758號決議案，及以武力或脅迫等方式片面改變台海現狀，並支持持續深化台歐盟多面向合作與交流。 外交部指出，「共同外交暨安全政策」報告決議文重申，中國對台灣的領土主張無國際法基礎，台灣與中國互不隸屬，只有台灣民選政府可代表台灣人民，並譴責中國去年以「海峽雷霆-2025A」與「正義使命-2025」等軍演威脅台海與周邊國際水域的和平穩定，另對中國加強對台灣政治、經濟、軍事、網路及認知作戰的脅迫表達關切。 外交部表示，此項決議文也強調，台灣是歐盟在印太地區的重要民主夥伴，呼籲歐盟與會員國進一步推動及深化與台灣的經貿與投資關係。 外交部說，「共同安全暨防衛政策」報告決議文強調，台海軍事情勢升高對歐洲的安全和供應鏈將造成嚴重後果，並譴責中國片面改變台海現狀的作為及拒絕排除對台使用武力的野心，對於區域穩定造成嚴重威脅。 決議文另肯定美國、英國、法國與德國近期在台海進行的自由航行任務，呼籲台歐盟就相關安全議題進行定期交流，並樂見未來提供台灣使用歐盟「通訊衛星星座計畫」（IRIS²）的權限，以及強化台歐在反制外國資訊操弄與干預（FIMI）及保護海底電纜的相關合作。 透過 Google News 追蹤中央社",
-      "url": "https://www.cna.com.tw/news/aipl/202601230142.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -346,7 +274,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "歐盟與韓國重申台海和平穩定重要性，反對武力改變南海現狀。台灣外交部歡迎並肯定，強化合作。"
+      "Political_statement": "歐盟與韓國重申台海和平穩定重要性，反對片面改變南海現狀。台灣外交部歡迎與肯定。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -354,6 +282,78 @@
       "title": "歐韓戰略對話重申台海和平穩定外交部歡迎與肯定| 政治",
       "content": "（中央社記者吳書緯台北23日電）外交部今天表示，歐盟與韓國在第2屆歐韓戰略對話，重申台海和平穩定的重要性，外交部對此表示歡迎與肯定，並指出台灣將持續強化與歐盟等理念相近夥伴的合作關係，共同捍衛自由民主價值，並守護以規則為基礎的國際秩序。 外交部下午發布新聞稿指出，歐盟外交暨安全政策高級代表卡拉斯（Kaja Kallas）與韓國外交部長趙顯22日在布魯塞爾共同主持「第二屆歐韓戰略對話」（EU-RoK Strategic Dialogue），雙方重申台海和平穩定的重要性，並反對任何片面以武力或脅迫改變南海現狀的行徑，認為這將破壞區域穩定和以規則為基礎的國際秩序，歐盟及韓國另也對第三國支持俄羅斯非法侵略烏克蘭的作法表示譴責。",
       "url": "https://www.cna.com.tw/news/aipl/202601230255.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_Statement",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "CN",
+    "sentiment_score": 0.4,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "美國2026國防戰略報告未削弱對中國警惕及台海關切，強調防衛本土及第一島鏈平衡。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-01-26",
+      "title": "學者：美國防戰略報告未削弱對中警惕及對台海關切| 兩岸",
+      "content": "（中央社台北26日電）針對美國戰爭部「2026國防戰略」報告，東京大學東洋文化研究所特聘研究員林泉忠分析，報告並未削弱美國對中國的戰略警惕，更未放棄對台海問題的關切；而是將重心放在「防衛美國本土」與「維持第一島鏈有利軍事平衡」上；以「拒止」為主軸的印太嚇阻戰略。 林泉忠今天在其微信公眾號刊文表示，將「2026國防戰略」（2026 National Defense Strategy）報告與2022年拜登政府公布的版本比較，在論述語氣上出現明顯變化。 2026年報告對中國的定位不再以「最嚴峻挑戰」作為核心表述，更未如過去般直接點名台灣。此一轉變迅速在華府政策圈、亞太安全研究界乃至兩岸輿論場中，引發「美國是否已不再將『中國威脅』視為首要戰略任務」的議論。 但林泉忠表示，若僅從文字表面便得出美國已「戰略降級」中國或「台灣已非核心關切」的結論，恐怕過於草率。 林泉忠表示，2026年國防戰略最大的轉變之一，是將「防衛美國本土」列為首要任務，並在戰略敘事上，明顯強化對西半球安全的關切。但這只是戰略排序的調整，並不等同戰略重心的轉移。 報告在談及中國時仍明確指出，若中國主宰印太地區，將能夠有效阻絕美國進入全球經濟中心，所以戰爭部被指示「在印太地區維持有利的軍事力量平衡」。這句話幾乎原封不動地延續了去年底公布「國家安全戰略」（National Security Strategy, NSS）報告的核心精神。 林泉忠又表示，與2022年報告相比，2026年報告降低了直接對抗的語言強度。這並非忽視「中國威脅」，而是對「戰略溝通方式」的調整。 2026年報告表明，美國的目標「不是為了主宰、扼殺或羞辱中國」，而只是確保「中國或任何其他國家，無法主宰我們或我們的盟友」，並強調這「不需要政權更替，也不是一場生存層級的對抗」。 林泉忠表示，這種表述是美國總統川普的「印太戰略師」、戰爭部次長柯伯吉（Elbridge Colby）長期主張之「拒止戰略」。「拒止」的重點是，不在於威嚇對手必將遭到懲罰，而在於使對手清楚認知，其關鍵戰略目標無法達成，從而在一開始就放棄冒險。 林泉忠又表示，2026年報告是為了避免將競爭推向「生死對抗」的敘事陷阱。其真正的戰略訊號，不在於說了什麼，而在於反覆強調「維持印太有利軍事平衡」這一底線。「第一島鏈」正是這條底線的具體化。 林泉忠提到，對美國來說，「第一島鏈」並非單純的區域防線，而是連結本土安全、全球貿易與同盟體系的關鍵節點。一旦「第一島鏈」被突破，美國不僅在西太平洋的前沿部署將大幅後撤，其對全球秩序的影響力也將遭到根本削弱。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/acn/202601260172.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "習近平清洗解放軍高層張又俠、劉振立，為權力穩固，對台灣軍方是強化轉型契機。"
+    },
+    "confidence": 0.92,
+    "original_article": {
+      "date": "2026-01-24",
+      "title": "中共軍委副主席張又俠落馬學者：習近平恐想長久執政| 政治",
+      "content": "（中央社記者吳書緯台北24日電）中共中央軍委副主席張又俠，中央軍委劉振立遭中共中央立案審查調查。學者楊太源分析，中共領導人習近平除開鍘解放軍上將，也正清洗中、少將階層將領，為的是權力穩固，更可能為了未來5年至10年的長久執政做準備。 學者林穎佑分析，面對解放軍高層人事屢遭鉅變，台灣軍方可善加把握契機，強化轉型。 根據中國國防部官網，中共中央政治局委員、中央軍委副主席張又俠，中央軍委委員、中央軍委聯合參謀部參謀長劉振立涉嫌嚴重違紀違法，中共中央決定對張又俠、劉振立立案審查調查。 社團法人安全台灣學會理事長楊太源告訴中央社記者，習近平現在全面清洗解放軍各階層將領，因為懷疑將領對他不夠忠誠，顯示他只要軍隊「姓習」，要的是權力穩固，更可能為了未來5年至10年的長久執政做準備。 針對解放軍高階將領人事動盪，楊太源表示，對於解放軍內部一定有影響，但軍隊還是存在，也代表習近平有把握軍隊不會亂，才會處理高階將領，透過目前軍委副主席張升民的軍紀委系統，牢牢掌握解放軍，而對於台灣軍方來說，應該趁此時強化國防建設。 張又俠劉振立被查落馬 中央軍委7人領導班子剩2人",
+      "url": "https://www.cna.com.tw/news/aipl/202601240165.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.4,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中共中央決定對軍委副主席張又俠、聯合參謀部參謀長劉振立立案審查調查，軍委領導班子剩2人。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-01-24",
+      "title": "中共軍委副主席張又俠、參謀長劉振立被查落馬| 兩岸",
+      "content": "（中央社台北24日電）據中國國防部官網，中共中央政治局委員、中央軍委副主席張又俠，中央軍委委員、中央軍委聯合參謀部參謀長劉振立涉嫌嚴重違紀違法，中共中央決定對張又俠、劉振立立案審查調查。 張又俠劉振立被查落馬 中央軍委7人領導班子剩2人",
+      "url": "https://www.cna.com.tw/news/acn/202601240110.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -370,7 +370,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "日本首相高市早苗提及中國環台軍演及經濟脅迫，將強化安保政策、日美同盟及修訂安保文件。"
+      "Political_statement": "日本首相高市早苗提及中國環台軍演及經濟脅迫，將強化安保政策、日美同盟及區域合作。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -378,6 +378,30 @@
       "title": "日相重申強化安保提及中國環台軍演、經濟脅迫| 國際",
       "content": "（中央社東京21日綜合外電報導）日本媒體報導，日本首相高市早苗日前在記者會上提到國際情勢日益嚴峻，指出中國在台灣周邊軍事演習，並以「經濟脅迫」方式迫使他國屈服，日本將從根本上加強安保政策。 高市本月19日宣布將於23日解散眾議院，並以本月27日公告、2月8日投開票的時程舉行眾議院大選。 「讀賣新聞」報導，高市當天在記者會上闡述解散眾議院的決策過程及政策主張。 在外交與安全保障方面，高市表示，若缺乏國民支持，就無法推動強而有力的外交與安全政策。 她說：「國際情勢日益嚴峻。中國軍隊在台灣周邊舉行軍事演習。我們也看到有人試圖將全球高度依賴、廣泛用於民生的供應鏈上游物資納入掌控，以經濟手段迫使其他國家屈服於自身主張。我國提倡『自由開放的印度太平洋』已有10年，今後將持續深化發展這個願景。」 高市說：「我們將以日美同盟為基軸，進一步強化日美韓、日美菲、日美澳、日義英以及與全球南方國家的合作。」 高市也提到日本將從根本上加強安保政策，「我們將提前修訂『國家安全保障戰略』、『國家防衛戰略』及『防衛力整備計畫』安保3文件」，包括進一步加強嚇阻、穩步應對網路、太空和電磁波等新領域、強化防衛產業技術的基礎、改善自衛隊的待遇等。 透過 Google News 追蹤中央社",
       "url": "https://www.cna.com.tw/news/aopl/202601210170.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Regional_Security",
+    "is_relevant": true,
+    "country1": "EU",
+    "country2": "CN",
+    "sentiment_score": 0.7,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "歐洲議會通過決議，關切中國軍演及脅迫危害台海穩定，支持深化台歐盟合作，反對改變現狀。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-01-23",
+      "title": "歐洲議會關切中國危害台海和平林佳龍感謝| 政治",
+      "content": "（中央社記者吳書緯台北23日電）外交部今天指出，歐洲議會21日通過歐盟「共同外交暨安全政策」及「共同安全暨防衛政策」2025年度執行報告兩決議文，關切中國危害台海和平穩定，並支持深化台歐盟多面向合作交流，部長林佳龍對此表示歡迎與感謝。 外交部中午發布新聞稿指出，歐洲議會21日通過歐盟「共同外交暨安全政策」（Common Foreign and Security Policy, CFSP）及「共同安全暨防衛政策」（Common Security and Defence Policy, CSDP）兩項2025年度執行報告的決議文，重申反對中國扭曲聯合國大會第2758號決議案，及以武力或脅迫等方式片面改變台海現狀，並支持持續深化台歐盟多面向合作與交流。 外交部指出，「共同外交暨安全政策」報告決議文重申，中國對台灣的領土主張無國際法基礎，台灣與中國互不隸屬，只有台灣民選政府可代表台灣人民，並譴責中國去年以「海峽雷霆-2025A」與「正義使命-2025」等軍演威脅台海與周邊國際水域的和平穩定，另對中國加強對台灣政治、經濟、軍事、網路及認知作戰的脅迫表達關切。 外交部表示，此項決議文也強調，台灣是歐盟在印太地區的重要民主夥伴，呼籲歐盟與會員國進一步推動及深化與台灣的經貿與投資關係。 外交部說，「共同安全暨防衛政策」報告決議文強調，台海軍事情勢升高對歐洲的安全和供應鏈將造成嚴重後果，並譴責中國片面改變台海現狀的作為及拒絕排除對台使用武力的野心，對於區域穩定造成嚴重威脅。 決議文另肯定美國、英國、法國與德國近期在台海進行的自由航行任務，呼籲台歐盟就相關安全議題進行定期交流，並樂見未來提供台灣使用歐盟「通訊衛星星座計畫」（IRIS²）的權限，以及強化台歐在反制外國資訊操弄與干預（FIMI）及保護海底電纜的相關合作。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aipl/202601230142.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -394,7 +418,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "日本自民黨公約強調台灣海峽和平穩定重要，反對武力改變現狀，致力建設性對中關係。"
+      "Political_statement": "日本自民黨公約強調台灣海峽和平穩定重要性，對中國挑釁堅定應對。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -412,15 +436,15 @@
     "is_relevant": true,
     "country1": "US",
     "country2": "TW",
-    "sentiment_score": 0.7,
+    "sentiment_score": 0.75,
     "sentiment_label": "positive",
     "extracted_data": {
-      "US_Taiwan_interaction": "美眾議員魏特曼提出眾院版豪豬法案，將台灣定義為北約+國家，加速對台軍售流程。",
+      "US_Taiwan_interaction": "美國眾議員魏特曼提出眾院版豪豬法案，將台灣定義為北約+國家，加速對台軍售流程。",
       "Military_exercise": "",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
-    "confidence": 0.95,
+    "confidence": 0.98,
     "original_article": {
       "date": "2026-01-21",
       "title": "美眾議員提豪豬法案將台灣定義為「北約+」國家、加速軍售流程| 政治",
@@ -432,19 +456,115 @@
     }
   },
   {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "US",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "國防部版本得到美國國會、國務院及AIT公開肯定",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部批評民眾黨軍購特別條例草案不完整欠缺專業"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-01-26",
+      "title": "民眾黨自提軍購特別條例國防部：不完整且欠缺專業| 政治",
+      "content": "（中央社記者游凱翔台北26日電）民眾黨團自提軍購特別條例草案，國防部今天表示，民眾黨團所提「M109A7自走砲」等5項，僅擷取部分知會國會程序的項目與數量，內容顯不完整，亦欠缺專業評估；國防部版本得到美國國會、國務院及AIT公開肯定，並非以政治宣示取代專業審查。 台灣民眾黨立法院黨團今天提出「保衛國家安全及強化不對稱戰力計畫採購特別條例」草案，列出6款採購項目，包括M109A7自走砲、海馬士多管火箭飛彈系統、反甲型無人機飛彈系統等，總額上限為新台幣4000億元，採1年1期方式編列。 國防部晚間發布新聞稿表示，國軍建案作業程序是考量敵情威脅、未來作戰場景與科技發展等因素，循作戰需求、系統分析、期程工項及整體獲得規劃的邏輯思維，確認所需籌購的武器裝備。 國防部表示，凡是達新台幣10億元以上建案，需呈報行政院審查、始可編列預算。國防部「強化防衛韌性及不對稱戰力特別條例草案」即依此完成，並得到美國國會、美國務院及美國在台協會（AIT）的公開肯定，與「以政治宣示取代專業審查」相反。 國防部強調，美方對外軍售作業有完整審查程序，在作戰需求評估階段，需先由駐在國安合部門，以及戰區階層完成專業評估後，方可由需求國遞交發價書需求信函，進入跨部門內部審查程序，同意後始可知會國會、對外供售。 國防部說明，國防部特別預算向美籌購的武器裝備，即依前述建案程序，及美軍售要求，經雙方長達一年密切協商，始初步確認項量、交運期程與預算需求等。後續將與美方簽署發價書，再由美國防部與主合約商議約，始能確認最終價款、品項、期程與交運時間。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aipl/202601260280.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "US",
+    "sentiment_score": -0.2,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "草案影響台美軍購程序",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "行政院批評民眾黨軍購草案缺乏戰略構想、無國防自主，影響台美軍購及永續戰力。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-01-26",
+      "title": "民眾黨自提軍購特別條例政院：缺戰略構想無國防自主| 政治",
+      "content": "（中央社記者高華謙台北26日電）台灣民眾黨今天提出「保衛國家安全及強化不對稱戰力計畫採購特別條例草案」，行政院發言人李慧芝表示，此版本缺乏戰略構想、沒有建軍規劃、悖離軍購實務程序，且無視國防自主，不僅將使台美軍購窒礙難行，更嚴重影響台灣永續戰力。 台灣民眾黨立法院黨團今天提出「保衛國家安全及強化不對稱戰力計畫採購特別條例」草案，列出6款採購項目，包括海馬士多管火箭飛彈系統、反甲型無人機飛彈系統等，總額上限為新台幣4000億元，採1年1期方式編列。 李慧芝晚間透過文字說明，在野黨的草案內容僅是參考翻譯美國國防安全合作署（DSCA）去年12月17日公布的對台軍售5個項目，國防部也曾對外說明過，但這與美方目前進行軍購程序中項目顯有落差。此外，在野黨於記者會中所提的無人機款式，與台灣欲採購的型號也不同。 李慧芝指出，這凸顯在野黨不僅掌握資訊與事實有落差，彙整為法案內容的資料也不完整，採購項目支離破碎，顯見缺乏整體戰略構想。",
+      "url": "https://www.cna.com.tw/news/aipl/202601260285.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_Statement",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "CN",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "美國公布2026國防戰略，強調以實力嚇阻中國、開啟軍對軍溝通管道，緩和與共軍緊張關係，建立印太戰略穩定，未削弱對台海關切。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-01-26",
+      "title": "華爾街日報：美國最新國防戰略緩和與共軍緊張關係| 兩岸",
+      "content": "（中央社台北26日電）美國戰爭部日前公布「2026國防戰略」報告，強調美國將以實力而非對抗在印太地區嚇阻中國，及設法開啟和共軍之間更廣泛的軍對軍溝通管道。華爾街日報形容，美國希望緩和與共軍之間的緊張關係，及在印太地區建立戰略穩定。 學者：美國防戰略報告未削弱對中警惕及對台海關切",
+      "url": "https://www.cna.com.tw/news/acn/202601260131.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "民眾黨提軍購特別條例草案，上限4000億元，含海馬士火箭等6項，強化不對稱戰力，至122年12/31。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-01-26",
+      "title": "民眾黨自提軍購特別條例 列採購項目上限4000億元[影]",
+      "content": "（中央社記者王揚宇台北26日電）台灣民眾黨立法院黨團今天提出「保衛國家安全及強化不對稱戰力計畫採購特別條例」草案，列出6款採購項目，包括海馬士多管火箭飛彈系統、反甲型無人機飛彈系統等，總額上限為新台幣4000億元，採1年1期方式編列。 民眾黨團草案也規定，特別條例草案及其特別預算施行期間，自公布日施行至中華民國122年12月31日止。 為強化自我防衛能力，行政院去年11月通過8年1.25兆元「強化防衛韌性及不對稱戰力計畫採購特別條例」草案送立院審議，但遭在野立委封殺，迄今尚未付委審查。民眾黨立法院黨團總召黃國昌1月中旬赴美訪問後，稱軍購僅需3000億元，更表示將自提國防特別條例版本。 與政院版國防條例共同付委？ 黃國昌：待討論未決定",
+      "url": "https://www.cna.com.tw/news/aipl/202601260192.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
     "category": "US_TW_Interaction",
     "is_relevant": true,
     "country1": "US",
     "country2": "TW",
-    "sentiment_score": 0.7,
+    "sentiment_score": 0.8,
     "sentiment_label": "positive",
     "extracted_data": {
-      "US_Taiwan_interaction": "美參議員加勒戈訪台，晉見總統賴清德及副總統蕭美琴，討論台美經貿安全及區域情勢。",
+      "US_Taiwan_interaction": "美國參議員加勒戈訪台，晉見總統賴清德及副總統蕭美琴，討論台美經貿、安全及區域情勢。",
       "Military_exercise": "",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
-    "confidence": 0.95,
+    "confidence": 0.98,
     "original_article": {
       "date": "2026-01-23",
       "title": "美參議員加勒戈訪台將晉見總統副總統| 政治",
@@ -468,12 +588,60 @@
       "Foreign_battleship": "",
       "Political_statement": ""
     },
-    "confidence": 0.95,
+    "confidence": 0.98,
     "original_article": {
       "date": "2026-01-23",
       "title": "彭博：美民主黨參議員加勒戈訪台23日將晉見賴總統| 政治",
       "content": "（中央社台北23日綜合外電報導）根據彭博（Bloomberg News）引述的聲明，美國民主黨籍聯邦參議員加勒戈（Ruben Gallego）今天將晉見賴清德總統，並與台積電高層主管會面。 彭博報導，根據這份聲明，加勒戈也將和副總統蕭美琴、外交部長林佳龍等多位台灣政府官員會面。（編輯：楊昭彥）1150123",
       "url": "https://www.cna.com.tw/news/aipl/202601233001.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "民進黨批評民眾黨軍購草案刪除非紅供應鏈及台灣之盾，不專業且洩露採購金額；藍白阻審行政院1.25兆國防特別條例。"
+    },
+    "confidence": 0.92,
+    "original_article": {
+      "date": "2026-01-26",
+      "title": "綠指民眾黨版軍購條例不專業刪台灣之盾且列金額恐洩密| 政治",
+      "content": "（中央社記者林敬殷台北26日電）針對民眾黨立法院黨團今天提出「保衛國家安全及強化不對稱戰力計畫採購特別條例」草案，民進黨團表示，民眾黨團版本拿掉對台灣最關鍵的「非紅供應鏈」及「台灣之盾」，凸顯其內容不專業，更有洩露採購金額機密之嫌，呼籲藍白立委盡速讓政院版國防特別條例付委審查。 行政院會於去年11月27日通過8年預算規模新台幣1.25兆元「強化防衛韌性及不對稱戰力計畫採購特別條例」草案送立院審議，藍白從去年12月2日起的程序委員會或院會一再封殺迄今，不讓特別條例付委審查。 1.25兆元特別預算 國防部公開籌購7類武器數量",
+      "url": "https://www.cna.com.tw/news/aipl/202601260244.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "台灣推動與美國等民主盟邦「非紅供應鏈」合作",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "民進黨鍾佳濱：台灣要國防自主及身體自主；中共要求國民黨不支持美供應鏈並推台商二次西進。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-01-26",
+      "title": "人工生殖法換軍購？綠：人民要國防自主也要身體自主| 政治",
+      "content": "（中央社記者王揚宇台北26日電）民眾黨前主席柯文哲說，曾與民進黨團總召柯建銘溝通，讓人工生殖法通過，總預算、軍購案他來處理，結果民進黨不願意。民進黨團幹事長鍾佳濱今天說，不是民進黨不願意，「請問台灣人誰願意」，因為大家要國防自主，也要身體自主。 鍾佳濱上午在立法院接受媒體聯訪說，不是民進黨不願意，請問台灣人誰願意？柯文哲發明兩難選擇，選擇國防、還是要女性的身體自主權；要武器，還是要子宮。沒有人會接受這樣的選擇，因為大家要國防自主，也要身體自主。 此外，媒體報導，北京要求國民黨不能支持與美國供應鏈合作，並拿出實際行動，推出台商「二次西進」作為經濟政策綱領。 鍾佳濱說，台灣跟美國等民主盟邦推動「非紅供應鏈」，中共哪能接受，因為中共希望台灣產業鏈跟中國緊密相關。但台灣的選擇很清楚，因此中共不再對國民黨假以辭色，而是要國民黨拿出「成績單」。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aipl/202601260076.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
