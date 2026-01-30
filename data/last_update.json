@@ -1,11 +1,11 @@
 {
-  "last_update": "2026-01-29T02:22:20.471764",
+  "last_update": "2026-01-30T02:19:45.130583",
   "stats": {
-    "timestamp": "2026-01-29T02:12:46.425644",
+    "timestamp": "2026-01-30T02:13:12.856290",
     "days_back": 7,
     "sources": {
       "cna": {
-        "scraped": 35,
+        "scraped": 30,
         "status": "success"
       },
       "xinhua": {
@@ -13,8 +13,8 @@
       }
     },
     "classification": {
-      "total": 35,
-      "relevant": 28,
+      "total": 30,
+      "relevant": 24,
       "status": "success"
     }
   }
