@@ -19,11 +19,17 @@ GitHub 部署版本 - 自動更新 prediction.csv
 - Quantile Regression 信賴區間
 - 最佳參數: depth=6, lr=0.03, iterations=400
 
+v2.3.1 修正:
+- Fix 1: Quantile Regressor 改用 log1p 空間訓練，expm1 還原（信賴區間尺度統一）
+- Fix 2: Carrier 改為 shift(1).rolling(7).sum()，預測時使用 self._recent_carrier
+- Recency Boost: 近期資料重複以強化 regime 適應
+- 假日資料改由 CSV 讀取 (data/cn_holidays.csv)
+
 Usage:
     python pla_predictor.py
 
 Author: PLA Data Dashboard
-Version: 2.3.0
+Version: 2.3.1
 """
 
 import pandas as pd
@@ -70,71 +76,36 @@ CATBOOST_PARAMS = {
     'verbose': 0
 }
 
+# Recency Boost: 強化近期資料以適應 regime 變化
+# 近期資料會被重複 FACTOR 次，讓模型更偏向近期模式
+RECENCY_BOOST_WEEKS = 4    # 最近幾週的資料要加強
+RECENCY_BOOST_FACTOR = 3   # 重複倍數（1=不重複, 3=近期資料出現3次）
+
 # ============================================================
-# 中國假日資料 (2020-2026)
+# 中國假日資料 - 從 CSV 讀取
 # ============================================================
+
+HOLIDAYS_CSV_URL = 'https://raw.githubusercontent.com/s0914712/pla-data-dashboard/main/data/cn_holidays.csv'
+HOLIDAYS_CSV_LOCAL = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'cn_holidays.csv')
 
 CN_HOLIDAY_DATES = set()
 
-# 2020-2026 假日
-for d in ['2020-01-01'] + [f'2020-01-{d:02d}' for d in range(24, 32)] + [f'2020-02-{d:02d}' for d in range(1, 3)]:
-    CN_HOLIDAY_DATES.add(d)
-for d in [f'2020-04-{d:02d}' for d in range(4, 7)] + [f'2020-05-{d:02d}' for d in range(1, 6)]:
-    CN_HOLIDAY_DATES.add(d)
-for d in [f'2020-06-{d:02d}' for d in range(25, 28)] + [f'2020-10-{d:02d}' for d in range(1, 9)]:
-    CN_HOLIDAY_DATES.add(d)
+def _load_holidays():
+    """從 CSV 載入假日資料"""
+    global CN_HOLIDAY_DATES
+    # 優先讀取本地檔案，若無則從 GitHub 讀取
+    try:
+        if os.path.exists(HOLIDAYS_CSV_LOCAL):
+            df = pd.read_csv(HOLIDAYS_CSV_LOCAL, encoding='utf-8-sig')
+        else:
+            df = pd.read_csv(HOLIDAYS_CSV_URL, encoding='utf-8-sig')
+        CN_HOLIDAY_DATES = set(df['date'].astype(str).str.strip().tolist())
+        print(f"  假日資料: {len(CN_HOLIDAY_DATES)} 筆")
+    except Exception as e:
+        print(f"  [Warning] 無法載入假日 CSV: {e}，使用空集合")
+        CN_HOLIDAY_DATES = set()
 
-for d in [f'2021-01-{d:02d}' for d in range(1, 4)] + [f'2021-02-{d:02d}' for d in range(11, 18)]:
-    CN_HOLIDAY_DATES.add(d)
-for d in [f'2021-04-{d:02d}' for d in range(3, 6)] + [f'2021-05-{d:02d}' for d in range(1, 6)]:
-    CN_HOLIDAY_DATES.add(d)
-for d in [f'2021-06-{d:02d}' for d in range(12, 15)] + [f'2021-09-{d:02d}' for d in range(19, 22)]:
-    CN_HOLIDAY_DATES.add(d)
-for d in [f'2021-10-{d:02d}' for d in range(1, 8)]:
-    CN_HOLIDAY_DATES.add(d)
-
-for d in [f'2022-01-{d:02d}' for d in range(1, 4)] + ['2022-01-31'] + [f'2022-02-{d:02d}' for d in range(1, 7)]:
-    CN_HOLIDAY_DATES.add(d)
-for d in [f'2022-04-{d:02d}' for d in range(3, 6)] + ['2022-04-30'] + [f'2022-05-{d:02d}' for d in range(1, 5)]:
-    CN_HOLIDAY_DATES.add(d)
-for d in [f'2022-06-{d:02d}' for d in range(3, 6)] + [f'2022-09-{d:02d}' for d in range(10, 13)]:
-    CN_HOLIDAY_DATES.add(d)
-for d in [f'2022-10-{d:02d}' for d in range(1, 8)]:
-    CN_HOLIDAY_DATES.add(d)
-
-for d in ['2022-12-31'] + [f'2023-01-{d:02d}' for d in range(1, 3)] + [f'2023-01-{d:02d}' for d in range(21, 28)]:
-    CN_HOLIDAY_DATES.add(d)
-for d in ['2023-04-05'] + [f'2023-04-{d:02d}' for d in [29, 30]] + [f'2023-05-{d:02d}' for d in range(1, 4)]:
-    CN_HOLIDAY_DATES.add(d)
-for d in [f'2023-06-{d:02d}' for d in range(22, 25)] + [f'2023-09-{d:02d}' for d in [29, 30]]:
-    CN_HOLIDAY_DATES.add(d)
-for d in [f'2023-10-{d:02d}' for d in range(1, 7)]:
-    CN_HOLIDAY_DATES.add(d)
-
-for d in ['2023-12-30', '2023-12-31', '2024-01-01'] + [f'2024-02-{d:02d}' for d in range(10, 18)]:
-    CN_HOLIDAY_DATES.add(d)
-for d in [f'2024-04-{d:02d}' for d in range(4, 7)] + [f'2024-05-{d:02d}' for d in range(1, 6)]:
-    CN_HOLIDAY_DATES.add(d)
-for d in [f'2024-06-{d:02d}' for d in range(8, 11)] + [f'2024-09-{d:02d}' for d in range(15, 18)]:
-    CN_HOLIDAY_DATES.add(d)
-for d in [f'2024-10-{d:02d}' for d in range(1, 8)]:
-    CN_HOLIDAY_DATES.add(d)
-
-for d in ['2025-01-01'] + [f'2025-01-{d:02d}' for d in range(28, 32)] + [f'2025-02-{d:02d}' for d in range(1, 5)]:
-    CN_HOLIDAY_DATES.add(d)
-for d in [f'2025-04-{d:02d}' for d in range(4, 7)] + [f'2025-05-{d:02d}' for d in range(1, 6)] + ['2025-05-31']:
-    CN_HOLIDAY_DATES.add(d)
-for d in [f'2025-06-{d:02d}' for d in range(1, 3)] + [f'2025-10-{d:02d}' for d in range(1, 9)]:
-    CN_HOLIDAY_DATES.add(d)
-
-for d in [f'2026-01-{d:02d}' for d in range(1, 4)] + [f'2026-02-{d:02d}' for d in range(15, 24)]:
-    CN_HOLIDAY_DATES.add(d)
-for d in [f'2026-04-{d:02d}' for d in range(4, 7)] + [f'2026-05-{d:02d}' for d in range(1, 6)]:
-    CN_HOLIDAY_DATES.add(d)
-for d in [f'2026-06-{d:02d}' for d in range(19, 22)] + [f'2026-09-{d:02d}' for d in range(25, 28)]:
-    CN_HOLIDAY_DATES.add(d)
-for d in [f'2026-10-{d:02d}' for d in range(1, 8)]:
-    CN_HOLIDAY_DATES.add(d)
+_load_holidays()
 
 
 def get_holiday_features(date):
@@ -319,7 +290,16 @@ class PLAPredictor:
         df['volatility_ratio'] = df['std_7'] / (df['ma_7'] + 1)
 
         # === 外部特徵 ===
-        df['carrier'] = df['航母活動'].fillna(0) if '航母活動' in df.columns else 0
+        # carrier: 過去7天航母活動累計（shift(1) 避免同步洩漏，預測時可用歷史值）
+        if '航母活動' in df.columns:
+            carrier_raw = df['航母活動'].fillna(0).astype(str).str.strip()
+            carrier_binary = ((carrier_raw != '') & (carrier_raw != '0') &
+                              (carrier_raw != '0.0') & (carrier_raw != 'nan')).astype(int)
+            df['carrier'] = carrier_binary.shift(1).rolling(7, min_periods=1).sum().fillna(0)
+        else:
+            df['carrier'] = 0
+        # 保存最近 7 天航母活動用於預測階段
+        self._recent_carrier = df['carrier'].iloc[-1] if len(df) > 0 else 0
 
         pol_feat_7d = self._create_political_features(df, df_political, 7)
         df['cn_stmt_7d'] = pol_feat_7d['cn_stmt_7d'].values
@@ -392,7 +372,26 @@ class PLAPredictor:
         y_clf = df['is_high'].values
         weights = df['time_weight'].values
 
-        # === TimeSeriesSplit 交叉驗證 ===
+        # === Recency Boost: 重複近期資料以強化近期 regime ===
+        # CV 使用原始資料（誠實驗證），僅最終訓練使用 boosted 版本
+        recent_cutoff = df['date'].max() - timedelta(weeks=RECENCY_BOOST_WEEKS)
+        recent_mask = (df['date'] >= recent_cutoff).values
+        n_recent = int(recent_mask.sum())
+
+        if RECENCY_BOOST_FACTOR > 1 and n_recent > 0:
+            repeat = RECENCY_BOOST_FACTOR - 1
+            X_full_boosted = np.vstack([X_full] + [X_full[recent_mask]] * repeat)
+            X_base_boosted = np.vstack([X_base] + [X_base[recent_mask]] * repeat)
+            y_reg_boosted = np.concatenate([y_reg] + [y_reg[recent_mask]] * repeat)
+            y_clf_boosted = np.concatenate([y_clf] + [y_clf[recent_mask]] * repeat)
+            w_boosted = np.concatenate([weights] + [weights[recent_mask]] * repeat)
+            print(f"    Recency boost: last {RECENCY_BOOST_WEEKS}w ({n_recent} rows) "
+                  f"x{RECENCY_BOOST_FACTOR} -> {len(X_full_boosted)} training samples")
+        else:
+            X_full_boosted, X_base_boosted = X_full, X_base
+            y_reg_boosted, y_clf_boosted, w_boosted = y_reg, y_clf, weights
+
+        # === TimeSeriesSplit 交叉驗證（用原始資料，不 boost）===
         print("    [3.1] TimeSeriesSplit cross-validation...")
         tscv = TimeSeriesSplit(n_splits=5)
         cv_mae_scores = []
@@ -418,32 +417,32 @@ class PLAPredictor:
         print(f"         CV MAE:  {np.mean(cv_mae_scores):.2f} +/- {np.std(cv_mae_scores):.2f}")
         print(f"         CV RMSE: {np.mean(cv_rmse_scores):.2f} +/- {np.std(cv_rmse_scores):.2f}")
 
-        # === 分類模型 ===
+        # === 分類模型（使用 boosted 資料）===
         print("    [3.2] Training classifier...")
-        k = min(5, int(y_clf.sum()) - 1)
+        k = min(5, int(y_clf_boosted.sum()) - 1)
         if k >= 1:
             smote = SMOTE(random_state=42, k_neighbors=k)
-            X_res, y_res = smote.fit_resample(X_base, y_clf)
+            X_res, y_res = smote.fit_resample(X_base_boosted, y_clf_boosted)
             w_res = np.ones(len(X_res))
         else:
-            X_res, y_res, w_res = X_base, y_clf, weights
+            X_res, y_res, w_res = X_base_boosted, y_clf_boosted, w_boosted
 
         self.clf_model = RandomForestClassifier(
             n_estimators=200, max_depth=6, class_weight='balanced', random_state=42
         )
         self.clf_model.fit(X_res, y_res, sample_weight=w_res)
 
-        # === 主回歸模型 ===
+        # === 主回歸模型（使用 boosted 資料）===
         print("    [3.3] Training main regressor...")
         self.reg_model = self._create_regressor()
-        self.reg_model.fit(X_full, np.log1p(y_reg), sample_weight=weights)
+        self.reg_model.fit(X_full_boosted, np.log1p(y_reg_boosted), sample_weight=w_boosted)
 
-        # === Quantile Regression ===
-        print("    [3.4] Training quantile regressors...")
+        # === Quantile Regression（使用 boosted 資料，log1p 空間）===
+        print("    [3.4] Training quantile regressors (log1p space)...")
         self.reg_lower = self._create_regressor(quantile=0.05)
         self.reg_upper = self._create_regressor(quantile=0.95)
-        self.reg_lower.fit(X_full, y_reg, sample_weight=weights)
-        self.reg_upper.fit(X_full, y_reg, sample_weight=weights)
+        self.reg_lower.fit(X_full_boosted, np.log1p(y_reg_boosted), sample_weight=w_boosted)
+        self.reg_upper.fit(X_full_boosted, np.log1p(y_reg_boosted), sample_weight=w_boosted)
 
         print(f"    Model trained! Using: {'CatBoost' if USE_CATBOOST else 'sklearn'}")
         return self
@@ -537,7 +536,7 @@ class PLAPredictor:
                 'trend_7d': np.mean(current_window[-7:]) - np.mean(current_window[-14:]),
                 'volatility_ratio': np.std(current_window[-7:]) / (np.mean(current_window[-7:]) + 1),
                 'ema_trend': ema_7 - ema_14,
-                'carrier': 0,
+                'carrier': self._recent_carrier,
                 'cn_stmt_7d': pol_7d['cn_stmt_7d']
             }
 
@@ -549,9 +548,9 @@ class PLAPredictor:
             prob_high = self.clf_model.predict_proba(X_base)[0, 1]
             pred = max(0, np.expm1(self.reg_model.predict(X_full)[0]))
 
-            # Quantile Regression 信賴區間
-            lower_raw = max(0, self.reg_lower.predict(X_full)[0])
-            upper_raw = max(0, self.reg_upper.predict(X_full)[0])
+            # Quantile Regression 信賴區間 (log1p → expm1 還原)
+            lower_raw = max(0, np.expm1(self.reg_lower.predict(X_full)[0]))
+            upper_raw = max(0, np.expm1(self.reg_upper.predict(X_full)[0]))
 
             # 天氣調整
             weather_adj, weather_reason = self._get_weather_adjustment(target_date)
@@ -605,7 +604,7 @@ class PLAPredictor:
 
         # 加入 metadata
         predictions['generated_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        predictions['model_version'] = '2.3.0'
+        predictions['model_version'] = '2.3.1'
         predictions['data_latest_date'] = self.latest_date.strftime('%Y-%m-%d')
         predictions['cv_mae'] = round(np.mean(self.cv_scores), 2) if self.cv_scores else None
 
