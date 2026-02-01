@@ -10,7 +10,55 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "國防部報告5艘共艦及3架次共機侵擾台灣西南空域，國軍嚴密監控應處。"
+      "Political_statement": "國防部發布：6艘共艦及1架共機侵擾東部空域，國軍任務機艦及岸置飛彈系統嚴密監控應處。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-01",
+      "title": "6艘共艦及1架共機擾台國軍監控| 政治",
+      "content": "（中央社記者游凱翔台北1日電）國防部今天發布共機艦動態，統計自昨天上午6時起至今天上午6時止，國軍偵獲6艘共艦，以及1架共機侵擾東部空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲6艘共艦及1架共機進入東部空域，並持續在台海周邊活動。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：蘇志宗）1150201 #共機",
+      "url": "https://www.cna.com.tw/news/aipl/202602010022.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.8,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "過去5年共機擾台架次從2020年380增至2025年5709架次，成長15倍；中國灰色地帶行動測試威懾、推移安全邊界。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-01",
+      "title": "綠：共機擾台架次5年成長15倍中共逐步推移安全邊界| 政治",
+      "content": "（中央社記者葉素萍台北1日電）民進黨中國部今天指出，過去5年共機擾台架次急遽攀升：從2020年380架次，到2025年5709架次的高頻程度，成長近15倍；這種量級與節奏，清楚顯示中國已將台海納入其「灰色地帶行動」的核心場域，用以測試威懾效果、消耗防衛資源，並想藉此逐步推移既有安全邊界。 民進黨中國部透過臉書發文指出，台海緊張升高，是中國擴張野心的結果。近年來，台海安全情勢持續惡化，第一島鏈整體緊張程度同步升高，若回到實際的軍事行為與戰略布局觀察，可以清楚看見一條連續且一致的主線：中國正以擴張性的軍事野心為核心，系統性推動改變現狀的行動，台海只是其中最關鍵的一環。 民進黨中國部說，對台軍事壓迫是中國野心的起點與試驗場，中國共機擾台，已從零星行動，演變為高頻率與日常化的常態操作。過去5年共機擾台架次急遽攀升：從2020年380架次、2021年960架次、2022年1738架次、2023年4734架次、2024年5107架次、2025年持續維持在5709架次的高頻程度，成長近15倍。",
+      "url": "https://www.cna.com.tw/news/aipl/202602010035.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部偵獲5艘共艦及3架次共機侵擾西南空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -34,9 +82,9 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "國防部偵獲5艘共艦、1艘公務船、2架次共機在台海周邊活動，國軍嚴密監控應處。"
+      "Political_statement": "國防部偵獲5艘共艦、1艘公務船、2架次共機在台海周邊活動，國軍嚴密監控與應處。"
     },
-    "confidence": 0.98,
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-01-27",
       "title": "偵獲5艘共艦2架次共機國軍監控| 政治",
@@ -48,7 +96,7 @@
     }
   },
   {
-    "category": "Military_Exercise",
+    "category": "TW_Statement",
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
@@ -56,9 +104,9 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "5架次共機逾越台海中線進入西南空域，8艘共艦、3艘公務船",
+      "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": ""
+      "Political_statement": "5架次共機逾越台海中線進入西南空域，國軍運用任務機艦及岸置飛彈系統監控應處。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -82,13 +130,13 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "中共11機艦台海周邊活動，國軍嚴密監控應處。"
+      "Political_statement": "中共11機艦（3架次共機、8艘共艦）台海周邊活動，國軍嚴密監控與應處。"
     },
     "confidence": 0.95,
     "original_article": {
       "date": "2026-01-31",
       "title": "中共11機艦台海周邊活動國軍嚴密監控應處| 政治",
-      "content": "（中央社記者吳書緯台北31日電）國防部指出，自昨天上午6時至今天上午6時，偵獲3架次共機，以及8艘共艦，總計中共11機艦持續在台海周邊活動，國軍嚴密監控與應處。 根據國防部今天公布「中共解放軍進入台海周邊空域活動示意圖」，國軍於昨天上午7時5分至昨天晚間6時10分，在台灣海峽空域偵獲中共3架次主戰機及無人機。 國防部指出，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：翟思嘉）1150131",
+      "content": "（中央社記者吳書緯台北31日電）國防部指出，自昨天上午6時至今天上午6時，偵獲3架次共機，以及8艘共艦，總計中共11機艦持續在台海周邊活動，國軍嚴密監控與應處。 根據國防部今天公布「中共解放軍進入台海周邊空域活動示意圖」，國軍於昨天上午7時5分至昨天晚間6時10分，在台灣海峽空域偵獲中共3架次主戰機及無人機。 國防部指出，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：翟思嘉）1150131 #中共",
       "url": "https://www.cna.com.tw/news/aipl/202601310023.aspx",
       "source": "cna",
       "category": "",
@@ -96,17 +144,17 @@
     }
   },
   {
-    "category": "Military_Exercise",
+    "category": "TW_Statement",
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.5,
+    "sentiment_score": -0.6,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "中共33機艦船（26架次共機19逾越中線、6艘共艦、1艘公務船）台海周邊活動，國軍嚴密監控應處",
+      "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": ""
+      "Political_statement": "國防部公布：24小時內偵獲中共26架次共機（19逾越中線進入北部、中部及西南空域）、6艘共艦、1艘公務船，總計33機艦船台海周邊活動，國軍嚴密監控應處。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -124,11 +172,11 @@
     "is_relevant": true,
     "country1": "TW",
     "country2": "CN",
-    "sentiment_score": -0.4,
-    "sentiment_label": "negative",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "空軍第四聯隊嘉義基地F-16V戰機6分鐘緊急起飛演練，應對中共軍機頻繁襲擾台灣領空及防空識別區。",
+      "Military_exercise": "空軍第四聯隊F-16V戰機6分鐘緊急起飛演練，確保台灣領空不被中共軍機侵犯。",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
@@ -144,19 +192,19 @@
     }
   },
   {
-    "category": "Regional_Security",
+    "category": "CN_Statement",
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": 0.3,
-    "sentiment_label": "positive",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
       "Political_statement": "中共解放軍高層張又俠、劉振立被立案調查，對台軍事路線進入不確定期，軍心浮動威信受損。"
     },
-    "confidence": 0.95,
+    "confidence": 0.92,
     "original_article": {
       "date": "2026-01-30",
       "title": "共軍高層清洗學者：對台軍事路線進入不確定期| 兩岸",
@@ -172,15 +220,15 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.4,
+    "sentiment_score": -0.6,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "中共解放軍高層張又俠、劉振立被調查，學者稱導致軍心浮動、習近平威信受損，對兩岸關係影響。"
+      "Political_statement": "中共解放軍高層張又俠、劉振立被立案調查，學者解析軍心浮動、習近平威信受損，對兩岸關係影響。"
     },
-    "confidence": 0.9,
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-01-30",
       "title": "共軍高層清洗後遺症學者：軍心浮動威信受損| 兩岸",
@@ -195,14 +243,14 @@
     "category": "CN_Statement",
     "is_relevant": true,
     "country1": "CN",
-    "country2": "US",
-    "sentiment_score": -0.5,
+    "country2": "TW",
+    "sentiment_score": -0.4,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "國防部否認張又俠涉向美國洩核武資訊落馬，並稱絕不承諾放棄使用武力。"
+      "Political_statement": "國防部否認張又俠涉向美洩核武資訊落馬，並稱絕不承諾放棄使用武力。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -220,8 +268,8 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "US",
-    "sentiment_score": 0.1,
-    "sentiment_label": "neutral",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
@@ -240,30 +288,6 @@
     }
   },
   {
-    "category": "Military_Exercise",
-    "is_relevant": true,
-    "country1": "TW",
-    "country2": "CN",
-    "sentiment_score": -0.4,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "海軍春節加強戰備操演，勁蜂1型攻擊無人機首度實彈發射，針對敵兩棲進犯威脅，執行近岸防域作戰協力濱海打擊。",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-01-29",
-      "title": "海軍春節加強戰備 勁蜂1型攻擊無人機首度實彈發射【圖輯】",
-      "content": "（中央社記者吳書緯高雄29日電）海軍今天執行春節加強戰備操演，以海域及戰場覺知為主軸，執行「近岸防域作戰協力濱海打擊」科目，勁蜂1型攻擊型無人機首度公開實彈發射，其中1架無人機發射後直接墜入沙灘，之後再補射1架無人機，成功命中海上目標，展現精準打擊實力。 國防部國軍春節加強戰備媒體邀訪今天進入第3天，海軍上午在桃子園海灘進行操演，以海域及戰場覺知為主軸，執行近岸防域作戰協力濱海打擊科目。 海軍表示，操演針對敵兩棲進犯威脅，運用監偵型無人機強化海域與戰場覺知，並結合濱海打擊及攻擊型無人機實施近岸打擊，建構擊殺鏈，有效遂行聯合截擊任務，展現海軍多層次、多波次及陸戰隊宜海宜陸的戰力發揚與作戰韌性。 勁蜂1型攻擊型無人機首度公開實彈發射，其中1架無人機發射後直接墜入沙灘，之後再補射1架無人機。圖為再次射出的無人機。中央社記者鄭清元攝 115年1月29日",
-      "url": "https://www.cna.com.tw/news/aipl/202601290143.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
     "category": "TW_Statement",
     "is_relevant": true,
     "country1": "TW",
@@ -274,7 +298,31 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "行政院通過海巡署組織法修正草案，增置副署長至3人，因應台海情勢強化指揮效能及嚇阻架構。"
+      "Political_statement": "台中市長盧秀燕支持1.25兆軍購案，國家安全至上，適當增加國防支出，希望準時交貨。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-01-31",
+      "title": "1.25兆軍購案盧秀燕：有必要適當增加國防支出| 政治",
+      "content": "（中央社記者郝雪卿台中31日電）台中市長盧秀燕今天談及行政院版新台幣1.25兆元軍購案時表示，國家安全至上，有必要適當增加國防支出，也希望軍購能準時交貨，相信立法委員都會審查。 她說，另一方面要注意，應買哪些軍備、是否有助於國防，也希望準時交貨。",
+      "url": "https://www.cna.com.tw/news/aipl/202601310063.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "行政院通過海巡署組織法修正草案，增置副署長至3人，因應台海情勢強化指揮效能及海域安全。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -292,13 +340,13 @@
     "is_relevant": true,
     "country1": "US",
     "country2": "CN",
-    "sentiment_score": 0.4,
+    "sentiment_score": 0.6,
     "sentiment_label": "positive",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "美國2026國防戰略未削弱對中國警惕及台海關切，強調防衛本土與第一島鏈平衡、印太拒止戰略。"
+      "Political_statement": "美國2026國防戰略報告未削弱對中國警惕及台海關切，維持第一島鏈平衡與印太嚇阻。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -322,7 +370,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "中共解放軍高層張又俠、劉振立被立案調查，學者指軍隊能力暫弱，對台短期利多，但青黃不接增誤判風險，慎防台海突發。"
+      "Political_statement": "中共解放軍高層張又俠、劉振立被立案調查。學者解析：對台短期利多，軍隊弱化，但青黃不接，慎防台海突發。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -330,6 +378,30 @@
       "title": "共軍高層清洗學者：對台短期利多慎防台海突發| 兩岸",
       "content": "（中央社記者李雅雯台北27日電）中共解放軍高層張又俠、劉振立被立案調查。學者解析，共軍高層清洗，軍隊作戰能力暫時弱化，對台短期利多；軍隊主管處於青黃不接，誤判風險提高，更要慎防台海突發狀況。 中國國防部24日宣布，中共中央政治局委員、中央軍委副主席張又俠與中央軍委委員、中央軍委聯合參謀部參謀長劉振立涉嫌嚴重違紀違法，對兩人立案調查。中央軍委7人領導層迄今5人落馬，目前僅剩主席習近平、副主席張升民。 淡江大學國際事務與戰略研究所兼任助理教授揭仲27日對中央社解析，共軍東部戰區對台常態性演訓、灰色地帶侵擾不會受到共軍高層更迭影響；軍隊主管正處於青黃不接狀態，必須慎防誤判風險加大情況下，台海有突發事件發生。 揭仲認為，共軍東部戰區對台常態性演訓、灰色地帶侵擾不會受到共軍高層更迭影響，因為東部戰區在獲得授權情況下，已經發展出一套作業模式，所以不會由於高層人事動盪受到太大影響。 他提到，共軍高層近年清洗，使共軍重要機構單位主管大多數為資淺中將，他們剛從少將升上來，必須處理應由上將負責的事情，正處於青黃不接的階段，由於缺乏足夠歷練，一旦發生重大突發事件時，不一定能應付。 揭仲表示，共軍高層清洗恐釀軍隊「不敢說真話」氛圍，對於專業討論揣摩上意，避免被扣「不忠」帽子，這很可能造成情勢誤判；在行動上將落入「寧左勿右」，試圖表現得更激進以符合民族情緒，這卻讓後續降溫等危機處理顯得困難。 「現在就怕台海如果發生突發事件」，揭仲認為，一旦台海發生重大突發事件或有導致緊張情勢升高的情況時，必須處理的變數與風險恐將比以往來得多。 揭仲認為，共軍接下來幾年的建軍備戰一定會受到高層清洗影響，處理例行性事務尚屬可行，在追求戰力成長上，勢必會遇到相當程度的瓶頸，因為太多主管資歷不夠，倘若軍事整肅往下波及作戰部隊，恐對戰力有很大傷害。 中央研究院政治學研究所研究員蔡文軒對中央社表示，共軍高層清洗對於台灣來說是短期利多，因為軍隊作戰能力將有所降低；對於習近平來說，軍隊作戰能力的暫時弱化則是他可以承受的風險。 透過 Google News 追蹤中央社",
       "url": "https://www.cna.com.tw/news/acn/202601270194.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部澄清強化防衛韌性及不對稱戰力計畫預算上限1.25兆元，非4.5兆；新裝備汰換老舊系統，降低維修費。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-01-30",
+      "title": "國防部：裝備延壽及維修需要4.5兆元並非事實| 政治",
+      "content": "（中央社記者游凱翔台北30日電）國防部今天表示，「強化防衛韌性及不對稱戰力計畫採購特別條例」是以8年時間、投入1兆2500億元預算為上限；且所獲新式武器裝備，有助汰換老舊系統，進而大幅降低後勤維修費用，所謂「延壽及維修需要4.5兆元」並非事實。 國防部晚間發布新聞稿表示，針對「軍購特別預算不只新台幣1兆2500億元，是4兆5000億元」等內容，國防部指出，「強化防衛韌性及不對稱戰力計畫採購特別條例」是以8年時間、投入1兆2500億元預算為上限；且所獲新式武器裝備，有助汰換老舊系統，進而大幅降低後勤維修費用，所謂「延壽及維修需要4兆5000億元」並非事實。 國防部強調，依武器裝備全壽期成本分析，其維持費用隨使用時間增加而升高；對於傳統武器或精準彈藥等不同系統的延壽或維修費用，亦採不同的編製基準，國防部將依裝備特性，採取差異化全壽期國防資源管理，確保戰力效益與資源配置平衡。（編輯：張均懋）1150130 #國防部",
+      "url": "https://www.cna.com.tw/news/aipl/202601300348.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -344,16 +416,16 @@
     "sentiment_label": "neutral",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "海軍春節加強戰備操演，使用陸用型監偵無人機對敵船團精準識別、戰果評估，模擬雄二/雄三飛彈及光六快艇攻擊。",
+      "Military_exercise": "海軍春節加強戰備操演，勁蜂1型攻擊無人機首度實彈發射，針對敵兩棲進犯威脅，成功命中海上目標。",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
     "confidence": 0.95,
     "original_article": {
       "date": "2026-01-29",
-      "title": "監偵無人機納雄風飛彈擊殺鏈飛手需取得5飛行證照| 政治",
-      "content": "（中央社記者吳書緯高雄29日電）海軍今天進行春節加強戰備操演，海軍海鋒第二大隊以陸用型監偵無人機對敵軍船團實施精準識別，以及進行戰果評估。大隊長宋振亞上校表示，陸用型監偵無人機符合擊殺鏈的程序，具有複合式的飛行方式，合格的飛手需要取得5種飛行證照。 海軍上午在桃子園海灘進行操演，以海域及戰場覺知為主軸，執行近岸防域作戰協力濱海打擊科目。其中，海軍模擬機動雷達車偵獲敵船團，濱海打擊群放飛陸用型監偵無人機實施精準識別，海鋒第二大隊裝載雄二、雄三飛彈的發射車卸除用覆蓋在發射車上的植披和偽裝布，和光六飛彈快艇模擬發射飛彈向敵船團發動協同攻擊，陸用型監偵無人機實施戰果評估。 針對軍用商規的陸用型監偵無人機對作戰上的助益，宋振亞受訪表示，陸用型監偵無人機符合整個擊殺鏈、擊殺網的程序，軍方稱為「F2T2EA」，從目標的監偵、鎖定、追蹤，接著是戰鬥識別、精確識別，最後導引飛彈實施精準攻擊，最後實施戰果評估（BDA），此時陸用型監偵無人機的任務才告一段落。 透過 Google News 追蹤中央社",
-      "url": "https://www.cna.com.tw/news/aipl/202601290156.aspx",
+      "title": "海軍春節加強戰備 勁蜂1型攻擊無人機首度實彈發射【圖輯】",
+      "content": "（中央社記者吳書緯高雄29日電）海軍今天執行春節加強戰備操演，以海域及戰場覺知為主軸，執行「近岸防域作戰協力濱海打擊」科目，勁蜂1型攻擊型無人機首度公開實彈發射，其中1架無人機發射後直接墜入沙灘，之後再補射1架無人機，成功命中海上目標，展現精準打擊實力。 國防部國軍春節加強戰備媒體邀訪今天進入第3天，海軍上午在桃子園海灘進行操演，以海域及戰場覺知為主軸，執行近岸防域作戰協力濱海打擊科目。 海軍表示，操演針對敵兩棲進犯威脅，運用監偵型無人機強化海域與戰場覺知，並結合濱海打擊及攻擊型無人機實施近岸打擊，建構擊殺鏈，有效遂行聯合截擊任務，展現海軍多層次、多波次及陸戰隊宜海宜陸的戰力發揚與作戰韌性。 勁蜂1型攻擊型無人機首度公開實彈發射，其中1架無人機發射後直接墜入沙灘，之後再補射1架無人機。圖為再次射出的無人機。中央社記者鄭清元攝 115年1月29日",
+      "url": "https://www.cna.com.tw/news/aipl/202601290143.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -370,9 +442,9 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "薛瑞福稱中共軍高層清洗反映習對軍忠誠焦慮；USCC報告建議美軍補足台海抵抗武力能力缺口。"
+      "Political_statement": "薛瑞福稱中共軍高層清洗反映習近平對軍忠誠焦慮；USCC報告建議美軍補足台海抵抗武力能力缺口。"
     },
-    "confidence": 0.92,
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-01-30",
       "title": "共軍高層清洗薛瑞福：習近平對軍隊忠誠度不安| 國際",
@@ -384,17 +456,41 @@
     }
   },
   {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.7,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "加快聯合作戰訓練，更倉促推進實戰演習",
+      "Foreign_battleship": "",
+      "Political_statement": "張又俠、劉振立落馬調查，不改變2027年奪台時間表。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-01-27",
+      "title": "張又俠落馬學者：共軍奪台時間不變、實戰演習倉促| 政治",
+      "content": "（中央社記者鍾佑貞華盛頓26日專電）解放軍高層張又俠落馬，各方解讀甚囂塵上。美、台兩地的學者今天分析，這並未實質改變兩岸軍力對比，不會明顯影響軍事行動時間。繼任者可能會在習近平巨大壓力下加快聯合作戰訓練，更倉促地推進實戰演習。 中國國防部24日公告，中共中央政治局委員、中央軍委副主席張又俠，中央軍委委員、中央軍委聯合參謀部參謀長劉振立涉嫌嚴重違紀違法，立案調查。如今2022年組成的20屆中央軍委7人領導層有5人落馬，只剩主席習近平、副主席張升民2人。 美國學者強生（Matthew Johnson）在華府智庫詹姆士敦基金會（Jamestown Foundation）今天刊出的分析中指出，這波共軍高層人事動盪，未根本上改變奪台時間表。 美國戰爭部去年底發布的「中國軍力報告」指出，解放軍正穩步推進2027年必須具備在台灣議題上取得「戰略決定性勝利」的能力。 美報告：北京預期2027年對台取得戰略決定性勝利",
+      "url": "https://www.cna.com.tw/news/aipl/202601270014.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
     "category": "Regional_Security",
     "is_relevant": true,
-    "country1": "TH",
-    "country2": "TW",
+    "country1": "TW",
+    "country2": "CN",
     "sentiment_score": 0.7,
     "sentiment_label": "positive",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "泰國為泰黨總理候選人尤德查南盼台海穩定，支持兩方對話，借鏡台灣新創生態系經驗。"
+      "Political_statement": "泰國為泰黨總理候選人盼台海穩定，支持對話，借鏡台灣新創生態系經驗。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -408,17 +504,41 @@
     }
   },
   {
+    "category": "Regional_Security",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "泰國政黨座談討論台海情勢升溫對泰國移工及經濟影響，呼籲外交審慎、準備撤僑計劃。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-01-28",
+      "title": "泰國政黨座談觸台海議題各黨籲外交審慎與經濟影響| 政治",
+      "content": "（中央社記者李宗憲曼谷28日專電）泰國2月8日大選進入倒數階段，智庫今天邀請主要政黨代表出席座談，針對各黨外交政策與區域安全挑戰交換意見，各政黨並針對台海情勢升溫對泰國可能帶來的衝擊，以及在中美競逐中的外交政策發表看法。 泰國朱拉隆功大學安全與國際議題研究所（ISIS Thailand）今天邀集人民黨（People's Party）、為泰黨（Pheu Thai Party）、泰自豪黨（Bhumjaithai Party）和民主黨（Democrat）代表，舉行外交政策座談。 擔任主持人的助理教授華冠咸（Pongphisoot Busbarat）問及台海情勢，以及泰國對台海若發生戰爭的因應措施。 人民黨總理參選人之一維拉育特（Veerayooth Kanchoochat）表示，政府應先從「最壞情境」進行準備。他解釋，因涉及的泰國移工數量眾多，「國安單位與外交部應該提前做好準備，像是制定撤僑行動和危機控管計劃，以應對可能發生的此類情況。」 維拉育特補充說，若台海發生衝突，泰國也無須急著表態支持或反對，但泰國的經濟關係必然受影響，因此必須考慮這是否會直接或間接影響人們的生計。 民主黨副主席維拉蓬（Werapong Prapha）則指出，中國與台灣關係是一個極為敏感的議題，從政治角度而言，「一個中國政策」以及在溝通與政治定位方面需要保持謹慎，而他認為目前泰國對此已相當小心。 不過，維拉蓬強調，泰國與台灣的關係保持多種形式的聯繫，無論是經濟、貿易、旅遊或教育領域。他說：「這就是所謂的經濟務實主義，與台灣保持務實的關係，這種關係必須繼續存在。」 至於台海若發生「最壞情況」，泰國需要建立一個直接向總理報告的指揮中心，並清楚訂定在不同的情境下，需採取哪些行動，無論是外交、經濟或安全方面的因應，而這也不僅限於台海衝突。 代表為泰黨出席座談的拉斯（Russ Jalichandra）過去曾擔任外交部副部長。他認為，有關台海若發生戰爭的撤離計劃，外交部必須像世界各國一樣制定緊急應變措施。 拉斯強調，為泰黨領導的政府在撤離泰國公民上經驗豐富，並舉從以色列撤離泰僑為例，一個月內泰國就撤離了1萬名泰國公民。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aipl/202601280372.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
     "category": "US_Statement",
     "is_relevant": true,
     "country1": "US",
     "country2": "CN",
-    "sentiment_score": 0.5,
+    "sentiment_score": 0.4,
     "sentiment_label": "positive",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "美國公布2026國防戰略，強調以實力嚇阻中國並開啟軍對軍溝通，緩和緊張關係，未削弱對台海關切。"
+      "Political_statement": "美國公布2026國防戰略，強調以實力嚇阻中國並開啟軍對軍溝通管道，緩和緊張關係，未削弱對台海關切。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -432,54 +552,6 @@
     }
   },
   {
-    "category": "Regional_Security",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.3,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "泰國政黨座談討論台海情勢升溫對泰國經濟與移工影響，呼籲外交審慎、撤僑準備與危機控管。"
-    },
-    "confidence": 0.92,
-    "original_article": {
-      "date": "2026-01-28",
-      "title": "泰國政黨座談觸台海議題各黨籲外交審慎與經濟影響| 政治",
-      "content": "（中央社記者李宗憲曼谷28日專電）泰國2月8日大選進入倒數階段，智庫今天邀請主要政黨代表出席座談，針對各黨外交政策與區域安全挑戰交換意見，各政黨並針對台海情勢升溫對泰國可能帶來的衝擊，以及在中美競逐中的外交政策發表看法。 泰國朱拉隆功大學安全與國際議題研究所（ISIS Thailand）今天邀集人民黨（People's Party）、為泰黨（Pheu Thai Party）、泰自豪黨（Bhumjaithai Party）和民主黨（Democrat）代表，舉行外交政策座談。 擔任主持人的助理教授華冠咸（Pongphisoot Busbarat）問及台海情勢，以及泰國對台海若發生戰爭的因應措施。 人民黨總理參選人之一維拉育特（Veerayooth Kanchoochat）表示，政府應先從「最壞情境」進行準備。他解釋，因涉及的泰國移工數量眾多，「國安單位與外交部應該提前做好準備，像是制定撤僑行動和危機控管計劃，以應對可能發生的此類情況。」 維拉育特補充說，若台海發生衝突，泰國也無須急著表態支持或反對，但泰國的經濟關係必然受影響，因此必須考慮這是否會直接或間接影響人們的生計。 民主黨副主席維拉蓬（Werapong Prapha）則指出，中國與台灣關係是一個極為敏感的議題，從政治角度而言，「一個中國政策」以及在溝通與政治定位方面需要保持謹慎，而他認為目前泰國對此已相當小心。 不過，維拉蓬強調，泰國與台灣的關係保持多種形式的聯繫，無論是經濟、貿易、旅遊或教育領域。他說：「這就是所謂的經濟務實主義，與台灣保持務實的關係，這種關係必須繼續存在。」 至於台海若發生「最壞情況」，泰國需要建立一個直接向總理報告的指揮中心，並清楚訂定在不同的情境下，需採取哪些行動，無論是外交、經濟或安全方面的因應，而這也不僅限於台海衝突。 代表為泰黨出席座談的拉斯（Russ Jalichandra）過去曾擔任外交部副部長。他認為，有關台海若發生戰爭的撤離計劃，外交部必須像世界各國一樣制定緊急應變措施。 拉斯強調，為泰黨領導的政府在撤離泰國公民上經驗豐富，並舉從以色列撤離泰僑為例，一個月內泰國就撤離了1萬名泰國公民。 透過 Google News 追蹤中央社",
-      "url": "https://www.cna.com.tw/news/aipl/202601280372.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "US_TW_Interaction",
-    "is_relevant": true,
-    "country1": "TW",
-    "country2": "US",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "台灣1.25兆元國防特別預算用於美軍購，受立法院審查延宕風險，恐導致發價書失效、合約撤案或價格上漲。",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "國防部憂預算卡關影響建軍時程及台美軍購流程。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-01-29",
-      "title": "美軍購發價書有效期壓力國防部憂預算卡關恐撤案| 政治",
-      "content": "（中央社記者游凱翔台北29日電）國民黨團、民眾黨團數度封殺8年新台幣1.25兆元國防特別預算條例，國防部今天表示，若遭刪減後勤配套或變更計畫，行政程序將被迫「打掉重練」，嚴重影響建軍時程；美方的發價書也具時效性，若因預算審查延宕導致失效，不僅合約恐撤案，更將面臨價格大幅上漲風險。 國民黨團、民眾黨團在程序委員會數度封殺守護台灣自主防衛、總額1兆2500億元、為期8年的國防特別預算條例。國防部發言人孫立方中將、戰略規劃司長黃文啓中將接受CNEWS匯流新聞網節目「中午來開匯」主持人黃光芹訪問，節目於今天中午播出，並說明對美軍購流程與後續影響。 孫立方指出，軍事採購涉高度敏感性與台美雙方默契，因此在美方未正式完成知會國會等特定程序前，台灣基於默契不會對外敲鑼打鼓，但國防部也重視社會溝通，所有預算編列也在立法院進行機密報告，結束後亦公開非機密部分向大眾說明，而1.25兆元預算是基於敵情威脅、聯合戰力需求進行編列，不能隨意切割，若遭片面刪減，出拳後只剩下4根手指頭，便無法形成有效戰力，須兼顧「防衛與反擊」。 黃文啓表示，每項軍購都必須依「整體獲得規劃書」編列，內容涵蓋主裝備、附屬工程、後勤維護、接裝訓練及部分行政費用，而國防部的版本均涵蓋這些面向，若無周延考量而自行提出政黨版本且僅保留「主要裝備」而刪除後勤等配套措施，將導致預算與規劃書內容完全脫節。 他提到，依照規定，超過10億元的計畫若要變更項目，就必須撤回、重新審議並再次呈報行政院核定，所有行政程序「打掉重練」恐嚴重影響建軍時程。 黃文啓說明，美方在知會國會階段會找主合約商估價，由於主要廠商必須考慮轄下次合約商的報價（原物料與成本），因此報價具有時效性，一旦美國政府核發發價書，就進入最短15天、最長60天不等的有效期限倒數階段、時間非常緊湊，若發價書失效，美方也不見得同意延長，不僅可能導致合約失效，甚至因價格上漲而撤案。",
-      "url": "https://www.cna.com.tw/news/aipl/202601290145.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
     "category": "US_TW_Interaction",
     "is_relevant": true,
     "country1": "TW",
@@ -487,7 +559,7 @@
     "sentiment_score": 0.0,
     "sentiment_label": "neutral",
     "extracted_data": {
-      "US_Taiwan_interaction": "民眾黨提軍購條例（M109A7等裝備，4000億），國防部批欠缺CTA評估，恐難獲美方背書及印太司令部支持",
+      "US_Taiwan_interaction": "民眾黨自提軍購條例列M109A7等5項裝備，國防部批欠缺CTA評估恐難獲美方背書",
       "Military_exercise": "",
       "Foreign_battleship": "",
       "Political_statement": "國防部：提案不完整，欠專業評估，恐致軍購胎死腹中"
@@ -508,13 +580,13 @@
     "is_relevant": true,
     "country1": "TW",
     "country2": "US",
-    "sentiment_score": -0.5,
+    "sentiment_score": -0.4,
     "sentiment_label": "negative",
     "extracted_data": {
-      "US_Taiwan_interaction": "國防特別條例未付委恐拖延美軍售案發價書取得，影響防空飛彈、反彈道飛彈等軍備",
+      "US_Taiwan_interaction": "國防部警告預算延遲影響美軍售案發價書處理，項目包括防空飛彈、反彈道飛彈、反裝甲武器、155mm彈藥",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "國防部長顧立雄：不付委無法討論迫切性；戰略規劃司長：延遲影響軍備期程及國內無人機投資"
+      "Political_statement": "國防特別條例未付委將拖延軍備取得期程，影響國內無人機投資"
     },
     "confidence": 0.95,
     "original_article": {
@@ -528,6 +600,30 @@
     }
   },
   {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部表示民眾黨軍購條例若強行通過，可能無法執行並衍生後遺症。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-01-27",
+      "title": "民眾黨自提軍購條例國防部：若強行通過恐無法執行| 政治",
+      "content": "（中央社記者吳書緯台北27日電）台灣民眾黨立法院黨團昨天提出軍購特別條例；國防部戰規司長黃文啓中將今天表示，民眾黨團版本只有買裝備，沒有建立配套措施，若立院強行通過民眾黨團版本，可能會使國防部無法執行，甚至衍生後遺症。 台灣民眾黨立法院黨團昨天提出「保衛國家安全及強化不對稱戰力計畫採購特別條例」草案，列出包括M109A7自走砲、海馬士多管火箭系統、反甲型無人機飛彈系統等5項採購項目，總額上限為新台幣4000億元，採1年1期方式編列。 民眾黨自提軍購特別條例 列採購項目上限4000億元",
+      "url": "https://www.cna.com.tw/news/aipl/202601270047.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
     "category": "US_TW_Interaction",
     "is_relevant": true,
     "country1": "US",
@@ -535,7 +631,7 @@
     "sentiment_score": 0.8,
     "sentiment_label": "positive",
     "extracted_data": {
-      "US_Taiwan_interaction": "AIT處長谷立言及藍鶯訪台中市府，盧秀燕接待，討論產業交流、經貿合作、觀光文化等，深化夥伴關係。",
+      "US_Taiwan_interaction": "AIT處長谷立言及藍鶯訪台中市府，盧秀燕接待，討論經貿、產業、觀光合作，深化交流。",
       "Military_exercise": "",
       "Foreign_battleship": "",
       "Political_statement": ""
