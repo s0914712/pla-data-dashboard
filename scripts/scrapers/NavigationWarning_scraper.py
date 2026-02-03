@@ -106,33 +106,84 @@ class NavigationWarningScraper(BaseScraper):
         
         return articles
     
-    def fetch_article_content(self, url: str) -> Optional[str]:
-        """取得公告詳細內容"""
-        html = self.fetch_page(url)
-        if not html:
-            return None
-        
-        from bs4 import BeautifulSoup
-        soup = BeautifulSoup(html, 'html.parser')
-        
-        # 嘗試多種內容選擇器
-        content = None
-        for selector in ['div.article-content', 'div.content', 'div.TRS_Editor',
-                        'div.detail-content', 'article', 'div.main-content']:
-            content_div = soup.select_one(selector)
-            if content_div:
-                content = content_div.get_text(strip=True)
+def fetch_article_content(self, url: str) -> Optional[str]:
+    """取得公告詳細內容並清理"""
+    html = self.fetch_page(url)
+    if not html:
+        return None
+    
+    from bs4 import BeautifulSoup
+    soup = BeautifulSoup(html, 'html.parser')
+    
+    # 嘗試多種內容選擇器
+    content = None
+    for selector in ['div.article-content', 'div.content', 'div.TRS_Editor',
+                    'div.detail-content', 'article', 'div.main-content']:
+        content_div = soup.select_one(selector)
+        if content_div:
+            content = content_div.get_text(strip=True)
+            break
+    
+    # 如果找不到，取得 body 內的主要文字
+    if not content:
+        body = soup.find('body')
+        if body:
+            for tag in body.find_all(['script', 'style', 'nav', 'header', 'footer']):
+                tag.decompose()
+            content = body.get_text(separator=' ', strip=True)
+    
+    # 提取核心內容
+    if content:
+        content = self.extract_core_content(content)
+    
+    return content
+
+def extract_core_content(self, text: str) -> str:
+    """提取核心內容：從航警編號到「收藏」之間的文字"""
+    import re
+    
+    # 尋找航警編號開始位置
+    start_patterns = [
+        r'([a-zA-Z沪津辽冀鲁浙闽粤桂琼深厦甬青连珠汕湛苏]航警?\d+/\d+)',
+        r'([A-Z]{2,3}\d+/\d+)',
+    ]
+    
+    start_pos = -1
+    
+    for pattern in start_patterns:
+        matches = list(re.finditer(pattern, text))
+        if matches:
+            for match in matches:
+                after_text = text[match.end():match.end()+50]
+                if '，' in after_text or '。' in after_text or ',' in after_text:
+                    start_pos = match.start()
+                    break
+            if start_pos != -1:
                 break
-        
-        # 如果找不到，取得 body 內的主要文字
-        if not content:
-            body = soup.find('body')
-            if body:
-                for tag in body.find_all(['script', 'style', 'nav', 'header', 'footer']):
-                    tag.decompose()
-                content = body.get_text(separator=' ', strip=True)
-        
-        return content
+    
+    if start_pos == -1:
+        return text[:500]
+    
+    # 尋找結束位置
+    end_patterns = ['收藏', '打印本页', '关闭窗口']
+    end_pos = len(text)
+    
+    for end_pattern in end_patterns:
+        pos = text.find(end_pattern, start_pos)
+        if pos != -1 and pos < end_pos:
+            end_pos = pos
+    
+    # 提取並清理
+    core_content = text[start_pos:end_pos].strip()
+    core_content = re.sub(r'\s+', ' ', core_content)
+    
+    # 限制長度
+    if len(core_content) > 1000:
+        core_content = core_content[:1000] + '...'
+    
+    return core_content
+
+
     
     def parse_coordinates(self, text: str) -> List[Dict]:
         """解析經緯度座標"""
