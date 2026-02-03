@@ -1,19 +1,23 @@
 {
-  "update_time": "2026-02-03T11:58:32.209106",
+  "update_time": "2026-02-03T12:14:14.725695",
   "total_warnings": 5,
+  "with_coordinates": 0,
+  "with_date_range": 0,
   "date_range": {
-    "earliest": "2026-01-29",
+    "earliest": "2026-01-25",
     "latest": "2026-02-02"
   },
   "by_msa": {
-    "未知海事局": 2,
-    "辽宁海事局": 2,
+    "未知海事局": 1,
+    "辽宁海事局": 1,
+    "广西海事局": 2,
     "上海海事局": 1
   },
   "by_keyword": {
-    "MILITARY": 2,
-    "军事": 2,
     "演习": 2,
-    "EXERCISE": 1
+    "实弹": 2,
+    "MILITARY": 1,
+    "EXERCISE": 1,
+    "军事": 1
   }
 }
