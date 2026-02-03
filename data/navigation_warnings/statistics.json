@@ -1,0 +1,19 @@
+{
+  "update_time": "2026-02-03T11:58:32.209106",
+  "total_warnings": 5,
+  "date_range": {
+    "earliest": "2026-01-29",
+    "latest": "2026-02-02"
+  },
+  "by_msa": {
+    "未知海事局": 2,
+    "辽宁海事局": 2,
+    "上海海事局": 1
+  },
+  "by_keyword": {
+    "MILITARY": 2,
+    "军事": 2,
+    "演习": 2,
+    "EXERCISE": 1
+  }
+}

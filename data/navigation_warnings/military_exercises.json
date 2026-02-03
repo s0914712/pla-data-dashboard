@@ -1,0 +1,47 @@
+[
+  {
+    "date": "2026-02-02",
+    "title": "BOHAI SEA MILITARY EXERCISES IN AREA—LN5...",
+    "msa": "未知海事局",
+    "matched_keywords": "MILITARY,EXERCISE",
+    "article_id": "6cf787500718784e",
+    "url": "https://www.msa.gov.cn/page/article.do?articleId=6cf787500718784e&channelId=C8896863-B101-4C43-8705-536A03EB46FF",
+    "scraped_at": "2026-02-03T11:54:16.622589"
+  },
+  {
+    "date": "2026-02-02",
+    "title": "渤海军事演习—辽航警56/26",
+    "msa": "辽宁海事局",
+    "matched_keywords": "军事,演习",
+    "article_id": "6af521e4-0c14-47a8-b2d3-94af20daa97e",
+    "url": "https://www.msa.gov.cn/page/article.do?articleId=6af521e4-0c14-47a8-b2d3-94af20daa97e&channelId=C8896863-B101-4C43-8705-536A03EB46FF",
+    "scraped_at": "2026-02-03T11:54:16.622676"
+  },
+  {
+    "date": "2026-01-30",
+    "title": "MILITARY MISSION—LN48/26",
+    "msa": "未知海事局",
+    "matched_keywords": "MILITARY",
+    "article_id": "17e0d03265f33f22",
+    "url": "https://www.msa.gov.cn/page/article.do?articleId=17e0d03265f33f22&channelId=C8896863-B101-4C43-8705-536A03EB46FF",
+    "scraped_at": "2026-02-03T11:54:46.682496"
+  },
+  {
+    "date": "2026-01-30",
+    "title": "军事任务—辽航警51/26",
+    "msa": "辽宁海事局",
+    "matched_keywords": "军事",
+    "article_id": "19b8e063-7728-4a22-a8b9-625a15f7035f",
+    "url": "https://www.msa.gov.cn/page/article.do?articleId=19b8e063-7728-4a22-a8b9-625a15f7035f&channelId=C8896863-B101-4C43-8705-536A03EB46FF",
+    "scraped_at": "2026-02-03T11:54:46.682556"
+  },
+  {
+    "date": "2026-01-29",
+    "title": "搜救演习—沪航警77/26",
+    "msa": "上海海事局",
+    "matched_keywords": "演习",
+    "article_id": "22fc0752-032a-4018-b4c0-72946480bbc6",
+    "url": "https://www.msa.gov.cn/page/article.do?articleId=22fc0752-032a-4018-b4c0-72946480bbc6&channelId=94DF14CE-1110-415D-A44E-67593E76619F",
+    "scraped_at": "2026-02-03T11:57:53.557852"
+  }
+]
