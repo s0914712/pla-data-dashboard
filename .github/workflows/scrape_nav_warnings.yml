@@ -34,8 +34,8 @@ jobs:
     - name: 📦 Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests beautifulsoup4 pandas lxml
-    
+        pip install requests beautifulsoup4 pandas lxml httpx
+
     - name: 🎯 Run Military Exercise Scraper
       run: |
         python -c "
