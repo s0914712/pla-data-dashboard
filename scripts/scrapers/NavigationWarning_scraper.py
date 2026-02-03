@@ -6,8 +6,6 @@
 ===============================================================================
 
 專注於軍事任務、實彈射擊等相關公告
-作者: s0914712
-GitHub: https://github.com/s0914712/pla-data-dashboard
 """
 
 import re
@@ -106,84 +104,80 @@ class NavigationWarningScraper(BaseScraper):
         
         return articles
     
-def fetch_article_content(self, url: str) -> Optional[str]:
-    """取得公告詳細內容並清理"""
-    html = self.fetch_page(url)
-    if not html:
-        return None
-    
-    from bs4 import BeautifulSoup
-    soup = BeautifulSoup(html, 'html.parser')
-    
-    # 嘗試多種內容選擇器
-    content = None
-    for selector in ['div.article-content', 'div.content', 'div.TRS_Editor',
-                    'div.detail-content', 'article', 'div.main-content']:
-        content_div = soup.select_one(selector)
-        if content_div:
-            content = content_div.get_text(strip=True)
-            break
-    
-    # 如果找不到，取得 body 內的主要文字
-    if not content:
-        body = soup.find('body')
-        if body:
-            for tag in body.find_all(['script', 'style', 'nav', 'header', 'footer']):
-                tag.decompose()
-            content = body.get_text(separator=' ', strip=True)
-    
-    # 提取核心內容
-    if content:
-        content = self.extract_core_content(content)
-    
-    return content
-
-def extract_core_content(self, text: str) -> str:
-    """提取核心內容：從航警編號到「收藏」之間的文字"""
-    import re
-    
-    # 尋找航警編號開始位置
-    start_patterns = [
-        r'([a-zA-Z沪津辽冀鲁浙闽粤桂琼深厦甬青连珠汕湛苏]航警?\d+/\d+)',
-        r'([A-Z]{2,3}\d+/\d+)',
-    ]
-    
-    start_pos = -1
-    
-    for pattern in start_patterns:
-        matches = list(re.finditer(pattern, text))
-        if matches:
-            for match in matches:
-                after_text = text[match.end():match.end()+50]
-                if '，' in after_text or '。' in after_text or ',' in after_text:
-                    start_pos = match.start()
-                    break
-            if start_pos != -1:
+    def fetch_article_content(self, url: str) -> Optional[str]:
+        """取得公告詳細內容並清理"""
+        html = self.fetch_page(url)
+        if not html:
+            return None
+        
+        from bs4 import BeautifulSoup
+        soup = BeautifulSoup(html, 'html.parser')
+        
+        # 嘗試多種內容選擇器
+        content = None
+        for selector in ['div.article-content', 'div.content', 'div.TRS_Editor',
+                        'div.detail-content', 'article', 'div.main-content']:
+            content_div = soup.select_one(selector)
+            if content_div:
+                content = content_div.get_text(strip=True)
                 break
+        
+        # 如果找不到，取得 body 內的主要文字
+        if not content:
+            body = soup.find('body')
+            if body:
+                for tag in body.find_all(['script', 'style', 'nav', 'header', 'footer']):
+                    tag.decompose()
+                content = body.get_text(separator=' ', strip=True)
+        
+        # 提取核心內容
+        if content:
+            content = self.extract_core_content(content)
+        
+        return content
     
-    if start_pos == -1:
-        return text[:500]
-    
-    # 尋找結束位置
-    end_patterns = ['收藏', '打印本页', '关闭窗口']
-    end_pos = len(text)
-    
-    for end_pattern in end_patterns:
-        pos = text.find(end_pattern, start_pos)
-        if pos != -1 and pos < end_pos:
-            end_pos = pos
-    
-    # 提取並清理
-    core_content = text[start_pos:end_pos].strip()
-    core_content = re.sub(r'\s+', ' ', core_content)
-    
-    # 限制長度
-    if len(core_content) > 1000:
-        core_content = core_content[:1000] + '...'
-    
-    return core_content
-
-
+    def extract_core_content(self, text: str) -> str:
+        """提取核心內容：從航警編號到「收藏」之間的文字"""
+        # 尋找航警編號開始位置
+        start_patterns = [
+            r'([a-zA-Z沪津辽冀鲁浙闽粤桂琼深厦甬青连珠汕湛苏]航警?\d+/\d+)',
+            r'([A-Z]{2,3}\d+/\d+)',
+        ]
+        
+        start_pos = -1
+        
+        for pattern in start_patterns:
+            matches = list(re.finditer(pattern, text))
+            if matches:
+                for match in matches:
+                    after_text = text[match.end():match.end()+50]
+                    if '，' in after_text or '。' in after_text or ',' in after_text:
+                        start_pos = match.start()
+                        break
+                if start_pos != -1:
+                    break
+        
+        if start_pos == -1:
+            return text[:500]
+        
+        # 尋找結束位置
+        end_patterns = ['收藏', '打印本页', '关闭窗口']
+        end_pos = len(text)
+        
+        for end_pattern in end_patterns:
+            pos = text.find(end_pattern, start_pos)
+            if pos != -1 and pos < end_pos:
+                end_pos = pos
+        
+        # 提取並清理
+        core_content = text[start_pos:end_pos].strip()
+        core_content = re.sub(r'\s+', ' ', core_content)
+        
+        # 限制長度
+        if len(core_content) > 1000:
+            core_content = core_content[:1000] + '...'
+        
+        return core_content
     
     def parse_coordinates(self, text: str) -> List[Dict]:
         """解析經緯度座標"""
@@ -192,7 +186,7 @@ def extract_core_content(self, text: str) -> str:
         
         coords = []
         
-        # 格式1: 38-31.3N121-33.2E 或 38-31.3N 121-33.2E
+        # 格式1: 38-31.3N121-33.2E
         pattern1 = r'(\d{1,2})-(\d{1,2}(?:\.\d+)?)\s*([NS])\s*(\d{1,3})-(\d{1,2}(?:\.\d+)?)\s*([EW])'
         for match in re.finditer(pattern1, text):
             lat_deg, lat_min, lat_dir, lon_deg, lon_min, lon_dir = match.groups()
@@ -208,7 +202,7 @@ def extract_core_content(self, text: str) -> str:
                 'raw': match.group()
             })
         
-        # 格式2: N 39°24′35″、E 119°13′44″ 或 39°24′35″N、119°13′44″E
+        # 格式2: N 39°24′35″、E 119°13′44″
         pattern2 = r'([NS])?\s*(\d{1,2})°(\d{1,2})′(\d{1,2}(?:\.\d+)?)?″?\s*([NS])?\s*[、,\s]*([EW])?\s*(\d{1,3})°(\d{1,2})′(\d{1,2}(?:\.\d+)?)?″?\s*([EW])?'
         for match in re.finditer(pattern2, text):
             groups = match.groups()
@@ -231,7 +225,7 @@ def extract_core_content(self, text: str) -> str:
                 'raw': match.group()
             })
         
-        # 格式3: 純數字格式如 38.5N 121.5E
+        # 格式3: 38.5N 121.5E
         pattern3 = r'(\d{1,2}(?:\.\d+)?)\s*([NS])\s*(\d{1,3}(?:\.\d+)?)\s*([EW])'
         for match in re.finditer(pattern3, text):
             lat, lat_dir, lon, lon_dir = match.groups()
@@ -283,22 +277,22 @@ def extract_core_content(self, text: str) -> str:
         
         return list(set(times))
     
-    def run(self, military_only: bool = True, max_articles_per_channel: int = 20, 
-            days_back: int = 365) -> List[Dict]:
+    def run(self, days_back: int = 365, max_pages: int = 1) -> List[Dict]:
         """
-        執行爬蟲
+        執行爬蟲 (符合 BaseScraper 的簽名)
         
         Args:
-            military_only: 是否只抓取軍事相關
-            max_articles_per_channel: 每個海事局最多抓取的公告數
-            days_back: 追溯天數（用於過濾）
+            days_back: 追溯天數
+            max_pages: 每個海事局最多抓取頁數（預設1頁=20篇）
             
         Returns:
-            航行警告列表
+            標準格式的航行警告列表
         """
         print(f"[{self.name}] 🚢 開始爬取 {len(self.CHANNELS)} 個海事局的航行警告...")
         
         all_warnings = []
+        military_only = True  # 固定只抓軍事相關
+        max_articles_per_channel = max_pages * 20  # 每頁約20篇
         
         for channel_name, channel_id in self.CHANNELS.items():
             print(f"[{self.name}] 📍 正在處理: {channel_name}")
@@ -321,7 +315,7 @@ def extract_core_content(self, text: str) -> str:
             
             articles = filtered_articles
             
-            print(f"[{self.name}]    找到 {len(articles)} 篇{'軍事相關' if military_only else ''}公告")
+            print(f"[{self.name}]    找到 {len(articles)} 篇軍事相關公告")
             
             for article in articles:
                 # 取得詳細內容
@@ -342,7 +336,7 @@ def extract_core_content(self, text: str) -> str:
                         'coordinates': coordinates,
                         'coordinate_count': len(coordinates),
                         'time_periods': time_periods,
-                        'content_preview': content[:500] if content else '',
+                        'content_preview': content,
                         'is_military': article['is_military'],
                         'scraped_at': datetime.now().isoformat()
                     }
@@ -350,10 +344,10 @@ def extract_core_content(self, text: str) -> str:
                     all_warnings.append(warning)
                 
                 import time
-                time.sleep(0.5)  # 避免請求過快
+                time.sleep(0.5)
             
             import time
-            time.sleep(1)  # 換頻道時稍等
+            time.sleep(1)
         
         print(f"[{self.name}] ✅ 完成！共抓取 {len(all_warnings)} 篇航行警告")
         
@@ -364,7 +358,7 @@ def extract_core_content(self, text: str) -> str:
         standardized = []
         
         for w in warnings:
-            # 格式化經緯度為字符串
+            # 格式化經緯度
             coords_str = ''
             coords_raw = ''
             if w['coordinates']:
@@ -392,33 +386,3 @@ def extract_core_content(self, text: str) -> str:
             standardized.append(std_warning)
         
         return standardized
-
-
-def test_scraper():
-    """測試爬蟲"""
-    print("=" * 80)
-    print("MSA Military Navigation Warning Scraper 測試")
-    print("=" * 80)
-    
-    with NavigationWarningScraper(delay=1.0) as scraper:
-        warnings = scraper.run(
-            military_only=True,
-            max_articles_per_channel=5,
-            days_back=30
-        )
-        
-        print(f"\n總計: {len(warnings)} 條軍事航行警告\n")
-        
-        if warnings:
-            for i, w in enumerate(warnings[:3], 1):
-                print(f"[{i}] {w['title']}")
-                print(f"    來源: {w['channel']} | 日期: {w['publish_date']}")
-                if w['time_periods']:
-                    print(f"    時間: {w['time_periods'][:100]}...")
-                if w['coordinates']:
-                    print(f"    經緯度: {w['coordinates'][:100]}...")
-                print()
-
-
-if __name__ == '__main__':
-    test_scraper()
