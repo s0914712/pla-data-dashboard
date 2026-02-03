@@ -51,12 +51,11 @@ jobs:
         
         print('🎯 開始爬取軍事演習相關航行警告...')
         
-        # fetch_details=True 爬取詳細內容（經緯度、日期範圍、概要）
-        with NavigationWarningScraper(delay=1.5) as scraper:
+        with NavigationWarningScraper(delay=1.0) as scraper:
             warnings = scraper.run(
-                max_pages=50,
-                days_back=365,
-                fetch_details=True  # 啟用詳細內容爬取
+                military_only=True,
+                max_articles_per_channel=20,
+                days_back=365
             )
         
         if not warnings:
@@ -69,16 +68,16 @@ jobs:
         
         # 定義欄位
         columns = [
-            'publish_date',      # 發布日期
-            'title',             # 標題
-            'msa',               # 海事局
-            'matched_keywords',  # 匹配的關鍵字
-            'date_range',        # 演習日期範圍
-            'coordinates',       # 經緯度
-            'summary',           # 概要
-            'article_id',        # 文章ID
-            'url',               # 鏈接
-            'scraped_at'         # 抓取時間
+            'publish_date',       # 發布日期
+            'title',              # 標題
+            'channel',            # 海事局
+            'time_periods',       # 演習時間範圍
+            'coordinate_count',   # 經緯度數量
+            'coordinates',        # 經緯度（十進制）
+            'coordinates_raw',    # 經緯度（原始格式）
+            'content_preview',    # 內容預覽
+            'url',                # 鏈接
+            'scraped_at'          # 抓取時間
         ]
         
         # 保存 CSV
@@ -90,8 +89,8 @@ jobs:
         else:
             csv_path = output_dir / 'military_exercises.csv'
             pd.DataFrame(columns=columns).to_csv(
-                csv_path, 
-                index=False, 
+                csv_path,
+                index=False,
                 encoding='utf-8-sig'
             )
             print(f'💾 已保存空文件: {csv_path}')
@@ -104,37 +103,28 @@ jobs:
         
         # 生成統計
         if warnings:
-            # 統計關鍵字
-            all_keywords = []
-            for w in warnings:
-                if w.get('matched_keywords'):
-                    all_keywords.extend(w['matched_keywords'].split(','))
-            
-            # 統計包含詳細信息的數量
-            coords_count = sum(1 for w in warnings if w.get('coordinates'))
-            date_range_count = sum(1 for w in warnings if w.get('date_range'))
+            coords_count = sum(1 for w in warnings if w.get('coordinate_count', 0) > 0)
+            time_count = sum(1 for w in warnings if w.get('time_periods'))
             
             stats = {
                 'update_time': datetime.now().isoformat(),
                 'total_warnings': len(warnings),
                 'with_coordinates': coords_count,
-                'with_date_range': date_range_count,
+                'with_time_periods': time_count,
                 'date_range': {
-                    'earliest': min(w['publish_date'] for w in warnings),
-                    'latest': max(w['publish_date'] for w in warnings)
+                    'earliest': min(w['publish_date'] for w in warnings if w['publish_date']),
+                    'latest': max(w['publish_date'] for w in warnings if w['publish_date'])
                 },
-                'by_msa': dict(Counter(w['msa'] for w in warnings)),
-                'by_keyword': dict(Counter(all_keywords).most_common(20))
+                'by_channel': dict(Counter(w['channel'] for w in warnings))
             }
         else:
             stats = {
                 'update_time': datetime.now().isoformat(),
                 'total_warnings': 0,
                 'with_coordinates': 0,
-                'with_date_range': 0,
+                'with_time_periods': 0,
                 'date_range': {'earliest': None, 'latest': None},
-                'by_msa': {},
-                'by_keyword': {}
+                'by_channel': {}
             }
         
         # 保存統計
@@ -147,7 +137,7 @@ jobs:
         print(f'\n✅ 任務完成！')
         print(f'   總計警告: {len(warnings)} 條')
         print(f'   含經緯度: {stats["with_coordinates"]} 條')
-        print(f'   含日期範圍: {stats["with_date_range"]} 條')
+        print(f'   含時間範圍: {stats["with_time_periods"]} 條')
         PYTHON_SCRIPT
     
     - name: 📊 Display statistics
