@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 ===============================================================================
-中國海事局航行警告爬蟲 (軍演專用版 - 含詳細內容)
-MSA Navigation Warning Scraper (Military Focus - Full Content)
+中國海事局航行警告爬蟲 / MSA Navigation Warning Scraper
 ===============================================================================
 
-目標: 爬取軍事演習相關航行警告的詳細信息
-包含: 經緯度、日期範圍、警告概要
+專注於軍事任務、實彈射擊等相關公告
+作者: s0914712
+GitHub: https://github.com/s0914712/pla-data-dashboard
 """
 
-import time
 import re
 from datetime import datetime
 from typing import List, Dict, Optional
@@ -17,446 +17,328 @@ from .base_scraper import BaseScraper
 
 
 class NavigationWarningScraper(BaseScraper):
-    """中國海事局航行警告爬蟲（軍演專用 - 含詳細內容）"""
+    """中國海事局航行警告爬蟲（軍事專用）"""
     
     BASE_URL = "https://www.msa.gov.cn"
-    NAV_WARNING_CHANNEL = '9C219298-B27F-460E-995A-99401B3FF6AF'
     
-    # 🎯 軍事演習關鍵字
-    MILITARY_KEYWORDS = [
-        '军事', '軍事', '演习', '演習', '实弹', '實彈',
-        '火炮射击', '火炮射擊', '射击训练', '射擊訓練',
-        '禁航', '禁止驶入', '禁止駛入',
-        '火箭发射', '火箭發射', '火箭残骸', '火箭殘骸',
-        'MILITARY', 'EXERCISE',
-        '军演', '軍演', '演训', '演訓',
-        '联合演练', '聯合演練', '实战化训练', '實戰化訓練',
-        '导弹试射', '導彈試射', '武器试验', '武器試驗',
-        '海上实弹', '海上實彈', '空中演练', '空中演練',
-        '战备巡航', '戰備巡航', '军事禁区', '軍事禁區',
-        '靶场', '靶場', '射击场', '射擊場',
-    ]
-    
-    # 排除關鍵字
-    EXCLUDE_KEYWORDS = [
-        '拖带', '拖帶', 'LNG', '液化天然气',
-        '施工', '海上施工', '測量', '测量',
-        '打捞', '打撈', '载运', '載運',
-        '大件', '超大件', '加注', '補給',
-    ]
-    
-    # 海事局代碼映射
-    MSA_CODE_MAP = {
-        '沪': '上海海事局', '津': '天津海事局',
-        '辽': '辽宁海事局', '冀': '河北海事局',
-        '鲁': '山东海事局', '浙': '浙江海事局',
-        '闽': '福建海事局', '粤': '广东海事局',
-        '桂': '广西海事局', '琼': '海南海事局',
-        '深': '深圳海事局', '厦': '厦门海事局',
-        '甬': '宁波海事局', '青': '青岛海事局',
-        '连': '大连海事局', '珠': '珠海海事局',
-        '汕': '汕头海事局', '湛': '湛江海事局',
-        '苏': '江苏海事局', '长江': '长江海事局',
+    # 各海事局頻道 ID
+    CHANNELS = {
+        '上海海事局': '94DF14CE-1110-415D-A44E-67593E76619F',
+        '天津海事局': 'BDBA5FAD-6E5D-4867-9F97-0FCF8EFB8636',
+        '辽宁海事局': 'C8896863-B101-4C43-8705-536A03EB46FF',
+        '河北海事局': '93B73989-D220-45F9-BC32-70A6EBA35180',
+        '山东海事局': '36EA3354-C8F8-4953-ABA0-82D6D989C750',
+        '浙江海事局': '8E10EA74-EB9E-4C96-90F8-F891968ADD80',
+        '福建海事局': '7B084057-6038-4570-A0FB-44E9204C4B1D',
+        '广东海事局': '1E478D40-9E85-4918-BF12-478B8A19F4A8',
+        '广西海事局': '86DE2FFF-FF2C-47F9-8359-FD1F20D6508F',
+        '海南海事局': 'D3340711-057B-494B-8FA0-9EEDC4C5EAD9',
+        '深圳海事局': '325FDC08-92B4-4313-A63E-E5C165BE98EC',
+        '连云港海事局': 'FA4501F3-DBE4-4F70-BC72-6F27132D4E04',
     }
+    
+    # 軍事相關關鍵字
+    MILITARY_KEYWORDS = [
+        '军事', '演习', '实弹', '火炮射击', '射击训练',
+        '禁航', '禁止驶入', 'MILITARY', '火箭发射', '火箭残骸',
+        '軍事', '演習', '實彈', '射擊訓練', '禁止駛入',
+        'EXERCISE', 'MISSION', '军演', '軍演'
+    ]
     
     def __init__(self, timeout: int = 30, delay: float = 1.0):
         super().__init__(name="msa_military", timeout=timeout, delay=delay)
     
-    def is_military_exercise(self, title: str) -> bool:
-        """判斷是否為軍事演習相關警告"""
-        title_lower = title.lower()
-        
-        # 檢查排除關鍵字
-        for exclude in self.EXCLUDE_KEYWORDS:
-            if exclude.lower() in title_lower:
-                return False
-        
-        # 檢查軍事關鍵字
-        for keyword in self.MILITARY_KEYWORDS:
-            if keyword.lower() in title_lower:
-                return True
-        
-        return False
+    def is_military_related(self, title: str) -> bool:
+        """檢查標題是否與軍事相關"""
+        return any(kw in title for kw in self.MILITARY_KEYWORDS)
     
-    def extract_msa_from_title(self, title: str) -> str:
-        """從標題中提取海事局名稱"""
-        for code, msa_name in self.MSA_CODE_MAP.items():
-            if f'{code}航警' in title or f'{code}航行警告' in title:
-                return msa_name
+    def fetch_channel_list(self, channel_id: str, channel_name: str, page: int = 1) -> List[Dict]:
+        """取得特定海事局的航警列表"""
+        url = f"{self.BASE_URL}/page/channelArticles.do?channelids={channel_id}&pageNo={page}"
         
-        for msa_name in self.MSA_CODE_MAP.values():
-            if msa_name.replace('海事局', '') in title:
-                return msa_name
-        
-        return '未知海事局'
-    
-    def extract_matched_keywords(self, title: str) -> List[str]:
-        """提取匹配的軍事關鍵字"""
-        matched = []
-        title_lower = title.lower()
-        
-        for keyword in self.MILITARY_KEYWORDS:
-            if keyword.lower() in title_lower:
-                matched.append(keyword)
-        
-        return matched
-    
-    def parse_article_detail(self, url: str) -> Dict:
-        """
-        解析文章詳細內容，提取經緯度、日期範圍、概要
-        
-        Returns:
-            {
-                'coordinates': List[Dict],  # 經緯度列表
-                'date_range': str,          # 日期範圍
-                'summary': str              # 概要
-            }
-        """
         html = self.fetch_page(url)
         if not html:
-            return {
-                'coordinates': [],
-                'date_range': '',
-                'summary': ''
-            }
+            print(f"[{self.name}] ❌ 無法訪問 {channel_name}")
+            return []
+        
+        from bs4 import BeautifulSoup
+        soup = BeautifulSoup(html, 'html.parser')
+        articles = []
+        
+        # 尋找所有文章鏈接
+        for link in soup.find_all('a', href=True):
+            href = link['href']
+            if '/page/article.do?articleId=' not in href:
+                continue
+            
+            title = link.get_text(strip=True)
+            if not title:
+                continue
+            
+            # 檢查是否為軍事相關
+            is_military = self.is_military_related(title)
+            
+            # 提取日期
+            date_text = ''
+            next_sibling = link.find_next_sibling(string=True)
+            if next_sibling:
+                date_match = re.search(r'\d{4}-\d{2}-\d{2}', str(next_sibling))
+                if date_match:
+                    date_text = date_match.group()
+            
+            if not date_text:
+                parent = link.find_parent('li') or link.find_parent('div')
+                if parent:
+                    parent_text = parent.get_text()
+                    date_match = re.search(r'\d{4}-\d{2}-\d{2}', parent_text)
+                    if date_match:
+                        date_text = date_match.group()
+            
+            full_url = href if href.startswith('http') else self.BASE_URL + href
+            
+            articles.append({
+                'title': title,
+                'url': full_url,
+                'date': date_text,
+                'channel': channel_name,
+                'is_military': is_military
+            })
+        
+        return articles
+    
+    def fetch_article_content(self, url: str) -> Optional[str]:
+        """取得公告詳細內容"""
+        html = self.fetch_page(url)
+        if not html:
+            return None
         
         from bs4 import BeautifulSoup
         soup = BeautifulSoup(html, 'html.parser')
         
-        # 提取正文內容
-        content_div = soup.find('div', class_='content') or soup.find('div', id='content')
-        if not content_div:
-            # 嘗試其他可能的內容區域
-            content_div = soup.find('div', class_='article-content') or soup.find('article')
+        # 嘗試多種內容選擇器
+        content = None
+        for selector in ['div.article-content', 'div.content', 'div.TRS_Editor',
+                        'div.detail-content', 'article', 'div.main-content']:
+            content_div = soup.select_one(selector)
+            if content_div:
+                content = content_div.get_text(strip=True)
+                break
         
-        if not content_div:
-            return {'coordinates': [], 'date_range': '', 'summary': ''}
+        # 如果找不到，取得 body 內的主要文字
+        if not content:
+            body = soup.find('body')
+            if body:
+                for tag in body.find_all(['script', 'style', 'nav', 'header', 'footer']):
+                    tag.decompose()
+                content = body.get_text(separator=' ', strip=True)
         
-        text = content_div.get_text()
-        
-        # 🔍 提取經緯度
-        coordinates = self.extract_coordinates(text)
-        
-        # 🔍 提取日期範圍
-        date_range = self.extract_date_range(text)
-        
-        # 🔍 提取概要（前300字）
-        summary = self.extract_summary(text)
-        
-        return {
-            'coordinates': coordinates,
-            'date_range': date_range,
-            'summary': summary
-        }
+        return content
     
-    def extract_coordinates(self, text: str) -> List[Dict]:
-        """
-        提取經緯度坐標
+    def parse_coordinates(self, text: str) -> List[Dict]:
+        """解析經緯度座標"""
+        if not text:
+            return []
         
-        支持格式:
-        - 30°15′N 122°30′E
-        - 30-15N 122-30E
-        - 30°15.5′N 122°30.5′E (含小數)
-        """
-        coordinates = []
+        coords = []
         
-        # 模式1: 度分秒格式 (30°15′N 122°30′E)
-        pattern1 = r'(\d+)°(\d+)(?:′|分)([NS北南])\s+(\d+)°(\d+)(?:′|分)([EW東西])'
-        matches1 = re.findall(pattern1, text)
-        
-        for match in matches1:
-            lat_deg, lat_min, lat_dir, lon_deg, lon_min, lon_dir = match
-            
-            # 轉換為十進制
+        # 格式1: 38-31.3N121-33.2E 或 38-31.3N 121-33.2E
+        pattern1 = r'(\d{1,2})-(\d{1,2}(?:\.\d+)?)\s*([NS])\s*(\d{1,3})-(\d{1,2}(?:\.\d+)?)\s*([EW])'
+        for match in re.finditer(pattern1, text):
+            lat_deg, lat_min, lat_dir, lon_deg, lon_min, lon_dir = match.groups()
             lat = float(lat_deg) + float(lat_min) / 60
             lon = float(lon_deg) + float(lon_min) / 60
-            
-            if lat_dir in ['S', '南']:
+            if lat_dir == 'S':
                 lat = -lat
-            if lon_dir in ['W', '西']:
+            if lon_dir == 'W':
                 lon = -lon
-            
-            coordinates.append({
+            coords.append({
                 'lat': round(lat, 4),
                 'lon': round(lon, 4),
-                'original': f"{lat_deg}°{lat_min}′{lat_dir} {lon_deg}°{lon_min}′{lon_dir}"
+                'raw': match.group()
             })
         
-        # 模式2: 簡化格式 (30-15N 122-30E)
-        pattern2 = r'(\d+)-(\d+)([NS北南])\s+(\d+)-(\d+)([EW東西])'
-        matches2 = re.findall(pattern2, text)
-        
-        for match in matches2:
-            lat_deg, lat_min, lat_dir, lon_deg, lon_min, lon_dir = match
+        # 格式2: N 39°24′35″、E 119°13′44″ 或 39°24′35″N、119°13′44″E
+        pattern2 = r'([NS])?\s*(\d{1,2})°(\d{1,2})′(\d{1,2}(?:\.\d+)?)?″?\s*([NS])?\s*[、,\s]*([EW])?\s*(\d{1,3})°(\d{1,2})′(\d{1,2}(?:\.\d+)?)?″?\s*([EW])?'
+        for match in re.finditer(pattern2, text):
+            groups = match.groups()
+            lat_dir = groups[0] or groups[4] or 'N'
+            lat_deg, lat_min, lat_sec = groups[1], groups[2], groups[3] or '0'
+            lon_dir = groups[5] or groups[9] or 'E'
+            lon_deg, lon_min, lon_sec = groups[6], groups[7], groups[8] or '0'
             
-            lat = float(lat_deg) + float(lat_min) / 60
-            lon = float(lon_deg) + float(lon_min) / 60
+            lat = float(lat_deg) + float(lat_min) / 60 + float(lat_sec) / 3600
+            lon = float(lon_deg) + float(lon_min) / 60 + float(lon_sec) / 3600
             
-            if lat_dir in ['S', '南']:
+            if lat_dir == 'S':
                 lat = -lat
-            if lon_dir in ['W', '西']:
+            if lon_dir == 'W':
                 lon = -lon
             
-            coordinates.append({
+            coords.append({
                 'lat': round(lat, 4),
                 'lon': round(lon, 4),
-                'original': f"{lat_deg}-{lat_min}{lat_dir} {lon_deg}-{lon_min}{lon_dir}"
+                'raw': match.group()
             })
         
-        # 模式3: 度分秒.小數格式 (30°15.5′N)
-        pattern3 = r'(\d+)°([\d.]+)(?:′|分)([NS北南])\s+(\d+)°([\d.]+)(?:′|分)([EW東西])'
-        matches3 = re.findall(pattern3, text)
-        
-        for match in matches3:
-            lat_deg, lat_min, lat_dir, lon_deg, lon_min, lon_dir = match
-            
-            lat = float(lat_deg) + float(lat_min) / 60
-            lon = float(lon_deg) + float(lon_min) / 60
-            
-            if lat_dir in ['S', '南']:
+        # 格式3: 純數字格式如 38.5N 121.5E
+        pattern3 = r'(\d{1,2}(?:\.\d+)?)\s*([NS])\s*(\d{1,3}(?:\.\d+)?)\s*([EW])'
+        for match in re.finditer(pattern3, text):
+            lat, lat_dir, lon, lon_dir = match.groups()
+            lat = float(lat)
+            lon = float(lon)
+            if lat_dir == 'S':
                 lat = -lat
-            if lon_dir in ['W', '西']:
+            if lon_dir == 'W':
                 lon = -lon
-            
-            coordinates.append({
+            coords.append({
                 'lat': round(lat, 4),
                 'lon': round(lon, 4),
-                'original': f"{lat_deg}°{lat_min}′{lat_dir} {lon_deg}°{lon_min}′{lon_dir}"
+                'raw': match.group()
             })
         
         # 去重
         seen = set()
         unique_coords = []
-        for coord in coordinates:
-            key = (coord['lat'], coord['lon'])
+        for c in coords:
+            key = (c['lat'], c['lon'])
             if key not in seen:
                 seen.add(key)
-                unique_coords.append(coord)
+                unique_coords.append(c)
         
         return unique_coords
     
-    def extract_date_range(self, text: str) -> str:
-        """
-        提取日期範圍
-        
-        支持格式:
-        - 2024年1月15日至1月20日
-        - 1月15日至20日
-        - 2024-01-15至2024-01-20
-        """
-        # 模式1: 完整日期範圍
-        pattern1 = r'(\d{4})年(\d{1,2})月(\d{1,2})日至(\d{1,2})月(\d{1,2})日'
-        match1 = re.search(pattern1, text)
-        if match1:
-            year, m1, d1, m2, d2 = match1.groups()
-            return f"{year}-{m1.zfill(2)}-{d1.zfill(2)} 至 {year}-{m2.zfill(2)}-{d2.zfill(2)}"
-        
-        # 模式2: 同月日期範圍
-        pattern2 = r'(\d{4})年(\d{1,2})月(\d{1,2})日至(\d{1,2})日'
-        match2 = re.search(pattern2, text)
-        if match2:
-            year, month, d1, d2 = match2.groups()
-            return f"{year}-{month.zfill(2)}-{d1.zfill(2)} 至 {year}-{month.zfill(2)}-{d2.zfill(2)}"
-        
-        # 模式3: 短格式
-        pattern3 = r'(\d{1,2})月(\d{1,2})日至(\d{1,2})日'
-        match3 = re.search(pattern3, text)
-        if match3:
-            month, d1, d2 = match3.groups()
-            year = datetime.now().year
-            return f"{year}-{month.zfill(2)}-{d1.zfill(2)} 至 {year}-{month.zfill(2)}-{d2.zfill(2)}"
-        
-        # 模式4: ISO 格式
-        pattern4 = r'(\d{4}-\d{2}-\d{2})\s*至\s*(\d{4}-\d{2}-\d{2})'
-        match4 = re.search(pattern4, text)
-        if match4:
-            return f"{match4.group(1)} 至 {match4.group(2)}"
-        
-        return ''
-    
-    def extract_summary(self, text: str) -> str:
-        """提取概要（清理後的前300字）"""
-        # 移除多餘空白和換行
-        summary = re.sub(r'\s+', ' ', text)
-        
-        # 移除常見的網頁元素
-        summary = re.sub(r'(首页|返回|打印|分享|相关链接)', '', summary)
-        
-        # 截取前300字
-        summary = summary.strip()[:300]
-        
-        return summary
-    
-    def scrape_page(self, page: int, page_size: int = 50) -> List[Dict]:
-        """爬取單頁航行警告（只返回軍演相關）"""
-        url = f"{self.BASE_URL}/page/channelArticles.do"
-        params = {
-            'channelids': self.NAV_WARNING_CHANNEL,
-            'currpage': str(page),
-            'pagesize': str(page_size)
-        }
-        
-        html = self.fetch_page(
-            url + '?' + '&'.join(f"{k}={v}" for k, v in params.items())
-        )
-        
-        if not html:
+    def parse_time_period(self, text: str) -> List[str]:
+        """解析時間範圍"""
+        if not text:
             return []
         
-        warnings = []
+        times = []
         
-        from bs4 import BeautifulSoup
-        soup = BeautifulSoup(html, 'html.parser')
-        all_lis = soup.find_all('li')
+        # 格式1: X月X日X时至X日X时
+        pattern1 = r'(\d{1,2})月(\d{1,2})日(\d{1,2})时至(\d{1,2})日?(\d{1,2})时'
+        times.extend([m.group() for m in re.finditer(pattern1, text)])
         
-        for li in all_lis:
-            link = li.find('a', href=lambda x: x and 'articleId' in x)
-            if not link:
-                continue
-            
-            # 提取標題
-            title_span = link.find('span')
-            title = title_span.text.strip() if title_span else link.text.strip()
-            
-            # 🎯 只保留軍演相關
-            if not self.is_military_exercise(title):
-                continue
-            
-            # 提取日期
-            date_text = None
-            for span in li.find_all('span'):
-                text = span.text.strip()
-                if re.match(r'\[\d{4}-\d{2}-\d{2}\]', text):
-                    date_text = text.strip('[]')
-                    break
-            
-            # 提取 URL
-            href = link['href']
-            article_id = None
-            if 'articleId=' in href:
-                article_id = href.split('articleId=')[1].split('&')[0]
-            
-            full_url = self.BASE_URL + href if not href.startswith('http') else href
-            
-            # 識別海事局和關鍵字
-            msa_name = self.extract_msa_from_title(title)
-            matched_keywords = self.extract_matched_keywords(title)
-            
-            warning = {
-                'title': title,
-                'msa': msa_name,
-                'matched_keywords': ','.join(matched_keywords),
-                'publish_date': date_text,
-                'article_id': article_id,
-                'url': full_url,
-                'scraped_at': datetime.now().isoformat()
-            }
-            
-            warnings.append(warning)
+        # 格式2: 自X月X日X时至X月X日X时
+        pattern2 = r'自?(\d{1,2})月(\d{1,2})日(\d{1,4})时至(\d{1,2})月?(\d{1,2})日?(\d{1,4})时'
+        times.extend([m.group() for m in re.finditer(pattern2, text)])
         
-        return warnings
+        # 格式3: XXXX年X月X日
+        pattern3 = r'(\d{4})年(\d{1,2})月(\d{1,2})日(?:\s*(\d{1,2}):?(\d{2}))?(?:时)?(?:至|[-~])(\d{4})?年?(\d{1,2})?月?(\d{1,2})日?(?:\s*(\d{1,2}):?(\d{2}))?(?:时)?'
+        times.extend([m.group() for m in re.finditer(pattern3, text)])
+        
+        # 格式4: X日XXXX时至XXXX时
+        pattern4 = r'(\d{1,2})日(\d{4})时至(\d{4})时'
+        times.extend([m.group() for m in re.finditer(pattern4, text)])
+        
+        return list(set(times))
     
-    def run(self, max_pages: int = 50, days_back: int = 365, fetch_details: bool = True) -> List[Dict]:
+    def run(self, military_only: bool = True, max_articles_per_channel: int = 20, 
+            days_back: int = 365) -> List[Dict]:
         """
-        執行完整爬取流程
+        執行爬蟲
         
         Args:
-            max_pages: 最大爬取頁數
-            days_back: 爬取過去幾天的數據
-            fetch_details: 是否爬取詳細內容（經緯度、日期範圍、概要）
+            military_only: 是否只抓取軍事相關
+            max_articles_per_channel: 每個海事局最多抓取的公告數
+            days_back: 追溯天數（用於過濾）
             
         Returns:
-            標準格式的軍演警告列表
+            航行警告列表
         """
-        print(f"[{self.name}] 🎯 開始爬取軍事演習相關航行警告...")
-        print(f"[{self.name}] 📅 目標: 過去 {days_back} 天，最多 {max_pages} 頁")
-        print(f"[{self.name}] 🔍 詳細內容: {'是' if fetch_details else '否'}")
+        print(f"[{self.name}] 🚢 開始爬取 {len(self.CHANNELS)} 個海事局的航行警告...")
         
         all_warnings = []
-        seen_ids = set()
         
-        # 第一階段：爬取列表
-        for page in range(1, max_pages + 1):
-            print(f"[{self.name}] 📄 爬取第 {page}/{max_pages} 頁...")
+        for channel_name, channel_id in self.CHANNELS.items():
+            print(f"[{self.name}] 📍 正在處理: {channel_name}")
             
-            warnings = self.scrape_page(page)
+            # 取得列表
+            articles = self.fetch_channel_list(channel_id, channel_name)
             
-            if not warnings:
-                if page >= 10:
-                    consecutive_empty = sum(1 for p in range(max(1, page - 9), page + 1) 
-                                          if not any(w.get('_page') == p for w in all_warnings))
-                    if consecutive_empty >= 10:
-                        print(f"[{self.name}] ⚠️  連續多頁無數據，停止爬取")
-                        break
-                continue
+            if military_only:
+                articles = [a for a in articles if a['is_military']]
             
-            page_added = 0
-            for warning in warnings:
-                if warning['article_id'] in seen_ids:
-                    continue
+            # 日期過濾
+            filtered_articles = []
+            for article in articles[:max_articles_per_channel]:
+                if article['date']:
+                    date_obj = self.parse_date(article['date'])
+                    if date_obj and self.is_within_days(date_obj, days_back):
+                        filtered_articles.append(article)
+                else:
+                    filtered_articles.append(article)
+            
+            articles = filtered_articles
+            
+            print(f"[{self.name}]    找到 {len(articles)} 篇{'軍事相關' if military_only else ''}公告")
+            
+            for article in articles:
+                # 取得詳細內容
+                content = self.fetch_article_content(article['url'])
                 
-                date_obj = self.parse_date(warning['publish_date'])
-                if not date_obj or not self.is_within_days(date_obj, days_back):
-                    continue
+                if content:
+                    # 解析座標
+                    coordinates = self.parse_coordinates(content)
+                    
+                    # 解析時間
+                    time_periods = self.parse_time_period(content)
+                    
+                    warning = {
+                        'title': article['title'],
+                        'channel': channel_name,
+                        'publish_date': article['date'],
+                        'url': article['url'],
+                        'coordinates': coordinates,
+                        'coordinate_count': len(coordinates),
+                        'time_periods': time_periods,
+                        'content_preview': content[:500] if content else '',
+                        'is_military': article['is_military'],
+                        'scraped_at': datetime.now().isoformat()
+                    }
+                    
+                    all_warnings.append(warning)
                 
-                seen_ids.add(warning['article_id'])
-                warning['_page'] = page
-                all_warnings.append(warning)
-                page_added += 1
+                import time
+                time.sleep(0.5)  # 避免請求過快
             
-            print(f"[{self.name}] ✅ 本頁新增 {page_added} 條，累計 {len(all_warnings)} 條")
+            import time
+            time.sleep(1)  # 換頻道時稍等
         
-        # 第二階段：爬取詳細內容
-        if fetch_details and all_warnings:
-            print(f"\n[{self.name}] 📥 開始爬取 {len(all_warnings)} 條警告的詳細內容...")
-            
-            for i, warning in enumerate(all_warnings, 1):
-                print(f"[{self.name}] [{i}/{len(all_warnings)}] {warning['title'][:40]}...")
-                
-                details = self.parse_article_detail(warning['url'])
-                warning.update(details)
-                
-                # 顯示提取結果
-                if details['coordinates']:
-                    print(f"[{self.name}]   ✓ 經緯度: {len(details['coordinates'])} 個點")
-                if details['date_range']:
-                    print(f"[{self.name}]   ✓ 日期範圍: {details['date_range']}")
-        
-        # 移除內部字段
-        for warning in all_warnings:
-            warning.pop('_page', None)
-        
-        print(f"\n[{self.name}] ✅ 爬取完成！共 {len(all_warnings)} 條軍事演習警告")
+        print(f"[{self.name}] ✅ 完成！共抓取 {len(all_warnings)} 篇航行警告")
         
         return self.to_standard_format(all_warnings)
     
     def to_standard_format(self, warnings: List[Dict]) -> List[Dict]:
         """轉換為標準格式"""
         standardized = []
-        for warning in warnings:
-            date_obj = self.parse_date(warning.get('publish_date', ''))
-            
+        
+        for w in warnings:
             # 格式化經緯度為字符串
             coords_str = ''
-            if warning.get('coordinates'):
-                coords_list = [f"{c['lat']},{c['lon']}" for c in warning['coordinates']]
+            coords_raw = ''
+            if w['coordinates']:
+                coords_list = [f"{c['lat']},{c['lon']}" for c in w['coordinates']]
                 coords_str = '; '.join(coords_list)
+                coords_raw_list = [c['raw'] for c in w['coordinates']]
+                coords_raw = '; '.join(coords_raw_list)
+            
+            # 格式化時間範圍
+            time_periods_str = '; '.join(w['time_periods']) if w['time_periods'] else ''
             
             std_warning = {
-                'publish_date': date_obj.strftime('%Y-%m-%d') if date_obj else '',
-                'title': warning.get('title', '').strip(),
-                'msa': warning.get('msa', ''),
-                'matched_keywords': warning.get('matched_keywords', ''),
-                'date_range': warning.get('date_range', ''),
+                'publish_date': w['publish_date'],
+                'title': w['title'],
+                'channel': w['channel'],
+                'time_periods': time_periods_str,
+                'coordinate_count': w['coordinate_count'],
                 'coordinates': coords_str,
-                'summary': warning.get('summary', ''),
-                'article_id': warning.get('article_id', ''),
-                'url': warning.get('url', ''),
-                'scraped_at': warning.get('scraped_at', '')
+                'coordinates_raw': coords_raw,
+                'content_preview': w['content_preview'],
+                'url': w['url'],
+                'scraped_at': w['scraped_at']
             }
             
-            if std_warning['publish_date'] and std_warning['title']:
-                standardized.append(std_warning)
+            standardized.append(std_warning)
         
         return standardized
 
@@ -464,23 +346,27 @@ class NavigationWarningScraper(BaseScraper):
 def test_scraper():
     """測試爬蟲"""
     print("=" * 80)
-    print("MSA Military Exercise Warning Scraper 測試")
+    print("MSA Military Navigation Warning Scraper 測試")
     print("=" * 80)
     
-    with NavigationWarningScraper(delay=1.5) as scraper:
-        # 測試：只爬3頁，過去30天，包含詳細內容
-        warnings = scraper.run(max_pages=3, days_back=30, fetch_details=True)
+    with NavigationWarningScraper(delay=1.0) as scraper:
+        warnings = scraper.run(
+            military_only=True,
+            max_articles_per_channel=5,
+            days_back=30
+        )
         
-        print(f"\n總計: {len(warnings)} 條軍事演習警告\n")
+        print(f"\n總計: {len(warnings)} 條軍事航行警告\n")
         
         if warnings:
-            print("示例數據:")
-            for i, w in enumerate(warnings[:2], 1):
-                print(f"\n[{i}] {w['title']}")
-                print(f"    發布日期: {w['publish_date']}")
-                print(f"    日期範圍: {w['date_range']}")
-                print(f"    經緯度: {w['coordinates'][:100]}...")
-                print(f"    概要: {w['summary'][:100]}...")
+            for i, w in enumerate(warnings[:3], 1):
+                print(f"[{i}] {w['title']}")
+                print(f"    來源: {w['channel']} | 日期: {w['publish_date']}")
+                if w['time_periods']:
+                    print(f"    時間: {w['time_periods'][:100]}...")
+                if w['coordinates']:
+                    print(f"    經緯度: {w['coordinates'][:100]}...")
+                print()
 
 
 if __name__ == '__main__':
