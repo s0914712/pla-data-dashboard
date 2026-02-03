@@ -51,11 +51,11 @@ jobs:
         
         print('🎯 開始爬取軍事演習相關航行警告...')
         
+        # ✅ 修正：使用正確的參數
         with NavigationWarningScraper(delay=1.0) as scraper:
             warnings = scraper.run(
-                military_only=True,
-                max_articles_per_channel=20,
-                days_back=365
+                days_back=365,    # 過去365天
+                max_pages=1       # 每個海事局抓1頁（約20篇）
             )
         
         if not warnings:
