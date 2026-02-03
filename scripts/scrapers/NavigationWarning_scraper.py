@@ -291,7 +291,6 @@ class NavigationWarningScraper(BaseScraper):
         print(f"[{self.name}] 🚢 開始爬取 {len(self.CHANNELS)} 個海事局的航行警告...")
         
         all_warnings = []
-        military_only = True  # 固定只抓軍事相關
         max_articles_per_channel = max_pages * 20  # 每頁約20篇
         
         for channel_name, channel_id in self.CHANNELS.items():
@@ -300,8 +299,7 @@ class NavigationWarningScraper(BaseScraper):
             # 取得列表
             articles = self.fetch_channel_list(channel_id, channel_name)
             
-            if military_only:
-                articles = [a for a in articles if a['is_military']]
+            articles = [a for a in articles if a['is_military']]
             
             # 日期過濾
             filtered_articles = []
