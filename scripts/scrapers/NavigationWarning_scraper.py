@@ -183,11 +183,11 @@ class NavigationWarningScraper(BaseScraper):
         """解析經緯度座標"""
         if not text:
             return []
-        
+
         coords = []
-        
-        # 格式1: 38-31.3N121-33.2E
-        pattern1 = r'(\d{1,2})-(\d{1,2}(?:\.\d+)?)\s*([NS])\s*(\d{1,3})-(\d{1,2}(?:\.\d+)?)\s*([EW])'
+
+        # 格式1: 38-31.3N121-33.2E or 31-21.60N/121-36.63E (with optional / separator)
+        pattern1 = r'(\d{1,2})-(\d{1,2}(?:\.\d+)?)\s*([NS])\s*[/\s]?\s*(\d{1,3})-(\d{1,2}(?:\.\d+)?)\s*([EW])'
         for match in re.finditer(pattern1, text):
             lat_deg, lat_min, lat_dir, lon_deg, lon_min, lon_dir = match.groups()
             lat = float(lat_deg) + float(lat_min) / 60
@@ -256,25 +256,33 @@ class NavigationWarningScraper(BaseScraper):
         """解析時間範圍"""
         if not text:
             return []
-        
+
         times = []
-        
+
         # 格式1: X月X日X时至X日X时
         pattern1 = r'(\d{1,2})月(\d{1,2})日(\d{1,2})时至(\d{1,2})日?(\d{1,2})时'
         times.extend([m.group() for m in re.finditer(pattern1, text)])
-        
+
         # 格式2: 自X月X日X时至X月X日X时
         pattern2 = r'自?(\d{1,2})月(\d{1,2})日(\d{1,4})时至(\d{1,2})月?(\d{1,2})日?(\d{1,4})时'
         times.extend([m.group() for m in re.finditer(pattern2, text)])
-        
+
         # 格式3: XXXX年X月X日
         pattern3 = r'(\d{4})年(\d{1,2})月(\d{1,2})日(?:\s*(\d{1,2}):?(\d{2}))?(?:时)?(?:至|[-~])(\d{4})?年?(\d{1,2})?月?(\d{1,2})日?(?:\s*(\d{1,2}):?(\d{2}))?(?:时)?'
         times.extend([m.group() for m in re.finditer(pattern3, text)])
-        
+
         # 格式4: X日XXXX时至XXXX时
         pattern4 = r'(\d{1,2})日(\d{4})时至(\d{4})时'
         times.extend([m.group() for m in re.finditer(pattern4, text)])
-        
+
+        # 格式5: 自X月X日至X月X日，每日XXXX时至XXXX时 (date range + daily time)
+        pattern5 = r'自(\d{1,2})月(\d{1,2})日至(\d{1,2})月?(\d{1,2})日[，,]\s*每日(\d{4})时至(\d{4})时'
+        times.extend([m.group() for m in re.finditer(pattern5, text)])
+
+        # 格式6: English UTC: FROM DDHHMM UTC TO DDHHMM UTC
+        pattern6 = r'FROM\s+(\d{6})\s*UTC\s+TO\s+(\d{6})\s*UTC'
+        times.extend([m.group() for m in re.finditer(pattern6, text, re.IGNORECASE)])
+
         return list(set(times))
     
     def run(self, days_back: int = 365, max_pages: int = 1) -> List[Dict]:

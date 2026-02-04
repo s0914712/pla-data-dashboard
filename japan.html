@@ -162,6 +162,51 @@
             margin-top: 0.5rem;
         }
 
+        /* Military Warning Styles */
+        .warning-type-exercise { background: #e74c3c; color: white; }
+        .warning-type-livefire { background: #e67e22; color: white; }
+        .warning-type-rocket { background: #8e44ad; color: white; }
+        .warning-type-mission { background: #2980b9; color: white; }
+        .warning-type-other { background: #7f8c8d; color: white; }
+
+        .warning-badge {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .msa-stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #e67e22;
+        }
+
+        .warning-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #e67e22;
+        }
+
+        .warning-card .warning-date {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .warning-card .warning-title {
+            font-weight: 600;
+            margin: 0.3rem 0;
+        }
+
+        .warning-card .warning-channel {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
         .event-popup {
             min-width: 280px;
             max-width: 350px;
@@ -269,9 +314,54 @@
 
     <!-- Map -->
     <div class="card-custom">
-        <h5>Strait Locations & Latest Transit Events</h5>
-        <p class="text-muted mb-2">Click on markers to see detailed transit information</p>
-        <div id="map"></div>
+        <h5>Strait Locations, Transit Events & Military Exercise Zones</h5>
+        <p class="text-muted mb-2">Use layer controls (top-right) to toggle Japan MOD straits and MSA military warning zones. Click areas for details.</p>
+        <div id="map" style="height:550px;"></div>
+    </div>
+
+    <!-- MSA Military Exercise Warnings Section -->
+    <div class="card-custom" style="border-top: 3px solid #e67e22;">
+        <h5 style="color: #e67e22;">MSA Navigation Warnings - Military Exercises (航行警告)</h5>
+        <p class="text-muted mb-2">
+            Data Source: <a href="https://www.msa.gov.cn" target="_blank" class="source-link" style="color:#e67e22;">China MSA (中國海事局)</a> |
+            Total Warnings: <span id="msaTotalWarnings">-</span> |
+            Date Range: <span id="msaDateRange">-</span>
+        </p>
+
+        <!-- MSA Stats -->
+        <div class="row mb-3">
+            <div class="col-md-3 col-sm-6 mb-2">
+                <div class="stat-card">
+                    <div class="stat-label">Military Exercises</div>
+                    <div class="msa-stat-value" id="msaExerciseCount">-</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-2">
+                <div class="stat-card">
+                    <div class="stat-label">Live Fire Drills</div>
+                    <div class="msa-stat-value" id="msaLiveFireCount">-</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-2">
+                <div class="stat-card">
+                    <div class="stat-label">Rocket Launches</div>
+                    <div class="msa-stat-value" id="msaRocketCount">-</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-2">
+                <div class="stat-card">
+                    <div class="stat-label">With Coordinates</div>
+                    <div class="msa-stat-value" id="msaCoordsCount">-</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Warning Cards -->
+        <div class="row" id="msaWarningCards">
+            <div class="col-12 text-center py-3">
+                <span class="text-muted">Loading military exercise warnings...</span>
+            </div>
+        </div>
     </div>
 
     <!-- Charts Row -->
@@ -356,7 +446,10 @@
 
 <script>
 let transitData = [];
+let msaWarningData = [];
 let map = null;
+let msaLayerGroup = null;
+let straitLayerGroup = null;
 
 // Strait coordinates
 const straitCoords = {
@@ -370,19 +463,24 @@ let latestEventMarkers = [];
 
 window.addEventListener('load', async function() {
     initMap();
-    await loadTransitData();
+    await Promise.all([loadTransitData(), loadMSAWarnings()]);
     updateStatistics();
     renderLatestEvents();
     renderCharts();
     renderTable();
+    renderMSAWarnings();
 });
 
 function initMap() {
-    map = L.map('map').setView([28, 128], 5);
+    map = L.map('map').setView([28, 122], 4);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
+
+    // Create layer groups
+    straitLayerGroup = L.layerGroup().addTo(map);
+    msaLayerGroup = L.layerGroup().addTo(map);
 
     // Add strait markers
     Object.entries(straitCoords).forEach(([key, strait]) => {
@@ -400,8 +498,9 @@ function initMap() {
             iconAnchor: [7, 7]
         });
 
-        const marker = L.marker([strait.lat, strait.lng], { icon: icon }).addTo(map);
+        const marker = L.marker([strait.lat, strait.lng], { icon: icon });
         marker.bindPopup(`<strong>${strait.name}</strong>`);
+        straitLayerGroup.addLayer(marker);
     });
 
     // Draw approximate strait lines
@@ -413,24 +512,38 @@ function initMap() {
     ];
 
     straitLines.forEach(line => {
-        L.polyline(line.coords, {
+        const polyline = L.polyline(line.coords, {
             color: line.color,
             weight: 4,
             opacity: 0.7,
             dashArray: '10, 10'
-        }).addTo(map);
+        });
+        straitLayerGroup.addLayer(polyline);
     });
+
+    // Add layer control
+    const overlays = {
+        'Japan MOD Straits': straitLayerGroup,
+        'MSA Military Warnings': msaLayerGroup
+    };
+    L.control.layers(null, overlays, { position: 'topright', collapsed: false }).addTo(map);
 
     // Add legend
     const legend = L.control({ position: 'bottomright' });
     legend.onAdd = function() {
         const div = L.DomUtil.create('div', 'legend');
         div.innerHTML = `
-            <div style="background: white; padding: 10px; border-radius: 5px;">
+            <div style="background: white; padding: 10px; border-radius: 5px; font-size: 0.8rem;">
+                <div style="font-weight:bold; margin-bottom:4px;">Straits</div>
                 <div><span style="display:inline-block;width:12px;height:12px;background:#e74c3c;border-radius:50%;margin-right:5px;"></span>Yonaguni</div>
                 <div><span style="display:inline-block;width:12px;height:12px;background:#3498db;border-radius:50%;margin-right:5px;"></span>Miyako</div>
                 <div><span style="display:inline-block;width:12px;height:12px;background:#2ecc71;border-radius:50%;margin-right:5px;"></span>Osumi</div>
                 <div><span style="display:inline-block;width:12px;height:12px;background:#9b59b6;border-radius:50%;margin-right:5px;"></span>Tsushima</div>
+                <div style="font-weight:bold; margin-top:6px; margin-bottom:4px;">MSA Warnings</div>
+                <div><span style="display:inline-block;width:12px;height:12px;background:#e74c3c;border-radius:2px;margin-right:5px;opacity:0.5;"></span>Military Exercise</div>
+                <div><span style="display:inline-block;width:12px;height:12px;background:#e67e22;border-radius:2px;margin-right:5px;opacity:0.5;"></span>Live Fire</div>
+                <div><span style="display:inline-block;width:12px;height:12px;background:#8e44ad;border-radius:2px;margin-right:5px;opacity:0.5;"></span>Rocket Launch</div>
+                <div><span style="display:inline-block;width:12px;height:12px;background:#2980b9;border-radius:2px;margin-right:5px;opacity:0.5;"></span>Military Mission</div>
             </div>
         `;
         return div;
@@ -726,6 +839,322 @@ function renderTable() {
         `;
         tbody.appendChild(tr);
     });
+}
+
+// ========== MSA Military Exercise Warnings ==========
+
+async function loadMSAWarnings() {
+    try {
+        const response = await fetch('data/navigation_warnings/military_exercises.csv');
+        const text = await response.text();
+        const cleanText = text.replace(/^\uFEFF/, '');
+
+        const parsed = Papa.parse(cleanText, {
+            header: true,
+            skipEmptyLines: true
+        });
+
+        msaWarningData = parsed.data.map(row => {
+            // Client-side fallback: extract missing coords/time from content_preview
+            let coords = parseCoordinatesFromCSV(row.coordinates);
+            let timePeriods = row.time_periods || '';
+            const content = row.content_preview || '';
+
+            // If coordinates are missing, try parsing from content_preview
+            if (coords.length === 0 && content) {
+                coords = extractCoordsFromContent(content);
+            }
+
+            // If time_periods missing, try parsing from content_preview
+            if (!timePeriods && content) {
+                timePeriods = extractTimeFromContent(content);
+            }
+
+            return {
+                ...row,
+                parsedCoords: coords,
+                parsedTime: timePeriods,
+                warningType: classifyWarningType(row.title, content)
+            };
+        });
+
+        console.log('Loaded MSA warnings:', msaWarningData.length, 'records');
+    } catch (error) {
+        console.error('Error loading MSA warnings:', error);
+    }
+}
+
+function parseCoordinatesFromCSV(coordStr) {
+    if (!coordStr || coordStr.trim() === '') return [];
+    return coordStr.split(';').map(pair => {
+        const parts = pair.trim().split(',');
+        if (parts.length === 2) {
+            const lat = parseFloat(parts[0]);
+            const lon = parseFloat(parts[1]);
+            if (!isNaN(lat) && !isNaN(lon)) return { lat, lon };
+        }
+        return null;
+    }).filter(Boolean);
+}
+
+function extractCoordsFromContent(text) {
+    const coords = [];
+    const seen = new Set();
+
+    // Format: 31-21.60N/121-36.63E or 38-31.3N 121-33.2E
+    const pattern1 = /(\d{1,2})-(\d{1,2}(?:\.\d+)?)\s*([NS])\s*[\/\s]\s*(\d{1,3})-(\d{1,2}(?:\.\d+)?)\s*([EW])/g;
+    let match;
+    while ((match = pattern1.exec(text)) !== null) {
+        let lat = parseFloat(match[1]) + parseFloat(match[2]) / 60;
+        let lon = parseFloat(match[4]) + parseFloat(match[5]) / 60;
+        if (match[3] === 'S') lat = -lat;
+        if (match[6] === 'W') lon = -lon;
+        const key = lat.toFixed(4) + ',' + lon.toFixed(4);
+        if (!seen.has(key)) {
+            seen.add(key);
+            coords.push({ lat: Math.round(lat * 10000) / 10000, lon: Math.round(lon * 10000) / 10000 });
+        }
+    }
+
+    // Format: 38.5N 121.5E
+    const pattern2 = /(\d{1,2}(?:\.\d+)?)\s*([NS])\s*(\d{1,3}(?:\.\d+)?)\s*([EW])/g;
+    while ((match = pattern2.exec(text)) !== null) {
+        let lat = parseFloat(match[1]);
+        let lon = parseFloat(match[3]);
+        if (match[2] === 'S') lat = -lat;
+        if (match[4] === 'W') lon = -lon;
+        const key = lat.toFixed(4) + ',' + lon.toFixed(4);
+        if (!seen.has(key)) {
+            seen.add(key);
+            coords.push({ lat, lon });
+        }
+    }
+
+    return coords;
+}
+
+function extractTimeFromContent(text) {
+    // Pattern: 自X月X日至X月X日，每日XXXX时至XXXX时
+    let m = text.match(/自(\d{1,2}月\d{1,2}日)至(\d{1,2}月?\d{1,2}日)[，,]\s*每日(\d{4}时至\d{4}时)/);
+    if (m) return m[0];
+
+    // Pattern: X月X日XXXX时至XXXX时
+    m = text.match(/\d{1,2}月\d{1,2}日\d{4}时至\d{4}时/);
+    if (m) return m[0];
+
+    // Pattern: 自X月X日X时至X月X日X时
+    m = text.match(/自?\d{1,2}月\d{1,2}日\d{1,4}时至\d{1,2}月?\d{1,2}日?\d{1,4}时/);
+    if (m) return m[0];
+
+    // Pattern: XXXX年X月X日XXXX时至XXXX时
+    m = text.match(/\d{4}年\d{1,2}月\d{1,2}日\d{4}时至\d{4}时/);
+    if (m) return m[0];
+
+    // English: FROM DDHHMM UTC TO DDHHMM UTC
+    m = text.match(/FROM\s+\d{6}\s*UTC\s+TO\s+\d{6}\s*UTC/i);
+    if (m) return m[0];
+
+    return '';
+}
+
+function classifyWarningType(title, content) {
+    const text = (title + ' ' + content).toLowerCase();
+    if (/火箭发射|火箭残骸|rocket/.test(text)) return 'rocket';
+    if (/实弹|射击|live.?fire|gunnery|射擊/.test(text)) return 'livefire';
+    if (/军事任务|military.?mission|軍事任務/.test(text)) return 'mission';
+    if (/演习|exercise|演練|演訓|军演|軍演/.test(text)) return 'exercise';
+    return 'other';
+}
+
+function getWarningColor(type) {
+    const colors = {
+        exercise: '#e74c3c',
+        livefire: '#e67e22',
+        rocket: '#8e44ad',
+        mission: '#2980b9',
+        other: '#7f8c8d'
+    };
+    return colors[type] || colors.other;
+}
+
+function getWarningLabel(type) {
+    const labels = {
+        exercise: 'Military Exercise',
+        livefire: 'Live Fire',
+        rocket: 'Rocket Launch',
+        mission: 'Military Mission',
+        other: 'Navigation Warning'
+    };
+    return labels[type] || labels.other;
+}
+
+function getWarningLabelCN(type) {
+    const labels = {
+        exercise: '军事演习',
+        livefire: '实弹射击',
+        rocket: '火箭发射',
+        mission: '军事任务',
+        other: '航行警告'
+    };
+    return labels[type] || labels.other;
+}
+
+function renderMSAWarnings() {
+    if (!msaWarningData || msaWarningData.length === 0) return;
+
+    // Update stats
+    const types = { exercise: 0, livefire: 0, rocket: 0, mission: 0, other: 0 };
+    let withCoords = 0;
+    msaWarningData.forEach(w => {
+        types[w.warningType] = (types[w.warningType] || 0) + 1;
+        if (w.parsedCoords.length > 0) withCoords++;
+    });
+
+    document.getElementById('msaTotalWarnings').textContent = msaWarningData.length;
+    document.getElementById('msaExerciseCount').textContent = types.exercise + types.mission;
+    document.getElementById('msaLiveFireCount').textContent = types.livefire;
+    document.getElementById('msaRocketCount').textContent = types.rocket;
+    document.getElementById('msaCoordsCount').textContent = withCoords;
+
+    const dates = msaWarningData.filter(w => w.publish_date).map(w => w.publish_date).sort();
+    if (dates.length > 0) {
+        document.getElementById('msaDateRange').textContent = `${dates[0]} ~ ${dates[dates.length - 1]}`;
+    }
+
+    // Render warning cards
+    const container = document.getElementById('msaWarningCards');
+    const sorted = [...msaWarningData].sort((a, b) => (b.publish_date || '').localeCompare(a.publish_date || ''));
+    container.innerHTML = '';
+
+    sorted.forEach((w, idx) => {
+        const color = getWarningColor(w.warningType);
+        const label = getWarningLabel(w.warningType);
+        const labelCN = getWarningLabelCN(w.warningType);
+        const hasCoords = w.parsedCoords.length > 0;
+
+        // Extract clean content from content_preview
+        const cleanContent = extractCleanContent(w.content_preview || '');
+
+        const cardHtml = `
+            <div class="col-md-6 col-lg-4 mb-3">
+                <div class="warning-card" style="border-left-color: ${color};">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <span class="warning-badge" style="background:${color};">${labelCN} ${label}</span>
+                        <span class="warning-date">${w.publish_date || '-'}</span>
+                    </div>
+                    <div class="warning-title mt-2">${w.title || '-'}</div>
+                    <div class="warning-channel">${w.channel || '-'}</div>
+                    ${w.parsedTime ? `<div class="mt-1"><small><strong>Time:</strong> ${w.parsedTime}</small></div>` : ''}
+                    ${hasCoords ? `<div class="mt-1"><small><strong>Coords:</strong> ${w.parsedCoords.length} points</small></div>` : '<div class="mt-1"><small class="text-danger">No coordinates</small></div>'}
+                    <div class="mt-1"><small class="text-muted">${cleanContent.substring(0, 120)}${cleanContent.length > 120 ? '...' : ''}</small></div>
+                    ${w.url ? `<div class="mt-1"><a href="${w.url}" target="_blank" class="source-link" style="font-size:0.75rem;color:${color};">View Source</a></div>` : ''}
+                </div>
+            </div>
+        `;
+        container.innerHTML += cardHtml;
+
+        // Add to map
+        if (hasCoords) {
+            addMSAWarningToMap(w, idx);
+        }
+    });
+}
+
+function extractCleanContent(text) {
+    // Remove common MSA website boilerplate
+    let clean = text
+        .replace(/English\s+x\s+中国海事公众号.*?航行警告\s+\S+海事局\s*/s, '')
+        .replace(/发布时间：\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}\s+\[字体：\s*大\s*中\s*小\s*\]\s*分享到：\s*/, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+    // Try to extract from the warning code onward
+    const codeMatch = clean.match(/([A-Za-z\u4e00-\u9fa5]航警?\d+\/\d+|[A-Z]{2,3}\d+\/\d+)/);
+    if (codeMatch) {
+        const idx = clean.indexOf(codeMatch[0]);
+        if (idx >= 0) clean = clean.substring(idx);
+    }
+
+    return clean;
+}
+
+function addMSAWarningToMap(warning, index) {
+    const coords = warning.parsedCoords;
+    const color = getWarningColor(warning.warningType);
+    const label = getWarningLabel(warning.warningType);
+    const labelCN = getWarningLabelCN(warning.warningType);
+
+    // Build popup
+    const cleanContent = extractCleanContent(warning.content_preview || '');
+    const popupHtml = `
+        <div style="min-width:250px;max-width:350px;">
+            <h6 style="color:${color};margin-bottom:6px;">${labelCN} ${label}</h6>
+            <div style="margin-bottom:6px;">
+                <strong>Title:</strong> ${warning.title || '-'}<br>
+                <strong>Date:</strong> ${warning.publish_date || '-'}<br>
+                <strong>Channel:</strong> ${warning.channel || '-'}<br>
+                ${warning.parsedTime ? `<strong>Time:</strong> ${warning.parsedTime}<br>` : ''}
+                <strong>Coords:</strong> ${coords.length} points
+            </div>
+            <div style="background:#f8f9fa;padding:8px;border-radius:5px;font-size:0.8rem;max-height:150px;overflow-y:auto;">
+                ${cleanContent.substring(0, 300)}${cleanContent.length > 300 ? '...' : ''}
+            </div>
+            ${warning.url ? `<div style="margin-top:6px;"><a href="${warning.url}" target="_blank" style="color:${color};font-size:0.8rem;">View on MSA</a></div>` : ''}
+        </div>
+    `;
+
+    if (coords.length === 1) {
+        // Single point: draw a circle (e.g., rocket launch with radius)
+        const circle = L.circle([coords[0].lat, coords[0].lon], {
+            radius: 11112, // ~6 nautical miles in meters
+            color: color,
+            fillColor: color,
+            fillOpacity: 0.2,
+            weight: 2,
+            dashArray: '5, 5'
+        });
+        circle.bindPopup(popupHtml, { maxWidth: 350 });
+        msaLayerGroup.addLayer(circle);
+
+        // Add center marker
+        const icon = L.divIcon({
+            className: 'msa-marker',
+            html: `<div style="
+                background:${color};
+                width:10px;height:10px;
+                border-radius:50%;
+                border:2px solid white;
+                box-shadow:0 1px 4px rgba(0,0,0,0.4);
+            "></div>`,
+            iconSize: [10, 10],
+            iconAnchor: [5, 5]
+        });
+        const marker = L.marker([coords[0].lat, coords[0].lon], { icon: icon });
+        marker.bindPopup(popupHtml, { maxWidth: 350 });
+        msaLayerGroup.addLayer(marker);
+    } else if (coords.length >= 3) {
+        // Multiple points: draw a polygon
+        const latlngs = coords.map(c => [c.lat, c.lon]);
+        const polygon = L.polygon(latlngs, {
+            color: color,
+            fillColor: color,
+            fillOpacity: 0.2,
+            weight: 2
+        });
+        polygon.bindPopup(popupHtml, { maxWidth: 350 });
+        msaLayerGroup.addLayer(polygon);
+    } else if (coords.length === 2) {
+        // Two points: draw a rectangle bounding box
+        const bounds = L.latLngBounds(coords.map(c => [c.lat, c.lon]));
+        const rect = L.rectangle(bounds, {
+            color: color,
+            fillColor: color,
+            fillOpacity: 0.2,
+            weight: 2
+        });
+        rect.bindPopup(popupHtml, { maxWidth: 350 });
+        msaLayerGroup.addLayer(rect);
+    }
 }
 </script>
 
