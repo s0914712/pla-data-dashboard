@@ -1,8 +1,8 @@
 {
-  "update_time": "2026-02-04T11:29:46.886057",
+  "update_time": "2026-02-04T11:49:09.150100",
   "total_warnings": 11,
-  "with_coordinates": 10,
-  "with_time_periods": 6,
+  "with_coordinates": 11,
+  "with_time_periods": 8,
   "date_range": {
     "earliest": "2026-01-12",
     "latest": "2026-02-02"
