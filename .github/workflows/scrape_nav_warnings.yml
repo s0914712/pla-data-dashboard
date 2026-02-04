@@ -58,14 +58,21 @@ jobs:
                 max_pages=1       # 每個海事局抓1頁（約20篇）
             )
         
-        if not warnings:
-            print('⚠️  未獲取到軍事演習數據')
-            warnings = []
-        
         # 創建輸出目錄
         output_dir = Path('data/navigation_warnings')
         output_dir.mkdir(parents=True, exist_ok=True)
-        
+
+        # 如果爬取失敗（0 結果），保留現有數據
+        if not warnings:
+            print('⚠️  未獲取到新數據，保留現有數據')
+            json_path = output_dir / 'military_exercises.json'
+            if json_path.exists():
+                with open(json_path, 'r', encoding='utf-8') as f:
+                    warnings = json.load(f)
+                print(f'📂 已載入現有數據: {len(warnings)} 條記錄')
+            else:
+                warnings = []
+
         # 定義欄位
         columns = [
             'publish_date',       # 發布日期
@@ -79,7 +86,7 @@ jobs:
             'url',                # 鏈接
             'scraped_at'          # 抓取時間
         ]
-        
+
         # 保存 CSV
         if warnings:
             df = pd.DataFrame(warnings)
@@ -94,7 +101,7 @@ jobs:
                 encoding='utf-8-sig'
             )
             print(f'💾 已保存空文件: {csv_path}')
-        
+
         # 保存 JSON
         json_path = output_dir / 'military_exercises.json'
         with open(json_path, 'w', encoding='utf-8') as f:
@@ -151,15 +158,22 @@ jobs:
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        
+
         git add data/navigation_warnings/
-        
+
         if git diff --staged --quiet; then
           echo "📭 No changes to commit"
         else
           TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
           git commit -m "🎯 Auto-update: Military Exercise Warnings - ${TIMESTAMP}"
-          git push
+
+          # Retry push with pull --rebase to handle concurrent updates
+          for i in 1 2 3 4; do
+            git push && break
+            echo "⚠️  Push failed (attempt $i/4), pulling latest changes..."
+            git pull --rebase origin main
+            sleep $((2 ** i))
+          done
           echo "✅ Changes committed and pushed"
         fi
     
