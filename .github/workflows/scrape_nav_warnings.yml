@@ -2,8 +2,8 @@ name: Scrape MSA Military Exercise Warnings
 
 on:
   schedule:
-    # 每天 UTC 02:00 (北京時間 10:00) 執行
-    - cron: '0 2 * * *'
+    # 每天 UTC 02:15 (北京時間 10:15) 執行
+    - cron: '15 2 * * *'
   
   # 允許手動觸發
   workflow_dispatch:

@@ -69,5 +69,15 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add data/prediction.csv data/predictions/
-          git diff --staged --quiet || git commit -m "Update daily prediction $(date +%Y-%m-%d)"
-          git push
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update daily prediction $(date +%Y-%m-%d)"
+            # Retry push with pull --rebase to handle concurrent updates
+            for i in 1 2 3 4; do
+              git push && break
+              echo "Push failed (attempt $i/4), pulling latest changes..."
+              git pull --rebase origin main
+              sleep $((2 ** i))
+            done
+          fi

@@ -2,8 +2,8 @@ name: Daily News Data Update
 
 on:
   schedule:
-    # 每天 UTC 00:00 執行 (台北時間 08:00)
-    - cron: '0 0 * * *'
+    # 每天 UTC 00:15 執行 (台北時間 08:15)
+    - cron: '15 0 * * *'
   
   # 允許手動觸發
   workflow_dispatch:
@@ -88,7 +88,13 @@ jobs:
             
             # 提交並推送
             git commit -m "🤖 Auto-update data: $(date +'%Y-%m-%d %H:%M:%S')"
-            git push
+            # Retry push with pull --rebase to handle concurrent updates
+            for i in 1 2 3 4; do
+              git push && break
+              echo "Push failed (attempt $i/4), pulling latest changes..."
+              git pull --rebase origin main
+              sleep $((2 ** i))
+            done
             echo "✓ Changes pushed successfully"
           fi
       
