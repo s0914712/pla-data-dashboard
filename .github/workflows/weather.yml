@@ -1,9 +1,9 @@
 name: Weather Report
 
 on:
-  # 定時執行 - 每天 UTC 00:00 和 12:00（台灣時間 08:00 / 20:00）
+  # 定時執行 - 每天 UTC 00:30 和 12:30（台灣時間 08:30 / 20:30）
   schedule:
-    - cron: '0 0,12 * * *'
+    - cron: '30 0,12 * * *'
 
   # 允許手動觸發
   workflow_dispatch:
@@ -53,8 +53,16 @@ jobs:
           # 若 data 資料夾不存在或沒有 CSV，則跳過
           if [ -d data ] && ls data/*.csv >/dev/null 2>&1; then
             git add data/*.csv
-            git diff --staged --quiet || git commit -m "📊 Update airport weather data - $(date +'%Y-%m-%d %H:%M') UTC"
-            git push
+            if ! git diff --staged --quiet; then
+              git commit -m "📊 Update airport weather data - $(date +'%Y-%m-%d %H:%M') UTC"
+              # Retry push with pull --rebase to handle concurrent updates
+              for i in 1 2 3 4; do
+                git push && break
+                echo "Push failed (attempt $i/4), pulling latest changes..."
+                git pull --rebase origin main
+                sleep $((2 ** i))
+              done
+            fi
           else
             echo "⚠️ No CSV files found in data/, skipping commit"
           fi

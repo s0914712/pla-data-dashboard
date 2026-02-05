@@ -42,4 +42,13 @@ jobs:
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git add data/JapanandBattleship.csv
-        git diff --quiet && git diff --staged --quiet || (git commit -m "🇯🇵 更新日本防衛省資料 $(date +'%Y-%m-%d %H:%M')" && git push)
+        if ! git diff --quiet || ! git diff --staged --quiet; then
+          git commit -m "🇯🇵 更新日本防衛省資料 $(date +'%Y-%m-%d %H:%M')"
+          # Retry push with pull --rebase to handle concurrent updates
+          for i in 1 2 3 4; do
+            git push && break
+            echo "Push failed (attempt $i/4), pulling latest changes..."
+            git pull --rebase origin main
+            sleep $((2 ** i))
+          done
+        fi
