@@ -1,15 +1,15 @@
 {
-  "update_time": "2026-02-09T04:36:18.846092",
-  "total_warnings": 13,
-  "with_coordinates": 12,
-  "with_time_periods": 7,
+  "update_time": "2026-02-10T04:39:35.660640",
+  "total_warnings": 17,
+  "with_coordinates": 16,
+  "with_time_periods": 10,
   "date_range": {
     "earliest": "2026-01-26",
     "latest": "2026-02-09"
   },
   "by_channel": {
-    "辽宁海事局": 6,
-    "广东海事局": 2,
+    "辽宁海事局": 8,
+    "广东海事局": 4,
     "广西海事局": 1,
     "海南海事局": 4
   }
