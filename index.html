@@ -283,6 +283,11 @@
             height: 100%;
         }
 
+        .pred-chart-wrap {
+            position: relative;
+            height: 220px;
+        }
+
         .pred-mini-chart h6 {
             font-size: 0.85rem;
             font-weight: 600;
@@ -684,6 +689,10 @@
                 padding: 1rem;
             }
 
+            .pred-chart-wrap {
+                height: 180px;
+            }
+
             .prediction-summary .section-header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -892,8 +901,10 @@
         <div class="row mt-3">
             <div class="col-lg-8">
                 <div class="pred-mini-chart">
-                    <h6>Forecast Trend (60-Day History + 7-Day Prediction)</h6>
-                    <canvas id="predMiniChart"></canvas>
+                    <h6>Forecast Trend (21-Day History + 7-Day Prediction)</h6>
+                    <div class="pred-chart-wrap">
+                        <canvas id="predMiniChart"></canvas>
+                    </div>
                     <div class="pred-model-info" id="predModelInfo"></div>
                 </div>
             </div>
@@ -1208,27 +1219,42 @@ function renderPredMiniChart(predictions) {
     if (!ctx) return;
     const isMobile = window.innerWidth < 768;
 
-    // Get last 60 days of actual data
+    // Last 21 days of actual data (3:1 ratio with 7-day prediction)
     const actualData = straitData
         .filter(r => r.pla_aircraft_sorties && r.pla_aircraft_sorties !== '' && r.date)
-        .slice(-60)
+        .slice(-21)
         .map(r => ({ date: r.date, value: parseFloat(r.pla_aircraft_sorties) }));
 
-    const actualLabels = actualData.map(d => d.date);
-    const actualValues = actualData.map(d => d.value);
-
-    // Prediction data
-    const predLabels = predictions.map(p => p.date);
     const predValues = predictions.map(p => parseFloat(p.predicted_sorties));
     const predUpper = predictions.map(p => parseFloat(p.upper_bound || 0));
     const predLower = predictions.map(p => Math.max(0, parseFloat(p.lower_bound || 0)));
 
-    // Combined labels
+    // Format any date string to M/D
+    function fmtDate(d) {
+        const parts = d.replace(/-/g, '/').split('/');
+        return parseInt(parts[1]) + '/' + parseInt(parts[2]);
+    }
+
+    // Build labels in unified M/D format
+    const actualLabels = actualData.map(d => fmtDate(d.date));
+    const predLabels = predictions.map(p => fmtDate(p.date));
     const allLabels = [...actualLabels, ...predLabels];
 
-    // Pad prediction arrays to align with combined labels
+    // Overlap: predicted line starts from actual's last point for smooth transition
+    const lastActualVal = actualData.length > 0 ? actualData[actualData.length - 1].value : null;
     const padActual = new Array(predLabels.length).fill(null);
-    const padPred = new Array(actualLabels.length).fill(null);
+    const padPred = new Array(actualLabels.length - 1).fill(null); // -1 for overlap
+    const predLineData = [...padPred, lastActualVal, ...predValues];
+    const upperLineData = [...padPred, null, ...predUpper];
+    const lowerLineData = [...padPred, null, ...predLower];
+
+    // Y-axis: based on actual + predicted values only (CI doesn't stretch)
+    const allMainValues = [...actualData.map(d => d.value), ...predValues];
+    const dataMax = Math.max(...allMainValues);
+    const suggestedMax = Math.ceil(dataMax * 1.25);
+
+    // Boundary index between history and forecast
+    const boundaryIdx = actualLabels.length - 1;
 
     predMiniChart = new Chart(ctx, {
         type: 'line',
@@ -1236,65 +1262,71 @@ function renderPredMiniChart(predictions) {
             labels: allLabels,
             datasets: [
                 {
-                    label: 'Actual Sorties',
-                    data: [...actualValues, ...padActual],
+                    label: 'Actual',
+                    data: [...actualData.map(d => d.value), ...padActual],
                     borderColor: '#667eea',
-                    backgroundColor: 'rgba(102, 126, 234, 0.08)',
+                    backgroundColor: 'rgba(102, 126, 234, 0.06)',
                     fill: true,
-                    tension: 0.4,
+                    tension: 0.3,
                     pointRadius: 0,
+                    pointHoverRadius: 4,
                     borderWidth: 2
                 },
                 {
                     label: 'Predicted',
-                    data: [...padPred, ...predValues],
+                    data: predLineData,
                     borderColor: '#f5576c',
-                    backgroundColor: 'rgba(245, 87, 108, 0.08)',
+                    backgroundColor: 'rgba(245, 87, 108, 0.06)',
                     fill: true,
                     tension: 0.3,
-                    pointRadius: isMobile ? 3 : 4,
+                    pointRadius: isMobile ? 2 : 3,
+                    pointHoverRadius: 5,
                     borderWidth: 2,
-                    borderDash: [5, 3]
+                    borderDash: [6, 3]
                 },
                 {
-                    label: 'Upper Bound',
-                    data: [...padPred, ...predUpper],
-                    borderColor: 'rgba(245, 87, 108, 0.2)',
-                    backgroundColor: 'rgba(245, 87, 108, 0.05)',
+                    label: '95% CI Upper',
+                    data: upperLineData,
+                    borderColor: 'transparent',
+                    backgroundColor: 'rgba(245, 87, 108, 0.07)',
                     fill: '+1',
                     tension: 0.3,
                     pointRadius: 0,
-                    borderWidth: 1,
-                    borderDash: [2, 2]
+                    borderWidth: 0
                 },
                 {
-                    label: 'Lower Bound',
-                    data: [...padPred, ...predLower],
-                    borderColor: 'rgba(245, 87, 108, 0.2)',
+                    label: '95% CI Lower',
+                    data: lowerLineData,
+                    borderColor: 'transparent',
                     fill: false,
                     tension: 0.3,
                     pointRadius: 0,
-                    borderWidth: 1,
-                    borderDash: [2, 2]
+                    borderWidth: 0
                 }
             ]
         },
         options: {
             responsive: true,
-            maintainAspectRatio: !isMobile,
+            maintainAspectRatio: false,
             interaction: { mode: 'index', intersect: false },
             plugins: {
                 legend: {
                     display: !isMobile,
                     position: 'top',
-                    labels: { boxWidth: 12, font: { size: 11 } }
+                    labels: {
+                        boxWidth: 12,
+                        font: { size: 11 },
+                        filter: function(item) {
+                            return !item.text.startsWith('95%');
+                        }
+                    }
                 },
                 tooltip: {
                     callbacks: {
-                        title: function(items) { return items[0].label; },
-                        label: function(ctx) {
-                            if (ctx.raw === null) return null;
-                            return `${ctx.dataset.label}: ${ctx.raw.toFixed(1)}`;
+                        label: function(c) {
+                            if (c.raw === null) return null;
+                            if (c.dataset.label.startsWith('95%')) return null;
+                            return `${c.dataset.label}: ${c.raw.toFixed(1)}`;
                         }
                     },
                     filter: function(item) { return item.raw !== null; }
@@ -1303,15 +1335,29 @@ function renderPredMiniChart(predictions) {
             scales: {
                 x: {
                     ticks: {
-                        maxTicksAllowed: isMobile ? 4 : 8,
-                        maxRotation: isMobile ? 45 : 0,
-                        font: { size: isMobile ? 9 : 11 }
+                        maxTicksAllowed: isMobile ? 5 : 10,
+                        maxRotation: 0,
+                        font: { size: isMobile ? 9 : 11 },
+                        color: function(c) {
+                            return c.index > boundaryIdx ? '#f5576c' : '#6b7280';
+                        }
                     },
-                    grid: { display: false }
+                    grid: {
+                        display: true,
+                        color: function(c) {
+                            if (c.index === boundaryIdx + 1) return 'rgba(245,87,108,0.4)';
+                            return 'rgba(0,0,0,0.04)';
+                        },
+                        lineWidth: function(c) {
+                            return c.index === boundaryIdx + 1 ? 2 : 1;
+                        }
+                    }
                 },
                 y: {
                     beginAtZero: true,
-                    ticks: { font: { size: isMobile ? 10 : 11 } }
+                    suggestedMax: suggestedMax,
+                    ticks: { font: { size: isMobile ? 10 : 11 } },
+                    grid: { color: 'rgba(0,0,0,0.04)' }
                 }
             }
         }
