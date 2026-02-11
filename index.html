@@ -77,7 +77,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <!-- PapaParse for CSV parsing -->
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-    
+
     <style>
         /* Base Styles */
         body {
@@ -86,20 +86,19 @@
             -webkit-tap-highlight-color: transparent;
             -webkit-text-size-adjust: 100%;
         }
-        
-        /* Smooth scrolling for iOS */
+
         html {
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
         }
-        
+
         .dashboard-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 2rem 0;
             margin-bottom: 2rem;
         }
-        
+
         .stat-card {
             background: white;
             border-radius: 10px;
@@ -109,24 +108,24 @@
             transition: transform 0.3s;
             touch-action: manipulation;
         }
-        
+
         .stat-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
-        
+
         .stat-value {
             font-size: 2.5rem;
             font-weight: bold;
             color: #667eea;
         }
-        
+
         .stat-label {
             color: #6c757d;
             font-size: 0.9rem;
             text-transform: uppercase;
         }
-        
+
         .chart-container {
             background: white;
             border-radius: 10px;
@@ -134,13 +133,13 @@
             margin-bottom: 2rem;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        
+
         .loading {
             text-align: center;
             padding: 3rem;
             color: #667eea;
         }
-        
+
         .loading-spinner {
             border: 4px solid #f3f3f3;
             border-top: 4px solid #667eea;
@@ -150,167 +149,190 @@
             animation: spin 1s linear infinite;
             margin: 0 auto 1rem;
         }
-        
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        
+
         .btn-primary {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
         }
-        
+
         .btn-primary:hover {
             background: linear-gradient(135deg, #5568d3 0%, #653b8a 100%);
         }
-        
-        /* ========== Mobile Optimizations ========== */
-        
-        /* Navigation - Fix hamburger menu icon visibility */
+
+        /* ========== Prediction Summary Section ========== */
+        .prediction-summary {
+            margin-bottom: 2rem;
+        }
+
+        .prediction-summary .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .prediction-summary .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin: 0;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .prediction-summary .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 2px;
+        }
+
+        .pred-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.25rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .pred-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+
+        .pred-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .pred-card.risk-low::before { background: linear-gradient(90deg, #11998e, #38ef7d); }
+        .pred-card.risk-medium::before { background: linear-gradient(90deg, #f7971e, #ffd200); }
+        .pred-card.risk-high::before { background: linear-gradient(90deg, #eb3349, #f45c43); }
+
+        .pred-card-date {
+            font-size: 0.8rem;
+            color: #a0aec0;
+            margin-bottom: 0.25rem;
+        }
+
+        .pred-card-day {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 0.5rem;
+        }
+
+        .pred-card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 0.25rem;
+        }
+
+        .pred-card.risk-low .pred-card-value { color: #11998e; }
+        .pred-card.risk-medium .pred-card-value { color: #f7971e; }
+        .pred-card.risk-high .pred-card-value { color: #eb3349; }
+
+        .pred-card-unit {
+            font-size: 0.75rem;
+            color: #718096;
+            margin-bottom: 0.5rem;
+        }
+
+        .pred-card-range {
+            font-size: 0.7rem;
+            color: #a0aec0;
+        }
+
+        .pred-card-risk {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.5rem;
+        }
+
+        .pred-card.risk-low .pred-card-risk { background: rgba(17,153,142,0.12); color: #11998e; }
+        .pred-card.risk-medium .pred-card-risk { background: rgba(247,151,30,0.12); color: #c87a00; }
+        .pred-card.risk-high .pred-card-risk { background: rgba(235,51,73,0.12); color: #eb3349; }
+
+        .pred-mini-chart {
+            background: white;
+            border-radius: 12px;
+            padding: 1.25rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            height: 100%;
+        }
+
+        .pred-mini-chart h6 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 0.75rem;
+        }
+
+        .pred-model-info {
+            font-size: 0.7rem;
+            color: #a0aec0;
+            margin-top: 0.5rem;
+        }
+
+        .view-forecast-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #f5576c;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .view-forecast-btn:hover {
+            background: rgba(245, 87, 108, 0.1);
+            text-decoration: none;
+            color: #d63a52;
+        }
+
+        /* ========== Navigation ========== */
         .navbar-toggler {
             border: 2px solid rgba(255,255,255,0.5);
             padding: 0.5rem 0.75rem;
             min-height: 44px;
             min-width: 44px;
         }
-        
+
         .navbar-toggler-icon {
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
-        
+
         .navbar-toggler:focus {
             outline: none;
             box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
         }
-        
-        /* Mobile-specific styles */
-        @media (max-width: 767.98px) {
-            /* Header adjustments */
-            .dashboard-header {
-                padding: 1.25rem 0;
-                margin-bottom: 1rem;
-            }
-            
-            .dashboard-header .display-4 {
-                font-size: 1.5rem;
-                line-height: 1.3;
-            }
-            
-            .dashboard-header .lead {
-                font-size: 0.9rem;
-                margin-bottom: 0;
-            }
-            
-            /* Stat cards - 2 columns on mobile */
-            .stat-card {
-                padding: 1rem;
-                margin-bottom: 0.75rem;
-            }
-            
-            .stat-value {
-                font-size: 1.75rem;
-            }
-            
-            .stat-label {
-                font-size: 0.75rem;
-            }
-            
-            /* Agent cards touch optimization */
-            .stat-card[style*="cursor: pointer"] {
-                min-height: 120px;
-            }
-            
-            .stat-card h5 {
-                font-size: 0.95rem;
-            }
-            
-            .stat-card p {
-                font-size: 0.8rem !important;
-                margin-bottom: 0.5rem;
-            }
-            
-            /* Chart container adjustments */
-            .chart-container {
-                padding: 1rem;
-                margin-bottom: 1rem;
-            }
-            
-            .chart-container h5 {
-                font-size: 1rem;
-                margin-bottom: 0.75rem;
-            }
-            
-            /* Ensure charts are properly sized */
-            .chart-container canvas {
-                max-height: 250px !important;
-            }
-            
-            /* Navigation dropdown styling */
-            .navbar-collapse {
-                background: rgba(102, 126, 234, 0.98);
-                margin: 0.5rem -15px 0;
-                padding: 0.5rem 15px;
-                border-radius: 8px;
-            }
-            
-            .navbar-nav .nav-link {
-                padding: 0.75rem 1rem !important;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
-                min-height: 44px;
-                display: flex;
-                align-items: center;
-            }
-            
-            .navbar-nav .nav-item:last-child .nav-link {
-                border-bottom: none;
-            }
-            
-            /* Footer adjustments */
-            footer {
-                padding: 1.5rem 0 !important;
-            }
-            
-            footer p {
-                font-size: 0.85rem;
-            }
-            
-            /* Button touch targets */
-            .btn-lg {
-                padding: 0.875rem 2rem;
-                font-size: 1rem;
-                min-height: 48px;
-            }
-            
-            /* Reduce hover effects on touch devices */
-            .stat-card:hover {
-                transform: none;
-            }
-            
-            /* Active state for touch feedback */
-            .stat-card:active {
-                transform: scale(0.98);
-                transition: transform 0.1s;
-            }
-        }
-        
-        /* Small phones */
-        @media (max-width: 375px) {
-            .dashboard-header .display-4 {
-                font-size: 1.25rem;
-            }
-            
-            .stat-value {
-                font-size: 1.5rem;
-            }
-            
-            .container {
-                padding-left: 12px;
-                padding-right: 12px;
-            }
-        }
 
-        /* Articles Section Styles */
+        /* ========== Articles Section ========== */
         .articles-section {
             margin-top: 3rem;
         }
@@ -545,85 +567,223 @@
         .article-card-wrapper:nth-child(4) { animation-delay: 0.4s; }
         .article-card-wrapper:nth-child(5) { animation-delay: 0.5s; }
         .article-card-wrapper:nth-child(6) { animation-delay: 0.6s; }
-        
-        /* Mobile article card optimizations */
+
+        /* ========== Mobile Optimizations ========== */
         @media (max-width: 767.98px) {
+            .dashboard-header {
+                padding: 1.25rem 0;
+                margin-bottom: 1rem;
+            }
+
+            .dashboard-header .display-4 {
+                font-size: 1.5rem;
+                line-height: 1.3;
+            }
+
+            .dashboard-header .lead {
+                font-size: 0.9rem;
+                margin-bottom: 0;
+            }
+
+            .stat-card {
+                padding: 1rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .stat-value {
+                font-size: 1.75rem;
+            }
+
+            .stat-label {
+                font-size: 0.75rem;
+            }
+
+            .stat-card[style*="cursor: pointer"] {
+                min-height: 120px;
+            }
+
+            .stat-card h5 {
+                font-size: 0.95rem;
+            }
+
+            .stat-card p {
+                font-size: 0.8rem !important;
+                margin-bottom: 0.5rem;
+            }
+
+            .chart-container {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .chart-container h5 {
+                font-size: 1rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .chart-container canvas {
+                max-height: 250px !important;
+            }
+
+            .navbar-collapse {
+                background: rgba(102, 126, 234, 0.98);
+                margin: 0.5rem -15px 0;
+                padding: 0.5rem 15px;
+                border-radius: 8px;
+            }
+
+            .navbar-nav .nav-link {
+                padding: 0.75rem 1rem !important;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+            }
+
+            .navbar-nav .nav-item:last-child .nav-link {
+                border-bottom: none;
+            }
+
+            footer {
+                padding: 1.5rem 0 !important;
+            }
+
+            footer p {
+                font-size: 0.85rem;
+            }
+
+            .btn-lg {
+                padding: 0.875rem 2rem;
+                font-size: 1rem;
+                min-height: 48px;
+            }
+
+            .stat-card:hover {
+                transform: none;
+            }
+
+            .stat-card:active {
+                transform: scale(0.98);
+                transition: transform 0.1s;
+            }
+
+            /* Prediction summary mobile */
+            .pred-card {
+                padding: 1rem;
+            }
+
+            .pred-card-value {
+                font-size: 1.5rem;
+            }
+
+            .pred-card:hover {
+                transform: none;
+            }
+
+            .pred-mini-chart {
+                padding: 1rem;
+            }
+
+            .prediction-summary .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            /* Articles mobile */
             .articles-section {
                 margin-top: 1.5rem;
             }
-            
+
             .section-header {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 0.75rem;
             }
-            
+
             .section-title {
                 font-size: 1.25rem;
             }
-            
+
             .article-card {
                 margin-bottom: 0;
             }
-            
+
             .article-card:hover {
                 transform: none;
             }
-            
+
             .article-card:active {
                 transform: scale(0.99);
             }
-            
+
             .article-image {
                 height: 120px;
             }
-            
+
             .article-body {
                 padding: 1rem;
             }
-            
+
             .article-title {
                 font-size: 0.95rem;
             }
-            
+
             .article-excerpt {
                 font-size: 0.8rem;
                 -webkit-line-clamp: 2;
             }
-            
+
             .article-tags {
                 display: none;
             }
-            
+
             .article-meta {
                 padding-top: 0.5rem;
             }
-            
+
             .article-read-more {
                 min-height: 44px;
                 display: flex;
                 align-items: center;
             }
-            
+
             .view-all-btn {
                 width: 100%;
                 justify-content: center;
                 min-height: 44px;
             }
-            
-            /* Disable animations on mobile for better performance */
+
             .article-card-wrapper {
                 animation: none;
                 opacity: 1;
             }
         }
-        
-        /* Landscape phone adjustments */
+
+        @media (max-width: 375px) {
+            .dashboard-header .display-4 {
+                font-size: 1.25rem;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .pred-card-value {
+                font-size: 1.25rem;
+            }
+        }
+
         @media (max-width: 767.98px) and (orientation: landscape) {
             .dashboard-header {
                 padding: 1rem 0;
             }
-            
+
             .chart-container canvas {
                 max-height: 200px !important;
             }
@@ -634,4 +794,693 @@
 <body>
 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg" st
+<nav class="navbar navbar-expand-lg" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container">
+        <a class="navbar-brand" href="index.html" style="color: white;">PLA Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a class="nav-link" href="index.html" style="color: white;">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="prediction.html" style="color: white;">ML Prediction</a></li>
+                <li class="nav-item"><a class="nav-link" href="weather.html" style="color: white;">Airport Weather</a></li>
+                <li class="nav-item"><a class="nav-link" href="japan.html" style="color: white;">Japan MOD</a></li>
+                <li class="nav-item"><a class="nav-link" href="news.html" style="color: white;">News</a></li>
+                <li class="nav-item"><a class="nav-link" href="articles.html" style="color: white;">Articles</a></li>
+                <li class="nav-item"><a class="nav-link" href="download.html" style="color: white;">Download</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Header -->
+<div class="dashboard-header">
+    <div class="container">
+        <h1 class="display-4">PLA Aircraft Sorties Data Dashboard</h1>
+        <p class="lead">Interactive Military Activities Analysis powered by Multi-Agent System</p>
+    </div>
+</div>
+
+<!-- Loading Indicator -->
+<div id="loading" class="loading">
+    <div class="loading-spinner"></div>
+    <p>Loading data...</p>
+</div>
+
+<!-- Main Content -->
+<div id="mainContent" class="container" style="display: none;">
+
+    <!-- Agent Overview Cards -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h4 class="mb-3">Data Collection Agents</h4>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-3">
+            <a href="prediction.html" style="text-decoration: none;">
+                <div class="stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; cursor: pointer;">
+                    <div style="font-size: 2rem;">🤖</div>
+                    <h5>ML Prediction</h5>
+                    <p style="font-size: 0.85rem; opacity: 0.9;">7-day sortie forecast with ensemble model</p>
+                    <span class="badge badge-light">View Details →</span>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-3">
+            <a href="weather.html" style="text-decoration: none;">
+                <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; cursor: pointer;">
+                    <div style="font-size: 2rem;">🌤️</div>
+                    <h5>Airport Weather</h5>
+                    <p style="font-size: 0.85rem; opacity: 0.9;">Weather monitoring for PLA airfields</p>
+                    <span class="badge badge-light">View Map →</span>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-3">
+            <a href="japan.html" style="text-decoration: none;">
+                <div class="stat-card" style="background: linear-gradient(135deg, #c94b4b 0%, #4b134f 100%); color: white; cursor: pointer;">
+                    <div style="font-size: 2rem;">🚢</div>
+                    <h5>Japan MOD</h5>
+                    <p style="font-size: 0.85rem; opacity: 0.9;">Naval transit data from Joint Staff</p>
+                    <span class="badge badge-light">View Data →</span>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-3">
+            <a href="news.html" style="text-decoration: none;">
+                <div class="stat-card" style="background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%); color: white; cursor: pointer;">
+                    <div style="font-size: 2rem;">📰</div>
+                    <h5>News Classifier</h5>
+                    <p style="font-size: 0.85rem; opacity: 0.9;">AI-classified Taiwan Strait news</p>
+                    <span class="badge badge-light">View News →</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Prediction Summary Section -->
+    <div class="prediction-summary" id="predictionSummary" style="display: none;">
+        <div class="section-header">
+            <h4 class="section-title">7-Day Sortie Forecast</h4>
+            <a href="prediction.html" class="view-forecast-btn">
+                Full Forecast <span>→</span>
+            </a>
+        </div>
+        <div class="row" id="predSummaryCards">
+            <!-- Prediction cards populated by JS -->
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-8">
+                <div class="pred-mini-chart">
+                    <h6>Forecast Trend (60-Day History + 7-Day Prediction)</h6>
+                    <canvas id="predMiniChart"></canvas>
+                    <div class="pred-model-info" id="predModelInfo"></div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="pred-mini-chart">
+                    <h6>Risk Distribution</h6>
+                    <canvas id="riskDoughnut"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row" id="statsCards">
+        <div class="col-md-3 col-sm-6">
+            <div class="stat-card">
+                <div class="stat-label">Total Records</div>
+                <div class="stat-value" id="totalRecords">-</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="stat-card">
+                <div class="stat-label">Avg Daily Sorties</div>
+                <div class="stat-value" id="avgSorties">-</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="stat-card">
+                <div class="stat-label">Max Sorties</div>
+                <div class="stat-value" id="maxSorties">-</div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="stat-card">
+                <div class="stat-label">Date Range</div>
+                <div class="stat-value" style="font-size: 1.2rem;" id="dateRange">-</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Chart -->
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="chart-container">
+                <h5>PLA Aircraft Sorties - Last 6 Months</h5>
+                <canvas id="timeSeriesChart"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="chart-container">
+                <h5>Weekday Activity Pattern</h5>
+                <canvas id="weekdayChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Access Links -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="chart-container text-center">
+                <h5>Data Access</h5>
+                <p class="text-muted mb-3">Access raw datasets and download historical data</p>
+                <a href="download.html" class="btn btn-primary btn-lg">
+                    View All Datasets
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Articles Section -->
+    <div class="articles-section">
+        <div class="section-header">
+            <h4 class="section-title">Research Articles</h4>
+            <a href="articles.html" class="view-all-btn">
+                More Articles <span>→</span>
+            </a>
+        </div>
+        <div class="row" id="articlesContainer">
+            <!-- Articles will be loaded dynamically -->
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="text-center py-4 mt-5" style="background-color: #343a40; color: white;">
+    <div class="container">
+        <p>&copy; 2025 Jeremy Chen | PLA Military Data Analysis Dashboard</p>
+        <p>
+            <a href="https://github.com/s0914712" target="_blank" style="color: #667eea;">GitHub</a> |
+            <a href="https://s0914712.github.io" target="_blank" style="color: #667eea;">Blog</a>
+        </p>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script>
+let straitData = [];
+let charts = {};
+let predMiniChart = null;
+let riskDoughnutChart = null;
+
+window.addEventListener('load', async function() {
+    await loadData();
+    initializeCharts();
+    updateDashboard();
+    await Promise.all([loadPredictionSummary(), loadArticles()]);
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+});
+
+async function loadData() {
+    try {
+        const straitResponse = await fetch('data/JapanandBattleship.csv');
+        const straitText = await straitResponse.text();
+        const straitClean = straitText.replace(/^\uFEFF/, '');
+
+        const straitParsed = Papa.parse(straitClean, {
+            header: true,
+            skipEmptyLines: true,
+            encoding: 'UTF-8'
+        });
+        straitData = straitParsed.data;
+        console.log('Data loaded:', straitData.length, 'records');
+    } catch (error) {
+        console.error('Error loading data:', error);
+    }
+}
+
+function updateDashboard() {
+    updateStats();
+    updateCharts();
+}
+
+function updateStats() {
+    const totalRecords = straitData.length;
+    const sortiesData = straitData.filter(r => r.pla_aircraft_sorties && r.pla_aircraft_sorties !== '').map(r => parseFloat(r.pla_aircraft_sorties));
+    const avgSorties = sortiesData.length > 0 ? (sortiesData.reduce((a, b) => a + b, 0) / sortiesData.length).toFixed(1) : 0;
+    const maxSorties = sortiesData.length > 0 ? Math.max(...sortiesData) : 0;
+
+    const dates = straitData.filter(r => r.date).map(r => new Date(r.date)).sort((a, b) => a - b);
+    const dateRange = dates.length > 0 ?
+        `${dates[0].toLocaleDateString('en-US', {month: 'short', year: 'numeric'})} - ${dates[dates.length-1].toLocaleDateString('en-US', {month: 'short', year: 'numeric'})}` :
+        '-';
+
+    document.getElementById('totalRecords').textContent = totalRecords.toLocaleString();
+    document.getElementById('avgSorties').textContent = avgSorties;
+    document.getElementById('maxSorties').textContent = maxSorties;
+    document.getElementById('dateRange').textContent = dateRange;
+}
+
+function initializeCharts() {
+    const isMobile = window.innerWidth < 768;
+
+    charts.timeSeries = new Chart(document.getElementById('timeSeriesChart'), {
+        type: 'line',
+        data: { labels: [], datasets: [] },
+        options: {
+            responsive: true,
+            maintainAspectRatio: !isMobile,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: { beginAtZero: true },
+                x: {
+                    ticks: {
+                        maxTicksAllowed: isMobile ? 5 : 10,
+                        maxRotation: isMobile ? 45 : 0,
+                        font: { size: isMobile ? 10 : 12 }
+                    }
+                }
+            }
+        }
+    });
+
+    charts.weekday = new Chart(document.getElementById('weekdayChart'), {
+        type: 'radar',
+        data: { labels: [], datasets: [] },
+        options: {
+            responsive: true,
+            maintainAspectRatio: !isMobile,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                r: {
+                    pointLabels: { font: { size: isMobile ? 10 : 12 } }
+                }
+            }
+        }
+    });
+}
+
+function updateCharts() {
+    const timeSeriesData = straitData
+        .filter(r => r.pla_aircraft_sorties && r.pla_aircraft_sorties !== '' && r.date)
+        .slice(-180)
+        .map(r => ({
+            x: r.date,
+            y: parseFloat(r.pla_aircraft_sorties)
+        }));
+
+    charts.timeSeries.data.labels = timeSeriesData.map(d => d.x);
+    charts.timeSeries.data.datasets = [{
+        label: 'PLA Aircraft Sorties',
+        data: timeSeriesData.map(d => d.y),
+        borderColor: '#667eea',
+        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+        fill: true,
+        tension: 0.4
+    }];
+    charts.timeSeries.update();
+
+    const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const weekdayData = {};
+    weekdays.forEach(day => weekdayData[day] = []);
+
+    straitData.forEach(r => {
+        if (r.date && r.pla_aircraft_sorties && r.pla_aircraft_sorties !== '') {
+            const date = new Date(r.date);
+            const dayName = weekdays[date.getDay() === 0 ? 6 : date.getDay() - 1];
+            weekdayData[dayName].push(parseFloat(r.pla_aircraft_sorties));
+        }
+    });
+
+    const weekdayAvg = weekdays.map(day => {
+        const data = weekdayData[day];
+        return data.length > 0 ? (data.reduce((a, b) => a + b, 0) / data.length).toFixed(1) : 0;
+    });
+
+    charts.weekday.data.labels = weekdays.map(d => d.substring(0, 3));
+    charts.weekday.data.datasets = [{
+        label: 'Avg Sorties',
+        data: weekdayAvg,
+        backgroundColor: 'rgba(102, 126, 234, 0.2)',
+        borderColor: '#667eea',
+        borderWidth: 2,
+        pointBackgroundColor: '#667eea'
+    }];
+    charts.weekday.update();
+}
+
+// ========== Prediction Summary ==========
+async function loadPredictionSummary() {
+    try {
+        const response = await fetch('data/predictions/latest_prediction.csv');
+        if (!response.ok) return;
+        const text = await response.text();
+        const cleanText = text.replace(/^\uFEFF/, '');
+
+        const parsed = Papa.parse(cleanText, {
+            header: true,
+            skipEmptyLines: true
+        });
+
+        const predictions = parsed.data
+            .filter(row => row.date && row.predicted_sorties)
+            .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        if (predictions.length === 0) return;
+
+        renderPredSummaryCards(predictions);
+        renderPredMiniChart(predictions);
+        renderRiskDoughnut(predictions);
+
+        // Show model info
+        const first = predictions[0];
+        const infoEl = document.getElementById('predModelInfo');
+        if (infoEl) {
+            infoEl.textContent = `Model ${first.model_version || '-'} | Data: ${first.data_latest_date || '-'} | Generated: ${(first.generated_at || '-').split(' ')[0]}`;
+        }
+
+        document.getElementById('predictionSummary').style.display = 'block';
+    } catch (error) {
+        console.error('Error loading prediction summary:', error);
+    }
+}
+
+function renderPredSummaryCards(predictions) {
+    const container = document.getElementById('predSummaryCards');
+    const isMobile = window.innerWidth < 768;
+    const displayCount = isMobile ? 4 : 7;
+    const colClass = isMobile ? 'col-6 col-sm-3' : 'col-sm-6 col-md-3 col-lg';
+
+    container.innerHTML = predictions.slice(0, displayCount).map(pred => {
+        const date = new Date(pred.date);
+        const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+        const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        const risk = (pred.risk_level || 'LOW').toUpperCase();
+        const riskClass = risk === 'HIGH' ? 'risk-high' : risk === 'MEDIUM' ? 'risk-medium' : 'risk-low';
+        const value = parseFloat(pred.predicted_sorties).toFixed(1);
+        const lower = Math.max(0, parseFloat(pred.lower_bound || 0)).toFixed(0);
+        const upper = parseFloat(pred.upper_bound || 0).toFixed(0);
+
+        return `
+            <div class="${colClass} mb-3">
+                <div class="pred-card ${riskClass}">
+                    <div class="pred-card-date">${dateStr}</div>
+                    <div class="pred-card-day">${dayName}</div>
+                    <div class="pred-card-value">${value}</div>
+                    <div class="pred-card-unit">sorties</div>
+                    <div class="pred-card-range">CI: ${lower} - ${upper}</div>
+                    <div class="pred-card-risk">${risk}</div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function renderPredMiniChart(predictions) {
+    const ctx = document.getElementById('predMiniChart');
+    if (!ctx) return;
+    const isMobile = window.innerWidth < 768;
+
+    // Get last 60 days of actual data
+    const actualData = straitData
+        .filter(r => r.pla_aircraft_sorties && r.pla_aircraft_sorties !== '' && r.date)
+        .slice(-60)
+        .map(r => ({ date: r.date, value: parseFloat(r.pla_aircraft_sorties) }));
+
+    const actualLabels = actualData.map(d => d.date);
+    const actualValues = actualData.map(d => d.value);
+
+    // Prediction data
+    const predLabels = predictions.map(p => p.date);
+    const predValues = predictions.map(p => parseFloat(p.predicted_sorties));
+    const predUpper = predictions.map(p => parseFloat(p.upper_bound || 0));
+    const predLower = predictions.map(p => Math.max(0, parseFloat(p.lower_bound || 0)));
+
+    // Combined labels
+    const allLabels = [...actualLabels, ...predLabels];
+
+    // Pad prediction arrays to align with combined labels
+    const padActual = new Array(predLabels.length).fill(null);
+    const padPred = new Array(actualLabels.length).fill(null);
+
+    predMiniChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: allLabels,
+            datasets: [
+                {
+                    label: 'Actual Sorties',
+                    data: [...actualValues, ...padActual],
+                    borderColor: '#667eea',
+                    backgroundColor: 'rgba(102, 126, 234, 0.08)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 0,
+                    borderWidth: 2
+                },
+                {
+                    label: 'Predicted',
+                    data: [...padPred, ...predValues],
+                    borderColor: '#f5576c',
+                    backgroundColor: 'rgba(245, 87, 108, 0.08)',
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: isMobile ? 3 : 4,
+                    borderWidth: 2,
+                    borderDash: [5, 3]
+                },
+                {
+                    label: 'Upper Bound',
+                    data: [...padPred, ...predUpper],
+                    borderColor: 'rgba(245, 87, 108, 0.2)',
+                    backgroundColor: 'rgba(245, 87, 108, 0.05)',
+                    fill: '+1',
+                    tension: 0.3,
+                    pointRadius: 0,
+                    borderWidth: 1,
+                    borderDash: [2, 2]
+                },
+                {
+                    label: 'Lower Bound',
+                    data: [...padPred, ...predLower],
+                    borderColor: 'rgba(245, 87, 108, 0.2)',
+                    fill: false,
+                    tension: 0.3,
+                    pointRadius: 0,
+                    borderWidth: 1,
+                    borderDash: [2, 2]
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: !isMobile,
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+                legend: {
+                    display: !isMobile,
+                    position: 'top',
+                    labels: { boxWidth: 12, font: { size: 11 } }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: function(items) { return items[0].label; },
+                        label: function(ctx) {
+                            if (ctx.raw === null) return null;
+                            return `${ctx.dataset.label}: ${ctx.raw.toFixed(1)}`;
+                        }
+                    },
+                    filter: function(item) { return item.raw !== null; }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        maxTicksAllowed: isMobile ? 4 : 8,
+                        maxRotation: isMobile ? 45 : 0,
+                        font: { size: isMobile ? 9 : 11 }
+                    },
+                    grid: { display: false }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: { font: { size: isMobile ? 10 : 11 } }
+                }
+            }
+        }
+    });
+}
+
+function renderRiskDoughnut(predictions) {
+    const ctx = document.getElementById('riskDoughnut');
+    if (!ctx) return;
+    const isMobile = window.innerWidth < 768;
+
+    const counts = { LOW: 0, MEDIUM: 0, HIGH: 0 };
+    predictions.forEach(p => {
+        const r = (p.risk_level || 'LOW').toUpperCase();
+        if (counts[r] !== undefined) counts[r]++;
+    });
+
+    riskDoughnutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Low Risk', 'Medium Risk', 'High Risk'],
+            datasets: [{
+                data: [counts.LOW, counts.MEDIUM, counts.HIGH],
+                backgroundColor: ['#38ef7d', '#ffd200', '#f45c43'],
+                borderWidth: 2,
+                borderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: !isMobile,
+            cutout: '60%',
+            plugins: {
+                legend: {
+                    position: isMobile ? 'bottom' : 'right',
+                    labels: { boxWidth: 12, font: { size: isMobile ? 10 : 12 }, padding: isMobile ? 8 : 15 }
+                }
+            }
+        }
+    });
+}
+
+// ========== Articles ==========
+const articleFiles = ['post-1.md', 'post-2.md', 'post-3.md', 'post-4.md', 'post-5.md'];
+const gradients = [
+    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+    'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+    'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+    'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+    'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)'
+];
+
+const icons = ['📊', '📈', '🔬', '🎯', '💡', '📡'];
+
+async function loadArticles() {
+    const container = document.getElementById('articlesContainer');
+    const articles = [];
+
+    for (const file of articleFiles) {
+        try {
+            const response = await fetch(`articles/${file}`);
+            if (!response.ok) continue;
+            const text = await response.text();
+            const parsed = parseMarkdownFrontMatter(text);
+            if (parsed) {
+                parsed.filename = file;
+                articles.push(parsed);
+            }
+        } catch (error) {
+            console.error(`Error loading ${file}:`, error);
+        }
+    }
+
+    articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+    const displayArticles = articles.slice(0, 3);
+    renderArticleCards(displayArticles, container);
+}
+
+function parseMarkdownFrontMatter(content) {
+    const frontMatterRegex = /^---\s*\n([\s\S]*?)\n---/;
+    const match = content.match(frontMatterRegex);
+    if (!match) return null;
+
+    const frontMatter = match[1];
+    const result = {};
+
+    const titleMatch = frontMatter.match(/title:\s*["']?([^"'\n]+)["']?/);
+    if (titleMatch) result.title = titleMatch[1].trim();
+
+    const dateMatch = frontMatter.match(/date:\s*([^\n]+)/);
+    if (dateMatch) result.date = dateMatch[1].trim().split('T')[0];
+
+    const descMatch = frontMatter.match(/description:\s*["']?([^"'\n]+)["']?/);
+    if (descMatch) result.description = descMatch[1].trim();
+
+    const catSection = frontMatter.match(/categories:\s*\n((?:\s+-\s*["']?[^"'\n]+["']?\n?)+)/);
+    if (catSection) {
+        result.categories = catSection[1].match(/["']?([^"'\n-]+)["']?/g)?.map(c => c.replace(/["'-\s]/g, '').trim()).filter(c => c) || [];
+    }
+
+    const tagSection = frontMatter.match(/tags:\s*\n((?:\s+-\s*["']?[^"'\n]+["']?\n?)+)/);
+    if (tagSection) {
+        result.tags = tagSection[1].match(/["']?([^"'\n-]+)["']?/g)?.map(t => t.replace(/["'-\s]/g, '').trim()).filter(t => t) || [];
+    }
+
+    const contentAfterFrontMatter = content.slice(match[0].length).trim();
+    const firstParagraph = contentAfterFrontMatter.split(/\n\n/)[0]?.replace(/<[^>]*>/g, '').replace(/[#*_\[\]]/g, '').trim();
+    result.excerpt = firstParagraph?.slice(0, 150) + (firstParagraph?.length > 150 ? '...' : '') || result.description || '';
+
+    return result;
+}
+
+function renderArticleCards(articles, container) {
+    container.innerHTML = '';
+
+    articles.forEach((article, index) => {
+        const gradient = gradients[index % gradients.length];
+        const icon = icons[index % icons.length];
+        const category = article.categories?.[0] || 'Article';
+        const tags = article.tags?.slice(0, 3) || [];
+
+        const formattedDate = article.date ? new Date(article.date).toLocaleDateString('zh-TW', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        }) : '';
+
+        const cardHtml = `
+            <div class="col-lg-4 col-md-6 mb-4 article-card-wrapper">
+                <div class="article-card">
+                    <div class="article-image" style="background: ${gradient}">
+                        <span class="article-category">${category}</span>
+                        <span class="article-icon">${icon}</span>
+                    </div>
+                    <div class="article-body">
+                        <h5 class="article-title">
+                            <a href="article.html?file=${article.filename}">${article.title || 'Untitled'}</a>
+                        </h5>
+                        <div class="article-tags">
+                            ${tags.map(tag => `<span class="article-tag">${tag}</span>`).join('')}
+                        </div>
+                        <p class="article-excerpt">${article.excerpt}</p>
+                        <div class="article-meta">
+                            <span class="article-date">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                ${formattedDate}
+                            </span>
+                            <a href="article.html?file=${article.filename}" class="article-read-more">
+                                Read More <span>→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        container.innerHTML += cardHtml;
+    });
+}
+</script>
+
+<!-- Bootstrap JS for navbar -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
