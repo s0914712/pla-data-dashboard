@@ -188,6 +188,191 @@
         .filter-btn.active {
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5);
         }
+
+        /* ========== Mobile Optimizations ========== */
+
+        /* Navigation - Fix hamburger menu icon visibility */
+        .navbar-toggler {
+            border: 2px solid rgba(255,255,255,0.5);
+            padding: 0.5rem 0.75rem;
+            min-height: 44px;
+            min-width: 44px;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .navbar-toggler:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
+        }
+
+        @media (max-width: 767.98px) {
+            /* Header adjustments */
+            .page-header {
+                padding: 1.25rem 0;
+                margin-bottom: 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .page-header .lead {
+                font-size: 0.85rem;
+            }
+
+            /* Navigation dropdown */
+            .navbar-collapse {
+                background: rgba(102, 126, 234, 0.98);
+                margin: 0.5rem -15px 0;
+                padding: 0.5rem 15px;
+                border-radius: 8px;
+            }
+
+            .navbar-nav .nav-link {
+                padding: 0.75rem 1rem !important;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+            }
+
+            .navbar-nav .nav-item:last-child .nav-link {
+                border-bottom: none;
+            }
+
+            /* Stat cards */
+            .stat-card {
+                padding: 0.75rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+            }
+
+            .stat-label {
+                font-size: 0.7rem;
+            }
+
+            /* Chart containers */
+            .chart-container {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .chart-container h5 {
+                font-size: 1rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .chart-container canvas {
+                max-height: 250px !important;
+            }
+
+            /* Filter section */
+            .filter-section {
+                padding: 1rem;
+            }
+
+            .filter-section h5 {
+                font-size: 1rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .filter-btn {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.6rem;
+                margin: 0.2rem;
+                min-height: 36px;
+            }
+
+            /* News cards */
+            .news-card {
+                padding: 1rem;
+            }
+
+            .news-title {
+                font-size: 0.95rem;
+            }
+
+            .news-content {
+                font-size: 0.8rem;
+            }
+
+            .news-meta {
+                font-size: 0.7rem;
+            }
+
+            .category-badge {
+                font-size: 0.7rem;
+                padding: 0.2rem 0.6rem;
+            }
+
+            .extracted-data {
+                font-size: 0.75rem;
+                padding: 0.5rem;
+            }
+
+            /* Reduce hover effects on touch */
+            .news-card:hover {
+                transform: none;
+            }
+
+            .news-card:active {
+                transform: scale(0.99);
+                transition: transform 0.1s;
+            }
+
+            /* Update info */
+            .update-info {
+                font-size: 0.75rem;
+                padding: 0.75rem;
+            }
+
+            /* Footer */
+            footer {
+                padding: 1.5rem 0 !important;
+            }
+
+            footer p {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Small phones */
+        @media (max-width: 375px) {
+            .page-header h1 {
+                font-size: 1.25rem;
+            }
+
+            .stat-value {
+                font-size: 1.25rem;
+            }
+
+            .container {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .filter-btn {
+                font-size: 0.65rem;
+                padding: 0.3rem 0.5rem;
+            }
+        }
+
+        /* Landscape phone */
+        @media (max-width: 767.98px) and (orientation: landscape) {
+            .page-header {
+                padding: 0.75rem 0;
+            }
+
+            .chart-container canvas {
+                max-height: 200px !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -325,6 +510,7 @@
 <script>
 let newsData = [];
 let currentFilter = 'all';
+const isMobile = window.innerWidth < 768;
 
 window.addEventListener('load', async function() {
     await loadNewsData();
@@ -395,7 +581,7 @@ function renderCharts() {
     new Chart(document.getElementById('categoryChart'), {
         type: 'doughnut',
         data: {
-            labels: Object.keys(categoryCounts),
+            labels: Object.keys(categoryCounts).map(c => isMobile ? c.replace(/_/g, ' ').replace('Foreign battleship', 'Foreign Ship') : c),
             datasets: [{
                 data: Object.values(categoryCounts),
                 backgroundColor: Object.keys(categoryCounts).map(c => categoryColors[c] || '#999')
@@ -403,12 +589,14 @@ function renderCharts() {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: !isMobile,
             plugins: {
                 legend: {
-                    position: 'right',
+                    position: isMobile ? 'bottom' : 'right',
                     labels: {
-                        boxWidth: 12,
-                        font: { size: 10 }
+                        boxWidth: isMobile ? 8 : 12,
+                        font: { size: isMobile ? 9 : 10 },
+                        padding: isMobile ? 6 : 10
                     }
                 }
             }
@@ -434,11 +622,18 @@ function renderCharts() {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: !isMobile,
             plugins: {
                 legend: { display: false }
             },
             scales: {
-                y: { beginAtZero: true }
+                x: {
+                    ticks: { font: { size: isMobile ? 10 : 12 } }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: { font: { size: isMobile ? 9 : 12 } }
+                }
             }
         }
     });
