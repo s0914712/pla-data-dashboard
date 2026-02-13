@@ -3,16 +3,24 @@
 ===============================================================================
 Grok API 新聞分類器 / Grok News Classifier
 ===============================================================================
+
 使用 Grok API (via apertis.ai) 進行新聞分類和情緒分析
 支援 GDELT 風格的情緒分數 (-1 到 +1)
 """
+
 import json
 import httpx
 import time
 from typing import List, Dict, Optional
 from .prompts import CLASSIFICATION_SYSTEM_PROMPT, CLASSIFICATION_USER_TEMPLATE
+
+
 class GrokNewsClassifier:
     """使用 Grok API 進行新聞分類和情緒分析"""
+
+    # 可重試的 HTTP 狀態碼
+    RETRYABLE_STATUS_CODES = {429, 500, 502, 503, 504}
+    MAX_RETRIES = 3
     
     def __init__(self, api_key: str):
         self.api_key = api_key.strip()
@@ -20,38 +28,93 @@ class GrokNewsClassifier:
         self.model = "glm-4.5-air:free"
         # trust_env=False 防止 CI/CD 環境代理設定干擾
         self.client = httpx.Client(timeout=60, trust_env=False)
+        self._debug_printed = False
+
+        # 初始化時印出診斷資訊
+        masked_key = self.api_key[:8] + "..." + self.api_key[-4:] if len(self.api_key) > 12 else "***"
+        print(f"[GrokClassifier] ========== 診斷資訊 ==========")
+        print(f"[GrokClassifier] API URL  : {self.api_url}")
+        print(f"[GrokClassifier] Model    : {self.model}")
+        print(f"[GrokClassifier] API Key  : {masked_key} (length={len(self.api_key)})")
+        print(f"[GrokClassifier] Retries  : max {self.MAX_RETRIES} (backoff: 5s, 10s, 20s)")
+        print(f"[GrokClassifier] ================================")
     
     def _call_api(self, messages: List[Dict]) -> Optional[str]:
         """
-        調用 Grok API
+        調用 API，含自動重試 (503/429/500 等錯誤會重試)
         
         Args:
             messages: 消息列表
             
         Returns:
-            API 回應內容
+            API 回應內容，失敗時返回 None
         """
-        try:
-            response = self.client.post(
-                self.api_url,
-                headers={
-                    "Authorization": f"Bearer {self.api_key}",
-                    "Content-Type": "application/json"
-                },
-                json={
-                    "model": self.model,
-                    "messages": messages,
-                    "temperature": 0.1  # 低溫度以獲得穩定 JSON 輸出
-                }
-            )
-            if response.status_code != 200:
-                print(f"[GrokClassifier] API Error Status: {response.status_code}")
-                print(f"[GrokClassifier] API Error Body: {response.text}")
-                response.raise_for_status()
-            return response.json()["choices"][0]["message"]["content"]
-        except Exception as e:
-            print(f"[GrokClassifier] API Error: {e}")
-            return None
+        last_error = None
+
+        for attempt in range(1, self.MAX_RETRIES + 1):
+            try:
+                response = self.client.post(
+                    self.api_url,
+                    headers={
+                        "Authorization": f"Bearer {self.api_key}",
+                        "Content-Type": "application/json"
+                    },
+                    json={
+                        "model": self.model,
+                        "messages": messages,
+                        "temperature": 0.1
+                    }
+                )
+
+                # 成功
+                if response.status_code == 200:
+                    return response.json()["choices"][0]["message"]["content"]
+
+                # 可重試的錯誤
+                if response.status_code in self.RETRYABLE_STATUS_CODES:
+                    wait_time = 5 * (2 ** (attempt - 1))  # 5s, 10s, 20s
+                    print(f"[GrokClassifier] ⚠️  HTTP {response.status_code} (attempt {attempt}/{self.MAX_RETRIES})")
+                    print(f"[GrokClassifier]    Body: {response.text[:200]}")
+                    if attempt < self.MAX_RETRIES:
+                        print(f"[GrokClassifier]    等待 {wait_time}s 後重試...")
+                        time.sleep(wait_time)
+                        continue
+                    else:
+                        print(f"[GrokClassifier] ❌ 已達最大重試次數，放棄此請求")
+                        return None
+
+                # 不可重試的錯誤 (401, 403, 400 等)
+                print(f"[GrokClassifier] ❌ HTTP {response.status_code} (不可重試)")
+                print(f"[GrokClassifier]    Body: {response.text[:300]}")
+                if response.status_code in (401, 403):
+                    print(f"[GrokClassifier]    🔑 請檢查 API Key 是否正確、是否過期")
+                return None
+
+            except httpx.ConnectError as e:
+                wait_time = 5 * (2 ** (attempt - 1))
+                print(f"[GrokClassifier] ⚠️  連線失敗 (attempt {attempt}/{self.MAX_RETRIES}): {e}")
+                if attempt < self.MAX_RETRIES:
+                    print(f"[GrokClassifier]    等待 {wait_time}s 後重試...")
+                    time.sleep(wait_time)
+                    continue
+                print(f"[GrokClassifier] ❌ 連線失敗已達最大重試次數")
+                return None
+
+            except httpx.TimeoutException as e:
+                wait_time = 5 * (2 ** (attempt - 1))
+                print(f"[GrokClassifier] ⚠️  請求超時 (attempt {attempt}/{self.MAX_RETRIES}): {e}")
+                if attempt < self.MAX_RETRIES:
+                    print(f"[GrokClassifier]    等待 {wait_time}s 後重試...")
+                    time.sleep(wait_time)
+                    continue
+                print(f"[GrokClassifier] ❌ 超時已達最大重試次數")
+                return None
+
+            except Exception as e:
+                print(f"[GrokClassifier] ❌ 未預期錯誤: {type(e).__name__}: {e}")
+                return None
+
+        return None
     
     def classify_single(self, article: Dict) -> Dict:
         """
@@ -176,6 +239,8 @@ class GrokNewsClassifier:
     
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close()
+
+
 def test_classifier():
     """測試分類器（需要 API Key）"""
     import os
@@ -199,5 +264,7 @@ def test_classifier():
     print(json.dumps(result, ensure_ascii=False, indent=2))
     
     classifier.close()
+
+
 if __name__ == '__main__':
     test_classifier()
