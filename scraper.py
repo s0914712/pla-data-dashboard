@@ -225,7 +225,7 @@ def main():
             )
             time.sleep(3)
             
-            soup = BeautifulSoup(driver.page_source, "html.parser")
+            soup = BeautifulSoup(driver.page_source, "lxml")
             all_links = soup.find_all('a', href=re.compile(r'news/plaact/\d+'))
             
             print(f"  找到 {len(all_links)} 個 plaact 連結")
@@ -304,7 +304,7 @@ def main():
                     )
                     time.sleep(2)
                     
-                    detail_soup = BeautifulSoup(driver.page_source, "html.parser")
+                    detail_soup = BeautifulSoup(driver.page_source, "lxml")
                     
                     content_areas = [
                         detail_soup.find('div', class_='content'),
