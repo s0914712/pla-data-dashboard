@@ -3,26 +3,23 @@
 ===============================================================================
 Grok API 新聞分類器 / Grok News Classifier
 ===============================================================================
-
 使用 Grok API (via apertis.ai) 進行新聞分類和情緒分析
 支援 GDELT 風格的情緒分數 (-1 到 +1)
 """
-
 import json
 import httpx
 import time
 from typing import List, Dict, Optional
 from .prompts import CLASSIFICATION_SYSTEM_PROMPT, CLASSIFICATION_USER_TEMPLATE
-
-
 class GrokNewsClassifier:
     """使用 Grok API 進行新聞分類和情緒分析"""
     
     def __init__(self, api_key: str):
-        self.api_key = api_key
+        self.api_key = api_key.strip()
         self.api_url = "https://api.apertis.ai/v1/chat/completions"
-        self.model = "grok-4.1-fast:free"
-        self.client = httpx.Client(timeout=60)
+        self.model = "glm-4.5-air:free"
+        # trust_env=False 防止 CI/CD 環境代理設定干擾
+        self.client = httpx.Client(timeout=60, trust_env=False)
     
     def _call_api(self, messages: List[Dict]) -> Optional[str]:
         """
@@ -44,11 +41,13 @@ class GrokNewsClassifier:
                 json={
                     "model": self.model,
                     "messages": messages,
-                    "max_tokens": 1024,
-                    "temperature": 0.3  # 較低溫度以獲得更一致的輸出
+                    "temperature": 0.1  # 低溫度以獲得穩定 JSON 輸出
                 }
             )
-            response.raise_for_status()
+            if response.status_code != 200:
+                print(f"[GrokClassifier] API Error Status: {response.status_code}")
+                print(f"[GrokClassifier] API Error Body: {response.text}")
+                response.raise_for_status()
             return response.json()["choices"][0]["message"]["content"]
         except Exception as e:
             print(f"[GrokClassifier] API Error: {e}")
@@ -177,8 +176,6 @@ class GrokNewsClassifier:
     
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close()
-
-
 def test_classifier():
     """測試分類器（需要 API Key）"""
     import os
@@ -202,7 +199,5 @@ def test_classifier():
     print(json.dumps(result, ensure_ascii=False, indent=2))
     
     classifier.close()
-
-
 if __name__ == '__main__':
     test_classifier()
