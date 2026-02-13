@@ -1,7 +1,7 @@
 {
-  "last_update": "2026-02-13T13:57:04.744631",
+  "last_update": "2026-02-13T14:58:56.679931",
   "stats": {
-    "timestamp": "2026-02-13T13:56:06.013549",
+    "timestamp": "2026-02-13T14:48:39.796509",
     "days_back": 3,
     "sources": {
       "cna": {
@@ -14,7 +14,7 @@
     },
     "classification": {
       "total": 10,
-      "relevant": 0,
+      "relevant": 3,
       "status": "success"
     }
   }

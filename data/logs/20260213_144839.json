@@ -1,0 +1,25 @@
+{
+  "run_timestamp": "2026-02-13T14:48:39.796509",
+  "end_timestamp": "2026-02-13T14:58:56.676853",
+  "duration_seconds": 616.9,
+  "success": true,
+  "stats": {
+    "timestamp": "2026-02-13T14:48:39.796509",
+    "days_back": 3,
+    "sources": {
+      "cna": {
+        "scraped": 10,
+        "status": "success"
+      },
+      "xinhua": {
+        "status": "skipped"
+      }
+    },
+    "classification": {
+      "total": 10,
+      "relevant": 3,
+      "status": "success"
+    }
+  },
+  "console_output": "2026-02-13 14:48:39,796 Starting Daily News Update - 2026-02-13 14:48:39\n2026-02-13 14:48:39,796 Days back: 3\n2026-02-13 14:49:03,744 CNA: scraped 10 articles\n2026-02-13 14:49:03,744 Total articles scraped: 10\n2026-02-13 14:58:56,675 Classified: 10, Relevant: 3\n2026-02-13 14:58:56,676 Saved: data/news_classified.json, data/news_relevant.json\n"
+}

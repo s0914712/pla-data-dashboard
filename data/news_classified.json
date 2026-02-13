@@ -1,13 +1,18 @@
 [
   {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "中共37架次軍機出海，27架次逾越中線，配合共艦進行聯合戰備警巡",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-02-12",
       "title": "27架次共機配合共艦戰備警巡國軍嚴密掌握應處| 政治",
@@ -38,14 +43,19 @@
     }
   },
   {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "中共53機艦台海周邊活動，42架次共機其中32架次逾越中線",
+      "Foreign_battleship": "",
+      "Political_statement": "國軍嚴密監控與應處"
+    },
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-02-13",
       "title": "中共53機艦台海周邊活動國軍嚴密監控應處| 政治",
@@ -116,12 +126,17 @@
   {
     "category": "Not_Relevant",
     "is_relevant": false,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
+    "country1": "US",
+    "country2": "CN",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-02-12",
       "title": "佛州檢方起訴11嫌涉利誘美軍與中國公民假結婚| 國際",
@@ -135,12 +150,17 @@
   {
     "category": "Not_Relevant",
     "is_relevant": false,
-    "country1": "",
-    "country2": "",
+    "country1": "US",
+    "country2": "SY",
     "sentiment_score": 0.0,
     "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-02-13",
       "title": "美軍撤離敘利亞戰略基地移交大馬士革當局| 國際",
@@ -171,14 +191,19 @@
     }
   },
   {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
+    "category": "US_TW_Interaction",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "CN",
+    "sentiment_score": 0.1,
     "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
+    "extracted_data": {
+      "US_Taiwan_interaction": "台灣總統賴清德表示，面對中國極力阻擋，美國對台軍售案沒有改變",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "台灣總統：美國對台軍售案沒有改變"
+    },
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-02-11",
       "title": "總統：固然中國極力阻擋美國對台軍售案沒有改變| 政治",
