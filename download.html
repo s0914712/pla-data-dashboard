@@ -9,6 +9,10 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <!-- PapaParse for CSV parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
     <style>
         body {
@@ -149,6 +153,136 @@
             overflow-x: auto;
         }
 
+        /* ========== Data Explorer Section ========== */
+        .explorer-section {
+            margin-bottom: 2rem;
+        }
+
+        .explorer-title {
+            color: #343a40;
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .explorer-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .explorer-filter-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .explorer-filter-card label {
+            font-weight: 600;
+            color: #495057;
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .btn-filter {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-filter:hover {
+            color: white;
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .quick-range-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .quick-range-buttons .btn {
+            flex: 1;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .quick-range-buttons .btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .explorer-loading {
+            text-align: center;
+            padding: 3rem;
+            color: #667eea;
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .explorer-stat {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 0.75rem;
+        }
+
+        .explorer-stat-label {
+            display: block;
+            color: #6c757d;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .explorer-stat-value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .explorer-chart-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .explorer-chart-card h5 {
+            color: #343a40;
+            margin-bottom: 1rem;
+        }
+
         @media (max-width: 768px) {
             .fields-list {
                 column-count: 1;
@@ -157,6 +291,21 @@
                 display: block;
                 width: 100%;
                 margin: 0.5rem 0;
+            }
+            .explorer-filter-card {
+                padding: 1rem;
+            }
+            .explorer-chart-card {
+                padding: 1rem;
+            }
+            .quick-range-buttons {
+                margin-top: 0.5rem;
+            }
+            .explorer-stat-value {
+                font-size: 1.25rem;
+            }
+            .btn-filter {
+                margin-top: 0.25rem;
             }
         }
     </style>
@@ -193,6 +342,90 @@
 
 <!-- Main Content -->
 <div class="container">
+
+    <!-- Data Explorer Section -->
+    <div class="explorer-section" id="explorerSection">
+        <h4 class="explorer-title">Data Explorer</h4>
+        <p class="text-muted mb-3">Select a date range to visualize PLA aircraft and vessel activity trends.</p>
+
+        <!-- Date Range Filter Card -->
+        <div class="explorer-filter-card">
+            <div class="row align-items-end">
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <label for="startDate">Start Date</label>
+                    <input type="date" id="startDate" class="form-control">
+                </div>
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <label for="endDate">End Date</label>
+                    <input type="date" id="endDate" class="form-control">
+                </div>
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <button id="applyFilter" class="btn btn-filter" onclick="applyDateFilter()">
+                        Apply Filter
+                    </button>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <div class="quick-range-buttons">
+                        <button class="btn btn-sm btn-outline-secondary" onclick="setQuickRange(90, this)">3M</button>
+                        <button class="btn btn-sm btn-outline-secondary" onclick="setQuickRange(180, this)">6M</button>
+                        <button class="btn btn-sm btn-outline-secondary" onclick="setQuickRange(365, this)">1Y</button>
+                        <button class="btn btn-sm btn-outline-secondary" onclick="setQuickRange(0, this)">All</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="explorerLoading" class="explorer-loading">
+            <div class="loading-spinner"></div>
+            <p>Loading data...</p>
+        </div>
+
+        <!-- Charts (hidden until data loads) -->
+        <div id="explorerCharts" style="display: none;">
+            <!-- Summary Stats Row -->
+            <div class="row mb-3">
+                <div class="col-md-3 col-sm-6">
+                    <div class="explorer-stat">
+                        <span class="explorer-stat-label">Records in Range</span>
+                        <span class="explorer-stat-value" id="filteredRecords">-</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="explorer-stat">
+                        <span class="explorer-stat-label">Avg Aircraft Sorties</span>
+                        <span class="explorer-stat-value" id="filteredAvgAircraft">-</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="explorer-stat">
+                        <span class="explorer-stat-label">Avg Vessel Sorties</span>
+                        <span class="explorer-stat-value" id="filteredAvgVessel">-</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="explorer-stat">
+                        <span class="explorer-stat-label">Date Range</span>
+                        <span class="explorer-stat-value" id="filteredDateRange" style="font-size: 1rem;">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Graph 1: Aircraft Sorties -->
+            <div class="explorer-chart-card">
+                <h5>PLA Aircraft Sorties</h5>
+                <canvas id="aircraftSortiesChart"></canvas>
+            </div>
+
+            <!-- Graph 2: Vessel Sorties -->
+            <div class="explorer-chart-card">
+                <h5>PLA Vessel Sorties</h5>
+                <canvas id="vesselSortiesChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-4">
 
     <!-- Strait Transit Dataset -->
     <div class="download-card primary">
@@ -361,6 +594,249 @@ df2 = pd.read_csv('https://raw.githubusercontent.com/s0914712/pla-data-dashboard
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Data Explorer JS -->
+<script>
+let explorerData = [];
+let aircraftChart = null;
+let vesselChart = null;
+
+window.addEventListener('load', async function() {
+    await loadExplorerData();
+});
+
+async function loadExplorerData() {
+    try {
+        const response = await fetch('data/JapanandBattleship.csv');
+        const text = await response.text();
+        const cleanText = text.replace(/^\uFEFF/, '');
+
+        const parsed = Papa.parse(cleanText, {
+            header: true,
+            skipEmptyLines: true,
+            encoding: 'UTF-8'
+        });
+
+        explorerData = parsed.data;
+
+        // Determine data bounds for date inputs
+        const dates = explorerData
+            .filter(r => r.date)
+            .map(r => r.date.replace(/\//g, '-'))
+            .sort();
+
+        if (dates.length > 0) {
+            const minDate = dates[0];
+            const maxDate = dates[dates.length - 1];
+
+            const startInput = document.getElementById('startDate');
+            const endInput = document.getElementById('endDate');
+
+            startInput.min = minDate;
+            startInput.max = maxDate;
+            endInput.min = minDate;
+            endInput.max = maxDate;
+
+            // Default: last 6 months
+            endInput.value = maxDate;
+            const sixMonthsAgo = new Date(maxDate);
+            sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+            startInput.value = sixMonthsAgo.toISOString().split('T')[0];
+        }
+
+        initExplorerCharts();
+        applyDateFilter();
+
+        document.getElementById('explorerLoading').style.display = 'none';
+        document.getElementById('explorerCharts').style.display = 'block';
+
+    } catch (error) {
+        console.error('Error loading explorer data:', error);
+        document.getElementById('explorerLoading').innerHTML =
+            '<p class="text-danger">Failed to load data. Please refresh the page.</p>';
+    }
+}
+
+function initExplorerCharts() {
+    const isMobile = window.innerWidth < 768;
+
+    aircraftChart = new Chart(document.getElementById('aircraftSortiesChart'), {
+        type: 'line',
+        data: { labels: [], datasets: [] },
+        options: {
+            responsive: true,
+            maintainAspectRatio: !isMobile,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return 'Aircraft Sorties: ' + context.parsed.y;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: !isMobile, text: 'Sorties' }
+                },
+                x: {
+                    ticks: {
+                        maxTicksAllowed: isMobile ? 5 : 10,
+                        maxRotation: isMobile ? 45 : 0,
+                        font: { size: isMobile ? 10 : 12 }
+                    }
+                }
+            }
+        }
+    });
+
+    vesselChart = new Chart(document.getElementById('vesselSortiesChart'), {
+        type: 'line',
+        data: { labels: [], datasets: [] },
+        options: {
+            responsive: true,
+            maintainAspectRatio: !isMobile,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return 'Vessel Sorties: ' + context.parsed.y;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: !isMobile, text: 'Vessels' }
+                },
+                x: {
+                    ticks: {
+                        maxTicksAllowed: isMobile ? 5 : 10,
+                        maxRotation: isMobile ? 45 : 0,
+                        font: { size: isMobile ? 10 : 12 }
+                    }
+                }
+            }
+        }
+    });
+}
+
+function applyDateFilter() {
+    const startVal = document.getElementById('startDate').value;
+    const endVal = document.getElementById('endDate').value;
+
+    if (!startVal || !endVal) {
+        alert('Please select both start and end dates.');
+        return;
+    }
+
+    if (startVal > endVal) {
+        alert('Start date must be before end date.');
+        return;
+    }
+
+    const startNorm = startVal.replace(/-/g, '/');
+    const endNorm = endVal.replace(/-/g, '/');
+
+    const filtered = explorerData.filter(r => {
+        if (!r.date) return false;
+        const d = r.date.trim();
+        return d >= startNorm && d <= endNorm;
+    });
+
+    const aircraftData = filtered
+        .filter(r => r.pla_aircraft_sorties && r.pla_aircraft_sorties !== '')
+        .map(r => ({ date: r.date, value: parseFloat(r.pla_aircraft_sorties) }))
+        .filter(r => !isNaN(r.value));
+
+    const vesselData = filtered
+        .filter(r => r.plan_vessel_sorties && r.plan_vessel_sorties !== '')
+        .map(r => ({ date: r.date, value: parseFloat(r.plan_vessel_sorties) }))
+        .filter(r => !isNaN(r.value));
+
+    updateExplorerStats(aircraftData, vesselData, startVal, endVal);
+
+    aircraftChart.data.labels = aircraftData.map(d => d.date);
+    aircraftChart.data.datasets = [{
+        label: 'PLA Aircraft Sorties',
+        data: aircraftData.map(d => d.value),
+        borderColor: '#667eea',
+        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+        fill: true,
+        tension: 0.4,
+        pointRadius: aircraftData.length > 365 ? 0 : 2,
+        pointHoverRadius: 4,
+        borderWidth: 2
+    }];
+    aircraftChart.update();
+
+    vesselChart.data.labels = vesselData.map(d => d.date);
+    vesselChart.data.datasets = [{
+        label: 'PLA Vessel Sorties',
+        data: vesselData.map(d => d.value),
+        borderColor: '#764ba2',
+        backgroundColor: 'rgba(118, 75, 162, 0.1)',
+        fill: true,
+        tension: 0.4,
+        pointRadius: vesselData.length > 365 ? 0 : 2,
+        pointHoverRadius: 4,
+        borderWidth: 2
+    }];
+    vesselChart.update();
+}
+
+function updateExplorerStats(aircraftData, vesselData, startVal, endVal) {
+    document.getElementById('filteredRecords').textContent =
+        Math.max(aircraftData.length, vesselData.length).toLocaleString();
+
+    if (aircraftData.length > 0) {
+        const avg = aircraftData.reduce((sum, d) => sum + d.value, 0) / aircraftData.length;
+        document.getElementById('filteredAvgAircraft').textContent = avg.toFixed(1);
+    } else {
+        document.getElementById('filteredAvgAircraft').textContent = '-';
+    }
+
+    if (vesselData.length > 0) {
+        const avg = vesselData.reduce((sum, d) => sum + d.value, 0) / vesselData.length;
+        document.getElementById('filteredAvgVessel').textContent = avg.toFixed(1);
+    } else {
+        document.getElementById('filteredAvgVessel').textContent = '-';
+    }
+
+    const startDisp = new Date(startVal).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+    const endDisp = new Date(endVal).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+    document.getElementById('filteredDateRange').textContent = startDisp + ' - ' + endDisp;
+}
+
+function setQuickRange(days, btn) {
+    const dates = explorerData
+        .filter(r => r.date)
+        .map(r => r.date.replace(/\//g, '-'))
+        .sort();
+
+    if (dates.length === 0) return;
+
+    const maxDate = dates[dates.length - 1];
+    document.getElementById('endDate').value = maxDate;
+
+    if (days === 0) {
+        document.getElementById('startDate').value = dates[0];
+    } else {
+        const start = new Date(maxDate);
+        start.setDate(start.getDate() - days);
+        document.getElementById('startDate').value = start.toISOString().split('T')[0];
+    }
+
+    document.querySelectorAll('.quick-range-buttons .btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+
+    applyDateFilter();
+}
+</script>
 
 </body>
 </html>
