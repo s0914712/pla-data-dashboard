@@ -22,17 +22,23 @@ start_page = 1
 def init_driver():
     chrome_options = Options()
     
-    # [修正點 1] 移除 Headless 模式，避免被網站 WAF (防火牆) 擋下
-    # chrome_options.add_argument('--headless') 
+    # [GitHub Actions 修正關鍵]
+    # 在 GitHub Actions 必須使用 Headless 模式 (因為沒有螢幕)。
+    # 但舊版 --headless 容易被擋，必須使用新版 "--headless=new" 才能騙過防火牆。
+    chrome_options.add_argument('--headless=new')
     
-    # [修正點 2] 增加隱匿特徵，讓瀏覽器看起來像真人操作
+    # CI/CD 環境標準設定
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
-    chrome_options.add_argument('--disable-blink-features=AutomationControlled') # 關鍵：隱藏自動化特徵
-    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"]) # 關鍵：移除自動化提示
-    chrome_options.add_experimental_option('useAutomationExtension', False)
+    chrome_options.add_argument('--window-size=1920,1080') # 強制設定視窗大小，避免 RWD 隱藏元素
     
-    chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
+    # 反爬蟲偽裝設定
+    chrome_options.add_argument('--disable-blink-features=AutomationControlled') 
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"]) 
+    chrome_options.add_experimental_option('useAutomationExtension', False)
+    chrome_options.add_argument('--lang=zh-TW') # 模擬繁體中文環境
+    
+    chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36')
     
     # 使用 webdriver_manager 自動管理驅動 (若報錯可改回直接呼叫 webdriver.Chrome())
     try:
