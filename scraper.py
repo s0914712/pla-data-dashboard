@@ -31,6 +31,71 @@ def init_driver():
     driver = webdriver.Chrome(service=service, options=chrome_options)
     return driver
 
+def extract_date_from_link(link):
+    """從連結元素中提取日期文字，支援多種 HTML 結構"""
+    # Strategy 1: Original pattern - h5.date > span.en
+    date_elem = link.find('h5', class_='date')
+    if date_elem:
+        date_span = date_elem.find('span', class_='en')
+        text = date_span.get_text(strip=True) if date_span else date_elem.get_text(strip=True)
+        if text:
+            return text
+
+    # Strategy 2: Any element with class containing 'date' (div.date, span.date, p.date, etc.)
+    for tag in ['div', 'span', 'p', 'time', 'small', 'h5', 'h6']:
+        elem = link.find(tag, class_=re.compile(r'date', re.IGNORECASE))
+        if elem:
+            # Check for span.en inside
+            en_span = elem.find('span', class_='en')
+            text = en_span.get_text(strip=True) if en_span else elem.get_text(strip=True)
+            if text:
+                return text
+
+    # Strategy 3: <time> element (common semantic HTML)
+    time_elem = link.find('time')
+    if time_elem:
+        text = time_elem.get('datetime', '') or time_elem.get_text(strip=True)
+        if text:
+            return text
+
+    # Strategy 4: Any element with class 'en' that contains a date-like pattern
+    for elem in link.find_all(class_='en'):
+        text = elem.get_text(strip=True)
+        if re.search(r'\d{2,4}[./\-]\d{1,2}[./\-]\d{1,2}', text):
+            return text
+
+    # Strategy 5: Search all text in the link for date patterns
+    full_text = link.get_text(separator=' ', strip=True)
+    date_match = re.search(r'(\d{3,4})[./\-](\d{1,2})[./\-](\d{1,2})', full_text)
+    if date_match:
+        return date_match.group(0)
+
+    return None
+
+
+def extract_title_from_link(link):
+    """從連結元素中提取標題文字，支援多種 HTML 結構"""
+    # Strategy 1: Original pattern - h4.title
+    title_elem = link.find('h4', class_='title')
+    if title_elem:
+        return title_elem.get_text(strip=True)
+
+    # Strategy 2: Any heading or element with class containing 'title'
+    for tag in ['h4', 'h3', 'h5', 'div', 'span', 'p']:
+        elem = link.find(tag, class_=re.compile(r'title', re.IGNORECASE))
+        if elem:
+            return elem.get_text(strip=True)
+
+    # Strategy 3: Fall back to full link text (remove date-like portions)
+    full_text = link.get_text(separator=' ', strip=True)
+    # Remove date patterns from the text to get the title part
+    title_text = re.sub(r'\d{3,4}[./\-]\d{1,2}[./\-]\d{1,2}', '', full_text).strip()
+    if title_text:
+        return title_text
+
+    return full_text
+
+
 def extract_numbers_from_text(text):
     """從文本中提取共機共艦數量"""
     aircraft_patterns = [
@@ -164,32 +229,39 @@ def main():
             all_links = soup.find_all('a', href=re.compile(r'news/plaact/\d+'))
             
             print(f"  找到 {len(all_links)} 個 plaact 連結")
-            
+
+            # Debug: print first link's HTML when date extraction might fail
+            if all_links and page == 1:
+                first_link = all_links[0]
+                first_date_test = extract_date_from_link(first_link)
+                if not first_date_test:
+                    print(f"\n  🔍 DEBUG - 第一個連結 HTML 結構 (日期提取失敗):")
+                    link_html = str(first_link)
+                    # Truncate if too long
+                    if len(link_html) > 800:
+                        link_html = link_html[:800] + '...(truncated)'
+                    print(f"  {link_html}\n")
+
             for idx, link in enumerate(all_links, 1):
                 try:
                     href = link.get('href')
-                    
+
                     if href.startswith('/'):
                         detail_url = f"https://www.mnd.gov.tw{href}"
                     elif href.startswith('http'):
                         detail_url = href
                     else:
                         detail_url = f"https://www.mnd.gov.tw/{href}"
-                    
+
                     if detail_url in processed_urls:
                         continue
                     processed_urls.add(detail_url)
-                    
-                    # 提取日期
-                    date_elem = link.find('h5', class_='date')
-                    if date_elem:
-                        date_span = date_elem.find('span', class_='en')
-                        date_text = date_span.get_text(strip=True) if date_span else date_elem.get_text(strip=True)
-                    else:
-                        date_text = None
-                    
+
+                    # 提取日期 (支援多種 HTML 結構)
+                    date_text = extract_date_from_link(link)
+
                     if date_text:
-                        date_match = re.search(r'(\d{3,4})[./](\d{1,2})[./](\d{1,2})', date_text)
+                        date_match = re.search(r'(\d{3,4})[./\-](\d{1,2})[./\-](\d{1,2})', date_text)
                         if date_match:
                             year = int(date_match.group(1))
                             if year < 1000:
@@ -201,27 +273,27 @@ def main():
                             date = None
                     else:
                         date = None
-                    
+
                     if not date:
-                        print(f"  [{idx:2d}] ⚠️ 找不到日期，跳過")
+                        link_text = link.get_text(separator=' ', strip=True)[:80]
+                        print(f"  [{idx:2d}] ⚠️ 找不到日期，跳過 (text: {link_text})")
                         continue
-                    
+
                     try:
                         current_date = datetime.strptime(date, '%Y/%m/%d')
                     except:
                         print(f"  [{idx:2d}] ⚠️ 日期格式錯誤: {date}")
                         continue
-                    
+
                     if current_date <= latest_date:
                         print(f"  [{idx:2d}] {date} ⏭️  已存在")
                         continue
-                    
-                    # 檢查標題
-                    title_elem = link.find('h4', class_='title')
-                    if title_elem:
-                        title_text = title_elem.get_text(strip=True)
+
+                    # 檢查標題 (支援多種 HTML 結構)
+                    title_text = extract_title_from_link(link)
+                    if title_text:
                         if '中共解放軍' not in title_text and '臺海' not in title_text and '空域動態' not in title_text:
-                            print(f"  [{idx:2d}] {date} ⏭️  非相關標題")
+                            print(f"  [{idx:2d}] {date} ⏭️  非相關標題: {title_text[:40]}")
                             continue
                     
                     # 訪問詳細頁面
