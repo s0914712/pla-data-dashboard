@@ -21,15 +21,27 @@ start_page = 1
 
 def init_driver():
     chrome_options = Options()
-    chrome_options.add_argument('--headless')
+    
+    # [修正點 1] 移除 Headless 模式，避免被網站 WAF (防火牆) 擋下
+    # chrome_options.add_argument('--headless') 
+    
+    # [修正點 2] 增加隱匿特徵，讓瀏覽器看起來像真人操作
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
-    chrome_options.add_argument('--disable-gpu')
-    chrome_options.add_argument('--window-size=1920,1080')
-    chrome_options.add_argument('--disable-blink-features=AutomationControlled')
-    chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36')
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=chrome_options)
+    chrome_options.add_argument('--disable-blink-features=AutomationControlled') # 關鍵：隱藏自動化特徵
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"]) # 關鍵：移除自動化提示
+    chrome_options.add_experimental_option('useAutomationExtension', False)
+    
+    chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
+    
+    # 使用 webdriver_manager 自動管理驅動 (若報錯可改回直接呼叫 webdriver.Chrome())
+    try:
+        service = Service(ChromeDriverManager().install())
+        driver = webdriver.Chrome(service=service, options=chrome_options)
+    except:
+        # 備用方案：直接使用系統路徑的 chromedriver
+        driver = webdriver.Chrome(options=chrome_options)
+        
     return driver
 
 def extract_numbers_from_text(text):
@@ -51,7 +63,6 @@ def get_latest_date_from_csv():
     """從 CSV 讀取最新日期"""
     try:
         if not os.path.exists(CSV_FILE):
-            print(f"CSV 檔案不存在: {CSV_FILE}")
             return None
 
         df = pd.read_csv(CSV_FILE, encoding='utf-8-sig')
@@ -59,6 +70,7 @@ def get_latest_date_from_csv():
         if df.empty or 'date' not in df.columns:
             return None
 
+        # 確保日期格式正確讀取
         dates = pd.to_datetime(df['date'], format='%Y/%m/%d', errors='coerce')
         latest_date = dates.max()
 
@@ -87,6 +99,7 @@ def save_to_csv(new_data):
     df_new = pd.DataFrame(new_data, columns=['date', 'pla_aircraft_sorties', 'plan_vessel_sorties'])
     df_combined = pd.concat([df_existing, df_new], ignore_index=True)
 
+    # 統一日期格式並去重
     df_combined['date'] = pd.to_datetime(df_combined['date'], format='%Y/%m/%d')
     df_combined = df_combined.sort_values('date')
     df_combined['date'] = df_combined['date'].dt.strftime('%Y/%m/%d')
@@ -102,7 +115,7 @@ def main():
 
     latest_date = get_latest_date_from_csv()
     if latest_date:
-        print(f"CSV 最新日期: {latest_date.strftime('%Y/%m/%d')}")
+        print(f"📅 CSV 最新日期: {latest_date.strftime('%Y/%m/%d')}")
     else:
         print(f"無現有資料，將爬取所有資料")
         latest_date = datetime.min
@@ -111,26 +124,28 @@ def main():
     processed_urls = set()
 
     driver = init_driver()
-    print("瀏覽器啟動成功\n")
+    print("✓ 瀏覽器啟動成功\n")
 
     try:
         for page in range(start_page, total_pages + 1):
             try:
                 page_url = base_url if page == 1 else f"{base_url}&Page={page}"
 
-                print(f"第 {page} 頁: {page_url}")
+                print(f"📄 第 {page} 頁: {page_url}")
                 driver.get(page_url)
+                
+                # 等待列表讀取
                 WebDriverWait(driver, 15).until(
                     EC.presence_of_element_located((By.TAG_NAME, "body"))
                 )
-                time.sleep(3)
+                time.sleep(3) # 給予額外緩衝時間
 
                 soup = BeautifulSoup(driver.page_source, "html.parser")
 
                 # 方法1: BS4 找 plaact 連結
                 links = soup.find_all("a", href=re.compile(r'/news/plaact/\d+'))
 
-                # 方法2: 如果方法1沒找到，用 Selenium 找
+                # 方法2: Selenium 補強 (針對動態加載)
                 if not links:
                     selenium_links = driver.find_elements(By.TAG_NAME, "a")
                     links = []
@@ -138,15 +153,15 @@ def main():
                         try:
                             href = link.get_attribute("href")
                             text = link.text
-                            if href and "plaact" in href and re.search(r'/\d+', href):
+                            if href and "plaact" in href and ("中共" in text or "動態" in text):
                                 links.append({'href': href, 'text': text})
                         except:
                             continue
                 else:
-                    links = [{'href': f"https://www.mnd.gov.tw{link.get('href')}",
+                    links = [{'href': f"https://www.mnd.gov.tw{link.get('href')}", 
                               'text': link.get_text(strip=True)} for link in links]
 
-                print(f"  找到 {len(links)} 個新聞項目")
+                print(f"  找到 {len(links)} 個 plaact 連結")
 
                 for idx, link_info in enumerate(links, 1):
                     try:
@@ -162,22 +177,24 @@ def main():
                             continue
                         processed_urls.add(detail_url)
 
-                        print(f"  [{idx:2d}] 讀取中...", end=" ")
+                        # print(f"  [{idx:2d}] 讀取中...", end=" ") 
 
                         # 訪問詳細頁面
                         driver.get(detail_url)
                         WebDriverWait(driver, 10).until(
                             EC.presence_of_element_located((By.TAG_NAME, "body"))
                         )
-                        time.sleep(2)
+                        time.sleep(2) # 關鍵：等待內文渲染
 
                         # 獲取頁面內容
                         detail_soup = BeautifulSoup(driver.page_source, "html.parser")
                         body_text = detail_soup.body.get_text(separator="\n", strip=True)
 
-                        # 從詳細頁面內文提取日期 (中華民國114年2月13日)
+                        # [修正點 3] 優化日期提取正則表達式，容許空格
                         date = None
-                        date_match = re.search(r'中華民國(\d{3})年(\d{1,2})月(\d{1,2})日', body_text)
+                        # 格式：中華民國 114 年 2 月 13 日 (允許中間有空白)
+                        date_match = re.search(r'中華民國\s*(\d{2,3})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日', body_text)
+                        
                         if date_match:
                             roc_year = int(date_match.group(1))
                             month = date_match.group(2).zfill(2)
@@ -185,8 +202,9 @@ def main():
                             west_year = roc_year + 1911
                             date = f"{west_year}/{month}/{day}"
 
+                        # 備用日期格式 (114年2月13日)
                         if not date:
-                            alt_match = re.search(r'(\d{3})年(\d{1,2})月(\d{1,2})日', body_text)
+                            alt_match = re.search(r'(\d{2,3})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日', body_text)
                             if alt_match:
                                 roc_year = int(alt_match.group(1))
                                 month = alt_match.group(2).zfill(2)
@@ -195,33 +213,34 @@ def main():
                                 date = f"{west_year}/{month}/{day}"
 
                         if not date:
-                            print(f"無法提取日期，跳過")
+                            print(f"  [{idx:2d}] ⚠️ 找不到日期，跳過")
                             driver.back()
-                            time.sleep(2)
+                            time.sleep(1)
                             continue
 
                         # 檢查日期是否比最新日期新
                         current_date = datetime.strptime(date, '%Y/%m/%d')
                         if current_date <= latest_date:
-                            print(f"{date} 已存在，跳過")
+                            print(f"  [{idx:2d}] {date} 已存在，跳過")
                             driver.back()
-                            time.sleep(2)
+                            time.sleep(1)
                             continue
 
                         # 提取共機共艦數量
                         aircraft, vessel = extract_numbers_from_text(body_text)
 
                         all_data.append([date, aircraft, vessel])
-                        print(f"{date} | 共機 {aircraft:2d} | 共艦 {vessel:2d}")
+                        # 成功輸出
+                        print(f"  [{idx:2d}] {date} | 共機 {aircraft:2d} | 共艦 {vessel:2d}")
 
                         # 返回列表頁
                         driver.back()
-                        time.sleep(2)
+                        time.sleep(1)
 
                     except Exception as e:
-                        print(f"\n  處理項目 {idx} 時發生錯誤: {e}")
+                        print(f"\n  [{idx:2d}] 處理發生錯誤: {e}")
                         try:
-                            driver.get(page_url)
+                            driver.get(page_url) # 嘗試回到列表頁
                             time.sleep(2)
                         except:
                             pass
