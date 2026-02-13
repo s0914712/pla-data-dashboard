@@ -3,7 +3,7 @@ Colab 版本 - 國防部 PLA 資料爬蟲
 在 Colab 使用前，先執行：
     !apt-get update
     !apt-get install -y chromium-browser chromium-chromedriver
-    !pip install selenium beautifulsoup4 pandas lxml
+    !pip install selenium beautifulsoup4 pandas
 """
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -33,6 +33,7 @@ def init_driver():
     chrome_options.add_argument('--disable-dev-shm-usage')
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--window-size=1920,1080')
+    chrome_options.add_argument('--disable-blink-features=AutomationControlled')
     chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36')
 
     # Colab: use system chromium
@@ -41,103 +42,18 @@ def init_driver():
     driver = webdriver.Chrome(service=service, options=chrome_options)
     return driver
 
-def extract_date_from_link(link):
-    """從連結元素中提取日期文字，支援多種 HTML 結構"""
-    # Strategy 1: Original pattern - h5.date > span.en
-    date_elem = link.find('h5', class_='date')
-    if date_elem:
-        date_span = date_elem.find('span', class_='en')
-        text = date_span.get_text(strip=True) if date_span else date_elem.get_text(strip=True)
-        if text:
-            return text
-
-    # Strategy 2: Any element with class containing 'date' (div.date, span.date, p.date, etc.)
-    for tag in ['div', 'span', 'p', 'time', 'small', 'h5', 'h6']:
-        elem = link.find(tag, class_=re.compile(r'date', re.IGNORECASE))
-        if elem:
-            en_span = elem.find('span', class_='en')
-            text = en_span.get_text(strip=True) if en_span else elem.get_text(strip=True)
-            if text:
-                return text
-
-    # Strategy 3: <time> element (common semantic HTML)
-    time_elem = link.find('time')
-    if time_elem:
-        text = time_elem.get('datetime', '') or time_elem.get_text(strip=True)
-        if text:
-            return text
-
-    # Strategy 4: Any element with class 'en' that contains a date-like pattern
-    for elem in link.find_all(class_='en'):
-        text = elem.get_text(strip=True)
-        if re.search(r'\d{2,4}[./\-]\d{1,2}[./\-]\d{1,2}', text):
-            return text
-
-    # Strategy 5: Search all text in the link for date patterns
-    full_text = link.get_text(separator=' ', strip=True)
-    date_match = re.search(r'(\d{3,4})[./\-](\d{1,2})[./\-](\d{1,2})', full_text)
-    if date_match:
-        return date_match.group(0)
-
-    return None
-
-
-def extract_title_from_link(link):
-    """從連結元素中提取標題文字，支援多種 HTML 結構"""
-    # Strategy 1: Original pattern - h4.title
-    title_elem = link.find('h4', class_='title')
-    if title_elem:
-        return title_elem.get_text(strip=True)
-
-    # Strategy 2: Any heading or element with class containing 'title'
-    for tag in ['h4', 'h3', 'h5', 'div', 'span', 'p']:
-        elem = link.find(tag, class_=re.compile(r'title', re.IGNORECASE))
-        if elem:
-            return elem.get_text(strip=True)
-
-    # Strategy 3: Fall back to full link text (remove date-like portions)
-    full_text = link.get_text(separator=' ', strip=True)
-    title_text = re.sub(r'\d{3,4}[./\-]\d{1,2}[./\-]\d{1,2}', '', full_text).strip()
-    if title_text:
-        return title_text
-
-    return full_text
-
-
 def extract_numbers_from_text(text):
     """從文本中提取共機共艦數量"""
-    aircraft_patterns = [
-        r'共機\s*(\d+)\s*架次',
-        r'共機：?\s*(\d+)',
-        r'(\d+)\s*架次',
-    ]
-
-    vessel_patterns = [
-        r'共艦\s*(\d+)\s*艘',
-        r'共艦：?\s*(\d+)',
-        r'(\d+)\s*艘',
-    ]
-
     aircraft = 0
     vessel = 0
 
-    for pattern in aircraft_patterns:
-        match = re.search(pattern, text)
-        if match:
-            try:
-                aircraft = int(match.group(1))
-                break
-            except:
-                continue
+    aircraft_match = re.search(r'共機\s*(\d+)\s*架次', text)
+    if aircraft_match:
+        aircraft = int(aircraft_match.group(1))
 
-    for pattern in vessel_patterns:
-        match = re.search(pattern, text)
-        if match:
-            try:
-                vessel = int(match.group(1))
-                break
-            except:
-                continue
+    vessel_match = re.search(r'共艦\s*(\d+)\s*艘', text)
+    if vessel_match:
+        vessel = int(vessel_match.group(1))
 
     return aircraft, vessel
 
@@ -145,7 +61,7 @@ def get_latest_date_from_csv():
     """從 CSV 讀取最新日期"""
     try:
         if not os.path.exists(CSV_FILE):
-            print(f"⚠️ CSV 檔案不存在: {CSV_FILE}")
+            print(f"CSV 檔案不存在: {CSV_FILE}")
             return None
 
         df = pd.read_csv(CSV_FILE, encoding='utf-8-sig')
@@ -168,7 +84,7 @@ def get_latest_date_from_csv():
 def save_to_csv(new_data):
     """將新資料附加到 CSV"""
     if not new_data:
-        print("ℹ️ 沒有新資料需要寫入")
+        print("沒有新資料需要寫入")
         return
 
     os.makedirs(os.path.dirname(CSV_FILE), exist_ok=True)
@@ -187,170 +103,163 @@ def save_to_csv(new_data):
     df_combined = df_combined.drop_duplicates(subset=['date'], keep='last')
 
     df_combined.to_csv(CSV_FILE, index=False, encoding='utf-8-sig')
-    print(f"✅ 成功寫入 {len(new_data)} 筆資料到 {CSV_FILE}")
+    print(f"成功寫入 {len(new_data)} 筆資料到 {CSV_FILE}")
 
 def main():
     print(f"\n{'='*60}")
-    print("🚀 開始爬取國防部資料... (Colab 版)")
+    print("開始爬取國防部資料... (Colab 版)")
     print(f"{'='*60}\n")
 
     latest_date = get_latest_date_from_csv()
     if latest_date:
-        print(f"📅 CSV 最新日期: {latest_date.strftime('%Y/%m/%d')}")
+        print(f"CSV 最新日期: {latest_date.strftime('%Y/%m/%d')}")
     else:
-        print(f"📅 無現有資料，將爬取所有資料")
+        print(f"無現有資料，將爬取所有資料")
         latest_date = datetime.min
 
     all_data = []
     processed_urls = set()
 
     driver = init_driver()
-    print("✓ 瀏覽器啟動成功\n")
+    print("瀏覽器啟動成功\n")
 
-    for page in range(start_page, total_pages + 1):
-        try:
-            if page == 1:
-                page_url = base_url
-            else:
-                page_url = f"{base_url}/{page}"
+    try:
+        for page in range(start_page, total_pages + 1):
+            try:
+                page_url = base_url if page == 1 else f"{base_url}&Page={page}"
 
-            print(f"📄 第 {page} 頁: {page_url}")
-            driver.get(page_url)
-            WebDriverWait(driver, 15).until(
-                EC.presence_of_element_located((By.TAG_NAME, "body"))
-            )
-            time.sleep(3)
+                print(f"第 {page} 頁: {page_url}")
+                driver.get(page_url)
+                WebDriverWait(driver, 15).until(
+                    EC.presence_of_element_located((By.TAG_NAME, "body"))
+                )
+                time.sleep(3)
 
-            soup = BeautifulSoup(driver.page_source, "lxml")
-            all_links = soup.find_all('a', href=re.compile(r'news/plaact/\d+'))
+                soup = BeautifulSoup(driver.page_source, "html.parser")
 
-            print(f"  找到 {len(all_links)} 個 plaact 連結")
+                # 方法1: BS4 找 plaact 連結
+                links = soup.find_all("a", href=re.compile(r'/news/plaact/\d+'))
 
-            # Debug: print first link's HTML when date extraction might fail
-            if all_links and page == 1:
-                first_link = all_links[0]
-                first_date_test = extract_date_from_link(first_link)
-                if not first_date_test:
-                    print(f"\n  🔍 DEBUG - 第一個連結 HTML 結構 (日期提取失敗):")
-                    link_html = str(first_link)
-                    if len(link_html) > 800:
-                        link_html = link_html[:800] + '...(truncated)'
-                    print(f"  {link_html}\n")
+                # 方法2: 如果方法1沒找到，用 Selenium 找
+                if not links:
+                    selenium_links = driver.find_elements(By.TAG_NAME, "a")
+                    links = []
+                    for link in selenium_links:
+                        try:
+                            href = link.get_attribute("href")
+                            text = link.text
+                            if href and "plaact" in href and re.search(r'/\d+', href):
+                                links.append({'href': href, 'text': text})
+                        except:
+                            continue
                 else:
-                    print(f"  ✓ 日期提取成功: {first_date_test}")
+                    links = [{'href': f"https://www.mnd.gov.tw{link.get('href')}",
+                              'text': link.get_text(strip=True)} for link in links]
 
-            for idx, link in enumerate(all_links, 1):
-                try:
-                    href = link.get('href')
+                print(f"  找到 {len(links)} 個新聞項目")
 
-                    if href.startswith('/'):
-                        detail_url = f"https://www.mnd.gov.tw{href}"
-                    elif href.startswith('http'):
-                        detail_url = href
-                    else:
-                        detail_url = f"https://www.mnd.gov.tw/{href}"
+                for idx, link_info in enumerate(links, 1):
+                    try:
+                        if isinstance(link_info, dict):
+                            detail_url = link_info['href']
+                        else:
+                            detail_url = f"https://www.mnd.gov.tw{link_info.get('href')}"
 
-                    if detail_url in processed_urls:
-                        continue
-                    processed_urls.add(detail_url)
+                        if not detail_url.startswith('http'):
+                            detail_url = f"https://www.mnd.gov.tw{detail_url}"
 
-                    # 提取日期 (支援多種 HTML 結構)
-                    date_text = extract_date_from_link(link)
+                        if detail_url in processed_urls:
+                            continue
+                        processed_urls.add(detail_url)
 
-                    if date_text:
-                        date_match = re.search(r'(\d{3,4})[./\-](\d{1,2})[./\-](\d{1,2})', date_text)
+                        print(f"  [{idx:2d}] 讀取中...", end=" ")
+
+                        # 訪問詳細頁面
+                        driver.get(detail_url)
+                        WebDriverWait(driver, 10).until(
+                            EC.presence_of_element_located((By.TAG_NAME, "body"))
+                        )
+                        time.sleep(2)
+
+                        # 獲取頁面內容
+                        detail_soup = BeautifulSoup(driver.page_source, "html.parser")
+                        body_text = detail_soup.body.get_text(separator="\n", strip=True)
+
+                        # 從詳細頁面內文提取日期 (中華民國114年2月13日)
+                        date = None
+                        date_match = re.search(r'中華民國(\d{3})年(\d{1,2})月(\d{1,2})日', body_text)
                         if date_match:
-                            year = int(date_match.group(1))
-                            if year < 1000:
-                                year += 1911
+                            roc_year = int(date_match.group(1))
                             month = date_match.group(2).zfill(2)
                             day = date_match.group(3).zfill(2)
-                            date = f"{year}/{month}/{day}"
-                        else:
-                            date = None
-                    else:
-                        date = None
+                            west_year = roc_year + 1911
+                            date = f"{west_year}/{month}/{day}"
 
-                    if not date:
-                        link_text = link.get_text(separator=' ', strip=True)[:80]
-                        print(f"  [{idx:2d}] ⚠️ 找不到日期，跳過 (text: {link_text})")
-                        continue
+                        if not date:
+                            alt_match = re.search(r'(\d{3})年(\d{1,2})月(\d{1,2})日', body_text)
+                            if alt_match:
+                                roc_year = int(alt_match.group(1))
+                                month = alt_match.group(2).zfill(2)
+                                day = alt_match.group(3).zfill(2)
+                                west_year = roc_year + 1911
+                                date = f"{west_year}/{month}/{day}"
 
-                    try:
-                        current_date = datetime.strptime(date, '%Y/%m/%d')
-                    except:
-                        print(f"  [{idx:2d}] ⚠️ 日期格式錯誤: {date}")
-                        continue
-
-                    if current_date <= latest_date:
-                        print(f"  [{idx:2d}] {date} ⏭️  已存在")
-                        continue
-
-                    # 檢查標題 (支援多種 HTML 結構)
-                    title_text = extract_title_from_link(link)
-                    if title_text:
-                        if '中共解放軍' not in title_text and '臺海' not in title_text and '空域動態' not in title_text:
-                            print(f"  [{idx:2d}] {date} ⏭️  非相關標題: {title_text[:40]}")
+                        if not date:
+                            print(f"無法提取日期，跳過")
+                            driver.back()
+                            time.sleep(2)
                             continue
 
-                    # 訪問詳細頁面
-                    print(f"  [{idx:2d}] {date} ⏳ 讀取中...", end=" ")
-                    driver.get(detail_url)
-                    WebDriverWait(driver, 10).until(
-                        EC.presence_of_element_located((By.TAG_NAME, "body"))
-                    )
-                    time.sleep(2)
+                        # 檢查日期是否比最新日期新
+                        current_date = datetime.strptime(date, '%Y/%m/%d')
+                        if current_date <= latest_date:
+                            print(f"{date} 已存在，跳過")
+                            driver.back()
+                            time.sleep(2)
+                            continue
 
-                    detail_soup = BeautifulSoup(driver.page_source, "lxml")
+                        # 提取共機共艦數量
+                        aircraft, vessel = extract_numbers_from_text(body_text)
 
-                    content_areas = [
-                        detail_soup.find('div', class_='content'),
-                        detail_soup.find('div', class_='article'),
-                        detail_soup.find('article'),
-                        detail_soup.find('main'),
-                        detail_soup.body
-                    ]
+                        all_data.append([date, aircraft, vessel])
+                        print(f"{date} | 共機 {aircraft:2d} | 共艦 {vessel:2d}")
 
-                    body_text = ""
-                    for area in content_areas:
-                        if area:
-                            body_text = area.get_text(separator="\n", strip=True)
-                            break
+                        # 返回列表頁
+                        driver.back()
+                        time.sleep(2)
 
-                    aircraft, vessel = extract_numbers_from_text(body_text)
+                    except Exception as e:
+                        print(f"\n  處理項目 {idx} 時發生錯誤: {e}")
+                        try:
+                            driver.get(page_url)
+                            time.sleep(2)
+                        except:
+                            pass
+                        continue
 
-                    all_data.append([date, aircraft, vessel])
-                    print(f"✓ 共機 {aircraft:2d} | 共艦 {vessel:2d}")
+            except Exception as e:
+                print(f"處理第 {page} 頁失敗: {e}")
+                continue
 
-                    driver.back()
-                    time.sleep(2)
+    finally:
+        driver.quit()
+        print("\n瀏覽器已關閉")
 
-                except Exception as e:
-                    print(f"\n  ❌ 處理項目 {idx} 時發生錯誤: {e}")
-                    driver.get(page_url)
-                    time.sleep(3)
-                    continue
-
-        except Exception as e:
-            print(f"❌ 處理第 {page} 頁失敗: {e}")
-            continue
-
-    driver.quit()
-    print("\n✓ 瀏覽器已關閉")
-
+    # 儲存資料
     print(f"\n{'='*60}")
     if all_data:
         all_data.sort(key=lambda x: datetime.strptime(x[0], '%Y/%m/%d'))
+
         save_to_csv(all_data)
-        print(f"\n✅ 完成！")
-        print(f"📊 總共爬取 {len(all_data)} 筆新資料")
+
+        print(f"\n完成！共爬取 {len(all_data)} 筆新資料")
         print(f"\n最新 5 筆資料:")
         print(f"{'日期':<12} | {'共機':<4} | {'共艦':<4}")
-        print("─" * 30)
+        print("-" * 30)
         for row in all_data[-5:]:
             print(f"{row[0]:<12} | {row[1]:>4} | {row[2]:>4}")
     else:
-        print("ℹ️ 沒有新資料需要寫入")
+        print("沒有新資料需要寫入")
     print(f"{'='*60}")
 
 if __name__ == "__main__":

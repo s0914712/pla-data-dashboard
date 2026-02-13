@@ -30,7 +30,7 @@ jobs:
         
     - name: Install Python dependencies
       run: |
-        pip install selenium webdriver-manager beautifulsoup4 pandas lxml
+        pip install selenium webdriver-manager beautifulsoup4 pandas
         
     - name: Run scraper
       run: python scraper.py
