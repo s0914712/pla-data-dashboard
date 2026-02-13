@@ -179,11 +179,17 @@ def main():
 
         updater.create_summary_log(stats, "data/last_update.json")
 
+        # Write timestamped execution log for artifact upload
+        log_filename = f"update_log_{datetime.now():%Y%m%d_%H%M%S}.json"
+        log_path = f"data/logs/{log_filename}"
+        updater.create_summary_log(stats, log_path)
+
         success = updater.commit_and_push_data(
             data_files=[
                 "data/news_classified.json",
                 "data/news_relevant.json",
-                "data/last_update.json"
+                "data/last_update.json",
+                log_path
             ],
             message=f"🤖 Auto-update: {datetime.now():%Y-%m-%d %H:%M}"
         )
