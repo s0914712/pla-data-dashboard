@@ -20,7 +20,8 @@ class GrokNewsClassifier:
 
     # 可重試的 HTTP 狀態碼
     RETRYABLE_STATUS_CODES = {429, 500, 502, 503, 504}
-    MAX_RETRIES = 3
+    MAX_RETRIES = 5
+    RETRY_DELAYS = [10, 30, 60, 120, 240]  # 退避時間（秒）
     
     def __init__(self, api_key: str):
         self.api_key = api_key.strip()
@@ -36,7 +37,7 @@ class GrokNewsClassifier:
         print(f"[GrokClassifier] API URL  : {self.api_url}")
         print(f"[GrokClassifier] Model    : {self.model}")
         print(f"[GrokClassifier] API Key  : {masked_key} (length={len(self.api_key)})")
-        print(f"[GrokClassifier] Retries  : max {self.MAX_RETRIES} (backoff: 5s, 10s, 20s)")
+        print(f"[GrokClassifier] Retries  : max {self.MAX_RETRIES} (backoff: {', '.join(str(d)+'s' for d in self.RETRY_DELAYS)})")
         print(f"[GrokClassifier] ================================")
     
     def _call_api(self, messages: List[Dict]) -> Optional[str]:
@@ -72,11 +73,26 @@ class GrokNewsClassifier:
 
                 # 可重試的錯誤
                 if response.status_code in self.RETRYABLE_STATUS_CODES:
-                    wait_time = 5 * (2 ** (attempt - 1))  # 5s, 10s, 20s
+                    # 429 優先讀取 Retry-After header
+                    retry_after = None
+                    if response.status_code == 429:
+                        retry_after = response.headers.get('Retry-After')
+                    
+                    if retry_after:
+                        try:
+                            wait_time = int(float(retry_after))
+                        except (ValueError, TypeError):
+                            wait_time = self.RETRY_DELAYS[min(attempt - 1, len(self.RETRY_DELAYS) - 1)]
+                    else:
+                        wait_time = self.RETRY_DELAYS[min(attempt - 1, len(self.RETRY_DELAYS) - 1)]
+                    
                     print(f"[GrokClassifier] ⚠️  HTTP {response.status_code} (attempt {attempt}/{self.MAX_RETRIES})")
                     print(f"[GrokClassifier]    Body: {response.text[:200]}")
                     if attempt < self.MAX_RETRIES:
-                        print(f"[GrokClassifier]    等待 {wait_time}s 後重試...")
+                        if retry_after:
+                            print(f"[GrokClassifier]    Retry-After: {retry_after}s，等待 {wait_time}s 後重試...")
+                        else:
+                            print(f"[GrokClassifier]    等待 {wait_time}s 後重試...")
                         time.sleep(wait_time)
                         continue
                     else:
@@ -91,7 +107,7 @@ class GrokNewsClassifier:
                 return None
 
             except httpx.ConnectError as e:
-                wait_time = 5 * (2 ** (attempt - 1))
+                wait_time = self.RETRY_DELAYS[min(attempt - 1, len(self.RETRY_DELAYS) - 1)]
                 print(f"[GrokClassifier] ⚠️  連線失敗 (attempt {attempt}/{self.MAX_RETRIES}): {e}")
                 if attempt < self.MAX_RETRIES:
                     print(f"[GrokClassifier]    等待 {wait_time}s 後重試...")
@@ -101,7 +117,7 @@ class GrokNewsClassifier:
                 return None
 
             except httpx.TimeoutException as e:
-                wait_time = 5 * (2 ** (attempt - 1))
+                wait_time = self.RETRY_DELAYS[min(attempt - 1, len(self.RETRY_DELAYS) - 1)]
                 print(f"[GrokClassifier] ⚠️  請求超時 (attempt {attempt}/{self.MAX_RETRIES}): {e}")
                 if attempt < self.MAX_RETRIES:
                     print(f"[GrokClassifier]    等待 {wait_time}s 後重試...")
