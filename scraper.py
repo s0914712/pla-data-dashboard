@@ -194,6 +194,12 @@ def main():
 
                         # 獲取頁面內容
                         detail_soup = BeautifulSoup(driver.page_source, "html.parser")
+                        
+                        # 增加防呆：如果 body 為 None
+                        if not detail_soup.body:
+                            print(f"  [{idx:2d}] ⚠️ 抓取到的頁面沒有 body，可能載入失敗")
+                            continue
+                            
                         body_text = detail_soup.body.get_text(separator="\n", strip=True)
 
                         # [修正點 3] 優化日期提取正則表達式，容許空格
@@ -220,6 +226,18 @@ def main():
 
                         if not date:
                             print(f"  [{idx:2d}] ⚠️ 找不到日期，跳過")
+                            
+                            # ==================== DEBUG 區域 ====================
+                            print(f"    🔍 [DEBUG] 網頁標題: {driver.title}")
+                            print(f"    🔍 [DEBUG] 當前網址: {driver.current_url}")
+                            # 預覽抓到的文字，確認是否被擋
+                            preview_text = body_text[:200].replace('\n', ' ') if body_text else "無內容"
+                            print(f"    🔍 [DEBUG] 內文預覽: {preview_text}...")
+                            
+                            if "Access Denied" in body_text or "403 Forbidden" in body_text:
+                                print(f"    🛑 [CRITICAL] 偵測到存取被拒！IP 可能被封鎖或 Headless 特徵被抓。")
+                            # ====================================================
+
                             driver.back()
                             time.sleep(1)
                             continue
