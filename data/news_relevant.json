@@ -10,7 +10,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "中共37架次軍機出海，27架次逾越中線，配合共艦進行聯合戰備警巡",
       "Foreign_battleship": "",
-      "Political_statement": ""
+      "Political_statement": "國軍嚴密掌握應處"
     },
     "confidence": 0.95,
     "original_article": {
@@ -28,11 +28,107 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
+    "sentiment_score": -0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "11架次共機執行遠海長航暨海空聯訓，包括殲16、轟6K及運油20等各型主、輔戰機",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-11",
+      "title": "11架次共機上午起執行海空聯訓國軍嚴密監控| 政治",
+      "content": "（中央社記者游凱翔台北11日電）國防部今天表示，自上午7時44分起，陸續偵獲11架次共機出海活動，進入台灣西南、東部空域及西太平洋從事「遠海長航暨海空聯訓」，國軍運用聯合情監偵手段嚴密掌握，並檢派任務機、艦及岸置飛彈系統適切應處。 國防部下午發布新聞稿指出，自上午7時44分起，陸續偵獲中共殲16、轟6K及運油20等各型主、輔戰機計11架次出海活動，進入台灣西南、東部空域及西太平洋從事「遠海長航暨海空聯訓」。",
+      "url": "https://www.cna.com.tw/news/aipl/202602110141.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "共軍在台灣周邊舉行'正義使命-2025'軍演，殲-16戰機對台灣F-16戰機施放干擾彈並進行危險飛行",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-10",
+      "title": "金融時報：共機去年圍台軍演進行危險飛行動作向F-16放干擾彈| 政治",
+      "content": "（中央社台北10日綜合外電報導）英國「金融時報」今天披露，去年12月底共軍在台灣周邊舉行「正義使命-2025」軍演期間，共軍戰機對國軍執行任務的F-16戰機進行施放干擾彈等異常危險的飛行動作。 金融時報引述知情人士和台灣國防部一份向美軍分享的報告指出，12月29日的危險動作包括一架殲-16（J-16）戰機向一架台灣戰機施放干擾彈。 3名知情人士表示，第一起危險事件是一架殲-16向國軍緊急升空監控穿越海峽中線共機的F-16施放干擾彈；第二起事件中，一架共軍殲-16「非常靠近」地飛在一架台灣F-16後方，「基本處於開火位置」。 不過3名知情人士指出，共軍對國軍戰機的舉動，尚未達去年12月初共軍戰機用雷達鎖定日本自衛隊戰機那種危險程度。 中國軍機雷達照射日本F-15 分析：如同拔刀極為挑釁",
+      "url": "https://www.cna.com.tw/news/aipl/202602100066.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
     "sentiment_score": -0.5,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "中共53機艦台海周邊活動，42架次共機其中32架次逾越中線",
+      "Military_exercise": "4架次共機侵擾西南空域，8艘共艦在台海周邊活動",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-10",
+      "title": "4架次共機侵擾西南空域國軍嚴密監控| 政治",
+      "content": "（中央社記者游凱翔台北10日電）國防部今天發布共機艦動態，統計自昨天上午6時起至今天上午6時止，國軍偵獲4架次共機侵擾西南空域，並偵獲8艘共艦，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲8艘共艦，以及4架次共機進入西南空域，並持續在台海周邊活動。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：林家嫻）1150210 #共機",
+      "url": "https://www.cna.com.tw/news/aipl/202602100030.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "7艘共艦持續在台海周邊活動",
+      "Foreign_battleship": "CN 艦艇台海周邊活動",
+      "Political_statement": "國軍運用任務機艦及岸置飛彈系統嚴密監控與應處"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-08",
+      "title": "7艘共艦台海周邊活動國軍嚴密監控| 政治",
+      "content": "（中央社記者游凱翔台北8日電）國防部今天發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲7艘共艦持續在台海周邊活動，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，7艘共艦持續在台海周邊活動。",
+      "url": "https://www.cna.com.tw/news/aipl/202602080017.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "中共53機艦台海周邊活動，其中32架次共機逾越中線",
       "Foreign_battleship": "",
       "Political_statement": "國軍嚴密監控與應處"
     },
@@ -48,17 +144,65 @@
     }
   },
   {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "中共10機艦船台海周邊活動，國軍嚴密監控與應處",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-14",
+      "title": "中共10機艦船台海周邊活動國軍嚴密監控應處| 政治",
+      "content": "（中央社記者吳書緯台北14日電）國防部表示，自昨天上午6時至今天上午6時，偵獲1架共機，並偵獲8艘共艦及1艘公務船，總計中共10機艦船持續在台海周邊活動，國軍嚴密監控與應處。 根據國防部今天公布「中共解放軍進入台海周邊空域活動示意圖」，國軍於昨天上午8時45分至昨天上午11時5分，在台灣海峽空域偵獲中共1架無人機。 國防部指出，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：林淑媛）1150214 #中共",
+      "url": "https://www.cna.com.tw/news/aipl/202602140053.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "中共殲16、轟6K及運油20等各型主、輔戰機計11架次出海活動，進入台灣西南、東部空域及西太平洋從事「遠海長航暨海空聯訓」",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-12",
+      "title": "中共25機艦船台海周邊活動國軍嚴密監控應處| 政治",
+      "content": "（中央社記者吳書緯台北12日電）國防部表示，自昨天上午6時至今天上午6時，偵獲17架次共機，其中14架次逾越中線進入北部、西南及東南部空域，以及7艘共艦、1艘公務船，總計中共25機艦船持續在台海周邊活動，國軍嚴密監控與應處。 國防部昨天下午發布新聞稿指出，自昨天上午7時44分起，陸續偵獲中共殲16、轟6K及運油20等各型主、輔戰機計11架次出海活動，進入台灣西南、東部空域及西太平洋從事「遠海長航暨海空聯訓」。 根據國防部今天公布「中共解放軍進入台海周邊空域活動示意圖」，國軍於昨天上午8時40分至昨天上午10時35分，在台灣海峽空域偵獲中共5架次主戰機，其中2架逾越海峽中線。",
+      "url": "https://www.cna.com.tw/news/aipl/202602120033.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
     "category": "US_TW_Interaction",
     "is_relevant": true,
     "country1": "TW",
     "country2": "CN",
-    "sentiment_score": 0.1,
-    "sentiment_label": "neutral",
+    "sentiment_score": 0.2,
+    "sentiment_label": "positive",
     "extracted_data": {
-      "US_Taiwan_interaction": "台灣總統賴清德表示，面對中國極力阻擋，美國對台軍售案沒有改變",
+      "US_Taiwan_interaction": "美國對台軍售案持續推進，台灣總統確認軍購沒有改變",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "台灣總統：美國對台軍售案沒有改變"
+      "Political_statement": "總統：中國極力阻擋美國對台軍售案沒有改變"
     },
     "confidence": 0.95,
     "original_article": {
@@ -66,6 +210,78 @@
       "title": "總統：固然中國極力阻擋美國對台軍售案沒有改變| 政治",
       "content": "（中央社記者吳書緯、游凱翔、溫貴香台北11日電）面對中國極力阻止美國對台軍售，外界關切與國防採購特別條例有關的美國對台軍售案是否生變。總統賴清德今天表示，固然中國極力阻擋，但目前為止，台灣所接收到的訊息是「這筆軍購一直沒有改變」。 總統府上午舉行「國家安全不能等！支持國防採購特別條例」記者會，由賴總統親自出席發表談話，再次說明推動國防特別條例的戰略思維與政策方向；除副總統蕭美琴陪同外，國防部長顧立雄、參謀總長梅家樹上將也於賴總統談話後接續簡報。 媒體詢問，面對美國總統川普與中國國家主席習近平4月將進行川習會，是否擔心北京藉此施壓美國凍結軍售，以及軍售成為川普與習近平的交易條件。 針對特別預算的對美軍購，賴總統說，從顧立雄和梅家樹的說明，軍購是非常切合台灣防衛的需求，不僅有助於保護台灣，也有助於穩定印太和平，是非常重要的國防預算。 賴總統提到，美國國家安全戰略報告強調4個重點，第一個重點是美國希望顧及國土安全；第二個重點是將會把力量移到印太以穩定印太，避免中國勢力擴充，危及印太穩定；第三是希望集體防禦責任分攤；第四是希望美國「再工業化」，而美國再工業化的議題，在對等關稅裡面，包含日本、韓國、台灣等印太製造業大國，都會前往美國投資與協助。 賴總統說，集體防禦責任分攤方面，台、日、韓、菲律賓，甚至印度各國都在進行，美國本身也都在做，美國今年國防預算將近1兆美元，川普也特別提到，美國2027年的國防預算要高達1.5兆美元，世界民主陣營，包括美國、印太各國、歐洲都在提高國防預算。",
       "url": "https://www.cna.com.tw/news/aipl/202602110095.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_TW_Interaction",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "美國正為台灣彙整含愛國者等系統的軍售，規模達200億美元",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "美國國務院：一如過去40多年，美國對台灣的長期承諾不變"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-09",
+      "title": "傳北京以川習會擋美軍售美國務院：對台承諾不變| 政治",
+      "content": "（中央社記者鍾佑貞華盛頓8日專電）英國媒體6日披露，美國正為台灣彙整一筆軍售，北京警告，這可能危及川普預計4月的訪中行。美國國務院今天對此表示，不評論待定的軍售。一如過去40多年，美國對台灣的長期承諾不變。 英國「金融時報」（Financial Times）引述8名知情人士透露，繼去年底公布創紀錄的111億美元（約新台幣3506億）軍售案後，美國正為台灣彙整含愛國者等系統的軍售，規模達200億美元。 金融時報：美擬再大筆對台軍售 北京拿川普訪中要脅",
+      "url": "https://www.cna.com.tw/news/aipl/202602090015.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_TW_Interaction",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "美國調整軍售客戶名單排序，優先考慮國防支出高且戰略重要性國家",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "台灣符合美國認定的'優先夥伴'資格"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-08",
+      "title": "美軍售將以軍費高戰略重要者優先分析：對台灣有利| 政治",
+      "content": "（中央社記者侯姿瑩華盛頓7日專電）美國總統川普簽署行政命令，將重新調整美國武器的客戶名單排序，優先考慮國防支出較高且具有戰略重要性的國家。美學者分析，這對台灣來說是正面發展，台灣理應符合華府認定的「優先夥伴」資格，前提是立院通過軍售相關預算。 川普簽令重排美軍售順位 軍費高、戰略重要者優先",
+      "url": "https://www.cna.com.tw/news/aipl/202602080009.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_TW_Interaction",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "TW",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "美國調整軍售策略，優先考慮戰略重要性國家，專家認為可視為對台支持",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-12",
+      "title": "美軍售順位以戰略重要者優先專家：可視為對台支持| 政治",
+      "content": "（中央社記者侯姿瑩華盛頓11日專電）美國將重新調整武器的客戶名單排序，優先考慮國防支出較高且具有戰略重要性國家。美專家分析，優先提供給戰略重要者可視為對台支持，但有關國防支出部分聽起來像是進一步向台灣施壓（或特別是針對在野黨），要求推動國防特別預算及其他改革計畫。 美國總統川普（Donald Trump）上週簽署一項行政命令，以建立「美國優先軍備移轉戰略」（America First Arms Transfer Strategy）。在此戰略下，美國將優先出售和移轉軍事裝備給自身投入國防能力、在美國計畫和行動中具有關鍵角色或地理位置、或對美國經濟安全有所貢獻的夥伴。 美國退役海軍少將、現為華府智庫「捍衛民主基金會」（Foundation for Defense of Democracies）資深研究員的蒙哥馬利（Mark Montgomery）以電子郵件回覆中央社記者詢問表示，若執行得當，這項新的對外軍售指導方針確實會有所助益。然而，對於緩解像是台灣等許多國家遭遇的交付積壓問題，這只是所需改革的冰山一角。 過去多年來，美國對外軍售採取「先到先得」的方式交付，路透社報導，這項行政命令代表華府武器銷售政策出現重大轉變。 華府智庫「全球台灣研究中心」（Global Taiwan Institute）主任鄭哲軒（John Dotson）向中央社記者表示，就台灣而言，這項戰略有關關鍵地理位置及與美國經濟利益連結的描述，可被視為對台灣「不明言」的支持。 不過，他指出，關於「自身投入國防」這一點，聽起來更像是進一步向台灣施壓（或特別是針對在野黨），要求推動國防特別預算及其他國防改革計畫。 另一方面，這項新戰略還提及，美國將利用外國採購及資金來支持國內再工業化、擴大生產能力及提升美國國防工業基礎韌性。海軍軍官出身的鄭哲軒認為，這可被詮釋為未來軍售將優先考慮高單價的項目，例如飛機、飛彈及海馬士多管火箭系統（HIMARS）等重砲系統。 但他也說，目前這項戰略的文字表述仍算模糊，後續還需觀察政策如何落實。 美國國務院日前指出，已向台方明確表示，歡迎台灣宣布400億美元（約新台幣1.25兆元）的特別國防採購預算。美國國會議員近期也接連關切台灣在野黨阻擋為期8年、新台幣1.25兆元國防特別條例。",
+      "url": "https://www.cna.com.tw/news/aipl/202602120013.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""

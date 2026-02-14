@@ -10,7 +10,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "中共37架次軍機出海，27架次逾越中線，配合共艦進行聯合戰備警巡",
       "Foreign_battleship": "",
-      "Political_statement": ""
+      "Political_statement": "國軍嚴密掌握應處"
     },
     "confidence": 0.95,
     "original_article": {
@@ -24,14 +24,19 @@
     }
   },
   {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.1,
     "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "11架次共機執行遠海長航暨海空聯訓，包括殲16、轟6K及運油20等各型主、輔戰機",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-02-11",
       "title": "11架次共機上午起執行海空聯訓國軍嚴密監控| 政治",
@@ -47,11 +52,83 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "共軍在台灣周邊舉行'正義使命-2025'軍演，殲-16戰機對台灣F-16戰機施放干擾彈並進行危險飛行",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-10",
+      "title": "金融時報：共機去年圍台軍演進行危險飛行動作向F-16放干擾彈| 政治",
+      "content": "（中央社台北10日綜合外電報導）英國「金融時報」今天披露，去年12月底共軍在台灣周邊舉行「正義使命-2025」軍演期間，共軍戰機對國軍執行任務的F-16戰機進行施放干擾彈等異常危險的飛行動作。 金融時報引述知情人士和台灣國防部一份向美軍分享的報告指出，12月29日的危險動作包括一架殲-16（J-16）戰機向一架台灣戰機施放干擾彈。 3名知情人士表示，第一起危險事件是一架殲-16向國軍緊急升空監控穿越海峽中線共機的F-16施放干擾彈；第二起事件中，一架共軍殲-16「非常靠近」地飛在一架台灣F-16後方，「基本處於開火位置」。 不過3名知情人士指出，共軍對國軍戰機的舉動，尚未達去年12月初共軍戰機用雷達鎖定日本自衛隊戰機那種危險程度。 中國軍機雷達照射日本F-15 分析：如同拔刀極為挑釁",
+      "url": "https://www.cna.com.tw/news/aipl/202602100066.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
     "sentiment_score": -0.5,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "中共53機艦台海周邊活動，42架次共機其中32架次逾越中線",
+      "Military_exercise": "4架次共機侵擾西南空域，8艘共艦在台海周邊活動",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-10",
+      "title": "4架次共機侵擾西南空域國軍嚴密監控| 政治",
+      "content": "（中央社記者游凱翔台北10日電）國防部今天發布共機艦動態，統計自昨天上午6時起至今天上午6時止，國軍偵獲4架次共機侵擾西南空域，並偵獲8艘共艦，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲8艘共艦，以及4架次共機進入西南空域，並持續在台海周邊活動。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：林家嫻）1150210 #共機",
+      "url": "https://www.cna.com.tw/news/aipl/202602100030.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "7艘共艦持續在台海周邊活動",
+      "Foreign_battleship": "CN 艦艇台海周邊活動",
+      "Political_statement": "國軍運用任務機艦及岸置飛彈系統嚴密監控與應處"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-08",
+      "title": "7艘共艦台海周邊活動國軍嚴密監控| 政治",
+      "content": "（中央社記者游凱翔台北8日電）國防部今天發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲7艘共艦持續在台海周邊活動，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，7艘共艦持續在台海周邊活動。",
+      "url": "https://www.cna.com.tw/news/aipl/202602080017.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "中共53機艦台海周邊活動，其中32架次共機逾越中線",
       "Foreign_battleship": "",
       "Political_statement": "國軍嚴密監控與應處"
     },
@@ -67,14 +144,43 @@
     }
   },
   {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "",
-    "country2": "",
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
     "sentiment_score": 0.0,
     "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "中共10機艦船台海周邊活動，國軍嚴密監控與應處",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-14",
+      "title": "中共10機艦船台海周邊活動國軍嚴密監控應處| 政治",
+      "content": "（中央社記者吳書緯台北14日電）國防部表示，自昨天上午6時至今天上午6時，偵獲1架共機，並偵獲8艘共艦及1艘公務船，總計中共10機艦船持續在台海周邊活動，國軍嚴密監控與應處。 根據國防部今天公布「中共解放軍進入台海周邊空域活動示意圖」，國軍於昨天上午8時45分至昨天上午11時5分，在台灣海峽空域偵獲中共1架無人機。 國防部指出，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：林淑媛）1150214 #中共",
+      "url": "https://www.cna.com.tw/news/aipl/202602140053.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "中共殲16、轟6K及運油20等各型主、輔戰機計11架次出海活動，進入台灣西南、東部空域及西太平洋從事「遠海長航暨海空聯訓」",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-02-12",
       "title": "中共25機艦船台海周邊活動國軍嚴密監控應處| 政治",
@@ -86,14 +192,19 @@
     }
   },
   {
-    "category": "Not_Relevant",
+    "category": "CN_Statement",
     "is_relevant": false,
-    "country1": "",
+    "country1": "CN",
     "country2": "",
     "sentiment_score": 0.0,
     "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "張升民慰問共軍駐京部隊，要求加強練兵備戰"
+    },
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-02-12",
       "title": "慰問共軍駐京部隊張升民：保持部隊安全穩定| 兩岸",
@@ -107,12 +218,65 @@
   {
     "category": "Not_Relevant",
     "is_relevant": false,
-    "country1": "",
-    "country2": "",
+    "country1": "None",
+    "country2": "None",
     "sentiment_score": 0.0,
     "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-10",
+      "title": "印度斥資1.13兆採購114架飆風戰機強化制空優勢| 國際",
+      "content": "（中央社記者李晉緯新德里10日專電）印度為強化空中作戰優勢，國防部預計本週批准一項金額達3.25兆盧比（約新台幣1.13兆元）採購案，添購114架法國達梭公司的飆風戰機，其中10多架採整機交付，其餘約100架將在印度製造。 新德里電視台（NDTV）報導，法國總統馬克宏（Emmanuel Macron）預計下週赴印度參加AI（人工智慧）影響力高峰會，印度方面預料將在他抵達之前批准向法國購買114架飆風戰機（Rafale）的採購案，金額達3.25兆盧比，若順利通過，將是印度史上最大宗的軍購案，在「印度製造」（Make in India）政策下，強化印法雙方的戰略夥伴關係。 印度目前已有36架飆風戰機，並已訂購26架海軍所需的飆風M型戰機，但空軍目前僅有29個中隊，不足核定編制的42個中隊，因此決定再向法國購買114架飆風戰機。 印度海軍的飆風戰機，將布署於維克蘭特號（INS Vikrant）、維克拉瑪蒂亞號（INS Vikramaditya）兩艘航空母艦，根據印度海軍與法國的協議，雙方的合約包括需在印度進行MRO（保養、維修及翻修），也就是法國要在印度提供機隊維修、後勤支援和人員訓練等協助。 消息人士告訴今日印度（India Today），這批印度預計採購的114架飆風戰機中，其中10多架將採整機交付的方式，其餘的約100架將在印度製造，也就是預計機隊中會有超過80%的飛機是在印度國內生產。 根據目前的提案，印度將採購88架單座型、26架雙座型飆風戰機，達梭公司（Dassault）將與印度企業合作，讓飆風戰機在印度製造或組裝，而根據「在印度製造」政策框架，這些飆風戰機部件的國產率可望達到60%。",
+      "url": "https://www.cna.com.tw/news/aopl/202602100203.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-14",
+      "title": "伊朗局勢緊張路透：美軍備戰可能展開數週行動| 國際",
+      "content": "（中央社華盛頓13日綜合外電報導）路透社引述兩名美國官員說法報導，美軍正為總統川普可能下令對伊朗發動攻擊且歷時數週的軍事行動做準備。這可能演變成比兩國以往衝突更為嚴重的局面。 這兩名官員因事涉敏感不願具名，他們披露的消息升高美伊外交談判風險。 川普先前在中東區域集結軍力，引發外界對新一波軍事行動的疑慮後，美國與伊朗外交官員上週在阿曼（Oman）舉行會談，試圖就伊朗核子計畫重啟外交談判。 美國官員今天表示，五角大廈再派一艘航空母艦前往中東，外加數千名軍人，以及戰鬥機、導向飛彈驅逐艦等具備攻擊和防禦能力的火力。 法新社報導，川普在白宮表示，全球最大航艦「福特號」（USS Gerald R. Ford）將「很快」前往中東，對伊朗進一步施壓。川普隨後視察北卡羅來納州布拉格堡（Fort Bragg）軍事基地。 川普向部隊發表談話時表示，與伊朗「很難達成協議」，他還說「有時候必須讓對方感到害怕，這才是真正解決問題的唯一辦法」。 白宮發言人凱利（Anna Kelly）被問到美軍為可能展開持久軍事行動做準備一事時表示：「川普總統對伊朗的所有選項都擺在檯面上。他會聆聽各方對任何議題的觀點，但最終仍會以國家利益及國家安全為出發點做出決策。」 五角大廈婉拒置評。 美國去年派出兩艘航艦前往中東地區，當時美軍空襲伊朗核子設施。 然而，去年6月的「午夜重錘」（Midnight Hammer）軍事行動基本上是美國一次性攻擊，匿蹤轟炸機直接從美國飛到伊朗空襲核子設施。伊朗則對美軍駐卡達基地發動非常有限的報復性空襲。 官員表示，這次的作戰規劃更為複雜。 其中一名官員說，如果展開持續性行動，美軍可能攻擊伊朗國家和安全部門設施，而不僅限於核子基礎設施。這名官員不願透露具體細節。 部分專家認為，若對伊朗發動這類行動，美軍面臨的風險將大幅提升。伊朗號稱擁有大量飛彈。伊朗報復性空襲也會增加區域衝突風險。",
+      "url": "https://www.cna.com.tw/news/aopl/202602140057.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": false,
+    "country1": "TW",
+    "country2": "None",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "台灣國防部核定無人機部隊戰鬥加給"
+    },
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-02-13",
       "title": "國防部：無人機部隊戰鬥加給已奉核定13、14日獲領| 政治",
@@ -126,15 +290,15 @@
   {
     "category": "Not_Relevant",
     "is_relevant": false,
-    "country1": "US",
-    "country2": "CN",
+    "country1": "CN",
+    "country2": "US",
     "sentiment_score": -0.3,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": ""
+      "Political_statement": "中國犯罪集團被控利誘美軍假結婚"
     },
     "confidence": 0.95,
     "original_article": {
@@ -160,7 +324,7 @@
       "Foreign_battleship": "",
       "Political_statement": ""
     },
-    "confidence": 0.95,
+    "confidence": 0.98,
     "original_article": {
       "date": "2026-02-13",
       "title": "美軍撤離敘利亞戰略基地移交大馬士革當局| 國際",
@@ -172,19 +336,24 @@
     }
   },
   {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
+    "category": "US_TW_Interaction",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "CN",
+    "sentiment_score": 0.2,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "美國對台軍售案持續推進，台灣總統確認軍購沒有改變",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "總統：中國極力阻擋美國對台軍售案沒有改變"
+    },
+    "confidence": 0.95,
     "original_article": {
-      "date": "2026-02-13",
-      "title": "中國艦隊曾逼近專屬經濟區澳洲關注北京軍力擴張| 國際",
-      "content": "（中央社記者丘德真雪梨13日專電）澳洲國防軍總司令強斯敦（David Johnston）在國會接受質詢時透露，去年12月中國一支「特遣艦隊」（Flotilla）一度逼近澳洲200浬專屬經濟區。專家指出，中國特遣艦隊的行徑是要宣示海軍軍力正在不斷擴大，也突顯澳洲海上防衛的脆弱。 據澳洲廣播公司（ABC）11日報導，去年12月初澳洲政府透露，軍方曾監控一支逼近澳洲海域的中國艦隊；隨後強斯敦公開表示，軍方已向多個太平洋島國發出通報，指有中國艦隊已進入該區域。不過，澳洲軍方以及政府高層均未曾向社會大眾交代詳情。 ABC報導指出，11日下午強斯敦在聯邦參議院接受質詢時，在自由黨（Liberal）參議員柯林斯（Jess Collins）追問下，強斯敦才透露澳洲軍方去年底密切監視的中國特遣艦隊，該艦隊一度逼近澳洲200浬專屬經濟區，距離僅差5到7浬。 強斯敦表示，該支中國特遣艦隊曾經臨近澳洲昆士蘭州東北部海岸，還一度穿越一些太平洋島嶼，然後在澳洲200浬專屬經濟區外轉向北面航行。 ABC報導提到，強斯敦說：「它（該支中國特遣艦隊）航行途經多個鄰國，不過，未必是在其領海範圍內（not necessarily within their territorial seas）。 強斯敦還提到，中國特遣艦隊一度途經法屬新喀里多尼亞（New Caledonia）首都努美阿（Noumea）及其附近海域，穿透該國北部島嶼，然後返回巴布亞紐幾內亞（PNG）附近海域。 強斯敦說，中國特遣艦隊的行徑，正是中國軍方、特別是海軍「軍力正日益擴大的體現」。 曾經於澳洲海軍服役超過20年、目前於澳洲國立大學（ANU）國家安全學院（National Security College）擔任專家顧問的派克（Jennifer Parker）向ABC指出，中國特遣艦隊的活動，既不是要訪問澳洲或太平洋島國港口，又不是大型演習，中國海軍的行徑可能是為了展示實力。 派克說：「該支特遣艦隊一度臨近澳洲僅200多浬，隨後才改變了航線，意味著這並非例行航行。」",
-      "url": "https://www.cna.com.tw/news/aopl/202602130029.aspx",
+      "date": "2026-02-11",
+      "title": "總統：固然中國極力阻擋美國對台軍售案沒有改變| 政治",
+      "content": "（中央社記者吳書緯、游凱翔、溫貴香台北11日電）面對中國極力阻止美國對台軍售，外界關切與國防採購特別條例有關的美國對台軍售案是否生變。總統賴清德今天表示，固然中國極力阻擋，但目前為止，台灣所接收到的訊息是「這筆軍購一直沒有改變」。 總統府上午舉行「國家安全不能等！支持國防採購特別條例」記者會，由賴總統親自出席發表談話，再次說明推動國防特別條例的戰略思維與政策方向；除副總統蕭美琴陪同外，國防部長顧立雄、參謀總長梅家樹上將也於賴總統談話後接續簡報。 媒體詢問，面對美國總統川普與中國國家主席習近平4月將進行川習會，是否擔心北京藉此施壓美國凍結軍售，以及軍售成為川普與習近平的交易條件。 針對特別預算的對美軍購，賴總統說，從顧立雄和梅家樹的說明，軍購是非常切合台灣防衛的需求，不僅有助於保護台灣，也有助於穩定印太和平，是非常重要的國防預算。 賴總統提到，美國國家安全戰略報告強調4個重點，第一個重點是美國希望顧及國土安全；第二個重點是將會把力量移到印太以穩定印太，避免中國勢力擴充，危及印太穩定；第三是希望集體防禦責任分攤；第四是希望美國「再工業化」，而美國再工業化的議題，在對等關稅裡面，包含日本、韓國、台灣等印太製造業大國，都會前往美國投資與協助。 賴總統說，集體防禦責任分攤方面，台、日、韓、菲律賓，甚至印度各國都在進行，美國本身也都在做，美國今年國防預算將近1兆美元，川普也特別提到，美國2027年的國防預算要高達1.5兆美元，世界民主陣營，包括美國、印太各國、歐洲都在提高國防預算。",
+      "url": "https://www.cna.com.tw/news/aipl/202602110095.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -193,22 +362,94 @@
   {
     "category": "US_TW_Interaction",
     "is_relevant": true,
-    "country1": "TW",
-    "country2": "CN",
-    "sentiment_score": 0.1,
-    "sentiment_label": "neutral",
+    "country1": "US",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
     "extracted_data": {
-      "US_Taiwan_interaction": "台灣總統賴清德表示，面對中國極力阻擋，美國對台軍售案沒有改變",
+      "US_Taiwan_interaction": "美國正為台灣彙整含愛國者等系統的軍售，規模達200億美元",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "台灣總統：美國對台軍售案沒有改變"
+      "Political_statement": "美國國務院：一如過去40多年，美國對台灣的長期承諾不變"
     },
     "confidence": 0.95,
     "original_article": {
-      "date": "2026-02-11",
-      "title": "總統：固然中國極力阻擋美國對台軍售案沒有改變| 政治",
-      "content": "（中央社記者吳書緯、游凱翔、溫貴香台北11日電）面對中國極力阻止美國對台軍售，外界關切與國防採購特別條例有關的美國對台軍售案是否生變。總統賴清德今天表示，固然中國極力阻擋，但目前為止，台灣所接收到的訊息是「這筆軍購一直沒有改變」。 總統府上午舉行「國家安全不能等！支持國防採購特別條例」記者會，由賴總統親自出席發表談話，再次說明推動國防特別條例的戰略思維與政策方向；除副總統蕭美琴陪同外，國防部長顧立雄、參謀總長梅家樹上將也於賴總統談話後接續簡報。 媒體詢問，面對美國總統川普與中國國家主席習近平4月將進行川習會，是否擔心北京藉此施壓美國凍結軍售，以及軍售成為川普與習近平的交易條件。 針對特別預算的對美軍購，賴總統說，從顧立雄和梅家樹的說明，軍購是非常切合台灣防衛的需求，不僅有助於保護台灣，也有助於穩定印太和平，是非常重要的國防預算。 賴總統提到，美國國家安全戰略報告強調4個重點，第一個重點是美國希望顧及國土安全；第二個重點是將會把力量移到印太以穩定印太，避免中國勢力擴充，危及印太穩定；第三是希望集體防禦責任分攤；第四是希望美國「再工業化」，而美國再工業化的議題，在對等關稅裡面，包含日本、韓國、台灣等印太製造業大國，都會前往美國投資與協助。 賴總統說，集體防禦責任分攤方面，台、日、韓、菲律賓，甚至印度各國都在進行，美國本身也都在做，美國今年國防預算將近1兆美元，川普也特別提到，美國2027年的國防預算要高達1.5兆美元，世界民主陣營，包括美國、印太各國、歐洲都在提高國防預算。",
-      "url": "https://www.cna.com.tw/news/aipl/202602110095.aspx",
+      "date": "2026-02-09",
+      "title": "傳北京以川習會擋美軍售美國務院：對台承諾不變| 政治",
+      "content": "（中央社記者鍾佑貞華盛頓8日專電）英國媒體6日披露，美國正為台灣彙整一筆軍售，北京警告，這可能危及川普預計4月的訪中行。美國國務院今天對此表示，不評論待定的軍售。一如過去40多年，美國對台灣的長期承諾不變。 英國「金融時報」（Financial Times）引述8名知情人士透露，繼去年底公布創紀錄的111億美元（約新台幣3506億）軍售案後，美國正為台灣彙整含愛國者等系統的軍售，規模達200億美元。 金融時報：美擬再大筆對台軍售 北京拿川普訪中要脅",
+      "url": "https://www.cna.com.tw/news/aipl/202602090015.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_TW_Interaction",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "美國調整軍售客戶名單排序，優先考慮國防支出高且戰略重要性國家",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "台灣符合美國認定的'優先夥伴'資格"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-08",
+      "title": "美軍售將以軍費高戰略重要者優先分析：對台灣有利| 政治",
+      "content": "（中央社記者侯姿瑩華盛頓7日專電）美國總統川普簽署行政命令，將重新調整美國武器的客戶名單排序，優先考慮國防支出較高且具有戰略重要性的國家。美學者分析，這對台灣來說是正面發展，台灣理應符合華府認定的「優先夥伴」資格，前提是立院通過軍售相關預算。 川普簽令重排美軍售順位 軍費高、戰略重要者優先",
+      "url": "https://www.cna.com.tw/news/aipl/202602080009.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_TW_Interaction",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "TW",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "美國調整軍售策略，優先考慮戰略重要性國家，專家認為可視為對台支持",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-12",
+      "title": "美軍售順位以戰略重要者優先專家：可視為對台支持| 政治",
+      "content": "（中央社記者侯姿瑩華盛頓11日專電）美國將重新調整武器的客戶名單排序，優先考慮國防支出較高且具有戰略重要性國家。美專家分析，優先提供給戰略重要者可視為對台支持，但有關國防支出部分聽起來像是進一步向台灣施壓（或特別是針對在野黨），要求推動國防特別預算及其他改革計畫。 美國總統川普（Donald Trump）上週簽署一項行政命令，以建立「美國優先軍備移轉戰略」（America First Arms Transfer Strategy）。在此戰略下，美國將優先出售和移轉軍事裝備給自身投入國防能力、在美國計畫和行動中具有關鍵角色或地理位置、或對美國經濟安全有所貢獻的夥伴。 美國退役海軍少將、現為華府智庫「捍衛民主基金會」（Foundation for Defense of Democracies）資深研究員的蒙哥馬利（Mark Montgomery）以電子郵件回覆中央社記者詢問表示，若執行得當，這項新的對外軍售指導方針確實會有所助益。然而，對於緩解像是台灣等許多國家遭遇的交付積壓問題，這只是所需改革的冰山一角。 過去多年來，美國對外軍售採取「先到先得」的方式交付，路透社報導，這項行政命令代表華府武器銷售政策出現重大轉變。 華府智庫「全球台灣研究中心」（Global Taiwan Institute）主任鄭哲軒（John Dotson）向中央社記者表示，就台灣而言，這項戰略有關關鍵地理位置及與美國經濟利益連結的描述，可被視為對台灣「不明言」的支持。 不過，他指出，關於「自身投入國防」這一點，聽起來更像是進一步向台灣施壓（或特別是針對在野黨），要求推動國防特別預算及其他國防改革計畫。 另一方面，這項新戰略還提及，美國將利用外國採購及資金來支持國內再工業化、擴大生產能力及提升美國國防工業基礎韌性。海軍軍官出身的鄭哲軒認為，這可被詮釋為未來軍售將優先考慮高單價的項目，例如飛機、飛彈及海馬士多管火箭系統（HIMARS）等重砲系統。 但他也說，目前這項戰略的文字表述仍算模糊，後續還需觀察政策如何落實。 美國國務院日前指出，已向台方明確表示，歡迎台灣宣布400億美元（約新台幣1.25兆元）的特別國防採購預算。美國國會議員近期也接連關切台灣在野黨阻擋為期8年、新台幣1.25兆元國防特別條例。",
+      "url": "https://www.cna.com.tw/news/aipl/202602120013.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "US",
+    "country2": "VE",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "美軍在東太平洋對疑似運毒船進行打擊",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-10",
+      "title": "美軍東太平洋打擊疑似運毒船擊斃兩人| 國際",
+      "content": "（中央社華盛頓9日綜合外電報導）美國軍方今天表示，美軍在東太平洋對一艘涉嫌走私毒品的船隻發動攻擊，擊斃了兩名販毒嫌犯。 綜合法新社與路透社報導，美國總統川普政府去年9月初開始鎖定疑似運毒的船隻，並強調美國確實正在跟據信於委內瑞拉活動的「毒品恐怖分子」交戰。 美軍南方司令部（U.S. Southern Command）在社群平台X發布聲明指出：「兩名毒品恐怖分子在此次打擊中喪命，另有一人生還。」 聲明補充說，美國海岸防衛隊已接獲通報，「啟動搜救系統尋找倖存者」。 這是委內瑞拉左派強人馬杜洛（Nicolás Maduro）今年1月遭突襲逮捕以來，美軍已知第3次在該區域對涉嫌運送毒品的船隻進行打擊。 不過，美國政府官員至今未提出確切證據，證明這些船隻確實涉及毒品走私，引發外界對相關行動的合法性展開激烈爭論。這些行動的範圍已從加勒比海擴大至太平洋。 美軍近期頻頻對運毒船發動攻勢，迄今已執行38次打擊，至少造成130人死亡。 馬杜洛曾說，美國發動這些空襲，目的是在委內瑞拉推動政權更迭。 馬杜洛目前被關押在美國，他已對毒品與武器相關指控提出無罪抗辯。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aopl/202602100048.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
