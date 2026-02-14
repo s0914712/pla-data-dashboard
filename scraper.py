@@ -65,6 +65,42 @@ def extract_numbers_from_text(text):
 
     return aircraft, vessel
 
+def parse_date_from_text(text):
+    """
+    統一的日期解析函數，支援多種格式
+    返回格式：YYYY/MM/DD 或 None
+    """
+    date = None
+    
+    # 格式1：115.02.14 (列表頁常見格式)
+    date_match = re.search(r'(\d{3})\.(\d{2})\.(\d{2})', text)
+    if date_match:
+        roc_year = int(date_match.group(1))
+        month = date_match.group(2)
+        day = date_match.group(3)
+        west_year = roc_year + 1911
+        return f"{west_year}/{month}/{day}"
+    
+    # 格式2：中華民國 114 年 2 月 14 日 (詳細頁格式)
+    date_match = re.search(r'中華民國\s*(\d{2,3})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日', text)
+    if date_match:
+        roc_year = int(date_match.group(1))
+        month = date_match.group(2).zfill(2)
+        day = date_match.group(3).zfill(2)
+        west_year = roc_year + 1911
+        return f"{west_year}/{month}/{day}"
+    
+    # 格式3：114年2月14日 (備用格式)
+    date_match = re.search(r'(\d{2,3})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日', text)
+    if date_match:
+        roc_year = int(date_match.group(1))
+        month = date_match.group(2).zfill(2)
+        day = date_match.group(3).zfill(2)
+        west_year = roc_year + 1911
+        return f"{west_year}/{month}/{day}"
+    
+    return None
+
 def get_latest_date_from_csv():
     """從 CSV 讀取最新日期"""
     try:
@@ -104,115 +140,7 @@ def save_to_csv(new_data):
 
     df_new = pd.DataFrame(new_data, columns=['date', 'pla_aircraft_sorties', 'plan_vessel_sorties'])
     df_combined = pd.concat([df_existing, df_new], ignore_index=True)
-    for idx, link_info in enumerate(links, 1):
-    try:
-        if isinstance(link_info, dict):
-            detail_url = link_info['href']
-            link_text = link_info.get('text', '')
-        else:
-            detail_url = f"https://www.mnd.gov.tw{link_info.get('href')}"
-            link_text = link_info.get_text(strip=True)
 
-        # ============ 新增：從列表頁提取日期 ============
-        date = None
-        # 匹配格式：115.02.14
-        date_match = re.search(r'(\d{3})\.(\d{2})\.(\d{2})', link_text)
-        if date_match:
-            roc_year = int(date_match.group(1))
-            month = date_match.group(2)
-            day = date_match.group(3)
-            west_year = roc_year + 1911
-            date = f"{west_year}/{month}/{day}"
-        # ==============================================
-
-        if not detail_url.startswith('http'):
-            detail_url = f"https://www.mnd.gov.tw{detail_url}"
-
-        if detail_url in processed_urls:
-            continue
-        processed_urls.add(detail_url)
-
-        # 如果列表頁就有日期，先檢查是否需要爬取
-        if date:
-            current_date = datetime.strptime(date, '%Y/%m/%d')
-            if current_date <= latest_date:
-                print(f"  [{idx:2d}] {date} 已存在，跳過")
-                continue
-
-        # 訪問詳細頁面
-        driver.get(detail_url)
-        WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.TAG_NAME, "body"))
-        )
-        time.sleep(2)
-
-        detail_soup = BeautifulSoup(driver.page_source, "html.parser")
-        
-        if not detail_soup.body:
-            print(f"  [{idx:2d}] ⚠️ 抓取到的頁面沒有 body，可能載入失敗")
-            continue
-            
-        body_text = detail_soup.body.get_text(separator="\n", strip=True)
-
-        # 如果列表頁沒抓到日期，再從詳細頁抓
-        if not date:
-            # (保留你原本的日期解析邏輯)
-            date_match = re.search(r'中華民國\s*(\d{2,3})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日', body_text)
-            # ... (後續保持不變)for idx, link_info in enumerate(links, 1):
-    try:
-        if isinstance(link_info, dict):
-            detail_url = link_info['href']
-            link_text = link_info.get('text', '')
-        else:
-            detail_url = f"https://www.mnd.gov.tw{link_info.get('href')}"
-            link_text = link_info.get_text(strip=True)
-
-        # ============ 新增：從列表頁提取日期 ============
-        date = None
-        # 匹配格式：115.02.14
-        date_match = re.search(r'(\d{3})\.(\d{2})\.(\d{2})', link_text)
-        if date_match:
-            roc_year = int(date_match.group(1))
-            month = date_match.group(2)
-            day = date_match.group(3)
-            west_year = roc_year + 1911
-            date = f"{west_year}/{month}/{day}"
-        # ==============================================
-
-        if not detail_url.startswith('http'):
-            detail_url = f"https://www.mnd.gov.tw{detail_url}"
-
-        if detail_url in processed_urls:
-            continue
-        processed_urls.add(detail_url)
-
-        # 如果列表頁就有日期，先檢查是否需要爬取
-        if date:
-            current_date = datetime.strptime(date, '%Y/%m/%d')
-            if current_date <= latest_date:
-                print(f"  [{idx:2d}] {date} 已存在，跳過")
-                continue
-
-        # 訪問詳細頁面
-        driver.get(detail_url)
-        WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.TAG_NAME, "body"))
-        )
-        time.sleep(2)
-
-        detail_soup = BeautifulSoup(driver.page_source, "html.parser")
-        
-        if not detail_soup.body:
-            print(f"  [{idx:2d}] ⚠️ 抓取到的頁面沒有 body，可能載入失敗")
-            continue
-            
-        body_text = detail_soup.body.get_text(separator="\n", strip=True)
-
-        # 如果列表頁沒抓到日期，再從詳細頁抓
-        if not date:
-            # (保留你原本的日期解析邏輯)
-            date_match = re.search(r'中華民國\s*(\d{2,3})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日', body_text)
-            # ... (後續保持不變)
     # 統一日期格式並去重
     df_combined['date'] = pd.to_datetime(df_combined['date'], format='%Y/%m/%d')
     df_combined = df_combined.sort_values('date')
@@ -267,7 +195,7 @@ def main():
                         try:
                             href = link.get_attribute("href")
                             text = link.text
-                            if href and "plaact" in href and ("中共" in text or "動態" in text):
+                            if href and "plaact" in href and ("中共" in text or "動態" in text or re.search(r'\d{3}\.\d{2}\.\d{2}', text)):
                                 links.append({'href': href, 'text': text})
                         except:
                             continue
@@ -281,9 +209,14 @@ def main():
                     try:
                         if isinstance(link_info, dict):
                             detail_url = link_info['href']
+                            link_text = link_info.get('text', '')
                         else:
                             detail_url = f"https://www.mnd.gov.tw{link_info.get('href')}"
+                            link_text = link_info.get_text(strip=True)
 
+                        # ============ 關鍵改進：從列表頁提取日期 ============
+                        date_from_list = parse_date_from_text(link_text)
+                        
                         if not detail_url.startswith('http'):
                             detail_url = f"https://www.mnd.gov.tw{detail_url}"
 
@@ -291,7 +224,12 @@ def main():
                             continue
                         processed_urls.add(detail_url)
 
-                        # print(f"  [{idx:2d}] 讀取中...", end=" ") 
+                        # 如果列表頁就有日期，先檢查是否需要爬取
+                        if date_from_list:
+                            current_date = datetime.strptime(date_from_list, '%Y/%m/%d')
+                            if current_date <= latest_date:
+                                print(f"  [{idx:2d}] {date_from_list} 已存在，跳過")
+                                continue
 
                         # 訪問詳細頁面
                         driver.get(detail_url)
@@ -310,27 +248,8 @@ def main():
                             
                         body_text = detail_soup.body.get_text(separator="\n", strip=True)
 
-                        # [修正點 3] 優化日期提取正則表達式，容許空格
-                        date = None
-                        # 格式：中華民國 114 年 2 月 13 日 (允許中間有空白)
-                        date_match = re.search(r'中華民國\s*(\d{2,3})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日', body_text)
-                        
-                        if date_match:
-                            roc_year = int(date_match.group(1))
-                            month = date_match.group(2).zfill(2)
-                            day = date_match.group(3).zfill(2)
-                            west_year = roc_year + 1911
-                            date = f"{west_year}/{month}/{day}"
-
-                        # 備用日期格式 (114年2月13日)
-                        if not date:
-                            alt_match = re.search(r'(\d{2,3})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日', body_text)
-                            if alt_match:
-                                roc_year = int(alt_match.group(1))
-                                month = alt_match.group(2).zfill(2)
-                                day = alt_match.group(3).zfill(2)
-                                west_year = roc_year + 1911
-                                date = f"{west_year}/{month}/{day}"
+                        # 優先使用列表頁日期，若無則從詳細頁解析
+                        date = date_from_list if date_from_list else parse_date_from_text(body_text)
 
                         if not date:
                             print(f"  [{idx:2d}] ⚠️ 找不到日期，跳過")
@@ -338,19 +257,33 @@ def main():
                             # ==================== DEBUG 區域 ====================
                             print(f"    🔍 [DEBUG] 網頁標題: {driver.title}")
                             print(f"    🔍 [DEBUG] 當前網址: {driver.current_url}")
+                            print(f"    🔍 [DEBUG] 列表頁文字: {link_text[:100]}...")
                             # 預覽抓到的文字，確認是否被擋
                             preview_text = body_text[:200].replace('\n', ' ') if body_text else "無內容"
                             print(f"    🔍 [DEBUG] 內文預覽: {preview_text}...")
                             
                             if "Access Denied" in body_text or "403 Forbidden" in body_text:
                                 print(f"    🛑 [CRITICAL] 偵測到存取被拒！IP 可能被封鎖或 Headless 特徵被抓。")
+                            
+                            # 儲存 debug 檔案
+                            debug_file = f"debug_{detail_url.split('/')[-1]}.txt"
+                            try:
+                                with open(debug_file, 'w', encoding='utf-8') as f:
+                                    f.write(f"URL: {detail_url}\n")
+                                    f.write(f"Title: {driver.title}\n")
+                                    f.write(f"List Text: {link_text}\n")
+                                    f.write(f"{'='*60}\n")
+                                    f.write(body_text)
+                                print(f"    💾 已儲存 debug 檔案: {debug_file}")
+                            except Exception as e:
+                                print(f"    ⚠️ 無法儲存 debug 檔案: {e}")
                             # ====================================================
 
                             driver.back()
                             time.sleep(1)
                             continue
 
-                        # 檢查日期是否比最新日期新
+                        # 再次檢查日期（雙重保險）
                         current_date = datetime.strptime(date, '%Y/%m/%d')
                         if current_date <= latest_date:
                             print(f"  [{idx:2d}] {date} 已存在，跳過")
