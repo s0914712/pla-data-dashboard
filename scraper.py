@@ -104,7 +104,115 @@ def save_to_csv(new_data):
 
     df_new = pd.DataFrame(new_data, columns=['date', 'pla_aircraft_sorties', 'plan_vessel_sorties'])
     df_combined = pd.concat([df_existing, df_new], ignore_index=True)
+    for idx, link_info in enumerate(links, 1):
+    try:
+        if isinstance(link_info, dict):
+            detail_url = link_info['href']
+            link_text = link_info.get('text', '')
+        else:
+            detail_url = f"https://www.mnd.gov.tw{link_info.get('href')}"
+            link_text = link_info.get_text(strip=True)
 
+        # ============ 新增：從列表頁提取日期 ============
+        date = None
+        # 匹配格式：115.02.14
+        date_match = re.search(r'(\d{3})\.(\d{2})\.(\d{2})', link_text)
+        if date_match:
+            roc_year = int(date_match.group(1))
+            month = date_match.group(2)
+            day = date_match.group(3)
+            west_year = roc_year + 1911
+            date = f"{west_year}/{month}/{day}"
+        # ==============================================
+
+        if not detail_url.startswith('http'):
+            detail_url = f"https://www.mnd.gov.tw{detail_url}"
+
+        if detail_url in processed_urls:
+            continue
+        processed_urls.add(detail_url)
+
+        # 如果列表頁就有日期，先檢查是否需要爬取
+        if date:
+            current_date = datetime.strptime(date, '%Y/%m/%d')
+            if current_date <= latest_date:
+                print(f"  [{idx:2d}] {date} 已存在，跳過")
+                continue
+
+        # 訪問詳細頁面
+        driver.get(detail_url)
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.TAG_NAME, "body"))
+        )
+        time.sleep(2)
+
+        detail_soup = BeautifulSoup(driver.page_source, "html.parser")
+        
+        if not detail_soup.body:
+            print(f"  [{idx:2d}] ⚠️ 抓取到的頁面沒有 body，可能載入失敗")
+            continue
+            
+        body_text = detail_soup.body.get_text(separator="\n", strip=True)
+
+        # 如果列表頁沒抓到日期，再從詳細頁抓
+        if not date:
+            # (保留你原本的日期解析邏輯)
+            date_match = re.search(r'中華民國\s*(\d{2,3})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日', body_text)
+            # ... (後續保持不變)for idx, link_info in enumerate(links, 1):
+    try:
+        if isinstance(link_info, dict):
+            detail_url = link_info['href']
+            link_text = link_info.get('text', '')
+        else:
+            detail_url = f"https://www.mnd.gov.tw{link_info.get('href')}"
+            link_text = link_info.get_text(strip=True)
+
+        # ============ 新增：從列表頁提取日期 ============
+        date = None
+        # 匹配格式：115.02.14
+        date_match = re.search(r'(\d{3})\.(\d{2})\.(\d{2})', link_text)
+        if date_match:
+            roc_year = int(date_match.group(1))
+            month = date_match.group(2)
+            day = date_match.group(3)
+            west_year = roc_year + 1911
+            date = f"{west_year}/{month}/{day}"
+        # ==============================================
+
+        if not detail_url.startswith('http'):
+            detail_url = f"https://www.mnd.gov.tw{detail_url}"
+
+        if detail_url in processed_urls:
+            continue
+        processed_urls.add(detail_url)
+
+        # 如果列表頁就有日期，先檢查是否需要爬取
+        if date:
+            current_date = datetime.strptime(date, '%Y/%m/%d')
+            if current_date <= latest_date:
+                print(f"  [{idx:2d}] {date} 已存在，跳過")
+                continue
+
+        # 訪問詳細頁面
+        driver.get(detail_url)
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.TAG_NAME, "body"))
+        )
+        time.sleep(2)
+
+        detail_soup = BeautifulSoup(driver.page_source, "html.parser")
+        
+        if not detail_soup.body:
+            print(f"  [{idx:2d}] ⚠️ 抓取到的頁面沒有 body，可能載入失敗")
+            continue
+            
+        body_text = detail_soup.body.get_text(separator="\n", strip=True)
+
+        # 如果列表頁沒抓到日期，再從詳細頁抓
+        if not date:
+            # (保留你原本的日期解析邏輯)
+            date_match = re.search(r'中華民國\s*(\d{2,3})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日', body_text)
+            # ... (後續保持不變)
     # 統一日期格式並去重
     df_combined['date'] = pd.to_datetime(df_combined['date'], format='%Y/%m/%d')
     df_combined = df_combined.sort_values('date')
