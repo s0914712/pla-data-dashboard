@@ -70,14 +70,14 @@ jobs:
             cat data/last_update.json
           fi
       
-      # 6. 提交變更（僅在腳本未自動推送時）
+    # 6. 提交變更（增強衝突處理）
       - name: Commit and push data changes
         if: ${{ github.event.inputs.skip_push != 'true' }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action Bot"
           
-          # 添加數據文件（不包含程式碼）
+          # 先暫存所有變更
           git add data/*.csv || true
           git add data/*.json || true
           git add data/logs/*.json || true
@@ -89,13 +89,20 @@ jobs:
             # 獲取變更統計
             git diff --staged --stat
             
-            # 提交並推送
+            # 提交變更
             git commit -m "🤖 Auto-update data: $(date +'%Y-%m-%d %H:%M:%S')"
-            # Retry push with pull --rebase to handle concurrent updates
+            
+            # 【關鍵修復】：使用策略性 rebase 處理衝突
             for i in 1 2 3 4; do
-              git push && break
-              echo "Push failed (attempt $i/4), pulling latest changes..."
-              git pull --rebase origin main
+              # 嘗試推送，如果成功就結束
+              git push && break || echo "Push failed (attempt $i/4)"
+              
+              echo "Pulling latest changes with strategy to resolve conflicts..."
+              # 使用 --autostash 把當前 commit 暫存，
+              # 使用 -X theirs 表示遇到檔案內容衝突時，以我們這次爬蟲產生的結果為準
+              git pull --rebase --autostash -X theirs origin main
+              
+              # 稍微等待後重試
               sleep $((2 ** i))
             done
             echo "✓ Changes pushed successfully"
