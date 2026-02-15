@@ -92,9 +92,21 @@ def main():
     print(f"✓ Scraped {len(articles)} posts")
 
     # ------------------------------------------------------------------
-    # 2. Grok 去重 + 分類
+    # 2. URL 去重 + Grok 分類
     # ------------------------------------------------------------------
-    print("\n[2/3] Grok 去重 + 分類...")
+    print("\n[2/3] URL 去重 + Grok 分類...")
+
+    # URL 完全比對去重（不使用 LLM 去重，避免 API 額度浪費）
+    seen_urls = set()
+    deduped = []
+    for a in articles:
+        url = a.get("url", "")
+        if url and url in seen_urls:
+            continue
+        if url:
+            seen_urls.add(url)
+        deduped.append(a)
+    print(f"✓ URL 去重: {len(articles)} → {len(deduped)}")
 
     api_key = os.environ.get("GROK_API_KEY")
     if not api_key:
@@ -102,11 +114,9 @@ def main():
         sys.exit(1)
 
     with GrokNewsClassifier(api_key) as classifier:
-        deduped = classifier.deduplicate_batch(articles)
         classified = classifier.classify_batch(deduped, delay=1.0)
         relevant = classifier.filter_relevant(classified)
 
-    print(f"✓ Deduped: {len(articles)} → {len(deduped)}")
     print(f"✓ Classified: {len(classified)}, Relevant: {len(relevant)}")
 
     # ------------------------------------------------------------------
