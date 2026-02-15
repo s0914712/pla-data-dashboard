@@ -21,6 +21,7 @@ import os
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from scrapers.cna_scraper import CNAScraper
 from scrapers.xinhua_scraper import XinhuaTWScraper
+from scrapers.weibo_scraper import WeiboScraper
 from classifiers.grok_classifier import GrokNewsClassifier
 from updaters.github_updater import GitHubUpdater
 # ---------------------------------------------------------------------------
@@ -57,7 +58,7 @@ def main():
     # -----------------------------------------------------------------------
     # 1. CNA
     # -----------------------------------------------------------------------
-    print("\n[1/4] 爬取中央社新聞...")
+    print("\n[1/6] 爬取中央社新聞...")
     try:
         with CNAScraper(delay=1.0) as cna:
             cna_articles = cna.run(days_back=args.days)
@@ -78,7 +79,7 @@ def main():
     # -----------------------------------------------------------------------
     # 2. Xinhua（可選）
     # -----------------------------------------------------------------------
-    print("\n[2/4] 爬取新華社新聞...")
+    print("\n[2/6] 爬取新華社新聞...")
     try:
         with XinhuaTWScraper() as xinhua:
             xinhua_articles = xinhua.run(days_back=args.days)
@@ -98,6 +99,29 @@ def main():
             "status": "failed",
             "error": str(e)
         }
+    # -----------------------------------------------------------------------
+    # 3. Weibo（東部戰區）
+    # -----------------------------------------------------------------------
+    print("\n[3/6] 爬取微博貼文...")
+    try:
+        with WeiboScraper() as weibo:
+            weibo_articles = weibo.run(days_back=args.days)
+            all_articles.extend(weibo_articles)
+
+            stats["sources"]["weibo"] = {
+                "scraped": len(weibo_articles),
+                "status": "success"
+            }
+
+            print(f"✓ Weibo: {len(weibo_articles)} 篇貼文")
+            logger.info(f"Weibo: scraped {len(weibo_articles)} posts")
+    except Exception as e:
+        print(f"✗ Weibo Error: {e}")
+        logger.error(f"Weibo Error: {e}")
+        stats["sources"]["weibo"] = {
+            "status": "failed",
+            "error": str(e)
+        }
     if not all_articles:
         print("\n❌ No articles scraped. Exiting.")
         logger.error("No articles scraped. Exiting.")
@@ -107,9 +131,9 @@ def main():
     print(f"\n📊 Total articles scraped: {len(all_articles)}")
     logger.info(f"Total articles scraped: {len(all_articles)}")
     # -----------------------------------------------------------------------
-    # 3. Grok 分類
+    # 4. Grok 分類
     # -----------------------------------------------------------------------
-    print("\n[3/4] 使用 Grok 進行新聞分類...")
+    print("\n[4/6] 使用 Grok 進行新聞分類...")
     api_key = os.environ.get("GROK_API_KEY")
     if not api_key:
         print("❌ GROK_API_KEY not found in environment")
@@ -136,9 +160,9 @@ def main():
         _save_execution_log(stats, start_time, log_capture, success=False)
         sys.exit(1)
     # -----------------------------------------------------------------------
-    # 4. 儲存結果
+    # 5. 儲存結果
     # -----------------------------------------------------------------------
-    print("\n[4/4] 保存數據...")
+    print("\n[5/6] 保存數據...")
     data_dir = Path("data")
     data_dir.mkdir(exist_ok=True)
     classified_file = data_dir / "news_classified.json"
@@ -153,12 +177,12 @@ def main():
     # 儲存執行日誌到 data/logs/
     log_file = _save_execution_log(stats, start_time, log_capture, success=True)
     # -----------------------------------------------------------------------
-    # 5. GitHub 推送
+    # 6. GitHub 推送
     # -----------------------------------------------------------------------
     if args.no_push:
-        print("\n[5/5] Skipping GitHub push (--no-push)")
+        print("\n[6/6] Skipping GitHub push (--no-push)")
         return
-    print("\n[5/5] 推送到 GitHub...")
+    print("\n[6/6] 推送到 GitHub...")
     try:
         updater = GitHubUpdater()
         updater.configure_git(
