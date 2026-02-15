@@ -41,8 +41,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          # crawl4ai 需要安裝瀏覽器
-          python -m crawl4ai.install
+          playwright install chromium --with-deps
 
       # 4. 執行新華社爬蟲
       - name: Run Xinhua scraper
