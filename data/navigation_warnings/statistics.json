@@ -1,11 +1,11 @@
 {
-  "update_time": "2026-02-14T04:18:51.282336",
+  "update_time": "2026-02-15T04:30:34.100378",
   "total_warnings": 8,
   "with_coordinates": 8,
   "with_time_periods": 4,
   "date_range": {
-    "earliest": "2026-02-06",
-    "latest": "2026-02-09"
+    "earliest": "2026-02-07",
+    "latest": "2026-02-14"
   },
   "by_channel": {
     "辽宁海事局": 6,
