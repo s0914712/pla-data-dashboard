@@ -68,7 +68,7 @@ jobs:
             for i in 1 2 3 4; do
               git push && break
               echo "Push failed (attempt $i/4), pulling latest changes..."
-              git pull --rebase origin main
+              git pull --rebase --autostash -X theirs origin main
               sleep $((2 ** i))
             done
             echo "✓ Changes pushed successfully"

@@ -145,7 +145,7 @@ def save_to_csv(new_data):
     df_combined['date'] = pd.to_datetime(df_combined['date'], format='%Y/%m/%d')
     df_combined = df_combined.sort_values('date')
     df_combined['date'] = df_combined['date'].dt.strftime('%Y/%m/%d')
-    df_combined = df_combined.drop_duplicates(subset=['date'], keep='last')
+    df_combined = df_combined.drop_duplicates(subset=['date'], keep='first')
 
     df_combined.to_csv(CSV_FILE, index=False, encoding='utf-8-sig')
     print(f"成功寫入 {len(new_data)} 筆資料到 {CSV_FILE}")
@@ -164,6 +164,7 @@ def main():
 
     all_data = []
     processed_urls = set()
+    processed_dates = set()
 
     driver = init_driver()
     print("✓ 瀏覽器啟動成功\n")
@@ -251,6 +252,13 @@ def main():
                         # 優先使用列表頁日期，若無則從詳細頁解析
                         date = date_from_list if date_from_list else parse_date_from_text(body_text)
 
+                        # 跳過已處理過的日期（不同連結可能指向同一天）
+                        if date and date in processed_dates:
+                            print(f"  [{idx:2d}] {date} 日期已處理過，跳過重複連結")
+                            driver.back()
+                            time.sleep(1)
+                            continue
+
                         if not date:
                             print(f"  [{idx:2d}] ⚠️ 找不到日期，跳過")
                             
@@ -295,6 +303,7 @@ def main():
                         aircraft, vessel = extract_numbers_from_text(body_text)
 
                         all_data.append([date, aircraft, vessel])
+                        processed_dates.add(date)
                         # 成功輸出
                         print(f"  [{idx:2d}] {date} | 共機 {aircraft:2d} | 共艦 {vessel:2d}")
 
