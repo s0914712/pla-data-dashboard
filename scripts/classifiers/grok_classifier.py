@@ -12,7 +12,12 @@ import json
 import httpx
 import time
 from typing import List, Dict, Optional
-from .prompts import CLASSIFICATION_SYSTEM_PROMPT, CLASSIFICATION_USER_TEMPLATE
+from .prompts import (
+    CLASSIFICATION_SYSTEM_PROMPT,
+    CLASSIFICATION_USER_TEMPLATE,
+    DEDUP_SYSTEM_PROMPT,
+    DEDUP_USER_TEMPLATE,
+)
 
 
 class GrokNewsClassifier:
@@ -216,6 +221,124 @@ class GrokNewsClassifier:
             'original_article': article
         }
     
+    # ------------------------------------------------------------------
+    # 去重 / Deduplication
+    # ------------------------------------------------------------------
+    def _build_dedup_list(self, articles: List[Dict]) -> str:
+        """將文章列表格式化為去重 Prompt 用的文字"""
+        lines = []
+        for i, a in enumerate(articles):
+            title = a.get("title", "")[:60]
+            content = a.get("content", "")[:80]
+            source = a.get("source", "")
+            date = a.get("date", "")
+            lines.append(f"[{i}] ({source} {date}) {title} — {content}")
+        return "\n".join(lines)
+
+    def deduplicate_batch(
+        self, articles: List[Dict], batch_size: int = 30
+    ) -> List[Dict]:
+        """
+        使用 LLM 識別並移除重複/高度相似的文章。
+
+        將文章分批送給 LLM（每批 batch_size 篇），
+        LLM 回傳重複組，每組保留第一篇（最完整的），其餘剔除。
+
+        Args:
+            articles: 原始文章列表
+            batch_size: 每批送給 LLM 的文章數
+
+        Returns:
+            去重後的文章列表
+        """
+        if len(articles) <= 1:
+            return articles
+
+        print(f"[GrokClassifier] 開始去重，共 {len(articles)} 篇文章...")
+
+        # 先做 URL 完全比對去重
+        seen_urls = set()
+        url_deduped = []
+        for a in articles:
+            url = a.get("url", "")
+            if url and url in seen_urls:
+                continue
+            if url:
+                seen_urls.add(url)
+            url_deduped.append(a)
+
+        removed_by_url = len(articles) - len(url_deduped)
+        if removed_by_url:
+            print(f"[GrokClassifier]   URL 完全比對去重: 移除 {removed_by_url} 篇")
+
+        # LLM 語義去重（分批處理）
+        all_keep_indices = set(range(len(url_deduped)))
+
+        for start in range(0, len(url_deduped), batch_size):
+            batch = url_deduped[start : start + batch_size]
+            if len(batch) <= 1:
+                continue
+
+            article_list_text = self._build_dedup_list(batch)
+            user_msg = DEDUP_USER_TEMPLATE.format(
+                count=len(batch), article_list=article_list_text
+            )
+
+            messages = [
+                {"role": "system", "content": DEDUP_SYSTEM_PROMPT},
+                {"role": "user", "content": user_msg},
+            ]
+
+            response = self._call_api(messages)
+            if not response:
+                print(f"[GrokClassifier]   批次 {start}-{start+len(batch)-1}: LLM 無回應，跳過")
+                continue
+
+            # 解析 LLM 回應
+            try:
+                text = response
+                if "```json" in text:
+                    import re
+                    m = re.search(r"```json\s*(.*?)\s*```", text, re.DOTALL)
+                    if m:
+                        text = m.group(1)
+                elif "```" in text:
+                    import re
+                    m = re.search(r"```\s*(.*?)\s*```", text, re.DOTALL)
+                    if m:
+                        text = m.group(1)
+
+                result = json.loads(text)
+                groups = result.get("groups", [])
+
+                batch_removed = 0
+                for group in groups:
+                    if not isinstance(group, list) or len(group) < 2:
+                        continue
+                    # group[0] 保留，其餘剔除
+                    for idx in group[1:]:
+                        global_idx = start + idx
+                        if 0 <= idx < len(batch) and global_idx in all_keep_indices:
+                            all_keep_indices.discard(global_idx)
+                            batch_removed += 1
+
+                if batch_removed:
+                    print(
+                        f"[GrokClassifier]   批次 {start}-{start+len(batch)-1}: "
+                        f"發現 {len(groups)} 組重複，移除 {batch_removed} 篇"
+                    )
+
+            except (json.JSONDecodeError, KeyError, TypeError) as e:
+                print(f"[GrokClassifier]   批次去重解析失敗: {e}")
+
+        deduped = [url_deduped[i] for i in sorted(all_keep_indices)]
+        total_removed = len(articles) - len(deduped)
+        print(
+            f"[GrokClassifier] 去重完成: {len(articles)} → {len(deduped)} "
+            f"(移除 {total_removed} 篇重複)"
+        )
+        return deduped
+
     def classify_batch(self, articles: List[Dict], delay: float = 1.0) -> List[Dict]:
         """
         批量分類新聞

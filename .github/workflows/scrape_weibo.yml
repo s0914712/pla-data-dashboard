@@ -1,0 +1,93 @@
+name: Weibo Scraper (東部戰區)
+
+on:
+  schedule:
+    # 每天 UTC 01:00 執行 (台北時間 09:00)，錯開 daily_update
+    - cron: '0 1 * * *'
+
+  # 允許手動觸發
+  workflow_dispatch:
+    inputs:
+      days_back:
+        description: '爬取過去幾天的貼文'
+        required: false
+        default: '7'
+        type: string
+      max_pages:
+        description: '最多爬取幾頁'
+        required: false
+        default: '5'
+        type: string
+
+jobs:
+  scrape-weibo:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      # 1. 檢出代碼
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      # 2. 設置 Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      # 3. 安裝依賴
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # 4. 執行微博爬蟲
+      - name: Run Weibo scraper
+        env:
+          WEIBO_COOKIE: ${{ secrets.WEIBO_COOKIE }}
+          WEIBO_TARGET_UID: ${{ secrets.WEIBO_TARGET_UID }}
+          GROK_API_KEY: ${{ secrets.GROK_API_KEY }}
+        run: |
+          python scripts/crawl_weibo.py \
+            --days ${{ github.event.inputs.days_back || '7' }} \
+            --max-pages ${{ github.event.inputs.max_pages || '5' }} \
+            --no-push
+
+      # 5. 提交並推送變更
+      - name: Commit and push data changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action Bot"
+
+          git add data/news_classified.json data/news_relevant.json || true
+
+          if git diff --staged --quiet; then
+            echo "✓ No changes to commit"
+          else
+            git diff --staged --stat
+            git commit -m "🤖 Weibo auto-update: $(date +'%Y-%m-%d %H:%M:%S')"
+            for i in 1 2 3 4; do
+              git push && break
+              echo "Push failed (attempt $i/4), pulling latest changes..."
+              git pull --rebase origin main
+              sleep $((2 ** i))
+            done
+            echo "✓ Changes pushed successfully"
+          fi
+
+      # 6. 上傳數據快照
+      - name: Upload data snapshot
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: weibo-data-${{ github.run_number }}
+          path: |
+            data/news_classified.json
+            data/news_relevant.json
+          retention-days: 7
