@@ -20,7 +20,7 @@ import os
 # 添加父目錄到 Python 路徑
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from scrapers.cna_scraper import CNAScraper
-# from scrapers.xinhua_scraper import XinhuaScraper  # 若尚未實作可先註解
+from scrapers.xinhua_scraper import XinhuaTWScraper
 from classifiers.grok_classifier import GrokNewsClassifier
 from updaters.github_updater import GitHubUpdater
 # ---------------------------------------------------------------------------
@@ -80,23 +80,20 @@ def main():
     # -----------------------------------------------------------------------
     print("\n[2/4] 爬取新華社新聞...")
     try:
-        # 若 XinhuaScraper 尚未實作，請維持註解
-        # with XinhuaScraper(delay=1.0) as xinhua:
-        #     xinhua_articles = xinhua.run(days_back=args.days)
-        #     all_articles.extend(xinhua_articles)
-        #
-        #     stats["sources"]["xinhua"] = {
-        #         "scraped": len(xinhua_articles),
-        #         "status": "success"
-        #     }
-        #
-        #     print(f"✓ Xinhua: {len(xinhua_articles)} 篇新聞")
-        print("⚠️  Xinhua scraper not enabled.")
-        stats["sources"]["xinhua"] = {
-            "status": "skipped"
-        }
+        with XinhuaTWScraper() as xinhua:
+            xinhua_articles = xinhua.run(days_back=args.days)
+            all_articles.extend(xinhua_articles)
+
+            stats["sources"]["xinhua"] = {
+                "scraped": len(xinhua_articles),
+                "status": "success"
+            }
+
+            print(f"✓ Xinhua: {len(xinhua_articles)} 篇新聞")
+            logger.info(f"Xinhua: scraped {len(xinhua_articles)} articles")
     except Exception as e:
         print(f"✗ Xinhua Error: {e}")
+        logger.error(f"Xinhua Error: {e}")
         stats["sources"]["xinhua"] = {
             "status": "failed",
             "error": str(e)
