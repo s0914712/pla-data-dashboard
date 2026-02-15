@@ -82,9 +82,9 @@ def main():
     print(f"✓ Scraped {len(articles)} articles")
 
     # ------------------------------------------------------------------
-    # 2. Grok 分類
+    # 2. Grok 去重 + 分類
     # ------------------------------------------------------------------
-    print("\n[2/3] Grok 分類...")
+    print("\n[2/3] Grok 去重 + 分類...")
 
     api_key = os.environ.get("GROK_API_KEY")
     if not api_key:
@@ -92,9 +92,11 @@ def main():
         sys.exit(1)
 
     with GrokNewsClassifier(api_key) as classifier:
-        classified = classifier.classify_batch(articles, delay=1.0)
+        deduped = classifier.deduplicate_batch(articles)
+        classified = classifier.classify_batch(deduped, delay=1.0)
         relevant = classifier.filter_relevant(classified)
 
+    print(f"✓ Deduped: {len(articles)} → {len(deduped)}")
     print(f"✓ Classified: {len(classified)}, Relevant: {len(relevant)}")
 
     # ------------------------------------------------------------------

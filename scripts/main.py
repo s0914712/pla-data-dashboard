@@ -131,16 +131,28 @@ def main():
     print(f"\n📊 Total articles scraped: {len(all_articles)}")
     logger.info(f"Total articles scraped: {len(all_articles)}")
     # -----------------------------------------------------------------------
-    # 4. Grok 分類
+    # 4. Grok 去重 + 分類
     # -----------------------------------------------------------------------
-    print("\n[4/6] 使用 Grok 進行新聞分類...")
+    print("\n[4/6] 使用 Grok 進行去重與新聞分類...")
     api_key = os.environ.get("GROK_API_KEY")
     if not api_key:
         print("❌ GROK_API_KEY not found in environment")
         sys.exit(1)
     try:
         with GrokNewsClassifier(api_key) as classifier:
-            classified = classifier.classify_batch(all_articles, delay=1.0)
+            # 去重：先用 LLM 識別重複/高度相似文章
+            deduped = classifier.deduplicate_batch(all_articles)
+            stats["deduplication"] = {
+                "before": len(all_articles),
+                "after": len(deduped),
+                "removed": len(all_articles) - len(deduped),
+            }
+            logger.info(
+                f"Dedup: {len(all_articles)} → {len(deduped)} "
+                f"(removed {len(all_articles) - len(deduped)})"
+            )
+            # 分類
+            classified = classifier.classify_batch(deduped, delay=1.0)
             relevant = classifier.filter_relevant(classified)
             stats["classification"] = {
                 "total": len(classified),
