@@ -53,6 +53,8 @@ jobs:
           SERPAPI_KEY : ${{ secrets.SERPAPI_KEY  }}
           GROK_API_KEY: ${{ secrets.GROK_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WEIBO_COOKIE: ${{ secrets.WEIBO_COOKIE }}
+          WEIBO_TARGET_UID: ${{ secrets.WEIBO_TARGET_UID }}
         run: |
           python scripts/main.py \
             --days ${{ github.event.inputs.days_back || '7' }} \
