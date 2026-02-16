@@ -77,7 +77,7 @@ DATA_SOURCES = {
 
 NEWS_LOCAL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'news_classified.json')
 
-OUTPUT_PATH = 'data/prediction.csv'
+OUTPUT_PATH = 'data/predictions/latest_prediction.csv'
 HIGH_THRESHOLD = 60
 PREDICTION_DAYS = 7
 
