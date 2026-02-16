@@ -913,7 +913,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='PLA 7-Day Sorties Prediction v2.3')
     parser.add_argument('--sorties', type=str, default=None, help='Path to sorties data')
     parser.add_argument('--political', type=str, default=None, help='Path to political events data')
-    parser.add_argument('--output', type=str, default='prediction.csv', help='Output file path')
+    parser.add_argument('--output', type=str, default=OUTPUT_PATH, help='Output file path')
 
     args = parser.parse_args()
 

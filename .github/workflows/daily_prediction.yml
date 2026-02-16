@@ -36,31 +36,31 @@ jobs:
           echo "Files in data/:"
           ls -la data/ || echo "No data directory"
           echo ""
-          python pla_7day_predictor.py --output prediction.csv
+          python pla_7day_predictor.py --output data/prediction.csv
           echo ""
           echo "=== Prediction script completed ==="
 
       - name: Verify and copy prediction
         run: |
-          echo "Checking for prediction.csv..."
-          if [ -f "prediction.csv" ]; then
-            echo "prediction.csv found!"
-            echo "File size: $(wc -c < prediction.csv) bytes"
+          echo "Checking for data/prediction.csv..."
+          if [ -f "data/prediction.csv" ]; then
+            echo "data/prediction.csv found!"
+            echo "File size: $(wc -c < data/prediction.csv) bytes"
             echo "First 10 lines:"
-            head -10 prediction.csv
+            head -10 data/prediction.csv
           else
-            echo "ERROR: prediction.csv not found!"
-            echo "Files in current directory:"
-            ls -la
+            echo "ERROR: data/prediction.csv not found!"
+            echo "Files in data/:"
+            ls -la data/
             exit 1
           fi
 
           # 複製到歷史記錄 (以日期命名)
           DATE=$(date +%Y-%m-%d)
-          cp prediction.csv data/predictions/history/prediction_${DATE}.csv
+          cp data/prediction.csv data/predictions/history/prediction_${DATE}.csv
 
           # 更新最新預測
-          cp prediction.csv data/predictions/latest_prediction.csv
+          cp data/prediction.csv data/predictions/latest_prediction.csv
 
           echo "Files copied successfully!"
       
