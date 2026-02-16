@@ -25,11 +25,22 @@ v2.3.1 修正:
 - Recency Boost: 近期資料重複以強化 regime 適應
 - 假日資料改由 CSV 讀取 (data/cn_holidays.csv)
 
+v2.4.0 Anti-Leaking 改善:
+- Walk-Forward Multi-Step CV: 模擬真實 7 步迭代預測，按 Day-1~Day-7 分層報告 MAE
+- Per-fold Scaler: CV 每個 fold 獨立 fit RobustScaler（修復 Leak #2）
+- Per-fold time_weight: CV 內按 fold 訓練集最新日期計算權重（修復 Leak #3）
+- Embargo gap=7: 訓練集和驗證集之間隔離 7 天（避免 lag_7 邊界洩漏）
+- 細緻 lag 特徵: lag_2/3/5/21 + 加速度 + 交互特徵 + 動量
+- 零活動 regime 偵測: zero_count_3d/7d, consecutive_zero
+- Spike 偵測: spike_7d, spike_ratio
+- 新聞先行指標: news_classified.json 事件計數 + 情緒分數
+- 政治特徵擴充: US_Taiwan_interaction, Foreign_battleship (merged_data_M)
+
 Usage:
     python pla_predictor.py
 
 Author: PLA Data Dashboard
-Version: 2.3.1
+Version: 2.4.0
 """
 
 import pandas as pd
@@ -41,6 +52,7 @@ from sklearn.model_selection import TimeSeriesSplit
 from imblearn.over_sampling import SMOTE
 import warnings
 import os
+import json
 
 # CatBoost - 若未安裝則 fallback 到 sklearn
 try:
@@ -60,7 +72,10 @@ DATA_SOURCES = {
     'sorties': 'https://raw.githubusercontent.com/s0914712/pla-data-dashboard/main/data/JapanandBattleship.csv',
     'political': 'https://raw.githubusercontent.com/s0914712/pla-data-dashboard/main/data/merged_comprehensive_data_M.csv',
     'weather': 'https://raw.githubusercontent.com/s0914712/pla-data-dashboard/main/data/airport_weather_forecast.csv',
+    'news': 'https://raw.githubusercontent.com/s0914712/pla-data-dashboard/main/data/news_classified.json',
 }
+
+NEWS_LOCAL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'news_classified.json')
 
 OUTPUT_PATH = 'data/prediction.csv'
 HIGH_THRESHOLD = 60
@@ -116,7 +131,7 @@ def get_holiday_features(date):
 
 
 class PLAPredictor:
-    """PLA 架次預測系統 v2.3 - CatBoost"""
+    """PLA 架次預測系統 v2.4 - CatBoost + Anti-Leaking"""
 
     def __init__(self, high_threshold=None):
         self.reg_model = None           # 主回歸模型
@@ -126,6 +141,7 @@ class PLAPredictor:
         self.scaler_continuous = RobustScaler()
         self.scaler_counts = RobustScaler()
         self.political_events = None
+        self.news_data = None            # v2.4: news_classified.json
         self.weather_data = None
         self.latest_data = None
         self.latest_date = None
@@ -136,8 +152,8 @@ class PLAPredictor:
         self.cyclic_cols = ['month_sin', 'month_cos', 'dow_sin', 'dow_cos']
         self.binary_cols = []  # 移除低效二元特徵
         self.continuous_cols = [
-            # 滯後特徵
-            'lag_1', 'lag_7', 'lag_14', 'lag_30',
+            # 滯後特徵 (v2.4: 增加 lag_2/3/5/21 填補資訊斷層)
+            'lag_1', 'lag_2', 'lag_3', 'lag_5', 'lag_7', 'lag_14', 'lag_21', 'lag_30',
             # 移動平均
             'ma_3', 'ma_7', 'ma_14', 'ma_30',
             # EMA
@@ -151,15 +167,26 @@ class PLAPredictor:
             'diff_1', 'diff_7',
             # 衍生特徵
             'compression', 'trend_3d', 'trend_7d', 'volatility_ratio',
-            'ema_trend'
+            'ema_trend',
+            # v2.4: 自回歸加速度與交互特徵
+            'accel_1d', 'lag_ratio_1_7', 'lag_diff_1_2', 'lag_diff_2_3', 'momentum_3d',
+            # v2.4: 零活動 regime 偵測
+            'zero_count_3d', 'zero_count_7d', 'consecutive_zero',
+            # v2.4: 近期 spike 偵測
+            'spike_7d', 'spike_ratio',
+            # v2.4: 新聞情緒
+            'news_avg_sentiment',
         ]
-        self.count_cols = ['carrier', 'cn_stmt_7d']
+        self.count_cols = ['carrier', 'cn_stmt_7d',
+                           'us_tw_interaction_7d', 'foreign_battleship_7d',
+                           'news_military_count', 'news_us_tw_count',
+                           'news_relevant_count']
         self.holiday_cols = ['is_holiday']
 
     def load_data(self, sorties_path=None, political_path=None):
         """載入資料"""
         print("=" * 60)
-        print("PLA 7-Day Prediction System v2.3")
+        print("PLA 7-Day Prediction System v2.4")
         print(f"Engine: {'CatBoost' if USE_CATBOOST else 'sklearn GradientBoosting'}")
         print("=" * 60)
         print(f"\n[1] 載入資料...")
@@ -227,11 +254,54 @@ class PLAPredictor:
         except:
             self.weather_data = None
 
+        # v2.4: 載入新聞分類資料
+        self.news_data = self._load_news_data()
+
         print(f"  架次資料: {len(df_sorties)} 筆")
         print(f"  政治事件: {len(df_political)} 筆")
+        print(f"  新聞資料: {len(self.news_data)} 篇")
         print(f"  最新日期: {self.latest_date.strftime('%Y-%m-%d')}")
 
         return df_sorties, df_political
+
+    def _load_news_data(self):
+        """v2.4: 載入 news_classified.json"""
+        try:
+            if os.path.exists(NEWS_LOCAL_PATH):
+                with open(NEWS_LOCAL_PATH, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            else:
+                import urllib.request
+                with urllib.request.urlopen(DATA_SOURCES['news']) as resp:
+                    return json.loads(resp.read().decode('utf-8'))
+        except Exception as e:
+            print(f"  [Warning] 無法載入新聞資料: {e}")
+            return []
+
+    def _extract_news_features(self, target_date, lookback_days=7):
+        """v2.4: 從 news_classified.json 提取先行指標特徵（嚴格 < target_date）"""
+        if not self.news_data:
+            return {
+                'news_military_count': 0, 'news_us_tw_count': 0,
+                'news_relevant_count': 0, 'news_avg_sentiment': 0,
+            }
+
+        window_start = target_date - timedelta(days=lookback_days)
+        recent = []
+        for n in self.news_data:
+            try:
+                nd = pd.to_datetime(n['original_article']['date'])
+                if window_start <= nd < target_date:
+                    recent.append(n)
+            except (KeyError, ValueError):
+                continue
+
+        return {
+            'news_military_count': sum(1 for n in recent if n.get('category') == 'Military_Exercise'),
+            'news_us_tw_count': sum(1 for n in recent if n.get('category') == 'US_TW_Interaction'),
+            'news_relevant_count': sum(1 for n in recent if n.get('is_relevant')),
+            'news_avg_sentiment': float(np.mean([n.get('sentiment_score', 0) for n in recent])) if recent else 0,
+        }
 
     def _create_political_features(self, df, df_events, window_days):
         features = []
@@ -257,8 +327,8 @@ class PLAPredictor:
         df['dow_sin'] = np.sin(2 * np.pi * df['date'].dt.dayofweek / 7)
         df['dow_cos'] = np.cos(2 * np.pi * df['date'].dt.dayofweek / 7)
 
-        # === 滯後特徵 ===
-        for lag in [1, 7, 14, 30]:
+        # === 滯後特徵 (v2.4: 增加 lag_2/3/5/21 填補資訊斷層) ===
+        for lag in [1, 2, 3, 5, 7, 14, 21, 30]:
             df[f'lag_{lag}'] = df[target].shift(lag)
 
         # === 滾動統計特徵 ===
@@ -289,6 +359,25 @@ class PLAPredictor:
         df['trend_7d'] = df['ma_7'] - df['ma_14']
         df['volatility_ratio'] = df['std_7'] / (df['ma_7'] + 1)
 
+        # === v2.4: 自回歸加速度與交互特徵 ===
+        df['accel_1d'] = df['lag_1'] - 2 * df['lag_2'] + df['lag_3']  # 趨勢加速度
+        df['lag_ratio_1_7'] = df['lag_1'] / (df['lag_7'] + 1)         # 短期 vs 週期比
+        df['lag_diff_1_2'] = df['lag_1'] - df['lag_2']                # 最近 1 天變化
+        df['lag_diff_2_3'] = df['lag_2'] - df['lag_3']                # 前 1 天變化
+        df['momentum_3d'] = df['lag_1'] - df['lag_3']                 # 3 天動量
+
+        # === v2.4: 零活動 regime 偵測 ===
+        df['zero_count_3d'] = df[target].shift(1).rolling(3, min_periods=1).apply(
+            lambda x: (x == 0).sum(), raw=True).fillna(0)
+        df['zero_count_7d'] = df[target].shift(1).rolling(7, min_periods=1).apply(
+            lambda x: (x == 0).sum(), raw=True).fillna(0)
+        df['consecutive_zero'] = df[target].shift(1).rolling(7, min_periods=1).apply(
+            lambda x: self._max_consecutive_zero(x), raw=True).fillna(0)
+
+        # === v2.4: 近期 spike 偵測 ===
+        df['spike_7d'] = df[target].shift(1).rolling(7, min_periods=1).max().fillna(0)
+        df['spike_ratio'] = df['lag_1'] / (df['spike_7d'] + 1)
+
         # === 外部特徵 ===
         # carrier: 過去7天航母活動累計（shift(1) 避免同步洩漏，預測時可用歷史值）
         if '航母活動' in df.columns:
@@ -303,6 +392,26 @@ class PLAPredictor:
 
         pol_feat_7d = self._create_political_features(df, df_political, 7)
         df['cn_stmt_7d'] = pol_feat_7d['cn_stmt_7d'].values
+
+        # === v2.4: US-Taiwan 互動與外國軍艦特徵（來自 merged_comprehensive_data_M） ===
+        us_tw_feat = []
+        fb_feat = []
+        for _, row in df.iterrows():
+            current_date = row['date']
+            mask = (df_political['date'] >= current_date - timedelta(days=7)) & (df_political['date'] < current_date)
+            past = df_political[mask]
+            us_tw_feat.append(past['US_Taiwan_interaction'].notna().sum() if 'US_Taiwan_interaction' in past.columns else 0)
+            fb_feat.append(past['Foreign_battleship'].notna().sum() if 'Foreign_battleship' in past.columns else 0)
+        df['us_tw_interaction_7d'] = us_tw_feat
+        df['foreign_battleship_7d'] = fb_feat
+
+        # === v2.4: 新聞分類先行指標特徵 ===
+        news_features_list = []
+        for _, row in df.iterrows():
+            news_features_list.append(self._extract_news_features(row['date']))
+        news_df = pd.DataFrame(news_features_list)
+        for col in news_df.columns:
+            df[col] = news_df[col].values
 
         # === 假日特徵 ===
         df['is_holiday'] = df['date'].apply(lambda d: get_holiday_features(d))
@@ -360,8 +469,87 @@ class PLAPredictor:
                 loss='huber', random_state=42
             )
 
+    def _build_single_day_features(self, window, base_date, day_offset, df_political=None):
+        """v2.4: 從 window 建構單天特徵（供 walk-forward CV 和 predict_7_days 共用）"""
+        target_date = base_date + timedelta(days=day_offset + 1)
+        is_holiday = get_holiday_features(target_date)
+
+        ema_7 = self._compute_ema(window[-7:], 7)
+        ema_14 = self._compute_ema(window[-14:], 14)
+
+        pct_change_1d = (window[-2] - window[-3]) / (window[-3] + 1) if len(window) >= 3 else 0
+        pct_change_7d = (window[-2] - window[-9]) / (window[-9] + 1) if len(window) >= 9 else 0
+        pct_change_1d = np.clip(pct_change_1d, -2, 2)
+        pct_change_7d = np.clip(pct_change_7d, -2, 2)
+        diff_1 = window[-2] - window[-3] if len(window) >= 3 else 0
+        diff_7 = window[-2] - window[-9] if len(window) >= 9 else 0
+
+        ma_3 = np.mean(window[-3:])
+        ma_7 = np.mean(window[-7:])
+        ma_14 = np.mean(window[-14:])
+        ma_30 = np.mean(window[-30:])
+
+        # 新 lag 交互特徵
+        lag_1, lag_2, lag_3 = window[-1], window[-2], window[-3]
+        lag_5, lag_7, lag_14 = window[-5], window[-7], window[-14]
+        lag_21 = window[-21] if len(window) >= 21 else window[0]
+        lag_30 = window[-30] if len(window) >= 30 else window[0]
+
+        # 零活動偵測
+        recent_3 = window[-3:]
+        recent_7 = window[-7:]
+        zero_count_3d = sum(1 for v in recent_3 if v == 0)
+        zero_count_7d = sum(1 for v in recent_7 if v == 0)
+        consecutive_zero = self._max_consecutive_zero(recent_7)
+
+        # spike 偵測
+        spike_7d = max(recent_7)
+        spike_ratio = lag_1 / (spike_7d + 1)
+
+        # 政治特徵
+        pol_7d = self._get_future_political_features(target_date, 7) if df_political is None else self._get_future_political_features(target_date, 7)
+        news_feat = self._extract_news_features(target_date)
+
+        features = {
+            'month_sin': np.sin(2 * np.pi * target_date.month / 12),
+            'month_cos': np.cos(2 * np.pi * target_date.month / 12),
+            'dow_sin': np.sin(2 * np.pi * target_date.dayofweek / 7),
+            'dow_cos': np.cos(2 * np.pi * target_date.dayofweek / 7),
+            'lag_1': lag_1, 'lag_2': lag_2, 'lag_3': lag_3,
+            'lag_5': lag_5, 'lag_7': lag_7, 'lag_14': lag_14,
+            'lag_21': lag_21, 'lag_30': lag_30,
+            'ma_3': ma_3, 'ma_7': ma_7, 'ma_14': ma_14, 'ma_30': ma_30,
+            'ema_7': ema_7, 'ema_14': ema_14,
+            'min_7': np.min(recent_7), 'max_7': np.max(recent_7),
+            'std_3': np.std(recent_3), 'std_7': np.std(recent_7),
+            'std_14': np.std(window[-14:]), 'std_30': np.std(window[-30:]),
+            'pct_change_1d': pct_change_1d, 'pct_change_7d': pct_change_7d,
+            'diff_1': diff_1, 'diff_7': diff_7,
+            'compression': min(3, ma_3 / (ma_14 + 1)),
+            'trend_3d': ma_3 - ma_7, 'trend_7d': ma_7 - ma_14,
+            'volatility_ratio': np.std(recent_7) / (ma_7 + 1),
+            'ema_trend': ema_7 - ema_14,
+            'accel_1d': lag_1 - 2 * lag_2 + lag_3,
+            'lag_ratio_1_7': lag_1 / (lag_7 + 1),
+            'lag_diff_1_2': lag_1 - lag_2, 'lag_diff_2_3': lag_2 - lag_3,
+            'momentum_3d': lag_1 - lag_3,
+            'zero_count_3d': zero_count_3d, 'zero_count_7d': zero_count_7d,
+            'consecutive_zero': consecutive_zero,
+            'spike_7d': spike_7d, 'spike_ratio': spike_ratio,
+            'news_avg_sentiment': news_feat['news_avg_sentiment'],
+            'carrier': self._recent_carrier,
+            'cn_stmt_7d': pol_7d['cn_stmt_7d'],
+            'us_tw_interaction_7d': 0,  # 靜態（CV 中無法即時查詢）
+            'foreign_battleship_7d': 0,
+            'news_military_count': news_feat['news_military_count'],
+            'news_us_tw_count': news_feat['news_us_tw_count'],
+            'news_relevant_count': news_feat['news_relevant_count'],
+            'is_holiday': is_holiday,
+        }
+        return features
+
     def train(self, df):
-        """訓練模型 (v2.3 - CatBoost + TimeSeriesSplit + Quantile Regression)"""
+        """訓練模型 (v2.4 - CatBoost + Walk-Forward Multi-Step CV + Anti-Leaking)"""
         print("[3] Training model (CatBoost)..." if USE_CATBOOST else "[3] Training model (sklearn)...")
 
         target = 'pla_aircraft_sorties'
@@ -373,7 +561,6 @@ class PLAPredictor:
         weights = df['time_weight'].values
 
         # === Recency Boost: 重複近期資料以強化近期 regime ===
-        # CV 使用原始資料（誠實驗證），僅最終訓練使用 boosted 版本
         recent_cutoff = df['date'].max() - timedelta(weeks=RECENCY_BOOST_WEEKS)
         recent_mask = (df['date'] >= recent_cutoff).values
         n_recent = int(recent_mask.sum())
@@ -391,31 +578,91 @@ class PLAPredictor:
             X_full_boosted, X_base_boosted = X_full, X_base
             y_reg_boosted, y_clf_boosted, w_boosted = y_reg, y_clf, weights
 
-        # === TimeSeriesSplit 交叉驗證（用原始資料，不 boost）===
-        print("    [3.1] TimeSeriesSplit cross-validation...")
-        tscv = TimeSeriesSplit(n_splits=5)
+        # === v2.4: Walk-Forward Multi-Step CV (修復 Leak #1, #2, #3) ===
+        print("    [3.1] Walk-Forward Multi-Step CV (7-day horizon)...")
+        EMBARGO_DAYS = 7
+        n_splits = 5
+        horizon = 7
+        n = len(df)
+        fold_size = n // (n_splits + 1)
+
+        all_errors = {d: [] for d in range(1, horizon + 1)}
         cv_mae_scores = []
-        cv_rmse_scores = []
 
-        for fold, (train_idx, val_idx) in enumerate(tscv.split(X_full)):
-            X_train, X_val = X_full[train_idx], X_full[val_idx]
-            y_train, y_val = y_reg[train_idx], y_reg[val_idx]
-            w_train = weights[train_idx]
+        for fold in range(n_splits):
+            train_end = fold_size * (fold + 2)
+            test_start = train_end + EMBARGO_DAYS  # embargo gap
+            test_end = min(test_start + horizon, n)
 
+            if test_end <= test_start or train_end < 60:
+                continue
+
+            df_train = df.iloc[:train_end].copy()
+            df_test = df.iloc[test_start:test_end].copy()
+
+            if len(df_test) == 0:
+                continue
+
+            # Per-fold scaler (修復 Leak #2)
+            scaler_cont_fold = RobustScaler()
+            scaler_count_fold = RobustScaler()
+            X_cont_train = scaler_cont_fold.fit_transform(df_train[self.continuous_cols].values)
+            X_count_train = scaler_count_fold.fit_transform(df_train[self.count_cols].values)
+            X_cyc_train = df_train[self.cyclic_cols].values
+            X_train_base = np.hstack([X_cyc_train, X_cont_train, X_count_train])
+            X_train_full = np.hstack([X_train_base, df_train[self.holiday_cols].values])
+
+            # Per-fold time_weight (修復 Leak #3)
+            train_max_date = df_train['date'].max()
+            days_ago_fold = (train_max_date - df_train['date']).dt.days
+            w_fold = np.exp(-0.002 * days_ago_fold.values)
+            w_fold = w_fold / w_fold.sum() * len(w_fold)
+
+            y_train = df_train[target].values
             fold_model = self._create_regressor()
-            fold_model.fit(X_train, np.log1p(y_train), sample_weight=w_train)
+            fold_model.fit(X_train_full, np.log1p(y_train), sample_weight=w_fold)
 
-            y_pred = np.expm1(fold_model.predict(X_val))
-            y_pred = np.maximum(0, y_pred)
+            # 模擬 7 步迭代預測（修復 Leak #1）
+            window = df_train.tail(60)[target].tolist()
+            base_date = train_max_date + timedelta(days=EMBARGO_DAYS)
+            fold_errors = []
 
-            mae = np.mean(np.abs(y_val - y_pred))
-            rmse = np.sqrt(np.mean((y_val - y_pred) ** 2))
-            cv_mae_scores.append(mae)
-            cv_rmse_scores.append(rmse)
+            for day in range(len(df_test)):
+                features = self._build_single_day_features(window, base_date, day)
+                feat_df = pd.DataFrame([features])
 
-        self.cv_scores = cv_mae_scores
-        print(f"         CV MAE:  {np.mean(cv_mae_scores):.2f} +/- {np.std(cv_mae_scores):.2f}")
-        print(f"         CV RMSE: {np.mean(cv_rmse_scores):.2f} +/- {np.std(cv_rmse_scores):.2f}")
+                # 用 fold scaler transform
+                X_cont_pred = scaler_cont_fold.transform(feat_df[self.continuous_cols].values)
+                X_count_pred = scaler_count_fold.transform(feat_df[self.count_cols].values)
+                X_cyc_pred = feat_df[self.cyclic_cols].values
+                X_pred_base = np.hstack([X_cyc_pred, X_cont_pred, X_count_pred])
+                X_pred_full = np.hstack([X_pred_base, feat_df[self.holiday_cols].values])
+
+                pred = max(0, np.expm1(fold_model.predict(X_pred_full)[0]))
+                actual = df_test.iloc[day][target]
+
+                error = abs(actual - pred)
+                all_errors[day + 1].append(error)
+                fold_errors.append(error)
+                window.append(pred)  # 用預測值更新（模擬真實情境）
+
+            if fold_errors:
+                cv_mae_scores.append(np.mean(fold_errors))
+
+        # 報告分層 MAE
+        for day in range(1, horizon + 1):
+            if all_errors[day]:
+                mae = np.mean(all_errors[day])
+                print(f"         Day-{day} MAE: {mae:.2f} (n={len(all_errors[day])})")
+
+        if cv_mae_scores:
+            self.cv_scores = cv_mae_scores
+            overall_errors = [e for errs in all_errors.values() for e in errs]
+            overall_mae = np.mean(overall_errors) if overall_errors else 0
+            print(f"         Overall 7-day Walk-Forward MAE: {overall_mae:.2f}")
+        else:
+            self.cv_scores = [0]
+            print("         [Warning] No valid CV folds")
 
         # === 分類模型（使用 boosted 資料）===
         print("    [3.2] Training classifier...")
@@ -487,8 +734,21 @@ class PLAPredictor:
             ema = alpha * v + (1 - alpha) * ema
         return ema
 
+    @staticmethod
+    def _max_consecutive_zero(x):
+        """計算序列中最大連續零的長度"""
+        max_count = 0
+        count = 0
+        for v in x:
+            if v == 0:
+                count += 1
+                max_count = max(max_count, count)
+            else:
+                count = 0
+        return max_count
+
     def predict_7_days(self):
-        """預測未來7天 (v2.3 - Quantile Regression 信賴區間)"""
+        """預測未來7天 (v2.4 - 使用共用 _build_single_day_features)"""
         print("[4] Generating 7-day predictions...")
 
         df = self.latest_data
@@ -499,47 +759,11 @@ class PLAPredictor:
 
         for i in range(PREDICTION_DAYS):
             target_date = self.latest_date + timedelta(days=i+1)
-            is_holiday = get_holiday_features(target_date)
-            pol_7d = self._get_future_political_features(target_date, 7)
 
-            # 計算 EMA
-            ema_7 = self._compute_ema(current_window[-7:], 7)
-            ema_14 = self._compute_ema(current_window[-14:], 14)
+            features = self._build_single_day_features(
+                current_window, self.latest_date, i)
 
-            # 計算變化率和差分 (使用 shift 避免 leaking)
-            pct_change_1d = (current_window[-2] - current_window[-3]) / (current_window[-3] + 1) if len(current_window) >= 3 else 0
-            pct_change_7d = (current_window[-2] - current_window[-9]) / (current_window[-9] + 1) if len(current_window) >= 9 else 0
-            pct_change_1d = np.clip(pct_change_1d, -2, 2)
-            pct_change_7d = np.clip(pct_change_7d, -2, 2)
-
-            diff_1 = current_window[-2] - current_window[-3] if len(current_window) >= 3 else 0
-            diff_7 = current_window[-2] - current_window[-9] if len(current_window) >= 9 else 0
-
-            features = {
-                'month_sin': np.sin(2 * np.pi * target_date.month / 12),
-                'month_cos': np.cos(2 * np.pi * target_date.month / 12),
-                'dow_sin': np.sin(2 * np.pi * target_date.dayofweek / 7),
-                'dow_cos': np.cos(2 * np.pi * target_date.dayofweek / 7),
-                'lag_1': current_window[-1],
-                'lag_7': current_window[-7], 'lag_14': current_window[-14], 'lag_30': current_window[-30],
-                'ma_3': np.mean(current_window[-3:]), 'ma_7': np.mean(current_window[-7:]),
-                'ma_14': np.mean(current_window[-14:]), 'ma_30': np.mean(current_window[-30:]),
-                'ema_7': ema_7, 'ema_14': ema_14,
-                'min_7': np.min(current_window[-7:]),
-                'max_7': np.max(current_window[-7:]),
-                'std_3': np.std(current_window[-3:]), 'std_7': np.std(current_window[-7:]),
-                'std_14': np.std(current_window[-14:]), 'std_30': np.std(current_window[-30:]),
-                'pct_change_1d': pct_change_1d, 'pct_change_7d': pct_change_7d,
-                'diff_1': diff_1, 'diff_7': diff_7,
-                'compression': min(3, np.mean(current_window[-3:]) / (np.mean(current_window[-14:]) + 1)),
-                'trend_3d': np.mean(current_window[-3:]) - np.mean(current_window[-7:]),
-                'trend_7d': np.mean(current_window[-7:]) - np.mean(current_window[-14:]),
-                'volatility_ratio': np.std(current_window[-7:]) / (np.mean(current_window[-7:]) + 1),
-                'ema_trend': ema_7 - ema_14,
-                'carrier': self._recent_carrier,
-                'cn_stmt_7d': pol_7d['cn_stmt_7d']
-            }
-
+            is_holiday = features.pop('is_holiday')
             feat_df = pd.DataFrame([features])
             X_base = self._scale_features(feat_df, fit=False)
             X_full = np.hstack([X_base, [[is_holiday]]])
@@ -576,6 +800,9 @@ class PLAPredictor:
             else:
                 risk_level = 'LOW'
 
+            ema_7 = features['ema_7']
+            ema_14 = features['ema_14']
+
             predictions.append({
                 'date': target_date.strftime('%Y-%m-%d'),
                 'day_of_week': target_date.strftime('%A'),
@@ -586,7 +813,7 @@ class PLAPredictor:
                 'risk_level': risk_level,
                 'is_cn_holiday': is_holiday,
                 'weather_adjustment': round(weather_adj, 2),
-                'cn_stmt_7d': pol_7d['cn_stmt_7d'],
+                'cn_stmt_7d': features['cn_stmt_7d'],
                 'ema_7': round(ema_7, 1),
                 'ema_14': round(ema_14, 1)
             })
@@ -604,7 +831,7 @@ class PLAPredictor:
 
         # 加入 metadata
         predictions['generated_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        predictions['model_version'] = '2.3.1'
+        predictions['model_version'] = '2.4.0'
         predictions['data_latest_date'] = self.latest_date.strftime('%Y-%m-%d')
         predictions['cv_mae'] = round(np.mean(self.cv_scores), 2) if self.cv_scores else None
 
