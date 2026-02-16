@@ -4,71 +4,69 @@ on:
   schedule:
     # 每日 UTC 02:00 執行 (台灣時間 10:00)
     - cron: '0 2 * * *'
-  
+
   # 允許手動觸發
   workflow_dispatch:
 
 jobs:
   predict:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-      
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pandas numpy scikit-learn imbalanced-learn
-      
+
       - name: Run prediction
         run: |
           echo "=== Starting prediction script ==="
           echo "Python version: $(python --version)"
           echo "Working directory: $(pwd)"
-          echo "Files in data/:"
-          ls -la data/ || echo "No data directory"
+          echo "Files in data/predictions/:"
+          ls -la data/predictions/ || echo "No predictions directory"
           echo ""
-          python pla_7day_predictor.py --output data/prediction.csv
+          python pla_7day_predictor.py
           echo ""
           echo "=== Prediction script completed ==="
 
-      - name: Verify and copy prediction
+      - name: Verify and copy to history
         run: |
-          echo "Checking for data/prediction.csv..."
-          if [ -f "data/prediction.csv" ]; then
-            echo "data/prediction.csv found!"
-            echo "File size: $(wc -c < data/prediction.csv) bytes"
+          echo "Checking for data/predictions/latest_prediction.csv..."
+          if [ -f "data/predictions/latest_prediction.csv" ]; then
+            echo "latest_prediction.csv found!"
+            echo "File size: $(wc -c < data/predictions/latest_prediction.csv) bytes"
             echo "First 10 lines:"
-            head -10 data/prediction.csv
+            head -10 data/predictions/latest_prediction.csv
           else
-            echo "ERROR: data/prediction.csv not found!"
-            echo "Files in data/:"
-            ls -la data/
+            echo "ERROR: data/predictions/latest_prediction.csv not found!"
+            echo "Files in data/predictions/:"
+            ls -la data/predictions/
             exit 1
           fi
 
           # 複製到歷史記錄 (以日期命名)
+          mkdir -p data/predictions/history
           DATE=$(date +%Y-%m-%d)
-          cp data/prediction.csv data/predictions/history/prediction_${DATE}.csv
-
-          # 更新最新預測
-          cp data/prediction.csv data/predictions/latest_prediction.csv
+          cp data/predictions/latest_prediction.csv data/predictions/history/prediction_${DATE}.csv
 
           echo "Files copied successfully!"
-      
+
       - name: Commit and push predictions
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add data/prediction.csv data/predictions/
+          git add data/predictions/
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else

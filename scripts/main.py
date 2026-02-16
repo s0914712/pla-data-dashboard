@@ -25,6 +25,48 @@ from scrapers.weibo_scraper import WeiboScraper
 from classifiers.grok_classifier import GrokNewsClassifier
 from updaters.github_updater import GitHubUpdater
 # ---------------------------------------------------------------------------
+# Helper: JSON 合併
+# ---------------------------------------------------------------------------
+def _load_existing_json(path):
+    """載入既有 JSON 檔案，若不存在或格式錯誤則回傳空列表"""
+    try:
+        if path.exists():
+            with path.open("r", encoding="utf-8") as f:
+                data = json.load(f)
+                if isinstance(data, list):
+                    return data
+    except (json.JSONDecodeError, Exception):
+        pass
+    return []
+
+
+def _merge_articles(existing, new_articles):
+    """合併文章列表，以 original_article.url 去重"""
+    def _get_url(article):
+        url = article.get("original_article", {}).get("url", "")
+        if not url:
+            url = article.get("url", "")
+        return url
+
+    seen_urls = set()
+    merged = []
+    # 新文章優先（分類可能更新），再補上舊文章
+    for article in new_articles:
+        url = _get_url(article)
+        if url and url not in seen_urls:
+            seen_urls.add(url)
+            merged.append(article)
+        elif not url:
+            merged.append(article)
+    for article in existing:
+        url = _get_url(article)
+        if url and url not in seen_urls:
+            seen_urls.add(url)
+            merged.append(article)
+    return merged
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 def main():
@@ -172,19 +214,24 @@ def main():
         _save_execution_log(stats, start_time, log_capture, success=False)
         sys.exit(1)
     # -----------------------------------------------------------------------
-    # 5. 儲存結果
+    # 5. 儲存結果（合併既有資料，避免覆蓋其他爬蟲的成果）
     # -----------------------------------------------------------------------
     print("\n[5/6] 保存數據...")
     data_dir = Path("data")
     data_dir.mkdir(exist_ok=True)
     classified_file = data_dir / "news_classified.json"
     relevant_file = data_dir / "news_relevant.json"
+    # 讀取既有資料並合併（以 url 去重）
+    existing_classified = _load_existing_json(classified_file)
+    existing_relevant = _load_existing_json(relevant_file)
+    merged_classified = _merge_articles(existing_classified, classified)
+    merged_relevant = _merge_articles(existing_relevant, relevant)
     with classified_file.open("w", encoding="utf-8") as f:
-        json.dump(classified, f, ensure_ascii=False, indent=2)
+        json.dump(merged_classified, f, ensure_ascii=False, indent=2)
     with relevant_file.open("w", encoding="utf-8") as f:
-        json.dump(relevant, f, ensure_ascii=False, indent=2)
-    print(f"✓ Saved: {classified_file}")
-    print(f"✓ Saved: {relevant_file}")
+        json.dump(merged_relevant, f, ensure_ascii=False, indent=2)
+    print(f"✓ Saved: {classified_file} ({len(merged_classified)} articles)")
+    print(f"✓ Saved: {relevant_file} ({len(merged_relevant)} articles)")
     logger.info(f"Saved: {classified_file}, {relevant_file}")
     # 儲存執行日誌到 data/logs/
     log_file = _save_execution_log(stats, start_time, log_capture, success=True)
