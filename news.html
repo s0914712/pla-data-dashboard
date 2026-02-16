@@ -470,6 +470,16 @@
         </div>
     </div>
 
+    <!-- Sentiment Trend Chart -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="chart-container">
+                <h5>Sentiment Trend Over Time</h5>
+                <canvas id="sentimentTrendChart"></canvas>
+            </div>
+        </div>
+    </div>
+
     <!-- Filter Section -->
     <div class="filter-section">
         <h5>Filter by Category</h5>
@@ -633,6 +643,77 @@ function renderCharts() {
                 y: {
                     beginAtZero: true,
                     ticks: { font: { size: isMobile ? 9 : 12 } }
+                }
+            }
+        }
+    });
+
+    // Sentiment trend over time
+    const dailyData = {};
+    newsData.forEach(article => {
+        const date = article.original_article?.date;
+        const score = article.sentiment_score;
+        if (!date || score === undefined || score === null) return;
+        if (!dailyData[date]) dailyData[date] = { total: 0, count: 0 };
+        dailyData[date].total += score;
+        dailyData[date].count++;
+    });
+
+    const sortedDates = Object.keys(dailyData).sort();
+    const avgScores = sortedDates.map(d => +(dailyData[d].total / dailyData[d].count).toFixed(3));
+    const pointColors = avgScores.map(s => s > 0.05 ? '#28a745' : s < -0.05 ? '#dc3545' : '#6c757d');
+    const articleCounts = sortedDates.map(d => dailyData[d].count);
+
+    new Chart(document.getElementById('sentimentTrendChart'), {
+        type: 'line',
+        data: {
+            labels: sortedDates,
+            datasets: [{
+                label: 'Avg Sentiment Score',
+                data: avgScores,
+                borderColor: '#667eea',
+                backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                fill: true,
+                tension: 0.3,
+                pointBackgroundColor: pointColors,
+                pointBorderColor: pointColors,
+                pointRadius: isMobile ? 3 : 4,
+                pointHoverRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: !isMobile,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        afterLabel: function(ctx) {
+                            return 'Articles: ' + articleCounts[ctx.dataIndex];
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        font: { size: isMobile ? 8 : 11 },
+                        maxRotation: 45,
+                        maxTicksLimit: isMobile ? 7 : 15
+                    }
+                },
+                y: {
+                    min: -1,
+                    max: 1,
+                    ticks: {
+                        font: { size: isMobile ? 9 : 12 },
+                        callback: function(v) { return v.toFixed(1); }
+                    },
+                    title: {
+                        display: !isMobile,
+                        text: 'Sentiment Score',
+                        font: { size: 12 }
+                    }
                 }
             }
         }
