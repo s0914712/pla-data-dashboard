@@ -31,7 +31,7 @@ class GrokNewsClassifier:
     def __init__(self, api_key: str):
         self.api_key = api_key.strip()
         self.api_url = "https://api.apertis.ai/v1/chat/completions"
-        self.model = "glm-4.5-air:free"
+        self.model = "gemini-2.0-flash-thinking-exp-0121:free"
         # trust_env=False 防止 CI/CD 環境代理設定干擾
         self.client = httpx.Client(timeout=60, trust_env=False)
         self._debug_printed = False
