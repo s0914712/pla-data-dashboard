@@ -162,7 +162,7 @@ def analyze_with_apertis(pdf_text, date):
             response = client.post(
                 f"{APERTIS_BASE_URL}/chat/completions",
                 headers={
-                    "Authorization": f"Bearer {APERTIS_API_KEY}",
+                    "Authorization": APERTIS_API_KEY,
                     "Content-Type": "application/json"
                 },
                 json={
