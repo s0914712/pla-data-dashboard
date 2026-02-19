@@ -798,6 +798,176 @@
             }
         }
 
+        /* ========== Project Introduction Section ========== */
+        .intro-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .intro-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intro-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f5576c 100%);
+        }
+
+        .intro-card h4 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        .intro-card > p {
+            color: #4a5568;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-pillars {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .intro-pillar {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 4px solid;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .intro-pillar:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        .intro-pillar.pillar-scraper {
+            border-left-color: #4facfe;
+        }
+
+        .intro-pillar.pillar-prediction {
+            border-left-color: #f5576c;
+        }
+
+        .intro-pillar-icon {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .intro-pillar h5 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .intro-pillar p {
+            color: #718096;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            margin-bottom: 0.75rem;
+        }
+
+        .intro-pillar-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .intro-pillar-tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .pillar-scraper .intro-pillar-tag {
+            background: rgba(79,172,254,0.12);
+            color: #2b7de9;
+        }
+
+        .pillar-prediction .intro-pillar-tag {
+            background: rgba(245,87,108,0.12);
+            color: #d63a52;
+        }
+
+        .intro-outcomes {
+            margin-top: 1.5rem;
+            background: linear-gradient(135deg, #667eea08 0%, #764ba208 100%);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .intro-outcomes h5 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.75rem;
+        }
+
+        .intro-outcomes ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .intro-outcomes li {
+            color: #4a5568;
+            font-size: 0.85rem;
+            padding-left: 1.25rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .intro-outcomes li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        @media (max-width: 767.98px) {
+            .intro-card {
+                padding: 1.25rem;
+            }
+
+            .intro-pillars {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .intro-outcomes ul {
+                grid-template-columns: 1fr;
+            }
+
+            .intro-card h4 {
+                font-size: 1.15rem;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -839,6 +1009,72 @@
 
 <!-- Main Content -->
 <div id="mainContent" class="container" style="display: none;">
+
+    <!-- Project Introduction -->
+    <div class="intro-section">
+        <div class="intro-card">
+            <h4>Research Overview</h4>
+            <p>
+                本專案以多源資料蒐集與機器學習預測為核心，建構一套針對解放軍軍事活動的自動化分析系統。
+                透過 <strong>爬蟲代理 (Scraper Agents)</strong> 持續蒐集來自多國官方與媒體管道的公開資料，
+                再由 <strong>預測模組 (Prediction Module)</strong> 進行時序建模與未來趨勢推估，
+                為研究者與決策者提供即時、可量化的態勢感知工具。
+            </p>
+
+            <div class="intro-pillars">
+                <!-- Scraper Agent Pillar -->
+                <div class="intro-pillar pillar-scraper">
+                    <div class="intro-pillar-icon">🕷️</div>
+                    <h5>Multi-Source Scraper Agents</h5>
+                    <p>
+                        系統部署多個自動化爬蟲代理，每日排程執行，涵蓋台灣國防部即時軍力動態、
+                        日本防衛省統合幕僚監部艦艇/航空機情報、中國官媒（新華社、微博）輿情、
+                        以及航行警告與機場氣象等資料來源。各代理以 Selenium、Playwright、
+                        Crawl4AI 等工具實作，經由 GitHub Actions 自動觸發與排程。
+                    </p>
+                    <div class="intro-pillar-tags">
+                        <span class="intro-pillar-tag">CNA</span>
+                        <span class="intro-pillar-tag">Japan MOD</span>
+                        <span class="intro-pillar-tag">Xinhua</span>
+                        <span class="intro-pillar-tag">Weibo</span>
+                        <span class="intro-pillar-tag">NOTAM</span>
+                        <span class="intro-pillar-tag">Weather</span>
+                    </div>
+                </div>
+
+                <!-- Prediction Module Pillar -->
+                <div class="intro-pillar pillar-prediction">
+                    <div class="intro-pillar-icon">📈</div>
+                    <h5>ML Prediction Module</h5>
+                    <p>
+                        預測模組採用 CatBoost 集成學習演算法，結合 21 日滯後特徵、動量指標、
+                        突波偵測、regime detection 等特徵工程，以分位數回歸 (Quantile Regression)
+                        輸出 95% 信賴區間的 7 日出動架次預測。模型透過時序交叉驗證
+                        (Time-Series Cross-Validation) 確保穩健性，並整合新聞分類器 (Grok AI)
+                        進行輿情關聯分析。
+                    </p>
+                    <div class="intro-pillar-tags">
+                        <span class="intro-pillar-tag">CatBoost</span>
+                        <span class="intro-pillar-tag">Quantile Regression</span>
+                        <span class="intro-pillar-tag">Time-Series CV</span>
+                        <span class="intro-pillar-tag">Grok AI</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="intro-outcomes">
+                <h5>Expected Outcomes</h5>
+                <ul>
+                    <li>每日自動更新的多源軍事活動資料集</li>
+                    <li>具信賴區間的 7 日出動架次預測</li>
+                    <li>AI 輔助新聞分類與輿情趨勢追蹤</li>
+                    <li>台海周邊氣象與航行警告即時監控</li>
+                    <li>日本防衛省艦艇/航空機動態彙整</li>
+                    <li>開放資料下載供後續學術研究使用</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
     <!-- Agent Overview Cards -->
     <div class="row mb-4">
