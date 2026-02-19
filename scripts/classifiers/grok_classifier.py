@@ -25,8 +25,13 @@ class GrokNewsClassifier:
 
     # 可重試的 HTTP 狀態碼
     RETRYABLE_STATUS_CODES = {429, 500, 502, 503, 504}
-    MAX_RETRIES = 5
-    RETRY_DELAYS = [10, 30, 60, 120, 240]  # 退避時間（秒）
+    # Primary model：失敗 3 次後切換 Fallback
+    PRIMARY_MAX_RETRIES = 3
+    PRIMARY_RETRY_DELAYS = [10, 30, 60]       # 退避時間（秒）
+    # Fallback model
+    FALLBACK_MODEL = "gemini-2.5-flash"
+    FALLBACK_MAX_RETRIES = 2
+    FALLBACK_RETRY_DELAYS = [15, 30]
     
     def __init__(self, api_key: str):
         self.api_key = api_key.strip()
@@ -39,25 +44,21 @@ class GrokNewsClassifier:
         # 初始化時印出診斷資訊
         masked_key = self.api_key[:8] + "..." + self.api_key[-4:] if len(self.api_key) > 12 else "***"
         print(f"[GrokClassifier] ========== 診斷資訊 ==========")
-        print(f"[GrokClassifier] API URL  : {self.api_url}")
-        print(f"[GrokClassifier] Model    : {self.model}")
-        print(f"[GrokClassifier] API Key  : {masked_key} (length={len(self.api_key)})")
-        print(f"[GrokClassifier] Retries  : max {self.MAX_RETRIES} (backoff: {', '.join(str(d)+'s' for d in self.RETRY_DELAYS)})")
+        print(f"[GrokClassifier] API URL      : {self.api_url}")
+        print(f"[GrokClassifier] Primary Model: {self.model} (max {self.PRIMARY_MAX_RETRIES} retries)")
+        print(f"[GrokClassifier] Fallback Model: {self.FALLBACK_MODEL} (after primary fails, max {self.FALLBACK_MAX_RETRIES} retries)")
+        print(f"[GrokClassifier] API Key      : {masked_key} (length={len(self.api_key)})")
         print(f"[GrokClassifier] ================================")
     
-    def _call_api(self, messages: List[Dict]) -> Optional[str]:
+    def _try_model(self, messages: List[Dict], model: str,
+                   max_retries: int, retry_delays: List[int]) -> Optional[str]:
         """
-        調用 API，含自動重試 (503/429/500 等錯誤會重試)
-        
-        Args:
-            messages: 消息列表
-            
-        Returns:
-            API 回應內容，失敗時返回 None
-        """
-        last_error = None
+        以指定模型嘗試呼叫 API，含退避重試。
 
-        for attempt in range(1, self.MAX_RETRIES + 1):
+        Returns:
+            成功時返回回應文字，全部重試失敗返回 None。
+        """
+        for attempt in range(1, max_retries + 1):
             try:
                 response = self.client.post(
                     self.api_url,
@@ -66,7 +67,7 @@ class GrokNewsClassifier:
                         "Content-Type": "application/json"
                     },
                     json={
-                        "model": self.model,
+                        "model": model,
                         "messages": messages,
                         "temperature": 0.1
                     }
@@ -78,64 +79,86 @@ class GrokNewsClassifier:
 
                 # 可重試的錯誤
                 if response.status_code in self.RETRYABLE_STATUS_CODES:
-                    # 429 優先讀取 Retry-After header
                     retry_after = None
                     if response.status_code == 429:
                         retry_after = response.headers.get('Retry-After')
-                    
+
                     if retry_after:
                         try:
                             wait_time = int(float(retry_after))
                         except (ValueError, TypeError):
-                            wait_time = self.RETRY_DELAYS[min(attempt - 1, len(self.RETRY_DELAYS) - 1)]
+                            wait_time = retry_delays[min(attempt - 1, len(retry_delays) - 1)]
                     else:
-                        wait_time = self.RETRY_DELAYS[min(attempt - 1, len(self.RETRY_DELAYS) - 1)]
-                    
-                    print(f"[GrokClassifier] ⚠️  HTTP {response.status_code} (attempt {attempt}/{self.MAX_RETRIES})")
+                        wait_time = retry_delays[min(attempt - 1, len(retry_delays) - 1)]
+
+                    print(f"[GrokClassifier] ⚠️  [{model}] HTTP {response.status_code} "
+                          f"(attempt {attempt}/{max_retries})")
                     print(f"[GrokClassifier]    Body: {response.text[:200]}")
-                    if attempt < self.MAX_RETRIES:
+                    if attempt < max_retries:
                         if retry_after:
                             print(f"[GrokClassifier]    Retry-After: {retry_after}s，等待 {wait_time}s 後重試...")
                         else:
                             print(f"[GrokClassifier]    等待 {wait_time}s 後重試...")
                         time.sleep(wait_time)
                         continue
-                    else:
-                        print(f"[GrokClassifier] ❌ 已達最大重試次數，放棄此請求")
-                        return None
+                    return None
 
                 # 不可重試的錯誤 (401, 403, 400 等)
-                print(f"[GrokClassifier] ❌ HTTP {response.status_code} (不可重試)")
+                print(f"[GrokClassifier] ❌ [{model}] HTTP {response.status_code} (不可重試)")
                 print(f"[GrokClassifier]    Body: {response.text[:300]}")
                 if response.status_code in (401, 403):
                     print(f"[GrokClassifier]    🔑 請檢查 API Key 是否正確、是否過期")
                 return None
 
             except httpx.ConnectError as e:
-                wait_time = self.RETRY_DELAYS[min(attempt - 1, len(self.RETRY_DELAYS) - 1)]
-                print(f"[GrokClassifier] ⚠️  連線失敗 (attempt {attempt}/{self.MAX_RETRIES}): {e}")
-                if attempt < self.MAX_RETRIES:
+                wait_time = retry_delays[min(attempt - 1, len(retry_delays) - 1)]
+                print(f"[GrokClassifier] ⚠️  [{model}] 連線失敗 (attempt {attempt}/{max_retries}): {e}")
+                if attempt < max_retries:
                     print(f"[GrokClassifier]    等待 {wait_time}s 後重試...")
                     time.sleep(wait_time)
                     continue
-                print(f"[GrokClassifier] ❌ 連線失敗已達最大重試次數")
                 return None
 
             except httpx.TimeoutException as e:
-                wait_time = self.RETRY_DELAYS[min(attempt - 1, len(self.RETRY_DELAYS) - 1)]
-                print(f"[GrokClassifier] ⚠️  請求超時 (attempt {attempt}/{self.MAX_RETRIES}): {e}")
-                if attempt < self.MAX_RETRIES:
+                wait_time = retry_delays[min(attempt - 1, len(retry_delays) - 1)]
+                print(f"[GrokClassifier] ⚠️  [{model}] 請求超時 (attempt {attempt}/{max_retries}): {e}")
+                if attempt < max_retries:
                     print(f"[GrokClassifier]    等待 {wait_time}s 後重試...")
                     time.sleep(wait_time)
                     continue
-                print(f"[GrokClassifier] ❌ 超時已達最大重試次數")
                 return None
 
             except Exception as e:
-                print(f"[GrokClassifier] ❌ 未預期錯誤: {type(e).__name__}: {e}")
+                print(f"[GrokClassifier] ❌ [{model}] 未預期錯誤: {type(e).__name__}: {e}")
                 return None
 
         return None
+
+    def _call_api(self, messages: List[Dict]) -> Optional[str]:
+        """
+        調用 API：Primary model 失敗 3 次後自動切換 Fallback model。
+
+        Returns:
+            API 回應內容，失敗時返回 None。
+        """
+        # Phase 1: primary model
+        result = self._try_model(
+            messages, self.model,
+            self.PRIMARY_MAX_RETRIES, self.PRIMARY_RETRY_DELAYS
+        )
+        if result is not None:
+            return result
+
+        # Phase 2: fallback model
+        print(f"[GrokClassifier] ⚠️  Primary model failed {self.PRIMARY_MAX_RETRIES} times, "
+              f"switching to fallback: {self.FALLBACK_MODEL}")
+        result = self._try_model(
+            messages, self.FALLBACK_MODEL,
+            self.FALLBACK_MAX_RETRIES, self.FALLBACK_RETRY_DELAYS
+        )
+        if result is None:
+            print(f"[GrokClassifier] ❌ Fallback model also failed, giving up.")
+        return result
     
     def classify_single(self, article: Dict) -> Dict:
         """
