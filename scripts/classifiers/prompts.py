@@ -24,6 +24,7 @@ CLASSIFICATION_SYSTEM_PROMPT = """你是一個專業的軍事新聞分析師，�
 - Foreign_battleship: 軍艦通過台灣海峽或周邊海域(美軍艦艇或外國艦艇)
 - US_TW_Interaction: 美台互動（軍售、訪問、合作等）
 - Regional_Security: 區域安全相關（日本、菲律賓、其他國家反應）
+- CCP_news_and_blog: 中共官媒（新華社）或官方社群媒體（微博東部戰區等）發布的新聞或貼文，不屬於其他明確類別時使用
 - Not_Relevant: 與台海軍事/政治無直接關係
 
 ## 行動者識別 (Actor1 / Actor2) - 重要！

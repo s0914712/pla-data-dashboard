@@ -31,6 +31,13 @@ from scrapers.weibo_scraper import WeiboScraper
 from classifiers.grok_classifier import GrokNewsClassifier
 
 
+MILITARY_KEYWORDS = [
+    "軍演", "演習", "軍機", "架次", "逾越", "中線", "殲", "轟6",
+    "航母", "海空聯訓", "戰備警巡", "聯合打擊", "飛彈", "導彈",
+    "東部戰區", "解放軍", "共軍", "警巡", "軍艦", "戰艦",
+]
+
+
 def load_existing_json(filepath: Path) -> list:
     """讀取既有 JSON 檔案，若不存在則回傳空列表"""
     if filepath.exists():
@@ -44,22 +51,48 @@ def load_existing_json(filepath: Path) -> list:
     return []
 
 
+def _get_article_url(article: dict) -> str:
+    """從 classified 結構或原始結構中取得 URL（支援巢狀 original_article）"""
+    return (
+        article.get("url")
+        or (article.get("original_article") or {}).get("url", "")
+        or ""
+    )
+
+
 def merge_articles(existing: list, new_articles: list) -> list:
-    """
-    合併文章，以 url 去重。
-    新文章若 url 已存在則跳過，否則附加。
-    """
-    seen_urls = {a.get("url") for a in existing if a.get("url")}
+    """合併文章，以 original_article.url 去重"""
+    seen_urls = {_get_article_url(a) for a in existing if _get_article_url(a)}
     merged = list(existing)
     added = 0
     for article in new_articles:
-        url = article.get("url", "")
+        url = _get_article_url(article)
         if url and url not in seen_urls:
             merged.append(article)
             seen_urls.add(url)
             added += 1
     print(f"  Merged: {added} new, {len(existing)} existing → {len(merged)} total")
     return merged
+
+
+def apply_source_overrides(classified: list) -> list:
+    """
+    對微博文章強制套用分類規則：
+    - 含軍演/軍事關鍵字 → Military_Exercise (country1=CN), is_relevant=True
+    - 其他 → CCP_news_and_blog, is_relevant=True
+    """
+    for article in classified:
+        orig = article.get("original_article", {})
+        if orig.get("source", "") != "weibo":
+            continue
+        text = orig.get("title", "") + " " + orig.get("content", "")
+        if any(kw in text for kw in MILITARY_KEYWORDS):
+            article["category"] = "Military_Exercise"
+            article["country1"] = article.get("country1") or "CN"
+        else:
+            article["category"] = "CCP_news_and_blog"
+        article["is_relevant"] = True
+    return classified
 
 
 def main():
@@ -115,7 +148,10 @@ def main():
 
     with GrokNewsClassifier(api_key) as classifier:
         classified = classifier.classify_batch(deduped, delay=1.0)
-        relevant = classifier.filter_relevant(classified)
+
+    # 微博來源強制套用分類規則
+    classified = apply_source_overrides(classified)
+    relevant = [r for r in classified if r.get("is_relevant", False)]
 
     print(f"✓ Classified: {len(classified)}, Relevant: {len(relevant)}")
 
