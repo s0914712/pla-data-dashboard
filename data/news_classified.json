@@ -454,5 +454,221 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.25,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區發布新春海報，強調人民子弟兵「厲兵秣馬、一馬當先，堅定守護國家安寧、萬家團圓」。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-02-16",
+      "title": "【#东部战区发布马年新春海报汗血马中国心#】汉武汗血马，千年中国心。丙午马年春节来临之际，#东部战区...",
+      "content": "【#东部战区发布马年新春海报汗血马中国心#】汉武汗血马，千年中国心。丙午马年春节来临之际，#东部战区发布新春海报#《汗血马中国心》。红绸满裹新春意，龙马奔腾跃山河。英雄的人民子弟兵，无论何时何地，厉兵秣马、一马当先，坚定守护国家安宁、万家团圆。东部战区官兵向全国人民拜年！我们坚守战位 ...全文",
+      "url": "https://m.weibo.cn/detail/5266856895318294",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中共東部戰區透過社群媒體發布，強調軍隊守護國家安全，並對台海保持警戒與戰備。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-14",
+      "title": "#东部熄灯号#万家灯火连营暖，一刃寒光为国明。#阅海峡#",
+      "content": "#东部熄灯号#万家灯火连营暖，一刃寒光为国明。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5266343513032876",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "第71集团军某旅举办第五届“朱德警卫团传人标兵”颁奖典礼，表彰10名标兵和1个先进团体。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-14",
+      "title": "【#赞歌嘹亮颂先锋#】近日，第71集团军某旅隆重举办第五届“朱德警卫团传人标兵”颁奖典礼。10名“朱...",
+      "content": "【#赞歌嘹亮颂先锋#】近日，第71集团军某旅隆重举办第五届“朱德警卫团传人标兵”颁奖典礼。10名“朱德警卫团传人标兵”和1个先进团体代表阔步荣誉殿堂，在官兵和家属的见证下，共同迎接军旅#高光时刻# 。（宋方武、庄梦程）",
+      "url": "https://m.weibo.cn/detail/5266222716552751",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "武警浙江总队舟山支队组织射击与刺杀等专项训练，锤炼官兵胜战本领。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-14",
+      "title": "#当兵就要练练练#【#实战化训练锤炼打赢硬功#】近日，武警浙江总队舟山支队紧贴实战要求，组织射击与刺...",
+      "content": "#当兵就要练练练#【#实战化训练锤炼打赢硬功#】近日，武警浙江总队舟山支队紧贴实战要求，组织射击与刺杀等专项训练，持续淬炼官兵胜战本领。（李晗健、张居海）",
+      "url": "https://m.weibo.cn/detail/5266192521756681",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區空軍某場站組織野戰通信應急處置演練，錘煉野戰應急通信保障能力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-14",
+      "title": "#直击东部战区练兵备战现场#【#锤炼野战应急通信保障能力# 】近日，东部战区空军某场站组织野战通信应...",
+      "content": "#直击东部战区练兵备战现场#【#锤炼野战应急通信保障能力# 】近日，东部战区空军某场站组织野战通信应急处置演练。参训官兵围绕野外通信指挥节点开设、应急光缆抢修、机动导航装备架设等科目展开专攻精练，进一步锤炼官兵野战应急通信保障能力。（卢军晓、尚秋伟、李冠伦）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5266132123517297",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區社群媒體發布詩意貼文，強調對台海的堅定決心與警戒。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-13",
+      "title": "#东部熄灯号#营外冻云连塞草，胸中炽火铸长城。#阅海峡#",
+      "content": "#东部熄灯号#营外冻云连塞草，胸中炽火铸长城。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5265981124649566",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-13",
+      "title": "【#营造尊崇军人关爱老兵的氛围# 】春节前夕，江苏省无锡市梁溪区人武部组织新春双拥志愿服务队，开展义...",
+      "content": "【#营造尊崇军人关爱老兵的氛围# 】春节前夕，江苏省无锡市梁溪区人武部组织新春双拥志愿服务队，开展义务帮厨、组织应征青年与老兵座谈交流等活动，进一步营造尊崇军人、关爱老兵的氛围。（张进春、相柯）",
+      "url": "https://m.weibo.cn/detail/5265905626908044",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "江蘇省軍區休養所對小學生進行愛黨愛國愛軍教育，傳承紅色基因。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-13",
+      "title": "【#红色之旅播撒爱党爱国爱军种子# 】寒假伊始，江苏省军区无锡第二离职干部休养所来了一群南长街小学启...",
+      "content": "【#红色之旅播撒爱党爱国爱军种子# 】寒假伊始，江苏省军区无锡第二离职干部休养所来了一群南长街小学启明星中队的小学生。他们聆听九旬老兵的谆谆教诲，了解战争年代的烽火岁月，汲取革命先辈的红色精神，在心中播下爱党爱国爱军的种子。（陶演、孙海峰） #传承红色基因#",
+      "url": "https://m.weibo.cn/detail/5265860328949539",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.75,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "第71集团军某旅组织手榴弹实投训练，砥砺官兵血性胆气，锤炼胜战本领。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-02-13",
+      "title": "#直击东部战区练兵备战现场#【#硝烟弥漫砺精兵#】爆声震耳，尘土飞扬。近日，第71集团军某旅严密组织...",
+      "content": "#直击东部战区练兵备战现场#【#硝烟弥漫砺精兵#】爆声震耳，尘土飞扬。近日，第71集团军某旅严密组织手榴弹实投训练，砥砺官兵血性胆气，进一步锤炼胜战本领。（鲁桦、司长靖、廖鹏、吕昊）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5265769731459551",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
