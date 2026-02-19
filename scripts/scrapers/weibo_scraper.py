@@ -25,6 +25,12 @@ DEFAULT_UIDS = {
     "eastern_theater": "7483054836",  # 東部戰區
 }
 
+MILITARY_KEYWORDS = [
+    "軍演", "演習", "軍機", "架次", "逾越", "中線", "殲", "轟6",
+    "航母", "海空聯訓", "戰備警巡", "聯合打擊", "飛彈", "導彈",
+    "東部戰區", "解放軍", "共軍", "警巡", "軍艦", "戰艦",
+]
+
 
 class WeiboScraper(BaseScraper):
     """微博爬蟲（透過 Mobile API）"""
@@ -224,6 +230,29 @@ class WeiboScraper(BaseScraper):
         except Exception as e:
             print(f"[{self.name}] Page {page} error: {e}")
             return []
+
+    # ------------------------------------------------------------------
+    # 分類覆蓋 (Category Override)
+    # ------------------------------------------------------------------
+    @staticmethod
+    def apply_category_overrides(classified: list) -> list:
+        """
+        對微博文章強制套用分類規則（在 AI 分類後執行）：
+        - 含軍演/軍事關鍵字 → Military_Exercise (country1=CN), is_relevant=True
+        - 其他 → CCP_news_and_blog, is_relevant=True
+        """
+        for article in classified:
+            orig = article.get("original_article", {})
+            if orig.get("source", "") != "weibo":
+                continue
+            text = orig.get("title", "") + " " + orig.get("content", "")
+            if any(kw in text for kw in MILITARY_KEYWORDS):
+                article["category"] = "Military_Exercise"
+                article["country1"] = article.get("country1") or "CN"
+            else:
+                article["category"] = "CCP_news_and_blog"
+            article["is_relevant"] = True
+        return classified
 
     # ------------------------------------------------------------------
     # 主流程
