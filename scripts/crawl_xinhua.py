@@ -29,13 +29,6 @@ from scrapers.xinhua_scraper import XinhuaTWScraper
 from classifiers.grok_classifier import GrokNewsClassifier
 
 
-MILITARY_KEYWORDS = [
-    "軍演", "演習", "軍機", "架次", "逾越", "中線", "殲", "轟6",
-    "航母", "海空聯訓", "戰備警巡", "聯合打擊", "飛彈", "導彈",
-    "東部戰區", "解放軍", "共軍", "警巡", "軍艦", "戰艦",
-]
-
-
 def load_existing_json(filepath: Path) -> list:
     """讀取既有 JSON 檔案，若不存在則回傳空列表"""
     if filepath.exists():
@@ -71,26 +64,6 @@ def merge_articles(existing: list, new_articles: list) -> list:
             added += 1
     print(f"  Merged: {added} new, {len(existing)} existing → {len(merged)} total")
     return merged
-
-
-def apply_source_overrides(classified: list) -> list:
-    """
-    對新華社文章強制套用分類規則：
-    - 含軍演/軍事關鍵字 → Military_Exercise (country1=CN), is_relevant=True
-    - 其他 → CCP_news_and_blog, is_relevant=True
-    """
-    for article in classified:
-        orig = article.get("original_article", {})
-        if orig.get("source", "") != "xinhua":
-            continue
-        text = orig.get("title", "") + " " + orig.get("content", "")
-        if any(kw in text for kw in MILITARY_KEYWORDS):
-            article["category"] = "Military_Exercise"
-            article["country1"] = article.get("country1") or "CN"
-        else:
-            article["category"] = "CCP_news_and_blog"
-        article["is_relevant"] = True
-    return classified
 
 
 def main():
@@ -131,8 +104,8 @@ def main():
         deduped = classifier.deduplicate_batch(articles)
         classified = classifier.classify_batch(deduped, delay=1.0)
 
-    # 新華社來源強制套用分類規則
-    classified = apply_source_overrides(classified)
+    # 新華社來源強制套用分類規則（邏輯封裝在 XinhuaTWScraper）
+    classified = XinhuaTWScraper.apply_category_overrides(classified)
     relevant = [r for r in classified if r.get("is_relevant", False)]
 
     print(f"✓ Deduped: {len(articles)} → {len(deduped)}")
