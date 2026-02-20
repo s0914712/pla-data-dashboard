@@ -16,6 +16,8 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import pandas as pd
 import requests
+from threads_api import ThreadsAPI
+
 # ── 常數設定 ───────────────────────────────────────────────
 REPO_OWNER = "s0914712"
 REPO_NAME = "pla-data-dashboard"
