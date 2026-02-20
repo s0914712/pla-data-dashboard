@@ -61,30 +61,46 @@ def generate_chart(df, actual, predicted, output_path):
     return output_path
 
 
-# ── 上傳到 GitHub ───────────────────
 def upload_chart_to_github(local_path, github_token):
+    """上傳或更新圖片到 GitHub repo"""
+
     url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{CHART_REPO_PATH}"
 
+    headers = {
+        "Authorization": f"Bearer {github_token}",
+        "Accept": "application/vnd.github+json",
+    }
+
+    # 讀檔
     with open(local_path, "rb") as f:
         content = base64.b64encode(f.read()).decode()
 
+    # ── 檢查檔案是否存在 ──
+    r = requests.get(url, headers=headers)
+
+    sha = None
+    if r.status_code == 200:
+        sha = r.json()["sha"]
+        print("ℹ️ 檔案已存在，將更新")
+
+    # ── PUT 上傳 ──
     payload = {
-        "message": "Update Threads chart",
+        "message": f"Update Threads chart — {datetime.now()}",
         "content": content,
         "branch": "main"
     }
 
-    r = requests.put(
-        url,
-        headers={"Authorization": f"Bearer {github_token}"},
-        json=payload
-    )
+    if sha:
+        payload["sha"] = sha  # ⭐ 關鍵
+
+    r = requests.put(url, headers=headers, json=payload)
 
     if r.status_code not in (200, 201):
-        print("❌ GitHub 上傳失敗", r.text)
+        print("❌ GitHub 上傳失敗:", r.text)
         sys.exit(1)
 
     raw_url = f"https://raw.githubusercontent.com/{REPO_OWNER}/{REPO_NAME}/main/{CHART_REPO_PATH}?t={int(datetime.now().timestamp())}"
+
     print("✅ 圖片已上傳:", raw_url)
     return raw_url
 
