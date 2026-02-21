@@ -20,12 +20,14 @@ import requests
 REPO_OWNER = "s0914712"
 REPO_NAME = "pla-data-dashboard"
 CSV_PATH = "data/predictions/latest_prediction.csv"
+JAPAN_MOD_CSV = "data/JapanandBattleship.csv"
+NAV_WARN_JSON = "data/navigation_warnings/military_exercises.json"
 CHART_DIR = "data/charts"
 CHART_FILENAME = "threads_chart.png"
 CHART_REPO_PATH = f"{CHART_DIR}/{CHART_FILENAME}"
 WEEKDAY_MAP = {
-    "Monday": "一", "Tuesday": "二", "Wednesday": "三",
-    "Thursday": "四", "Friday": "五", "Saturday": "六", "Sunday": "日",
+    "Monday": "Mon", "Tuesday": "Tue", "Wednesday": "Wed",
+    "Thursday": "Thu", "Friday": "Fri", "Saturday": "Sat", "Sunday": "Sun",
 }
 RISK_EMOJI = {
     "LOW": "🟢",
@@ -137,18 +139,99 @@ def upload_chart_to_github(local_path: str, github_token: str) -> str:
     raw_url = f"https://raw.githubusercontent.com/{REPO_OWNER}/{REPO_NAME}/main/{CHART_REPO_PATH}?t={int(datetime.now().timestamp())}"
     print(f"✅ 圖片已上傳：{raw_url}")
     return raw_url
+def load_japan_mod_latest() -> dict | None:
+    """Load the latest Japan MOD entry that has a non-empty remark."""
+    try:
+        if not os.path.exists(JAPAN_MOD_CSV):
+            return None
+        df = pd.read_csv(JAPAN_MOD_CSV, encoding="utf-8-sig")
+        # Filter rows with actual remark content
+        mask = df["remark"].notna() & (df["remark"].astype(str).str.strip() != "") & (df["remark"].astype(str) != "False")
+        valid = df[mask].copy()
+        if valid.empty:
+            return None
+        latest = valid.iloc[-1]
+        # Build a brief English summary from the binary fields
+        straits = []
+        if str(latest.get("宮古", "")).strip() in ("1", "1.0"):
+            straits.append("Miyako Strait")
+        if str(latest.get("對馬", "")).strip() in ("1", "1.0"):
+            straits.append("Tsushima Strait")
+        if str(latest.get("大禹", "")).strip() in ("1", "1.0"):
+            straits.append("Osumi Strait")
+        if str(latest.get("與那國", "")).strip() in ("1", "1.0"):
+            straits.append("Yonaguni")
+        activities = []
+        if str(latest.get("空中", "")).strip() in ("1", "1.0"):
+            activities.append("air activity")
+        if str(latest.get("航母活動", "")).strip() in ("1", "1.0"):
+            activities.append("carrier activity")
+        if str(latest.get("艦通過", "")).strip() in ("1", "1.0"):
+            activities.append("ship transit")
+        if str(latest.get("聯合演訓", "")).strip() in ("1", "1.0"):
+            activities.append("joint exercise")
+        return {
+            "date": str(latest["date"]),
+            "remark": str(latest.get("remark", "")),
+            "ship_type": str(latest.get("艦型", "")),
+            "straits": straits,
+            "activities": activities,
+        }
+    except Exception as e:
+        print(f"⚠️ Failed to load Japan MOD data: {e}")
+        return None
+
+
+def load_nav_warnings() -> list[dict]:
+    """Load recent navigation warnings (last 7 days)."""
+    try:
+        if not os.path.exists(NAV_WARN_JSON):
+            return []
+        with open(NAV_WARN_JSON, "r", encoding="utf-8") as f:
+            warnings = json.load(f)
+        # Filter to last 7 days
+        cutoff = (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d")
+        recent = [w for w in warnings if (w.get("publish_date") or "") >= cutoff]
+        return recent
+    except Exception as e:
+        print(f"⚠️ Failed to load navigation warnings: {e}")
+        return []
+
+
 def compose_post_text(actual: pd.DataFrame, predicted: pd.DataFrame, df: pd.DataFrame) -> str:
-    """組合 Threads 發文內容"""
+    """Compose Threads post text with all data sources."""
     tw_tz = timezone(timedelta(hours=8))
     today = datetime.now(tw_tz).strftime("%Y/%m/%d")
-    lines = [f" OSINT安全動態日報 — {today}", ""]
-    # 國防部公布（只保留最新一天）
+    lines = [f"OSINT Daily Brief — {today}", ""]
+    # ── TW MOD published sorties ──
     if not actual.empty:
         latest_actual = actual.iloc[-1]
         weekday = WEEKDAY_MAP.get(latest_actual["day_of_week"], "")
         date_str = latest_actual["date"].strftime("%m/%d")
         sorties = int(latest_actual["actual_sorties"])
-        lines.append(f"🔹 國防部公布（{date_str} {weekday}）：{sorties} 架次")
+        lines.append(f"TW MOD ({date_str} {weekday}): {sorties} sorties")
+        lines.append("")
+    # ── Japan MOD latest report ──
+    japan = load_japan_mod_latest()
+    if japan:
+        date_str = japan["date"].replace("/", "-") if "/" in japan["date"] else japan["date"]
+        parts = []
+        if japan["activities"]:
+            parts.append(", ".join(japan["activities"]))
+        if japan["straits"]:
+            parts.append("via " + ", ".join(japan["straits"]))
+        summary = "; ".join(parts) if parts else "report available"
+        lines.append(f"Japan MOD ({date_str}): {summary}")
+        if japan["ship_type"] and japan["ship_type"] not in ("", "未提及", "nan"):
+            lines.append(f"  Ships: {japan['ship_type']}")
+        lines.append("")
+    # ── Navigation warnings ──
+    nav_warnings = load_nav_warnings()
+    if nav_warnings:
+        lines.append(f"MSA Nav Warnings: {len(nav_warnings)} active")
+        for w in nav_warnings[:3]:
+            title = w.get("title", "")[:50]
+            lines.append(f"  - {title}")
         lines.append("")
     return "\n".join(lines)
 def publish_to_threads(text: str, image_url: str | None, user_id: str, access_token: str, app_secret: str):
@@ -195,7 +278,7 @@ def main():
     print("📂 讀取 CSV...")
     df = parse_csv(args.csv)
     actual, predicted = split_actual_vs_predicted(df)
-    print(f"  已公布：{len(actual)} 天 ｜ 預測：{len(predicted)} 天")
+    print(f"  Actual: {len(actual)} days | Predicted: {len(predicted)} days")
     # ── 2. 產生圖表 ──
     chart_path = os.path.join(args.chart_dir, CHART_FILENAME)
     print("🎨 產生折線圖...")
