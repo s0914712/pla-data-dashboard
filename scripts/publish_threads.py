@@ -142,7 +142,7 @@ def compose_post_text(actual: pd.DataFrame, predicted: pd.DataFrame, df: pd.Data
     """組合 Threads 發文內容"""
     tw_tz = timezone(timedelta(hours=8))
     today = datetime.now(tw_tz).strftime("%Y/%m/%d")
-    lines = [f"📊 PLA 軍機動態日報 — {today}", ""]
+    lines = [f" OSINT安全動態日報 — {today}", ""]
     # 國防部公布（只保留最新一天）
     if not actual.empty:
         latest_actual = actual.iloc[-1]
@@ -159,7 +159,7 @@ def compose_post_text(actual: pd.DataFrame, predicted: pd.DataFrame, df: pd.Data
         error = latest_actual.get("prediction_error")
         if pd.notna(pred_val) and pd.notna(actual_val):
             date_str = latest_actual["date"].strftime("%m/%d")
-            lines.append(f"📐 昨日預測誤差（{date_str}）：")
+            lines.append(f" 昨日預測誤差（{date_str}）：")
             lines.append(f"• 預測：{pred_val:.1f} → 實際：{int(actual_val)}")
             if pd.notna(error):
                 lines.append(f"• 誤差：{error:+.1f} 架次")
@@ -170,7 +170,7 @@ def compose_post_text(actual: pd.DataFrame, predicted: pd.DataFrame, df: pd.Data
     # 預測（取未來 3 天）
     future = predicted.head(3)
     if not future.empty:
-        lines.append("🔮 AI 預測（未來 3 天）：")
+        lines.append("評估三日情形：")
         for _, row in future.iterrows():
             weekday = WEEKDAY_MAP.get(row["day_of_week"], "")
             date_str = row["date"].strftime("%m/%d")
@@ -183,9 +183,9 @@ def compose_post_text(actual: pd.DataFrame, predicted: pd.DataFrame, df: pd.Data
     latest_row = df.iloc[-1]
     model_ver = latest_row.get("model_version", "N/A")
     cv_mae = latest_row.get("cv_mae", "N/A")
-    lines.append(f"📈 模型版本 v{model_ver} ｜ MAE: {cv_mae}")
+    lines.append(f"Modelversion v{model_ver} ｜ MAE: {cv_mae}")
     lines.append("")
-    lines.append("#共軍擾臺 #軍機動態 #AI預測 #國防安全")
+    lines.append("#OSINT軍機動態 #國防安全")
     return "\n".join(lines)
 def publish_to_threads(text: str, image_url: str | None, user_id: str, access_token: str, app_secret: str):
     """透過 Threads Graph API 直接發布貼文（不依賴 SDK）"""
