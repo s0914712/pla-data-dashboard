@@ -1,5 +1,1145 @@
 [
   {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美軍提康德羅加巡洋艦「希羅」號（USS Shiloh CG-67）航經台灣海峽"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2020-01-16",
+      "title": "美軍提康德羅加巡洋艦「希羅」號（USS Shiloh CG-67）航經台灣海峽",
+      "content": "美軍提康德羅加巡洋艦「希羅」號（USS Shiloh CG-67）航經台灣海峽",
+      "url": "naval_transit://2020/1/16",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍提康德羅加級巡洋艦「錢瑟勒斯維爾」號（USS Chancellorsville CG-62）由北向南航經台灣海峽，執行一般航行任務"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2020-02-15",
+      "title": "美海軍提康德羅加級巡洋艦「錢瑟勒斯維爾」號（USS Chancellorsville CG-62）由北向南航經台灣海峽，執行一般航行任務",
+      "content": "美海軍提康德羅加級巡洋艦「錢瑟勒斯維爾」號（USS Chancellorsville CG-62）由北向南航經台灣海峽，執行一般航行任務",
+      "url": "naval_transit://2020/2/15",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美軍伯克級驅逐艦「麥坎貝爾」號（USS McCampbell DDG-85）由南向北航經台灣海峽執行一般航行任務"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2020-03-25",
+      "title": "美軍伯克級驅逐艦「麥坎貝爾」號（USS McCampbell DDG-85）由南向北航經台灣海峽執行一般航行任務",
+      "content": "美軍伯克級驅逐艦「麥坎貝爾」號（USS McCampbell DDG-85）由南向北航經台灣海峽執行一般航行任務",
+      "url": "naval_transit://2020/3/25",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美軍伯克級驅逐艦「貝瑞」號（USS Barry DDG-52）通過台灣海峽執行一般航行任務"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2020-04-10",
+      "title": "美軍伯克級驅逐艦「貝瑞」號（USS Barry DDG-52）通過台灣海峽執行一般航行任務",
+      "content": "美軍伯克級驅逐艦「貝瑞」號（USS Barry DDG-52）通過台灣海峽執行一般航行任務",
+      "url": "naval_transit://2020/4/10",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美軍伯克級驅逐艦「貝瑞」號（USS Barry DDG-52）航經台灣海峽執行一般航行任務"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2020-04-23",
+      "title": "美軍伯克級驅逐艦「貝瑞」號（USS Barry DDG-52）航經台灣海峽執行一般航行任務",
+      "content": "美軍伯克級驅逐艦「貝瑞」號（USS Barry DDG-52）航經台灣海峽執行一般航行任務",
+      "url": "naval_transit://2020/4/23",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "伯克級驅逐艦「麥坎貝爾」號（USS McCampbell DDG-85）由北向南通過台灣海峽"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2020-05-13",
+      "title": "伯克級驅逐艦「麥坎貝爾」號（USS McCampbell DDG-85）由北向南通過台灣海峽",
+      "content": "伯克級驅逐艦「麥坎貝爾」號（USS McCampbell DDG-85）由北向南通過台灣海峽",
+      "url": "naval_transit://2020/5/13",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美軍伯克級驅逐艦拉塞爾號（USS Russell DDG-59）通過台灣海峽"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2020-06-04",
+      "title": "美軍伯克級驅逐艦拉塞爾號（USS Russell DDG-59）通過台灣海峽",
+      "content": "美軍伯克級驅逐艦拉塞爾號（USS Russell DDG-59）通過台灣海峽",
+      "url": "naval_transit://2020/6/4",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美軍伯克級驅逐艦「馬斯廷」號（USS Mustin DDG-89）通過台灣海峽，沿接近中國大陸海岸線的海峽中線以西航行"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2020-08-18",
+      "title": "美軍伯克級驅逐艦「馬斯廷」號（USS Mustin DDG-89）通過台灣海峽，沿接近中國大陸海岸線的海峽中線以西航行",
+      "content": "美軍伯克級驅逐艦「馬斯廷」號（USS Mustin DDG-89）通過台灣海峽，沿接近中國大陸海岸線的海峽中線以西航行",
+      "url": "naval_transit://2020/8/18",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美軍伯克級驅逐艦「海爾賽」號（USS Halsey DDG-97）由北向南航經台灣海峽"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2020-08-31",
+      "title": "美軍伯克級驅逐艦「海爾賽」號（USS Halsey DDG-97）由北向南航經台灣海峽",
+      "content": "美軍伯克級驅逐艦「海爾賽」號（USS Halsey DDG-97）由北向南航經台灣海峽",
+      "url": "naval_transit://2020/8/31",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美軍伯克級飛彈驅逐艦「貝瑞」號（USS Barry DDG-52）通過台灣海峽"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2020-10-15",
+      "title": "美軍伯克級飛彈驅逐艦「貝瑞」號（USS Barry DDG-52）通過台灣海峽",
+      "content": "美軍伯克級飛彈驅逐艦「貝瑞」號（USS Barry DDG-52）通過台灣海峽",
+      "url": "naval_transit://2020/10/15",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美軍伯克級神盾驅逐艦「貝瑞」號（USS Barry DDG-52）通過台灣海峽"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2020-11-21",
+      "title": "美軍伯克級神盾驅逐艦「貝瑞」號（USS Barry DDG-52）通過台灣海峽",
+      "content": "美軍伯克級神盾驅逐艦「貝瑞」號（USS Barry DDG-52）通過台灣海峽",
+      "url": "naval_transit://2020/11/21",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美國林肯號航空母艦經過巴士海峽"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2021-01-20",
+      "title": "美國林肯號航空母艦經過巴士海峽",
+      "content": "美國林肯號航空母艦經過巴士海峽",
+      "url": "naval_transit://2021/1/20",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美國杜威號驅逐艦通過"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2021-01-23",
+      "title": "美國杜威號驅逐艦通過",
+      "content": "美國杜威號驅逐艦通過",
+      "url": "naval_transit://2021/1/23",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「麥凱恩」號驅逐艦"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2021-02-04",
+      "title": "美海軍「麥凱恩」號驅逐艦",
+      "content": "美海軍「麥凱恩」號驅逐艦",
+      "url": "naval_transit://2021/2/4",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「威爾伯」號驅逐艦"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2021-02-24",
+      "title": "美海軍「威爾伯」號驅逐艦",
+      "content": "美海軍「威爾伯」號驅逐艦",
+      "url": "naval_transit://2021/2/24",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「費恩」號驅逐艦"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2021-03-10",
+      "title": "美海軍「費恩」號驅逐艦",
+      "content": "美海軍「費恩」號驅逐艦",
+      "url": "naval_transit://2021/3/10",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「麥凱恩」號驅逐艦"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2021-04-07",
+      "title": "美海軍「麥凱恩」號驅逐艦",
+      "content": "美海軍「麥凱恩」號驅逐艦",
+      "url": "naval_transit://2021/4/7",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「威爾伯」號驅逐艦"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2021-05-18",
+      "title": "美海軍「威爾伯」號驅逐艦",
+      "content": "美海軍「威爾伯」號驅逐艦",
+      "url": "naval_transit://2021/5/18",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「威爾伯」號驅逐艦"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2021-06-22",
+      "title": "美海軍「威爾伯」號驅逐艦",
+      "content": "美海軍「威爾伯」號驅逐艦",
+      "url": "naval_transit://2021/6/22",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「本福德」號驅逐艦"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2021-07-28",
+      "title": "美海軍「本福德」號驅逐艦",
+      "content": "美海軍「本福德」號驅逐艦",
+      "url": "naval_transit://2021/7/28",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「基德」號驅逐艦、美海警「門羅」號海警船"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2021-08-27",
+      "title": "美海軍「基德」號驅逐艦、美海警「門羅」號海警船",
+      "content": "美海軍「基德」號驅逐艦、美海警「門羅」號海警船",
+      "url": "naval_transit://2021/8/27",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「巴里」號驅逐艦"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2021-09-17",
+      "title": "美海軍「巴里」號驅逐艦",
+      "content": "美海軍「巴里」號驅逐艦",
+      "url": "naval_transit://2021/9/17",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「杜威」號驅逐艦、加海軍「溫尼伯」號護衛艦"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2021-10-15",
+      "title": "美海軍「杜威」號驅逐艦、加海軍「溫尼伯」號護衛艦",
+      "content": "美海軍「杜威」號驅逐艦、加海軍「溫尼伯」號護衛艦",
+      "url": "naval_transit://2021/10/15",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「米利厄斯」號驅逐艦"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2021-11-23",
+      "title": "美海軍「米利厄斯」號驅逐艦",
+      "content": "美海軍「米利厄斯」號驅逐艦",
+      "url": "naval_transit://2021/11/23",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「查菲」號驅逐艦"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2021-12-15",
+      "title": "美海軍「查菲」號驅逐艦",
+      "content": "美海軍「查菲」號驅逐艦",
+      "url": "naval_transit://2021/12/15",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「杜威」號驅逐艦"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2022-01-22",
+      "title": "美海軍「杜威」號驅逐艦",
+      "content": "美海軍「杜威」號驅逐艦",
+      "url": "naval_transit://2022/1/22",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「拉爾夫·約翰遜」號驅逐艦"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2022-02-26",
+      "title": "美海軍「拉爾夫·約翰遜」號驅逐艦",
+      "content": "美海軍「拉爾夫·約翰遜」號驅逐艦",
+      "url": "naval_transit://2022/2/26",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「拉爾夫·約翰遜」號驅逐艦"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2022-03-17",
+      "title": "美海軍「拉爾夫·約翰遜」號驅逐艦",
+      "content": "美海軍「拉爾夫·約翰遜」號驅逐艦",
+      "url": "naval_transit://2022/3/17",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「桑普森」號驅逐艦"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2022-04-26",
+      "title": "美海軍「桑普森」號驅逐艦",
+      "content": "美海軍「桑普森」號驅逐艦",
+      "url": "naval_transit://2022/4/26",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「皇家港」號巡洋艦"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2022-05-10",
+      "title": "美海軍「皇家港」號巡洋艦",
+      "content": "美海軍「皇家港」號巡洋艦",
+      "url": "naval_transit://2022/5/10",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「本福德」號驅逐艦"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2022-07-19",
+      "title": "美海軍「本福德」號驅逐艦",
+      "content": "美海軍「本福德」號驅逐艦",
+      "url": "naval_transit://2022/7/19",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「安提坦」號與「錢斯洛斯維爾」號巡洋艦"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2022-08-28",
+      "title": "美海軍「安提坦」號與「錢斯洛斯維爾」號巡洋艦",
+      "content": "美海軍「安提坦」號與「錢斯洛斯維爾」號巡洋艦",
+      "url": "naval_transit://2022/8/28",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「希金斯」號驅逐艦、加海軍「溫哥華」號護衛艦"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2022-09-20",
+      "title": "美海軍「希金斯」號驅逐艦、加海軍「溫哥華」號護衛艦",
+      "content": "美海軍「希金斯」號驅逐艦、加海軍「溫哥華」號護衛艦",
+      "url": "naval_transit://2022/9/20",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美海軍「本福德」號驅逐艦"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2022-11-18",
+      "title": "美海軍「本福德」號驅逐艦",
+      "content": "美海軍「本福德」號驅逐艦",
+      "url": "naval_transit://2022/11/18",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美國海軍鍾雲號驅逐艦通過"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2023-01-05",
+      "title": "美國海軍鍾雲號驅逐艦通過",
+      "content": "美國海軍鍾雲號驅逐艦通過",
+      "url": "naval_transit://2023/1/5",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美國海軍米利厄斯驅逐艦通過"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2023-04-16",
+      "title": "美國海軍米利厄斯驅逐艦通過",
+      "content": "美國海軍米利厄斯驅逐艦通過",
+      "url": "naval_transit://2023/4/16",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美國海軍鍾雲號驅逐艦、蒙特利爾號通過"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2023-06-03",
+      "title": "美國海軍鍾雲號驅逐艦、蒙特利爾號通過",
+      "content": "美國海軍鍾雲號驅逐艦、蒙特利爾號通過",
+      "url": "naval_transit://2023/6/3",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美國海巡斯特拉頓號巡邏艦通過"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2023-06-21",
+      "title": "美國海巡斯特拉頓號巡邏艦通過",
+      "content": "美國海巡斯特拉頓號巡邏艦通過",
+      "url": "naval_transit://2023/6/21",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美國海軍拉爾夫、加拿大渥太華驅逐艦艦通過"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2023-09-09",
+      "title": "美國海軍拉爾夫、加拿大渥太華驅逐艦艦通過",
+      "content": "美國海軍拉爾夫、加拿大渥太華驅逐艦艦通過",
+      "url": "naval_transit://2023/9/9",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "Other",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "中國西太平洋聯合軍演（2023/09/18）"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2023-09-18",
+      "title": "中國西太平洋聯合軍演（2023/09/18）",
+      "content": "中國西太平洋聯合軍演（2023/09/18）",
+      "url": "naval_transit://2023/9/18",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美國海軍拉菲爾 、加拿大渥太華驅逐艦艦通過"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2023-11-01",
+      "title": "美國海軍拉菲爾 、加拿大渥太華驅逐艦艦通過",
+      "content": "美國海軍拉菲爾 、加拿大渥太華驅逐艦艦通過",
+      "url": "naval_transit://2023/11/1",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "UK",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "荷蘭皇家海軍巡防艦「卓普號」（HNLMS Tromp）"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2024-05-31",
+      "title": "荷蘭皇家海軍巡防艦「卓普號」（HNLMS Tromp）",
+      "content": "荷蘭皇家海軍巡防艦「卓普號」（HNLMS Tromp）",
+      "url": "naval_transit://2024/5/31",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "TR",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "土耳其海軍巡防艦「克納勒島號」（TCG Kinaliada）"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2024-06-01",
+      "title": "土耳其海軍巡防艦「克納勒島號」（TCG Kinaliada）",
+      "content": "土耳其海軍巡防艦「克納勒島號」（TCG Kinaliada）",
+      "url": "naval_transit://2024/6/1",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "CA",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "加拿大海軍巡防艦「蒙特婁號」（HMCS Montréal）"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2024-07-31",
+      "title": "加拿大海軍巡防艦「蒙特婁號」（HMCS Montréal）",
+      "content": "加拿大海軍巡防艦「蒙特婁號」（HMCS Montréal）",
+      "url": "naval_transit://2024/7/31",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "德國海軍巡防艦「巴登-符騰堡號」（FGS Baden-Württemberg）和補給艦「美茵河畔法蘭克福號」（FGS Frankfurt am Main）"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2024-09-13",
+      "title": "德國海軍巡防艦「巴登-符騰堡號」（FGS Baden-Württemberg）和補給艦「美茵河畔法蘭克福號」（FGS Frankfurt am Main）",
+      "content": "德國海軍巡防艦「巴登-符騰堡號」（FGS Baden-Württemberg）和補給艦「美茵河畔法蘭克福號」（FGS Frankfurt am Main）",
+      "url": "naval_transit://2024/9/13",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "UK",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "澳洲皇家海軍飛彈驅逐艦「雪梨號」（HMAS Sydney）紐西蘭皇家海軍補給艦「奧特亞羅瓦號」（HMNZS Aotearoa）日本海上自衛隊巡防艦「漣號」（さざなみ，Sazanami）"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2024-09-25",
+      "title": "澳洲皇家海軍飛彈驅逐艦「雪梨號」（HMAS Sydney）紐西蘭皇家海軍補給艦「奧特亞羅瓦號」（HMNZS Aotearoa）日本海上自衛隊巡防艦「漣號」（さざなみ，Sazanami）",
+      "content": "澳洲皇家海軍飛彈驅逐艦「雪梨號」（HMAS Sydney）紐西蘭皇家海軍補給艦「奧特亞羅瓦號」（HMNZS Aotearoa）日本海上自衛隊巡防艦「漣號」（さざなみ，Sazanami）",
+      "url": "naval_transit://2024/9/25",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "加拿大海軍巡防艦「溫哥華號」（HMCS Vancouver）美國海軍飛彈驅逐艦「希金斯號」（USS Higgins）通過台灣海峽"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2024-10-20",
+      "title": "加拿大海軍巡防艦「溫哥華號」（HMCS Vancouver）美國海軍飛彈驅逐艦「希金斯號」（USS Higgins）通過台灣海峽",
+      "content": "加拿大海軍巡防艦「溫哥華號」（HMCS Vancouver）美國海軍飛彈驅逐艦「希金斯號」（USS Higgins）通過台灣海峽",
+      "url": "naval_transit://2024/10/20",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "FR",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "法國海軍巡防艦「牧月號」（FNS Prairial）"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2024-10-28",
+      "title": "法國海軍巡防艦「牧月號」（FNS Prairial）",
+      "content": "法國海軍巡防艦「牧月號」（FNS Prairial）",
+      "url": "naval_transit://2024/10/28",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "JP",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "日本海上自衛隊驅逐艦「秋月號」（あきづき，Akizuki）由北向南穿越"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2025-02-02",
+      "title": "日本海上自衛隊驅逐艦「秋月號」（あきづき，Akizuki）由北向南穿越",
+      "content": "日本海上自衛隊驅逐艦「秋月號」（あきづき，Akizuki）由北向南穿越",
+      "url": "naval_transit://2025/2/2",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "CA",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "加拿大海軍的哈利法克斯級巡防艦「渥太華號」通過台灣海峽"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2025-02-16",
+      "title": "加拿大海軍的哈利法克斯級巡防艦「渥太華號」通過台灣海峽",
+      "content": "加拿大海軍的哈利法克斯級巡防艦「渥太華號」通過台灣海峽",
+      "url": "naval_transit://2025/2/16",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "UK",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "共軍派出32架戰機執行聯合戰備警巡，並在高屏外海無預警宣布射擊訓練同時英國海軍巡邏艦「史佩號」(HMS Spey)通過台海"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2025-02-26",
+      "title": "共軍派出32架戰機執行聯合戰備警巡，並在高屏外海無預警宣布射擊訓練同時英國海軍巡邏艦「史佩號」(HMS Spey)通過台海",
+      "content": "共軍派出32架戰機執行聯合戰備警巡，並在高屏外海無預警宣布射擊訓練同時英國海軍巡邏艦「史佩號」(HMS Spey)通過台海",
+      "url": "naval_transit://2025/2/26",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "UK",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "英國皇家海軍巡邏艦「史佩號」通過台灣海峽"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2025-06-18",
+      "title": "英國皇家海軍巡邏艦「史佩號」通過台灣海峽",
+      "content": "英國皇家海軍巡邏艦「史佩號」通過台灣海峽",
+      "url": "naval_transit://2025/6/18",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "CA",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "加拿大海軍巡防艦「魁北克城號」與澳洲海軍驅逐艦「布里斯本號」編隊通過台灣海峽"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2025-09-06",
+      "title": "加拿大海軍巡防艦「魁北克城號」與澳洲海軍驅逐艦「布里斯本號」編隊通過台灣海峽",
+      "content": "加拿大海軍巡防艦「魁北克城號」與澳洲海軍驅逐艦「布里斯本號」編隊通過台灣海峽",
+      "url": "naval_transit://2025/9/6",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "中國第三艘航空母艦「福建號」通過台灣海峽 美國海軍驅逐艦「希金斯號」與英國皇家海軍護衛艦「里契蒙號」編隊通過台灣海峽"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2025-09-12",
+      "title": "中國第三艘航空母艦「福建號」通過台灣海峽 美國海軍驅逐艦「希金斯號」與英國皇家海軍護衛艦「里契蒙號」編隊通過台灣海峽",
+      "content": "中國第三艘航空母艦「福建號」通過台灣海峽 美國海軍驅逐艦「希金斯號」與英國皇家海軍護衛艦「里契蒙號」編隊通過台灣海峽",
+      "url": "naval_transit://2025/9/12",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美國海軍驅逐艦「希金斯號」與英國皇家海軍護衛艦「裡契蒙號」"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2025-09-13",
+      "title": "美國海軍驅逐艦「希金斯號」與英國皇家海軍護衛艦「裡契蒙號」",
+      "content": "美國海軍驅逐艦「希金斯號」與英國皇家海軍護衛艦「裡契蒙號」",
+      "url": "naval_transit://2025/9/13",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "紐西蘭補給艦奧特亞羅瓦號（HMNZS Aotearoa）通過臺灣海峽"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2025-11-05",
+      "title": "紐西蘭補給艦奧特亞羅瓦號（HMNZS Aotearoa）通過臺灣海峽",
+      "content": "紐西蘭補給艦奧特亞羅瓦號（HMNZS Aotearoa）通過臺灣海峽",
+      "url": "naval_transit://2025/11/5",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "越南證實軍艦12月11左右通過臺灣海峽"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2025-12-11",
+      "title": "越南證實軍艦12月11左右通過臺灣海峽",
+      "content": "越南證實軍艦12月11左右通過臺灣海峽",
+      "url": "naval_transit://2025/12/11",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "美國約翰·芬號（DDG 113）和探路者級海洋調查船瑪麗·西爾斯”號（T-AGS 65）"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-01-16",
+      "title": "美國約翰·芬號（DDG 113）和探路者級海洋調查船瑪麗·西爾斯”號（T-AGS 65）",
+      "content": "美國約翰·芬號（DDG 113）和探路者級海洋調查船瑪麗·西爾斯”號（T-AGS 65）",
+      "url": "https://news.usni.org/2026/01/17/u-s-destroyer-survey-vessel-conduct-first-taiwan-strait-transit-of-2026-say-chinese-officials",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "7艘共艦台海周邊活動國軍嚴密監控| 政治"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-02-08",
+      "title": "7艘共艦台海周邊活動國軍嚴密監控| 政治",
+      "content": "7艘共艦台海周邊活動國軍嚴密監控| 政治",
+      "url": "https://www.cna.com.tw/news/aipl/202602080017.aspx",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "澳洲皇家海軍巡防衛艦「土烏巴號」（HMAS Toowoomba, FFH 156）現蹤台海"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-02-20",
+      "title": "澳洲皇家海軍巡防衛艦「土烏巴號」（HMAS Toowoomba, FFH 156）現蹤台海",
+      "content": "澳洲皇家海軍巡防衛艦「土烏巴號」（HMAS Toowoomba, FFH 156）現蹤台海",
+      "url": "https://def.ltn.com.tw/article/breakingnews/5346751",
+      "source": "naval_transits"
+    }
+  },
+  {
     "category": "Military_Exercise",
     "is_relevant": true,
     "country1": "CN",
@@ -90,30 +1230,6 @@
       "title": "4架次共機侵擾西南空域國軍嚴密監控| 政治",
       "content": "（中央社記者游凱翔台北10日電）國防部今天發布共機艦動態，統計自昨天上午6時起至今天上午6時止，國軍偵獲4架次共機侵擾西南空域，並偵獲8艘共艦，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲8艘共艦，以及4架次共機進入西南空域，並持續在台海周邊活動。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：林家嫻）1150210 #共機",
       "url": "https://www.cna.com.tw/news/aipl/202602100030.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Foreign_battleship",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.1,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "7艘共艦持續在台海周邊活動",
-      "Foreign_battleship": "CN 艦艇台海周邊活動",
-      "Political_statement": "國軍運用任務機艦及岸置飛彈系統嚴密監控與應處"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-02-08",
-      "title": "7艘共艦台海周邊活動國軍嚴密監控| 政治",
-      "content": "（中央社記者游凱翔台北8日電）國防部今天發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲7艘共艦持續在台海周邊活動，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，7艘共艦持續在台海周邊活動。",
-      "url": "https://www.cna.com.tw/news/aipl/202602080017.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""

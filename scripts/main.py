@@ -252,6 +252,20 @@ def main():
         }
         print(f"✓ Naval transits: {transit_count} new entries")
         logger.info(f"Naval transits updated: {transit_count} new entries")
+        # -----------------------------------------------------------------
+        # 5c. 將 naval_transits.csv 全部記錄轉為 JSON，合併到分類結果中
+        # -----------------------------------------------------------------
+        print("\n[5c/6] 同步軍艦通過記錄到 JSON...")
+        transit_articles = transit_updater.csv_to_json_articles()
+        if transit_articles:
+            merged_classified = _merge_articles(merged_classified, transit_articles)
+            merged_relevant = _merge_articles(merged_relevant, transit_articles)
+            with classified_file.open("w", encoding="utf-8") as f:
+                json.dump(merged_classified, f, ensure_ascii=False, indent=2)
+            with relevant_file.open("w", encoding="utf-8") as f:
+                json.dump(merged_relevant, f, ensure_ascii=False, indent=2)
+            print(f"✓ Synced {len(transit_articles)} transit records to JSON")
+            logger.info(f"Synced {len(transit_articles)} transit records to JSON")
     except Exception as e:
         print(f"✗ Naval transit update error: {e}")
         logger.error(f"Naval transit update error: {e}")
