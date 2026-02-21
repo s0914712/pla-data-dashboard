@@ -24,6 +24,7 @@ from scrapers.xinhua_scraper import XinhuaTWScraper
 from scrapers.weibo_scraper import WeiboScraper
 from classifiers.grok_classifier import GrokNewsClassifier
 from updaters.github_updater import GitHubUpdater
+from updaters.naval_transit_updater import NavalTransitUpdater
 # ---------------------------------------------------------------------------
 # Helper: JSON 合併
 # ---------------------------------------------------------------------------
@@ -233,6 +234,28 @@ def main():
     print(f"✓ Saved: {classified_file} ({len(merged_classified)} articles)")
     print(f"✓ Saved: {relevant_file} ({len(merged_relevant)} articles)")
     logger.info(f"Saved: {classified_file}, {relevant_file}")
+    # -----------------------------------------------------------------------
+    # 5b. 更新 naval_transits.csv（Foreign_battleship → 軍艦通過記錄）
+    # -----------------------------------------------------------------------
+    print("\n[5b/6] 更新軍艦通過記錄...")
+    try:
+        naval_csv = data_dir / "naval_transits.csv"
+        sortie_csv = data_dir / "merged_comprehensive_data_M.csv"
+        transit_updater = NavalTransitUpdater(
+            csv_path=str(naval_csv),
+            sortie_csv_path=str(sortie_csv) if sortie_csv.exists() else None,
+        )
+        transit_count = transit_updater.update_from_classified(merged_classified)
+        stats["naval_transits"] = {
+            "new_entries": transit_count,
+            "status": "success",
+        }
+        print(f"✓ Naval transits: {transit_count} new entries")
+        logger.info(f"Naval transits updated: {transit_count} new entries")
+    except Exception as e:
+        print(f"✗ Naval transit update error: {e}")
+        logger.error(f"Naval transit update error: {e}")
+        stats["naval_transits"] = {"status": "failed", "error": str(e)}
     # 儲存執行日誌到 data/logs/
     log_file = _save_execution_log(stats, start_time, log_capture, success=True)
     # -----------------------------------------------------------------------
@@ -253,6 +276,7 @@ def main():
         push_files = [
             "data/news_classified.json",
             "data/news_relevant.json",
+            "data/naval_transits.csv",
             "data/last_update.json",
         ]
         if log_file and Path(log_file).exists():
