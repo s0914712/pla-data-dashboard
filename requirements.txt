@@ -17,3 +17,4 @@ httpx>=0.27.0
 crawl4ai>=0.4.0
 playwright>=1.40.0
 nest_asyncio>=1.5.0
+threads-sdk
