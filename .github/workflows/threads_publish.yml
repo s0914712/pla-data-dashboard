@@ -52,4 +52,4 @@ jobs:
         env:
           THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
           THREADS_TOKEN: ${{ secrets.THREADS_TOKEN }}
-        run: python scripts/post_threads.py
+        run: python scripts/threads_publish.py
