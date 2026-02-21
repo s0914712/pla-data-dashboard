@@ -45,15 +45,14 @@ def split_actual_vs_predicted(df: pd.DataFrame):
     return actual, predicted
 def generate_chart(df: pd.DataFrame, actual: pd.DataFrame, predicted: pd.DataFrame, output_path: str):
     """產生折線圖：實際架次 + 預測架次 + 信心區間"""
-    plt.rcParams['font.sans-serif'] = ['Microsoft JhengHei', 'SimHei', 'DejaVu Sans']
-    plt.rcParams['axes.unicode_minus'] = False
+    plt.rcParams['font.sans-serif'] = ['DejaVu Sans']
     fig, ax = plt.subplots(figsize=(10, 5))
     # 實際架次（藍色實線）
     if not actual.empty:
         ax.plot(
             actual["date"], actual["actual_sorties"],
             color="#2563EB", linewidth=2.5, marker="o", markersize=7,
-            label="國防部公布架次", zorder=5,
+            label="Published Sorties", zorder=5,
         )
     # 預測架次（紅色虛線）
     if not predicted.empty:
@@ -67,14 +66,14 @@ def generate_chart(df: pd.DataFrame, actual: pd.DataFrame, predicted: pd.DataFra
         ax.plot(
             predicted["date"], predicted["predicted_sorties"],
             color="#DC2626", linewidth=2.5, marker="s", markersize=7,
-            linestyle="--", label="AI 預測架次", zorder=5,
+            linestyle="--", label="AI Predicted Sorties", zorder=5,
         )
         # 信心區間
         ax.fill_between(
             predicted["date"],
             predicted["lower_bound"],
             predicted["upper_bound"],
-            color="#DC2626", alpha=0.1, label="預測信心區間",
+            color="#DC2626", alpha=0.1, label="95% Confidence Interval",
         )
     # 全部日期的預測線（淺灰色背景）
     ax.plot(
@@ -82,9 +81,9 @@ def generate_chart(df: pd.DataFrame, actual: pd.DataFrame, predicted: pd.DataFra
         color="#9CA3AF", linewidth=1, linestyle=":", alpha=0.6,
     )
     # 格式化
-    ax.set_title("共軍擾臺架次 — 實際 vs 預測", fontsize=16, fontweight="bold", pad=15)
-    ax.set_xlabel("日期", fontsize=12)
-    ax.set_ylabel("架次數", fontsize=12)
+    ax.set_title("PLA Aircraft Sorties — Actual vs Predicted", fontsize=16, fontweight="bold", pad=15)
+    ax.set_xlabel("Date", fontsize=12)
+    ax.set_ylabel("Number of Sorties", fontsize=12)
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%m/%d"))
     ax.xaxis.set_major_locator(mdates.DayLocator())
     plt.xticks(rotation=45, ha="right")

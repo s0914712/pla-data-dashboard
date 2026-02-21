@@ -36,6 +36,24 @@ class NavalTransitUpdater:
         "PH": "Philippines",
     }
 
+    # CSV Country → classifier country code（反向對應）
+    COUNTRY_REVERSE_MAP = {
+        "US": "US",
+        "CN": "CN",
+        "Japan": "JP",
+        "UK": "UK",
+        "Australia": "AU",
+        "Canada": "CA",
+        "France": "FR",
+        "Germany": "DE",
+        "Netherlands": "NL",
+        "Turkey": "TR",
+        "New Zealand": "NZ",
+        "South Korea": "KR",
+        "Vietnam": "VN",
+        "Philippines": "PH",
+    }
+
     # CSV 標頭（含尾端空欄位，用於存放 URL）
     FIELDNAMES = [
         "Date", "Year", "Ships", "Country",
@@ -262,3 +280,86 @@ class NavalTransitUpdater:
             writer.writerow(self.FIELDNAMES)
             for row in rows:
                 writer.writerow([row.get(col, "") for col in self.FIELDNAMES])
+
+    # ------------------------------------------------------------------
+    # CSV → JSON articles (for news_classified.json)
+    # ------------------------------------------------------------------
+    def _country_csv_to_code(self, country_csv: str) -> str:
+        """
+        將 CSV 的 Country 欄位轉換為 classifier 國家代碼。
+        支援 "Multi (US+UK)" 格式，取第一個國家。
+        """
+        if not country_csv:
+            return ""
+        country_csv = country_csv.strip()
+
+        # 直接對應
+        if country_csv in self.COUNTRY_REVERSE_MAP:
+            return self.COUNTRY_REVERSE_MAP[country_csv]
+
+        # Multi (US+UK) 格式：提取第一個國家
+        m = re.match(r"Multi\s*\(([^+)]+)", country_csv)
+        if m:
+            first = m.group(1).strip()
+            return self.COUNTRY_REVERSE_MAP.get(first, first)
+
+        return country_csv
+
+    @staticmethod
+    def _date_to_iso(date_str: str) -> str:
+        """將 YYYY/M/D 轉為 YYYY-MM-DD（news_classified.json 使用的格式）"""
+        try:
+            dt = datetime.strptime(date_str, "%Y/%m/%d")
+            return dt.strftime("%Y-%m-%d")
+        except ValueError:
+            return date_str
+
+    def csv_to_json_articles(self) -> List[Dict]:
+        """
+        將 naval_transits.csv 所有記錄轉換為 news_classified.json 相容的
+        article 格式，以便前端直接顯示。
+
+        Returns:
+            article 格式的字典列表
+        """
+        rows = self._load_existing()
+        articles: List[Dict] = []
+
+        for row in rows:
+            date_csv = row.get("Date", "").strip()
+            if not date_csv:
+                continue
+
+            ships = row.get("Ships", "").strip()
+            country_csv = row.get("Country", "").strip()
+            url = row.get("", "").strip()  # unnamed last column
+            country_code = self._country_csv_to_code(country_csv)
+            date_iso = self._date_to_iso(date_csv)
+
+            # 若沒有 URL，用 date 產生一個唯一識別字串
+            if not url:
+                url = f"naval_transit://{date_csv}"
+
+            article = {
+                "category": "Foreign_battleship",
+                "is_relevant": True,
+                "country1": country_code,
+                "country2": "",
+                "sentiment_score": 0,
+                "sentiment_label": "neutral",
+                "extracted_data": {
+                    "Foreign_battleship": ships,
+                },
+                "confidence": 1.0,
+                "original_article": {
+                    "date": date_iso,
+                    "title": ships,
+                    "content": ships,
+                    "url": url,
+                    "source": "naval_transits",
+                },
+            }
+            articles.append(article)
+
+        print(f"[NavalTransitUpdater] Converted {len(articles)} CSV rows to JSON articles.")
+        return articles
