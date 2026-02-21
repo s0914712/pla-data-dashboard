@@ -151,41 +151,6 @@ def compose_post_text(actual: pd.DataFrame, predicted: pd.DataFrame, df: pd.Data
         sorties = int(latest_actual["actual_sorties"])
         lines.append(f"🔹 國防部公布（{date_str} {weekday}）：{sorties} 架次")
         lines.append("")
-    # 昨日預測誤差
-    if not actual.empty:
-        latest_actual = actual.iloc[-1]
-        pred_val = latest_actual.get("predicted_sorties")
-        actual_val = latest_actual.get("actual_sorties")
-        error = latest_actual.get("prediction_error")
-        if pd.notna(pred_val) and pd.notna(actual_val):
-            date_str = latest_actual["date"].strftime("%m/%d")
-            lines.append(f" 昨日預測誤差（{date_str}）：")
-            lines.append(f"• 預測：{pred_val:.1f} → 實際：{int(actual_val)}")
-            if pd.notna(error):
-                lines.append(f"• 誤差：{error:+.1f} 架次")
-            else:
-                diff = actual_val - pred_val
-                lines.append(f"• 誤差：{diff:+.1f} 架次")
-            lines.append("")
-    # 預測（取未來 3 天）
-    future = predicted.head(3)
-    if not future.empty:
-        lines.append("評估三日情形：")
-        for _, row in future.iterrows():
-            weekday = WEEKDAY_MAP.get(row["day_of_week"], "")
-            date_str = row["date"].strftime("%m/%d")
-            sorties = row["predicted_sorties"]
-            risk = row.get("risk_level", "LOW")
-            emoji = RISK_EMOJI.get(risk, "⚪")
-            lines.append(f"• {date_str}（{weekday}）：{sorties:.1f} 架次 {emoji} {risk}")
-        lines.append("")
-    # 模型資訊
-    latest_row = df.iloc[-1]
-    model_ver = latest_row.get("model_version", "N/A")
-    cv_mae = latest_row.get("cv_mae", "N/A")
-    lines.append(f"Modelversion v{model_ver} ｜ MAE: {cv_mae}")
-    lines.append("")
-    lines.append("#OSINT軍機動態 #國防安全")
     return "\n".join(lines)
 def publish_to_threads(text: str, image_url: str | None, user_id: str, access_token: str, app_secret: str):
     """透過 Threads Graph API 直接發布貼文（不依賴 SDK）"""
