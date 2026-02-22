@@ -25,3 +25,6 @@ node_modules/
 # Data backup
 *.csv.bak
 *.xlsx~
+
+# Scraper history (runtime data)
+data/japan_scrape_history.json
