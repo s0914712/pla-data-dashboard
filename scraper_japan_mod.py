@@ -14,7 +14,7 @@ import pandas as pd
 CSV_FILE = 'data/JapanandBattleship.csv'
 
 APERTIS_API_KEY = os.getenv('APERTIS_API_KEY') or os.getenv('STIMA_API_KEY')
-APERTIS_MODEL = 'gemini-2.5-flash-lite-preview-09-2025'
+APERTIS_MODEL = 'gemini-2.5-flash-lite-preview-06-17'
 APERTIS_BASE_URL = 'https://api.apertis.ai/v1'
 
 # PDF 基礎 URL
