@@ -1834,5 +1834,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.8,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "中國東部戰區空軍某部於春節假期緊貼實戰開展戰備訓練，聚焦向戰專攻精練，錘煉打贏本領。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-25",
+      "title": "#直击东部战区练兵备战现场#【#春节战备训练不停歇#】春节假期，东部战区空军某部紧贴实战开展战备训练...",
+      "content": "#直击东部战区练兵备战现场#【#春节战备训练不停歇#】春节假期，东部战区空军某部紧贴实战开展战备训练，聚焦向战专攻精练，锤炼过硬打赢本领。官兵以冲锋姿态投身实战化训练，骏马疾驰向打赢，矢志强军、使命必达！（魏文龙、徐哲鑫、赵振乐、张晁启）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5270118386631355",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.7,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "解放軍東部戰區透過微博發布軍事宣傳，強調軍隊力量與對海峽的控制，暗示潛在軍事行動。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-24",
+      "title": "#东部熄灯号#战靴踏平千重浪，钢枪守护万家安。#阅海峡#",
+      "content": "#东部熄灯号#战靴踏平千重浪，钢枪守护万家安。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5269967391428223",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
