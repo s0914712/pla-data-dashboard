@@ -1882,5 +1882,67 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-02-26",
+      "title": "【#锤炼官兵协同作战和应急处突能力# 】近日，武警福建总队某支队组织山林地捕歼战斗演练。官兵闻令而动...",
+      "content": "【#锤炼官兵协同作战和应急处突能力# 】近日，武警福建总队某支队组织山林地捕歼战斗演练。官兵闻令而动，快速集结奔赴陌生山林地域，依托无人机侦察、多路封控、隐蔽渗透等战术，对“敌特分子”实施立体合围、精准清剿。此次演练，进一步锤炼了官兵快速反应、协同作战和应急处突能力。（寇树玉、涂创 ...全文",
+      "url": "https://m.weibo.cn/detail/5270480777907234",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-02-25",
+      "title": "#东部熄灯号#一身戎装担使命，万里海天铸忠诚。#阅海峡#",
+      "content": "#东部熄灯号#一身戎装担使命，万里海天铸忠诚。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5270329779035770",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-25",
+      "title": "【#绿茵场上显锋芒#】近日，东部战区空军某部组织第一届“天电杯”足球赛，从小组赛的从容启航，到淘汰赛...",
+      "content": "【#绿茵场上显锋芒#】近日，东部战区空军某部组织第一届“天电杯”足球赛，从小组赛的从容启航，到淘汰赛的奋勇争先，从半决赛的激烈交锋，到决赛的巅峰对决，每一场角逐，都凝聚着攻防智慧，充分展现了该部官兵奋勇拼搏的精神、密切协作的意识和顽强过硬的战斗作风。（彭立文、仲翔宇、牛剑虹、陈阳） ...全文",
+      "url": "https://m.weibo.cn/detail/5270208983073379",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
