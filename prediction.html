@@ -781,4 +781,500 @@ function calculateAccuracyStats() {
     let correctDirection = 0;
     let totalComparisons = 0;
 
-    withActual.forEach(row =
+    withActual.forEach(row => {
+        const predicted = parseFloat(row.predicted_sorties);
+        const actual = typeof row.actual_sorties === 'number' ? row.actual_sorties : parseFloat(row.actual_sorties);
+
+        if (!isNaN(predicted) && !isNaN(actual)) {
+            const error = actual - predicted;
+            sumAbsError += Math.abs(error);
+            sumSquaredError += error * error;
+
+            // Direction accuracy (using 30 as threshold)
+            const predHigh = predicted >= 30;
+            const actualHigh = actual >= 30;
+            if (predHigh === actualHigh) correctDirection++;
+            totalComparisons++;
+        }
+    });
+
+    const mae = sumAbsError / withActual.length;
+    const rmse = Math.sqrt(sumSquaredError / withActual.length);
+    const directionAcc = totalComparisons > 0 ? (correctDirection / totalComparisons * 100) : 0;
+
+    document.getElementById('maeValue').textContent = mae.toFixed(1);
+    document.getElementById('rmseValue').textContent = rmse.toFixed(1);
+    document.getElementById('directionAccuracy').textContent = directionAcc.toFixed(0) + '%';
+}
+
+function showStaleDataWarning() {
+    if (predictionData.length === 0) return;
+    const dataLatest = predictionData[predictionData.length - 1].data_latest_date;
+    if (!dataLatest) return;
+
+    const latestDate = new Date(dataLatest);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const diffDays = Math.floor((today - latestDate) / (1000 * 60 * 60 * 24));
+
+    if (diffDays > 1) {
+        const warningEl = document.getElementById('staleWarning');
+        const textEl = document.getElementById('staleWarningText');
+        textEl.textContent = `The latest available data is from ${dataLatest} (${diffDays} days ago). Predictions for dates that have already passed may be inaccurate. Data source may need to be updated.`;
+        warningEl.style.display = 'block';
+    }
+}
+
+function getRiskClass(level) {
+    switch(level?.toUpperCase()) {
+        case 'LOW': return 'risk-low';
+        case 'MEDIUM': return 'risk-medium';
+        case 'HIGH': return 'risk-high';
+        default: return 'risk-low';
+    }
+}
+
+function getRiskBadgeClass(level) {
+    switch(level?.toUpperCase()) {
+        case 'LOW': return 'badge-risk-low';
+        case 'MEDIUM': return 'badge-risk-medium';
+        case 'HIGH': return 'badge-risk-high';
+        default: return 'badge-risk-low';
+    }
+}
+
+function renderPredictionCards() {
+    const container = document.getElementById('predictionCards');
+    container.innerHTML = '';
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    predictionData.forEach((row, index) => {
+        const riskClass = getRiskClass(row.risk_level);
+        const predicted = parseFloat(row.predicted_sorties).toFixed(1);
+        const lower = parseFloat(row.lower_bound).toFixed(1);
+        const upper = parseFloat(row.upper_bound).toFixed(1);
+        const highProb = parseFloat(row.high_event_probability).toFixed(1);
+
+        const date = new Date(row.date);
+        const dateStr = date.toLocaleDateString('zh-TW', { month: 'short', day: 'numeric' });
+
+        // Check if this date has already passed
+        const isPast = date < today;
+
+        // Check if actual value exists
+        const hasActual = row.actual_sorties && row.actual_sorties !== '' && !isNaN(parseFloat(row.actual_sorties));
+        const actualVal = hasActual ? parseFloat(row.actual_sorties).toFixed(0) : null;
+        const errorVal = hasActual ? (parseFloat(row.actual_sorties) - parseFloat(row.predicted_sorties)).toFixed(1) : null;
+
+        // Past dates without actual data get a muted style
+        const pastStyle = (isPast && !hasActual) ? 'opacity: 0.6;' : '';
+        const pastLabel = isPast ? '<span style="font-size:0.7rem; background:rgba(0,0,0,0.2); padding:1px 6px; border-radius:3px;">Past</span>' : '';
+
+        const cardHtml = `
+            <div class="col-md-3 col-sm-6">
+                <div class="prediction-card ${riskClass}" style="${pastStyle}">
+                    <div class="text-center">
+                        <div style="font-size: 0.9rem; opacity: 0.9;">${dateStr} (${row.day_of_week}) ${pastLabel}</div>
+                        <div class="prediction-value">${predicted}</div>
+                        <div class="prediction-range">Range: ${lower} - ${upper}</div>
+                        ${hasActual ? `
+                            <div style="margin-top: 0.5rem; background: rgba(255,255,255,0.2); padding: 0.3rem; border-radius: 5px;">
+                                <small>Actual: <strong>${actualVal}</strong> (${errorVal >= 0 ? '+' : ''}${errorVal})</small>
+                            </div>
+                        ` : isPast ? `
+                            <div style="margin-top: 0.5rem;">
+                                <small style="opacity:0.8;">Awaiting actual data</small>
+                            </div>
+                        ` : `
+                            <div style="margin-top: 0.5rem;">
+                                <small>High Event: ${highProb}%</small>
+                            </div>
+                        `}
+                    </div>
+                </div>
+            </div>
+        `;
+        container.innerHTML += cardHtml;
+    });
+}
+
+function renderForecastChart() {
+    const ctx = document.getElementById('forecastChart').getContext('2d');
+
+    // Combine historical actual data (60 days) + future predictions (7 days)
+    const combinedLabels = [];
+    const actualData = [];
+    const predictedData = [];
+    const upperData = [];
+    const lowerData = [];
+
+    // Add historical actual data (last 60 days)
+    actualSortiesArray.forEach(row => {
+        const date = new Date(row.date);
+        combinedLabels.push(date.toLocaleDateString('zh-TW', { month: 'numeric', day: 'numeric' }));
+        actualData.push(row.sorties);
+        predictedData.push(null);  // No prediction for historical dates
+        upperData.push(null);
+        lowerData.push(null);
+    });
+
+    // Add 7-day predictions
+    predictionData.forEach(row => {
+        const date = new Date(row.date);
+        const dateLabel = date.toLocaleDateString('zh-TW', { month: 'numeric', day: 'numeric' });
+
+        // Check if this date already exists in labels (might have actual data)
+        const existingIdx = combinedLabels.indexOf(dateLabel);
+        if (existingIdx === -1) {
+            combinedLabels.push(dateLabel);
+            actualData.push(row.actual_sorties && row.actual_sorties !== '' ? parseFloat(row.actual_sorties) : null);
+            predictedData.push(parseFloat(row.predicted_sorties));
+            upperData.push(parseFloat(row.upper_bound));
+            lowerData.push(parseFloat(row.lower_bound));
+        } else {
+            // Update existing entry with prediction data
+            predictedData[existingIdx] = parseFloat(row.predicted_sorties);
+            upperData[existingIdx] = parseFloat(row.upper_bound);
+            lowerData[existingIdx] = parseFloat(row.lower_bound);
+        }
+    });
+
+    forecastChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: combinedLabels,
+            datasets: [
+                {
+                    label: 'Actual Sorties (實際架次)',
+                    data: actualData,
+                    borderColor: '#667eea',
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    borderWidth: isMobile ? 1.5 : 2,
+                    fill: false,
+                    tension: 0.3,
+                    pointRadius: isMobile ? 1 : 2,
+                    pointHitRadius: isMobile ? 15 : 10,
+                    pointBackgroundColor: '#667eea'
+                },
+                {
+                    label: 'Predicted (預測)',
+                    data: predictedData,
+                    borderColor: '#f5576c',
+                    backgroundColor: 'rgba(245, 87, 108, 0.1)',
+                    borderWidth: isMobile ? 2 : 3,
+                    fill: false,
+                    tension: 0.4,
+                    pointRadius: isMobile ? 3 : 5,
+                    pointHitRadius: isMobile ? 15 : 10,
+                    pointBackgroundColor: '#f5576c'
+                },
+                {
+                    label: 'Upper Bound (95% CI)',
+                    data: upperData,
+                    borderColor: 'rgba(245, 87, 108, 0.4)',
+                    borderWidth: 1,
+                    borderDash: [5, 5],
+                    fill: false,
+                    pointRadius: 0
+                },
+                {
+                    label: 'Lower Bound (95% CI)',
+                    data: lowerData,
+                    borderColor: 'rgba(245, 87, 108, 0.4)',
+                    borderWidth: 1,
+                    borderDash: [5, 5],
+                    fill: '-1',
+                    backgroundColor: 'rgba(245, 87, 108, 0.1)',
+                    pointRadius: 0
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: !isMobile,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        boxWidth: isMobile ? 8 : 40,
+                        font: { size: isMobile ? 9 : 12 },
+                        padding: isMobile ? 8 : 10
+                    }
+                },
+                tooltip: { mode: 'index', intersect: false },
+                annotation: {
+                    annotations: {
+                        line1: {
+                            type: 'line',
+                            xMin: actualSortiesArray.length - 0.5,
+                            xMax: actualSortiesArray.length - 0.5,
+                            borderColor: 'rgba(0, 0, 0, 0.3)',
+                            borderWidth: 2,
+                            borderDash: [6, 6],
+                            label: {
+                                content: 'Forecast Start',
+                                enabled: true
+                            }
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        maxTicksLimit: isMobile ? 6 : 15,
+                        maxRotation: isMobile ? 60 : 45,
+                        minRotation: 0,
+                        font: { size: isMobile ? 9 : 12 }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: !isMobile,
+                        text: 'Aircraft Sorties (架次)'
+                    },
+                    ticks: {
+                        font: { size: isMobile ? 9 : 12 }
+                    }
+                }
+            }
+        }
+    });
+}
+
+function renderAccuracyChart() {
+    const ctx = document.getElementById('accuracyChart').getContext('2d');
+
+    // Get records with actual values (actual_sorties can be number or string)
+    const withActual = allHistoricalData
+        .filter(r => {
+            const actual = r.actual_sorties;
+            return actual !== undefined && actual !== null && actual !== '' && !isNaN(parseFloat(actual));
+        })
+        .slice(0, 60)
+        .reverse();
+
+    if (withActual.length === 0) {
+        document.getElementById('accuracyChart').style.display = 'none';
+        document.getElementById('accuracyNoData').style.display = 'block';
+        return;
+    }
+
+    document.getElementById('accuracyChart').style.display = 'block';
+    document.getElementById('accuracyNoData').style.display = 'none';
+
+    const labels = withActual.map(r => {
+        const date = new Date(r.date);
+        return date.toLocaleDateString('zh-TW', { month: 'numeric', day: 'numeric' });
+    });
+
+    const predicted = withActual.map(r => parseFloat(r.predicted_sorties));
+    const actual = withActual.map(r => typeof r.actual_sorties === 'number' ? r.actual_sorties : parseFloat(r.actual_sorties));
+
+    accuracyChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Predicted (預測值)',
+                    data: predicted,
+                    borderColor: '#f5576c',
+                    backgroundColor: 'rgba(245, 87, 108, 0.1)',
+                    borderWidth: isMobile ? 1.5 : 2,
+                    fill: false,
+                    tension: 0.3,
+                    pointRadius: isMobile ? 2 : 4,
+                    pointHitRadius: isMobile ? 15 : 10,
+                    pointBackgroundColor: '#f5576c'
+                },
+                {
+                    label: 'Actual (實際值)',
+                    data: actual,
+                    borderColor: '#28a745',
+                    backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                    borderWidth: isMobile ? 1.5 : 2,
+                    fill: false,
+                    tension: 0.3,
+                    pointRadius: isMobile ? 2 : 4,
+                    pointHitRadius: isMobile ? 15 : 10,
+                    pointBackgroundColor: '#28a745'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: !isMobile,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        boxWidth: isMobile ? 8 : 40,
+                        font: { size: isMobile ? 9 : 12 },
+                        padding: isMobile ? 8 : 10
+                    }
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                    callbacks: {
+                        afterBody: function(context) {
+                            const idx = context[0].dataIndex;
+                            const pred = predicted[idx];
+                            const act = actual[idx];
+                            const err = act - pred;
+                            return `Error: ${err > 0 ? '+' : ''}${err.toFixed(1)}`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        maxTicksLimit: isMobile ? 6 : 15,
+                        font: { size: isMobile ? 9 : 12 }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: { display: !isMobile, text: 'Aircraft Sorties (架次)' },
+                    ticks: { font: { size: isMobile ? 9 : 12 } }
+                }
+            }
+        }
+    });
+}
+
+function renderErrorChart() {
+    const ctx = document.getElementById('errorChart').getContext('2d');
+
+    // Get records with prediction_error (can be number from merge or string from CSV)
+    const withActual = allHistoricalData
+        .filter(r => {
+            const err = r.prediction_error;
+            return err !== undefined && err !== null && err !== '' && !isNaN(parseFloat(err));
+        })
+        .slice(0, 60)
+        .reverse();
+
+    if (withActual.length === 0) {
+        document.getElementById('errorChart').style.display = 'none';
+        document.getElementById('errorNoData').style.display = 'block';
+        return;
+    }
+
+    document.getElementById('errorChart').style.display = 'block';
+    document.getElementById('errorNoData').style.display = 'none';
+
+    const labels = withActual.map(r => {
+        const date = new Date(r.date);
+        return date.toLocaleDateString('zh-TW', { month: 'numeric', day: 'numeric' });
+    });
+
+    const errors = withActual.map(r => typeof r.prediction_error === 'number' ? r.prediction_error : parseFloat(r.prediction_error));
+    const colors = errors.map(e => e > 0 ? 'rgba(220, 53, 69, 0.7)' : 'rgba(40, 167, 69, 0.7)');
+
+    errorChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Prediction Error (預測誤差: 實際 - 預測)',
+                data: errors,
+                backgroundColor: colors,
+                borderColor: colors.map(c => c.replace('0.7', '1')),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: !isMobile,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        boxWidth: isMobile ? 8 : 40,
+                        font: { size: isMobile ? 9 : 12 }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const value = context.raw;
+                            return `Error: ${value > 0 ? '+' : ''}${value.toFixed(1)} (${value > 0 ? 'Underestimated 低估' : 'Overestimated 高估'})`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        maxTicksLimit: isMobile ? 6 : 15,
+                        font: { size: isMobile ? 9 : 12 }
+                    }
+                },
+                y: {
+                    title: { display: !isMobile, text: 'Error (Actual - Predicted) 誤差' },
+                    ticks: { font: { size: isMobile ? 9 : 12 } }
+                }
+            }
+        }
+    });
+}
+
+function renderTable() {
+    const tbody = document.getElementById('predictionTableBody');
+    tbody.innerHTML = '';
+
+    // Combine current predictions with historical data for the table
+    const allData = [...predictionData, ...allHistoricalData];
+
+    // Deduplicate by date (prefer entries with actual values)
+    const dateMap = new Map();
+    allData.forEach(row => {
+        if (!row.date) return;
+        const existing = dateMap.get(row.date);
+        const hasActual = row.actual_sorties !== undefined && row.actual_sorties !== null && row.actual_sorties !== '';
+        if (!existing || (hasActual && !existing.actual_sorties)) {
+            dateMap.set(row.date, row);
+        }
+    });
+
+    // Sort by date descending
+    const sortedData = Array.from(dateMap.values()).sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    sortedData.forEach(row => {
+        const badgeClass = getRiskBadgeClass(row.risk_level);
+        const actual = row.actual_sorties;
+        const hasActual = actual !== undefined && actual !== null && actual !== '' && !isNaN(parseFloat(actual));
+        const actualVal = hasActual ? (typeof actual === 'number' ? actual.toFixed(0) : parseFloat(actual).toFixed(0)) : '-';
+
+        let errorHtml = '-';
+        const err = row.prediction_error;
+        if (err !== undefined && err !== null && err !== '' && !isNaN(parseFloat(err))) {
+            const errNum = typeof err === 'number' ? err : parseFloat(err);
+            const errorClass = errNum > 0 ? 'error-positive' : (errNum < 0 ? 'error-negative' : 'error-zero');
+            errorHtml = `<span class="${errorClass}">${errNum > 0 ? '+' : ''}${errNum.toFixed(1)}</span>`;
+        }
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${row.date}</td>
+            <td>${row.day_of_week || '-'}</td>
+            <td><strong>${parseFloat(row.predicted_sorties).toFixed(1)}</strong></td>
+            <td>${actualVal}</td>
+            <td>${errorHtml}</td>
+            <td>${parseFloat(row.lower_bound).toFixed(0)} - ${parseFloat(row.upper_bound).toFixed(0)}</td>
+            <td>${parseFloat(row.high_event_probability).toFixed(1)}%</td>
+            <td><span class="badge ${badgeClass}">${row.risk_level}</span></td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+</script>
+
+</body>
+</html>
