@@ -651,7 +651,7 @@ async function loadPredictionData() {
         predictionData.sort((a, b) => new Date(a.date) - new Date(b.date));
 
         if (predictionData.length > 0) {
-            const latest = predictionData[predictionData.length - 1];
+            const latest = predictionData[0];
             document.getElementById('modelVersion').textContent = latest.model_version || '-';
             document.getElementById('dataLatest').textContent = latest.data_latest_date || '-';
             document.getElementById('generatedAt').textContent = latest.generated_at || '-';
@@ -809,7 +809,7 @@ function calculateAccuracyStats() {
 
 function showStaleDataWarning() {
     if (predictionData.length === 0) return;
-    const dataLatest = predictionData[predictionData.length - 1].data_latest_date;
+    const dataLatest = predictionData[0].data_latest_date;
     if (!dataLatest) return;
 
     const latestDate = new Date(dataLatest);
