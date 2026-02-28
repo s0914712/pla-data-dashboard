@@ -2570,5 +2570,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.8,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國台辦正依法查處劉世芳親屬在大陸投資謀利並提供政治獻金問題，批評其『台獨』行徑，警告『台獨』分子必遭嚴懲。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-27",
+      "title": "国台办：正依法依规查处刘世芳亲属在大陆投资谋利且为其提供政治献金相关问题",
+      "content": "有记者问：香港媒体今天曝光台湾地区内部事务主管部门负责人刘世芳的亲属在大陆投资谋利且为刘提供政治献金，揭露刘世芳只许亲属“赚红钱”、不许民众搞交流。请问发言人对此有何评论？陈斌华答问时作上述回应。 他表示，“台独”是绝路，搞“台独”害人害己。“台独”顽固分子品行低劣、唯利是图，令人不齿；“台独”分子及为其提供支持的企业、个人，破坏台海和平稳定、损害两岸同胞利益，必遭严惩。希望广大台湾同胞看清“台独”顽固分子的虚伪面目与丑恶本质，自觉与其划清界限，坚决反对“台独”分裂行径，共同维护台海和平稳定。",
+      "url": "https://www.news.cn/tw/20260227/b187c7e954414e49a83e8d2667c0a340/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
