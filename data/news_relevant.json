@@ -2498,5 +2498,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.75,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军航空兵某部战机开展空战对抗训练，锤炼打赢硬功。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-02-28",
+      "title": "#直击东部战区练兵备战现场# 【#空战对抗激烈展开# 】近日，东部战区空军航空兵某部战机冒雾升空，赴...",
+      "content": "#直击东部战区练兵备战现场# 【#空战对抗激烈展开# 】近日，东部战区空军航空兵某部战机冒雾升空，赴预定空域开展空战对抗训练，锤炼打赢硬功。（郑瀚毅、杜军、褚文聪、琚伟伦、宋英杰、王宸刚）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5271205550229342",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中国东部战区社媒发文，强调其在台湾海峡的军事存在与担当，暗示军事行动的决心。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-27",
+      "title": "#东部熄灯号#机翼所指是方向，航迹所至是担当。#阅海峡#",
+      "content": "#东部熄灯号#机翼所指是方向，航迹所至是担当。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5271054554498538",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-27",
+      "title": "【#逐梦百公里奋进强军路#】近日，东部战区空军某部组织开展“骐骥·驰骋”杯100公里接力挑战赛，官兵...",
+      "content": "【#逐梦百公里奋进强军路#】近日，东部战区空军某部组织开展“骐骥·驰骋”杯100公里接力挑战赛，官兵们积极响应、踊跃参与，在奔跑中凝聚情感，在接力中传递信任。百公里接力，不仅是一个人独自奔跑，更是一支队伍同心前行。（潘天然）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5270933759328478",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
