@@ -2594,5 +2594,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國東部戰區發布戰備宣傳，強調枕戈待旦守衛東海和山河。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-28",
+      "title": "#东部熄灯号#枕戈待旦守东海，披坚执锐卫山河。#阅海峡#",
+      "content": "#东部熄灯号#枕戈待旦守东海，披坚执锐卫山河。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5271416942889808",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.8,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-28",
+      "title": "【#白衣执甲大爱东总#】近日，东部战区总医院举行 “闪亮的坐标 ——2025 年度感动东总” 颁奖典...",
+      "content": "【#白衣执甲大爱东总#】近日，东部战区总医院举行 “闪亮的坐标 ——2025 年度感动东总” 颁奖典礼。600 余名官兵员工齐聚，三大篇章鲜活演绎 7 个先进个人、7 个先进集体的动人故事，平凡岗位的坚守，医者仁心的担当，皆化作直抵心底的感动。榜样之光闪耀，奋进力量永续！（杨晓丽、解婧怡、汪卫东、 ...全文",
+      "url": "https://m.weibo.cn/detail/5271296146670669",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
