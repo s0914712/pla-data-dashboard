@@ -2666,5 +2666,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.7,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-03-02",
+      "title": "【#再见了军营#】2月28日，东部战区海军某部隆重举行士兵退役仪式，为光荣退役的老兵送别。仪式上，退...",
+      "content": "【#再见了军营#】2月28日，东部战区海军某部隆重举行士兵退役仪式，为光荣退役的老兵送别。仪式上，退役士兵卸下肩章、告别军旗，重温军旅誓言，致敬峥嵘岁月。祝愿他们在新的征程上再创佳绩。（闫小波）#退伍不褪色#",
+      "url": "https://m.weibo.cn/detail/5271960524427708",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.5,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區陸軍某旅舉行2026年度春季退役士兵向軍旗告別儀式，強調永葆軍人本色。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-03-02",
+      "title": "【#2026年度春季退役士兵向军旗告别# 】2月28日，东部战区陆军某旅隆重举行2026年度春季退役...",
+      "content": "【#2026年度春季退役士兵向军旗告别# 】2月28日，东部战区陆军某旅隆重举行2026年度春季退役士兵向军旗告别仪式。仪式现场，退役士兵身披绶带、胸戴红花，面向军旗庄严敬礼。数年军旅生涯，他们坚守战位、苦练精兵，用青春守护使命。告别军营之际，退役老兵们纷纷表示，将永葆军人本色，退役不退志、 ...全文",
+      "url": "https://m.weibo.cn/detail/5271930329367212",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
