@@ -3055,5 +3055,125 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區發布元宵節MV，強調兩岸同屬一中，祝願一統山河共嬋娟。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-03",
+      "title": "【#东部战区发布元宵节主题MV#大中国是我的家乡】黄河流过千年岁月，长江拍打万里河山。阿里山望见归帆...",
+      "content": "【#东部战区发布元宵节主题MV#大中国是我的家乡】黄河流过千年岁月，长江拍打万里河山。阿里山望见归帆，日月潭映着乡月。方块字刻入骨子里，百家姓融在血脉中。无论此岸彼岸，抬头都是同一轮月亮。值此元宵佳节，#东部战区#发布主题MV《大中国是我的家乡》，祝愿千盏花灯照归路，一统山河共婵娟！（东 ...全文",
+      "url": "https://m.weibo.cn/detail/5272292713564025",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.8,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國東部戰區微博發布威脅性口號，暗示對台軍事行動箭在弦上，劍指台灣海峽。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-02",
+      "title": "#东部熄灯号#箭在弦上随时发，剑指苍穹卫中华。#阅海峡#",
+      "content": "#东部熄灯号#箭在弦上随时发，剑指苍穹卫中华。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5272141718359699",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.5,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-02",
+      "title": "【#最后的军礼#】2月28日，武警浙江总队宁波支队隆重举行2026年度春季退役士兵向武警部队旗告别仪...",
+      "content": "【#最后的军礼#】2月28日，武警浙江总队宁波支队隆重举行2026年度春季退役士兵向武警部队旗告别仪式。退伍老兵身着戎装、整齐列队，以庄严的军礼向承载着青春与荣光的武警部队旗郑重告别。（潘立、卢煜、唐鹏）#退伍不褪色#",
+      "url": "https://m.weibo.cn/detail/5272051121128261",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.7,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-02",
+      "title": "【#卸下肩章再启程#】2月28日，东部战区空军某部隆重举行春季士兵退役仪式。老兵们卸下肩章，告别挚爱...",
+      "content": "【#卸下肩章再启程#】2月28日，东部战区空军某部隆重举行春季士兵退役仪式。老兵们卸下肩章，告别挚爱的战位。愿你们带着军营的坚韧与担当，在人生新赛道上续写荣光！（郑祥冰、吴海洋、黄文涛）#退伍不褪色#",
+      "url": "https://m.weibo.cn/detail/5272020922925147",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.9,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-02",
+      "title": "【#致敬退伍老兵#】2月28日，东部战区空军某部举行2026年度春季退役士兵向军旗告别仪式。老兵们怀...",
+      "content": "【#致敬退伍老兵#】2月28日，东部战区空军某部举行2026年度春季退役士兵向军旗告别仪式。老兵们怀着不舍的心情，向军旗敬礼、向战位告别。从初见青涩，到并肩作战，退伍老兵们把青春留在军营，把荣光装进行囊。卸甲不卸志，#退伍不褪色#。愿此去前程似锦，再相逢依旧如故。退伍老兵，向你们致敬！（彭 ...全文",
+      "url": "https://m.weibo.cn/detail/5271990727346740",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
