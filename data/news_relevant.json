@@ -3314,5 +3314,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-03",
+      "title": "【#一人立功全家光荣#】喜报一张纸，分量千斤重。近日，联勤保障部队第906医院组成多个“送喜报小分队...",
+      "content": "【#一人立功全家光荣#】喜报一张纸，分量千斤重。近日，联勤保障部队第906医院组成多个“送喜报小分队”，分赴河南、陕西、浙江等地，跨越上千公里，将一份份立功喜报，送上官兵家门，送到军属手中，让他们共享荣光。（齐永辉、刘嫘、张艺馨）",
+      "url": "https://m.weibo.cn/detail/5272443712703924",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
