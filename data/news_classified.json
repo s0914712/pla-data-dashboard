@@ -1178,6 +1178,1220 @@
     }
   },
   {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "5艘中共軍艦台海周邊活動國軍嚴密監控應處| 政治"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-03-03",
+      "title": "5艘中共軍艦台海周邊活動國軍嚴密監控應處| 政治",
+      "content": "5艘中共軍艦台海周邊活動國軍嚴密監控應處| 政治",
+      "url": "https://www.cna.com.tw/news/aipl/202603030041.aspx",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "6艘共艦2艘公務船擾台國軍嚴密監控| 政治"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-03-05",
+      "title": "6艘共艦2艘公務船擾台國軍嚴密監控| 政治",
+      "content": "6艘共艦2艘公務船擾台國軍嚴密監控| 政治",
+      "url": "https://www.cna.com.tw/news/aipl/202603050044.aspx",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "偵獲7艘共艦及1枚中共空飄氣球在台海周邊活動，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-01",
+      "title": "7共艦1空飄氣球擾台國軍嚴密監控| 政治",
+      "content": "（中央社記者游凱翔台北1日電）國防部今天發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲7艘共艦及1枚中共空飄氣球，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲7艘共艦持續在台海周邊活動。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aipl/202603010022.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_Statement",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "CN",
+    "sentiment_score": -0.85,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "共軍WZ-9「飛龍」偵察無人機1月17日進入東沙島上空。",
+      "Foreign_battleship": "",
+      "Political_statement": "USCC報告：共軍無人機闖東沙領空，試探台交戰規則，行動升級為侵犯領空。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-03-05",
+      "title": "共軍無人機闖東沙領空美國會機構：試探台交戰規則| 政治",
+      "content": "（中央社記者鍾佑貞華盛頓4日專電）共軍無人機1月闖東沙島領空。美國國會轄下的獨立委員會今天指出，分析家認為這是在試探台灣交戰規則。委員會並示警，解放軍對台空中行動出現質變，從騷擾升級為直接侵犯領空，並採取空前的電子欺敵模式。 美中經濟與安全審查委員會（US-China Economic and Security Review Commission, USCC）是美國國會設立的獨立機構，今天上午發布觀察報告指出，近幾週來，中國加大對台灣使用軍用無人機力度。 報告舉例，近期出現侵犯領空事件，以及運用複雜答詢機訊號進行欺敵（transponder spoofing）的行動。分析人士認為，這些作為是在為可能爆發的衝突情境進行演練。 答詢機是一種無線電或雷達裝置，接收到指定訊號後會發出自身的無線電訊號，主要用於探測、辨識和定位目標。 報告指出，1月17日，一架解放軍WZ-9「飛龍」偵察無人機進入台灣實際控制的南海東沙島上空，停留約4分鐘。報告並引述華府智庫「戰爭研究所」（Institute for the Study of War）的分析稱，這可能是數十年來首次確定的中國解放軍侵犯台灣領空事件。 USCC表示，這架無人機的飛行高度超出東沙島防空系統的偵測範圍，直到台灣透過國際廣播頻道發出警告後才折返。分析家認為，這次入侵是刻意利用東沙防禦薄弱、且距離台灣本島超過400公里的偏遠位置，藉此試探台灣的交戰規則。 華府智庫大西洋理事會（Atlantic Council）研究員廖彥棻（Kitsch Liao）指出，北京現在可以反覆進行這類飛行，藉由一再闖入台灣這一帶空域而未受懲罰，提高任何反制措施的風險。 此外，路透社2月26日公布的調查顯示，自去年8月以來，一架中國「翼龍2」軍用無人機至少在南海上空飛行23次，期間多次發送假答詢機訊號，偽裝成多個「身份」，包括遭制裁的白俄羅斯貨機以及英國空軍「颱風」（Typhoon）戰機等。 USCC報告指出，這架無人機自海南一座軍民兩用機場起飛，飛行路線靠近中國潛艦基地，並朝台灣與菲律賓之間的巴士海峽飛行。航班追蹤網站Flightradar24證實，這種欺敵模式前所未見。 報告評估，這一連串事態發展意味解放軍空中作戰方式出現質變，從過去的灰色地帶巡弋與騷擾，轉向直接侵犯領空並運用電子欺敵戰術，意在削弱對手的態勢感知。 路透社引述專家指出，答詢機欺敵行動於潛在衝突爆發初期格外關鍵，即便飛機識別短暫混亂，也可能拖延盟軍反應時間。 報告同時關注台美對等貿易協定的後續發展。內容指出，台灣的立法院必須審查並批准協定，協定才能生效，但相關程序預料將面臨黨派攻防。 在美國最高法院裁定總統川普不得援引「國際緊急經濟權力法」（International Emergency Economic Powers Act）祭出全球性關稅後，在立法院中占多數席次的在野陣營已呼籲台灣重新談判協定條款。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aipl/202603050022.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "中國大幅減少軍機繞台活動，過去一週甚至全無軍機繞飛，為史無前例的6天平靜期。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-05",
+      "title": "中國大幅減少軍機繞台路透：川習會前營造氛圍| 政治",
+      "content": "（中央社台北5日綜合外電報導）路透社報導，近數週中國大幅減少空軍在台灣周邊活動，過去一週甚至全無軍機繞飛。原本的日常軍事操演突然收斂，可能意味北京正在調整對台施壓策略，於川習會前營造更好氛圍。 報導指出，社團法人安全台灣學會彙整台灣政府數據顯示，中國今年截至目前已派出460架次軍機（包括戰鬥噴射機和無人機）進入台灣的防空識別區，較去年同期減少46.5%。2月偵獲共機190架次，為自從國防部於2022年開始公布詳細每日數據以來單月最低紀錄。 兩位台灣官員指出，中國國家主席習近平近期可能有意收斂顯而易見的施壓手段，以於月底與美國總統川普預期的會談之前營造較佳氛圍。 一位台灣高層安全官員告訴路透社，面對川普，「北京可能試圖營造一種假象：我愛好和平、我正走向和平，所以你們應該停止對台灣軍售。」由於議題敏感，這位官員要求匿名。 中國國防部、國務院台灣事務辦公室都沒有回應置評請求。 根據安全台灣學會副研究員湯廣正，中國自從2月27日以來沒有派遣任何軍機靠近台灣，為共軍這類行動中史無前例的6天平靜期，而伊朗戰爭就在這段期間爆發。 過去短暫暫停通常與颱風或中國節慶有關，與這次較長時間沉寂的情況有所不同。 也有人從持續進行的解放軍反腐整肅行動的角度去解讀。 台灣軍方智庫國防安全研究院國防戰略與資源研究所所長蘇紫雲表示，解放軍指揮體系正在進行調整，很可能影響整體戰備狀態，他認為整肅行動可能是「主要原因」。",
+      "url": "https://www.cna.com.tw/news/aipl/202603050193.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "US",
+    "sentiment_score": -0.7,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中共官媒評論，呼籲中國人民在國際形勢複雜多變下，保持居安思危的清醒，警惕鬆懈可能帶來的損失。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-01",
+      "title": "美以攻伊共軍喊話：中國人民要居安思危不可鬆懈| 兩岸",
+      "content": "（中央社台北1日電）美國與以色列昨天聯手攻擊伊朗後，中共解放軍報旗下的「鈞正平工作室」透過官方微博發表評論說，中國人民「永遠都要保持居安思危的清醒」，當前國際形勢複雜多變，「警惕之弦一旦鬆懈」，就可能給國家和人民帶來「難以挽回的損失」。 美國和以色列對伊朗發動大規模攻擊後，中國外交部及駐聯合國代表自2月28日起相繼發聲。而中共頭號官媒新華社及解放軍報也相繼發表評論，除攻擊美國外，也藉此向中國民眾作上述喊話。 北京日報今天報導，「鈞正平工作室」2月28日晚間透過官方微博，發表題為「中國人民永遠都要保持居安思危的清醒」的評論，提到上述看法。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/acn/202603010148.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": -0.8,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-03",
+      "title": "分析：伊朗靠飛彈無人機續命圖讓美軍備多力分陷消耗戰| 國際",
+      "content": "（中央社華盛頓2日綜合外電報導）美國總統川普今天表示對伊朗攻擊將持續4到5週。但伊朗用飛彈與無人機反擊，打擊目標擴大到石油與天然氣基礎設施，造成美軍防禦上備多力分，防空系統彈藥也出現短缺。 Axios：川普與伊拉克庫德族通話 遊說助戰出兵伊朗",
+      "url": "https://www.cna.com.tw/news/aopl/202603030089.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.7,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "張升民要求共軍聽從習近平指揮，全面加強練兵備戰，堅決維護國家主權、安全、發展利益。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-06",
+      "title": "張升民要求共軍聽從習近平指揮全面加強練兵備戰| 兩岸",
+      "content": "（中央社台北6日電）中國全國人大會議昨天開幕，中共中央軍委副主席張升民要求共軍貫徹軍委主席負責制，不斷夯實忠誠維護核心，堅決聽從總書記、軍委主席習近平指揮，全面加強練兵備戰。 為期8天的14屆中國全國人大四次會議5日在北京揭幕。據解放軍報，中共解放軍和武警部隊代表團當天下午分組審議政府工作報告，全國人大代表、中央軍委副主席張升民參加小組審議。 張升民指出，過去一年「十四五」（2021至2025年）圓滿收官，中國式現代化邁出新的堅實步伐，充分證明「兩個確立」是新時代最重大政治成果、最寶貴歷史經驗、最客觀實踐結論。 兩個確立是指「確立習近平中共中央的核心、全黨的核心地位」及「確立習近平新時代中國特色社會主義思想的指導地位」。 張升民強調，今年是共軍打好實現建軍百年奮鬥目標攻堅戰的關鍵一年，全軍要堅持不懈用「習近平新時代中國特色社會主義思想」凝心鑄魂，深入貫徹習近平強軍思想，貫徹軍委主席負責制，深化政治整訓、正風反腐，不斷夯實忠誠維護核心、堅決聽從習近平指揮的政治根基。 張升民要求全面加強練兵備戰，強化實戰實訓，堅定靈活展開軍事鬥爭，堅決維護國家主權、安全、發展利益。 他還要求聚力推動高質量發展，加快體系作戰能力集成，加強新域新質作戰力量建設運用，加大軍事治理工作力度，奮力實現「十五五」國防和軍隊建設良好開局。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/acn/202603060050.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "共軍啟用預備役人員證，便於預備役人員戰時應召參戰，平時參加軍事訓練、擔負戰備勤務及執行非戰爭軍事行動任務。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-03-03",
+      "title": "共軍啟用預備役人員證分析：便於戰時應召參戰| 兩岸",
+      "content": "（中央社台北3日電）共軍自3月起製發啟用「中國人民解放軍預備役人員證」。分析說，預備役人員證便於預備役人員戰時應召參戰，平時接受召集參加軍事訓練、擔負戰備勤務以及執行非戰爭軍事行動任務。 央視軍事頻道近日報導，經中共中央軍委批准，共軍1日起製發啟用「中國人民解放軍預備役人員證」。 據報導，預備役人員證具較高的防偽性和通識度，是證明預備役人員身分的有效證件，證件號碼為系統生成的唯一身分號碼，發給「中華人民共和國預備役人員法」頒布施行後在共軍依法服預備役的預備役軍官、預備役軍士和預備役兵。 央視新聞引述中國國防大學聯合作戰學院教授張耀奎表示，新證件的製發和啟用代表預備役人員有了統一編入預備役部隊服預備役的證明，是中國政府和軍隊對預備役人員身分的正式認定。 張耀奎說，新證件便於預備役人員戰時應召參戰，平時接受召集參加軍事訓練、擔負戰備勤務以及執行非戰爭軍事行動任務，也便於預備役人員依法依規享受有關福利待遇、撫恤優待等。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/acn/202603030108.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-03-04",
+      "title": "英國部署防空驅逐艦和直升機對抗伊朗飛彈無人機| 國際",
+      "content": "（中央社記者陳韻聿倫敦3日專電）英國1艘驅逐艦和2架直升機將前往東地中海，以加強對抗伊朗和親伊朗武裝組織在中東地區實施的飛彈和無人機攻擊。英國在位於東地中海的賽普勒斯擁有2座軍事基地。 美國和以色列2月底對伊朗發動打擊，伊朗隨後對區域內各國軍事和民用設施展開「無差別」報復性攻擊，波及未參與美以對伊打擊行動的國家；英國的軍事基地、英國部署於盟友軍事基地的人員和設備，以及一般民眾也面臨威脅。 美伊開火前，隨著局勢可能升高，英國今年稍早曾強化對中東地區的軍事部署，動用包括雷達、反無人機、陸基防空等系統，以及「颱風」（Typhoon）戰機和第5代戰機F-35。英國官方強調相關部署的「防衛」性質，旨在強化自我防衛及與盟友夥伴在區域內的集體防衛。 英國國防部今天表示，英國正往東地中海部署45型（Type 45）防空驅逐艦「龍號」（HMS Dragon），以及2架具無人機打擊能力的「野貓」（Wildcat）多用途直升機。 國防部指出，45型驅逐艦是全球防空能力最優越戰艦之一，可強化英國在區域內對空中威脅的偵測、追蹤和打擊能力，包括針對無人機。 根據國防部資訊，45型驅逐艦配備先進「海毒蛇」（Sea Viper）飛彈系統，可在10秒內發射多達8枚飛彈，並同時導引多達16枚飛彈。 45型驅逐艦的戰力經實戰驗證，包括曾在2024年攔截葉門激進武裝組織「青年運動」（Houthi）發射的飛彈。配備Martlet輕型多用途飛彈（LMM）的「野貓」直升機則有助強化驅逐艦的對空作戰能力。 英國國防部指出，在過去約24小時，英國武裝部隊已成功在中東地區攔截擊落數架無人機，包括空軍在數架「颱風」戰機和一架「航海家」（Voyager）空中加油機的支援下，有數架F-35B在約旦上空擊落數架無人機。 此外，英國部署於伊拉克境內的反無人機部隊在伊拉克空域，成功打擊了往境內聯合駐軍基地飛行的數架無人機。",
+      "url": "https://www.cna.com.tw/news/aopl/202603040011.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-05",
+      "title": "韓製「天弓二型」防空飛彈奏效阿聯請求提前供應| 國際",
+      "content": "",
+      "url": "https://www.cna.com.tw/news/aopl/202603050232.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": -0.75,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.99,
+    "original_article": {
+      "date": "2026-03-05",
+      "title": "中東戰火衝擊 荷莫茲海峽油輪通行量驟減90%",
+      "content": "（中央社德黑蘭4日綜合外電報導）能源市場情報公司Kpler今天表示，自中東地區爆發戰爭以來，通過荷莫茲海峽（Strait of Hormuz）的油輪通行量驟減90%，但未完全中斷。 全球約1/5的原油運輸行經荷莫茲海峽。自美國與以色列2月28日聯手對伊朗展開大規模空襲以來，原油與天然氣價格大幅飆漲。 伊朗則連番發射飛彈與無人機以示報復，攻擊中東地區駐有美國軍事人員或設有美軍基地的國家，同時襲擊多艘船隻。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aopl/202603050002.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "US",
+    "country2": "IR",
+    "sentiment_score": 0.4,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "美軍高層官員表示，已擊沉逾30艘伊朗船艦，並稱伊朗彈道飛彈攻擊減少90%，無人機攻擊減少83%。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-06",
+      "title": "美軍擊沉30多艘船艦 稱伊朗彈道飛彈攻擊大減9成",
+      "content": "（中央社華盛頓5日綜合外電報導）美國一名軍方高層官員今天表示，在持續進行的戰爭中，美國已擊沉超過30艘伊朗船艦，同時德黑蘭部隊發動的彈道飛彈與無人機攻擊次數已大幅下降。 法新社報導，海軍上將古柏（Brad Cooper）在記者會上表示：「我們目前已擊沉30多艘船艦。就在過去幾小時內，我們擊中了一艘伊朗無人機航空母艦，規模約等同於二戰時期的航空母艦。就在我們說話的此刻，該艦正起火燃燒。」 與此同時，掌管美國在中東部隊的美軍中央司令部司令古柏表示：「自開戰首日以來，伊朗的彈道飛彈攻擊已減少了90%，無人機攻擊則減少了83%。」",
+      "url": "https://www.cna.com.tw/news/aopl/202603060019.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": -0.8,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-05",
+      "title": "CNN：伊朗轟炸機遭卡達戰機擊落 距美軍基地僅2分鐘",
+      "content": "（中央社杜哈4日綜合外電報導）美國有線電視新聞網（CNN）引述2名聽取簡報的消息人士報導，伊朗轟炸機2日遭卡達軍機擊落前，距美軍在中東地區最大軍事基地只有2分鐘航程，這是卡達戰機首度參與空戰任務。 根據報導，伊朗革命衛隊（Revolutionary Guard）2日上午派遣2架蘇聯時期的蘇愷24（Su-24）戰鬥轟炸機，飛往駐有1萬名美軍的烏代德空軍基地（al-Udeid Air Base），以及卡達經濟命脈、重要天然氣加工設施所在地拉斯拉凡（Ras Laffan）。 一名消息人士告訴CNN，伊朗轟炸機當時距離目標僅剩「2分鐘」航程。另一名消息人士告訴CNN，這些飛機經肉眼辨識並被拍照證實「攜帶炸彈與導引彈藥」。 另一名消息人士表示，卡達軍方曾透過無線電發出警告，但未獲回應。伊朗轟炸機當時切換至80英尺（約24公尺）的高度低空飛行，以躲避雷達偵測。 消息人士表示，基於「時間限制」與「現有證據」，伊朗轟炸機被歸類為「敵意目標」。卡達隨後出動F-15戰機進行空戰，成功將其擊落。 伊朗轟炸機墜毀於卡達領海。卡達外交部發言人安薩里（Majed al-Ansari）3日在簡報會上表示，正進行機組人員搜尋行動。 自2月28日美國與以色列聯手空襲伊朗，導致伊朗最高領袖哈米尼（Ali Khamenei）遇襲身亡後，伊朗向波斯灣阿拉伯國家發射數百枚飛彈與無人機報復。 美國參謀長聯席會議主席凱恩（Dan Caine）4日在五角大廈簡報會上證實這起事件，指出卡達戰機首度擊落2架飛往其領空的伊朗轟炸機，但未說明伊朗轟炸機的目標。",
+      "url": "https://www.cna.com.tw/news/aopl/202603050283.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "法國允許美軍支援飛機使用其空軍基地，但要求飛機不得參與對伊朗的攻擊行動，僅用於支援區域夥伴防衛。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-06",
+      "title": "法國參謀總部：美軍支援飛機獲准使用法空軍基地| 國際",
+      "content": "（中央社巴黎5日綜合外電報導）法國參謀總部今天表示，美國軍方支援飛機已獲准使用法國一座空軍基地，並稱已獲得「充分保證」這些飛機未參與對伊朗的攻擊行動。 法新社報導，法國參謀總部在聲明中表示：「提供作戰支援的美國飛機（非戰鬥機）已獲允許進入法國伊斯特瑞（Istres）空軍基地。」 「法國要求相關資產絕不可參與美國對伊朗發起的行動，只能嚴格用於支援防衛我們的區域夥伴，法國已就此獲得充分保證。」 聲明並指出：「這屬於北大西洋公約組織（NATO）架構下的例行程序。」 另外，法國國防部長沃特蘭（Catherine Vautrin）表示：「加油機是加油站，不是戰鬥機。」 「所以重點顯然在於加油能力，這是總統唯一授權的項目。」 自美國與以色列上月28日開始對伊朗發動攻擊以來，法國採取總統馬克宏（Emmanuel Macron）所說的純防禦性立場。 馬克宏3日表示，法國已派遣航艦「戴高樂號」（Charles de Gaulle）及其他軍事資產前往地中海。 他說，法國與卡達、科威特、阿拉伯聯合大公國有防衛協議，與約旦和伊拉克之間也有「堅實承諾」，這些國家全都遭到伊朗攻擊。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aopl/202603060006.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_Statement",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "美戰爭部次長柯伯吉回應美彈藥儲備量吃緊恐影響台海的關切，強調美國需加倍努力國防工業，但外界不應誤解，情況已在掌控中。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-04",
+      "title": "美彈藥儲備量吃緊恐影響台海？美戰爭部次長：不應誤解| 政治",
+      "content": "（中央社記者侯姿瑩華盛頓3日專電）美、以聯手攻擊伊朗，美議員今天關切，傳出美國彈藥儲備量低，有國家可能會以為這是向台灣動手的時機，美戰爭部次長柯伯吉對此表示，美國確實需在國防工業基礎上加倍努力，但外界不應有所誤解，他強調，情況已在掌控中。 美國戰爭部負責政策的次長柯伯吉（Elbridge Colby）今天赴美國聯邦參議院軍事委員會聽證會對國防戰略進行說明，美國對伊朗的軍事行動成為議員關切焦點。 路透：攻伊消耗武器庫存 白宮召見國防產業高層",
+      "url": "https://www.cna.com.tw/news/aipl/202603040046.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Regional_Security",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "CN",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "華府智庫分析，美國攻擊伊朗旨在破壞中國在中東的戰略資產，進而削弱北京在台海的戰略布局和外援。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-02",
+      "title": "分析：川普攻伊朗削弱中國戰略資產破壞北京台海布局| 政治",
+      "content": "（中央社華盛頓1日綜合外電報導）華府智庫哈德遜研究所研究員里布瓦撰文分析，鑒於伊朗長期被北京打造為結構性戰略資產，牽制美軍太平洋資源，美國和以色列聯手襲擊伊朗是破壞中國布局，拔除北京在台海棋局中布下的外援。 里布瓦（Zineb Riboua）在哈德遜研究所（Hudson Institute）中東和平與安全中心擔任研究員，她以「伊朗問題核心是中國」（The Iran Question Is All About China）為題撰文指出，德黑蘭固然常被貼上「核擴散問題製造者、恐怖主義贊助者、區域秩序破壞者」標籤，然而若不從中國的大戰略角度切入，就無法看清局勢全貌。 里布瓦表示，事實上，北京多年來斥資數以十億計美元，讓伊朗成為其戰略布局的結構性資產，中東局勢發展全都環繞著這個事實轉動。 因此「史詩怒火行動」（Operation Epic Fury）意義重大，成為首場威脅切斷這項資產的美國軍事行動。透過直接打擊伊朗，美國總統川普（Donald Trump）政府不論是有意為之還是連帶後果，都在拆解中國區域架構的一根支柱。 里布瓦提到，2025年6月，以色列發動「崛起雄獅行動」（Operation Rising Lion），在為期12天的精準打擊中摧毀伊朗鈾濃縮設施，擊斃30多名高階指揮官及十幾位核科學家，並促使美國直接攻擊3處核設施。 伊朗營造40多年的嚇阻神話於短短兩週內崩解。同年12月底，因經濟崩盤與政府威信掃地，伊朗全國31個省分爆發1979年以來最大規模示威。 根據里布瓦，中國供應商被發現向伊朗運送逾1000公噸的飛彈推進劑關鍵原料過氯酸鈉，其數量足以重建以色列花12天所摧毀的大部分彈道飛彈庫存。 里布瓦指出，石油是這整段關係的起點。中國以大幅折扣購買約9成的伊朗原油出口，這些貨物由一支幽靈船隊運送，透過關閉應答器、改換產地標籤來躲避美國制裁。 自2021年以來，這些採購金額累計已超過1400億美元，讓中國成為伊朗得以避免破產的主要支撐力量。 里布瓦表示，這項安排對北京而言堪稱完美。中國不僅能為國內工業取得低價石油，與按市場價格向其他供應商採購相比，每年更可省下數十億美元。 在科技層面，里布瓦寫道，華為與中興通訊承建伊朗大部分的電信基礎設施。早在2010年，中興通訊便簽署價值1.3億美元的合約，在伊朗國營電話與網際網路系統加裝監控系統。 雙方合作進一步擴展至人工智慧（AI）人臉辨識攝影機、深度封包檢測（DPI）工具以及集中式流量管理系統。伊朗的「國家資訊網」（National Information Network），這個由國家控制、逐步切斷公民與開放網際網路連結的國內內網，即是以中國「防火長城」為範本，並在中國技術協助下建構而成。 根據里布瓦，伊朗對中國的價值不僅止於能源與科技，還延伸至代理人戰爭的領域。以紅海局勢為例，2023年底，伊朗支持的葉門青年運動（Houthi）在曼德海峽（Bab el-Mandeb）對商船發動攻擊，短短3個月內，經由紅海的貨櫃運輸量下滑90%。 在最初7個月內，價值約1兆美元的貨物運輸受到干擾。船舶被迫繞行非洲好望角，航程延長近兩週，燃料成本增加約100萬美元，進而推高亞歐之間的運費。 里布瓦表示，美國為應對此事付出了沉重代價。美軍不僅部署航空母艦打擊群，還持續空中作戰行動長達數月之久，每枚攔截彈成本為100萬至400萬美元。截至2025年中，這場行動已削減美國約1/4的高階攔截彈庫存。 美國在維護紅海航道安全上每多花1美元，就等於少了1美元可用於建造潛艦、建設太平洋基地或為台灣緊急突發事件制定應變計畫。 里布瓦還寫道，中國以商業耐性與外交野心，介入這場不確定局勢。如今，沙烏地阿拉伯的最大石油買家是中國，阿拉伯聯合大公國更將華為技術整合至其關鍵科技基礎設施。 從港口、鐵路、5G網路到智慧城市，中國企業的建設足跡遍及波斯灣。2023年3月，北京促成沙烏地阿拉伯與伊朗關係正常化，這項外交壯舉宣告中國已成中東的「權力掮客」。 里布瓦強調，「這其實關乎台灣」，川普發動「史詩怒火行動」並不只是為了懲罰伊朗最高領袖哈米尼（Ayatollah Ali Khamenei）的屠殺行徑，也是因為美國每多花一年處理德黑蘭，北京就在太平洋多贏得一年的布局時間。 「中東局勢的走向，將決定美國是否能在本世紀最具決定性的對抗中勝出，即中國對台灣採取的行動。」 里布瓦首先分析能源因素。中國約有7成石油依賴進口，且大部分需經過馬六甲海峽。一旦爆發台海衝突，這些海上航道將成為爭奪之地。 北京屆時將需要能源的替代性供應途徑，並向西求助伊朗、俄羅斯或任何願在美元體系外販售石油的波斯灣國家。中東若進入北京的經濟軌道，中國在衝突發生時便能具備美方無法動搖的戰略能源儲備。 第二，美國無法同時應對兩個戰區的戰爭，紅海行動已證明這點。如果對中東進行永久性危機管理，美軍在船艦、飛機和彈藥上的消耗，將削弱其在太平洋的嚇阻能力。 第三，如果爆發台海危機，美國將需要盟國透過制裁、金融孤立及技術封鎖，讓中國付出慘痛代價。這套同盟策略能否奏效，取決於產油國是否參與。 如果沙烏地阿拉伯、阿拉伯聯合大公國等國與中國經濟體系連結過深，拒絕於太平洋戰爭期間削減對北京的石油供應，那麼整套制裁架構將在最關鍵時刻瓦解。",
+      "url": "https://www.cna.com.tw/news/aipl/202603020291.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": false,
+    "country1": "CN",
+    "country2": "IR",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國外交部否認向伊朗出售CM-302超音速反艦飛彈，指報導不屬實，反對惡意關聯炒作。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-02",
+      "title": "外媒指向伊朗出售超音速反艦飛彈中國矢口否認| 國際",
+      "content": "（中央社台北2日電）外媒報導，伊朗向中國採購CM-302超音速反艦飛彈的協議已接近完成，是中國近年來向伊朗提供的最先進武器裝備之一。不過，中國外交部發言人毛寧今天對此矢口否認，指「有關報導不屬實」，中方反對「惡意關聯炒作」。 對於媒體提問，美國與以色列聯手攻擊伊朗前是否先通知中國，毛寧回應「關於美國的軍事行動，中方沒有提前得到通報」。 中國外交部下午舉行例行記者會，美國、以色列聯手攻擊伊朗與中國的關聯成為媒體關注焦點。澎湃新聞報導，毛寧在回答媒體相關提問時，作上述表示。 毛寧說，「有關報導不屬實」，中國「作為負責任大國，一貫履行國際義務」，中方反對「惡意關聯炒作」，希望有關方面多做有助於緩和局勢緊張的事。 路透社日前報導，6名知情人士透露，伊朗正計畫向中國採購CM-302（鷹擊YJ-12外銷版）超音速反艦飛彈，且交易已接近完成階段，但交付時程尚未敲定。這被視為伊朗在緊張局勢升溫之際，緊急補強軍事能力的重要動作。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aopl/202603020288.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_Statement",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "CN",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "美情報官示警，中國水下部隊2040年恐挑戰美軍優勢，並應警惕北京「黑色」行動。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-03",
+      "title": "美情報官：中國水下部隊2040年恐挑戰美軍優勢| 國際",
+      "content": "（中央社記者鍾佑貞華盛頓2日專電）美國現役與卸任情報官今天在國會示警，中國水下部隊可能在2040年前具備挑戰美國主導地位的實力；外界關注中國介於戰爭與和平之間的「灰色地帶」行動外，也應同樣警惕北京刻意不留痕跡的「黑色」行動。 美中經濟暨安全檢討委員會（US-China Economic and Security Review Commission）今天舉行「美中海底競爭」聽證會。出席作證者包括美國海軍情報辦公室（Office of Naval Intelligence）指揮官布魯克斯（Mike A. Brookes）與海軍中將塞夫（Richard Seif）等人。 布魯克斯指出，中國很清楚自己仍然落後，正在找各種方式削弱美軍的領先優勢。到2040年，中國水下戰力很可能已具備挑戰美國水下主導地位的能力。 他表示，中國目前擁有約60艘潛艦，規模居全球前列，但這並非北京的最終目標，美方必須著眼其未來發展方向。 布魯克斯也提到，中國本土潛艦生產能力「驚人」。若持續擴張，到2035年潛艦總數可能達約80艘，其中一半為核動力潛艦。 塞夫則指出，中國在「態勢感知」領域的進展同樣值得關注。北京透過所謂「水下長城」，也就是由海床與浮式平台組成的感測網絡，監控區域內潛艦活動。 因此他建議，若要發展不對稱戰力，應優先投資感測與搜尋系統，包括固定式與可部署平台，以及載人、無人或混合型載具，以強化水下態勢掌握能力。 今天出席的智庫代表包括前海軍情報辦公室指揮官史都德曼（Mike Studeman）。他2020年擔任印太司令部情報（J2）主管期間曾低調訪台，是近年訪台層級最高的美國軍官之一。 史都德曼表示，中國商船日前在波羅的海拖錨、破壞海底電纜與能源管線的事件，已讓外界一窺北京「黑色行動」的可能樣態，且這類行動很可能涉及中俄合作。俄羅斯相關戰術與技術，正隨雙方關係深化而傳授給北京。 他指出，外界對所謂「灰色地帶」行動關注過多，需同樣關注隱蔽的「黑色地帶」戰略。後者刻意模糊行動痕跡，甚至讓人懷疑事件是否發生，而這正是中國大力思考發展的選項與能力。 史都德曼舉例，若一艘中國遠洋海運集團貨船駛入美國港口，而中國黨政部門可能掌握相關船隻的情報蒐集能力，這些商船頻繁進出美國港口，在突發情況下可能成為風險來源，美方必須思考如何因應。 他說，商船貨櫃內幾乎可以裝載任何物品，也可能從船側投放設備，或在船體內設置隱蔽空間。表面看似平靜，水面之下卻可能暗藏重大行動。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aopl/202603030036.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "US",
+    "country2": "CN",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "美軍攻伊朗使習近平在川普會晤前居劣勢，中方謹慎回應顯示影響美軍行動能力有限，川習會前景不確定。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-03",
+      "title": "路透：美軍攻伊朗有望助川普會晤習近平前占上風| 國際",
+      "content": "（中央社華盛頓/北京3日綜合外電報導）美軍對伊朗發動攻擊，使中國國家主席習近平在與美國總統川普舉行預定峰會前居於劣勢。這是川普於短短兩個月內，第二度下令美軍打擊北京的重要夥伴國家之一。 路透社報導，川普（Donald Trump）預計3月底前往北京會晤習近平。美國1月突襲委內瑞拉首都卡拉卡斯（Caracas）並抓捕時任總統馬杜洛（Nicolas Maduro）；美國和以色列2月28日聯手發動空襲，擊斃伊朗最高領袖哈米尼（Ali Khamenei）。這兩國都是中國主要的石油供應來源。 如今「川習會」將如何進行，或甚至是否仍會如期舉行，目前仍充滿不確定性。川普政府曾表示，這場會談將聚焦討論貿易議題。 外界上週還認為，在美國最高法院裁定川普的對等關稅無效後，川普前往北京時似乎將處於弱勢。然而，現在或許是習近平感到措手不及，難以強勢回應這場美軍自伊拉克戰爭以來的最大規模行動。 專家指出，儘管北京譴責美國主導的行動「不可接受」並呼籲各方克制，這樣謹慎的回應顯示中國影響美軍行動的能力有限，並反映其外交夥伴關係偏向利益交換。 習近平如今面臨尷尬前景：若非在國際舞台上隆重接待川普，就是取消兩人擬於3月31日至4月2日期間舉行的峰會。北京迄今尚未確認峰會日期。 如果習近平決定按原定計畫召開峰會，他或許是押注長遠來看，若美國長期深陷中東衝突泥淖，華府最終會被削弱。 川普曾提到，打擊伊朗的軍事行動可能持續約4週，接近他的中國行前夕。 中國面臨獨特風險 中國是全球最大的伊朗石油買家，去年自伊朗進口的海運石油占其總體石油進口量13.4%。因此隨著衝突持續進行，一旦供應中斷，中國的處境將格外脆弱，尤其是在全球最重要石油出口航道荷莫茲海峽（Hormuz Strait）被封鎖的情況下。 分析人士談到，儘管中國可分散進口來源，失去伊朗石油短期內仍會造成顯著價格壓力，進而壓縮中國經濟高度倚賴的製造業的利潤空間。 美國空襲伊朗也提醒北京及其夥伴，美軍不僅能在自身勢力範圍內出擊，也能跨足全球進行打擊。 上海復旦大學國際關係專家趙明昊指出：「打擊伊朗以及可能引發的政權更迭，將嚴重衝擊中國利益。」 趙明昊說：「中國正評估美國對委內瑞拉及伊朗行動背後的深層意圖，同時，美國可能透過控制國際能源市場，加強對中國施壓。」 美國寄望中國反應有限 美國目前押注，美軍打擊伊朗不會引發中國採取軍事行動。 一名美國官員告訴路透社，預期中國不會在美方行動期間向伊朗提供實質支援，且美國持續把注意力放在中東，短期內不致促使北京在印太地區採取大膽行動。 這名官員提到，美國主要的擔憂在於，美軍難以迅速補充彈藥儲備，恐削弱對共軍犯台威脅的「中期嚇阻能力」。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aopl/202603030228.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_TW_Interaction",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "US",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "國民黨黨版軍購特別條例金額依發價書定3500億元",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-05",
+      "title": "國民黨：黨版軍購特別條例金額依發價書定3500億元| 政治",
+      "content": "",
+      "url": "https://www.cna.com.tw/news/aipl/202603050062.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "JP",
+    "country2": "CN",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "日美「利刃」（Keen Edge）聯合指揮所演習，確認攻擊敵方飛彈發射據點等地的「反擊能力」程序，假想日本西南群島發生緊急事態，並著眼行使反擊能力。日本計劃3月部署射程逾1000公里的12式陸基反艦飛彈改良版。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-28",
+      "title": "日美2026利刃軍演日媒：已確認飛彈反擊程序| 國際",
+      "content": "（中央社東京28日綜合外電報導）日媒披露，日本計劃3月部署作為反擊能力核心的長程飛彈，在此之前，日本自衛隊與美軍於最近實施的聯合指揮所演習，已確認攻擊敵方飛彈發射據點等地的「反擊能力」程序。 「讀賣新聞」今天引述消息人士的說法披露這則消息，而美日雙方盼藉此為日本持有反擊能力飛彈做好準備，並有意藉此提升美日的嚇阻力。 美日雙方的聯合演習「利刃」（Keen Edge）每兩年舉辦一次，主要目的在於透過指揮所演習確認指揮系統等事務。今年的演習於1月29日到2月5日舉行，期間確認上述「反擊能力」相關程序。 而日本去年剛成立的統合作戰司令部，今年也首度參加「利刃」演習。統合作戰司令部為統一指揮陸海空自衛隊的常設機構，主要任務之一為運用長程飛彈。 而今年的演習假想日本西南群島發生緊急事態，並著眼行使反擊能力。消息人士透露，日本若遭受敵國攻擊，日本政府認定為被武力攻擊的「武力攻擊事態」，日本自衛隊與駐日美軍合作之下，已經確認選定攻擊目標，並朝敵國內的飛彈發射據點，發射長程對地飛彈的步驟。 關於日本的長程飛彈，日本國產的12式陸基反艦飛彈（12式地對艦誘導彈）改良過後，射程能超過1000公里，預計在3月底前部署於日本熊本市的陸自健軍駐屯地。 同時，日本也計劃於2027年度在航空自衛隊的戰機，配備12式的能力向上型；日本海上自衛隊的護衛艦「鳥海號」（Chokai）目前正在美國接受改裝，之後預定配備射程約1600公里的美國製戰斧巡弋飛彈。",
+      "url": "https://www.cna.com.tw/news/aopl/202602280079.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_Statement",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "CN",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "美次長柯伯吉稱，美軍對伊朗行動展現實力，可嚇阻中國等潛在對手對台動手，並思考在第一島鏈建構拒止型防禦。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-06",
+      "title": "美次長：攻打伊朗展現美軍實力嚇阻中國等潛在對手| 國際",
+      "content": "（中央社記者侯姿瑩華盛頓5日專電）美、以聯手攻擊伊朗，美議員今天關切中東戰事將如何影響美軍調整部署，以防北京趁機對台動手，美國戰爭部次長柯伯吉對此表示，華府正密切觀察其他潛在對手的反應，對伊朗的軍事行動展現了美軍實力，這具有嚇阻效果。 美國戰爭部1月公布川普第2任期的首份國防戰略（National Defense Strategy）報告，戰爭部負責政策的次長柯伯吉（Elbridge Colby）今天出席美國聯邦眾議院軍事委員會聽證會對國防戰略進行說明，多名議員關切美國對伊朗發動的「史詩怒火行動」（Operation Epic Fury）。 共和黨籍眾議員哈里根（Pat Harrigan）問及，若美國持續在中東作戰，目前有哪些部署調整已到位，確保北京不會認為可以趁機對台灣採取行動？柯伯吉回應表示，美國正密切關注其他潛在對手的反應；美軍在這項行動展現的實力具有嚇阻效果。 柯伯吉指出，美國也在思考如何最有效地部署軍隊，以在第一島鏈沿線建構拒止型防禦（denial defense）。他強調，美軍對伊朗的軍事行動不是一場無止盡的戰爭，「我們不是孤立主義者… 我們是靈活的現實主義者。」 對於民主黨籍眾議員摩爾頓（Seth Moulton）問及，「史詩怒火行動」是否也有嚇阻中國的作用，柯伯吉回應表示，確實看到世界各國都對美軍展現的實力印象深刻；他認為，這有助於嚇阻。 有鑒於伊朗為中國在中東地區的盟友，共和黨籍眾議員史蒂芬尼克（Elise Stefanik）同樣關切美國攻打伊朗對中國產生的影響。被問及未來6個月至一年最擔心的問題，柯伯吉說，就他了解，中國非常仰賴中東能源資源，他們正密切觀察這點。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aopl/202603060016.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_TW_Interaction",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "US",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "國民黨提議對美軍購增設延宕懲罰條款，專家分析美對台軍售屬發價書非契約，無賠償機制，改商售恐延宕。",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-02",
+      "title": "專家：美軍售屬發價書非契約格式固定無賠償機制| 政治",
+      "content": "（中央社記者游凱翔台北2日電）國民黨提議對美軍購增設延宕懲罰條款。軍事專家及學者指出，美對台軍售非屬「契約」，而是政府間的「發價書」，各國格式固定且無賠償機制；若改採商售並納罰則，恐因程序重啟與輸出管制審核，導致交貨期程嚴重延宕。 傳國民黨擬將美國已宣布的8項對台軍售案列入黨版國防特別條例，預算規模匡列新台幣3500億元。國民黨智庫近日提供說帖給黨籍立委，明確支持美方已提總額3500億元的既定軍購案，並建議明定懲罰條款，如果交貨延宕得要求賣方負起賠償責任。 國防部智庫、國防院學者揭仲指出，現行美國對台軍售（FMS）模式下，美方提供的是「發價書」（LOA），其格式對所有國家均一致，並未包含賠償或懲罰條款。實務上，台灣非直接與美國廠商簽署採購契約，而是由美國防部與廠商簽約，因此軍售框架下，並不存在傳統意義上的採購契約。 針對國民黨要求落實違約罰則，揭仲分析，唯一途徑是捨棄軍售模式，改採「商售」（DCS）。屆時須由台灣自行開啟國際標案，才能在契約中與得標廠商商議賠償條款。但是，若在此時間點改採商售，既有進行中的軍售程序將全數失效，必須重新啟動行政流程。 他提到，由於美國國防廠商受限嚴格的輸出管制，無論是產品出口，或會議簡報涉敏感品項，皆須取得美方行政部門同意，改採商售不僅增加詢價與討論的時間成本，更可能因行政程序重啟，導致武器裝備交貨期程出現嚴重延宕。 蘇紫雲指出，台美軍購屬「政府對政府」對外軍事銷售（FMS），非一般商務契約，受限於美國法律與供應鏈彈性，實務上難以納入賠償機制，且目前國際間並無前例。 蘇紫雲表示，軍售案主要依據美國國防安全合作局（DSCA）規範，其中包含除外條款，美方可視供應鏈、零組件缺料或美政府需求，調整交貨時間與優先順序；此外，川普政府的行政命令也強調軍售將視區域重要性與買方財務狀況動態調整。 他強調，軍購的本質是行政管理，而非單純的商業權利義務關係。至於過去美方稽核雷神公司愛國者（Patriot）飛彈系統和雷達系統案溢價、並返還新台幣52億116萬元款項，屬美國防部監察部門的行政追補，並非因交貨延遲而產生的違約賠償。 一名熟悉對美軍購的國防事務專家指出，軍售流程分為需求信函、發價書（LOA）擬定及案件實施等階段。在擬定階段，美方須針對採購國進行「技術安全與外國揭露」（TSFD）審查，確保資安保防能力，並由美國印太司令部背書「國家團隊評估報告」（CTA），確認採購項目的適用性。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aipl/202603020124.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_TW_Interaction",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "TW",
+    "sentiment_score": 0.4,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "美戰爭部次長柯伯吉重申對台軍售立場不變，強調提供防衛性武器，並呼籲台灣盡自身防衛責任。",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-03-04",
+      "title": "美戰爭部次長柯伯吉：對台軍售立場不變籲夥伴盡自身防衛責任| 政治",
+      "content": "（中央社記者侯姿瑩華盛頓3日專電）川普2.0去年底宣布大規模對台軍售，美戰爭部次長柯伯吉今天表示，華府長期政策是對台提供防衛性武器、反對利用暴力或脅迫手段改變現狀，川普政府政策與此相符；他也強調，期望美國提供防衛的夥伴，盡到自身防衛責任至關重要。 美國戰爭部1月公布川普第2任期的首份國防戰略（National Defense Strategy）報告，戰爭部負責政策的次長柯伯吉（Elbridge Colby）今天赴美國聯邦參議院軍事委員會聽證會對國防戰略進行說明。 對於川普政府去年底宣布總值約111億美元的大規模對台軍售案，共和黨籍聯邦參議員班克斯（Jim Banks）問及，這類外國軍售將如何有助提升台灣協助美軍執行「拒止型」（denial）任務的能力？柯伯吉表示，台灣是一個敏感議題。 柯伯吉指出，美國近50年來的立場是對台灣提供防衛性武器，並反對使用暴力或脅迫手段改變現狀。 「我認為我們的政策與此相符」，他說，這體現一種強力、清晰但低調的立場。在建構嚇阻能力方面，川普政府的防衛戰略與方針更專注於取得實質成果。 班克斯也問及台灣通過國防特別預算來建構這類能力的重要性，柯伯吉回應表示，有鑒於台灣議題的敏感性，他不便具體評論，但強調，對於期望美國提供防衛的盟友和夥伴而言，盡到自身防衛責任至關重要。 台灣在野黨立委先前數度封殺行政院提出的8年、新台幣1.25兆元國防特別預算條例，引發美國國會議員接連表達關切。除了參議院軍委會主席韋克爾（Roger Wicker）發文呼籲立法院應重新考慮，「特別是有鑒於中國威脅日益加劇」，還有34名跨黨派聯邦參、眾議員致函立法院長韓國瑜等人，盼支持足以應對當前形勢並清晰展現台灣自衛意志的經費。 立法院朝野黨團日前達成共識，行政院版「強化防衛韌性及不對稱戰力計畫採購特別條例草案」將於3月6日付委審查。",
+      "url": "https://www.cna.com.tw/news/aipl/202603040017.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Regional_Security",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "US",
+    "sentiment_score": -0.7,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "卜睿哲分析北京可能要求川普公開承認台灣屬中國、克制對台軍售、從「不支持台獨」改為「反台獨」立場。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-05",
+      "title": "卜睿哲：北京可能促川普克制對台軍售、公開反台獨| 政治",
+      "content": "（中央社記者鍾佑貞華盛頓4日專電）月底登場的川習會受各方高度關注，前美國在台協會（AIT）主席卜睿哲近日表示，北京可能會要求川普公開承認台灣是中國的一部分、承諾在對台軍售上保持克制，及從現行「不支持台獨」改為「反台獨」的立場。 卜睿哲：美國1950年來立場始終是台灣地位未定",
+      "url": "https://www.cna.com.tw/news/aipl/202603050017.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_TW_Interaction",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "US",
+    "sentiment_score": 0.1,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "國民黨版國防特別條例對美軍購3500億責成政府促如期交貨",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國民黨團拍板黨版國防特別條例草案，支持符合美對台軍售程序且有發價書的採購項目，並責成政府促如期交貨。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-05",
+      "title": "國民黨版國防特別條例對美軍購3500億責成政府促如期交貨| 政治",
+      "content": "（中央社記者王承中台北5日電）國民黨團今天召開黨團大會，拍板黨版國防特別條例草案。國民黨團書記長林沛祥表示，黨版中明確規定，只有符合美對台軍售程序，符合國軍作戰需求，且取得美方正式發價書的採購項目才適用本條例。 林沛祥也指出，國民黨支持只要美對台軍售有明確依據，就會積極推動，因此在黨版中也明定，一旦美方提出新的軍售發價書，主管機關應立即研擬第二階段特別條例草案，送立法院審議，立法院也應即刻召開朝野協商，從速完成三讀程序。 立法院2月24日開議，朝野黨團協商後，同意行政院版國防特別條例草案及尚未提出的相關特別條例草案，都列入3月6日院會報告事項中，並交外交及國防、財政兩委員會與民眾黨團版國防特別條例草案併案審查，均不提出復議。 外界關注國民黨版國防特別條例草案究竟會選擇哪個版本，國民黨團今天上午在立法院召開黨團大會討論。而在黨團大會前夕，國民黨中央召開記者會表示，黨中央與黨團已達成共識，對美軍購的每項武器都須獲美發價書，目前美方提出發價書大約就是新台幣3500億元，如美方有下一波對台軍售，國民黨也會予以支持。 綠批無理阻擋軍購 藍：支出規模可觀不能草率",
+      "url": "https://www.cna.com.tw/news/aipl/202603050129.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "US",
+    "country2": null,
+    "sentiment_score": -1.0,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-05",
+      "title": "美擊沉伊朗軍艦戰火擴大北約攔截射向土耳其飛彈| 國際",
+      "content": "（中央社杜拜4日綜合外電報導）美國與伊朗的戰爭今天急劇擴大，一艘美國潛艦在斯里蘭卡外海擊沉一艘伊朗軍艦，造成至少80人喪生，北大西洋公約組織（NATO）的防空系統也摧毀了一枚射向土耳其的伊朗彈道飛彈。 土耳其國防部表示，這枚飛彈已由「部署在東地中海的北約防空與飛彈防禦資產攔截並擊毀」。國防部並未指明飛彈的預定目標。 一名不願具名的土耳其官員告訴法新社，這枚飛彈原先「瞄準希臘屬賽普勒斯的一個基地，但偏離了彈道」。事件中沒有傳出人員傷亡。 這起飛彈事件是與伊朗接壤、擁有北約第2大軍隊的土耳其首度被捲入衝突。但美國戰爭部長赫格塞斯（Pete Hegseth）表示，目前不認為此事會觸發北約的集體防禦條款。 赫格塞斯表示，美國潛艦在距離波斯灣數千公里遠的斯里蘭卡南部海岸外，擊中了一艘伊朗船艦，此舉標誌著衝突範圍的擴大。與此同時，荷莫茲海峽（Strait of Hormuz）的航運已連續第5天陷入癱瘓，切斷了中東至關重要的石油和天然氣流動。",
+      "url": "https://www.cna.com.tw/news/aopl/202603050036.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "US",
+    "sentiment_score": -0.8,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中共軍報警告，國際博弈激烈，滲透、竊密、策反等手段被「部分勢力」用於製造動盪，呼籲全民提高警惕，織密安全網路，防範內部被攻破。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-03",
+      "title": "憂中國如伊朗被滲透中共軍報：每個人都要保持警惕| 兩岸",
+      "content": "（中央社台北3日電）美以襲擊伊朗並擊殺其最高領袖哈米尼，伊朗遭以色列成功滲透被認為是重要原因。中共解放軍報2日發表評論說，最堅固的堡壘往往從內部被攻破，滲透內部打開缺口已成為「部分勢力」慣用手段。只有每個人提高警惕，才能織密無死角的安全網路，讓滲透無隙可乘。 中共解放軍報旗下的「鈞正平工作室」2日晚間透過官方微博，以「暗戰無聲，每個人都有必要保持警惕」發表評論說，當前「國際博弈日趨激烈」，滲透、竊密、策反等從內部打開缺口、製造動盪的方法，已成為「部分勢力」慣用手段。 評論提到，中國國家安全部幾乎每天都會公布不同案例。一句對敏感資訊的隨口一說，可能成為對方拼湊情報的碎片；一次對小恩小惠的不以為意，可能埋下被利誘圍獵的伏筆；一次對善意套話的信以為真，可能讓別有用心者摸清底細。",
+      "url": "https://www.cna.com.tw/news/acn/202603030295.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_TW_Interaction",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "US",
+    "sentiment_score": 0.1,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "台中市長盧秀燕訪美，將反映關稅及軍購議題。",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-03",
+      "title": "盧秀燕11日啟程訪美盼反映關稅及軍購真實聲音| 地方",
+      "content": "（中央社記者郝雪卿台中3日電）11日將出訪美國的台中市長盧秀燕今天說，關稅及軍購是重要議題，相信很多美國友人想了解台灣狀況，她將儘量蒐集大家寶貴意見，只要有機會都去請益，以反映最完整及真實聲音。 至於昨天與台北市長蔣萬安合體參觀在台中舉辦的中台灣燈會，盧秀燕上午主持市政會議前，接受媒體聯訪表示，兩人合體無政治意涵，由於兩個城市都在辦燈會，只是互相行銷、拉抬，雙城連線，希望透過彼此拉抬聲量，讓兩城市辦的燈會有能見度及參觀率而已。（編輯：李明宗）1150303 #蔣萬安",
+      "url": "https://www.cna.com.tw/news/aloc/202603030071.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "KR",
+    "country2": "TW",
+    "sentiment_score": 0.8,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-03-03",
+      "title": "韓星柳演錫元宵節訪台初試湯圓用台語大讚好吃| 娛樂",
+      "content": "（中央社記者王心妤台北3日電）韓國男星柳演錫今天出席新劇「神與律師事務所」台灣記者會，適逢元宵節，他入境隨俗品嚐湯圓，並用台語稱讚「真好食」。對於角色，他透露要演出被附身跳女團舞，是個挑戰。 柳演錫今天表示，「神與律師事務所」的角色跟其他律政劇最大差別是角色能看見並跟鬼魂溝通，第一次看到劇本就深受吸引，加上有各式各樣的鬼魂，他也有更不同的演出，像是有段被女偶像附身大跳女團舞，「平常不會做這種事，真的很挑戰。」又或是某集要被流氓附身講出發言，都是有趣又困難的挑戰。 今天適逢元宵節，主辦單位在記者會準備湯圓給柳演錫享用，他除了現學「湯圓」中文，也透露是第一次吃到，吃完一口後開心以台語說：「真好吃。」 韓國演員柳演錫（圖）來台宣傳新劇「神與律師事務所」，3日下午在台北萬豪酒店出席開播記者會，適逢元宵節，柳演錫試吃主辦單位送上的湯圓。中央社記者吳家昇攝 115年3月3日",
+      "url": "https://www.cna.com.tw/news/amov/202603030306.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_TW_Interaction",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "美國APEC高階官員梅斯訪台，與高階官員及產業界領袖會談，就APEC議題交換意見，並表達支持台灣有意義參與國際社群。",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-03-02",
+      "title": "美國APEC高階官員訪台挺台有意義參與國際| 政治",
+      "content": "（中央社記者楊堯茹台北2日電）美國在台協會表示，美國亞太經濟合作（APEC）高階官員梅斯今天訪台，將與高階官員與產業界領袖就APEC相關議題交換意見，並就台灣有意義地參與國際社群表達支持。 美國在台協會（AIT）下午發布新聞稿指出，美國亞太經濟合作高階官員（U.S. Senior Official for APEC）梅斯（Casey Mace）2日至3日訪問台灣。期間梅斯將與高階官員與產業界領袖會談，就APEC相關議題交換意見，以促進美台經濟合作，並就台灣有意義地參與國際社群表達支持，尤其聚焦於供應鏈韌性、AI，以及數位經濟領域。 AIT說明，梅斯是美國國務院高級外務體系（Senior Foreign Service）職業外交官，負責主導美國參與APEC相關事務，並督導國務院東亞暨太平洋事務局經濟政策辦公室業務。（編輯：萬淑彰）1150302 #美國在台協會",
+      "url": "https://www.cna.com.tw/news/aipl/202603020118.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-02",
+      "title": "中國3名共軍上將1名前軍工高官政協委員資格被撤| 兩岸",
+      "content": "（中央社台北2日電）新華社報導，今天閉幕的中國全國政協第14屆常委會第15次會議決定，撤銷韓衛國、劉雷、高津等3名共軍上將，以及前中國國防科技工業局長張克儉的全國政協委員資格。這4人似與中共總書記習近平發動的軍中大規模反腐行動有關聯。 中國全國政協這次常委會議於1日至2日舉行，除撤銷上述4人及王春儒的全國政協委員資格外，會議並追認先前撤銷田學斌、張冬辰、何松等10名全國政協委員資格的決定。 上述10人中，張冬辰等4人曾任軍工企業高階主管；何松曾任中共中央軍委後勤保障部副部長；田學斌曾任中國水利部副部長，且曾是前國務院總理溫家寶的秘書，也是今年首名落馬的高官。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/acn/202603020338.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.8,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國官媒報導兩岸共同慶祝元宵節，強調文化交流與共享傳統。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-03",
+      "title": "灯火艺韵跨海峡 两岸同春庆元宵",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
+      "url": "https://www.news.cn/tw/20260303/41aba83260614c418584eb2d75f5e60e/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.7,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "大陸非遺在台灣展現，促進兩岸文化交流與融合。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-01",
+      "title": "越韵浓，铁花炫——大陆非遗绽放宝岛",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
+      "url": "https://www.news.cn/tw/20260301/b52862519fa74484beb3cdee70643198/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.7,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国台办批评台陆委会污蔑大陆营商环境，指责民进党当局“双标”并制造“寒蝉效应”，称其谋“独”挑衅导致台海紧张，应“悬崖勒马”。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-04",
+      "title": "国台办：大陆是广大台商台胞投资兴业的最佳选择",
+      "content": "台陆委会主委邱垂正近日出席活动时称，当前台商在大陆投资经营会面临诸多风险。张晗就此应询评论时作上述表示。她指出，民进党当局一贯诋毁大陆经济发展前景，污蔑大陆营商环境，事实却一次又一次戳破他们的谎言。 针对大陆方面披露刘世芳亲属在大陆投资谋利且为其提供政治献金，宣布依法依规进行查处，台陆委会2月28日发布所谓“2026中国大陆经济风险警示”，并称要大陆“悬崖勒马”。张晗就此应询评论表示，目前问题关键是民进党当局要正面回答刘世芳亲属是否在大陆谋利，绿营是否存在一边打压迫害参与两岸交流的人士、一边利用亲属在大陆“赚红钱”的“双标”行为，而不是转移焦点，顾左右而言他。 3月4日，国台办发言人张晗邀请记者提问。新华社记者 潘旭 摄 她指出，我们的惩治措施只针对极少数“台独”顽固分子及其关联企业、金主，不涉及广大台湾同胞和台商台企。民进党当局故意混淆视听，编造所谓“风险”，目的是恐吓台湾民众，制造“寒蝉效应”，阻挠破坏两岸交流合作。其谋“独”挑衅导致台海局势紧张动荡，打压参与两岸交流合作人士恶行累累，推动两岸“脱钩断链”劣迹斑斑。应该“悬崖勒马”的，是民进党当局自己。 张晗回答相关提问时还表示，“台独”是分裂国家、祸乱台海的违法犯罪活动。依法严惩“台独”顽固分子是维护国家主权和领土完整、维护台海和平稳定的正义必要之举。民进党当局无论怎么狡辩，都改变不了台湾是中国不可分割的一部分的事实，都掩盖不了“台独”势力一面鼓吹“台独”分裂谬论、大肆破坏两岸交流合作，伤害台湾同胞福祉，一面利用亲属在大陆投资经商谋利并接受其利益输送的虚伪“双标”嘴脸。我们对“台独”顽固分子及其关联企业、金主实施惩戒，合理合法，两岸舆论反应也是大快人心。 赖清德近日出席活动时多次提及“中国大陆”，引发关注。赖称，希望两岸交流合作，能够朝向和平共融的方向走。张晗就此答问指出，民进党当局顽固坚持“台独”分裂立场，蓄意谋“独”挑衅，是造成台海局势紧张动荡的根本原因。我们多次讲过，两岸都是中国人，是一家人，只要民进党当局认同“九二共识”、停止“台独”分裂活动，两岸对话协商就能恢复，两岸关系就能和平发展。两岸关系和平发展有利于增进两岸同胞利益福祉，促进台湾社会和谐安宁，确保台湾同胞安居乐业，是人心所向、大势所趋。顺应大势、顺应民心，才是明智之举。",
+      "url": "https://www.news.cn/tw/20260304/d5dec791bc974a81b504e9e9ac921404/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.7,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "新華社報導台灣元宵節，強調「两岸同根同源的文化印记」，並提及上海燈彩參展，旨在促進兩岸文化交流與認同。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-03",
+      "title": "灯耀宝岛庆上元——台湾各地元宵节扫描",
+      "content": "逛灯会、猜灯谜、吃元宵、庆团圆，共度佳节的宝岛灯火里，映照出两岸同根同源的文化印记。 今年适逢农历丙午马年。台湾各地元宵灯会上，各类马主题花灯栩栩如生，尽显蓬勃生机，也寄托着民众对新一年的美好祈愿。 2026年台湾灯会于3日在嘉义县开幕。今年灯会以“光跃台湾，点亮嘉义”为主题。作为台湾开发较早的地区之一，嘉义留存着诸多两岸同源的文化民俗。本届灯会特设专区，展出反映民间传统习俗的特色花灯。 灯会上，高11米的“天骥梦飞扬”彩灯以传统神话中的“飞马”形象为灵感来源，造型灵动、振翅欲飞；在特色灯区内，以延平郡王郑成功形象为主体的大型灯组气势恢宏，吸引众多民众驻足观赏。 3月1日，台湾民众在2026台北灯节西门町展区游览。新华社记者 姜江 摄 位于北台湾的2026台北灯节，今年首次采用双展区形式展出各式花灯。 圆山花博公园展区内，一组来自上海的灯彩在夜色中格外夺目。该灯彩以“这里是上海”为主题，灵感源自“天马展翅” 的传说，采用绿色环保材质打造出一匹宛若穿越时空而来的“宇宙骏马”。骏马周边环绕上海标志性建筑，融入黄浦江、苏州河、外白渡桥等景观，尽显上海历史与现代交融的独特魅力。 “灯区里的‘东方明珠’，让我回想起在外滩散步时的景象。”台北民众盛先生说，期盼新的一年两岸能有更多交流互动，也希望有更多机会深入感受上海的城市风采。 另一展区西门町则携手大陆品牌“泡泡玛特”，以6个人气IP的马年全新造型为核心，打造五座特色灯组。台北市民徐小姐手里拿着“LABUBU”造型红色气球逛灯会。“这些灯组很可爱，也为西门町商圈增添了新活力。”她说。 2月24日，台湾民众游览新北灯会。新华社记者 黄扬 摄 在台湾多地，两岸花灯交流亮点纷呈。“东坡诗意·乐天杭州”“丝路跃马·笔韵湖州”等12组浙江花灯亮相南投灯会，尽展浙江山水人文、非遗匠心与特色物产，勾勒出“诗画浙江”的秀美画卷；四川、江苏两地参与共建新北灯会，与台湾同胞共添上元佳节光彩。 乡土民俗亦是台湾元宵欢庆活动的重要组成部分。台湾素有“北天灯、南蜂炮、东寒单、西乞龟、中‘火旁’龙”的说法，对应新北平溪天灯节、台南盐水蜂炮、台东“炸寒单”、澎湖乞龟、苗栗客家“火旁”龙等特色民俗，各具风情。 苗栗客家元宵民俗“火旁”龙系列活动自2月25日启幕。祥龙翻腾舞动，传递平安顺遂的祝福。该民俗以鞭炮炸舞龙为特色，自1998年举办以来，已成为“客庄十二节庆”之一，亦渐渐成为传承客家文化与中华传统民俗的重要载体。 “这是苗栗传承得非常好的元宵民俗，代表着客家人勇猛敢闯、充满活力的精神。”同家人一起前来看“火旁”龙的苗栗市民徐先生说，这些民俗也是中华传统文化的一部分，将我们与五千年文明联系在一起。 值得一提的是，活动期间，来自山西高平的非遗项目打铁花，与苗栗当地火舞团队共同为“火旁”龙庆典增添“火热”气氛。火光与龙舞交相辉映，绘就两岸同气连枝共庆佳节的热络图景。 元宵佳节前后，多支大陆文化团组赴台开展演出、展览活动，为台湾民众送上新春祝福。浙江小百花越剧院4天内在桃园、台北连演5场，以婉转越韵为宝岛添暖意。2026欢乐庆元宵暨第15届海派文化艺术节，也于9日在高雄佛光山登场，这项活动历经十余年，已成为两岸共赏传统文化的重要平台。 元宵佳节，月圆灯明。跨越海峡的灯火与韵律，见证着两岸同文同种、血脉相连的深厚情谊，也承载着两岸同胞携手同心、家国团圆的美好祈愿。",
+      "url": "https://www.news.cn/tw/20260303/4590d2674a3d4664828b88a0ebece65c/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.35,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "东部战区发布元宵节MV《大中国是我的家乡》，以文化形式强调两岸同根同源，并祝愿一统山河共婵娟，旨在促进两岸统一。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-03",
+      "title": "【#东部战区发布元宵节主题MV#大中国是我的家乡】黄河流过千年岁月，长江拍打万里河山。阿里山望见归帆...",
+      "content": "【#东部战区发布元宵节主题MV#大中国是我的家乡】黄河流过千年岁月，长江拍打万里河山。阿里山望见归帆，日月潭映着乡月。方块字刻入骨子里，百家姓融在血脉中。无论此岸彼岸，抬头都是同一轮月亮。值此元宵佳节，#东部战区#发布主题MV《大中国是我的家乡》，祝愿千盏花灯照归路，一统山河共婵娟！（东 ...全文",
+      "url": "https://m.weibo.cn/detail/5272292713564025",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "李强在政府工作报告中谈国防和军队现代化建设，强调深入贯彻习近平强军思想，贯彻新时代军事战略方针，坚持党对人民军队的绝对领导。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-05",
+      "title": "【李强在政府工作报告中谈国防和军队现代化建设】国务院总理李强5日在政府工作报告中表示，过去一年，国防...",
+      "content": "【李强在政府工作报告中谈国防和军队现代化建设】国务院总理李强5日在政府工作报告中表示，过去一年，国防和军队现代化建设取得新的成就。新的一年，我们要深入贯彻习近平强军思想，贯彻新时代军事战略方针，坚持党对人民军队的绝对领导，全面深入贯彻军委主席负责制，以政治建军为引领，持续深化政治 ...全文",
+      "url": "https://m.weibo.cn/detail/5273074739970853",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": false,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.7,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-05",
+      "title": "#雷锋修复原声首次公开#【独家！解放军出版社珍藏雷锋原声首发！】从苦到暖的命运转折，一颗螺丝钉的坚守...",
+      "content": "#雷锋修复原声首次公开#【独家！解放军出版社珍藏雷锋原声首发！】从苦到暖的命运转折，一颗螺丝钉的坚守，点滴善举的温暖践行，一腔热血的实干报国初心！解放军出版社珍藏雷锋原声独家首发，#穿越60余年听雷锋说#  @中国军号 中国军号的微博视频",
+      "url": "https://m.weibo.cn/detail/5273074287250859",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中共東部戰區社群媒體發布貼文，強調哨兵對台海的警戒與對國家統一的關切。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-03",
+      "title": "#东部熄灯号#哨位挑灯看剑处，心系万家灯火圆。#阅海峡#",
+      "content": "#东部熄灯号#哨位挑灯看剑处，心系万家灯火圆。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5272504105968313",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": false,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.7,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-03",
+      "title": "【#一人立功全家光荣#】喜报一张纸，分量千斤重。近日，联勤保障部队第906医院组成多个“送喜报小分队...",
+      "content": "【#一人立功全家光荣#】喜报一张纸，分量千斤重。近日，联勤保障部队第906医院组成多个“送喜报小分队”，分赴河南、陕西、浙江等地，跨越上千公里，将一份份立功喜报，送上官兵家门，送到军属手中，让他们共享荣光。（齐永辉、刘嫘、张艺馨）",
+      "url": "https://m.weibo.cn/detail/5272443712703924",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军某部警卫分队开展班组战术协同训练，全面锤炼官兵协同作战能力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-03",
+      "title": "#直击东部战区练兵备战现场#【#班组协同训练现场超燃#】近日，东部战区空军某部警卫分队开展班组战术协...",
+      "content": "#直击东部战区练兵备战现场#【#班组协同训练现场超燃#】近日，东部战区空军某部警卫分队开展班组战术协同训练，全面锤炼官兵协同作战能力。（褚文聪、黄森、王超）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5272383310791407",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.85,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國東部戰區相關帳號發布強硬言論，宣示軍事高度戒備，箭在弦上隨時可發，劍指蒼穹保衛中華，暗示對台海局勢的強硬立場。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-02",
+      "title": "#东部熄灯号#箭在弦上随时发，剑指苍穹卫中华。#阅海峡#",
+      "content": "#东部熄灯号#箭在弦上随时发，剑指苍穹卫中华。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5272141718359699",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": null,
+    "country2": null,
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-02",
+      "title": "【#最后的军礼#】2月28日，武警浙江总队宁波支队隆重举行2026年度春季退役士兵向武警部队旗告别仪...",
+      "content": "【#最后的军礼#】2月28日，武警浙江总队宁波支队隆重举行2026年度春季退役士兵向武警部队旗告别仪式。退伍老兵身着戎装、整齐列队，以庄严的军礼向承载着青春与荣光的武警部队旗郑重告别。（潘立、卢煜、唐鹏）#退伍不褪色#",
+      "url": "https://m.weibo.cn/detail/5272051121128261",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": false,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-02",
+      "title": "【#卸下肩章再启程#】2月28日，东部战区空军某部隆重举行春季士兵退役仪式。老兵们卸下肩章，告别挚爱...",
+      "content": "【#卸下肩章再启程#】2月28日，东部战区空军某部隆重举行春季士兵退役仪式。老兵们卸下肩章，告别挚爱的战位。愿你们带着军营的坚韧与担当，在人生新赛道上续写荣光！（郑祥冰、吴海洋、黄文涛）#退伍不褪色#",
+      "url": "https://m.weibo.cn/detail/5272020922925147",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": false,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-02",
+      "title": "【#再见了军营#】2月28日，东部战区海军某部隆重举行士兵退役仪式，为光荣退役的老兵送别。仪式上，退...",
+      "content": "【#再见了军营#】2月28日，东部战区海军某部隆重举行士兵退役仪式，为光荣退役的老兵送别。仪式上，退役士兵卸下肩章、告别军旗，重温军旅誓言，致敬峥嵘岁月。祝愿他们在新的征程上再创佳绩。（闫小波）#退伍不褪色#",
+      "url": "https://m.weibo.cn/detail/5271960524427708",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "东部战区陆军某旅举行2026年度春季退役士兵向军旗告别仪式，退役士兵表示将永葆军人本色。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-02",
+      "title": "【#2026年度春季退役士兵向军旗告别# 】2月28日，东部战区陆军某旅隆重举行2026年度春季退役...",
+      "content": "【#2026年度春季退役士兵向军旗告别# 】2月28日，东部战区陆军某旅隆重举行2026年度春季退役士兵向军旗告别仪式。仪式现场，退役士兵身披绶带、胸戴红花，面向军旗庄严敬礼。数年军旅生涯，他们坚守战位、苦练精兵，用青春守护使命。告别军营之际，退役老兵们纷纷表示，将永葆军人本色，退役不退志、 ...全文",
+      "url": "https://m.weibo.cn/detail/5271930329367212",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.7,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國東部戰區透過社群媒體發布軍事戒備聲明，強調枕戈待旦、守衛東海與山河的決心。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-28",
+      "title": "#东部熄灯号#枕戈待旦守东海，披坚执锐卫山河。#阅海峡#",
+      "content": "#东部熄灯号#枕戈待旦守东海，披坚执锐卫山河。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5271416942889808",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": false,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.8,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-02-28",
+      "title": "【#白衣执甲大爱东总#】近日，东部战区总医院举行 “闪亮的坐标 ——2025 年度感动东总” 颁奖典...",
+      "content": "【#白衣执甲大爱东总#】近日，东部战区总医院举行 “闪亮的坐标 ——2025 年度感动东总” 颁奖典礼。600 余名官兵员工齐聚，三大篇章鲜活演绎 7 个先进个人、7 个先进集体的动人故事，平凡岗位的坚守，医者仁心的担当，皆化作直抵心底的感动。榜样之光闪耀，奋进力量永续！（杨晓丽、解婧怡、汪卫东、 ...全文",
+      "url": "https://m.weibo.cn/detail/5271296146670669",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.75,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军航空兵某部战机开展空战对抗训练，锤炼打赢硬功。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-02-28",
+      "title": "#直击东部战区练兵备战现场# 【#空战对抗激烈展开# 】近日，东部战区空军航空兵某部战机冒雾升空，赴...",
+      "content": "#直击东部战区练兵备战现场# 【#空战对抗激烈展开# 】近日，东部战区空军航空兵某部战机冒雾升空，赴预定空域开展空战对抗训练，锤炼打赢硬功。（郑瀚毅、杜军、褚文聪、琚伟伦、宋英杰、王宸刚）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5271205550229342",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
     "category": "Military_Exercise",
     "is_relevant": true,
     "country1": "CN",
@@ -1226,126 +2440,6 @@
     }
   },
   {
-    "category": "Military_Exercise",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "偵獲7艘共艦及1枚中共空飄氣球在台海周邊活動。",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-01",
-      "title": "7共艦1空飄氣球擾台國軍嚴密監控| 政治",
-      "content": "（中央社記者游凱翔台北1日電）國防部今天發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲7艘共艦及1枚中共空飄氣球，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲7艘共艦持續在台海周邊活動。 透過 Google News 追蹤中央社",
-      "url": "https://www.cna.com.tw/news/aipl/202603010022.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Military_Exercise",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.4,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "5艘共艦持續在台海周邊活動",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-03",
-      "title": "5艘中共軍艦台海周邊活動國軍嚴密監控應處| 政治",
-      "content": "（中央社記者吳書緯台北3日電）國防部表示，自昨天上午6時至今天上午6時，偵獲5艘共艦持續在台海周邊活動，國軍嚴密監控與應處。 國防部上午發布中共解放軍台海周邊海、空域動態，統計自昨天上午6時至今天上午6時，偵獲5艘共艦持續在台海周邊活動，期間內未偵獲共機。 國防部指出，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：楊凱翔）1150303 #中共解放軍",
-      "url": "https://www.cna.com.tw/news/aipl/202603030041.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.4,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "共軍啟用預備役人員證，便於預備役人員戰時應召參戰及平時軍事訓練。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-03",
-      "title": "共軍啟用預備役人員證分析：便於戰時應召參戰| 兩岸",
-      "content": "（中央社台北3日電）共軍自3月起製發啟用「中國人民解放軍預備役人員證」。分析說，預備役人員證便於預備役人員戰時應召參戰，平時接受召集參加軍事訓練、擔負戰備勤務以及執行非戰爭軍事行動任務。 央視軍事頻道近日報導，經中共中央軍委批准，共軍1日起製發啟用「中國人民解放軍預備役人員證」。 據報導，預備役人員證具較高的防偽性和通識度，是證明預備役人員身分的有效證件，證件號碼為系統生成的唯一身分號碼，發給「中華人民共和國預備役人員法」頒布施行後在共軍依法服預備役的預備役軍官、預備役軍士和預備役兵。 央視新聞引述中國國防大學聯合作戰學院教授張耀奎表示，新證件的製發和啟用代表預備役人員有了統一編入預備役部隊服預備役的證明，是中國政府和軍隊對預備役人員身分的正式認定。 張耀奎說，新證件便於預備役人員戰時應召參戰，平時接受召集參加軍事訓練、擔負戰備勤務以及執行非戰爭軍事行動任務，也便於預備役人員依法依規享受有關福利待遇、撫恤優待等。 透過 Google News 追蹤中央社",
-      "url": "https://www.cna.com.tw/news/acn/202603030108.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": false,
-    "country1": "CN",
-    "country2": "CN",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-03-02",
-      "title": "中國3名共軍上將1名前軍工高官政協委員資格被撤| 兩岸",
-      "content": "（中央社台北2日電）新華社報導，今天閉幕的中國全國政協第14屆常委會第15次會議決定，撤銷韓衛國、劉雷、高津等3名共軍上將，以及前中國國防科技工業局長張克儉的全國政協委員資格。這4人似與中共總書記習近平發動的軍中大規模反腐行動有關聯。 中國全國政協這次常委會議於1日至2日舉行，除撤銷上述4人及王春儒的全國政協委員資格外，會議並追認先前撤銷田學斌、張冬辰、何松等10名全國政協委員資格的決定。 上述10人中，張冬辰等4人曾任軍工企業高階主管；何松曾任中共中央軍委後勤保障部副部長；田學斌曾任中國水利部副部長，且曾是前國務院總理溫家寶的秘書，也是今年首名落馬的高官。 透過 Google News 追蹤中央社",
-      "url": "https://www.cna.com.tw/news/acn/202603020338.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "N/A",
-    "country2": "N/A",
-    "sentiment_score": -0.7,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-03",
-      "title": "分析：伊朗靠飛彈無人機續命圖讓美軍備多力分陷消耗戰| 國際",
-      "content": "（中央社華盛頓2日綜合外電報導）美國總統川普今天表示對伊朗攻擊將持續4到5週。但伊朗用飛彈與無人機反擊，打擊目標擴大到石油與天然氣基礎設施，造成美軍防禦上備多力分，防空系統彈藥也出現短缺。 Axios：川普與伊拉克庫德族通話 遊說助戰出兵伊朗",
-      "url": "https://www.cna.com.tw/news/aopl/202603030089.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
     "category": "Not_Relevant",
     "is_relevant": false,
     "country1": "US",
@@ -1370,30 +2464,6 @@
     }
   },
   {
-    "category": "Regional_Security",
-    "is_relevant": true,
-    "country1": "US",
-    "country2": "CN",
-    "sentiment_score": -0.3,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "智庫分析川普攻伊朗削弱中國戰略資產，破壞北京在台海的布局。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-02",
-      "title": "分析：川普攻伊朗削弱中國戰略資產破壞北京台海布局| 政治",
-      "content": "（中央社華盛頓1日綜合外電報導）華府智庫哈德遜研究所研究員里布瓦撰文分析，鑒於伊朗長期被北京打造為結構性戰略資產，牽制美軍太平洋資源，美國和以色列聯手襲擊伊朗是破壞中國布局，拔除北京在台海棋局中布下的外援。 里布瓦（Zineb Riboua）在哈德遜研究所（Hudson Institute）中東和平與安全中心擔任研究員，她以「伊朗問題核心是中國」（The Iran Question Is All About China）為題撰文指出，德黑蘭固然常被貼上「核擴散問題製造者、恐怖主義贊助者、區域秩序破壞者」標籤，然而若不從中國的大戰略角度切入，就無法看清局勢全貌。 里布瓦表示，事實上，北京多年來斥資數以十億計美元，讓伊朗成為其戰略布局的結構性資產，中東局勢發展全都環繞著這個事實轉動。 因此「史詩怒火行動」（Operation Epic Fury）意義重大，成為首場威脅切斷這項資產的美國軍事行動。透過直接打擊伊朗，美國總統川普（Donald Trump）政府不論是有意為之還是連帶後果，都在拆解中國區域架構的一根支柱。 里布瓦提到，2025年6月，以色列發動「崛起雄獅行動」（Operation Rising Lion），在為期12天的精準打擊中摧毀伊朗鈾濃縮設施，擊斃30多名高階指揮官及十幾位核科學家，並促使美國直接攻擊3處核設施。 伊朗營造40多年的嚇阻神話於短短兩週內崩解。同年12月底，因經濟崩盤與政府威信掃地，伊朗全國31個省分爆發1979年以來最大規模示威。 根據里布瓦，中國供應商被發現向伊朗運送逾1000公噸的飛彈推進劑關鍵原料過氯酸鈉，其數量足以重建以色列花12天所摧毀的大部分彈道飛彈庫存。 里布瓦指出，石油是這整段關係的起點。中國以大幅折扣購買約9成的伊朗原油出口，這些貨物由一支幽靈船隊運送，透過關閉應答器、改換產地標籤來躲避美國制裁。 自2021年以來，這些採購金額累計已超過1400億美元，讓中國成為伊朗得以避免破產的主要支撐力量。 里布瓦表示，這項安排對北京而言堪稱完美。中國不僅能為國內工業取得低價石油，與按市場價格向其他供應商採購相比，每年更可省下數十億美元。 在科技層面，里布瓦寫道，華為與中興通訊承建伊朗大部分的電信基礎設施。早在2010年，中興通訊便簽署價值1.3億美元的合約，在伊朗國營電話與網際網路系統加裝監控系統。 雙方合作進一步擴展至人工智慧（AI）人臉辨識攝影機、深度封包檢測（DPI）工具以及集中式流量管理系統。伊朗的「國家資訊網」（National Information Network），這個由國家控制、逐步切斷公民與開放網際網路連結的國內內網，即是以中國「防火長城」為範本，並在中國技術協助下建構而成。 根據里布瓦，伊朗對中國的價值不僅止於能源與科技，還延伸至代理人戰爭的領域。以紅海局勢為例，2023年底，伊朗支持的葉門青年運動（Houthi）在曼德海峽（Bab el-Mandeb）對商船發動攻擊，短短3個月內，經由紅海的貨櫃運輸量下滑90%。 在最初7個月內，價值約1兆美元的貨物運輸受到干擾。船舶被迫繞行非洲好望角，航程延長近兩週，燃料成本增加約100萬美元，進而推高亞歐之間的運費。 里布瓦表示，美國為應對此事付出了沉重代價。美軍不僅部署航空母艦打擊群，還持續空中作戰行動長達數月之久，每枚攔截彈成本為100萬至400萬美元。截至2025年中，這場行動已削減美國約1/4的高階攔截彈庫存。 美國在維護紅海航道安全上每多花1美元，就等於少了1美元可用於建造潛艦、建設太平洋基地或為台灣緊急突發事件制定應變計畫。 里布瓦還寫道，中國以商業耐性與外交野心，介入這場不確定局勢。如今，沙烏地阿拉伯的最大石油買家是中國，阿拉伯聯合大公國更將華為技術整合至其關鍵科技基礎設施。 從港口、鐵路、5G網路到智慧城市，中國企業的建設足跡遍及波斯灣。2023年3月，北京促成沙烏地阿拉伯與伊朗關係正常化，這項外交壯舉宣告中國已成中東的「權力掮客」。 里布瓦強調，「這其實關乎台灣」，川普發動「史詩怒火行動」並不只是為了懲罰伊朗最高領袖哈米尼（Ayatollah Ali Khamenei）的屠殺行徑，也是因為美國每多花一年處理德黑蘭，北京就在太平洋多贏得一年的布局時間。 「中東局勢的走向，將決定美國是否能在本世紀最具決定性的對抗中勝出，即中國對台灣採取的行動。」 里布瓦首先分析能源因素。中國約有7成石油依賴進口，且大部分需經過馬六甲海峽。一旦爆發台海衝突，這些海上航道將成為爭奪之地。 北京屆時將需要能源的替代性供應途徑，並向西求助伊朗、俄羅斯或任何願在美元體系外販售石油的波斯灣國家。中東若進入北京的經濟軌道，中國在衝突發生時便能具備美方無法動搖的戰略能源儲備。 第二，美國無法同時應對兩個戰區的戰爭，紅海行動已證明這點。如果對中東進行永久性危機管理，美軍在船艦、飛機和彈藥上的消耗，將削弱其在太平洋的嚇阻能力。 第三，如果爆發台海危機，美國將需要盟國透過制裁、金融孤立及技術封鎖，讓中國付出慘痛代價。這套同盟策略能否奏效，取決於產油國是否參與。 如果沙烏地阿拉伯、阿拉伯聯合大公國等國與中國經濟體系連結過深，拒絕於太平洋戰爭期間削減對北京的石油供應，那麼整套制裁架構將在最關鍵時刻瓦解。",
-      "url": "https://www.cna.com.tw/news/aipl/202603020291.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
     "category": "US_TW_Interaction",
     "is_relevant": true,
     "country1": "US",
@@ -1412,126 +2482,6 @@
       "title": "美智庫拋「地獄景象」具體藍圖助台灣不靠美軍取勝| 政治",
       "content": "（中央社記者鍾佑貞華盛頓26日專電）美智庫提出美軍「地獄景象」防衛概念藍圖，主張台灣運用大量無人機結合傳統武器，在共軍進犯時集中打擊，使入侵代價高到難承受；台灣可在不依賴美軍下達嚇阻效果，也呼應美國總統川普（Donald Trump）要求盟友承擔更多防衛責任的政策方向。 華府智庫「新美國安全中心」（Center for a New American Security, CNAS）今天發布逾30頁報告，題為 「台灣的地獄景象：重新思考不對稱防衛」 （Hellscape for Taiwan：Rethinking Asymmetric Defense）。 「地獄景象」（Hellscape）概念由美軍印太司令帕帕羅（Samuel Paparo）於2024年6月首次提出。他當時主張，一旦中國入侵台灣，美軍可向台灣海峽大量投放無人系統，「把台海變成無人地獄」，藉此拖慢解放軍行動並爭取其他兵力部署時間。 美智庫列中國犯台3階段 重創軍事通訊後發動第一擊",
       "url": "https://www.cna.com.tw/news/aipl/202602270015.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "US_Statement",
-    "is_relevant": true,
-    "country1": "US",
-    "country2": "TW",
-    "sentiment_score": -0.4,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "美戰爭部次長柯伯吉表示，美國彈藥儲備量吃緊不應被誤解為向台灣動手的時機，強調情況已在掌控中。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-04",
-      "title": "美彈藥儲備量吃緊恐影響台海？美戰爭次長：不應誤解| 政治",
-      "content": "（中央社記者侯姿瑩華盛頓3日專電）美、以聯手攻擊伊朗，美議員今天關切，傳出美國彈藥儲備量低，有國家可能會以為這是向台灣動手的時機，美戰爭部次長柯伯吉對此表示，美國確實需在國防工業基礎上加倍努力，但外界不應有所誤解，他強調，情況已在掌控中。 美國戰爭部負責政策的次長柯伯吉（Elbridge Colby）今天赴美國聯邦參議院軍事委員會聽證會對國防戰略進行說明，美國對伊朗的軍事行動成為議員關切焦點。 路透：攻伊消耗武器庫存 白宮召見國防產業高層",
-      "url": "https://www.cna.com.tw/news/aipl/202603040046.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CN_Statement",
-    "is_relevant": false,
-    "country1": "CN",
-    "country2": "US",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "中國外交部否認向伊朗出售超音速反艦飛彈的報導，稱不屬實，反對惡意炒作，並未提前獲知美國軍事行動。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-02",
-      "title": "外媒指向伊朗出售超音速反艦飛彈中國矢口否認| 國際",
-      "content": "（中央社台北2日電）外媒報導，伊朗向中國採購CM-302超音速反艦飛彈的協議已接近完成，是中國近年來向伊朗提供的最先進武器裝備之一。不過，中國外交部發言人毛寧今天對此矢口否認，指「有關報導不屬實」，中方反對「惡意關聯炒作」。 對於媒體提問，美國與以色列聯手攻擊伊朗前是否先通知中國，毛寧回應「關於美國的軍事行動，中方沒有提前得到通報」。 中國外交部下午舉行例行記者會，美國、以色列聯手攻擊伊朗與中國的關聯成為媒體關注焦點。澎湃新聞報導，毛寧在回答媒體相關提問時，作上述表示。 毛寧說，「有關報導不屬實」，中國「作為負責任大國，一貫履行國際義務」，中方反對「惡意關聯炒作」，希望有關方面多做有助於緩和局勢緊張的事。 路透社日前報導，6名知情人士透露，伊朗正計畫向中國採購CM-302（鷹擊YJ-12外銷版）超音速反艦飛彈，且交易已接近完成階段，但交付時程尚未敲定。這被視為伊朗在緊張局勢升溫之際，緊急補強軍事能力的重要動作。 透過 Google News 追蹤中央社",
-      "url": "https://www.cna.com.tw/news/aopl/202603020288.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "US_Statement",
-    "is_relevant": true,
-    "country1": "US",
-    "country2": "CN",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "美情報官員示警，中國水下部隊2040年恐挑戰美軍主導地位，潛艦總數可能達80艘。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-03",
-      "title": "美情報官：中國水下部隊2040年恐挑戰美軍優勢| 國際",
-      "content": "（中央社記者鍾佑貞華盛頓2日專電）美國現役與卸任情報官今天在國會示警，中國水下部隊可能在2040年前具備挑戰美國主導地位的實力；外界關注中國介於戰爭與和平之間的「灰色地帶」行動外，也應同樣警惕北京刻意不留痕跡的「黑色」行動。 美中經濟暨安全檢討委員會（US-China Economic and Security Review Commission）今天舉行「美中海底競爭」聽證會。出席作證者包括美國海軍情報辦公室（Office of Naval Intelligence）指揮官布魯克斯（Mike A. Brookes）與海軍中將塞夫（Richard Seif）等人。 布魯克斯指出，中國很清楚自己仍然落後，正在找各種方式削弱美軍的領先優勢。到2040年，中國水下戰力很可能已具備挑戰美國水下主導地位的能力。 他表示，中國目前擁有約60艘潛艦，規模居全球前列，但這並非北京的最終目標，美方必須著眼其未來發展方向。 布魯克斯也提到，中國本土潛艦生產能力「驚人」。若持續擴張，到2035年潛艦總數可能達約80艘，其中一半為核動力潛艦。 塞夫則指出，中國在「態勢感知」領域的進展同樣值得關注。北京透過所謂「水下長城」，也就是由海床與浮式平台組成的感測網絡，監控區域內潛艦活動。 因此他建議，若要發展不對稱戰力，應優先投資感測與搜尋系統，包括固定式與可部署平台，以及載人、無人或混合型載具，以強化水下態勢掌握能力。 今天出席的智庫代表包括前海軍情報辦公室指揮官史都德曼（Mike Studeman）。他2020年擔任印太司令部情報（J2）主管期間曾低調訪台，是近年訪台層級最高的美國軍官之一。 史都德曼表示，中國商船日前在波羅的海拖錨、破壞海底電纜與能源管線的事件，已讓外界一窺北京「黑色行動」的可能樣態，且這類行動很可能涉及中俄合作。俄羅斯相關戰術與技術，正隨雙方關係深化而傳授給北京。 他指出，外界對所謂「灰色地帶」行動關注過多，需同樣關注隱蔽的「黑色地帶」戰略。後者刻意模糊行動痕跡，甚至讓人懷疑事件是否發生，而這正是中國大力思考發展的選項與能力。 史都德曼舉例，若一艘中國遠洋海運集團貨船駛入美國港口，而中國黨政部門可能掌握相關船隻的情報蒐集能力，這些商船頻繁進出美國港口，在突發情況下可能成為風險來源，美方必須思考如何因應。 他說，商船貨櫃內幾乎可以裝載任何物品，也可能從船側投放設備，或在船體內設置隱蔽空間。表面看似平靜，水面之下卻可能暗藏重大行動。 透過 Google News 追蹤中央社",
-      "url": "https://www.cna.com.tw/news/aopl/202603030036.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "US_Statement",
-    "is_relevant": true,
-    "country1": "US",
-    "country2": "TW",
-    "sentiment_score": 0.3,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "川普政府去年底宣布大規模對台軍售",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "美戰爭次長柯伯吉重申對台提供防衛性武器，反對脅迫，並籲台盡自身防衛責任。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-04",
-      "title": "美戰爭次長柯伯吉：對台軍售立場不變籲夥伴盡自身防衛責任| 政治",
-      "content": "（中央社記者侯姿瑩華盛頓3日專電）川普2.0去年底宣布大規模對台軍售，美戰爭部次長柯伯吉今天表示，華府長期政策是對台提供防衛性武器、反對利用暴力或脅迫手段改變現狀，川普政府政策與此相符；他也強調，期望美國提供防衛的夥伴，盡到自身防衛責任至關重要。 美國戰爭部1月公布川普第2任期的首份國防戰略（National Defense Strategy）報告，戰爭部負責政策的次長柯伯吉（Elbridge Colby）今天赴美國聯邦參議院軍事委員會聽證會對國防戰略進行說明。 對於川普政府去年底宣布總值約111億美元的大規模對台軍售案，共和黨籍聯邦參議員班克斯（Jim Banks）問及，這類外國軍售將如何有助提升台灣協助美軍執行「拒止型」（denial）任務的能力？柯伯吉表示，台灣是一個敏感議題。 柯伯吉指出，美國近50年來的立場是對台灣提供防衛性武器，並反對使用暴力或脅迫手段改變現狀。 「我認為我們的政策與此相符」，他說，這體現一種強力、清晰但低調的立場。在建構嚇阻能力方面，川普政府的防衛戰略與方針更專注於取得實質成果。 班克斯也問及台灣通過國防特別預算來建構這類能力的重要性，柯伯吉回應表示，有鑒於台灣議題的敏感性，他不便具體評論，但強調，對於期望美國提供防衛的盟友和夥伴而言，盡到自身防衛責任至關重要。 台灣在野黨立委先前數度封殺行政院提出的8年、新台幣1.25兆元國防特別預算條例，引發美國國會議員接連表達關切。除了參議院軍委會主席韋克爾（Roger Wicker）發文呼籲立法院應重新考慮，「特別是有鑒於中國威脅日益加劇」，還有34名跨黨派聯邦參、眾議員致函立法院長韓國瑜等人，盼支持足以應對當前形勢並清晰展現台灣自衛意志的經費。 立法院朝野黨團日前達成共識，行政院版「強化防衛韌性及不對稱戰力計畫採購特別條例草案」將於3月6日付委審查。",
-      "url": "https://www.cna.com.tw/news/aipl/202603040017.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Military_Exercise",
-    "is_relevant": true,
-    "country1": "JP",
-    "country2": "CN",
-    "sentiment_score": -0.3,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "日美「利刃」聯合指揮所演習，確認攻擊敵方飛彈發射據點的反擊能力程序，假想西南群島緊急事態，日本計劃3月部署長程飛彈。",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-02-28",
-      "title": "日美2026利刃軍演日媒：已確認飛彈反擊程序| 國際",
-      "content": "（中央社東京28日綜合外電報導）日媒披露，日本計劃3月部署作為反擊能力核心的長程飛彈，在此之前，日本自衛隊與美軍於最近實施的聯合指揮所演習，已確認攻擊敵方飛彈發射據點等地的「反擊能力」程序。 「讀賣新聞」今天引述消息人士的說法披露這則消息，而美日雙方盼藉此為日本持有反擊能力飛彈做好準備，並有意藉此提升美日的嚇阻力。 美日雙方的聯合演習「利刃」（Keen Edge）每兩年舉辦一次，主要目的在於透過指揮所演習確認指揮系統等事務。今年的演習於1月29日到2月5日舉行，期間確認上述「反擊能力」相關程序。 而日本去年剛成立的統合作戰司令部，今年也首度參加「利刃」演習。統合作戰司令部為統一指揮陸海空自衛隊的常設機構，主要任務之一為運用長程飛彈。 而今年的演習假想日本西南群島發生緊急事態，並著眼行使反擊能力。消息人士透露，日本若遭受敵國攻擊，日本政府認定為被武力攻擊的「武力攻擊事態」，日本自衛隊與駐日美軍合作之下，已經確認選定攻擊目標，並朝敵國內的飛彈發射據點，發射長程對地飛彈的步驟。 關於日本的長程飛彈，日本國產的12式陸基反艦飛彈（12式地對艦誘導彈）改良過後，射程能超過1000公里，預計在3月底前部署於日本熊本市的陸自健軍駐屯地。 同時，日本也計劃於2027年度在航空自衛隊的戰機，配備12式的能力向上型；日本海上自衛隊的護衛艦「鳥海號」（Chokai）目前正在美國接受改裝，之後預定配備射程約1600公里的美國製戰斧巡弋飛彈。",
-      "url": "https://www.cna.com.tw/news/aopl/202602280079.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -1682,30 +2632,6 @@
     }
   },
   {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "US",
-    "country2": "CN",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-03",
-      "title": "路透：美軍攻伊朗有望助川普會晤習近平前占上風| 國際",
-      "content": "（中央社華盛頓/北京3日綜合外電報導）美軍對伊朗發動攻擊，使中國國家主席習近平在與美國總統川普舉行預定峰會前居於劣勢。這是川普於短短兩個月內，第二度下令美軍打擊北京的重要夥伴國家之一。 路透社報導，川普（Donald Trump）預計3月底前往北京會晤習近平。美國1月突襲委內瑞拉首都卡拉卡斯（Caracas）並抓捕時任總統馬杜洛（Nicolas Maduro）；美國和以色列2月28日聯手發動空襲，擊斃伊朗最高領袖哈米尼（Ali Khamenei）。這兩國都是中國主要的石油供應來源。 如今「川習會」將如何進行，或甚至是否仍會如期舉行，目前仍充滿不確定性。川普政府曾表示，這場會談將聚焦討論貿易議題。 外界上週還認為，在美國最高法院裁定川普的對等關稅無效後，川普前往北京時似乎將處於弱勢。然而，現在或許是習近平感到措手不及，難以強勢回應這場美軍自伊拉克戰爭以來的最大規模行動。 專家指出，儘管北京譴責美國主導的行動「不可接受」並呼籲各方克制，這樣謹慎的回應顯示中國影響美軍行動的能力有限，並反映其外交夥伴關係偏向利益交換。 習近平如今面臨尷尬前景：若非在國際舞台上隆重接待川普，就是取消兩人擬於3月31日至4月2日期間舉行的峰會。北京迄今尚未確認峰會日期。 如果習近平決定按原定計畫召開峰會，他或許是押注長遠來看，若美國長期深陷中東衝突泥淖，華府最終會被削弱。 川普曾提到，打擊伊朗的軍事行動可能持續約4週，接近他的中國行前夕。 中國面臨獨特風險 中國是全球最大的伊朗石油買家，去年自伊朗進口的海運石油占其總體石油進口量13.4%。因此隨著衝突持續進行，一旦供應中斷，中國的處境將格外脆弱，尤其是在全球最重要石油出口航道荷莫茲海峽（Hormuz Strait）被封鎖的情況下。 分析人士談到，儘管中國可分散進口來源，失去伊朗石油短期內仍會造成顯著價格壓力，進而壓縮中國經濟高度倚賴的製造業的利潤空間。 美國空襲伊朗也提醒北京及其夥伴，美軍不僅能在自身勢力範圍內出擊，也能跨足全球進行打擊。 上海復旦大學國際關係專家趙明昊指出：「打擊伊朗以及可能引發的政權更迭，將嚴重衝擊中國利益。」 趙明昊說：「中國正評估美國對委內瑞拉及伊朗行動背後的深層意圖，同時，美國可能透過控制國際能源市場，加強對中國施壓。」 美國寄望中國反應有限 美國目前押注，美軍打擊伊朗不會引發中國採取軍事行動。 一名美國官員告訴路透社，預期中國不會在美方行動期間向伊朗提供實質支援，且美國持續把注意力放在中東，短期內不致促使北京在印太地區採取大膽行動。 這名官員提到，美國主要的擔憂在於，美軍難以迅速補充彈藥儲備，恐削弱對共軍犯台威脅的「中期嚇阻能力」。 透過 Google News 追蹤中央社",
-      "url": "https://www.cna.com.tw/news/aopl/202603030228.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
     "category": "Regional_Security",
     "is_relevant": true,
     "country1": "FR",
@@ -1802,126 +2728,6 @@
     }
   },
   {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": null,
-    "country2": null,
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 1.0,
-    "original_article": {
-      "date": "2026-03-03",
-      "title": "韓星柳演錫元宵節訪台初試湯圓用台語大讚好吃| 娛樂",
-      "content": "（中央社記者王心妤台北3日電）韓國男星柳演錫今天出席新劇「神與律師事務所」台灣記者會，適逢元宵節，他入境隨俗品嚐湯圓，並用台語稱讚「真好食」。對於角色，他透露要演出被附身跳女團舞，是個挑戰。 柳演錫今天表示，「神與律師事務所」的角色跟其他律政劇最大差別是角色能看見並跟鬼魂溝通，第一次看到劇本就深受吸引，加上有各式各樣的鬼魂，他也有更不同的演出，像是有段被女偶像附身大跳女團舞，「平常不會做這種事，真的很挑戰。」又或是某集要被流氓附身講出發言，都是有趣又困難的挑戰。 透過 Google News 追蹤中央社",
-      "url": "https://www.cna.com.tw/news/amov/202603030306.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "US_TW_Interaction",
-    "is_relevant": true,
-    "country1": "US",
-    "country2": "TW",
-    "sentiment_score": 0.6,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "美國APEC高階官員梅斯訪台，與高階官員與產業界領袖會談，促進美台經濟合作，並支持台灣有意義地參與國際社群。",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "美國APEC高階官員訪台，支持台灣有意義參與國際社群，聚焦供應鏈韌性、AI及數位經濟。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-02",
-      "title": "美國APEC高階官員訪台挺台有意義參與國際| 政治",
-      "content": "（中央社記者楊堯茹台北2日電）美國在台協會表示，美國亞太經濟合作（APEC）高階官員梅斯今天訪台，將與高階官員與產業界領袖就APEC相關議題交換意見，並就台灣有意義地參與國際社群表達支持。 美國在台協會（AIT）下午發布新聞稿指出，美國亞太經濟合作高階官員（U.S. Senior Official for APEC）梅斯（Casey Mace）2日至3日訪問台灣。期間梅斯將與高階官員與產業界領袖會談，就APEC相關議題交換意見，以促進美台經濟合作，並就台灣有意義地參與國際社群表達支持，尤其聚焦於供應鏈韌性、AI，以及數位經濟領域。 AIT說明，梅斯是美國國務院高級外務體系（Senior Foreign Service）職業外交官，負責主導美國參與APEC相關事務，並督導國務院東亞暨太平洋事務局經濟政策辦公室業務。（編輯：萬淑彰）1150302 #美國在台協會",
-      "url": "https://www.cna.com.tw/news/aipl/202603020118.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "US_TW_Interaction",
-    "is_relevant": true,
-    "country1": "TW",
-    "country2": "US",
-    "sentiment_score": 0.1,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "台中市長盧秀燕訪美，將反映關稅及軍購議題。",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-03",
-      "title": "盧秀燕11日啟程訪美盼反映關稅及軍購真實聲音| 地方",
-      "content": "（中央社記者郝雪卿台中3日電）11日將出訪美國的台中市長盧秀燕今天說，關稅及軍購是重要議題，相信很多美國友人想了解台灣狀況，她將儘量蒐集大家寶貴意見，只要有機會都去請益，以反映最完整及真實聲音。 至於昨天與台北市長蔣萬安合體參觀在台中舉辦的中台灣燈會，盧秀燕上午主持市政會議前，接受媒體聯訪表示，兩人合體無政治意涵，由於兩個城市都在辦燈會，只是互相行銷、拉抬，雙城連線，希望透過彼此拉抬聲量，讓兩城市辦的燈會有能見度及參觀率而已。（編輯：李明宗）1150303 #蔣萬安",
-      "url": "https://www.cna.com.tw/news/aloc/202603030071.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": 0.6,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "新華社報導兩岸共同慶祝元宵節，強調文化交流與和諧氣氛。"
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-03-03",
-      "title": "灯火艺韵跨海峡 两岸同春庆元宵",
-      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
-      "url": "https://www.news.cn/tw/20260303/41aba83260614c418584eb2d75f5e60e/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": 0.5,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "中國大陸非物質文化遺產在台灣展示，促進兩岸文化交流。"
-    },
-    "confidence": 0.85,
-    "original_article": {
-      "date": "2026-03-01",
-      "title": "越韵浓，铁花炫——大陆非遗绽放宝岛",
-      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
-      "url": "https://www.news.cn/tw/20260301/b52862519fa74484beb3cdee70643198/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
     "category": "CN_Statement",
     "is_relevant": true,
     "country1": "CN",
@@ -1965,174 +2771,6 @@
       "content": "主编该书的台湾青年媒体人、原乡人文化工作室执行长张钧凯介绍，本书改编自纪录片《台湾·1945》，通过两岸共写历史的形式，采访历史亲历者，尝试以更宏阔的视角展现抗战胜利后台湾的历史样貌，深入理解两岸历史命运的共同脉动。 张钧凯说，去年是中国人民抗日战争暨世界反法西斯战争胜利80周年，也是台湾光复80周年，然而民进党当局以“终战接收”取代“抗战光复”，甚至有官员公然否认“台湾光复”的存在。写作本书的目的之一，正是希望能够突破岛内当政者刻意营造的错误历史观。 台湾教育、媒体界等约50位人士参加新书发布会。多名与会人士在致辞中表示，当前台湾社会存在一股歪曲历史、割裂民族认同的歪风，还原台湾光复的历史真相尤为重要。 台湾大学前校长管中闵说，我们要更努力把历史忠实呈现出来，他相信抗战胜利、台湾光复的历史终将被铭记与传颂。 台中雾峰林家后人、台湾抗日志士亲属协进会创会会长林光辉说，台湾光复打破了日本50年殖民统治的枷锁。回顾历史，台湾同胞理应继承爱国主义传统，共同追寻民族复兴的光明未来。 台湾学者陈昭瑛表示，1945年前后有许多台湾人为孩子取名“光复”，可见台湾人对于光复的感情是热切而真实的，她期盼两岸合作在台湾光复历史研究领域取得更多成果。",
       "url": "https://www.news.cn/tw/20260226/22207f2d5d364014966dd4a8238f6e91/c.html",
       "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.3,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "東部戰區發布元宵節MV，強調兩岸同屬一中，呼籲統一，稱『一統山河共嬋娟』。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-03",
-      "title": "【#东部战区发布元宵节主题MV#大中国是我的家乡】黄河流过千年岁月，长江拍打万里河山。阿里山望见归帆...",
-      "content": "【#东部战区发布元宵节主题MV#大中国是我的家乡】黄河流过千年岁月，长江拍打万里河山。阿里山望见归帆，日月潭映着乡月。方块字刻入骨子里，百家姓融在血脉中。无论此岸彼岸，抬头都是同一轮月亮。值此元宵佳节，#东部战区#发布主题MV《大中国是我的家乡》，祝愿千盏花灯照归路，一统山河共婵娟！（东 ...全文",
-      "url": "https://m.weibo.cn/detail/5272292713564025",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.5,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "中國軍方微博發布帶有軍事戒備和統一意涵的宣傳，提及「阅海峡」和「看剑处」。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-03",
-      "title": "#东部熄灯号#哨位挑灯看剑处，心系万家灯火圆。#阅海峡#",
-      "content": "#东部熄灯号#哨位挑灯看剑处，心系万家灯火圆。#阅海峡#",
-      "url": "https://m.weibo.cn/detail/5272504105968313",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": false,
-    "country1": "CN",
-    "country2": null,
-    "sentiment_score": 0.6,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-03",
-      "title": "【#一人立功全家光荣#】喜报一张纸，分量千斤重。近日，联勤保障部队第906医院组成多个“送喜报小分队...",
-      "content": "【#一人立功全家光荣#】喜报一张纸，分量千斤重。近日，联勤保障部队第906医院组成多个“送喜报小分队”，分赴河南、陕西、浙江等地，跨越上千公里，将一份份立功喜报，送上官兵家门，送到军属手中，让他们共享荣光。（齐永辉、刘嫘、张艺馨）",
-      "url": "https://m.weibo.cn/detail/5272443712703924",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Military_Exercise",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.4,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "東部戰區空軍某部警衛分隊開展班組戰術協同訓練",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-03",
-      "title": "#直击东部战区练兵备战现场#【#班组协同训练现场超燃#】近日，东部战区空军某部警卫分队开展班组战术协...",
-      "content": "#直击东部战区练兵备战现场#【#班组协同训练现场超燃#】近日，东部战区空军某部警卫分队开展班组战术协同训练，全面锤炼官兵协同作战能力。（褚文聪、黄森、王超）#时刻准备战斗#",
-      "url": "https://m.weibo.cn/detail/5272383310791407",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": null,
-    "country2": null,
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-03-02",
-      "title": "【#最后的军礼#】2月28日，武警浙江总队宁波支队隆重举行2026年度春季退役士兵向武警部队旗告别仪...",
-      "content": "【#最后的军礼#】2月28日，武警浙江总队宁波支队隆重举行2026年度春季退役士兵向武警部队旗告别仪式。退伍老兵身着戎装、整齐列队，以庄严的军礼向承载着青春与荣光的武警部队旗郑重告别。（潘立、卢煜、唐鹏）#退伍不褪色#",
-      "url": "https://m.weibo.cn/detail/5272051121128261",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": false,
-    "country1": "CN",
-    "country2": null,
-    "sentiment_score": 0.8,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-02-28",
-      "title": "【#白衣执甲大爱东总#】近日，东部战区总医院举行 “闪亮的坐标 ——2025 年度感动东总” 颁奖典...",
-      "content": "【#白衣执甲大爱东总#】近日，东部战区总医院举行 “闪亮的坐标 ——2025 年度感动东总” 颁奖典礼。600 余名官兵员工齐聚，三大篇章鲜活演绎 7 个先进个人、7 个先进集体的动人故事，平凡岗位的坚守，医者仁心的担当，皆化作直抵心底的感动。榜样之光闪耀，奋进力量永续！（杨晓丽、解婧怡、汪卫东、 ...全文",
-      "url": "https://m.weibo.cn/detail/5271296146670669",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Military_Exercise",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "東部戰區空軍航空兵某部戰機冒霧升空，赴預定空域開展空戰對抗訓練，錘煉打贏硬功。",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-02-28",
-      "title": "#直击东部战区练兵备战现场# 【#空战对抗激烈展开# 】近日，东部战区空军航空兵某部战机冒雾升空，赴...",
-      "content": "#直击东部战区练兵备战现场# 【#空战对抗激烈展开# 】近日，东部战区空军航空兵某部战机冒雾升空，赴预定空域开展空战对抗训练，锤炼打赢硬功。（郑瀚毅、杜军、褚文聪、琚伟伦、宋英杰、王宸刚）#时刻准备战斗#",
-      "url": "https://m.weibo.cn/detail/5271205550229342",
-      "source": "weibo",
       "category": "",
       "sentiment": ""
     }
@@ -3776,78 +4414,6 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.5,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "中國東部戰區發布戰備宣傳，強調枕戈待旦守衛東海和山河。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-02-28",
-      "title": "#东部熄灯号#枕戈待旦守东海，披坚执锐卫山河。#阅海峡#",
-      "content": "#东部熄灯号#枕戈待旦守东海，披坚执锐卫山河。#阅海峡#",
-      "url": "https://m.weibo.cn/detail/5271416942889808",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": null,
-    "sentiment_score": 0.7,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-03-02",
-      "title": "【#再见了军营#】2月28日，东部战区海军某部隆重举行士兵退役仪式，为光荣退役的老兵送别。仪式上，退...",
-      "content": "【#再见了军营#】2月28日，东部战区海军某部隆重举行士兵退役仪式，为光荣退役的老兵送别。仪式上，退役士兵卸下肩章、告别军旗，重温军旅誓言，致敬峥嵘岁月。祝愿他们在新的征程上再创佳绩。（闫小波）#退伍不褪色#",
-      "url": "https://m.weibo.cn/detail/5271960524427708",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "",
-    "sentiment_score": 0.5,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "東部戰區陸軍某旅舉行2026年度春季退役士兵向軍旗告別儀式，強調永葆軍人本色。"
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-03-02",
-      "title": "【#2026年度春季退役士兵向军旗告别# 】2月28日，东部战区陆军某旅隆重举行2026年度春季退役...",
-      "content": "【#2026年度春季退役士兵向军旗告别# 】2月28日，东部战区陆军某旅隆重举行2026年度春季退役士兵向军旗告别仪式。仪式现场，退役士兵身披绶带、胸戴红花，面向军旗庄严敬礼。数年军旅生涯，他们坚守战位、苦练精兵，用青春守护使命。告别军营之际，退役老兵们纷纷表示，将永葆军人本色，退役不退志、 ...全文",
-      "url": "https://m.weibo.cn/detail/5271930329367212",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
     "sentiment_score": 0.9,
     "sentiment_label": "positive",
     "extracted_data": {
@@ -3863,54 +4429,6 @@
       "content": "在位于市中心的亲子剧场里，戏场内外皆是依依难舍的“十八相送”。 “时间过得特别快，一眨眼我们在台湾的演出结束了，我一下心里生出不舍来。”28日晚，一连四天在台演出谢幕后，越剧青年演员陈丽君与观众互动时动情地说。 “我们也舍不得你！”“多来台湾！”“我们爱越剧！”剧场出口处，上百名观众聚集在一起，他们欢呼鼓掌，向浙江小百花越剧院的演员们表达喜爱之情。 2月25日至28日，浙江小百花越剧院（浙百团）时隔近15年再度赴台，为台湾戏迷倾情呈现青春越剧《我的大观园》与折子戏专场《爱情的花园》两部精品力作。四天之内，剧团在桃园、台北两地连演五场，场场精彩、反响热烈。 浙江小百花越剧院青春越剧《我的大观园》在桃园展演中心演出（2月25日摄）。新华社记者 黄扬 摄 “‘小百花’一直是两岸戏曲交流的积极践行者。”浙江小百花越剧院副院长、浙百团团长蔡浙飞对记者说，此次带来两部大戏，经过了精心搭配。 当日演出是折子戏专场《爱情的花园》，该剧在台北连演三场，场场座无虚席。《爱情的花园》以“爱情”为主线，将《梁祝·十八相送》的缠绵、《红楼梦·葬花吟》的凄美、《牡丹亭·幽媾》的浪漫、《陆游与唐琬·题诗壁》的怅惘串联交织，展现越剧婉约抒情的艺术魅力。 而此前在桃园上演的青春越剧《我的大观园》，则是浙江小百花越剧院建院40周年大戏。该剧目以古典名著《红楼梦》为创作蓝本，借暮年宝玉重回少年心境视角，回望大观园的青春芳华与世事沧桑，艺术再现文学经典《红楼梦》。 浙江小百花越剧院折子戏专场《爱情的花园》在台北市政府亲子剧场演出（2月28日摄）。新华社记者 黄扬 摄 “希望以多元的舞台风貌，让台湾观众既能领略越剧的青春活力，也能感受其深厚的文化底蕴。”蔡浙飞表示。 据介绍，“小百花”上一次来台演出是2011年11月参加“台湾·浙江文化节”活动。“转眼已经过去快15年了。这些年里，很多台湾戏迷朋友一直在关心我们、惦记我们，这份情谊始终记在心里。”蔡浙飞说。 “这次‘小百花’来台湾，不仅演出了贾宝玉的‘青春梦’，也让我的‘青春梦’回来了。”台北戏迷李女士说，五场表演她一场不落。此次演出让她重新与“台湾爱越会”的好友相聚，忆起高中时代和同好们一起痴迷越剧的青春往事。 1993年11月，应台湾越剧界邀请，浙江小百花越剧团携《西厢记》《陆游与唐琬》《五女拜寿》等经典剧目赴台献演，成为大陆越剧界首个正式赴台演出的大型艺术团体。 这次两岸交流，成为一群热爱越剧的台湾戏迷相聚成团的机缘，“台湾爱越会”随后成立。二十多位成员曾结伴前往上海、杭州、绍兴等地，追看剧团演出，追寻越剧之美。 越剧至今已有约120年发展历程，发源于浙江嵊州，以当地方言与民间音乐为根基，兼收昆曲、话剧、绍剧等剧种艺术精华，以唱见长、长于抒情，唱腔优美动听，表演细腻动人。 “越剧的特色在于情感充沛。”学习台湾民间曲艺客家戏的基隆青年范女士说，“我尤其喜欢越剧唱词，总是能走进观众的心里。” 记者现场采访发现，前来看戏的观众不仅来自花莲、高雄、彰化等台湾各地，更有海外华人拖着行李箱专程前来观演。 越来越多年轻戏迷的加入，让演出现场更添活力。不少年轻人身着传统服饰，手持应援牌，为喜爱的演员欢呼加油。 2月28日，浙江小百花越剧院折子戏专场《爱情的花园》在台北市政府亲子剧场演出。图为观众与宣传海报合影。新华社记者 黄扬 摄 台北的年同学两部好戏都没落下。她自幼随奶奶接触传统戏剧，近年又通过小红书、抖音爱上“小百花”，平日不仅常看越剧表演视频，还收藏着剧团各类周边。 “这次很圆满，没有任何遗憾。”年同学说，“我决定之后一定要到大陆去现场看演出。” 台湾时事评论员赖岳谦认为，越剧是两岸民众共同喜爱的中华传统艺术，受到众多两岸年轻人的喜爱。中华文化根深叶茂、底蕴深厚，早已成为联结两岸同胞的精神纽带。 “越韵送春，心意相通！”离开剧场前，“小百花”多位演员与现场百余名观众齐声喊出共同口号，合影定格此次台湾之行的温暖瞬间。",
       "url": "https://www.news.cn/tw/20260301/6d72ff86d1de46f29318ac74f990c247/c.html",
       "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.8,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "中國東部戰區微博發布威脅性口號，暗示對台軍事行動箭在弦上，劍指台灣海峽。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-02",
-      "title": "#东部熄灯号#箭在弦上随时发，剑指苍穹卫中华。#阅海峡#",
-      "content": "#东部熄灯号#箭在弦上随时发，剑指苍穹卫中华。#阅海峡#",
-      "url": "https://m.weibo.cn/detail/5272141718359699",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "",
-    "sentiment_score": 0.7,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-02",
-      "title": "【#卸下肩章再启程#】2月28日，东部战区空军某部隆重举行春季士兵退役仪式。老兵们卸下肩章，告别挚爱...",
-      "content": "【#卸下肩章再启程#】2月28日，东部战区空军某部隆重举行春季士兵退役仪式。老兵们卸下肩章，告别挚爱的战位。愿你们带着军营的坚韧与担当，在人生新赛道上续写荣光！（郑祥冰、吴海洋、黄文涛）#退伍不褪色#",
-      "url": "https://m.weibo.cn/detail/5272020922925147",
-      "source": "weibo",
       "category": "",
       "sentiment": ""
     }
@@ -3958,54 +4476,6 @@
       "title": "民进党当局妄称在伊朗等地台胞找大陆方面撤离“有风险” 国台办：其冷血与自私暴露无遗",
       "content": "有记者问，近日，美国、以色列对伊朗发动军事行动。外交部和我有关使领馆发布通知，提醒包括台胞在内的中国公民尽快撤离，需要撤离的台胞可以进行登记。民进党当局却妄称台胞找大陆方面撤离“有风险”。对此有何评论? 发言人张晗答问表示，台湾同胞是中国公民，是我们的骨肉乡亲。从利比亚、也门、苏丹撤侨，到巴以冲突爆发和海外台胞遭遇台风、地震等危险，我们都与当地台胞保持紧密联系，及时提供协助。我们将一如既往采取一切必要措施，保护包括台湾同胞在内的中国公民的安全。台胞需要协助，可随时联系中国驻当地使领馆，也可以拨打电话12308热线。 她表示，无论在什么地方、遇到什么困难，伟大祖国都是广大台湾同胞的坚强后盾。在事关台湾同胞安危的紧要关头，民进党当局仍一味政治操弄，丧失良知、泯灭人性。他们最害怕见到的就是“两岸一家亲”、患难见真情，竭力将政治图谋置于民众生命安危之上。其冷血与自私暴露无遗，必将遭到广大台湾同胞的坚决反对。（记者赵博、尚昊）",
       "url": "https://www.news.cn/tw/20260304/f863260706344c3784c80336a369d62c/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": 0.5,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "新華社報導台灣元宵節，強調兩岸同根同源文化印記，上海燈彩在台北燈節展出。"
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-03-03",
-      "title": "灯耀宝岛庆上元——台湾各地元宵节扫描",
-      "content": "逛灯会、猜灯谜、吃元宵、庆团圆，共度佳节的宝岛灯火里，映照出两岸同根同源的文化印记。 今年适逢农历丙午马年。台湾各地元宵灯会上，各类马主题花灯栩栩如生，尽显蓬勃生机，也寄托着民众对新一年的美好祈愿。 2026年台湾灯会于3日在嘉义县开幕。今年灯会以“光跃台湾，点亮嘉义”为主题。作为台湾开发较早的地区之一，嘉义留存着诸多两岸同源的文化民俗。本届灯会特设专区，展出反映民间传统习俗的特色花灯。 灯会上，高11米的“天骥梦飞扬”彩灯以传统神话中的“飞马”形象为灵感来源，造型灵动、振翅欲飞；在特色灯区内，以延平郡王郑成功形象为主体的大型灯组气势恢宏，吸引众多民众驻足观赏。 3月1日，台湾民众在2026台北灯节西门町展区游览。新华社记者 姜江 摄 位于北台湾的2026台北灯节，今年首次采用双展区形式展出各式花灯。 圆山花博公园展区内，一组来自上海的灯彩在夜色中格外夺目。该灯彩以“这里是上海”为主题，灵感源自“天马展翅” 的传说，采用绿色环保材质打造出一匹宛若穿越时空而来的“宇宙骏马”。骏马周边环绕上海标志性建筑，融入黄浦江、苏州河、外白渡桥等景观，尽显上海历史与现代交融的独特魅力。 “灯区里的‘东方明珠’，让我回想起在外滩散步时的景象。”台北民众盛先生说，期盼新的一年两岸能有更多交流互动，也希望有更多机会深入感受上海的城市风采。 另一展区西门町则携手大陆品牌“泡泡玛特”，以6个人气IP的马年全新造型为核心，打造五座特色灯组。台北市民徐小姐手里拿着“LABUBU”造型红色气球逛灯会。“这些灯组很可爱，也为西门町商圈增添了新活力。”她说。 2月24日，台湾民众游览新北灯会。新华社记者 黄扬 摄 在台湾多地，两岸花灯交流亮点纷呈。“东坡诗意·乐天杭州”“丝路跃马·笔韵湖州”等12组浙江花灯亮相南投灯会，尽展浙江山水人文、非遗匠心与特色物产，勾勒出“诗画浙江”的秀美画卷；四川、江苏两地参与共建新北灯会，与台湾同胞共添上元佳节光彩。 乡土民俗亦是台湾元宵欢庆活动的重要组成部分。台湾素有“北天灯、南蜂炮、东寒单、西乞龟、中‘火旁’龙”的说法，对应新北平溪天灯节、台南盐水蜂炮、台东“炸寒单”、澎湖乞龟、苗栗客家“火旁”龙等特色民俗，各具风情。 苗栗客家元宵民俗“火旁”龙系列活动自2月25日启幕。祥龙翻腾舞动，传递平安顺遂的祝福。该民俗以鞭炮炸舞龙为特色，自1998年举办以来，已成为“客庄十二节庆”之一，亦渐渐成为传承客家文化与中华传统民俗的重要载体。 “这是苗栗传承得非常好的元宵民俗，代表着客家人勇猛敢闯、充满活力的精神。”同家人一起前来看“火旁”龙的苗栗市民徐先生说，这些民俗也是中华传统文化的一部分，将我们与五千年文明联系在一起。 值得一提的是，活动期间，来自山西高平的非遗项目打铁花，与苗栗当地火舞团队共同为“火旁”龙庆典增添“火热”气氛。火光与龙舞交相辉映，绘就两岸同气连枝共庆佳节的热络图景。 元宵佳节前后，多支大陆文化团组赴台开展演出、展览活动，为台湾民众送上新春祝福。浙江小百花越剧院4天内在桃园、台北连演5场，以婉转越韵为宝岛添暖意。2026欢乐庆元宵暨第15届海派文化艺术节，也于9日在高雄佛光山登场，这项活动历经十余年，已成为两岸共赏传统文化的重要平台。 元宵佳节，月圆灯明。跨越海峡的灯火与韵律，见证着两岸同文同种、血脉相连的深厚情谊，也承载着两岸同胞携手同心、家国团圆的美好祈愿。",
-      "url": "https://www.news.cn/tw/20260303/4590d2674a3d4664828b88a0ebece65c/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.7,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "国台办批评民进党当局诋毁大陆经济前景、污蔑营商环境，指责其转移焦点、恐吓民众，并称其谋‘独’挑衅导致台海紧张，应‘悬崖勒马’。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-04",
-      "title": "国台办：大陆是广大台商台胞投资兴业的最佳选择",
-      "content": "台陆委会主委邱垂正近日出席活动时称，当前台商在大陆投资经营会面临诸多风险。张晗就此应询评论时作上述表示。她指出，民进党当局一贯诋毁大陆经济发展前景，污蔑大陆营商环境，事实却一次又一次戳破他们的谎言。 针对大陆方面披露刘世芳亲属在大陆投资谋利且为其提供政治献金，宣布依法依规进行查处，台陆委会2月28日发布所谓“2026中国大陆经济风险警示”，并称要大陆“悬崖勒马”。张晗就此应询评论表示，目前问题关键是民进党当局要正面回答刘世芳亲属是否在大陆谋利，绿营是否存在一边打压迫害参与两岸交流的人士、一边利用亲属在大陆“赚红钱”的“双标”行为，而不是转移焦点，顾左右而言他。 3月4日，国台办发言人张晗邀请记者提问。新华社记者 潘旭 摄 她指出，我们的惩治措施只针对极少数“台独”顽固分子及其关联企业、金主，不涉及广大台湾同胞和台商台企。民进党当局故意混淆视听，编造所谓“风险”，目的是恐吓台湾民众，制造“寒蝉效应”，阻挠破坏两岸交流合作。其谋“独”挑衅导致台海局势紧张动荡，打压参与两岸交流合作人士恶行累累，推动两岸“脱钩断链”劣迹斑斑。应该“悬崖勒马”的，是民进党当局自己。 张晗回答相关提问时还表示，“台独”是分裂国家、祸乱台海的违法犯罪活动。依法严惩“台独”顽固分子是维护国家主权和领土完整、维护台海和平稳定的正义必要之举。民进党当局无论怎么狡辩，都改变不了台湾是中国不可分割的一部分的事实，都掩盖不了“台独”势力一面鼓吹“台独”分裂谬论、大肆破坏两岸交流合作，伤害台湾同胞福祉，一面利用亲属在大陆投资经商谋利并接受其利益输送的虚伪“双标”嘴脸。我们对“台独”顽固分子及其关联企业、金主实施惩戒，合理合法，两岸舆论反应也是大快人心。 赖清德近日出席活动时多次提及“中国大陆”，引发关注。赖称，希望两岸交流合作，能够朝向和平共融的方向走。张晗就此答问指出，民进党当局顽固坚持“台独”分裂立场，蓄意谋“独”挑衅，是造成台海局势紧张动荡的根本原因。我们多次讲过，两岸都是中国人，是一家人，只要民进党当局认同“九二共识”、停止“台独”分裂活动，两岸对话协商就能恢复，两岸关系就能和平发展。两岸关系和平发展有利于增进两岸同胞利益福祉，促进台湾社会和谐安宁，确保台湾同胞安居乐业，是人心所向、大势所趋。顺应大势、顺应民心，才是明智之举。",
-      "url": "https://www.news.cn/tw/20260304/d5dec791bc974a81b504e9e9ac921404/c.html",
       "source": "xinhua",
       "category": "",
       "sentiment": ""
