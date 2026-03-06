@@ -3736,5 +3736,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-05",
+      "title": "【解放军和武警部队代表团分组审议政府工作报告】解放军和武警部队代表团5日下午分组审议政府工作报告。全...",
+      "content": "【解放军和武警部队代表团分组审议政府工作报告】解放军和武警部队代表团5日下午分组审议政府工作报告。全国人大代表、中央军委副主席张升民参加小组审议。代表们认为，这次会议是在“十五五”开局起步之际召开的一次重要会议，对于做好今年乃至未来五年工作，为基本实现社会主义现代化夯实基础、积蓄 ...全文",
+      "url": "https://m.weibo.cn/detail/5273209369008520",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-05",
+      "title": "#雷锋修复原声首次公开#【独家！解放军出版社珍藏雷锋原声首发！】从苦到暖的命运转折，一颗螺丝钉的坚守...",
+      "content": "#雷锋修复原声首次公开#【独家！解放军出版社珍藏雷锋原声首发！】从苦到暖的命运转折，一颗螺丝钉的坚守，点滴善举的温暖践行，一腔热血的实干报国初心！解放军出版社珍藏雷锋原声独家首发，#穿越60余年听雷锋说#  @中国军号 中国军号的微博视频",
+      "url": "https://m.weibo.cn/detail/5273074287250859",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]

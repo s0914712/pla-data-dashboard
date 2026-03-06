@@ -4528,5 +4528,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-05",
+      "title": "【解放军和武警部队代表团分组审议政府工作报告】解放军和武警部队代表团5日下午分组审议政府工作报告。全...",
+      "content": "【解放军和武警部队代表团分组审议政府工作报告】解放军和武警部队代表团5日下午分组审议政府工作报告。全国人大代表、中央军委副主席张升民参加小组审议。代表们认为，这次会议是在“十五五”开局起步之际召开的一次重要会议，对于做好今年乃至未来五年工作，为基本实现社会主义现代化夯实基础、积蓄 ...全文",
+      "url": "https://m.weibo.cn/detail/5273209369008520",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
