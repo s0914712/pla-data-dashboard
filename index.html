@@ -82,6 +82,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <!-- PapaParse for CSV parsing -->
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <!-- Leaflet.js for maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <style>
         /* Base Styles */
@@ -206,112 +209,6 @@
             border-radius: 2px;
         }
 
-        .pred-card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.25rem;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-            height: 100%;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .pred-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-        }
-
-        .pred-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-        }
-
-        .pred-card.risk-low::before {
-            background: linear-gradient(90deg, #11998e, #38ef7d);
-        }
-
-        .pred-card.risk-medium::before {
-            background: linear-gradient(90deg, #f7971e, #ffd200);
-        }
-
-        .pred-card.risk-high::before {
-            background: linear-gradient(90deg, #eb3349, #f45c43);
-        }
-
-        .pred-card-date {
-            font-size: 0.8rem;
-            color: #a0aec0;
-            margin-bottom: 0.25rem;
-        }
-
-        .pred-card-day {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #4a5568;
-            margin-bottom: 0.5rem;
-        }
-
-        .pred-card-value {
-            font-size: 2rem;
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 0.25rem;
-        }
-
-        .pred-card.risk-low .pred-card-value {
-            color: #11998e;
-        }
-
-        .pred-card.risk-medium .pred-card-value {
-            color: #f7971e;
-        }
-
-        .pred-card.risk-high .pred-card-value {
-            color: #eb3349;
-        }
-
-        .pred-card-unit {
-            font-size: 0.75rem;
-            color: #718096;
-            margin-bottom: 0.5rem;
-        }
-
-        .pred-card-range {
-            font-size: 0.7rem;
-            color: #a0aec0;
-        }
-
-        .pred-card-risk {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 0.5rem;
-        }
-
-        .pred-card.risk-low .pred-card-risk {
-            background: rgba(17, 153, 142, 0.12);
-            color: #11998e;
-        }
-
-        .pred-card.risk-medium .pred-card-risk {
-            background: rgba(247, 151, 30, 0.12);
-            color: #c87a00;
-        }
-
-        .pred-card.risk-high .pred-card-risk {
-            background: rgba(235, 51, 73, 0.12);
-            color: #eb3349;
-        }
-
         .pred-mini-chart {
             background: white;
             border-radius: 12px;
@@ -355,6 +252,57 @@
             background: rgba(245, 87, 108, 0.1);
             text-decoration: none;
             color: #d63a52;
+        }
+
+        /* ========== Japan MOD Summary ========== */
+        .japan-mod-summary {
+            margin-bottom: 2rem;
+        }
+
+        .japan-mod-summary .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .japan-mod-summary .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin: 0;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .japan-mod-summary .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(135deg, #c94b4b 0%, #4b134f 100%);
+            border-radius: 2px;
+        }
+
+        .home-warning-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.8rem;
+        }
+
+        .home-warning-item:last-child {
+            border-bottom: none;
+        }
+
+        .home-warning-badge {
+            display: inline-block;
+            padding: 1px 6px;
+            border-radius: 3px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: white;
         }
 
         /* ========== Navigation ========== */
@@ -685,6 +633,10 @@
                 max-height: 250px !important;
             }
 
+            #homeMap {
+                height: 300px !important;
+            }
+
             .navbar-collapse {
                 background: rgba(102, 126, 234, 0.98);
                 margin: 0.5rem -15px 0;
@@ -725,19 +677,6 @@
             .stat-card:active {
                 transform: scale(0.98);
                 transition: transform 0.1s;
-            }
-
-            /* Prediction summary mobile */
-            .pred-card {
-                padding: 1rem;
-            }
-
-            .pred-card-value {
-                font-size: 1.5rem;
-            }
-
-            .pred-card:hover {
-                transform: none;
             }
 
             .pred-mini-chart {
@@ -838,9 +777,6 @@
                 padding-right: 12px;
             }
 
-            .pred-card-value {
-                font-size: 1.25rem;
-            }
         }
 
         @media (max-width: 767.98px) and (orientation: landscape) {
@@ -1197,10 +1133,7 @@
                     Full Forecast <span>→</span>
                 </a>
             </div>
-            <div class="row" id="predSummaryCards">
-                <!-- Prediction cards populated by JS -->
-            </div>
-            <div class="row mt-3">
+            <div class="row">
                 <div class="col-lg-8">
                     <div class="pred-mini-chart">
                         <h6>Forecast Trend (21-Day History + 7-Day Prediction)</h6>
@@ -1214,6 +1147,63 @@
                     <div class="pred-mini-chart">
                         <h6>Risk Distribution</h6>
                         <canvas id="riskDoughnut"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Japan MOD & Navigation Warnings Summary -->
+        <div class="japan-mod-summary" id="japanModSummary" style="display: none;">
+            <div class="section-header">
+                <h4 class="section-title">Japan MOD & Navigation Warnings</h4>
+                <a href="japan.html" class="view-forecast-btn">
+                    Full Details <span>→</span>
+                </a>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mb-3">
+                    <div class="pred-mini-chart" style="height:auto;">
+                        <h6>Strait Locations, Transit Events & Military Exercise Zones</h6>
+                        <p class="text-muted mb-2" style="font-size:0.75rem;">Use layer controls (top-right) to toggle layers. Click areas for details.</p>
+                        <div id="homeMap" style="height:420px;border-radius:8px;"></div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <div class="pred-mini-chart" style="height:auto;">
+                        <h6>MSA Navigation Warnings (航行警告)</h6>
+                        <div class="d-flex justify-content-between mb-2" style="font-size:0.75rem;">
+                            <span class="text-muted">Total: <strong id="homeMsaTotal">-</strong></span>
+                            <span class="text-muted" id="homeMsaDateRange"></span>
+                        </div>
+                        <div class="row mb-2" id="homeMsaStats">
+                            <div class="col-6 mb-1">
+                                <div style="background:#f8f9fa;border-radius:6px;padding:0.4rem 0.6rem;font-size:0.75rem;">
+                                    <span style="color:#e74c3c;">Military Ex.</span>
+                                    <strong id="homeMsaExercise" style="float:right;">-</strong>
+                                </div>
+                            </div>
+                            <div class="col-6 mb-1">
+                                <div style="background:#f8f9fa;border-radius:6px;padding:0.4rem 0.6rem;font-size:0.75rem;">
+                                    <span style="color:#e67e22;">Live Fire</span>
+                                    <strong id="homeMsaLiveFire" style="float:right;">-</strong>
+                                </div>
+                            </div>
+                            <div class="col-6 mb-1">
+                                <div style="background:#f8f9fa;border-radius:6px;padding:0.4rem 0.6rem;font-size:0.75rem;">
+                                    <span style="color:#8e44ad;">Rocket</span>
+                                    <strong id="homeMsaRocket" style="float:right;">-</strong>
+                                </div>
+                            </div>
+                            <div class="col-6 mb-1">
+                                <div style="background:#f8f9fa;border-radius:6px;padding:0.4rem 0.6rem;font-size:0.75rem;">
+                                    <span style="color:#2980b9;">With Coords</span>
+                                    <strong id="homeMsaCoords" style="float:right;">-</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="homeMsaWarningList" style="max-height:320px;overflow-y:auto;">
+                            <span class="text-muted" style="font-size:0.8rem;">Loading...</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1306,13 +1296,19 @@
         let straitData = [];
         let charts = {};
         let predMiniChart = null;
+        let homeMap = null;
+        let homeMsaLayerGroup = null;
+        let homeStraitLayerGroup = null;
+        let homeMsaWarningData = [];
         let riskDoughnutChart = null;
 
         window.addEventListener('load', async function () {
             await loadData();
             initializeCharts();
             updateDashboard();
-            await Promise.all([loadPredictionSummary(), loadArticles()]);
+            await Promise.all([loadPredictionSummary(), loadArticles(), loadHomeMSAWarnings()]);
+            initHomeMap();
+            renderHomeMSAWarnings();
             document.getElementById('loading').style.display = 'none';
             document.getElementById('mainContent').style.display = 'block';
         });
@@ -1468,7 +1464,6 @@
 
                 if (predictions.length === 0) return;
 
-                renderPredSummaryCards(predictions);
                 renderPredMiniChart(predictions);
                 renderRiskDoughnut(predictions);
 
@@ -1485,37 +1480,6 @@
             }
         }
 
-        function renderPredSummaryCards(predictions) {
-            const container = document.getElementById('predSummaryCards');
-            const isMobile = window.innerWidth < 768;
-            const displayCount = isMobile ? 4 : 7;
-            const colClass = isMobile ? 'col-6 col-sm-3' : 'col-sm-6 col-md-3 col-lg';
-
-            container.innerHTML = predictions.slice(0, displayCount).map(pred => {
-                const date = new Date(pred.date);
-                const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
-                const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-                const risk = (pred.risk_level || 'LOW').toUpperCase();
-                const riskClass = risk === 'HIGH' ? 'risk-high' : risk === 'MEDIUM' ? 'risk-medium' : 'risk-low';
-                const value = parseFloat(pred.predicted_sorties).toFixed(1);
-                const lower = Math.max(0, parseFloat(pred.lower_bound || 0)).toFixed(0);
-                const upper = parseFloat(pred.upper_bound || 0).toFixed(0);
-
-                return `
-            <div class="${colClass} mb-3">
-                <div class="pred-card ${riskClass}">
-                    <div class="pred-card-date">${dateStr}</div>
-                    <div class="pred-card-day">${dayName}</div>
-                    <div class="pred-card-value">${value}</div>
-                    <div class="pred-card-unit">sorties</div>
-                    <div class="pred-card-range">CI: ${lower} - ${upper}</div>
-                    <div class="pred-card-risk">${risk}</div>
-                </div>
-            </div>
-        `;
-            }).join('');
-        }
-
         function renderPredMiniChart(predictions) {
             const ctx = document.getElementById('predMiniChart');
             if (!ctx) return;
@@ -1527,9 +1491,13 @@
                 .slice(-21)
                 .map(r => ({ date: r.date, value: parseFloat(r.pla_aircraft_sorties) }));
 
-            const predValues = predictions.map(p => parseFloat(p.predicted_sorties));
-            const predUpper = predictions.map(p => parseFloat(p.upper_bound || 0));
-            const predLower = predictions.map(p => Math.max(0, parseFloat(p.lower_bound || 0)));
+            // Filter predictions to only future dates not already in actual data
+            const actualDateSet = new Set(actualData.map(d => d.date));
+            const futurePredictions = predictions.filter(p => !actualDateSet.has(p.date));
+
+            const predValues = futurePredictions.map(p => parseFloat(p.predicted_sorties));
+            const predUpper = futurePredictions.map(p => parseFloat(p.upper_bound || 0));
+            const predLower = futurePredictions.map(p => Math.max(0, parseFloat(p.lower_bound || 0)));
 
             // Format any date string to M/D
             function fmtDate(d) {
@@ -1537,9 +1505,9 @@
                 return parseInt(parts[1]) + '/' + parseInt(parts[2]);
             }
 
-            // Build labels in unified M/D format
+            // Build labels in unified M/D format (no duplicates)
             const actualLabels = actualData.map(d => fmtDate(d.date));
-            const predLabels = predictions.map(p => fmtDate(p.date));
+            const predLabels = futurePredictions.map(p => fmtDate(p.date));
             const allLabels = [...actualLabels, ...predLabels];
 
             // Overlap: predicted line starts from actual's last point for smooth transition
@@ -1823,6 +1791,346 @@
         `;
                 container.innerHTML += cardHtml;
             });
+        }
+        // ========== Japan MOD & MSA Warning Functions ==========
+
+        const homeStraitCoords = {
+            'yonaguni': { lat: 24.4500, lng: 122.9500, name: '與那國海峽 (Yonaguni)', color: '#e74c3c' },
+            'miyako': { lat: 24.7800, lng: 125.3000, name: '宮古海峽 (Miyako)', color: '#3498db' },
+            'osumi': { lat: 30.7500, lng: 130.6500, name: '大隅海峽 (Osumi)', color: '#2ecc71' },
+            'tsushima': { lat: 34.2000, lng: 129.3000, name: '對馬海峽 (Tsushima)', color: '#9b59b6' }
+        };
+
+        function initHomeMap() {
+            const isMobile = window.innerWidth < 768;
+            homeMap = L.map('homeMap').setView([28, 122], isMobile ? 3 : 4);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(homeMap);
+
+            homeStraitLayerGroup = L.layerGroup().addTo(homeMap);
+            homeMsaLayerGroup = L.layerGroup().addTo(homeMap);
+
+            // Add strait markers
+            Object.entries(homeStraitCoords).forEach(([key, strait]) => {
+                const icon = L.divIcon({
+                    className: 'custom-marker',
+                    html: `<div style="background:${strait.color};width:15px;height:15px;border-radius:50%;border:2px solid white;box-shadow:0 2px 5px rgba(0,0,0,0.3);"></div>`,
+                    iconSize: [15, 15],
+                    iconAnchor: [7, 7]
+                });
+                const marker = L.marker([strait.lat, strait.lng], { icon: icon });
+                marker.bindPopup(`<strong>${strait.name}</strong>`);
+                homeStraitLayerGroup.addLayer(marker);
+            });
+
+            // Draw strait lines
+            const straitLines = [
+                { coords: [[24.2, 122.5], [24.7, 123.3]], color: '#e74c3c', name: 'Yonaguni' },
+                { coords: [[24.5, 124.8], [25.1, 125.8]], color: '#3498db', name: 'Miyako' },
+                { coords: [[30.5, 130.2], [31.0, 131.0]], color: '#2ecc71', name: 'Osumi' },
+                { coords: [[33.8, 128.8], [34.6, 129.8]], color: '#9b59b6', name: 'Tsushima' }
+            ];
+            straitLines.forEach(line => {
+                const polyline = L.polyline(line.coords, {
+                    color: line.color, weight: 4, opacity: 0.7, dashArray: '10, 10'
+                });
+                homeStraitLayerGroup.addLayer(polyline);
+            });
+
+            // Add latest transit event markers from straitData
+            addLatestEventMarkers();
+
+            // Layer controls
+            const overlays = {
+                'Japan MOD Straits': homeStraitLayerGroup,
+                'MSA Military Warnings': homeMsaLayerGroup
+            };
+            L.control.layers(null, overlays, { position: 'topright', collapsed: false }).addTo(homeMap);
+
+            // Legend
+            const legend = L.control({ position: 'bottomright' });
+            legend.onAdd = function() {
+                const div = L.DomUtil.create('div', 'legend');
+                div.innerHTML = `
+                    <div style="background:white;padding:8px;border-radius:5px;font-size:0.7rem;box-shadow:0 1px 5px rgba(0,0,0,0.2);">
+                        <div style="font-weight:bold;margin-bottom:3px;">Straits</div>
+                        <div><span style="display:inline-block;width:10px;height:10px;background:#e74c3c;border-radius:50%;margin-right:4px;"></span>Yonaguni</div>
+                        <div><span style="display:inline-block;width:10px;height:10px;background:#3498db;border-radius:50%;margin-right:4px;"></span>Miyako</div>
+                        <div><span style="display:inline-block;width:10px;height:10px;background:#2ecc71;border-radius:50%;margin-right:4px;"></span>Osumi</div>
+                        <div><span style="display:inline-block;width:10px;height:10px;background:#9b59b6;border-radius:50%;margin-right:4px;"></span>Tsushima</div>
+                        <div style="font-weight:bold;margin-top:4px;margin-bottom:3px;">MSA Warnings</div>
+                        <div><span style="display:inline-block;width:10px;height:10px;background:#e74c3c;border-radius:2px;margin-right:4px;opacity:0.5;"></span>Exercise</div>
+                        <div><span style="display:inline-block;width:10px;height:10px;background:#e67e22;border-radius:2px;margin-right:4px;opacity:0.5;"></span>Live Fire</div>
+                        <div><span style="display:inline-block;width:10px;height:10px;background:#8e44ad;border-radius:2px;margin-right:4px;opacity:0.5;"></span>Rocket</div>
+                    </div>
+                `;
+                return div;
+            };
+            legend.addTo(homeMap);
+
+            document.getElementById('japanModSummary').style.display = 'block';
+        }
+
+        function homeHasValue(val) {
+            return val && val !== '' && val !== 'FALSE' && val !== '0' && val !== 'false';
+        }
+
+        function addLatestEventMarkers() {
+            // Find latest 3 events with remarks from straitData
+            const eventsWithRemarks = straitData
+                .filter(row => row.remark && row.remark.trim() !== '' && row.remark !== '-')
+                .sort((a, b) => {
+                    const dateA = new Date(a.date?.replace(/\//g, '-') || '1970-01-01');
+                    const dateB = new Date(b.date?.replace(/\//g, '-') || '1970-01-01');
+                    return dateB - dateA;
+                })
+                .slice(0, 3);
+
+            eventsWithRemarks.forEach((event, index) => {
+                let straitKey = null;
+                if (homeHasValue(event['與那國'])) straitKey = 'yonaguni';
+                else if (homeHasValue(event['宮古'])) straitKey = 'miyako';
+                else if (homeHasValue(event['大禹'])) straitKey = 'osumi';
+                else if (homeHasValue(event['對馬'])) straitKey = 'tsushima';
+
+                if (!straitKey) return;
+                const straitInfo = homeStraitCoords[straitKey];
+
+                const latOffset = (index - 1) * 0.3;
+                const lngOffset = (index - 1) * 0.5;
+
+                const icon = L.divIcon({
+                    className: 'custom-event-marker',
+                    html: `<div style="background:linear-gradient(135deg,#c94b4b 0%,#4b134f 100%);width:28px;height:28px;border-radius:50%;border:3px solid white;box-shadow:0 3px 10px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:13px;">${index + 1}</div>`,
+                    iconSize: [28, 28],
+                    iconAnchor: [14, 14]
+                });
+
+                const direction = homeHasValue(event['進']) ? '← 進入東海' : (homeHasValue(event['出']) ? '→ 出向太平洋' : '');
+
+                const marker = L.marker(
+                    [straitInfo.lat + latOffset, straitInfo.lng + lngOffset],
+                    { icon: icon, zIndexOffset: 1000 }
+                ).addTo(homeMap);
+
+                marker.bindPopup(`
+                    <div style="min-width:200px;">
+                        <h6>Latest Event #${index + 1}</h6>
+                        <strong>Date:</strong> ${event.date || '-'}<br>
+                        ${direction ? `<strong>Direction:</strong> ${direction}<br>` : ''}
+                        ${event['艦型'] && event['艦型'] !== '未提及' ? `<strong>艦型:</strong> ${event['艦型']}<br>` : ''}
+                        <div style="background:#f8f9fa;padding:6px;border-radius:4px;margin-top:6px;font-size:0.8rem;">${event.remark || 'No details'}</div>
+                    </div>
+                `, { maxWidth: 300 });
+            });
+        }
+
+        async function loadHomeMSAWarnings() {
+            try {
+                const response = await fetch('data/navigation_warnings/military_exercises.csv');
+                if (!response.ok) return;
+                const text = await response.text();
+                const cleanText = text.replace(/^\uFEFF/, '');
+                const parsed = Papa.parse(cleanText, { header: true, skipEmptyLines: true });
+
+                homeMsaWarningData = parsed.data.map(row => {
+                    let coords = homeParseCoords(row.coordinates);
+                    let timePeriods = row.time_periods || '';
+                    const content = row.content_preview || '';
+                    if (coords.length === 0 && content) coords = homeExtractCoordsFromContent(content);
+                    if (!timePeriods && content) timePeriods = homeExtractTime(content);
+                    return {
+                        ...row,
+                        parsedCoords: coords,
+                        parsedTime: timePeriods,
+                        warningType: homeClassifyWarning(row.title, content)
+                    };
+                });
+            } catch (error) {
+                console.error('Error loading MSA warnings:', error);
+            }
+        }
+
+        function homeParseCoords(coordStr) {
+            if (!coordStr || coordStr.trim() === '') return [];
+            return coordStr.split(';').map(pair => {
+                const parts = pair.trim().split(',');
+                if (parts.length === 2) {
+                    const lat = parseFloat(parts[0]);
+                    const lon = parseFloat(parts[1]);
+                    if (!isNaN(lat) && !isNaN(lon)) return { lat, lon };
+                }
+                return null;
+            }).filter(Boolean);
+        }
+
+        function homeExtractCoordsFromContent(text) {
+            const coords = [];
+            const seen = new Set();
+            const pattern1 = /(\d{1,2})-(\d{1,2}(?:\.\d+)?)\s*([NS])\s*[\/\s]\s*(\d{1,3})-(\d{1,2}(?:\.\d+)?)\s*([EW])/g;
+            let match;
+            while ((match = pattern1.exec(text)) !== null) {
+                let lat = parseFloat(match[1]) + parseFloat(match[2]) / 60;
+                let lon = parseFloat(match[4]) + parseFloat(match[5]) / 60;
+                if (match[3] === 'S') lat = -lat;
+                if (match[6] === 'W') lon = -lon;
+                const key = lat.toFixed(4) + ',' + lon.toFixed(4);
+                if (!seen.has(key)) { seen.add(key); coords.push({ lat: Math.round(lat * 10000) / 10000, lon: Math.round(lon * 10000) / 10000 }); }
+            }
+            const pattern2 = /(\d{1,2}(?:\.\d+)?)\s*([NS])\s*(\d{1,3}(?:\.\d+)?)\s*([EW])/g;
+            while ((match = pattern2.exec(text)) !== null) {
+                let lat = parseFloat(match[1]);
+                let lon = parseFloat(match[3]);
+                if (match[2] === 'S') lat = -lat;
+                if (match[4] === 'W') lon = -lon;
+                const key = lat.toFixed(4) + ',' + lon.toFixed(4);
+                if (!seen.has(key)) { seen.add(key); coords.push({ lat, lon }); }
+            }
+            return coords;
+        }
+
+        function homeExtractTime(text) {
+            let m = text.match(/自(\d{1,2}月\d{1,2}日)至(\d{1,2}月?\d{1,2}日)[，,]\s*每日(\d{4}时至\d{4}时)/);
+            if (m) return m[0];
+            m = text.match(/\d{1,2}月\d{1,2}日\d{4}时至\d{4}时/);
+            if (m) return m[0];
+            m = text.match(/自?\d{1,2}月\d{1,2}日\d{1,4}时至\d{1,2}月?\d{1,2}日?\d{1,4}时/);
+            if (m) return m[0];
+            m = text.match(/FROM\s+\d{6}\s*UTC\s+TO\s+\d{6}\s*UTC/i);
+            if (m) return m[0];
+            return '';
+        }
+
+        function homeClassifyWarning(title, content) {
+            const text = ((title || '') + ' ' + (content || '')).toLowerCase();
+            if (/火箭发射|火箭残骸|rocket/.test(text)) return 'rocket';
+            if (/实弹|射击|live.?fire|gunnery|射擊/.test(text)) return 'livefire';
+            if (/军事任务|military.?mission|軍事任務/.test(text)) return 'mission';
+            if (/演习|exercise|演練|演訓|军演|軍演/.test(text)) return 'exercise';
+            return 'other';
+        }
+
+        function homeGetWarningColor(type) {
+            const colors = { exercise: '#e74c3c', livefire: '#e67e22', rocket: '#8e44ad', mission: '#2980b9', other: '#7f8c8d' };
+            return colors[type] || colors.other;
+        }
+
+        function homeGetWarningLabel(type) {
+            const labels = { exercise: '军事演习', livefire: '实弹射击', rocket: '火箭发射', mission: '军事任务', other: '航行警告' };
+            return labels[type] || labels.other;
+        }
+
+        function homeExtractCleanContent(text) {
+            let clean = text
+                .replace(/English\s+x\s+中国海事公众号.*?航行警告\s+\S+海事局\s*/s, '')
+                .replace(/发布时间：\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}\s+\[字体：\s*大\s*中\s*小\s*\]\s*分享到：\s*/, '')
+                .replace(/\s+/g, ' ')
+                .trim();
+            const codeMatch = clean.match(/([A-Za-z\u4e00-\u9fa5]航警?\d+\/\d+|[A-Z]{2,3}\d+\/\d+)/);
+            if (codeMatch) {
+                const idx = clean.indexOf(codeMatch[0]);
+                if (idx >= 0) clean = clean.substring(idx);
+            }
+            return clean;
+        }
+
+        function renderHomeMSAWarnings() {
+            if (!homeMsaWarningData || homeMsaWarningData.length === 0) return;
+
+            // Update stats
+            const types = { exercise: 0, livefire: 0, rocket: 0, mission: 0, other: 0 };
+            let withCoords = 0;
+            homeMsaWarningData.forEach(w => {
+                types[w.warningType] = (types[w.warningType] || 0) + 1;
+                if (w.parsedCoords.length > 0) withCoords++;
+            });
+
+            document.getElementById('homeMsaTotal').textContent = homeMsaWarningData.length;
+            document.getElementById('homeMsaExercise').textContent = types.exercise + types.mission;
+            document.getElementById('homeMsaLiveFire').textContent = types.livefire;
+            document.getElementById('homeMsaRocket').textContent = types.rocket;
+            document.getElementById('homeMsaCoords').textContent = withCoords;
+
+            const dates = homeMsaWarningData.filter(w => w.publish_date).map(w => w.publish_date).sort();
+            if (dates.length > 0) {
+                document.getElementById('homeMsaDateRange').textContent = `${dates[0]} ~ ${dates[dates.length - 1]}`;
+            }
+
+            // Render compact warning list
+            const container = document.getElementById('homeMsaWarningList');
+            const sorted = [...homeMsaWarningData].sort((a, b) => (b.publish_date || '').localeCompare(a.publish_date || ''));
+            container.innerHTML = '';
+
+            sorted.forEach((w) => {
+                const color = homeGetWarningColor(w.warningType);
+                const label = homeGetWarningLabel(w.warningType);
+                const hasCoords = w.parsedCoords.length > 0;
+                const cleanContent = homeExtractCleanContent(w.content_preview || '');
+
+                container.innerHTML += `
+                    <div class="home-warning-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="home-warning-badge" style="background:${color};">${label}</span>
+                            <small class="text-muted">${w.publish_date || '-'}</small>
+                        </div>
+                        <div style="margin-top:2px;font-size:0.75rem;color:#4a5568;">${(w.title || '-').substring(0, 60)}${(w.title || '').length > 60 ? '...' : ''}</div>
+                        ${w.parsedTime ? `<div style="font-size:0.7rem;color:#718096;">${w.parsedTime}</div>` : ''}
+                    </div>
+                `;
+
+                // Add to map
+                if (hasCoords && homeMap && homeMsaLayerGroup) {
+                    homeAddMSAToMap(w);
+                }
+            });
+        }
+
+        function homeAddMSAToMap(warning) {
+            const coords = warning.parsedCoords;
+            const color = homeGetWarningColor(warning.warningType);
+            const label = homeGetWarningLabel(warning.warningType);
+            const cleanContent = homeExtractCleanContent(warning.content_preview || '');
+
+            const popupHtml = `
+                <div style="min-width:200px;max-width:300px;">
+                    <h6 style="color:${color};margin-bottom:4px;">${label}</h6>
+                    <strong>Title:</strong> ${warning.title || '-'}<br>
+                    <strong>Date:</strong> ${warning.publish_date || '-'}<br>
+                    ${warning.parsedTime ? `<strong>Time:</strong> ${warning.parsedTime}<br>` : ''}
+                    <div style="background:#f8f9fa;padding:6px;border-radius:4px;margin-top:4px;font-size:0.75rem;max-height:100px;overflow-y:auto;">
+                        ${cleanContent.substring(0, 200)}${cleanContent.length > 200 ? '...' : ''}
+                    </div>
+                </div>
+            `;
+
+            if (coords.length === 1) {
+                const circle = L.circle([coords[0].lat, coords[0].lon], {
+                    radius: 11112, color: color, fillColor: color, fillOpacity: 0.2, weight: 2, dashArray: '5, 5'
+                });
+                circle.bindPopup(popupHtml, { maxWidth: 300 });
+                homeMsaLayerGroup.addLayer(circle);
+
+                const icon = L.divIcon({
+                    className: 'msa-marker',
+                    html: `<div style="background:${color};width:10px;height:10px;border-radius:50%;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.4);"></div>`,
+                    iconSize: [10, 10], iconAnchor: [5, 5]
+                });
+                const marker = L.marker([coords[0].lat, coords[0].lon], { icon: icon });
+                marker.bindPopup(popupHtml, { maxWidth: 300 });
+                homeMsaLayerGroup.addLayer(marker);
+            } else if (coords.length >= 3) {
+                const latlngs = coords.map(c => [c.lat, c.lon]);
+                const polygon = L.polygon(latlngs, { color: color, fillColor: color, fillOpacity: 0.2, weight: 2 });
+                polygon.bindPopup(popupHtml, { maxWidth: 300 });
+                homeMsaLayerGroup.addLayer(polygon);
+            } else if (coords.length === 2) {
+                const bounds = L.latLngBounds(coords.map(c => [c.lat, c.lon]));
+                const rect = L.rectangle(bounds, { color: color, fillColor: color, fillOpacity: 0.2, weight: 2 });
+                rect.bindPopup(popupHtml, { maxWidth: 300 });
+                homeMsaLayerGroup.addLayer(rect);
+            }
         }
     </script>
 
