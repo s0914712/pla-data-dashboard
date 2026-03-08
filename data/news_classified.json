@@ -4600,5 +4600,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": -0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "習近平強調政治建軍特有優勢，凝心聚力推動國防和軍隊現代化。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-07",
+      "title": "【习近平在出席#解放军和武警部队代表团全体会议#时强调  充分发挥政治建军特有优势  凝心聚力推动国...",
+      "content": "【习近平在出席#解放军和武警部队代表团全体会议#时强调  充分发挥政治建军特有优势  凝心聚力推动国防和军队现代化行稳致远】解放军报北京3月7日电   中共中央总书记、国家主席、中央军委主席习近平7日下午在出席十四届全国人大四次会议解放军和武警部队代表团全体会议时强调，“十五五”时期要如期实 ...全文",
+      "url": "https://m.weibo.cn/detail/5273910903834299",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
