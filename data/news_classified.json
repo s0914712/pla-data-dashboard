@@ -4624,5 +4624,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.8,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "王毅表示，解决台湾问题，实现祖国完全统一的历史进程不可阻挡，强调台湾问题是中国内政，红线不容逾越，绝不允许分裂，并称顺之者昌，逆之者亡。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-03-08",
+      "title": "两会新华社快讯：王毅：解决台湾问题  实现祖国完全统一不可阻挡",
+      "content": "两会新华社快讯：王毅：解决台湾问题 实现祖国完全统一不可阻挡 首页 最新播报 受权发布 两会直播 特稿评论 特别访谈 读报告 聚焦十五五 民声直通车 两会热点 融媒汇 影像集 多语种 English Español Français Русский عربى 日本語 한국어 Deutsch Português 两会新华社快讯：王毅：解决台湾问题 实现祖国完全统一不可阻挡 2026-03-08 11:22:47 来源：新华社 分享到： 两会新华社快讯：王毅说，台湾问题是中国的内政，是中国核心利益中的核心，这一红线不容逾越或踩踏。我们绝不允许任何人、任何势力把80多年前早已光复的台湾再次从中国分裂出去。国际社会已形成坚持一个中国的压倒性共识。解决台湾问题，实现祖国完全统一的历史进程不可阻挡。顺之者昌，逆之者亡。 【纠错】 【责任编辑:吴京泽】 新闻链接 两会新华社快讯：王毅：台湾地位已被一系列国际法律文件锁定 2026-03-08 Copyright © 2000 - 2026 XINHUANET.com All Rights Reserved. 制作单位：新华网股份有限公司 版权所有：新",
+      "url": "https://www.news.cn/tw/20260308/edbf11ee5ae84f5ebf54c724d04c63ae/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
