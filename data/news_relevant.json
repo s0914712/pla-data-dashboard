@@ -4235,5 +4235,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "十四届全国人大四次会议举行第二次全体会议，听取和审议全国人大常委会工作报告和最高人民法院工作报告等。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-09",
+      "title": "【十四届全国人大四次会议举行第二次全体会议 习近平李强王沪宁蔡奇丁薛祥李希韩正等出席 赵乐际作全国人...",
+      "content": "【十四届全国人大四次会议举行第二次全体会议 习近平李强王沪宁蔡奇丁薛祥李希韩正等出席 赵乐际作全国人大常委会工作报告 听取和审议最高人民法院工作报告和最高人民检察院工作报告等】新华社北京3月9日电 十四届全国人大四次会议9日上午在北京人民大会堂举行第二次全体会议，听取和审议全国人大常委 ...全文",
+      "url": "https://m.weibo.cn/detail/5274664335048957",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
