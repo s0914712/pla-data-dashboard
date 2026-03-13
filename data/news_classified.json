@@ -1254,19 +1254,52 @@
     }
   },
   {
-    "category": "Military_Exercise",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": 0.4,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "中國軍機擾台活動驟減，過去10天有9天未偵測到軍機活動，專家直呼不尋常。",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-12",
+      "title": "擾台共機銳減學者：中共防兩會期間飛行員叛逃| 政治",
+      "content": "（中央社記者吳書緯台北12日電）共機近期擾台架次減少，安全台灣學會今天研判，中共領導人習近平整肅解放軍高階將領，加上美國中情局發布招募解放軍影片的雙重效應，在無法確保絕對安全且中國召開兩會之際，為停止可能的出錯、防止飛行員駕機叛逃，因此停止戰機在台海周邊飛行任務。 社團法人安全台灣學會上午舉行十五五系列座談「中共國防預算與軍事支出」，由理事長楊太源主持，邀請台大政治系副教授陳世民、台灣戰略研究學會研究員曾尹亮等人與談。 陳世民指出，中共軍費儘管增幅趨緩，但總和仍遠高於台灣等周邊國家，是東亞軍備競賽的根源，而中共公布今年的國防支出成長7%，是2022年以來最慢的成長速度，而7%的軍費成長若可信，不足以發動對台戰爭，但中共軍費是否具可信度，長期以來是國際間辯論的話題，目前仍無可信的說法，但一般相信中國實際的軍費投入高於官方數字。 楊太源分析，中共2025年對台發動2次軍演，均屬中型聯合軍演，各花費人民幣5億元至7億元之間，共軍受訓練維持費限制，並無太多經費可不斷於台灣周邊海空域進行圍台軍演，僅能針對中華民國總統發表重要談話或政策，進行非計畫的臨時軍演，因此研判今年對台非計畫性軍演約2至3場。 楊太源指出，共軍受中國國內經濟下滑影響，短期內可能無法全面犯台，因此仍可能維持對台進行「聯合戰備警巡」、灰色地帶襲擾、圍台軍演、法律戰與認知作戰。 安全台灣學會提出會論指出，中共軍機近期曾連續多日未現蹤於台灣周邊，若是要使情勢降溫，理應中共軍艦數量也會減少，但中共軍艦仍然每天出沒於台灣周邊海域，且固定維持6艘，顯見「釋放善意」的說法無法解釋。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aipl/202603120324.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-12",
+      "title": "3架次共機越中線擾台國軍嚴密監控| 政治",
+      "content": "（中央社記者游凱翔台北12日電）國防部今天發布共機艦動態，統計自昨天上午6時起至今天上午6時止，國軍偵獲3架次共機逾越台灣海峽中線，並侵擾北部、西南空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲6艘共艦、5架次共機，其中3架次共機逾越台海中線進入北部及西南空域，並持續在台海周邊活動。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：楊凱翔）1150312 #共機",
+      "url": "https://www.cna.com.tw/news/aipl/202603120052.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
     "original_article": {
       "date": "2026-03-09",
       "title": "過去10天有9天未擾台共機活動驟減專家直呼不尋常| 國際",
@@ -1278,43 +1311,33 @@
     }
   },
   {
-    "category": "TW_Statement",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "國防部發布共機艦動態，偵獲2架次共機逾越台海中線進入西南空域，國軍嚴密監控與應處。"
-    },
-    "confidence": 0.95,
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
     "original_article": {
-      "date": "2026-03-07",
-      "title": "2架次共機越中線擾西南空域國軍嚴密監控與應處| 政治",
-      "content": "（中央社記者游凱翔台北7日電）國防部今天發布共機艦動態，統計自昨天上午6時起至今天上午6時止，國軍偵獲2架次共機逾越台灣海峽中線並進入西南空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲6艘共艦、1艘公務船，以及2架次共機逾越台海中線進入西南空域，並持續在台海周邊活動。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：翟思嘉）1150307 #共軍",
-      "url": "https://www.cna.com.tw/news/aipl/202603070031.aspx",
+      "date": "2026-03-08",
+      "title": "共機擾台架次驟減學者：「兩會」維穩避免意外| 政治",
+      "content": "（中央社記者吳書緯台北8日電）共機近日擾台架次驟減，學者林穎佑分析，原因應是與正在舉行的「兩會」有關，中國將重點放在北京維穩，避免不必要的飛行意外影響兩會政治進程；共機台海飛行任務雖減少，但仍持續部署軍艦，對台軍事壓力並未減少。 根據國防部發布的台海周邊海、空域動態，自2月27日上午6時開始至3月8日上午6時止的期間，中共軍機僅於3月6日上午10時45分至當天下午3時5分以2架次輔戰機襲擾台灣西南空域，其餘時間均未偵獲共機。 中國年度重要政治議程「兩會」，全國政協第14屆第四次會議和第14屆全國人大四次會議分別於4日、5日於北京開幕，分別預計於11日和12日閉幕。 淡江大學國際事務與戰略研究所副教授林穎佑指出，觀察共機擾台架次的增減，應該以「月」為單位、而非以「天」為單位；連續數天沒有共機擾台，但只要解放軍對台發動聯合戰備警巡或大型演訓，可能1天就會有多達30架次以上共機，使得當月襲擾的共機架次數跟先前月分相比並無太大差異。 至於近期共機擾台架次大幅下降，林穎佑認為，應與近期舉行「兩會」有關，中國將重點放在北京維穩，軍機的飛行任務較有風險，為避免不必要的飛行意外影響兩會政治進程，因此減少台海周邊飛行任務；但中共持續在台灣周邊部署軍艦，對台軍事壓力並未減少。",
+      "url": "https://www.cna.com.tw/news/aipl/202603080159.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
     }
   },
   {
-    "category": "Military_Exercise",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.5,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "6艘共艦在台海周邊活動",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
     "original_article": {
       "date": "2026-03-10",
       "title": "6艘共艦擾台國軍嚴密監控| 政治",
@@ -1326,43 +1349,90 @@
     }
   },
   {
-    "category": "Military_Exercise",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.4,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "7艘中共軍艦在台海周邊活動，國軍嚴密監控應處。",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.98,
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
     "original_article": {
-      "date": "2026-03-08",
-      "title": "7艘中共軍艦台海周邊活動國軍嚴密監控應處| 政治",
-      "content": "（中央社記者吳書緯台北8日電）國防部表示，自昨天上午6時至今天上午6時，偵獲7艘共艦持續在台海周邊活動，國軍嚴密監控與應處。 國防部上午發布中共解放軍台海周邊海、空域動態，統計自昨天上午6時至今天上午6時，偵獲7艘共艦持續在台海周邊活動，期間內未偵獲共機。 國防部指出，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：蘇志宗）1150308 #中共",
-      "url": "https://www.cna.com.tw/news/aipl/202603080025.aspx",
+      "date": "2026-03-07",
+      "title": "2架次共機越中線擾西南空域國軍嚴密監控與應處| 政治",
+      "content": "（中央社記者游凱翔台北7日電）國防部今天發布共機艦動態，統計自昨天上午6時起至今天上午6時止，國軍偵獲2架次共機逾越台灣海峽中線並進入西南空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲6艘共艦、1艘公務船，以及2架次共機逾越台海中線進入西南空域，並持續在台海周邊活動。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：翟思嘉）1150307 #共軍",
+      "url": "https://www.cna.com.tw/news/aipl/202603070031.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
     }
   },
   {
-    "category": "CN_Statement",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.3,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "中國國防部發言人張曉剛表示，解放軍將推進軍事預算管理改革，強化軍費使用管控，並宣布2026年國防支出成長6.9%至人民幣1.94兆元。"
-    },
-    "confidence": 0.95,
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-13",
+      "title": "中共8機艦台海周邊活動國軍嚴密監控應處| 政治",
+      "content": "（中央社記者吳書緯台北13日電）國防部表示，自昨天上午6時至今天上午6時，偵獲3架次共機，其中2架次逾越中線進入西南空域，以及5艘共艦，總計中共8機艦持續在台海周邊活動，國軍嚴密監控與應處。 根據國防部今天公布「中共解放軍進入台海周邊空域活動示意圖」，國軍於昨天下午2時20分至昨天下午4時25分，在台灣海峽空域偵獲中共2架次主戰機，其中1架逾越海峽中線。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aipl/202603130036.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-13",
+      "title": "國防部：中共發射運載火箭高度位於大氣層外無危害| 政治",
+      "content": "（中央社記者吳書緯台北13日電）國防部表示，今天上午6時33分，中共於四川西昌衛星發射中心執行運載火箭搭載衛星發射任務，飛行路徑經台灣防空識別區西南部朝西太平洋方向，高度位於大氣層外，對台灣無危害。 國防部11日指出，中共13日將在西昌衛星發射中心發射運載火箭，並朝西太平洋方向飛行、經過台灣防空識別區（ADIZ）。",
+      "url": "https://www.cna.com.tw/news/aipl/202603130029.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-11",
+      "title": "烏克蘭派專業團隊赴中東攔截伊朗無人機盼換取飛彈| 國際",
+      "content": "（中央社記者陳彥婷基輔10日專電）烏克蘭總統澤倫斯基今天表示，烏方已派出三支專業團隊前往中東三國，另有一支專家團隊已抵達約旦的美軍基地，以便協助這些國家應對伊朗製無人機攻擊，並盼能以此換取「愛國者三型」等飛彈。 澤倫斯基（Volodymyr Zelenskyy）在線上回應記者提問時指出，三支團隊均已完整編組，預計本週內陸續抵達卡達、阿拉伯聯合大公國與沙烏地阿拉伯。他表示，美國與其他國家目前都已理解，現階段能有效應對伊朗製「見證者」（Shahed）無人機大規模攻擊的經驗，主要來自烏克蘭。 他說，「一些國家私下向其他來源購買攔截型無人機，……我想他們都明白缺乏烏克蘭軍方操作人員、相關軟體系統、雷達網路與其他支持下，單靠攔截機本身難以發揮作用。」",
+      "url": "https://www.cna.com.tw/news/aopl/202603110011.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
     "original_article": {
       "date": "2026-03-10",
       "title": "軍隊反腐下共軍：將推動軍費管理改革全鏈條管控| 兩岸",
@@ -1376,23 +1446,854 @@
   {
     "category": "Not_Relevant",
     "is_relevant": false,
-    "country1": "None",
-    "country2": "None",
+    "country1": "",
+    "country2": "",
     "sentiment_score": 0.0,
     "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
+    "extracted_data": {},
+    "confidence": 0.0,
     "original_article": {
       "date": "2026-03-11",
-      "title": "烏克蘭派專業團隊赴中東攔截伊朗無人機盼換取飛彈| 國際",
-      "content": "（中央社記者陳彥婷基輔10日專電）烏克蘭總統澤倫斯基今天表示，烏方已派出三支專業團隊前往中東三國，另有一支專家團隊已抵達約旦的美軍基地，以便協助這些國家應對伊朗製無人機攻擊，並盼能以此換取「愛國者三型」等飛彈。 澤倫斯基（Volodymyr Zelenskyy）在線上回應記者提問時指出，三支團隊均已完整編組，預計本週內陸續抵達卡達、阿拉伯聯合大公國與沙烏地阿拉伯。他表示，美國與其他國家目前都已理解，現階段能有效應對伊朗製「見證者」（Shahed）無人機大規模攻擊的經驗，主要來自烏克蘭。 他說，「一些國家私下向其他來源購買攔截型無人機，……我想他們都明白缺乏烏克蘭軍方操作人員、相關軟體系統、雷達網路與其他支持下，單靠攔截機本身難以發揮作用。」",
-      "url": "https://www.cna.com.tw/news/aopl/202603110011.aspx",
+      "title": "伊朗加強打擊荷莫茲海峽和波斯灣共傳3貨船遇襲| 國際",
+      "content": "（中央社杜拜11日綜合外電報導）英國海事安全機關表示，今天在具戰略重要性的荷莫茲海峽及在阿拉伯聯合大公國外海的波斯灣上共有3艘貨船遭到不明拋射體擊中。顯示伊朗正在加強海上打擊行動。 法新社報導，英國海事貿易行動辦公室（United Kingdom Maritime Trade Operations，UKMTO）先是表示，「據通報有1艘貨輪在荷莫茲海峽（Strait of Hormuz）遭到1枚不明拋體擊中，導致船上起火」，船員因此撤離，事發在阿曼外海，火勢已撲滅。",
+      "url": "https://www.cna.com.tw/news/aopl/202603110271.aspx",
       "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-11",
+      "title": "伊朗再發動攻擊沙烏地攔截7枚飛彈| 國際",
+      "content": "（中央社利雅德11日綜合外電報導）隨著伊朗對波斯灣鄰國發動新一波攻勢，沙烏地阿拉伯今天表示，成功攔截7枚針對其軍事基地與東部地區的彈道飛彈。 法新社報導，沙國國防部在社群平台X發文表示：「6枚朝蘇爾坦王子空軍基地（Prince Sultan Air Base）發射的彈道飛彈已遭攔截並摧毀。」國防部並在另一則貼文中補充，還攔截1枚朝東部地區發射的彈道飛彈。 蘇爾坦王子空軍基地位在艾卡吉省（Al Kharj），一名美國士兵曾在本月1日的攻擊中受傷，並於一週後不治。 除了飛彈，沙國國防部在另一則推文中表示，他們還攔截了一波共9架的無人機，其中5架在艾卡吉省以東被擊毀。 與此同時，阿拉伯聯合大公國今天也通報他們再度遭到來自伊朗的飛彈及無人機攻擊。阿聯國防部並未說明飛彈和無人機的數量，也沒有具體說明攻擊目標或地點。 伊朗革命衛隊（Revolutionary Guards）前一天宣布發動新一波飛彈攻擊行動，目標包括特拉維夫（Tel Aviv）在內的以色列城市，以及區域內的多個美國據點。",
+      "url": "https://www.cna.com.tw/news/aopl/202603110103.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-11",
+      "title": "美軍P-8A巡邏機飛越台灣海峽展現對印太承諾| 國際",
+      "content": "（中央社台北11日綜合外電報導）美國海軍一架P-8A海神式海上巡邏機（P-8A Poseidon）今天在國際空域飛越台灣海峽，美國第七艦隊指出，此舉「展現美國對於自由和開放印太地區的承諾」。 路透社報導，美國第七艦隊的聲明寫道：「美國符合國際法在台灣海峽範圍內行動，維護了所有國家的航行權利與自由。」 美軍P-8A巡邏機飛越台海之際，美國總統川普（Donald Trump）預計本月稍晚要訪問中國，華府與北京當局希望藉此穩定先前因台灣、貿易爭端等議題而受損的美中關係。（編譯：陳彥鈞）1150311 #中國",
+      "url": "https://www.cna.com.tw/news/aopl/202603110350.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-12",
+      "title": "伊朗女校遭誤炸傳美軍使用過時情報釀悲劇| 國際",
+      "content": "（中央社華盛頓11日綜合外電報導）伊朗南部米納布鎮一所女子學校日前遭襲擊，造成大量學童罹難，兩位知情人士今天告訴路透社更多調查細節，說有可能是美軍使用過時的目標情報所致。 路透社日前披露，美軍仍未結案的內部調查顯示，美軍極可能應為米納布（Minab）女子學校遭擊事件負責。這起事件恐名列美軍數十年衝突史上平民傷亡最慘重的案例之一。 專家團隊表示，網路流傳的影片顯示，一枚美國戰斧巡弋（Tomahawk）飛彈擊中該區。然而，這起悲劇確切的發生經過仍待釐清，五角大廈僅表示調查尚未結束，婉拒進一步回應。 伊朗駐日內瓦聯合國大使巴赫芮尼（Ali Bahreini）指出，這起發生在2月28日、美國與以色列聯手空擊伊朗首日的行動，造成150名學生喪生。 關於誤擊原因，熟悉初步調查結果的消息人士向美國有線電視新聞網（CNN）表示，美軍中央司令部（US Central Command）當時是依據國防情報局（Defense Intelligence Agency）提供的過時資訊制定攻擊座標。路透社引述匿名消息人士指出，負責制定攻擊目標資料的官員疑似採用了過時情資，另一來源也證實這項說法。 根據這所女校官網的存檔資料，這間學校緊鄰1個由伊斯蘭革命衛隊（Islamic Revolutionary Guard Corps）經營的設施。革命衛隊為直屬伊朗最高領袖的軍事機構。 CNN報導，2013年衛星影像顯示，該校與革命衛隊基地仍屬同一院區。2016年影像則可見有圍籬隔開，並為學校設立獨立出入口。2025年12月的影像中，還捕捉到校園操場上有數十人疑似正在嬉戲的身影。 對於媒體詢問，五角大廈表示「事件正在調查中」。關於可能採用過時目標資料一事，「紐約時報」（The New York Times）今天稍早已率先披露。 路透社報導，目前尚不清楚這批過時資料最初是如何被用於攻擊決策，或是否還有其他因素導致錯誤。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aopl/202603120030.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-12",
+      "title": "傳伊朗在荷莫茲海峽布水雷川普：美軍擊中28艘布雷船| 國際",
+      "content": "（中央社辛辛那提11日綜合外電報導）在中東戰爭愈演愈烈之際，伊朗試圖封鎖中東重要航道荷莫茲海峽，據傳已在此水域布設水雷。美國總統川普今天表示，美軍已擊中28艘伊朗布雷船。 法新社報導，川普前往美國俄亥俄州辛辛那提（Cincinnati）時告訴記者：「我們截至目前已擊中28艘布雷船。」 路透社報導，兩名消息人士指稱，伊朗已在荷莫茲海峽（Strait of Hormuz）布設約12枚水雷。該海峽是運送原油和液化天然氣的重要航道，伊朗此舉恐加劇重啟這條水道的難度。",
+      "url": "https://www.cna.com.tw/news/aopl/202603120009.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-11",
+      "title": "傳伊朗在荷莫茲海峽布水雷川普：不移除將面臨空前後果| 國際",
+      "content": "（中央社華盛頓10日綜合外電報導）兩名熟悉美國情報的消息人士指出，伊朗已開始在荷莫茲海峽（Strait of Hormuz）布設水雷。美國總統川普對此警告，若不移除，伊朗將面臨「前所未見的後果」。 美國有線電視新聞網（CNN）報導，消息人士說，目前水雷布設規模尚屬有限，過去幾天僅布下數十枚，不過伊朗仍保有8成至9成小型快艇和布雷船隻，因此仍有能力在這條水道布設數以百計水雷。 荷莫茲海峽是全球能源運輸關鍵樞紐，承載全球約1/5能源運輸量。 根據報導，與伊朗海軍共同控制荷莫茲海峽的伊朗伊斯蘭革命衛隊（IRGC）有能力部署分散式布雷船、裝載爆裂物的小型船隻和岸基飛彈發射陣地等，組成一道危險的「死亡防線」。 川普今天在自家社群平台「真實社群」（Truth Social）發文表示：「儘管我們目前尚未接獲任何相關通報，但如果伊朗在荷莫茲海峽布設任何水雷，我們要求立即移除！」 川普警告，假如伊朗布設水雷卻未移除，將面臨「前所未見的嚴重後果」，但他也說，如果伊朗移除可能已經布設的水雷，將是「朝正確方向邁出一大步」。 美國戰爭部長赫格塞斯（Pete Hegseth）隨後在社群媒體X表示，在川普指示下，美國中央司令部已開始在荷莫茲海峽清除布雷船隻，「以毫不留情的精準打擊方式將其摧毀」，並強調「我們不會讓恐怖分子挾持荷莫茲海峽」。 中央司令部稍後也在社群媒體表示，軍方已在荷莫茲海峽附近摧毀多艘伊朗海軍艦艇，包括16艘布雷船。 伊朗革命衛隊先前警告，任何試圖通過荷莫茲海峽的船隻都可能遭到攻擊，而自戰事爆發以來，這條水道實際上已接近關閉狀態。消息人士對CNN說，目前通行荷莫茲海峽風險極高，堪比「死亡谷」。 美國官員今天表示，美國海軍目前尚未護送任何船隻通過荷莫茲海峽，但川普昨天透露，政府正在評估為行經船隻提供護航的選項。 川普在記者會上也強調，美方已在當地部署大量海軍艦艇，並擁有全球最先進的掃雷與監測設備，以確保荷莫茲海峽安全。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aopl/202603110030.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-08",
+      "title": "學者訪談149位美中台菁英指台海戰爭可能性低| 兩岸",
+      "content": "（中央社記者張淑伶台北8日電）台海和平關乎全球局勢，相較於2027年中國可能攻打台灣的說法，一項訪談了149名美中台菁英的研究顯示，兩岸戰爭可能性低。學者認為，美國扮演重要角色，但台灣在對美軍購上必須傳遞一致訊號。 美國山姆休士頓州立大學政治系副教授翁履中今天在「誰在誤判戰爭？台海局勢下華府與兩岸菁英認知差距」新書發表會中說，政治菁英影響民意風向，因此針對兩岸戰爭與和平的前景，這本書直接鎖定這些較了解甚至接近決策圈的菁英做訪談。 該書另一名作者是來自中國、在美國任教的學者孫太一。書中訪談人士中，58人來自中國、25人來自台灣、49人來自美國、其他17名則是各地華裔人士。在呈現北京觀點的這58人中，有5名是軍方人士、4名政府人員、30名大學學者，其他還有智庫、媒體等人士。 翁履中說，北京菁英的核心判斷是：戰爭可能性很低，和平統一是優先選項，且中方會避免與美軍直接大規模衝突；未來10年優先推動兩岸融合發展，深化經濟社會聯繫。同時，北京也會盡量與周邊國家交好，避免形成對中國的包圍。 他表示，訪談中得到的結論是「（北京）不能打不願打，但必要的時候還是得打」，所以風險不是完全沒有，但是否一定會開戰，不用太悲觀，北京政治圈的菁英們還是維持一定的理智。 不過，他坦言，北京的決策者「只有一位」，就算是收集到的菁英判斷，也不敢說真的就掌握到了當權者他到底在想什麼，只能推敲揣測。 而華府菁英的判斷則是：美國不會主動挑起戰爭，如果發生戰爭，將是北京引發的；2028年前不至於有戰爭，但2028至2035年風險提高，之後風險隨兩岸實力差距變大而提高。他們認為更可能出現的情景是：小規模軍事衝突、冷和平、經貿衝突，或透過兩岸融合的和平統一。 「台灣要怎麼樣讓川普覺得我們很重要，這變成是現在面對的新困境」，翁履中說，華府的政策圈（國會、智庫）基本上很支持台灣，台灣要做的是要傳遞訊號給美國的政策圈，讓美國的政策圈維持對台灣的支持，藉由他們去影響總統川普（Donald Trump），對川普形成某種程度的制約力。",
+      "url": "https://www.cna.com.tw/news/acn/202603080183.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-08",
+      "title": "7艘中共軍艦台海周邊活動國軍嚴密監控應處| 政治",
+      "content": "（中央社記者吳書緯台北8日電）國防部表示，自昨天上午6時至今天上午6時，偵獲7艘共艦持續在台海周邊活動，國軍嚴密監控與應處。 國防部上午發布中共解放軍台海周邊海、空域動態，統計自昨天上午6時至今天上午6時，偵獲7艘共艦持續在台海周邊活動，期間內未偵獲共機。 國防部指出，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：蘇志宗）1150308 #中共",
+      "url": "https://www.cna.com.tw/news/aipl/202603080025.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-13",
+      "title": "美前司令：美軍基地多起中國公民滲透案攜攝影機或無人機闖入| 國際",
+      "content": "（中央社記者鍾佑貞華盛頓12日專電）美前太平洋陸軍司令佛林近日表示，他2021年視察阿拉斯加部隊時，聽取情報簡報後震驚發現多起滲透事件，且全部涉及中國公民；有人直接進入基地大門，也有人進入設施內部，在後車廂藏有攝影機及無人機。 退役美國陸軍上將佛林（Charles Flynn）2021年至2024年擔任太平洋陸軍司令。去年7月「漢光41號」演習期間，佛林曾訪台交流美台軍事合作。他9日接受「洛杉磯時報」（Los Angeles Times）訪問，指中共在美國本土運作間諜網絡。 佛林說，他2021年前往阿拉斯加視察，以爭取成立第11空降師。他聽取情報簡報後「震驚地發現，有這麼多的滲透事件發生在我們的基地，而這些滲透者都是身在美國的中國公民」。 他表示，這些人會直接進入基地大門，有些人甚至成功進入了設施內部，後車廂藏有攝影機和無人機。這些行動也發生在基地外，例如無人機曾在美軍設施和訓練區域附近飛行。 佛林指出，唐諾利（Donnelly）及育空（Yukon）訓練區可能是美國陸軍最大的陸地和空域訓練區，而兩者就在阿拉斯加。俄羅斯一向重視阿拉斯加動態，中國則是近年才了解到這一地區的戰略價值，因為可從中獲取的利益巨大。 當記者問到，中共在美國境內的間諜網絡規模時，佛林指出，據估計，美國有超過32.5萬名中國學生。「試想一下，如果其中25%或30%是真正的間諜，會是什麼景象」？換句話說，這些中國學生在美收集大量情報後送回中共。 佛林進一步主張，在美國的每一位中國公民都以某種方式在中共控制下行事，因為中共向他們在中國的家人施壓。當間諜網絡和資訊戰結合，削弱公眾對政府的信任，就會對美國及其主權產生複合式衝擊。 他也說，中國持續進行戰場準備，目的是干擾、拖延、阻斷美軍在西太平洋投射力量。 「他們（北京）擁有3項優勢。首先是人數優勢，再者是所謂的彈藥庫縱深（magazine depth），也就是大量的載台及武器。此外，他們採取內線作戰策略。」佛林指出，中國距離台灣最近的目標只有約160公里，而美軍需要跨越約1.3萬公里的距離。 他表示，美軍的問題在於後勤支援、作戰部署以及指揮控制，以及必須縮短時間差。因此美軍須前沿部署。任何在網路和太空領域阻止、干擾、破壞美軍決策能力的行動，都會影響美軍採取必要的反制措施。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aopl/202603130022.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-10",
+      "title": "川普：伊朗海軍戰力幾乎被摧毀 飛彈能力剩10%",
+      "content": "（中央社記者鍾佑貞華盛頓9日專電）中東衝突邁入第10天，川普今天回應是否認為戰爭會在本週結束時表示：「不會，但很快。」他指出，伊朗大部分海軍力量已被擊沉，飛彈能力只剩約10%。他也提到稍早與俄羅斯總統普丁通話，指普丁「想要幫忙」。 美國總統川普下午在佛州召開記者會，談到中東衝突時表示，過去9天，美國與以色列已實施「世界上所見過最強大、最複雜的軍事打擊行動」，在軍事目標方面取得重大進展。有些人甚至會說，這些目標幾乎已經達成。 川普並指出，美方持續鎖定伊朗的無人機與飛彈戰力，伊朗無人機數量已大幅下降。目前美方已掌握伊朗所有無人機製造地點，並逐一加以打擊。 他說，伊朗飛彈能力現在只剩約10%，甚至可能更少。美軍同時也在打擊伊朗製造與運送飛彈的地點。迄今美軍就已攻擊超過5000個目標，其中一些非常重要，美軍也刻意把幾個最關鍵的目標留到後面，視需要再處理。 川普指出，後續可能鎖定的目標還包括電力設施。雖然美國在伊朗已取得多次勝利，美軍「還會繼續推進」。",
+      "url": "https://www.cna.com.tw/news/aopl/202603100011.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-13",
+      "title": "美軍KC-135加油機墜毀伊拉克西部救援進行中| 國際",
+      "content": "（中央社華盛頓12日綜合外電報導）一架美軍加油機今天在伊拉克西部墜毀，美軍中央司令部稱這起事故涉及另一架飛機，但並非敵方或友軍誤擊所致，目前正在救援當中。 路透社報導，美國近期大幅增派軍機進入中東，參與對伊朗的行動。 美軍中央司令部（CENTCOM）在聲明中表示，一架KC-135加油機墜毀，目前正在進行救援。另一架飛機則安全著陸。 聲明指出，事故發生於友方空域，當時正在執行美國對伊朗發動的「史詩怒火行動」（Operation Epic Fury）。",
+      "url": "https://www.cna.com.tw/news/aopl/202603130017.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-13",
+      "title": "貝森特：掌控伊朗空域後美軍可能與國際聯盟合作護航| 國際",
+      "content": "（中央社倫敦12日綜合外電報導）美國財政部長貝森特（Scott Bessent）今天接受天空新聞網（Sky News）專訪指出，只要在軍事上可行，美國海軍可能會與國際聯盟合作，為通過荷莫茲海峽（Strait of Hormuz）船隻提供護航。 路透社報導，貝森特說：「我認為，一旦軍事上可行，美國海軍可能會與國際聯盟合作，為船隻提供護航。」 他表示，這項護航計畫將在美國「完全掌控空域，且（伊朗）重建飛彈能力被徹底削弱」後立即啟動。 美國、以色列打擊伊朗，以及德黑蘭隨後回擊，已經加劇區域緊張局勢，通過荷莫茲海峽航運幾乎陷入停滯。荷莫茲海峽是中東油氣輸運的重要通道，航運受阻導致能源價格飆漲。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aopl/202603130018.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-12",
+      "title": "情報專家：伊朗飛彈變準可能是換用中國北斗系統| 國際",
+      "content": "（中央社巴黎11日綜合外電報導）伊朗在反擊美國與以色列的戰事期間展現精準打擊能力，情報專家研判關鍵很可能是伊朗換用中國「北斗」衛星導航系統使然。 前法國對外安全總局（DGSE）情報課長朱列（Alain Juillet）這週在法國時事評論播客節目La Matinale Tocsin表示，從去年6月與以色列打過12天戰爭後，伊朗的打擊精準度明顯提高，很可能是已獲得中國「北斗」衛星導航系統的權限。 朱列說：「這場戰爭的一個令人驚訝之處在於，與8個月前的以伊12日戰爭相比，伊朗飛彈的精準度更高，這引發許多關於這些飛彈導引系統的好奇。」朱列曾於2002至2003年間任職法國對外安全總局情報課長。 最新情勢",
+      "url": "https://www.cna.com.tw/news/aopl/202603120279.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-11",
+      "title": "川普提護航油輪通行荷莫茲海峽分析：美國海軍恐面臨多重風險| 國際",
+      "content": "（中央社華盛頓10日綜合外電報導）美伊開戰後，伊朗威脅封鎖全球原油運輸命脈的荷莫茲海峽。美軍護航可能有助船隻通行，但軍艦伴隨航速緩慢的商船，將面臨水雷、飛彈與無人機等多重威脅，任務風險極高。 綜合法新社與路透社報導，儘管美國總統川普曾警告，如果伊朗干擾石油運輸，將帶來「死亡、烈焰與怒火」。他也提出由美國海軍護送商船通過 荷莫茲海峽 為什麼荷莫茲海峽這麼重要？ 海上能源輸出咽喉：世界上6成原油出口來自沙烏地阿拉伯、伊拉克等波斯灣國家，荷莫茲海峽位於阿曼與伊朗之間，連接波斯灣、阿曼灣及阿拉伯海，擁有得天獨厚的位置，掌握能源海上輸出命脈。 亞洲國家多依賴波斯灣進口原油：世界上3成油品從這裡運出，其中有8成進入亞洲國家；而這也是中國、日本、韓國、新加坡等亞洲國家主要原油輸入管道，日本、韓國8成以上及中國4成以上原油都來自波斯灣地區。 資料來源：美國能源情報署、中國海關",
+      "url": "https://www.cna.com.tw/news/aopl/202603110036.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-11",
+      "title": "政院版軍購特別預算含中科院809億強弓及無人載具| 政治",
+      "content": "（中央社記者游凱翔台北11日電）立法院會日前將行政院、國民黨團及民眾黨團的國防特別條例草案併案付委。針對政院版本（8年、1.25兆元），國防部今天向各黨團說明，有關中科院預算809億元、占7.2%，除銳二無人機、自殺無人艇量產案，亦含強弓飛彈量產案（361億元）。 立法院會6日將政院版（8年新台幣1兆2500億元）、國民黨團版（3800億元+N）及民眾黨團版（4000億元）國防特別條例草案併案付委審查。 政院版、藍版國防特別條例草案付委審查 朝野無異議",
+      "url": "https://www.cna.com.tw/news/aipl/202603110253.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-13",
+      "title": "全球聚焦荷莫茲海峽油價破百美股下挫| 產經",
+      "content": "（中央社記者廖漢原紐約12日專電）美國、以色列與伊朗衝突急遽惡化，波灣戰火與海上油輪烈焰景象，導致今天油價現貨與期貨每桶均重新站上100美元；美股遭拋售，科技類股普遍走低。戰爭已實際影響國際資本市場，升高全球經濟風險。 伊朗當局發佈哈米尼之子穆吉塔巴．哈米尼（Mojtaba Khamenei）繼任最高領袖，宣示強硬回應美以攻擊及持續封鎖荷莫茲海峽（Strait of Hormuz），德黑蘭官方陸續發布油輪與商船遭攻擊烈焰沖天影像，以色列持續空襲貝魯特、德黑蘭等地造成傷亡。 中東局勢快速惡化，各方未見協商可能，區域國家短期間無法恢復正常供油，形勢遠超過2週前美以空襲德黑蘭，華府與市場預期針對特定目標縮小打擊，衝突可速戰速決。 德黑蘭當局以封鎖通行全球20%石油產品油輪的荷莫茲海峽為手段，推高國際能源價格，拖累全球經濟，國際油價再度攀升。 大量利空消息衝擊下，美國西德州中級原油（West Texas Intermediate crude，WTI）12日交易每桶突破100美元，5月底到期期貨合約同樣突破100美元關卡，單日漲幅均超過10%。 國際布蘭特原油（ICE Brent Crude）每桶升破101美元，單日漲幅超過10%。 油價持續攀高，影響各類股。道瓊工業指數收盤下跌1.56%，收報46677.85點。標普500指數跌1.52%，收6672.62點。那斯達克指數下挫1.78%，收22311.98點。 科技類股均顯著下挫，Meta跌2.55%、Alphabet跌1.69%、蘋果（Apple）跌1.94%、亞馬遜（Amazon）跌1.47%、輝達（Nvidia）跌1.53%、台積電ADR跌4.98%。 斯巴達商品（Sparta Commodities）石油分析師西克勞斯比（Neil Crosby）在華爾街日報（Wall Street Journal）表示，市場更形緊張，荷莫茲海峽關閉不僅拖累供應鏈，針對原油設施的攻擊行動也讓中期影響擴大。 華爾街日報報導，戰爭同時影響化肥價格，推高農業成本。",
+      "url": "https://www.cna.com.tw/news/afe/202603130015.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-12",
+      "title": "伊朗新最高領袖發布首次談話：持續關閉荷莫茲海峽| 國際",
+      "content": "（中央社德黑蘭12日綜合外電報導）哈米尼之子穆吉塔巴．哈米尼（Mojtaba Khamenei）發布他繼任最高領袖以來首次談話，呼籲伊朗人民團結一致，並警告以持續關閉重要石油要道荷莫茲海峽作為「施壓工具」。 美國有線電視新聞網（CNN）報導，由伊朗國家電視台1位主播宣讀的這項聲明，還警告美國關閉該區域內所有美軍基地，否則這些基地將「遭到攻擊」。 穆吉塔巴在談話中表示，德黑蘭（Tehran）相信與鄰國的「友誼」，強調伊朗僅鎖定鄰國境內的美軍基地發動攻擊。",
+      "url": "https://www.cna.com.tw/news/aopl/202603120361.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-13",
+      "title": "伊朗矢言繼續封鎖荷莫茲海峽 國際油價收漲逾9%",
+      "content": "（中央社紐約12日綜合外電報導）國際油價今天收盤大漲逾9%，創近4年來新高，主因伊朗加大對中東地區石油及運輸設施的攻擊力道，該國新任最高領袖更矢言將持續封鎖重要的荷莫茲海峽（Strait of Hormuz）。 布倫特原油期貨上漲8.48美元，漲幅9.2%，收在每桶100.46美元，且盤中一度觸及101.60美元。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/afe/202603130010.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-11",
+      "title": "中東戰火延燒 伊朗襲沙國油田、飛彈轟以色列3小時",
+      "content": "（中央社德黑蘭11日綜合外電報導）伊朗今天凌晨發動新一波攻勢，出動無人機襲擊沙烏地阿拉伯一處油田，並連續3小時朝以色列多座城市發射飛彈。 法新社記者在耶路撒冷（Jerusalem）聽見空襲警報與爆炸巨響，緊急事務處理當局尚未通報有人員傷亡，但以色列第12頻道（Channel 12）報導說特拉維夫（Tel Aviv）有數人受傷。 伊朗伊斯蘭革命衛隊（IRGC）表示，他們也對有大量美軍駐紮的巴林與伊拉克庫德斯坦自治區（Iraqi Kurdistan）發動攻擊。 沙烏地阿拉伯國防部說，波斯灣地區今天上午攔截多架無人機與彈道飛彈，其中包括鎖定沙國一處油田的兩架無人機。 伊朗國會議長卡利巴夫（Mohammad Bagher Ghalibaf）稍早在社群平台X以英文發文說，伊朗「當然不尋求停火」，「我們認為侵略者必須受到懲罰和教訓，使其不敢再次攻擊伊朗」。 五角大廈表示，自戰爭爆發以來，已有7名美軍陣亡、約140人受傷。 在德黑蘭，一名40多歲婦女說，儘管「沒有對一般民宅建物」進行轟炸，但爆炸聲仍令人非常不安。 11日衝突中，伊朗發射飛彈，以色列試圖攔截。（路透社）",
+      "url": "https://www.cna.com.tw/news/aopl/202603110121.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-10",
+      "title": "國防部收到美軍售海馬士火箭砲發價書顧立雄：3/26前須簽署| 政治",
+      "content": "（中央社記者王承中台北10日電）國防部長顧立雄今天表示，國防部已在6日收到美方提供的海馬士遠程精準打擊系統發價書，應要在26日前簽署。目前列入特別預算的5項對美軍購，國防部已經拿到4項發價書，希望能獲得立法院授權後與美方簽署。 美國政府去年底公布價值111億美元的8項對台軍售，其中包括M109A7自走砲、海馬士遠程精準打擊系統續購、拖式飛彈續購、反裝甲型無人機飛彈系統、海軍標槍反甲飛彈續購5案，均為「強化防衛韌性及不對稱戰力特別預算」案項。 國防部日前指出，美國政府已就特別預算中的拖式飛彈續購、標槍反甲飛彈續購、M109A7自走砲3項軍售案，正式向台灣提供發價書草案，有效期至3月15日，盼立法院先行授權簽署發價書。 立法院上午繼續進行總質詢，顧立雄會前接受媒體聯訪時，對於是否已收到海馬士遠程精準打擊系統續購發價書，他表示，國防部已在6日收到發價書，應該要在26日前簽署。目前列入特別預算中的5項對美軍購，國防部已經拿到其中4項的發價書。 顧立雄指出，希望這5項對美軍購都能獲得立法院授權後，與美方進行簽署，特別是海馬士的部分，相關期程如果早點啟動就能早日獲得，如果再延宕，恐怕會有相當的影響，希望立法院能夠儘速授權國防部簽署。 媒體報導，首批2架MQ-9B無人機交機再延宕。顧立雄表示，MQ-9B沒有延宕，他不知道相關新聞從何而來，目前也沒有其他武器因為中東戰事而延後交貨。 此外，行政院長卓榮泰日前赴日觀看世界棒球經典賽（WBC），行政院表示，此為私人行程，且皆自費。國民黨立委王鴻薇質疑，私人行程用空軍松指部是否有特權，已向行政院、華航以及松指部去文了解情況。 顧立雄指出，台北松山機場是軍民合用的機場，民航機的起飛與運作都由民航局管制，國防部跟民航局有協定，軍機與民航機可以互相使用對方的停機坪。民航機使用松指部的停機坪，但相關的起飛、管制，都由民航局負責。",
+      "url": "https://www.cna.com.tw/news/aipl/202603100055.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-08",
+      "title": "川普緊急軍售以色列逾2萬枚炸彈不經國會審查| 國際",
+      "content": "（中央社華盛頓7日綜合外電報導）川普政府援引緊急權限，不經國會、加速批准對以色列軍售。而兩名知情官員表示，內容超過2萬枚炸彈，價值約6.5億美元。 美國務院昨晚發布聲明指出，國務卿盧比歐（Marco Rubio）以情勢緊急為由，決定不經國會審查程序，立即出售一批軍火給以色列。 路透社引述兩名知情官員的說法報導，這批武器包含以色列要求的1.2萬枚BLU-110A/B型1000磅通用炸彈彈體。 一週前，美國和以色列聯手對伊朗發動攻擊，這是美國自2003年伊拉克戰爭以來最大規模的軍事行動。美國稱這次行動，重點在摧毀伊朗的攻擊型飛彈、生產飛彈設施，以及伊朗海軍部門。 伊朗在報復行動下，攻擊以色列及設有美軍基地的中東國家，一場區域戰爭隨時可能擴大。 美國務院在聲明中表示：「這項擬議軍售有助於美國的外交政策與國家安全。」並說主要承包商為位於德州的Repkon USA公司。 美國民主黨籍眾議員米克斯（Gregory Meeks）表示，盧比歐以緊急權限繞過國會審查，顯示美國對伊朗戰爭準備不足。「這完全是川普政府自己造成的緊急狀況。」 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aopl/202603080014.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-07",
+      "title": "美國務院跳過國會審查批准逾1.5億美元對以色列軍售彈藥| 國際",
+      "content": "（中央社華盛頓6日綜合外電報導）美國國務院今天表示，已批准一項價值1億5180萬美元的對以色列軍售案，內容包含彈藥與彈藥支援，但未提交國會審查。 路透社報導，美、以聯手攻打伊朗屆滿1週，美國國務院指出，國務卿盧比歐（Marco Rubio）判定存在緊急情況，需要立即對以色列進行軍售。 根據美國國務院聲明，以色列此前請求採購1.2萬枚BLU-110A/B型1000磅通用炸彈彈體。主要承包商為總部位於德州的Repkon USA公司。 美國國務院今天表示，盧比歐認定這項軍售案「符合美國國家利益」。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aopl/202603070084.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-09",
+      "title": "美韓自由護盾軍演規模縮水彭博：擬川習會前為兩韓關係降溫| 國際",
+      "content": "",
+      "url": "https://www.cna.com.tw/news/aopl/202603093004.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-10",
+      "title": "駐韓美軍調武器援中東南韓：國防靠自己不過度依賴| 國際",
+      "content": "（中央社記者楊啟芳首爾10日專電）近期美伊開戰中東情勢不穩，駐韓美軍戰力如防空武器調往中東引發討論，南韓總統李在明今天強調，絕不會因此影響對北韓的威懾，國家防衛應由自己負責，不能過度依賴某一方。 根據韓聯社報導，李在明今天在青瓦台主持國務會議時，提到近期駐韓美軍的砲兵部隊、防空武器外調引起爭議，他表示，「對於駐韓美軍因自身軍事需求調走部分防空武器，我們雖然表達反對意見，但無法完全按照我們的意願決定，這也是現實。」 不過李在明也強調，韓國的國防支出在全球屬於非常高的水準，「根據國際機構評估，我們軍事力量排名世界第5，防衛能力相當強。」因此他指出，駐韓美軍武器外調對南韓防衛態勢的影響不會太大。 李在明也提到，「我們每年的國防支出比北韓的GDP（國內生產毛額）還高出1.4倍，客觀來看，與北韓的軍事實力存在巨大差距。」李在明強調，雖然北韓有核武這個特殊因素，不過在常規戰力與軍事能力方面，南韓具有無法比較的優勢。",
+      "url": "https://www.cna.com.tw/news/aopl/202603100109.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-12",
+      "title": "吳志中：西班牙國會組團訪台以具體行動挺民主台灣| 政治",
+      "content": "（中央社記者楊堯茹台北12日電）西班牙跨黨派議員訪台，外交部政次吳志中午宴時表示，西班牙國會以具體行動展現對民主台灣的支持，期望雙方在半導體、再生能源及資通訊等產業加強交流與合作。 吳志中於11日午宴款待西班牙國會議員尤瑞阿提（Mikel Legarda Uriarte，另譯：雷卡達）等一行6人，歡迎西班牙國會自2023年7月大選後再次組團訪問台灣，以具體行動展現對民主台灣的支持與友誼。 吳志中表示，今年是台灣與西班牙建立往來400週年。當時西班牙人陸續在基隆及淡水建立「聖薩爾瓦多城」（San Salvador）和「聖多明哥城」（Santo Domingo）；鄰近基隆的「三貂角」名稱也源自西班牙文的聖人之名「Santiago（聖雅哥）」，見證兩國在大航海時代的歷史連結。 吳志中強調，台西兩國基於民主自由的共同價值，近年雙邊經貿關係穩定成長。期待未來雙方在半導體、再生能源及資通訊等優勢產業，持續加強兩國交流與合作。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aipl/202603120060.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-10",
+      "title": "奧地利鋼琴國寶布赫賓德將訪台致力追求原譜| 文化",
+      "content": "（中央社記者趙靜瑜台北10日電）奧地利國寶鋼琴家魯道夫・布赫賓德（Rudolf Buchbinder）致力追求原譜，被譽為「維也納鋼琴學派最後權威」，5月他將在音樂會上帶來布拉姆斯的第一號及第二號鋼琴協奏曲。 布赫賓德除了廣為人知的貝多芬詮釋，對於布拉姆斯（Johannes Brahms）也有深度研究，他的私人樂譜收藏中，除了擁有39種不同版本的貝多芬鋼琴奏鳴曲全集，更收藏布拉姆斯兩首鋼琴協奏曲的親筆原稿複本與初版樂譜。布赫賓德透過研究樂譜源頭，持續在演出中實現「忠實與自由、傳統與創新」的融合。",
+      "url": "https://www.cna.com.tw/news/acul/202603100335.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-10",
+      "title": "外交部歡迎關島總督訪台盼深化智慧農業與醫療合作| 政治",
+      "content": "（中央社記者楊堯茹台北10日電）美國關島總督古蕾露訪台，外交部長林佳龍於款宴時表示，台灣與關島共享南島文化淵源，更是守護區域和平穩定的民主夥伴，盼能持續拓展智慧農業、醫療服務、教育及文化等領域的合作。 外交部上午發布新聞稿指出，古蕾露（Lourdes A. Leon Guerrero）訪問團於4日至11日率團訪台。林佳龍於9日款宴訪團一行，雙方就觀光旅遊、醫療轉診及文化交流等議題交換意見。 林佳龍誠摯歡迎關島總督古蕾露第二度率團訪台，並表示台灣與關島不僅共享深厚的南島民族文化淵源，更是堅定守護區域和平穩定的民主夥伴。近年來，台灣與關島在觀光、教育及農業等領域的合作日益緊密，民間交流也更加熱絡頻繁。 林佳龍也強調，未來將持續拓展雙方在智慧農業、醫療服務、教育及文化等領域的合作，期盼攜手推動經濟繁榮，進而提升雙方人民福祉。",
+      "url": "https://www.cna.com.tw/news/aipl/202603100037.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-09",
+      "title": "聖克里斯多福官員訪台聚焦能源轉型碳權合作等議題| 政治",
+      "content": "（中央社記者楊堯茹台北9日電）加勒比海友邦聖克里斯多福及尼維斯工程部長梅納與永續發展暨環境部長克拉克於9日至14日訪台，將拜會政府相關部門就能源轉型、碳權合作、循環經濟及永續發展等議題交換意見。 外交部上午發布新聞稿指出，聖克里斯多福及尼維斯聯邦工程部長梅納（Konris Maynard）與永續發展暨環境部長克拉克（Joyelle Clarke，另譯：柯拉克）應政府邀請於9日至14日率團訪台，團員包括聖克里斯多福及尼維斯環境及氣候行動暨公民賦權部次長萊文（Colincia Levine，另譯：樂凡）與相關領域官員等共8人，外交部表達誠摯歡迎。",
+      "url": "https://www.cna.com.tw/news/aipl/202603090057.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-07",
+      "title": "加拿大高貴林學區副局長訪台 促教師跨文化交流 | 生活",
+      "content": "（中央社記者陳至中台北7日電）加拿大高貴林學區（Coquitlam School District）副局長史蒂芬．惠芬（Stephen Whiffin）近日率隊來台，促成雙方教師交流，尤其是深入了解族群文化、語言傳承，促進跨文化理解。 教育部今天發布新聞稿，史蒂芬於本月6日率隊來台拜會，探尋教育交流與合作機會。 教育部次長朱俊彰表示，台灣與高貴林學區長期維持良好互動，目前已推動高中學生交換計畫，未來更期盼進一步拓展交流面向，包括讓加拿大教師來台交流。",
+      "url": "https://www.cna.com.tw/news/ahel/202603070045.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-07",
+      "title": "女兒劉美賢曾說想訪台 劉俊憶台灣觀選「真正民主自由社會」【專訪】",
+      "content": "（中央社記者張欣瑜加州奧克蘭6日專電）美國華裔花式滑冰選手劉美賢在冬季奧運奪金，傳奇故事激勵人心。她的父親劉俊表示，如果問她願不願意代表中國參加奧運，她只會說：「門都沒有」；此外劉美賢也很想去台灣，以前說過度假要去台灣。劉俊曾赴台觀選，肯定台灣是真正民主自由的社會。 劉美賢復出奪金做自己 父親劉俊：放手為女兒喝采",
+      "url": "https://www.cna.com.tw/news/aipl/202603070018.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-11",
+      "title": "鋼琴家兼指揮反田恭平再訪台旅人視角看待演出| 文化",
+      "content": "（中央社記者趙靜瑜台北11日電）蕭邦國際鋼琴大賽銀獎得主反田恭平不但琴藝獨特，也身兼指揮。他表示，自己像「旅人」，「每一次演出都是一段旅程，每一次登台都會改變我看待世界的方式。」 睽違1年再度來台，反田恭平（Kyohei Sorita）透過NSO國家交響樂團發布的新聞稿表示，台灣對他而言具備極其特殊的地位，「每次來演出都像是探望老友，而且台灣聽眾欣賞音樂時，帶有一種純粹的真誠，有一種無需語言解釋的默契。」 出生於東京的反田恭平，2021年在第18屆國際蕭邦鋼琴大賽榮獲銀獎，成為半個世紀以來首位獲此殊榮的日本鋼琴家。反田恭平也是日本國家交響樂團（Japan National Orchestra）的創辦人、製作人與指揮，同時經營自己的唱片品牌NOVA，舞台上下都展現卓越的影響力與行動力。 反田恭平表示，也許台灣的聽眾會注意到，「我現在的詮釋方式更加完整且宏觀。」他有感覺自己正不斷重新定義「藝術家」身分，「這段旅程仍在繼續，我也期待透過音樂將當下的自己傳遞到台灣樂迷心中。」",
+      "url": "https://www.cna.com.tw/news/acul/202603110309.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-12",
+      "title": "費柴德回味經典賽難忘旅程規劃休賽季和家人再訪台灣| 運動",
+      "content": "（中央社記者蘇志畬台北12日電）「費仔」費柴德（Stuart Fairchild）在世界棒球經典賽（WBC）的好表現圈粉無數，他也認為這是一趟難忘旅程，遺憾的是未能深度走訪台灣，預計休賽季將與家人再次來台。 台美混血的費柴德今年首度披上台灣隊戰袍，在預賽4戰敲出2轟、6分打點，打擊率2成50，成為重要火力輸出，個人社群Instagram粉絲也從加入台灣隊之前的2萬多暴漲到超過30萬。 費柴德今天透過經紀公司帕菲克國際運動行銷表示：「非常感謝球迷們的熱情支持，在加入台灣隊之前，無法想像能獲得這麼多球迷的支持與能量，這真的是一趟非常難忘的旅程。」 只可惜由於經典賽行程緊湊，費柴德賽後回到美國備戰大聯盟春訓以及新賽季，他透露已和太太一起規劃，預計在今年休賽季期間與家人一同回到台灣，希望能有充裕的時間認識這片土地與喜愛他的粉絲。",
+      "url": "https://www.cna.com.tw/news/aspt/202603120061.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-12",
+      "title": "中研院民調：逾半民眾願不計代價抵抗中國、支持對美軍購| 政治",
+      "content": "（中央社記者鍾佑貞華盛頓11日專電）最新民調顯示，若中國攻台且美國未出兵協助，仍有近6成受訪者表示願意不計代價抵抗。至於是否支持政府將軍費提高至GDP的3%，民調顯示，53.5%受訪者表示同意。另也有69.5%受訪者表示支持向美國購買武器。 中研院「美國肖像」計畫於1月進行民調，以「如果中國攻打台灣，您願意不惜一切代價抵抗嗎？」作為基準問題，然後加入美國「戰略模糊」政策背景，形成兩個情境：「美國不協防台灣」以及「美國出兵協防台灣」後詢問民眾。 若美國未出兵協防，民調顯示58.7%受訪者表示願意不計代價抵抗，其中41.2%「非常願意」，17.5%表示「有點願意」；36.2%表示不願意（21.7%「非常不願意」、14.5%「不太願意」），另有5.1%未表態。 若美國出兵協助，34.4%的受訪者「非常願意」不計代價抵抗中國，22.1%「有點願意」，合計56.5%表達願意抵抗。 另一方面，21.7%表示「非常不願意」，13.1%「不太願意」，合計34.8%不願意，8.7%未表態。 參與計畫的學者之一、中研院社會所副研究員潘欣欣今天在與智庫「戰略暨國際研究中心」（CSIS）舉行的線上記者會中指出，無論是學術機構還是政府智庫進行的調查，都呈現出相當一致的趨勢，也就是絕大多數台灣人表示願意抵抗外敵、保衛台灣。 潘欣欣說，不惜一切代價抵抗的意願比例整體較高，這主要由民進黨支持者推高，國民黨和民眾黨則拉低這一比例。引入戰略模糊與戰略清晰的情境後，民進黨支持者無論美國是否出手相救，保衛台灣的意願都維持不變。 她說，而國民黨和民眾黨支持者則對情境的變化非常敏感。當美國不出兵時，他們的意願降低。 這份民調也詢問，是否同意政府將國防預算提高至國內生產毛額（GDP）的3%。結果顯示，27.6%的受訪者「非常同意」，25.9%「有些同意」，合計53.5%表達支持；16.9%則「非常不同意」，14.2%「不太同意」，合計31.1%表示反對，15.3%未表態。 至於是否支持台灣向美國購買武器，民調顯示，69.5%受訪者支持（其中39.5%「非常支持」、30.0%「有點支持」），24.7%不支持（13.1%「非常不支持」、11.6%「不太支持」），5.8%未表態。 就黨派立場而言，潘欣欣說，幾乎所有民進黨支持者都支持購買美國武器，約2/3的民眾黨支持者及不到一半的國民黨支持者表示支持。這使得對美軍購議題在台灣陷入僵局，儘管執政的民進黨極力推動，但國民黨與民眾黨合計掌控立法院多數席次。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aipl/202603120014.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-10",
+      "title": "高虹安率團參訪台中盧秀燕相迎展開市政交流| 地方",
+      "content": "（中央社記者郝雪卿台中10日電）台中市長盧秀燕明天將出訪美國，新竹市長高虹安今天帶領團隊到台中市參訪綠美圖等建設，盧秀燕除表達歡迎及進行市政交流外，還期盼兩城市未來有更多合作及交流。 高虹安帶領新竹市府團隊到台中市綠美圖參訪，中午並與盧秀燕餐敘及進行市政交流。盧秀燕歡迎高虹安及新竹市府團隊蒞臨台中，並表示，台中跟新竹有相當密切的關係，除了兩位市長是好姐妹外，兩座城市也是姐妹城市。 盧秀燕表示，台中與新竹兩地生活圈非常密切，目前有相當多的台中市民往返新竹或竹科上班。她透露自己跟新竹有密切淵源，包括母親就是新竹人，很多親戚也都住在新竹，而自己從小就愛吃新竹美食「合興糕」。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aloc/202603100290.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-09",
+      "title": "两会·港澳台丨台湾省籍代表委员：深化两岸融合发展 携手推进祖国统一大业",
+      "content": "新华社记者 李明刚 摄 “我出生在台湾，我是台湾人，我更是中国人。”全国人大代表陈云英日前接受记者采访时表示，衷心希望台湾的亲人们能深刻认识到，两岸同胞同属中华民族，是休戚与共、荣辱与共、生死与共、命运与共的共同体。我们要为完成祖国统一大业不懈努力。 今年全国两会期间，台湾省籍代表委员立足两岸同胞共同福祉，围绕深化两岸融合发展、推动两岸关系和平发展、推进祖国统一大业积极建言献策，畅想两岸团圆的美好前景。 “两岸交流合作突破障碍，取得了新的进展。”十四届全国人大四次会议台湾代表团开放团组会议8日在人民大会堂台湾厅举行，全国人大代表颜珂接受记者提问时表示，去年大陆加大力度为台胞往来两岸提供更多便利条件，两岸交流精彩纷呈。“越来越多台胞亲眼目睹、亲身感受到了大陆日新月异的发展进步，深受触动。” 对于家国情怀与统一团圆梦，台湾省籍代表委员有着切身体会，坚信两岸团圆终将实现。他们表示，两岸同胞是一家人，血浓于水的亲情无法割断，实现祖国完全统一是全体中华儿女的共同愿望。 闽台地缘相近、人缘相亲，福建是“台胞台企登陆第一家园”。两岸融合发展示范区建设两年多来，成效与影响日益彰显。如何高质量推进两岸融合发展示范区建设、为祖国统一大业增添势能，是台湾省籍代表委员开展调研、履职建言的一大重点。 全国政协委员、台盟中央副主席兼秘书长江利平建议，高质量推进两岸融合发展示范区建设，助力中小微台资企业拓展对接“十五五”规划的渠道，完善增进台湾同胞福祉的政策措施，使公共服务均等化惠及台湾同胞，持续为两岸关系发展添动力。 祖籍台湾花莲的全国政协委员、福建省重竞技运动管理中心副主任吴宇红曾是一名羽毛球国家队运动员，退役后将推动闽台体育交流融合作为工作重点方向。去年全国两会期间，她就加强两岸棒球运动员交流合作提交提案。同年，在有关部门支持下，由闽台运动员联合组成的福建棒球队顺利参加全运会，并斩获历史最好成绩。 “两岸青年同吃同住同训练，为同一个目标并肩拼搏，交流、交心、交融，令人感动。”吴宇红说，越来越多台湾青年通过体育等领域的交流来到大陆，亲身感受到大陆对台胞的善意。真情互动进一步转化为积极的认同与融入。 “台湾同胞尤其青年，要在推进祖国完全统一与民族伟大复兴的道路上争做参与者、行动派。”祖籍台中的全国人大代表李兴魁多年从事教育工作，他呼吁台湾青年冲破民进党当局制造的“信息茧房”，投身两岸交流合作、融合发展的大潮，找准奋斗坐标，在中国式现代化建设中实现人生价值。 “十五五”规划纲要草案和今年的政府工作报告都强调，坚决打击“台独”分裂势力，反对外部势力干涉。对此，全国人大代表、全国台联副会长周琪表示，这是再次向“台独”分裂势力和外部干涉势力发出警示，胆敢逾越红线底线必遭痛击，彰显了我们守护中华民族共同家园的强大能力和完成祖国统一大业的坚定意志。 2025年，大陆开展“海峡雷霆-2025A”“正义使命-2025”演练演习、依法惩治“台独”顽固分子及打手帮凶……全国政协委员、台盟北京市委会专职副主委陈伟说，一系列举措有力震慑“台独”分裂势力谋“独”挑衅。台湾同胞更加深刻认识到，“台独”是绝路、外人靠不住、统一挡不住。 全国政协十四届四次会议8日举行第三次全体会议，陈星莺委员代表民革中央发言说，“台独”势力是不折不扣的“和平破坏者”“危机制造者”“战争煽动者”，必须引起两岸同胞高度警惕。台湾前途在于国家统一，台湾同胞福祉系于民族复兴。要共同维护两岸关系和平发展大局，推动两岸融合发展，共享民族复兴的伟大荣光。",
+      "url": "https://www.news.cn/tw/20260309/02aacdb046e04942936e1174534dd8ae/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-09",
+      "title": "“知音故里”觅知音——台湾青年在武汉的相遇与相知",
+      "content": "8日，“跨越海峡觅知音，汉台携手话未来”主题交流活动在位于武汉龟山的知音殿举行，百余位来自台湾与武汉的青年相聚“知音故里”，分享遇见知己、结缘武汉的暖心故事。 春秋战国时期，俞伯牙与钟子期“高山流水遇知音”的佳话发源于江城武汉。两千多年来，“知音”二字早已成为中华文化里象征心灵相通、彼此相知的精神符号。 知音殿前，武汉大学临床医学系学生田曲文格外引人注目。来自台湾新北的她穿着一身天蓝色的明制汉服，走动间，衣襟处垂挂的珍珠流苏轻轻摇曳，灵动飘逸。 5年前，从小就立志学医的田曲文来到武汉大学就读。“湖北九省通衢，武汉的医疗资源在华中地区也很突出。家人都很支持我深思熟虑后的决定。” 初到武汉，来自异乡的田曲文担心自己难以融入当地生活，可这份顾虑很快就被身边人的热情打消。“同学们知道我是从台湾来的，都特别热情，会跟我聊台湾偶像剧，问我台湾有哪些好玩的地方。” 田曲文在武汉最珍视的“知音”是班长。“我们都喜欢同一个歌手。”田曲文说，平日里两人结伴上课、泡图书馆、逛街散心，生活里遇到烦心事，也会互相倾诉、彼此鼓励，这份陪伴让异乡求学的日子格外温暖。 来自台湾新北的田曲文（左一）和朋友们在知音殿前合影（3月8日摄）。新华社记者 乐文婉 摄 如今，正在武汉大学中南医院轮岗实习的田曲文，也在同时备考武汉大学硕士研究生，希望未来能留在大陆从医。 对来自台湾高雄的张立纶来说，在武汉遇见的“知音”是一起打拼事业的伙伴。 2017年，他和新婚妻子蔡緁绫来武汉度蜜月。“我太太来了以后很喜欢这座城市，不想走了。”本是一趟短暂旅行，却意外改变了两人的人生轨迹。 在张立纶看来，武汉地处长江中游，交通便利，到全国主要城市大都在5小时以内，发展潜力很大。于是，两人决定留下来创业。 刚到武汉时，他们几乎不认识本地人。在创业过程中，张立纶认识了同样来自台湾、在武汉经营茶饮品牌的陈钰澍。“幸好有朋友帮助，我们才慢慢落地生根。” 如今，8年多过去，他们的跨境护肤品业务已经从武汉走向了欧洲和北美，团队规模也扩大至300余人，去年营收超过700万元。“现在，我的‘知音’越来越多了。团队里除钰澍来自台湾外，其他伙伴都来自武汉、黄石等大陆城市。” 对台湾音乐人赖仪雯来说，她的“知音”是自己的丈夫。 一位来自台北的游客（中）在知音殿工作人员的帮助下体验杂技（3月8日摄）。新华社发（张清硕摄） 2011年，赖仪雯所在的唱跳组合解散后，她来到大陆继续从事舞台表演和舞蹈编排工作。在一次活动中，她认识了现在的丈夫。两人从音乐聊起，分享喜欢的歌曲，讨论演唱技巧。慢慢地，联系越来越多，好感也悄然生长。 赖仪雯还记得第一次来武汉的场景。“我们一起走在武汉的街头，他带我去吃他从小吃到大的面窝、热干面，带我去看长江边的日落，带我去看武汉的每一座桥。” 2018年，赖仪雯与丈夫步入婚姻殿堂，正式定居武汉。“高山流水遇知音，而我的‘知音’就在我身边。以前，武汉对我来说只是一个地名；但因为他，这座城市开始有了温度，有了属于我的记忆。” 最近，十几年前赖仪雯所在组合发表的歌曲因网络翻唱再次走红，她也因此重新燃起心中的舞台梦想，开始在社交平台分享音乐作品、回顾组合往事，不少大陆歌迷给她留言询问组合其他成员的近况。 “如果因为我一个人的力量，让我们团体又被大家看见、有机会合体的话，我觉得很酷。”她说。 在“知音故里”，这样跨越海峡觅知音的故事每天都在上演。据湖北省台办介绍，目前有超过5000名台胞常住湖北。",
+      "url": "https://www.news.cn/tw/20260309/72e41bf9aee046c7ae9ec28e2df00d3a/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-11",
+      "title": "国防部新闻发言人就近期涉军问题答记者问",
+      "content": "人工智能军事应用应坚持由人主导、防止失控 有记者问，据报道，美国防部要求美科创公司允许军方不受限制地使用人工智能技术。在针对委内瑞拉、伊朗的军事行动中，美军都大量使用人工智能工具，引发对战争伦理与军事技术应用边界的深刻担忧。请问对此有何评论？ 蒋斌说，不加限制地推进人工智能军事化，将人工智能作为侵犯他国主权的工具，让人工智能过度影响战争决策，让算法掌控人的生杀大权，不仅侵蚀战争的伦理与责任约束，还可能导致技术失控，甚至使美国电影《终结者》里的灾难场景成为现实。 蒋斌表示，中方始终坚持“以人为本、智能向善”原则，始终认为人工智能军事应用应坚持由人主导，反对利用人工智能等新兴技术优势谋求绝对军事霸权、损害他国主权和领土安全。 “我们愿与世界各国一道，推进以联合国为核心的人工智能多边治理进程，加强风险预防和管控，确保人工智能始终朝着有利于人类文明进步的方向发展。”蒋斌说。 正告日方：穷兵黩武老路是自取灭亡不归路 有记者问，据报道，日本近期已开始部署具备对敌基地攻击能力的远程导弹，该导弹射程约1000公里，可覆盖邻国沿海区域，相关部署工作将在本月内完成。请问对此有何评论？ 蒋斌说，一段时间以来，日本右翼势力加速推进“再军事化”动作频频，推动修改“和平宪法”，加快修订“安保三文件”，妄图修改“无核三原则”。如今明确部署远程进攻性武器，射程远超日本领土范围，彻底撕下“专守防卫”、“被动防御”和“自卫”的伪装，充分证明日本“新型军国主义”已不只是危险苗头，而是赤裸裸的现实威胁，是对地区和平安全的严重破坏。 “我们正告日方，穷兵黩武的老路是自取灭亡的不归路。若日方胆敢武力侵犯中方主权安全，必将遭受迎头痛击和更加彻底的失败。”蒋斌表示。 “台独”分裂活动和政治操弄注定徒劳无功 有记者问，据报道，台海军“2026年度敦睦远航训练支队”已启航，赴中南美地区所谓“邦交国”执行“大敦睦”任务。请问对此有何评论？ “所谓‘敦睦’只是民进党当局‘倚外谋独’的借口。一个中国原则是国际关系基本准则和国际社会普遍共识，是中国同183个建交国发展关系的政治基础。”蒋斌表示，“我们希望有关地区国家顺应历史大势和时代潮流，早日作出真正符合本国人民根本和长远利益的正确选择。” “正告民进党当局，任何形式的‘台独’分裂活动和政治操弄，都改变不了台湾属于中国的事实和国际社会坚持一中原则的格局，注定徒劳无功。”蒋斌说。",
+      "url": "https://www.news.cn/tw/20260311/dbb6a57af87e42eca61181a98d79b870/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-12",
+      "title": "台湾花莲县发生5.3级地震",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
+      "url": "https://www.news.cn/tw/20260312/e10cc94145784cc9b952aaec4dc83b5b/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-11",
+      "title": "“台独”分裂活动和政治操弄注定徒劳无功",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
+      "url": "https://www.news.cn/tw/20260311/058d75d6484e4a57b0424ddd03b22b5a/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-10",
+      "title": "外交部：民进党当局打着“经贸投资”等幌子从事“台独”分裂活动注定失败",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
+      "url": "https://www.news.cn/tw/20260310/d2e70b19084c41e1a9662273a9bd2bb9/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-10",
+      "title": "70余名滞留中东台胞经上海中转顺利返台",
+      "content": "10日凌晨4时许，从土耳其伊斯坦布尔搭乘东航MU704航班的70余名台湾同胞，抵达上海浦东国际机场。这是2月底中东局势升级以来，经大陆中转返台人数最多的一批台胞旅客。 据上海公安出入境管理部门工作人员介绍，受地区局势影响，多国关闭领空、机场停运，这批台胞原计划经阿联酋阿布扎比转机返台，因航班取消滞留海外。经大陆有关方面协调帮助，他们得以改乘东航航班从伊斯坦布尔飞抵上海中转。 10日凌晨时分，尽管上海室外气温偏低，但随着飞机缓缓抵靠廊桥，台胞们陆续步出机舱，脸上洋溢着笑容，透露出终于平安回家的喜悦。有台胞激动地对机场工作人员和媒体表示，感谢祖国大陆的关心和安排，终于回来了。 上海边检民警早已等候在中转口，他们主动上前，耐心引导分流，秩序井然。 “我们提前与航空公司精准对接，逐一核对航班动态、旅客信息，加强现场指引和警力保障，同时为他们提供中转便利，确保这批滞留海外的台湾同胞尽快返乡。”上海边检总站上海机场边检站执勤十八队队长郑建桥说。 针对该次航班未持有效台湾居民来往大陆通行证的台胞人数较多的情况，上海公安出入境管理部门配足凌晨值守警力，开足办证专窗，为返乡台胞提供高效便捷的出入境办证服务，实现了“落地即办、高效中转”。 记者从东航了解到，前来上海中转的这批台胞，部分于10日上午搭乘FM801航班于11时许顺利返抵台北松山机场，其他旅客于中午12时许搭乘MU5007航班起飞，于下午顺利飞抵桃园机场。 国务院台办发言人张晗日前在例行新闻发布会上表示，台湾同胞是中国公民，是我们的骨肉乡亲。从利比亚、也门、苏丹撤侨，到巴以冲突爆发和海外台胞遭遇台风、地震等危险，我们都与当地台胞保持紧密联系，及时提供协助。我们将一如既往，采取一切必要措施保护包括台湾同胞在内的中国公民安全。台胞需要协助，可随时联系中国驻当地使领馆，也可拨打12308领事保护热线。无论在什么地方，遇到什么困难，伟大祖国都是广大台湾同胞的坚强后盾。",
+      "url": "https://www.news.cn/tw/20260310/dc83b65fbdb9474ea2d1525d289254b8/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-09",
+      "title": "国台办评卓荣泰窜访日本：鸡鸣狗盗，令人不齿",
+      "content": "有记者问：近日，台湾地区行政机构负责人卓荣泰以所谓“私人日程”为由窜访日本观看球赛。请问对此有何评论？ 朱凤莲表示，民进党当局顽固坚持“台独”分裂立场，不择手段“倚外谋独”，是不折不扣的“两岸和平破坏者”“台海危机制造者”。民进党当局头面人物，以所谓“私人日程”之名，行谋“独”挑衅之实，鸡鸣狗盗，令人不齿。希望广大台湾同胞认清民进党当局谋“独”的祸心与危害，同我们一道坚决反对“台独”分裂行径和外来干涉，切实维护台海和平稳定，坚定守护中华民族共同家园。 她指出，台湾问题纯属中国内政，不容任何外来干涉。日本放任民进党当局头面人物窜访，违反一个中国原则和中日四个政治文件精神，违反国际法和国际关系基本准则，向“台独”分裂势力发出严重错误信号。我们对此表示坚决反对。日本应深刻反省历史、汲取历史教训、切实反思纠错，停止在台湾问题上的操弄和妄动。",
+      "url": "https://www.news.cn/tw/20260309/f6db1bb5bb6e4ecf95b24ce875fa353a/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-13",
+      "title": "#直击东部战区练兵备战现场#【#复杂天气锤炼技战术水平#】近日，东部战区空军航空兵某旅组织飞行训练，...",
+      "content": "#直击东部战区练兵备战现场#【#复杂天气锤炼技战术水平#】近日，东部战区空军航空兵某旅组织飞行训练，锤炼飞行员在复杂环境下的技战术水平，提升部队全时待战、随时能战的打赢能力，为新年度军事训练打下坚实基础。（陈云、王天乐、薛强征、杨敬毅）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5275916591956390",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-09",
+      "title": "【十四届全国人大四次会议举行第二次全体会议 习近平李强王沪宁蔡奇丁薛祥李希韩正等出席 赵乐际作全国人...",
+      "content": "【十四届全国人大四次会议举行第二次全体会议 习近平李强王沪宁蔡奇丁薛祥李希韩正等出席 赵乐际作全国人大常委会工作报告 听取和审议最高人民法院工作报告和最高人民检察院工作报告等】新华社北京3月9日电 十四届全国人大四次会议9日上午在北京人民大会堂举行第二次全体会议，听取和审议全国人大常委 ...全文",
+      "url": "https://m.weibo.cn/detail/5274664335048957",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-07",
+      "title": "【习近平在出席#解放军和武警部队代表团全体会议#时强调  充分发挥政治建军特有优势  凝心聚力推动国...",
+      "content": "【习近平在出席#解放军和武警部队代表团全体会议#时强调  充分发挥政治建军特有优势  凝心聚力推动国防和军队现代化行稳致远】解放军报北京3月7日电   中共中央总书记、国家主席、中央军委主席习近平7日下午在出席十四届全国人大四次会议解放军和武警部队代表团全体会议时强调，“十五五”时期要如期实 ...全文",
+      "url": "https://m.weibo.cn/detail/5273910903834299",
+      "source": "weibo",
       "category": "",
       "sentiment": ""
     }
@@ -1440,78 +2341,6 @@
       "title": "五角大廈：「史詩怒火行動」以來已有140名美軍受傷| 國際",
       "content": "（中央社記者鍾佑貞華盛頓10日專電）美軍2月28日對伊朗發動「史詩怒火行動」空襲。五角大廈今天對中央社表示，目前約有140名美軍受傷，其中8人傷勢嚴重。負責美國中東軍事行動的美軍中央司令部8日指出，已有7名美軍陣亡。 五角大廈發言人帕尼爾（Sean Parnell）下午透過電子郵件表示，多數傷勢較輕，已有108名軍人重返崗位。重傷的8人正在接受最高級別醫治。 伊朗戰爭進入第11天，仍看不到結束跡象。伊朗持續攻擊區域石油基礎設施並揚言切斷海上交通，美國今天也宣布將發動新一波猛烈打擊。 雙邊言辭愈發激烈。美國戰爭部長赫格塞斯（Pete Hegseth）上午在記者會表示，美國將加強攻擊伊朗，發動開戰以來最猛烈的空襲。 與會的美國參謀首長聯席會議主席凱恩（Dan Caine）指出，美軍已打擊逾5000個目標，包括「更深入打擊伊朗的軍事與工業基地」。 目擊者對美聯社表示，今天下午以色列展開新一輪空襲後，伊朗首都德黑蘭傳出多起爆炸聲，許多商店關門歇業。 伊朗則態度強硬，排除談判可能。國會議長卡利巴夫（Mohammad Bagher Ghalibaf）在社群媒體X表示，伊朗絕對不尋求停火。「敵人應該明白，無論採取什麼行動，都將招致對等且立即的回應。」 伊朗最高國家安全委員會（Supreme National Security Council）首長拉里賈尼（Ali Larijani）更直接對川普開嗆：「伊朗不怕你空泛的威脅。即使比你更強大的國家也無法消滅伊朗。小心別讓自己也被消滅。」 中東地區死亡人數上升 阿拉伯聯合大公國（UAE，阿聯）通報新增兩起死亡事件，共有9架無人機襲擊該國。官員表示，伊朗無人機襲擊後，工業城市發生火災，據報未造成人員傷亡。 自2月28日美國和以色列對伊朗發動攻擊以來，阿聯已遭遇多起襲擊，造成6人死亡、122人受傷。 巴林政府表示，伊朗發動的攻擊擊中首都一棟民宅，造成一名29歲女子死亡、8人受傷。沙烏地阿拉伯指出，已在產油豐富的東部地區擊落兩架無人機；科威特國民警衛隊則稱擊落6架無人機。 根據官方統計，自戰爭爆發以來，伊朗至少有1230人喪生，黎巴嫩至少397人喪生，以色列則有11人喪生。 透過 Google News 追蹤中央社",
       "url": "https://www.cna.com.tw/news/aopl/202603110008.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "N/A",
-    "country2": "N/A",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-10",
-      "title": "川普：伊朗海軍戰力幾乎被摧毀 飛彈能力剩10%",
-      "content": "（中央社記者鍾佑貞華盛頓9日專電）中東衝突邁入第10天，川普今天回應是否認為戰爭會在本週結束時表示：「不會，但很快。」他指出，伊朗大部分海軍力量已被擊沉，飛彈能力只剩約10%。他也提到稍早與俄羅斯總統普丁通話，指普丁「想要幫忙」。 美國總統川普下午在佛州召開記者會，談到中東衝突時表示，過去9天，美國與以色列已實施「世界上所見過最強大、最複雜的軍事打擊行動」，在軍事目標方面取得重大進展。有些人甚至會說，這些目標幾乎已經達成。 川普並指出，美方持續鎖定伊朗的無人機與飛彈戰力，伊朗無人機數量已大幅下降。目前美方已掌握伊朗所有無人機製造地點，並逐一加以打擊。 他說，伊朗飛彈能力現在只剩約10%，甚至可能更少。美軍同時也在打擊伊朗製造與運送飛彈的地點。迄今美軍就已攻擊超過5000個目標，其中一些非常重要，美軍也刻意把幾個最關鍵的目標留到後面，視需要再處理。 川普指出，後續可能鎖定的目標還包括電力設施。雖然美國在伊朗已取得多次勝利，美軍「還會繼續推進」。",
-      "url": "https://www.cna.com.tw/news/aopl/202603100011.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "US_TW_Interaction",
-    "is_relevant": true,
-    "country1": "US",
-    "country2": "TW",
-    "sentiment_score": 0.4,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "台灣國防部收到美國海馬士遠程精準打擊系統發價書，須於3月26日前簽署。",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-10",
-      "title": "國防部收到美軍售海馬士火箭砲發價書顧立雄：3/26前須簽署| 政治",
-      "content": "（中央社記者王承中台北10日電）國防部長顧立雄今天表示，國防部已在6日收到美方提供的海馬士遠程精準打擊系統發價書，應要在26日前簽署。目前列入特別預算的5項對美軍購，國防部已經拿到4項發價書，希望能獲得立法院授權後與美方簽署。 美國政府去年底公布價值111億美元的8項對台軍售，其中包括M109A7自走砲、海馬士遠程精準打擊系統續購、拖式飛彈續購、反裝甲型無人機飛彈系統、海軍標槍反甲飛彈續購5案，均為「強化防衛韌性及不對稱戰力特別預算」案項。 國防部日前指出，美國政府已就特別預算中的拖式飛彈續購、標槍反甲飛彈續購、M109A7自走砲3項軍售案，正式向台灣提供發價書草案，有效期至3月15日，盼立法院先行授權簽署發價書。 立法院上午繼續進行總質詢，顧立雄會前接受媒體聯訪時，對於是否已收到海馬士遠程精準打擊系統續購發價書，他表示，國防部已在6日收到發價書，應該要在26日前簽署。目前列入特別預算中的5項對美軍購，國防部已經拿到其中4項的發價書。 顧立雄指出，希望這5項對美軍購都能獲得立法院授權後，與美方進行簽署，特別是海馬士的部分，相關期程如果早點啟動就能早日獲得，如果再延宕，恐怕會有相當的影響，希望立法院能夠儘速授權國防部簽署。 媒體報導，首批2架MQ-9B無人機交機再延宕。顧立雄表示，MQ-9B沒有延宕，他不知道相關新聞從何而來，目前也沒有其他武器因為中東戰事而延後交貨。 此外，行政院長卓榮泰日前赴日觀看世界棒球經典賽（WBC），行政院表示，此為私人行程，且皆自費。國民黨立委王鴻薇質疑，私人行程用空軍松指部是否有特權，已向行政院、華航以及松指部去文了解情況。 顧立雄指出，台北松山機場是軍民合用的機場，民航機的起飛與運作都由民航局管制，國防部跟民航局有協定，軍機與民航機可以互相使用對方的停機坪。民航機使用松指部的停機坪，但相關的起飛、管制，都由民航局負責。",
-      "url": "https://www.cna.com.tw/news/aipl/202603100055.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "US",
-    "country2": "",
-    "sentiment_score": -0.7,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-11",
-      "title": "川普提護航油輪通行荷莫茲海峽分析：美國海軍恐面臨多重風險| 國際",
-      "content": "（中央社華盛頓10日綜合外電報導）美伊開戰後，伊朗威脅封鎖全球原油運輸命脈的荷莫茲海峽。美軍護航可能有助船隻通行，但軍艦伴隨航速緩慢的商船，將面臨水雷、飛彈與無人機等多重威脅，任務風險極高。 綜合法新社與路透社報導，儘管美國總統川普曾警告，如果伊朗干擾石油運輸，將帶來「死亡、烈焰與怒火」。他也提出由美國海軍護送商船通過 荷莫茲海峽 為什麼荷莫茲海峽這麼重要？ 海上能源輸出咽喉：世界上6成原油出口來自沙烏地阿拉伯、伊拉克等波斯灣國家，荷莫茲海峽位於阿曼與伊朗之間，連接波斯灣、阿曼灣及阿拉伯海，擁有得天獨厚的位置，掌握能源海上輸出命脈。 亞洲國家多依賴波斯灣進口原油：世界上3成油品從這裡運出，其中有8成進入亞洲國家；而這也是中國、日本、韓國、新加坡等亞洲國家主要原油輸入管道，日本、韓國8成以上及中國4成以上原油都來自波斯灣地區。 資料來源：美國能源情報署、中國海關",
-      "url": "https://www.cna.com.tw/news/aopl/202603110036.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -1638,78 +2467,6 @@
     }
   },
   {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "KR",
-    "country2": "US",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "南韓總統李在明強調，國家防衛應由自己負責，不能過度依賴某一方，並對自身軍事力量有信心，不受駐韓美軍武器調動影響。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-10",
-      "title": "駐韓美軍調武器援中東南韓：國防靠自己不過度依賴| 國際",
-      "content": "（中央社記者楊啟芳首爾10日專電）近期美伊開戰中東情勢不穩，駐韓美軍戰力如防空武器調往中東引發討論，南韓總統李在明今天強調，絕不會因此影響對北韓的威懾，國家防衛應由自己負責，不能過度依賴某一方。 根據韓聯社報導，李在明今天在青瓦台主持國務會議時，提到近期駐韓美軍的砲兵部隊、防空武器外調引起爭議，他表示，「對於駐韓美軍因自身軍事需求調走部分防空武器，我們雖然表達反對意見，但無法完全按照我們的意願決定，這也是現實。」 不過李在明也強調，韓國的國防支出在全球屬於非常高的水準，「根據國際機構評估，我們軍事力量排名世界第5，防衛能力相當強。」因此他指出，駐韓美軍武器外調對南韓防衛態勢的影響不會太大。 李在明也提到，「我們每年的國防支出比北韓的GDP（國內生產毛額）還高出1.4倍，客觀來看，與北韓的軍事實力存在巨大差距。」李在明強調，雖然北韓有核武這個特殊因素，不過在常規戰力與軍事能力方面，南韓具有無法比較的優勢。",
-      "url": "https://www.cna.com.tw/news/aopl/202603100109.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": null,
-    "country2": null,
-    "sentiment_score": -0.8,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-03-11",
-      "title": "傳伊朗在荷莫茲海峽布水雷川普：不移除將面臨空前後果| 國際",
-      "content": "（中央社華盛頓10日綜合外電報導）兩名熟悉美國情報的消息人士指出，伊朗已開始在荷莫茲海峽（Strait of Hormuz）布設水雷。美國總統川普對此警告，若不移除，伊朗將面臨「前所未見的後果」。 美國有線電視新聞網（CNN）報導，消息人士說，目前水雷布設規模尚屬有限，過去幾天僅布下數十枚，不過伊朗仍保有8成至9成小型快艇和布雷船隻，因此仍有能力在這條水道布設數以百計水雷。 荷莫茲海峽是全球能源運輸關鍵樞紐，承載全球約1/5能源運輸量。 根據報導，與伊朗海軍共同控制荷莫茲海峽的伊朗伊斯蘭革命衛隊（IRGC）有能力部署分散式布雷船、裝載爆裂物的小型船隻和岸基飛彈發射陣地等，組成一道危險的「死亡防線」。 川普今天在自家社群平台「真實社群」（Truth Social）發文表示：「儘管我們目前尚未接獲任何相關通報，但如果伊朗在荷莫茲海峽布設任何水雷，我們要求立即移除！」 川普警告，假如伊朗布設水雷卻未移除，將面臨「前所未見的嚴重後果」，但他也說，如果伊朗移除可能已經布設的水雷，將是「朝正確方向邁出一大步」。 美國戰爭部長赫格塞斯（Pete Hegseth）隨後在社群媒體X表示，在川普指示下，美國中央司令部已開始在荷莫茲海峽清除布雷船隻，「以毫不留情的精準打擊方式將其摧毀」，並強調「我們不會讓恐怖分子挾持荷莫茲海峽」。 中央司令部稍後也在社群媒體表示，軍方已在荷莫茲海峽附近摧毀多艘伊朗海軍艦艇，包括16艘布雷船。 伊朗革命衛隊先前警告，任何試圖通過荷莫茲海峽的船隻都可能遭到攻擊，而自戰事爆發以來，這條水道實際上已接近關閉狀態。消息人士對CNN說，目前通行荷莫茲海峽風險極高，堪比「死亡谷」。 美國官員今天表示，美國海軍目前尚未護送任何船隻通過荷莫茲海峽，但川普昨天透露，政府正在評估為行經船隻提供護航的選項。 川普在記者會上也強調，美方已在當地部署大量海軍艦艇，並擁有全球最先進的掃雷與監測設備，以確保荷莫茲海峽安全。 透過 Google News 追蹤中央社",
-      "url": "https://www.cna.com.tw/news/aopl/202603110030.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Regional_Security",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": 0.6,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "學者訪談美中台菁英，研究顯示兩岸戰爭可能性低。北京菁英判斷戰爭可能性低，優先和平統一與融合發展，避免與美軍大規模衝突。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-08",
-      "title": "學者訪談149位美中台菁英指台海戰爭可能性低| 兩岸",
-      "content": "（中央社記者張淑伶台北8日電）台海和平關乎全球局勢，相較於2027年中國可能攻打台灣的說法，一項訪談了149名美中台菁英的研究顯示，兩岸戰爭可能性低。學者認為，美國扮演重要角色，但台灣在對美軍購上必須傳遞一致訊號。 美國山姆休士頓州立大學政治系副教授翁履中今天在「誰在誤判戰爭？台海局勢下華府與兩岸菁英認知差距」新書發表會中說，政治菁英影響民意風向，因此針對兩岸戰爭與和平的前景，這本書直接鎖定這些較了解甚至接近決策圈的菁英做訪談。 該書另一名作者是來自中國、在美國任教的學者孫太一。書中訪談人士中，58人來自中國、25人來自台灣、49人來自美國、其他17名則是各地華裔人士。在呈現北京觀點的這58人中，有5名是軍方人士、4名政府人員、30名大學學者，其他還有智庫、媒體等人士。 翁履中說，北京菁英的核心判斷是：戰爭可能性很低，和平統一是優先選項，且中方會避免與美軍直接大規模衝突；未來10年優先推動兩岸融合發展，深化經濟社會聯繫。同時，北京也會盡量與周邊國家交好，避免形成對中國的包圍。 他表示，訪談中得到的結論是「（北京）不能打不願打，但必要的時候還是得打」，所以風險不是完全沒有，但是否一定會開戰，不用太悲觀，北京政治圈的菁英們還是維持一定的理智。 不過，他坦言，北京的決策者「只有一位」，就算是收集到的菁英判斷，也不敢說真的就掌握到了當權者他到底在想什麼，只能推敲揣測。 而華府菁英的判斷則是：美國不會主動挑起戰爭，如果發生戰爭，將是北京引發的；2028年前不至於有戰爭，但2028至2035年風險提高，之後風險隨兩岸實力差距變大而提高。他們認為更可能出現的情景是：小規模軍事衝突、冷和平、經貿衝突，或透過兩岸融合的和平統一。 「台灣要怎麼樣讓川普覺得我們很重要，這變成是現在面對的新困境」，翁履中說，華府的政策圈（國會、智庫）基本上很支持台灣，台灣要做的是要傳遞訊號給美國的政策圈，讓美國的政策圈維持對台灣的支持，藉由他們去影響總統川普（Donald Trump），對川普形成某種程度的制約力。",
-      "url": "https://www.cna.com.tw/news/acn/202603080183.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
     "category": "US_Statement",
     "is_relevant": true,
     "country1": "US",
@@ -1776,30 +2533,6 @@
       "title": "國防特別條例付委卓榮泰盼以國防部規劃為討論依據| 政治",
       "content": "（中央社記者陳俊華台北6日電）行政院版及國民黨版國防特別條例草案，今天在立法院會付委審查。行政院長卓榮泰說，基於國防最嚴謹的專業評估需求，並考量財政能力、年度規劃，才提出8年1.25兆元的特別條例及特別預算，盼以國防部的整套規劃，作為最終討論依據。 立法院會上午處理報告事項，將行政院版國防特別條例草案及國民黨版國防特別條例草案，交立法院外交及國防、財政兩委員會，與民眾黨團版國防特別條例草案併案審查。 立法院會下午繼續進行施政總質詢。民眾黨立委王安祥說，目前各版本軍購條例都已付委、將併案討論，希望能異中求同。卓榮泰答詢說，國家基於國防最嚴謹的專業評估需求、考量財政能力、年度規劃，經過長時間才提出8年1.25兆元的特別條例及特別預算。 卓榮泰表示，包括總統所說的「台灣之盾」、用AI高科技形成擊殺鏈、發展國內軍工產業，是整套的內容，任何割裂都會在執行過程產生不可預知狀況。軍購是台灣向外國採購，不是外國拿一張單子來兜售，誠懇期待以國防部提出的整套規劃，作為最終討論依據。 王安祥說，只要確定能買到的東西，基本上民眾黨都支持，因此上午才會在院會中提案，針對簽約期程屆至前尚未完成預算審議的項目，授權行政院先行與美方簽署發價書。 國防部長顧立雄表示，民眾黨團版草案中，將美國知會國會的項目、金額列出來，如果將金額寫在條例裡面，「這是將條例及預算混淆了」，因為先知會國會報價後，發價書上才會有金額，之後還要議價程序，才會確認相關金額。 顧立雄指出，另外國內要配合的項目，例如要買海馬斯，還有要容納海馬斯系統的的彈堡設置，民眾黨把金額列入條例中，不是很適當的作為。行政院版草案是經2年時間不斷內部研討，才提出整體規劃案，不能只看知會國會的項目。 透過 Google News 追蹤中央社",
       "url": "https://www.cna.com.tw/news/aipl/202603060188.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "US",
-    "country2": null,
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-08",
-      "title": "川普緊急軍售以色列逾2萬枚炸彈不經國會審查| 國際",
-      "content": "（中央社華盛頓7日綜合外電報導）川普政府援引緊急權限，不經國會、加速批准對以色列軍售。而兩名知情官員表示，內容超過2萬枚炸彈，價值約6.5億美元。 美國務院昨晚發布聲明指出，國務卿盧比歐（Marco Rubio）以情勢緊急為由，決定不經國會審查程序，立即出售一批軍火給以色列。 路透社引述兩名知情官員的說法報導，這批武器包含以色列要求的1.2萬枚BLU-110A/B型1000磅通用炸彈彈體。 一週前，美國和以色列聯手對伊朗發動攻擊，這是美國自2003年伊拉克戰爭以來最大規模的軍事行動。美國稱這次行動，重點在摧毀伊朗的攻擊型飛彈、生產飛彈設施，以及伊朗海軍部門。 伊朗在報復行動下，攻擊以色列及設有美軍基地的中東國家，一場區域戰爭隨時可能擴大。 美國務院在聲明中表示：「這項擬議軍售有助於美國的外交政策與國家安全。」並說主要承包商為位於德州的Repkon USA公司。 美國民主黨籍眾議員米克斯（Gregory Meeks）表示，盧比歐以緊急權限繞過國會審查，顯示美國對伊朗戰爭準備不足。「這完全是川普政府自己造成的緊急狀況。」 透過 Google News 追蹤中央社",
-      "url": "https://www.cna.com.tw/news/aopl/202603080014.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -1878,54 +2611,6 @@
     }
   },
   {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "US",
-    "country2": "",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-07",
-      "title": "美國務院跳過國會審查批准逾1.5億美元對以色列軍售彈藥| 國際",
-      "content": "（中央社華盛頓6日綜合外電報導）美國國務院今天表示，已批准一項價值1億5180萬美元的對以色列軍售案，內容包含彈藥與彈藥支援，但未提交國會審查。 路透社報導，美、以聯手攻打伊朗屆滿1週，美國國務院指出，國務卿盧比歐（Marco Rubio）判定存在緊急情況，需要立即對以色列進行軍售。 根據美國國務院聲明，以色列此前請求採購1.2萬枚BLU-110A/B型1000磅通用炸彈彈體。主要承包商為總部位於德州的Repkon USA公司。 美國國務院今天表示，盧比歐認定這項軍售案「符合美國國家利益」。 透過 Google News 追蹤中央社",
-      "url": "https://www.cna.com.tw/news/aopl/202603070084.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "US",
-    "country2": "KR",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-09",
-      "title": "美韓自由護盾軍演規模縮水彭博：擬川習會前為兩韓關係降溫| 國際",
-      "content": "",
-      "url": "https://www.cna.com.tw/news/aopl/202603093004.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
     "category": "Regional_Security",
     "is_relevant": true,
     "country1": "JP",
@@ -1944,126 +2629,6 @@
       "title": "日本首批國產長程飛彈進駐熊本射程觸及中國本土| 國際",
       "content": "（中央社東京9日綜合外電報導）日本官員今天表示，將於3月底前在西南部九州地區部署一批國產長程反擊飛彈。這款飛彈射程約1000公里，可觸及中國本土，其發射裝置已運抵熊本市。 日本內閣官房長官木原稔今天在例行記者會上表示，日本陸上自衛隊計畫在九州熊本部署12式陸基反艦飛彈，他已獲告知，一旦完成必要準備，防衛省將向當地居民說明此項行動。 共同社報導，此次部署的飛彈是「12式陸基反艦飛彈增程改良型」，射程約1000公里，可從九州飛抵中國沿海地區。 據報導，日本陸上自衛隊今天凌晨把這款飛彈的發射裝置等設備，運入首個部署地、熊本市的健軍駐屯地。相關人士透露，部署工作將在本月完成。 「12式陸基反艦飛彈增程改良型」是由三菱重工研發生產，射程約1000公里，可觸及中國本土，較舊型飛彈的200公里射程提升許多。 透過 Google News 追蹤中央社",
       "url": "https://www.cna.com.tw/news/aopl/202603090274.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "None",
-    "country2": "None",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-03-10",
-      "title": "奧地利鋼琴國寶布赫賓德將訪台致力追求原譜| 文化",
-      "content": "（中央社記者趙靜瑜台北10日電）奧地利國寶鋼琴家魯道夫・布赫賓德（Rudolf Buchbinder）致力追求原譜，被譽為「維也納鋼琴學派最後權威」，5月他將在音樂會上帶來布拉姆斯的第一號及第二號鋼琴協奏曲。 布赫賓德除了廣為人知的貝多芬詮釋，對於布拉姆斯（Johannes Brahms）也有深度研究，他的私人樂譜收藏中，除了擁有39種不同版本的貝多芬鋼琴奏鳴曲全集，更收藏布拉姆斯兩首鋼琴協奏曲的親筆原稿複本與初版樂譜。布赫賓德透過研究樂譜源頭，持續在演出中實現「忠實與自由、傳統與創新」的融合。",
-      "url": "https://www.cna.com.tw/news/acul/202603100335.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "US_TW_Interaction",
-    "is_relevant": true,
-    "country1": "TW",
-    "country2": "US",
-    "sentiment_score": 0.9,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "關島總督古蕾露訪台，外交部長林佳龍款宴，盼深化智慧農業、醫療、教育及文化等領域合作。",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-10",
-      "title": "外交部歡迎關島總督訪台盼深化智慧農業與醫療合作| 政治",
-      "content": "（中央社記者楊堯茹台北10日電）美國關島總督古蕾露訪台，外交部長林佳龍於款宴時表示，台灣與關島共享南島文化淵源，更是守護區域和平穩定的民主夥伴，盼能持續拓展智慧農業、醫療服務、教育及文化等領域的合作。 外交部上午發布新聞稿指出，古蕾露（Lourdes A. Leon Guerrero）訪問團於4日至11日率團訪台。林佳龍於9日款宴訪團一行，雙方就觀光旅遊、醫療轉診及文化交流等議題交換意見。 林佳龍誠摯歡迎關島總督古蕾露第二度率團訪台，並表示台灣與關島不僅共享深厚的南島民族文化淵源，更是堅定守護區域和平穩定的民主夥伴。近年來，台灣與關島在觀光、教育及農業等領域的合作日益緊密，民間交流也更加熱絡頻繁。 林佳龍也強調，未來將持續拓展雙方在智慧農業、醫療服務、教育及文化等領域的合作，期盼攜手推動經濟繁榮，進而提升雙方人民福祉。",
-      "url": "https://www.cna.com.tw/news/aipl/202603100037.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "TW",
-    "country2": "",
-    "sentiment_score": 0.5,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-09",
-      "title": "聖克里斯多福官員訪台聚焦能源轉型碳權合作等議題| 政治",
-      "content": "（中央社記者楊堯茹台北9日電）加勒比海友邦聖克里斯多福及尼維斯工程部長梅納與永續發展暨環境部長克拉克於9日至14日訪台，將拜會政府相關部門就能源轉型、碳權合作、循環經濟及永續發展等議題交換意見。 外交部上午發布新聞稿指出，聖克里斯多福及尼維斯聯邦工程部長梅納（Konris Maynard）與永續發展暨環境部長克拉克（Joyelle Clarke，另譯：柯拉克）應政府邀請於9日至14日率團訪台，團員包括聖克里斯多福及尼維斯環境及氣候行動暨公民賦權部次長萊文（Colincia Levine，另譯：樂凡）與相關領域官員等共8人，外交部表達誠摯歡迎。",
-      "url": "https://www.cna.com.tw/news/aipl/202603090057.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.8,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-07",
-      "title": "加拿大高貴林學區副局長訪台促教師跨文化交流| 生活",
-      "content": "（中央社記者陳至中台北7日電）加拿大高貴林學區（Coquitlam School District）副局長史蒂芬．惠芬（Stephen Whiffin）近日率隊來台，促成雙方教師交流，尤其是深入了解族群文化、語言傳承，促進跨文化理解。 教育部今天發布新聞稿，史蒂芬於本月6日率隊來台拜會，探尋教育交流與合作機會。 教育部次長朱俊彰表示，台灣與高貴林學區長期維持良好互動，目前已推動高中學生交換計畫，未來更期盼進一步拓展交流面向，包括讓加拿大教師來台交流。",
-      "url": "https://www.cna.com.tw/news/ahel/202603070045.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "US",
-    "country2": "TW",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-03-07",
-      "title": "女兒劉美賢曾說想訪台 劉俊憶台灣觀選「真正民主自由社會」【專訪】",
-      "content": "（中央社記者張欣瑜加州奧克蘭6日專電）美國華裔花式滑冰選手劉美賢在冬季奧運奪金，傳奇故事激勵人心。她的父親劉俊表示，如果問她願不願意代表中國參加奧運，她只會說：「門都沒有」；此外劉美賢也很想去台灣，以前說過度假要去台灣。劉俊曾赴台觀選，肯定台灣是真正民主自由的社會。 劉美賢復出奪金做自己 父親劉俊：放手為女兒喝采",
-      "url": "https://www.cna.com.tw/news/aipl/202603070018.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -2089,139 +2654,6 @@
       "content": "（中央社記者楊堯茹台北9日電）外交部長林佳龍日前出訪吐瓦魯過境雪梨，澳洲新南威爾斯州議會友台小組共同主席麥德莫特透露，很開心於6日與林佳龍會晤。林佳龍在去程時，也特別在雪梨歌劇院前預錄影片，在世界台灣商會聯合總會會議致詞。 林佳龍4日至5日以總統特使身分出訪吐瓦魯，7日清晨經澳洲返台，過程順利圓滿。 澳洲新南威爾斯州（NSW）律政廳副廳長、州議會友台小組共同主席麥德莫特（Hugh McDermott）今天於臉書發文表示，上週末充滿澳台社群和文化精彩活動，6日很開心能在議會同儕、台灣駐澳洲代表處陪同下，與林佳龍會晤。 麥德莫特提到，7日與澳洲台灣同鄉會同慶農曆新年，8日在世界台灣商會聯合總會第32屆第二次理監事會議致詞。澳洲跟台灣共享民主原則，在開放、具包容性的穩定印太區域有共同利益，很開心能與台灣澳洲社群同慶。",
       "url": "https://www.cna.com.tw/news/aipl/202603090107.aspx",
       "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
-    "original_article": {
-      "date": "2026-03-09",
-      "title": "两会·港澳台丨台湾省籍代表委员：深化两岸融合发展 携手推进祖国统一大业",
-      "content": "新华社记者 李明刚 摄 “我出生在台湾，我是台湾人，我更是中国人。”全国人大代表陈云英日前接受记者采访时表示，衷心希望台湾的亲人们能深刻认识到，两岸同胞同属中华民族，是休戚与共、荣辱与共、生死与共、命运与共的共同体。我们要为完成祖国统一大业不懈努力。 今年全国两会期间，台湾省籍代表委员立足两岸同胞共同福祉，围绕深化两岸融合发展、推动两岸关系和平发展、推进祖国统一大业积极建言献策，畅想两岸团圆的美好前景。 “两岸交流合作突破障碍，取得了新的进展。”十四届全国人大四次会议台湾代表团开放团组会议8日在人民大会堂台湾厅举行，全国人大代表颜珂接受记者提问时表示，去年大陆加大力度为台胞往来两岸提供更多便利条件，两岸交流精彩纷呈。“越来越多台胞亲眼目睹、亲身感受到了大陆日新月异的发展进步，深受触动。” 对于家国情怀与统一团圆梦，台湾省籍代表委员有着切身体会，坚信两岸团圆终将实现。他们表示，两岸同胞是一家人，血浓于水的亲情无法割断，实现祖国完全统一是全体中华儿女的共同愿望。 闽台地缘相近、人缘相亲，福建是“台胞台企登陆第一家园”。两岸融合发展示范区建设两年多来，成效与影响日益彰显。如何高质量推进两岸融合发展示范区建设、为祖国统一大业增添势能，是台湾省籍代表委员开展调研、履职建言的一大重点。 全国政协委员、台盟中央副主席兼秘书长江利平建议，高质量推进两岸融合发展示范区建设，助力中小微台资企业拓展对接“十五五”规划的渠道，完善增进台湾同胞福祉的政策措施，使公共服务均等化惠及台湾同胞，持续为两岸关系发展添动力。 祖籍台湾花莲的全国政协委员、福建省重竞技运动管理中心副主任吴宇红曾是一名羽毛球国家队运动员，退役后将推动闽台体育交流融合作为工作重点方向。去年全国两会期间，她就加强两岸棒球运动员交流合作提交提案。同年，在有关部门支持下，由闽台运动员联合组成的福建棒球队顺利参加全运会，并斩获历史最好成绩。 “两岸青年同吃同住同训练，为同一个目标并肩拼搏，交流、交心、交融，令人感动。”吴宇红说，越来越多台湾青年通过体育等领域的交流来到大陆，亲身感受到大陆对台胞的善意。真情互动进一步转化为积极的认同与融入。 “台湾同胞尤其青年，要在推进祖国完全统一与民族伟大复兴的道路上争做参与者、行动派。”祖籍台中的全国人大代表李兴魁多年从事教育工作，他呼吁台湾青年冲破民进党当局制造的“信息茧房”，投身两岸交流合作、融合发展的大潮，找准奋斗坐标，在中国式现代化建设中实现人生价值。 “十五五”规划纲要草案和今年的政府工作报告都强调，坚决打击“台独”分裂势力，反对外部势力干涉。对此，全国人大代表、全国台联副会长周琪表示，这是再次向“台独”分裂势力和外部干涉势力发出警示，胆敢逾越红线底线必遭痛击，彰显了我们守护中华民族共同家园的强大能力和完成祖国统一大业的坚定意志。 2025年，大陆开展“海峡雷霆-2025A”“正义使命-2025”演练演习、依法惩治“台独”顽固分子及打手帮凶……全国政协委员、台盟北京市委会专职副主委陈伟说，一系列举措有力震慑“台独”分裂势力谋“独”挑衅。台湾同胞更加深刻认识到，“台独”是绝路、外人靠不住、统一挡不住。 全国政协十四届四次会议8日举行第三次全体会议，陈星莺委员代表民革中央发言说，“台独”势力是不折不扣的“和平破坏者”“危机制造者”“战争煽动者”，必须引起两岸同胞高度警惕。台湾前途在于国家统一，台湾同胞福祉系于民族复兴。要共同维护两岸关系和平发展大局，推动两岸融合发展，共享民族复兴的伟大荣光。",
-      "url": "https://www.news.cn/tw/20260309/02aacdb046e04942936e1174534dd8ae/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
-    "original_article": {
-      "date": "2026-03-09",
-      "title": "“知音故里”觅知音——台湾青年在武汉的相遇与相知",
-      "content": "8日，“跨越海峡觅知音，汉台携手话未来”主题交流活动在位于武汉龟山的知音殿举行，百余位来自台湾与武汉的青年相聚“知音故里”，分享遇见知己、结缘武汉的暖心故事。 春秋战国时期，俞伯牙与钟子期“高山流水遇知音”的佳话发源于江城武汉。两千多年来，“知音”二字早已成为中华文化里象征心灵相通、彼此相知的精神符号。 知音殿前，武汉大学临床医学系学生田曲文格外引人注目。来自台湾新北的她穿着一身天蓝色的明制汉服，走动间，衣襟处垂挂的珍珠流苏轻轻摇曳，灵动飘逸。 5年前，从小就立志学医的田曲文来到武汉大学就读。“湖北九省通衢，武汉的医疗资源在华中地区也很突出。家人都很支持我深思熟虑后的决定。” 初到武汉，来自异乡的田曲文担心自己难以融入当地生活，可这份顾虑很快就被身边人的热情打消。“同学们知道我是从台湾来的，都特别热情，会跟我聊台湾偶像剧，问我台湾有哪些好玩的地方。” 田曲文在武汉最珍视的“知音”是班长。“我们都喜欢同一个歌手。”田曲文说，平日里两人结伴上课、泡图书馆、逛街散心，生活里遇到烦心事，也会互相倾诉、彼此鼓励，这份陪伴让异乡求学的日子格外温暖。 来自台湾新北的田曲文（左一）和朋友们在知音殿前合影（3月8日摄）。新华社记者 乐文婉 摄 如今，正在武汉大学中南医院轮岗实习的田曲文，也在同时备考武汉大学硕士研究生，希望未来能留在大陆从医。 对来自台湾高雄的张立纶来说，在武汉遇见的“知音”是一起打拼事业的伙伴。 2017年，他和新婚妻子蔡緁绫来武汉度蜜月。“我太太来了以后很喜欢这座城市，不想走了。”本是一趟短暂旅行，却意外改变了两人的人生轨迹。 在张立纶看来，武汉地处长江中游，交通便利，到全国主要城市大都在5小时以内，发展潜力很大。于是，两人决定留下来创业。 刚到武汉时，他们几乎不认识本地人。在创业过程中，张立纶认识了同样来自台湾、在武汉经营茶饮品牌的陈钰澍。“幸好有朋友帮助，我们才慢慢落地生根。” 如今，8年多过去，他们的跨境护肤品业务已经从武汉走向了欧洲和北美，团队规模也扩大至300余人，去年营收超过700万元。“现在，我的‘知音’越来越多了。团队里除钰澍来自台湾外，其他伙伴都来自武汉、黄石等大陆城市。” 对台湾音乐人赖仪雯来说，她的“知音”是自己的丈夫。 一位来自台北的游客（中）在知音殿工作人员的帮助下体验杂技（3月8日摄）。新华社发（张清硕摄） 2011年，赖仪雯所在的唱跳组合解散后，她来到大陆继续从事舞台表演和舞蹈编排工作。在一次活动中，她认识了现在的丈夫。两人从音乐聊起，分享喜欢的歌曲，讨论演唱技巧。慢慢地，联系越来越多，好感也悄然生长。 赖仪雯还记得第一次来武汉的场景。“我们一起走在武汉的街头，他带我去吃他从小吃到大的面窝、热干面，带我去看长江边的日落，带我去看武汉的每一座桥。” 2018年，赖仪雯与丈夫步入婚姻殿堂，正式定居武汉。“高山流水遇知音，而我的‘知音’就在我身边。以前，武汉对我来说只是一个地名；但因为他，这座城市开始有了温度，有了属于我的记忆。” 最近，十几年前赖仪雯所在组合发表的歌曲因网络翻唱再次走红，她也因此重新燃起心中的舞台梦想，开始在社交平台分享音乐作品、回顾组合往事，不少大陆歌迷给她留言询问组合其他成员的近况。 “如果因为我一个人的力量，让我们团体又被大家看见、有机会合体的话，我觉得很酷。”她说。 在“知音故里”，这样跨越海峡觅知音的故事每天都在上演。据湖北省台办介绍，目前有超过5000名台胞常住湖北。",
-      "url": "https://www.news.cn/tw/20260309/72e41bf9aee046c7ae9ec28e2df00d3a/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
-    "original_article": {
-      "date": "2026-03-10",
-      "title": "外交部：民进党当局打着“经贸投资”等幌子从事“台独”分裂活动注定失败",
-      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
-      "url": "https://www.news.cn/tw/20260310/d2e70b19084c41e1a9662273a9bd2bb9/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
-    "original_article": {
-      "date": "2026-03-10",
-      "title": "70余名滞留中东台胞经上海中转顺利返台",
-      "content": "10日凌晨4时许，从土耳其伊斯坦布尔搭乘东航MU704航班的70余名台湾同胞，抵达上海浦东国际机场。这是2月底中东局势升级以来，经大陆中转返台人数最多的一批台胞旅客。 据上海公安出入境管理部门工作人员介绍，受地区局势影响，多国关闭领空、机场停运，这批台胞原计划经阿联酋阿布扎比转机返台，因航班取消滞留海外。经大陆有关方面协调帮助，他们得以改乘东航航班从伊斯坦布尔飞抵上海中转。 10日凌晨时分，尽管上海室外气温偏低，但随着飞机缓缓抵靠廊桥，台胞们陆续步出机舱，脸上洋溢着笑容，透露出终于平安回家的喜悦。有台胞激动地对机场工作人员和媒体表示，感谢祖国大陆的关心和安排，终于回来了。 上海边检民警早已等候在中转口，他们主动上前，耐心引导分流，秩序井然。 “我们提前与航空公司精准对接，逐一核对航班动态、旅客信息，加强现场指引和警力保障，同时为他们提供中转便利，确保这批滞留海外的台湾同胞尽快返乡。”上海边检总站上海机场边检站执勤十八队队长郑建桥说。 针对该次航班未持有效台湾居民来往大陆通行证的台胞人数较多的情况，上海公安出入境管理部门配足凌晨值守警力，开足办证专窗，为返乡台胞提供高效便捷的出入境办证服务，实现了“落地即办、高效中转”。 记者从东航了解到，前来上海中转的这批台胞，部分于10日上午搭乘FM801航班于11时许顺利返抵台北松山机场，其他旅客于中午12时许搭乘MU5007航班起飞，于下午顺利飞抵桃园机场。 国务院台办发言人张晗日前在例行新闻发布会上表示，台湾同胞是中国公民，是我们的骨肉乡亲。从利比亚、也门、苏丹撤侨，到巴以冲突爆发和海外台胞遭遇台风、地震等危险，我们都与当地台胞保持紧密联系，及时提供协助。我们将一如既往，采取一切必要措施保护包括台湾同胞在内的中国公民安全。台胞需要协助，可随时联系中国驻当地使领馆，也可拨打12308领事保护热线。无论在什么地方，遇到什么困难，伟大祖国都是广大台湾同胞的坚强后盾。",
-      "url": "https://www.news.cn/tw/20260310/dc83b65fbdb9474ea2d1525d289254b8/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
-    "original_article": {
-      "date": "2026-03-09",
-      "title": "国台办评卓荣泰窜访日本：鸡鸣狗盗，令人不齿",
-      "content": "有记者问：近日，台湾地区行政机构负责人卓荣泰以所谓“私人日程”为由窜访日本观看球赛。请问对此有何评论？ 朱凤莲表示，民进党当局顽固坚持“台独”分裂立场，不择手段“倚外谋独”，是不折不扣的“两岸和平破坏者”“台海危机制造者”。民进党当局头面人物，以所谓“私人日程”之名，行谋“独”挑衅之实，鸡鸣狗盗，令人不齿。希望广大台湾同胞认清民进党当局谋“独”的祸心与危害，同我们一道坚决反对“台独”分裂行径和外来干涉，切实维护台海和平稳定，坚定守护中华民族共同家园。 她指出，台湾问题纯属中国内政，不容任何外来干涉。日本放任民进党当局头面人物窜访，违反一个中国原则和中日四个政治文件精神，违反国际法和国际关系基本准则，向“台独”分裂势力发出严重错误信号。我们对此表示坚决反对。日本应深刻反省历史、汲取历史教训、切实反思纠错，停止在台湾问题上的操弄和妄动。",
-      "url": "https://www.news.cn/tw/20260309/f6db1bb5bb6e4ecf95b24ce875fa353a/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
-    "original_article": {
-      "date": "2026-03-09",
-      "title": "【十四届全国人大四次会议举行第二次全体会议 习近平李强王沪宁蔡奇丁薛祥李希韩正等出席 赵乐际作全国人...",
-      "content": "【十四届全国人大四次会议举行第二次全体会议 习近平李强王沪宁蔡奇丁薛祥李希韩正等出席 赵乐际作全国人大常委会工作报告 听取和审议最高人民法院工作报告和最高人民检察院工作报告等】新华社北京3月9日电 十四届全国人大四次会议9日上午在北京人民大会堂举行第二次全体会议，听取和审议全国人大常委 ...全文",
-      "url": "https://m.weibo.cn/detail/5274664335048957",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
-    "original_article": {
-      "date": "2026-03-07",
-      "title": "【习近平在出席#解放军和武警部队代表团全体会议#时强调  充分发挥政治建军特有优势  凝心聚力推动国...",
-      "content": "【习近平在出席#解放军和武警部队代表团全体会议#时强调  充分发挥政治建军特有优势  凝心聚力推动国防和军队现代化行稳致远】解放军报北京3月7日电   中共中央总书记、国家主席、中央军委主席习近平7日下午在出席十四届全国人大四次会议解放军和武警部队代表团全体会议时强调，“十五五”时期要如期实 ...全文",
-      "url": "https://m.weibo.cn/detail/5273910903834299",
-      "source": "weibo",
       "category": "",
       "sentiment": ""
     }
@@ -5736,44 +6168,6 @@
       "title": "两会新华社快讯：王毅：解决台湾问题  实现祖国完全统一不可阻挡",
       "content": "两会新华社快讯：王毅：解决台湾问题 实现祖国完全统一不可阻挡 首页 最新播报 受权发布 两会直播 特稿评论 特别访谈 读报告 聚焦十五五 民声直通车 两会热点 融媒汇 影像集 多语种 English Español Français Русский عربى 日本語 한국어 Deutsch Português 两会新华社快讯：王毅：解决台湾问题 实现祖国完全统一不可阻挡 2026-03-08 11:22:47 来源：新华社 分享到： 两会新华社快讯：王毅说，台湾问题是中国的内政，是中国核心利益中的核心，这一红线不容逾越或踩踏。我们绝不允许任何人、任何势力把80多年前早已光复的台湾再次从中国分裂出去。国际社会已形成坚持一个中国的压倒性共识。解决台湾问题，实现祖国完全统一的历史进程不可阻挡。顺之者昌，逆之者亡。 【纠错】 【责任编辑:吴京泽】 新闻链接 两会新华社快讯：王毅：台湾地位已被一系列国际法律文件锁定 2026-03-08 Copyright © 2000 - 2026 XINHUANET.com All Rights Reserved. 制作单位：新华网股份有限公司 版权所有：新",
       "url": "https://www.news.cn/tw/20260308/edbf11ee5ae84f5ebf54c724d04c63ae/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
-    "original_article": {
-      "date": "2026-03-11",
-      "title": "国防部新闻发言人就近期涉军问题答记者问",
-      "content": "人工智能军事应用应坚持由人主导、防止失控 有记者问，据报道，美国防部要求美科创公司允许军方不受限制地使用人工智能技术。在针对委内瑞拉、伊朗的军事行动中，美军都大量使用人工智能工具，引发对战争伦理与军事技术应用边界的深刻担忧。请问对此有何评论？ 蒋斌说，不加限制地推进人工智能军事化，将人工智能作为侵犯他国主权的工具，让人工智能过度影响战争决策，让算法掌控人的生杀大权，不仅侵蚀战争的伦理与责任约束，还可能导致技术失控，甚至使美国电影《终结者》里的灾难场景成为现实。 蒋斌表示，中方始终坚持“以人为本、智能向善”原则，始终认为人工智能军事应用应坚持由人主导，反对利用人工智能等新兴技术优势谋求绝对军事霸权、损害他国主权和领土安全。 “我们愿与世界各国一道，推进以联合国为核心的人工智能多边治理进程，加强风险预防和管控，确保人工智能始终朝着有利于人类文明进步的方向发展。”蒋斌说。 正告日方：穷兵黩武老路是自取灭亡不归路 有记者问，据报道，日本近期已开始部署具备对敌基地攻击能力的远程导弹，该导弹射程约1000公里，可覆盖邻国沿海区域，相关部署工作将在本月内完成。请问对此有何评论？ 蒋斌说，一段时间以来，日本右翼势力加速推进“再军事化”动作频频，推动修改“和平宪法”，加快修订“安保三文件”，妄图修改“无核三原则”。如今明确部署远程进攻性武器，射程远超日本领土范围，彻底撕下“专守防卫”、“被动防御”和“自卫”的伪装，充分证明日本“新型军国主义”已不只是危险苗头，而是赤裸裸的现实威胁，是对地区和平安全的严重破坏。 “我们正告日方，穷兵黩武的老路是自取灭亡的不归路。若日方胆敢武力侵犯中方主权安全，必将遭受迎头痛击和更加彻底的失败。”蒋斌表示。 “台独”分裂活动和政治操弄注定徒劳无功 有记者问，据报道，台海军“2026年度敦睦远航训练支队”已启航，赴中南美地区所谓“邦交国”执行“大敦睦”任务。请问对此有何评论？ “所谓‘敦睦’只是民进党当局‘倚外谋独’的借口。一个中国原则是国际关系基本准则和国际社会普遍共识，是中国同183个建交国发展关系的政治基础。”蒋斌表示，“我们希望有关地区国家顺应历史大势和时代潮流，早日作出真正符合本国人民根本和长远利益的正确选择。” “正告民进党当局，任何形式的‘台独’分裂活动和政治操弄，都改变不了台湾属于中国的事实和国际社会坚持一中原则的格局，注定徒劳无功。”蒋斌说。",
-      "url": "https://www.news.cn/tw/20260311/dbb6a57af87e42eca61181a98d79b870/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
-    "original_article": {
-      "date": "2026-03-11",
-      "title": "“台独”分裂活动和政治操弄注定徒劳无功",
-      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
-      "url": "https://www.news.cn/tw/20260311/058d75d6484e4a57b0424ddd03b22b5a/c.html",
       "source": "xinhua",
       "category": "",
       "sentiment": ""
