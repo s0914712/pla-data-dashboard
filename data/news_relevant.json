@@ -4426,5 +4426,24 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-13",
+      "title": "#直击东部战区练兵备战现场#【#复杂天气锤炼技战术水平#】近日，东部战区空军航空兵某旅组织飞行训练，...",
+      "content": "#直击东部战区练兵备战现场#【#复杂天气锤炼技战术水平#】近日，东部战区空军航空兵某旅组织飞行训练，锤炼飞行员在复杂环境下的技战术水平，提升部队全时待战、随时能战的打赢能力，为新年度军事训练打下坚实基础。（陈云、王天乐、薛强征、杨敬毅）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5275916591956390",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
