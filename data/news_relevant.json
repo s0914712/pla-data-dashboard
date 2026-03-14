@@ -4464,5 +4464,62 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-13",
+      "title": "#东部熄灯号#惊涛骇浪何所惧，踏浪巡航护海疆。#阅海峡#",
+      "content": "#东部熄灯号#惊涛骇浪何所惧，踏浪巡航护海疆。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5276127984878305",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-13",
+      "title": "【#扬州舰30分钟救起10名遇险渔民#】3月12日晚，东部战区海军扬州舰训练返航途中，接获渔船求救信...",
+      "content": "【#扬州舰30分钟救起10名遇险渔民#】3月12日晚，东部战区海军扬州舰训练返航途中，接获渔船求救信号。官兵迅即行动，在6级风、3米浪的恶劣海况下，仅用30分钟便成功救起浙普渔运88667号失事渔船全部10名渔民。随后，舰上官兵为获救渔民开展医疗救治、暖心保障与心理疏导。次日，10渔民平安上岸返家。（ ...全文",
+      "url": "https://m.weibo.cn/detail/5276115347180962",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-13",
+      "title": "【#时刻绷紧战备弦#】近日，第71集团军某旅组织战备拉动，官兵们闻令而动，迅速请领武器、装载物资，用...",
+      "content": "【#时刻绷紧战备弦#】近日，第71集团军某旅组织战备拉动，官兵们闻令而动，迅速请领武器、装载物资，用实战化演练提高战备硬实力。（鲁桦、廖鹏）",
+      "url": "https://m.weibo.cn/detail/5276007188923653",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
