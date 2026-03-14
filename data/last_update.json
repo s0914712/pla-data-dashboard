@@ -1,29 +1,29 @@
 {
-  "last_update": "2026-03-13T02:56:28.749377",
+  "last_update": "2026-03-14T02:54:58.263505",
   "stats": {
-    "timestamp": "2026-03-13T02:52:43.570388",
+    "timestamp": "2026-03-14T02:51:10.098203",
     "days_back": 7,
     "sources": {
       "cna": {
-        "scraped": 46,
+        "scraped": 42,
         "status": "success"
       },
       "xinhua": {
-        "scraped": 8,
+        "scraped": 9,
         "status": "success"
       },
       "weibo": {
-        "scraped": 3,
+        "scraped": 5,
         "status": "success"
       }
     },
     "deduplication": {
-      "before": 57,
-      "after": 57,
+      "before": 56,
+      "after": 56,
       "removed": 0
     },
     "classification": {
-      "total": 57,
+      "total": 56,
       "relevant": 0,
       "status": "success"
     },
