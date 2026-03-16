@@ -4559,5 +4559,24 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-16",
+      "title": "#直击东部战区练兵备战现场#【#保障尖兵出击#】近日，东部战区空军某场站开展保障训练。各保障分队闻令...",
+      "content": "#直击东部战区练兵备战现场#【#保障尖兵出击#】近日，东部战区空军某场站开展保障训练。各保障分队闻令而动，全力锤炼胜战本领。（刘鹄尘、 吴宇彬、李潇钒、李奇勋）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5277003755290840",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
