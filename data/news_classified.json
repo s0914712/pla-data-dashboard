@@ -7179,5 +7179,81 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-17",
+      "title": "#直击东部战区练兵备战现场#【#开展全要素战备拉动演练# 】近日，东部战区海军某旅紧贴实战任务需求，...",
+      "content": "#直击东部战区练兵备战现场#【#开展全要素战备拉动演练# 】近日，东部战区海军某旅紧贴实战任务需求，组织开展全要素战备拉动演练，全面检验部队快速反应、远程机动和综合保障能力。（阳开鑫、高翔龙）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5277366143421686",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-16",
+      "title": "#东部熄灯号#逐梦长空磨利刃，驰骋碧宇展锋芒。#阅海峡#",
+      "content": "#东部熄灯号#逐梦长空磨利刃，驰骋碧宇展锋芒。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5277215148214425",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-16",
+      "title": "【#严密组织预定新兵役前教育#】近日，江苏省无锡市滨湖区人武部组织2026年春季预定新兵役前教育，通...",
+      "content": "【#严密组织预定新兵役前教育#】近日，江苏省无锡市滨湖区人武部组织2026年春季预定新兵役前教育，通过学习条令条例、组织列队训练、开展谈心交心、参观红色教育基地等形式，帮助新兵提前适应军营生活，坚定从军报国信念，走好走稳军旅第一步。（陶演、李永有）#征兵季#",
+      "url": "https://m.weibo.cn/detail/5277184949750734",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-16",
+      "title": "【#春风拂军营温情暖军属#】近日，东部战区空军某部举办“忠诚僚机、携手强军”军属进军营活动。他们邀请...",
+      "content": "【#春风拂军营温情暖军属#】近日，东部战区空军某部举办“忠诚僚机、携手强军”军属进军营活动。他们邀请军属参观官兵工作场所、近距离了解武器装备，并开展烘焙体验、集体会餐等活动，使军属零距离感受部队生活，通过沉浸式体验，进一步增进与部队的情感联结和思想共鸣。（洪炜锋）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5277094352257750",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
