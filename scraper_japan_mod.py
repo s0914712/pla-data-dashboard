@@ -41,6 +41,223 @@ HEADERS = {
 # 0/1 分析欄位
 BINARY_FIELDS = ['空中', '聯合演訓', '艦通過', '航母活動', '與那國', '宮古', '大禹', '對馬', '進', '出']
 
+# 是否使用 LLM（預設為規則分析，設定 USE_LLM=1 啟用 AI 分析）
+USE_LLM = os.getenv('USE_LLM', '0') == '1'
+
+# =================================================
+# 規則分析相關常數與輔助函數
+# =================================================
+
+# 日文艦艇級別 → 繁體中文翻譯字典
+SHIP_CLASS_DICT = {
+    # 中國海軍
+    'ルーヤンⅢ級': '旅洋III級驅逐艦',
+    'ルーヤンIII級': '旅洋III級驅逐艦',
+    'ルーヤンⅡ級': '旅洋II級驅逐艦',
+    'ルーヤンII級': '旅洋II級驅逐艦',
+    'ルーヤンＩ級': '旅洋I級驅逐艦',
+    'ルーヤンI級': '旅洋I級驅逐艦',
+    'ルーヤン級': '旅洋級驅逐艦',
+    'ジャンカイⅡ級': '江凱II級護衛艦',
+    'ジャンカイII級': '江凱II級護衛艦',
+    'ジャンカイＩ級': '江凱I級護衛艦',
+    'ジャンカイI級': '江凱I級護衛艦',
+    'ジャンカイ級': '江凱級護衛艦',
+    'ジャンウェイⅡ級': '江衛II級護衛艦',
+    'ジャンウェイII級': '江衛II級護衛艦',
+    'ジャンウェイＩ級': '江衛I級護衛艦',
+    'ジャンウェイI級': '江衛I級護衛艦',
+    'ジャンウェイ級': '江衛級護衛艦',
+    'ジャンダオ級': '江島級護衛艦',
+    'レンハイ級': '南昌級驅逐艦',
+    'ソブレメンヌイ級': '現代級驅逐艦',
+    'フチ級': '福池級綜合補給艦',
+    'ルージョウ級': '旅洲級巡洋艦',
+    'ドンディアオ級': '東調級情報收集艦',
+    'ユージャオ級': '玉昭級船塢登陸艦',
+    'ユーティン級': '玉亭級戰車登陸艦',
+    'シャンⅡ級': '商II級核動力潛艇',
+    'シャンII級': '商II級核動力潛艇',
+    'シャンＩ級': '商I級核動力潛艇',
+    'シャンI級': '商I級核動力潛艇',
+    'ユアン級': '元級潛艇',
+    'ソン級': '宋級潛艇',
+    # 俄羅斯海軍
+    'ウダロイⅠ級': '無畏I級驅逐艦',
+    'ウダロイI級': '無畏I級驅逐艦',
+    'ウダロイ級': '無畏級驅逐艦',
+    'スラヴァ級': '光榮級巡洋艦',
+    'スラバ級': '光榮級巡洋艦',
+    'ステレグシチーⅢ級': '守護III級護衛艦',
+    'ステレグシチーIII級': '守護III級護衛艦',
+    'ステレグシチー級': '守護級護衛艦',
+    'グリシャⅤ級': '格里莎V級護衛艦',
+    'グリシャV級': '格里莎V級護衛艦',
+    'グリシャ級': '格里莎級護衛艦',
+    'ドゥブナ級': '杜布納級補給艦',
+    'バルク級': '巴爾克級遠洋拖船',
+    'ヴィシュニャ級': '維什尼亞級情報收集艦',
+    'キロ級': '基洛級潛艇',
+    'マルシャル・ネデリン級': '涅傑林元帥級觀測艦',
+}
+
+# 二進位欄位對應的日文關鍵詞
+BINARY_FIELD_KEYWORDS = {
+    '空中': ['ヘリコプター', '艦載機', '航空機', '発着艦', '艦載ヘリ', '飛行活動'],
+    '聯合演訓': ['共同訓練', '合同演習', '共同行動', '連合演習', '共同演習'],
+    '艦通過': ['通過', '航行'],
+    '航母活動': ['空母', '航空母艦', '遼寧', '山東', '福建',
+                'リャオニン', 'シャンドン', 'フージェン'],
+    '與那國': ['与那国'],
+    '宮古': ['宮古'],
+    '大禹': ['大隅'],
+    '對馬': ['対馬'],
+}
+
+# 海峽名稱對照（欄位名 → 繁中名稱）
+STRAIT_NAMES_ZH = {
+    '宮古': '宮古海峽',
+    '對馬': '對馬海峽',
+    '大禹': '大隅海峽',
+    '與那國': '與那國島附近',
+}
+
+
+def _detect_country(text):
+    """從日文文本偵測國家"""
+    has_china = '中国' in text
+    has_russia = 'ロシア' in text or '露海軍' in text
+    if has_china and has_russia:
+        return '中國、俄羅斯'
+    elif has_russia:
+        return '俄羅斯'
+    else:
+        return '中國'
+
+
+def _detect_direction(text):
+    """偵測航行方向：進（進入東海）/ 出（駛向太平洋）"""
+    entering = 0  # 進
+    exiting = 0   # 出
+
+    # 太平洋 → 東シナ海 = 進
+    if re.search(r'太平洋.{0,15}(から|より).{0,25}東シナ海', text):
+        entering = 1
+    if re.search(r'東シナ海.{0,10}(へ|に).{0,15}(向け|航行)', text):
+        entering = 1
+    # 宮古海峽北西進 = 進入東海
+    if '宮古' in text and re.search(r'(北西進|西進)', text):
+        entering = 1
+
+    # 東シナ海 → 太平洋 = 出
+    if re.search(r'東シナ海.{0,15}(から|より).{0,25}太平洋', text):
+        exiting = 1
+    if re.search(r'太平洋.{0,10}(へ|に).{0,15}(向け|航行)', text):
+        exiting = 1
+    if re.search(r'太平洋へ(向け)?航行', text):
+        exiting = 1
+    # 宮古海峽南東進 = 駛向太平洋
+    if '宮古' in text and re.search(r'(南東進|東進)', text):
+        exiting = 1
+
+    # 日本海 → 對馬海峽南下 / 對馬海峽北上
+    if '対馬' in text:
+        if re.search(r'(南下|南西進)', text):
+            exiting = 1
+        if re.search(r'(北上|北東進)', text):
+            entering = 1
+
+    return entering, exiting
+
+
+def _extract_ship_classes(text):
+    """從日文文本提取艦艇級別並翻譯為繁中"""
+    found = []
+    for jp_name, zh_name in SHIP_CLASS_DICT.items():
+        if jp_name in text and zh_name not in found:
+            found.append(zh_name)
+    if not found:
+        return '未提及'
+    return '、'.join(found)
+
+
+def _extract_ship_count(text):
+    """提取艦艇數量"""
+    # 嘗試找 "計N隻" 或 "N隻" 的模式
+    matches = re.findall(r'(?:計|合計)?\s*(\d+)\s*隻', text)
+    if matches:
+        return max(int(m) for m in matches)
+    # 退回：計算字典中出現的不同艦級數
+    count = sum(1 for jp_name in SHIP_CLASS_DICT if jp_name in text)
+    return max(count, 1)
+
+
+def _generate_remark(country, ship_count, ship_classes, active_straits, entering, exiting):
+    """生成繁中備註（70字以內）"""
+    country_part = country + '海軍'
+
+    # 艦艇描述
+    if ship_classes != '未提及':
+        class_list = ship_classes.split('、')
+        if len(class_list) <= 2:
+            ships_part = f'{ship_count}艘{ship_classes}'
+        else:
+            ships_part = f'{ship_count}艘艦艇'
+    else:
+        ships_part = f'{ship_count}艘艦艇'
+
+    # 海峽
+    strait_parts = [STRAIT_NAMES_ZH[s] for s in active_straits if s in STRAIT_NAMES_ZH]
+    strait_str = '經' + '、'.join(strait_parts) if strait_parts else ''
+
+    # 方向
+    if entering and exiting:
+        dir_str = '往返東海與太平洋航行'
+    elif entering:
+        dir_str = '向東海航行'
+    elif exiting:
+        dir_str = '向太平洋航行'
+    else:
+        dir_str = '航行'
+
+    remark = f'{country_part}{ships_part}{strait_str}{dir_str}。'
+    if len(remark) > 70:
+        remark = remark[:69] + '。'
+    return remark
+
+
+def analyze_with_rules(pdf_text, date):
+    """規則分析 PDF 文本（無需 LLM）"""
+    # 有效性已由 is_target_navy_pdf 在 main() 中預先檢查
+    country = _detect_country(pdf_text)
+
+    result = {'valid_report': 1, '國家': country}
+
+    # 二進位欄位
+    for field, keywords in BINARY_FIELD_KEYWORDS.items():
+        result[field] = 1 if any(kw in pdf_text for kw in keywords) else 0
+
+    # 進/出方向
+    entering, exiting = _detect_direction(pdf_text)
+    result['進'] = entering
+    result['出'] = exiting
+
+    # 艦型
+    ship_classes = _extract_ship_classes(pdf_text)
+    result['艦型'] = ship_classes
+
+    # 艦艇數量
+    ship_count = _extract_ship_count(pdf_text)
+
+    # 活躍海峽
+    active_straits = [f for f in ['與那國', '宮古', '大禹', '對馬'] if result.get(f) == 1]
+
+    # 備註
+    result['remark'] = _generate_remark(country, ship_count, ship_classes, active_straits, entering, exiting)
+
+    return result
+
+
 # =================================================
 
 def generate_pdf_urls(start_date, end_date):
@@ -339,9 +556,13 @@ def main():
     print("日本防衛省中國/俄羅斯海軍艦艇動向爬蟲 V6 - 直接下載 PDF 版")
     print("="*60)
 
-    if not APERTIS_API_KEY:
-        print("❌ 錯誤：未設置 APERTIS_API_KEY 環境變量")
-        return
+    if USE_LLM:
+        if not APERTIS_API_KEY:
+            print("❌ 錯誤：USE_LLM=1 但未設置 APERTIS_API_KEY 環境變量")
+            return
+        print("🤖 分析模式: LLM (Apertis API)")
+    else:
+        print("📋 分析模式: 規則分析（無需 API Key）")
 
     # 讀取 CSV
     print("\n正在讀取 CSV...")
@@ -448,9 +669,13 @@ def main():
 
         print(f"    📄 提取文本: {len(pdf_text)} 字")
 
-        # AI 分析
-        print(f"    🤖 AI 分析中...", end=" ")
-        analysis = analyze_with_apertis(pdf_text, date)
+        # 分析（規則 or LLM）
+        if USE_LLM and APERTIS_API_KEY:
+            print(f"    🤖 AI 分析中...", end=" ")
+            analysis = analyze_with_apertis(pdf_text, date)
+        else:
+            print(f"    📋 規則分析中...", end=" ")
+            analysis = analyze_with_rules(pdf_text, date)
 
         if not analysis:
             print("失敗\n")
@@ -458,9 +683,9 @@ def main():
 
         print("✓")
 
-        # 檢查 AI 是否判定為有效艦艇動向報告
+        # 檢查是否判定為有效艦艇動向報告
         if analysis.get('valid_report', 1) == 0:
-            print(f"    ⏭️ AI 判定為非艦艇動向報告，跳過\n")
+            print(f"    ⏭️ 判定為非艦艇動向報告，跳過\n")
             continue
 
         # 移除 valid_report 欄位，不寫入 CSV
@@ -482,7 +707,8 @@ def main():
             print(f"       備註: {remark_display}")
         print()
 
-        time.sleep(1.5)  # 避免請求過快
+        if USE_LLM:
+            time.sleep(1.5)  # LLM 模式避免請求過快
 
     # 儲存歷史記錄
     history["processed_pdfs"] = sorted(processed_set)
