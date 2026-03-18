@@ -126,16 +126,16 @@ CLASSIFICATION_USER_TEMPLATE = """請分析以下新聞：
 只返回 JSON，不要其他說明。"""
 
 
-# 簡化版 Prompt（用於節省 token）
+# NOTE: Currently unused. Reserved for token-saving mode.
 CLASSIFICATION_PROMPT_SIMPLE = """分析新聞並返回 JSON：
 標題: {title}
 內容: {content}
 
 返回格式：
-{{"category":"CN_Statement|US_Statement|TW_Statement|Military_Exercise|Battleship_Transit|US_TW_Interaction|Regional_Security|Not_Relevant","is_relevant":true/false,"sentiment_score":-1.0到1.0,"sentiment_label":"negative|neutral|positive","extracted_data":{{"US_Taiwan_interaction":"","Military_exercise":"","Foreign_battleship":"","Political_statement":""}},"confidence":0.0到1.0}}"""
+{{"category":"CN_Statement|US_Statement|TW_Statement|Military_Exercise|Foreign_battleship|US_TW_Interaction|Regional_Security|Not_Relevant","is_relevant":true/false,"sentiment_score":-1.0到1.0,"sentiment_label":"negative|neutral|positive","extracted_data":{{"US_Taiwan_interaction":"","Military_exercise":"","Foreign_battleship":"","Political_statement":""}},"confidence":0.0到1.0}}"""
 
 
-# 情緒分析專用 Prompt
+# NOTE: Currently unused. Reserved for standalone sentiment analysis.
 SENTIMENT_ANALYSIS_PROMPT = """分析以下台海相關新聞的情緒傾向（GDELT 風格）：
 
 標題: {title}

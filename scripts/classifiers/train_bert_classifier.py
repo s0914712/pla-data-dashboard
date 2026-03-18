@@ -18,6 +18,8 @@ BERT 微調訓練腳本 / BERT Fine-tuning Training Script
   BERT_BATCH_SIZE  batch size（預設 16）
   BERT_LR          學習率（預設 2e-5）
   BERT_MODEL_DIR   模型儲存目錄（預設 models/bert_news_classifier）
+  BERT_PATIENCE    Early stopping patience（預設 3）
+  BERT_SENT_WEIGHT 情緒損失權重（預設 0.5）
 """
 
 import json
@@ -90,7 +92,7 @@ class NewsDataset(Dataset):
 # 多工分類模型
 # ---------------------------------------------------------------------------
 class BertMultiTaskClassifier(nn.Module):
-    """bert-base-chinese + 兩個分類頭"""
+    """bert-base-chinese + 兩個 MLP 分類頭"""
 
     def __init__(self, pretrained_name="bert-base-chinese",
                  num_categories=9, num_sentiments=3, dropout=0.3):
@@ -98,8 +100,18 @@ class BertMultiTaskClassifier(nn.Module):
         self.bert = BertModel.from_pretrained(pretrained_name)
         hidden = self.bert.config.hidden_size  # 768
         self.dropout = nn.Dropout(dropout)
-        self.category_head = nn.Linear(hidden, num_categories)
-        self.sentiment_head = nn.Linear(hidden, num_sentiments)
+        self.category_head = nn.Sequential(
+            nn.Linear(hidden, 256),
+            nn.ReLU(),
+            nn.Dropout(dropout),
+            nn.Linear(256, num_categories),
+        )
+        self.sentiment_head = nn.Sequential(
+            nn.Linear(hidden, 256),
+            nn.ReLU(),
+            nn.Dropout(dropout),
+            nn.Linear(256, num_sentiments),
+        )
 
     def forward(self, input_ids, attention_mask):
         outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)
@@ -153,6 +165,8 @@ def train(
     max_len: int = 256,
     val_ratio: float = 0.15,
     seed: int = 42,
+    patience: int = 3,
+    sent_weight: float = 0.5,
 ):
     torch.manual_seed(seed)
     np.random.seed(seed)
@@ -216,8 +230,12 @@ def train(
     cat_criterion = nn.CrossEntropyLoss(weight=cat_weight)
     sent_criterion = nn.CrossEntropyLoss()
 
-    # 6. 訓練迴圈
+    # 6. 訓練迴圈（含 early stopping）
     best_val_acc = 0.0
+    epochs_without_improvement = 0
+    print(f"[Train] Sentiment loss weight: {sent_weight}")
+    print(f"[Train] Early stopping patience: {patience}")
+
     for epoch in range(1, epochs + 1):
         model.train()
         total_loss = 0
@@ -228,7 +246,8 @@ def train(
             sent_labels = batch["sentiment_label"].to(device)
 
             cat_logits, sent_logits = model(input_ids, attention_mask)
-            loss = cat_criterion(cat_logits, cat_labels) + 0.5 * sent_criterion(sent_logits, sent_labels)
+            loss = (cat_criterion(cat_logits, cat_labels)
+                    + sent_weight * sent_criterion(sent_logits, sent_labels))
 
             optimizer.zero_grad()
             loss.backward()
@@ -263,8 +282,14 @@ def train(
         # 儲存最佳模型
         if cat_acc > best_val_acc:
             best_val_acc = cat_acc
+            epochs_without_improvement = 0
             _save_model(model, tokenizer, model_dir, cat_acc, sent_acc)
             print(f"  ✓ Best model saved (cat_acc={cat_acc:.3f})")
+        else:
+            epochs_without_improvement += 1
+            if epochs_without_improvement >= patience:
+                print(f"  ⏹ Early stopping: {patience} epochs without improvement")
+                break
 
     # 7. 最終評估
     print("\n" + "=" * 60)
@@ -300,6 +325,7 @@ def _save_model(model, tokenizer, model_dir, cat_acc, sent_acc):
 
     # 儲存 label 對照
     meta = {
+        "model_version": 2,
         "category_labels": CATEGORY_LABELS,
         "sentiment_labels": SENTIMENT_LABELS,
         "category2id": CATEGORY2ID,
@@ -322,6 +348,8 @@ if __name__ == "__main__":
     epochs = int(os.environ.get("BERT_EPOCHS", "10"))
     batch_size = int(os.environ.get("BERT_BATCH_SIZE", "16"))
     lr = float(os.environ.get("BERT_LR", "2e-5"))
+    patience = int(os.environ.get("BERT_PATIENCE", "3"))
+    sent_weight = float(os.environ.get("BERT_SENT_WEIGHT", "0.5"))
 
     train(
         data_path=data_path,
@@ -329,4 +357,6 @@ if __name__ == "__main__":
         epochs=epochs,
         batch_size=batch_size,
         lr=lr,
+        patience=patience,
+        sent_weight=sent_weight,
     )

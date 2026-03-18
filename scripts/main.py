@@ -23,11 +23,12 @@ from scrapers.cna_scraper import CNAScraper
 from scrapers.xinhua_scraper import XinhuaTWScraper
 from scrapers.weibo_scraper import WeiboScraper
 from classifiers.grok_classifier import GrokNewsClassifier
+from classifiers.base import NewsClassifier
 from updaters.github_updater import GitHubUpdater
 from updaters.naval_transit_updater import NavalTransitUpdater
 
 
-def _create_classifier():
+def _create_classifier() -> NewsClassifier:
     """
     根據 CLASSIFIER_BACKEND 環境變數建立分類器。
 

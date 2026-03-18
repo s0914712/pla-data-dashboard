@@ -20,14 +20,17 @@ from typing import Dict, Tuple
 # ---------------------------------------------------------------------------
 COUNTRY_KEYWORDS: dict[str, list[str]] = {
     "CN": [
-        "中國", "中共", "共軍", "解放軍", "國台辦", "國防部", "外交部",
+        "中國", "中共", "共軍", "解放軍", "國台辦",
+        "中國國防部", "中國外交部",
         "東部戰區", "南部戰區", "北部戰區", "中央軍委", "習近平",
         "人民解放軍", "中華人民共和國", "北京", "PLA", "China", "Beijing",
         "新華社", "央視", "環球時報",
     ],
     "TW": [
-        "台灣", "臺灣", "國軍", "國防部", "蔡英文", "賴清德",
-        "民進黨", "國民黨", "外交部", "台北", "Taiwan", "Taipei",
+        "台灣", "臺灣", "國軍",
+        "台灣國防部", "中華民國國防部", "台灣外交部",
+        "蔡英文", "賴清德",
+        "民進黨", "國民黨", "台北", "Taiwan", "Taipei",
         "中華民國", "總統府",
     ],
     "US": [
@@ -40,6 +43,7 @@ COUNTRY_KEYWORDS: dict[str, list[str]] = {
         "日本", "自衛隊", "海上自衛隊", "Japan", "岸田", "石破",
         "日本防衛", "護衛艦",
     ],
+    "IN": ["印度", "India", "新德里", "莫迪", "印度海軍", "印軍"],
     "PH": ["菲律賓", "Philippines", "Manila", "馬尼拉"],
     "VN": ["越南", "Vietnam", "河內"],
     "RU": ["俄羅斯", "Russia", "俄軍", "俄艦"],
@@ -49,7 +53,7 @@ COUNTRY_KEYWORDS: dict[str, list[str]] = {
 }
 
 # 優先級（發起方通常是新聞主角）
-_ACTOR_PRIORITY = ["CN", "US", "TW", "JP", "RU", "PH", "VN", "KR", "AU", "EU"]
+_ACTOR_PRIORITY = ["CN", "US", "TW", "JP", "IN", "RU", "PH", "VN", "KR", "AU", "EU"]
 
 # ---------------------------------------------------------------------------
 # 軍艦名稱模式
@@ -92,14 +96,13 @@ def extract_actors(text: str, category: str = "") -> Tuple[str, str]:
 
     利用出現順序和類別提示推斷主從關係。
     """
-    found: dict[str, int] = {}  # code → first position
+    found: dict[str, int] = {}  # code → first position (earliest keyword)
     for code in _ACTOR_PRIORITY:
         for kw in COUNTRY_KEYWORDS[code]:
             pos = text.find(kw)
             if pos != -1:
                 if code not in found or pos < found[code]:
                     found[code] = pos
-                break  # 一個 code 只記第一次出現
 
     if not found:
         return "", ""
