@@ -4673,5 +4673,81 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-18",
+      "title": "#直击东部战区练兵备战现场#【#实战化训练锤炼打赢硬功#】近日，东部战区空军航空兵某旅依托实战化对抗...",
+      "content": "#直击东部战区练兵备战现场#【#实战化训练锤炼打赢硬功#】近日，东部战区空军航空兵某旅依托实战化对抗演练背景，围绕空战战术、空战协同等课目开展昼间飞行训练，锤炼部队实战能力。（李长健、熊伟）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5277728782942556",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-17",
+      "title": "#东部熄灯号#淬火成钢强本领，凝心铸魂砺尖兵。#阅海峡#",
+      "content": "#东部熄灯号#淬火成钢强本领，凝心铸魂砺尖兵。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5277577536864771",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-17",
+      "title": "【中国海警依法驱离日非法进入我钓鱼岛领海船只】3月16日，日本“朝丸”号渔船非法进入中国钓鱼岛领海，...",
+      "content": "【中国海警依法驱离日非法进入我钓鱼岛领海船只】3月16日，日本“朝丸”号渔船非法进入中国钓鱼岛领海，中国海警舰艇依法对其采取必要管控措施并警告驱离。钓鱼岛及其附属岛屿是中国固有领土，我们敦促日方立即停止在该海域的一切侵权挑衅行径。中国海警将持续在钓鱼岛海域开展维权执法，维护国家主权 ...全文",
+      "url": "https://m.weibo.cn/detail/5277546330980835",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-17",
+      "title": "【#赓续血脉祭英烈#】近日，江苏省东台市人武部和五烈镇联合组织开展“缅怀英烈精神、传承红色基因”主题...",
+      "content": "【#赓续血脉祭英烈#】近日，江苏省东台市人武部和五烈镇联合组织开展“缅怀英烈精神、传承红色基因”主题植树活动。专武干部、基干民兵代表、预征青年代表及“老兵志愿服务队”成员，以“缅怀+植树”的特殊方式，追思英烈功绩，赓续红色血脉。（苗华山、何国庭）#传承红色基因#",
+      "url": "https://m.weibo.cn/detail/5277456740911689",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
