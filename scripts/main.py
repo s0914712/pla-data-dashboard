@@ -25,6 +25,31 @@ from scrapers.weibo_scraper import WeiboScraper
 from classifiers.grok_classifier import GrokNewsClassifier
 from updaters.github_updater import GitHubUpdater
 from updaters.naval_transit_updater import NavalTransitUpdater
+
+
+def _create_classifier():
+    """
+    根據 CLASSIFIER_BACKEND 環境變數建立分類器。
+
+    CLASSIFIER_BACKEND=bert  → BertNewsClassifier（離線，需先訓練模型）
+    CLASSIFIER_BACKEND=grok  → GrokNewsClassifier（需 GROK_API_KEY）
+    未設定時預設使用 grok（向後相容）。
+    """
+    backend = os.environ.get("CLASSIFIER_BACKEND", "grok").lower()
+
+    if backend == "bert":
+        from classifiers.bert_classifier import BertNewsClassifier
+        model_dir = os.environ.get("BERT_MODEL_DIR", "models/bert_news_classifier")
+        print(f"[Main] 使用 BERT 分類器 (model_dir={model_dir})")
+        return BertNewsClassifier(model_dir=model_dir)
+
+    # 預設: grok
+    api_key = os.environ.get("GROK_API_KEY")
+    if not api_key:
+        print("❌ GROK_API_KEY not found in environment")
+        sys.exit(1)
+    print("[Main] 使用 Grok LLM 分類器")
+    return GrokNewsClassifier(api_key)
 # ---------------------------------------------------------------------------
 # Helper: JSON 合併
 # ---------------------------------------------------------------------------
@@ -176,13 +201,9 @@ def main():
     # -----------------------------------------------------------------------
     # 4. Grok 去重 + 分類
     # -----------------------------------------------------------------------
-    print("\n[4/6] 使用 Grok 進行去重與新聞分類...")
-    api_key = os.environ.get("GROK_API_KEY")
-    if not api_key:
-        print("❌ GROK_API_KEY not found in environment")
-        sys.exit(1)
+    print("\n[4/6] 進行去重與新聞分類...")
     try:
-        with GrokNewsClassifier(api_key) as classifier:
+        with _create_classifier() as classifier:
             # 去重：先用 LLM 識別重複/高度相似文章
             deduped = classifier.deduplicate_batch(all_articles)
             stats["deduplication"] = {
