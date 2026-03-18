@@ -29,8 +29,14 @@ from .rule_extractor import extract_actors, extract_data
 class BertNewsClassifier:
     """使用微調 BERT 進行新聞分類和情緒分析"""
 
-    def __init__(self, model_dir: str = "models/bert_news_classifier"):
+    # 模型架構版本（需與 train_bert_classifier._save_model 中的版本一致）
+    EXPECTED_MODEL_VERSION = 2
+
+    def __init__(self, model_dir: str = "models/bert_news_classifier",
+                 max_content_chars: int = 400, batch_size: int = 32):
         self.model_dir = Path(model_dir)
+        self.max_content_chars = max_content_chars
+        self.infer_batch_size = batch_size
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
         # 載入 label config
@@ -42,6 +48,15 @@ class BertNewsClassifier:
             )
         with open(config_path, "r", encoding="utf-8") as f:
             self.config = json.load(f)
+
+        # 檢查模型版本相容性
+        model_version = self.config.get("model_version", 1)
+        if model_version != self.EXPECTED_MODEL_VERSION:
+            raise RuntimeError(
+                f"模型版本不相容: 檔案版本={model_version}, "
+                f"期望版本={self.EXPECTED_MODEL_VERSION}\n"
+                f"請重新訓練: python -m scripts.classifiers.train_bert_classifier"
+            )
 
         self.category_labels = self.config["category_labels"]
         self.sentiment_labels = self.config["sentiment_labels"]
@@ -66,9 +81,12 @@ class BertNewsClassifier:
         self.model.eval()
 
         print(f"[BertClassifier] ========== 診斷資訊 ==========")
-        print(f"[BertClassifier] Model dir : {self.model_dir}")
-        print(f"[BertClassifier] Device    : {self.device}")
-        print(f"[BertClassifier] Categories: {len(self.category_labels)}")
+        print(f"[BertClassifier] Model dir     : {self.model_dir}")
+        print(f"[BertClassifier] Device        : {self.device}")
+        print(f"[BertClassifier] Categories    : {len(self.category_labels)}")
+        print(f"[BertClassifier] Model version : {model_version}")
+        print(f"[BertClassifier] Content chars : {self.max_content_chars}")
+        print(f"[BertClassifier] Batch size    : {self.infer_batch_size}")
         print(f"[BertClassifier] ================================")
 
     # ------------------------------------------------------------------
@@ -87,7 +105,7 @@ class BertNewsClassifier:
              confidence, original_article}
         """
         title = article.get("title", "")
-        content = article.get("content", "")[:400]
+        content = article.get("content", "")[:self.max_content_chars]
         text = f"{title} [SEP] {content}" if content else title
 
         if not text.strip():
@@ -219,19 +237,112 @@ class BertNewsClassifier:
         return deduped
 
     # ------------------------------------------------------------------
-    # 批量分類
+    # 批量分類（批次推論）
     # ------------------------------------------------------------------
     def classify_batch(self, articles: List[Dict], delay: float = 0.0) -> List[Dict]:
         """
-        批量分類（BERT 不需要 delay，但保留參數相容性）。
+        批量分類（利用 BERT 批次推論加速，delay 參數保留以相容介面）。
         """
-        results = []
+        if not articles:
+            return []
+
         total = len(articles)
-        for i, article in enumerate(articles, 1):
-            if i % 20 == 0 or i == total:
-                print(f"[BertClassifier] Processing {i}/{total}...")
-            result = self.classify_single(article)
-            results.append(result)
+        print(f"[BertClassifier] 開始批次推論，共 {total} 篇...")
+
+        # 1. 準備所有文本
+        texts = []
+        for article in articles:
+            title = article.get("title", "")
+            content = article.get("content", "")[:self.max_content_chars]
+            text = f"{title} [SEP] {content}" if content else title
+            texts.append(text if text.strip() else "")
+
+        # 2. 批次推論
+        all_cat_probs = []
+        all_sent_probs = []
+
+        for start in range(0, total, self.infer_batch_size):
+            end = min(start + self.infer_batch_size, total)
+            batch_texts = texts[start:end]
+
+            # 過濾空文本（記錄索引）
+            non_empty = [(i, t) for i, t in enumerate(batch_texts) if t.strip()]
+            if not non_empty:
+                for _ in batch_texts:
+                    all_cat_probs.append(None)
+                    all_sent_probs.append(None)
+                continue
+
+            indices, valid_texts = zip(*non_empty)
+            enc = self.tokenizer(
+                list(valid_texts),
+                max_length=self.max_len,
+                padding=True,
+                truncation=True,
+                return_tensors="pt",
+            )
+            input_ids = enc["input_ids"].to(self.device)
+            attention_mask = enc["attention_mask"].to(self.device)
+
+            with torch.no_grad():
+                cat_logits, sent_logits = self.model(input_ids, attention_mask)
+
+            cat_probs_batch = torch.softmax(cat_logits, dim=1).cpu()
+            sent_probs_batch = torch.softmax(sent_logits, dim=1).cpu()
+
+            # 將結果放回正確位置
+            valid_idx = 0
+            for i in range(len(batch_texts)):
+                if valid_idx < len(indices) and i == indices[valid_idx]:
+                    all_cat_probs.append(cat_probs_batch[valid_idx])
+                    all_sent_probs.append(sent_probs_batch[valid_idx])
+                    valid_idx += 1
+                else:
+                    all_cat_probs.append(None)
+                    all_sent_probs.append(None)
+
+            if end % 100 == 0 or end == total:
+                print(f"[BertClassifier] Inference {end}/{total}...")
+
+        # 3. 組裝結果（逐篇套用 rule_extractor）
+        results = []
+        for i, article in enumerate(articles):
+            if all_cat_probs[i] is None:
+                results.append(self._default_result(article))
+                continue
+
+            cat_probs = all_cat_probs[i]
+            sent_probs = all_sent_probs[i]
+
+            cat_id = cat_probs.argmax().item()
+            category = self.category_labels[cat_id]
+            confidence = cat_probs[cat_id].item()
+
+            sent_id = sent_probs.argmax().item()
+            sentiment_label = self.sentiment_labels[sent_id]
+            sentiment_score = self._probs_to_score(sent_probs)
+
+            is_relevant = category != "Not_Relevant"
+
+            title = article.get("title", "")
+            content = article.get("content", "")[:self.max_content_chars]
+            full_text = f"{title} {content}"
+            country1, country2 = extract_actors(full_text, category)
+            extracted = extract_data(full_text, category)
+
+            results.append({
+                "category": category,
+                "is_relevant": is_relevant,
+                "country1": country1,
+                "country2": country2,
+                "sentiment_score": round(sentiment_score, 3),
+                "sentiment_label": sentiment_label,
+                "extracted_data": extracted,
+                "confidence": round(confidence, 3),
+                "original_article": article,
+            })
+
+        print(f"[BertClassifier] 批次推論完成: {total} 篇")
         return results
 
     def filter_relevant(self, classified: List[Dict]) -> List[Dict]:

@@ -9,6 +9,8 @@ Grok API 新聞分類器 / Grok News Classifier
 """
 
 import json
+import hashlib
+import re
 import httpx
 import time
 from typing import List, Dict, Optional
@@ -18,6 +20,13 @@ from .prompts import (
     DEDUP_SYSTEM_PROMPT,
     DEDUP_USER_TEMPLATE,
 )
+
+# 合法的分類類別（用於驗證 LLM 輸出）
+VALID_CATEGORIES = {
+    "CN_Statement", "US_Statement", "TW_Statement",
+    "Military_Exercise", "Foreign_battleship", "US_TW_Interaction",
+    "Regional_Security", "CCP_news_and_blog", "Not_Relevant",
+}
 
 
 class GrokNewsClassifier:
@@ -33,13 +42,19 @@ class GrokNewsClassifier:
     FALLBACK_MAX_RETRIES = 2
     FALLBACK_RETRY_DELAYS = [15, 30]
     
-    def __init__(self, api_key: str):
+    def __init__(self, api_key: str, max_content_chars: int = 800,
+                 enable_cache: bool = True):
         self.api_key = api_key.strip()
         self.api_url = "https://api.apertis.ai/v1/chat/completions"
         self.model = "gemini-2.0-flash-thinking-exp-0121:free"
+        self.max_content_chars = max_content_chars
         # trust_env=False 防止 CI/CD 環境代理設定干擾
         self.client = httpx.Client(timeout=60, trust_env=False)
         self._debug_printed = False
+        # 自適應延遲：記錄上次 rate-limit 建議的等待時間
+        self._last_rate_limit_delay: float = 0.0
+        # 分類結果快取（以文章內容 hash 為 key）
+        self._cache: Dict[str, Dict] = {} if enable_cache else None
 
         # 初始化時印出診斷資訊
         masked_key = self.api_key[:8] + "..." + self.api_key[-4:] if len(self.api_key) > 12 else "***"
@@ -48,8 +63,23 @@ class GrokNewsClassifier:
         print(f"[GrokClassifier] Primary Model: {self.model} (max {self.PRIMARY_MAX_RETRIES} retries)")
         print(f"[GrokClassifier] Fallback Model: {self.FALLBACK_MODEL} (after primary fails, max {self.FALLBACK_MAX_RETRIES} retries)")
         print(f"[GrokClassifier] API Key      : {masked_key} (length={len(self.api_key)})")
+        print(f"[GrokClassifier] Content chars: {self.max_content_chars}")
+        print(f"[GrokClassifier] Cache        : {'enabled' if self._cache is not None else 'disabled'}")
         print(f"[GrokClassifier] ================================")
     
+    @staticmethod
+    def _extract_json_text(raw: str) -> str:
+        """從可能包含 markdown code block 的回應中提取 JSON 文字"""
+        if '```json' in raw:
+            m = re.search(r'```json\s*(.*?)\s*```', raw, re.DOTALL)
+            if m:
+                return m.group(1)
+        elif '```' in raw:
+            m = re.search(r'```\s*(.*?)\s*```', raw, re.DOTALL)
+            if m:
+                return m.group(1)
+        return raw
+
     def _try_model(self, messages: List[Dict], model: str,
                    max_retries: int, retry_delays: List[int]) -> Optional[str]:
         """
@@ -90,6 +120,10 @@ class GrokNewsClassifier:
                             wait_time = retry_delays[min(attempt - 1, len(retry_delays) - 1)]
                     else:
                         wait_time = retry_delays[min(attempt - 1, len(retry_delays) - 1)]
+
+                    # 記錄 rate-limit 延遲供 classify_batch 自適應使用
+                    if response.status_code == 429:
+                        self._last_rate_limit_delay = max(self._last_rate_limit_delay, wait_time)
 
                     print(f"[GrokClassifier] ⚠️  [{model}] HTTP {response.status_code} "
                           f"(attempt {attempt}/{max_retries})")
@@ -163,59 +197,71 @@ class GrokNewsClassifier:
     def classify_single(self, article: Dict) -> Dict:
         """
         分類單篇新聞並進行情緒分析
-        
+
         Args:
             article: 新聞字典 {date, title, content, url, source}
-            
+
         Returns:
             分類結果 {
                 category, is_relevant, sentiment_score, sentiment_label,
                 extracted_data, confidence
             }
         """
+        title = article.get('title', '')
+        content = article.get('content', '')[:self.max_content_chars]
+
+        # 快取檢查
+        cache_key = None
+        if self._cache is not None:
+            cache_key = hashlib.sha256(
+                (title + content).encode('utf-8', errors='replace')
+            ).hexdigest()
+            if cache_key in self._cache:
+                cached = self._cache[cache_key].copy()
+                cached['original_article'] = article
+                return cached
+
         # 構建用戶消息
         user_message = CLASSIFICATION_USER_TEMPLATE.format(
-            title=article.get('title', ''),
-            content=article.get('content', '')[:500],  # 限制內容長度
+            title=title,
+            content=content,
             date=article.get('date', ''),
             source=article.get('source', '')
         )
-        
+
         messages = [
             {"role": "system", "content": CLASSIFICATION_SYSTEM_PROMPT},
             {"role": "user", "content": user_message}
         ]
-        
+
         response = self._call_api(messages)
-        
+
         if not response:
             return self._default_result(article)
-        
-        return self._parse_response(response, article)
+
+        result = self._parse_response(response, article)
+
+        # 寫入快取
+        if cache_key is not None:
+            self._cache[cache_key] = result
+
+        return result
     
     def _parse_response(self, response: str, article: Dict) -> Dict:
         """解析 API 回應"""
         try:
-            # 嘗試提取 JSON
-            json_match = response
-            
-            # 如果回應包含 ```json ... ``` 格式
-            if '```json' in response:
-                import re
-                match = re.search(r'```json\s*(.*?)\s*```', response, re.DOTALL)
-                if match:
-                    json_match = match.group(1)
-            elif '```' in response:
-                import re
-                match = re.search(r'```\s*(.*?)\s*```', response, re.DOTALL)
-                if match:
-                    json_match = match.group(1)
-            
-            result = json.loads(json_match)
-            
-            # 確保必要欄位存在
+            json_text = self._extract_json_text(response)
+            result = json.loads(json_text)
+
+            # 驗證 category 是否合法
+            category = result.get('category', 'Not_Relevant')
+            if category not in VALID_CATEGORIES:
+                print(f"[GrokClassifier] ⚠️  Unexpected category '{category}', "
+                      f"falling back to Not_Relevant")
+                category = 'Not_Relevant'
+
             return {
-                'category': result.get('category', 'Not_Relevant'),
+                'category': category,
                 'is_relevant': result.get('is_relevant', False),
                 'country1': result.get('country1', ''),
                 'country2': result.get('country2', ''),
@@ -225,7 +271,7 @@ class GrokNewsClassifier:
                 'confidence': float(result.get('confidence', 0.5)),
                 'original_article': article
             }
-            
+
         except (json.JSONDecodeError, KeyError, TypeError) as e:
             print(f"[GrokClassifier] Parse error: {e}")
             return self._default_result(article)
@@ -319,18 +365,7 @@ class GrokNewsClassifier:
 
             # 解析 LLM 回應
             try:
-                text = response
-                if "```json" in text:
-                    import re
-                    m = re.search(r"```json\s*(.*?)\s*```", text, re.DOTALL)
-                    if m:
-                        text = m.group(1)
-                elif "```" in text:
-                    import re
-                    m = re.search(r"```\s*(.*?)\s*```", text, re.DOTALL)
-                    if m:
-                        text = m.group(1)
-
+                text = self._extract_json_text(response)
                 result = json.loads(text)
                 groups = result.get("groups", [])
 
@@ -365,27 +400,31 @@ class GrokNewsClassifier:
     def classify_batch(self, articles: List[Dict], delay: float = 1.0) -> List[Dict]:
         """
         批量分類新聞
-        
+
         Args:
             articles: 新聞列表
-            delay: 請求間隔（秒）
-            
+            delay: 基本請求間隔（秒），遇到 rate-limit 時自動延長
+
         Returns:
             分類結果列表
         """
         results = []
         total = len(articles)
-        
+
         for i, article in enumerate(articles, 1):
             print(f"[GrokClassifier] Processing {i}/{total}: {article.get('title', '')[:40]}...")
-            
+
             result = self.classify_single(article)
             results.append(result)
-            
-            # 避免 API 限流
+
+            # 自適應延遲：取基本延遲與 rate-limit 建議的較大值
             if i < total:
-                time.sleep(delay)
-        
+                adaptive_delay = max(delay, self._last_rate_limit_delay)
+                if adaptive_delay > delay:
+                    print(f"[GrokClassifier]   Rate-limit adaptive delay: {adaptive_delay}s")
+                time.sleep(adaptive_delay)
+                self._last_rate_limit_delay = 0.0  # 重置
+
         return results
     
     def filter_relevant(self, classified: List[Dict]) -> List[Dict]:

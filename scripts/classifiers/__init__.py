@@ -8,6 +8,7 @@
 透過 CLASSIFIER_BACKEND 環境變數切換。
 """
 
+from .base import NewsClassifier
 from .grok_classifier import GrokNewsClassifier
 from .bert_classifier import BertNewsClassifier
 from .rule_extractor import extract_actors, extract_data
@@ -19,6 +20,7 @@ from .prompts import (
 )
 
 __all__ = [
+    'NewsClassifier',
     'GrokNewsClassifier',
     'BertNewsClassifier',
     'extract_actors',
