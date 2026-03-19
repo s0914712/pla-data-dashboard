@@ -4825,5 +4825,62 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-19",
+      "title": "#直击东部战区练兵备战现场#【#开展全要素损害管制专业强化训练# 】近日，东部战区海军某部紧贴实战任...",
+      "content": "#直击东部战区练兵备战现场#【#开展全要素损害管制专业强化训练# 】近日，东部战区海军某部紧贴实战任务需求，组织开展全要素损害管制专业强化训练，顺利完成模拟火场、堵漏等科目演练，有效锤炼了舰员复杂环境下的应急处置能力，提升损管作业协同作战水平，为深蓝远航保驾护航。（刘付前、刘嘉、赵丙 ...全文",
+      "url": "https://m.weibo.cn/detail/5278090918888001",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-18",
+      "title": "#东部熄灯号#保障有我天疆固，霄汉无忧战鹰巡。#阅海峡#",
+      "content": "#东部熄灯号#保障有我天疆固，霄汉无忧战鹰巡。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5277939924471272",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-18",
+      "title": "【#砺笔强能讲好强军故事#】近日，东部战区空军某场站组织新闻骨干和讲解员集训。集训聚焦新闻报道“采编...",
+      "content": "【#砺笔强能讲好强军故事#】近日，东部战区空军某场站组织新闻骨干和讲解员集训。集训聚焦新闻报道“采编摄发”及讲解礼仪规范、语言表达等内容，采取理论授课、现地示范、讨论交流等形式，着力提升基层宣传骨干新闻采编、文化讲解能力，为新年度基层宣传文化建设“充电蓄能”。（郭政、张翼、刘程远、 ...全文",
+      "url": "https://m.weibo.cn/detail/5277819128513802",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
