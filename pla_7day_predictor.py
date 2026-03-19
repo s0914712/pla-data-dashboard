@@ -36,11 +36,19 @@ v2.4.0 Anti-Leaking 改善:
 - 新聞先行指標: news_classified.json 事件計數 + 情緒分數
 - 政治特徵擴充: US_Taiwan_interaction, Foreign_battleship (merged_data_M)
 
+v2.5.0 Zero-Regime 改善:
+- Fix: us_tw_interaction_7d / foreign_battleship_7d 不再硬編碼為 0，改查詢政治事件資料
+- HIGH_THRESHOLD 從 60 降至 25（更貼近實際資料分布）
+- Adaptive Recency Boost: 零 regime 時僅 boost 非零天，防止模型過度偏向零
+- Regime 轉換特徵: zero_to_active_hist, active_to_zero_hist, days_since_last_active, last_active_value
+- 零 regime CI 拓寬: 考慮歷史突增可能性，避免信賴區間過窄
+- 新聞升級指標: news_escalation_score（加權軍事/外交事件）
+
 Usage:
     python pla_predictor.py
 
 Author: PLA Data Dashboard
-Version: 2.4.0
+Version: 2.5.0
 """
 
 import pandas as pd
@@ -78,7 +86,7 @@ DATA_SOURCES = {
 NEWS_LOCAL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'news_classified.json')
 
 OUTPUT_PATH = 'data/predictions/latest_prediction.csv'
-HIGH_THRESHOLD = 60
+HIGH_THRESHOLD = 25
 PREDICTION_DAYS = 7
 
 # CatBoost 最佳參數
@@ -131,7 +139,7 @@ def get_holiday_features(date):
 
 
 class PLAPredictor:
-    """PLA 架次預測系統 v2.4 - CatBoost + Anti-Leaking"""
+    """PLA 架次預測系統 v2.5 - CatBoost + Zero-Regime 改善"""
 
     def __init__(self, high_threshold=None):
         self.reg_model = None           # 主回歸模型
@@ -176,17 +184,23 @@ class PLAPredictor:
             'spike_7d', 'spike_ratio',
             # v2.4: 新聞情緒
             'news_avg_sentiment',
+            # v2.5: regime 轉換特徵
+            'zero_to_active_hist',   # 歷史 0→非0 轉換率
+            'active_to_zero_hist',   # 歷史 非0→0 轉換率
+            'days_since_last_active', # 距離上次非零天數
+            'last_active_value',     # 上次非零值
         ]
         self.count_cols = ['carrier', 'cn_stmt_7d',
                            'us_tw_interaction_7d', 'foreign_battleship_7d',
                            'news_military_count', 'news_us_tw_count',
-                           'news_relevant_count']
+                           'news_relevant_count',
+                           'news_escalation_score']
         self.holiday_cols = ['is_holiday']
 
     def load_data(self, sorties_path=None, political_path=None):
         """載入資料"""
         print("=" * 60)
-        print("PLA 7-Day Prediction System v2.4")
+        print("PLA 7-Day Prediction System v2.5")
         print(f"Engine: {'CatBoost' if USE_CATBOOST else 'sklearn GradientBoosting'}")
         print("=" * 60)
         print(f"\n[1] 載入資料...")
@@ -279,11 +293,12 @@ class PLAPredictor:
             return []
 
     def _extract_news_features(self, target_date, lookback_days=7):
-        """v2.4: 從 news_classified.json 提取先行指標特徵（嚴格 < target_date）"""
+        """v2.5: 從 news_classified.json 提取先行指標特徵（嚴格 < target_date）"""
         if not self.news_data:
             return {
                 'news_military_count': 0, 'news_us_tw_count': 0,
                 'news_relevant_count': 0, 'news_avg_sentiment': 0,
+                'news_escalation_score': 0,
             }
 
         window_start = target_date - timedelta(days=lookback_days)
@@ -296,11 +311,25 @@ class PLAPredictor:
             except (KeyError, ValueError):
                 continue
 
+        # v2.5: 升級指標 - 軍事演習 + 外國軍艦 + 美台互動 + 中共聲明的加權分數
+        escalation_weights = {
+            'Military_Exercise': 3.0,
+            'Foreign_battleship': 2.0,
+            'US_TW_Interaction': 2.5,
+            'CN_Statement': 1.0,
+            'Regional_Security': 1.5,
+        }
+        escalation_score = sum(
+            escalation_weights.get(n.get('category', ''), 0)
+            for n in recent
+        )
+
         return {
             'news_military_count': sum(1 for n in recent if n.get('category') == 'Military_Exercise'),
             'news_us_tw_count': sum(1 for n in recent if n.get('category') == 'US_TW_Interaction'),
             'news_relevant_count': sum(1 for n in recent if n.get('is_relevant')),
             'news_avg_sentiment': float(np.mean([n.get('sentiment_score', 0) for n in recent])) if recent else 0,
+            'news_escalation_score': escalation_score,
         }
 
     def _create_political_features(self, df, df_events, window_days):
@@ -377,6 +406,34 @@ class PLAPredictor:
         # === v2.4: 近期 spike 偵測 ===
         df['spike_7d'] = df[target].shift(1).rolling(7, min_periods=1).max().fillna(0)
         df['spike_ratio'] = df['lag_1'] / (df['spike_7d'] + 1)
+
+        # === v2.5: regime 轉換特徵 ===
+        shifted_target = df[target].shift(1)
+        prev_target = df[target].shift(2)
+        # 過去 14 天內 0→非0 轉換率
+        is_zero = (shifted_target == 0).astype(float)
+        was_zero = (prev_target == 0).astype(float)
+        became_active = ((prev_target == 0) & (shifted_target > 0)).astype(float)
+        became_zero = ((prev_target > 0) & (shifted_target == 0)).astype(float)
+        df['zero_to_active_hist'] = became_active.rolling(14, min_periods=1).mean().fillna(0)
+        df['active_to_zero_hist'] = became_zero.rolling(14, min_periods=1).mean().fillna(0)
+        # 距離上次非零天數
+        days_since = []
+        last_val = []
+        last_active_day = -1
+        last_active_v = 0
+        for i, val in enumerate(shifted_target):
+            if pd.notna(val) and val > 0:
+                last_active_day = i
+                last_active_v = val
+            if last_active_day >= 0:
+                days_since.append(i - last_active_day)
+                last_val.append(last_active_v)
+            else:
+                days_since.append(30)  # 預設較大值
+                last_val.append(0)
+        df['days_since_last_active'] = days_since
+        df['last_active_value'] = last_val
 
         # === 外部特徵 ===
         # carrier: 過去7天航母活動累計（shift(1) 避免同步洩漏，預測時可用歷史值）
@@ -506,6 +563,23 @@ class PLAPredictor:
         spike_7d = max(recent_7)
         spike_ratio = lag_1 / (spike_7d + 1)
 
+        # regime 轉換特徵
+        recent_14 = window[-14:]
+        transitions_z2a = sum(1 for i in range(1, len(recent_14)) if recent_14[i-1] == 0 and recent_14[i] > 0)
+        transitions_a2z = sum(1 for i in range(1, len(recent_14)) if recent_14[i-1] > 0 and recent_14[i] == 0)
+        zero_to_active_hist = transitions_z2a / max(1, len(recent_14) - 1)
+        active_to_zero_hist = transitions_a2z / max(1, len(recent_14) - 1)
+        # 距離上次非零
+        days_since_last_active = 0
+        last_active_value = 0
+        for j in range(len(window) - 1, -1, -1):
+            if window[j] > 0:
+                days_since_last_active = len(window) - 1 - j
+                last_active_value = window[j]
+                break
+        else:
+            days_since_last_active = 30
+
         # 政治特徵
         pol_7d = self._get_future_political_features(target_date, 7) if df_political is None else self._get_future_political_features(target_date, 7)
         news_feat = self._extract_news_features(target_date)
@@ -536,14 +610,19 @@ class PLAPredictor:
             'zero_count_3d': zero_count_3d, 'zero_count_7d': zero_count_7d,
             'consecutive_zero': consecutive_zero,
             'spike_7d': spike_7d, 'spike_ratio': spike_ratio,
+            'zero_to_active_hist': zero_to_active_hist,
+            'active_to_zero_hist': active_to_zero_hist,
+            'days_since_last_active': days_since_last_active,
+            'last_active_value': last_active_value,
             'news_avg_sentiment': news_feat['news_avg_sentiment'],
             'carrier': self._recent_carrier,
             'cn_stmt_7d': pol_7d['cn_stmt_7d'],
-            'us_tw_interaction_7d': 0,  # 靜態（CV 中無法即時查詢）
-            'foreign_battleship_7d': 0,
+            'us_tw_interaction_7d': self._get_political_count(target_date, 7, 'US_Taiwan_interaction'),
+            'foreign_battleship_7d': self._get_political_count(target_date, 7, 'Foreign_battleship'),
             'news_military_count': news_feat['news_military_count'],
             'news_us_tw_count': news_feat['news_us_tw_count'],
             'news_relevant_count': news_feat['news_relevant_count'],
+            'news_escalation_score': news_feat['news_escalation_score'],
             'is_holiday': is_holiday,
         }
         return features
@@ -560,20 +639,42 @@ class PLAPredictor:
         y_clf = df['is_high'].values
         weights = df['time_weight'].values
 
-        # === Recency Boost: 重複近期資料以強化近期 regime ===
+        # === Adaptive Recency Boost: 偵測近期 regime 並調整策略 ===
         recent_cutoff = df['date'].max() - timedelta(weeks=RECENCY_BOOST_WEEKS)
         recent_mask = (df['date'] >= recent_cutoff).values
         n_recent = int(recent_mask.sum())
 
         if RECENCY_BOOST_FACTOR > 1 and n_recent > 0:
-            repeat = RECENCY_BOOST_FACTOR - 1
-            X_full_boosted = np.vstack([X_full] + [X_full[recent_mask]] * repeat)
-            X_base_boosted = np.vstack([X_base] + [X_base[recent_mask]] * repeat)
-            y_reg_boosted = np.concatenate([y_reg] + [y_reg[recent_mask]] * repeat)
-            y_clf_boosted = np.concatenate([y_clf] + [y_clf[recent_mask]] * repeat)
-            w_boosted = np.concatenate([weights] + [weights[recent_mask]] * repeat)
-            print(f"    Recency boost: last {RECENCY_BOOST_WEEKS}w ({n_recent} rows) "
-                  f"x{RECENCY_BOOST_FACTOR} -> {len(X_full_boosted)} training samples")
+            # 偵測近期零比例，避免過度強化零活動 regime
+            recent_zero_ratio = (y_reg[recent_mask] == 0).mean()
+            if recent_zero_ratio > 0.6:
+                # 零活動主導：僅 boost 非零天 + 整段較小倍數
+                non_zero_mask = recent_mask & (y_reg > 0)
+                n_non_zero = int(non_zero_mask.sum())
+                if n_non_zero > 0:
+                    # boost 非零天數較多次，確保模型不只學到零
+                    repeat_nz = RECENCY_BOOST_FACTOR
+                    X_full_boosted = np.vstack([X_full] + [X_full[non_zero_mask]] * repeat_nz)
+                    X_base_boosted = np.vstack([X_base] + [X_base[non_zero_mask]] * repeat_nz)
+                    y_reg_boosted = np.concatenate([y_reg] + [y_reg[non_zero_mask]] * repeat_nz)
+                    y_clf_boosted = np.concatenate([y_clf] + [y_clf[non_zero_mask]] * repeat_nz)
+                    w_boosted = np.concatenate([weights] + [weights[non_zero_mask]] * repeat_nz)
+                    print(f"    Adaptive recency boost (zero-inflated regime, {recent_zero_ratio:.0%} zeros): "
+                          f"boosted {n_non_zero} non-zero rows x{repeat_nz} -> {len(X_full_boosted)} samples")
+                else:
+                    X_full_boosted, X_base_boosted = X_full, X_base
+                    y_reg_boosted, y_clf_boosted, w_boosted = y_reg, y_clf, weights
+                    print(f"    Recency boost skipped: all recent rows are zero")
+            else:
+                # 正常 regime：全部 boost
+                repeat = RECENCY_BOOST_FACTOR - 1
+                X_full_boosted = np.vstack([X_full] + [X_full[recent_mask]] * repeat)
+                X_base_boosted = np.vstack([X_base] + [X_base[recent_mask]] * repeat)
+                y_reg_boosted = np.concatenate([y_reg] + [y_reg[recent_mask]] * repeat)
+                y_clf_boosted = np.concatenate([y_clf] + [y_clf[recent_mask]] * repeat)
+                w_boosted = np.concatenate([weights] + [weights[recent_mask]] * repeat)
+                print(f"    Recency boost: last {RECENCY_BOOST_WEEKS}w ({n_recent} rows) "
+                      f"x{RECENCY_BOOST_FACTOR} -> {len(X_full_boosted)} training samples")
         else:
             X_full_boosted, X_base_boosted = X_full, X_base
             y_reg_boosted, y_clf_boosted, w_boosted = y_reg, y_clf, weights
@@ -716,6 +817,17 @@ class PLAPredictor:
             return 0.9, "Medium weather risk"
         return 1.0, "Good weather"
 
+    def _get_political_count(self, target_date, window_days, column):
+        """查詢政治事件資料中指定欄位的近 N 天非空計數"""
+        if self.political_events is None or self.political_events.empty:
+            return 0
+        if column not in self.political_events.columns:
+            return 0
+        mask = (self.political_events['date'] >= target_date - timedelta(days=window_days)) & \
+               (self.political_events['date'] < target_date)
+        past = self.political_events[mask]
+        return int(past[column].notna().sum())
+
     def _get_future_political_features(self, target_date, window_days):
         if self.political_events is None or self.political_events.empty:
             return {f'cn_stmt_{window_days}d': 0}
@@ -785,6 +897,15 @@ class PLAPredictor:
             lower = max(0, lower_raw * weather_adj / uncertainty_growth)
             upper = upper_raw * weather_adj * uncertainty_growth
 
+            # v2.5: 零 regime CI 拓寬 - 當近期多為零時，歷史仍有突然飆升的可能
+            recent_7_vals = current_window[-7:]
+            zero_ratio_7d = sum(1 for v in recent_7_vals if v == 0) / len(recent_7_vals)
+            if zero_ratio_7d > 0.5:
+                # 用歷史 30 天的 max 和 mean 作為 CI 上界參考
+                hist_30_max = max(current_window[-30:]) if len(current_window) >= 30 else max(current_window)
+                hist_30_mean = np.mean([v for v in current_window[-30:] if v > 0]) if any(v > 0 for v in current_window[-30:]) else 10
+                upper = max(upper, hist_30_max * 0.8, hist_30_mean * 2)
+
             if lower > pred_final:
                 lower = max(0, pred_final * 0.7)
             if upper < pred_final:
@@ -831,7 +952,7 @@ class PLAPredictor:
 
         # 加入 metadata
         predictions['generated_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        predictions['model_version'] = '2.4.0'
+        predictions['model_version'] = '2.5.0'
         predictions['data_latest_date'] = self.latest_date.strftime('%Y-%m-%d')
         predictions['cv_mae'] = round(np.mean(self.cv_scores), 2) if self.cv_scores else None
 
