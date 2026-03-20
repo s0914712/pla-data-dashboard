@@ -7597,5 +7597,62 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-20",
+      "title": "#当兵就要练练练#【#苦练实战本领守好祖国东大门#】近日，武警浙江总队舟山支队某大队船艇编队迎着凛冽...",
+      "content": "#当兵就要练练练#【#苦练实战本领守好祖国东大门#】近日，武警浙江总队舟山支队某大队船艇编队迎着凛冽寒风从码头解缆，劈波斩浪奔赴嵊泗海域开展远航实战化训练，官兵们以坚韧意志苦练实战本领，用忠诚与热血守护祖国东大门。（武学智、李晗健）",
+      "url": "https://m.weibo.cn/detail/5278453315406914",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-19",
+      "title": "#东部熄灯号# 守疆卫土怀赤胆，练兵备战铸铁拳。#阅海峡#",
+      "content": "#东部熄灯号# 守疆卫土怀赤胆，练兵备战铸铁拳。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5278302312075282",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-03-19",
+      "title": "【#条令在心作风在行#】近日，武警宁德支队开展“争做阳光军人，打造幸福连队，构建和谐军营”系列活动，...",
+      "content": "【#条令在心作风在行#】近日，武警宁德支队开展“争做阳光军人，打造幸福连队，构建和谐军营”系列活动，通过条令知识竞赛与队列会操，深化条令条例贯彻落实，夯实部队正规化建设基础，锤炼官兵法纪意识与优良作风。（黄俊、林从雨、陈潇来、周以涛）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5278181515857843",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
