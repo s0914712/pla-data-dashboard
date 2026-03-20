@@ -1,0 +1,122 @@
+name: Monthly BERT Model Retrain
+
+on:
+  schedule:
+    # 每月 1 日 UTC 18:00 (台北時間 02:00) 執行
+    - cron: '0 18 1 * *'
+
+  # 允許手動觸發
+  workflow_dispatch:
+    inputs:
+      epochs:
+        description: 'Training epochs'
+        required: false
+        default: '10'
+        type: string
+      force_retrain:
+        description: '強制重新訓練（忽略資料量檢查）'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  retrain-bert:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Check training data sufficiency
+        id: check_data
+        run: |
+          python3 -c "
+          import json
+          with open('data/news_classified.json', 'r') as f:
+              data = json.load(f)
+          valid = [d for d in data if d.get('category') and d.get('sentiment_label')]
+          print(f'Total articles: {len(data)}')
+          print(f'Valid for training: {len(valid)}')
+          if len(valid) >= 50:
+              print('SUFFICIENT=true')
+          else:
+              print('SUFFICIENT=false')
+          " | tee /tmp/check.txt
+
+          if grep -q "SUFFICIENT=true" /tmp/check.txt; then
+            echo "sufficient=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "sufficient=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Retrain BERT model
+        if: ${{ steps.check_data.outputs.sufficient == 'true' || github.event.inputs.force_retrain == 'true' }}
+        env:
+          BERT_EPOCHS: ${{ github.event.inputs.epochs || '10' }}
+          BERT_BATCH_SIZE: '16'
+          BERT_LR: '2e-5'
+          BERT_PATIENCE: '3'
+          BERT_DATA_PATH: 'data/news_classified.json'
+          BERT_MODEL_DIR: 'models/bert_news_classifier'
+        run: |
+          echo "========================================="
+          echo "  BERT Retraining - $(date +'%Y-%m-%d')"
+          echo "========================================="
+          python -m scripts.classifiers.train_bert_classifier
+
+      - name: Skip notification
+        if: ${{ steps.check_data.outputs.sufficient == 'false' && github.event.inputs.force_retrain != 'true' }}
+        run: |
+          echo "⚠️ Training data insufficient (<50 valid articles). Skipping retrain."
+          echo "Use workflow_dispatch with force_retrain=true to override."
+
+      - name: Commit and push updated model
+        if: ${{ steps.check_data.outputs.sufficient == 'true' || github.event.inputs.force_retrain == 'true' }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action Bot"
+
+          git add models/bert_news_classifier/model.pt
+          git add models/bert_news_classifier/label_config.json
+          git add models/bert_news_classifier/config.json || true
+          git add models/bert_news_classifier/vocab.txt || true
+          git add models/bert_news_classifier/special_tokens_map.json || true
+          git add models/bert_news_classifier/tokenizer_config.json || true
+
+          if git diff --staged --quiet; then
+            echo "✓ No model changes to commit"
+          else
+            git commit -m "🤖 Monthly BERT retrain: $(date +'%Y-%m-%d')"
+
+            for i in 1 2 3 4; do
+              git push && break || echo "Push failed (attempt $i/4)"
+              git pull --rebase --autostash origin main
+              sleep $((2 ** i))
+            done
+            echo "✓ Updated model pushed"
+          fi
+
+      - name: Upload training logs
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bert-retrain-logs-${{ github.run_number }}
+          path: models/bert_news_classifier/label_config.json
+          retention-days: 90
