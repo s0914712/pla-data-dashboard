@@ -7658,12 +7658,89 @@
   {
     "category": "CCP_news_and_blog",
     "is_relevant": true,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.8,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "新華社報導台南祭孔，強調中華傳統文化與兩岸淵源，促進文化認同。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-20",
+      "title": "台南孔庙举行春祭致敬至圣先师孔子",
+      "content": "伴随鼓声响起，数十名身着清代服制的乐舞生、佾生徐徐步入大成殿。这是20日在台南孔庙举行的“大成至圣先师释奠典礼”，又称春祭。 释奠是祭孔典礼的专属名称。时值春分，台南孔庙依循古礼进行祭孔仪式，向至圣先师孔子致以最高敬意，传扬尊师重道的儒学精神。典礼涵盖启扉、迎神、初献、亚献、终献、撤馔、送神等20道程序。 今年春祭依旧由以成书院承担文庙乐局相关工作，由来自台南忠义小学的佾生演绎六佾舞。 台南孔庙维持“清制乐佾”的传统形式，其仪程、音乐、佾舞依据上世纪30年代赴山东考证后、在台出版的《圣庙释奠仪节》执行。 “这些仪程是我曾祖父从山东孔庙亲手抄录的。”担任春祭大通的方政博说，他当大通已经接近30年。作为典礼的大通，不仅仅是扮演司仪、主持的角色，更需要通盘了解并掌握整场典礼的运作。 对于方政博而言，参加释奠成为他家五代相传的“家学渊源”。今年他的两个儿子也参与春祭典礼。 “中华传统文化不仅在于教书育人，更能培育人们礼义廉耻的道德感、规范人际相处礼仪。”方政博说，释奠可以成为台湾学校提供儒学教育的依据，更好地引导下一代。 忠义小学此次共有40余名学生参与，其中36人担任佾生，10人为预备替补。据了解，该校紧邻台南孔庙，常通过组织学生参与释奠、讲解孔庙文化等活动，加深学生对儒家文化的认知与理解。 3月20日拍摄的春祭典礼现场。新华社记者 黄扬 摄 担任春祭典礼佾生长的忠义小学退休教师洪克超说，学生报名十分踊跃，都以担任佾生为荣。他相信，参与典礼有助于学生在日常学习生活中养成良好品行。 当日活动共有逾百人到场参加春祭典礼，其中不乏远道而来的海外游客。来自德国的游客玛利亚特意早起前来观看。她前两天游览孔庙，见场内一片繁忙，才得知是为筹备典礼。她说，之前在德国时曾听说过孔子，今天看到典礼，觉得很有意义。 孔子是中国古代伟大的思想家、教育家，其开创的儒家思想既是中华文明的重要组成部分，也是台湾社会发展的重要文化根基。 明末清初，郑成功收复台湾并着力经营，大量移民赴台拓垦，儒学随之传入台湾。1666年，在咨议参军陈永华倡议下，台湾首座孔庙在台南建成。据不完全统计，目前台湾各地共有40余座孔庙。 7时许，曙光渐显，罄声响起，礼成退班。紧接着的是台南孔庙释奠典礼后的一项重头戏“拔智慧毛”活动。 典礼依古礼以牛、猪等为祭祀牲礼，祭孔牛只身上的毛俗称“智慧毛”，被认为可使读书人增添智慧、考试顺利。现场不少家长排起长队，只为亲手为孩子拔取“智慧毛”。 除春分春祭外，台南孔庙每年还会在孔子诞辰纪念日举行秋祭，恢复清代春秋二祭传统。台南孔庙相关工作人员表示，未来计划在孔庙设计更多文化活动，与民众生活场景融合，让民众透过日常生活更好地理解儒家文化。",
+      "url": "https://www.news.cn/tw/20260320/1ac600dbe9c2497cb2211f290dd36122/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "外交部回应日美领导人会晤谈及台海，强调解决台湾问题是中国人自己的事，不容外部干涉。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-03-20",
+      "title": "外交部回应日美领导人会晤谈及台海：解决台湾问题是中国人自己的事",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
+      "url": "https://www.news.cn/tw/20260320/bf803bd110fd4b5fb3385cc8dc4292b4/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.8,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國舉辦兩岸青年信俗淵源徒步研學尋根之旅，強調閩台文化同根同源，促進兩岸青年文化交流與認同。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-20",
+      "title": "第五届两岸青年信俗渊源徒步研学寻根之旅在福州启动",
+      "content": "活动以徒步形式串联福州、莆田、泉州三地，溯源两岸共同文化根脉，为两岸青年搭建沉浸式文化交流平台。 启动仪式在福州市上下杭历史文化街区三通桥畔“台胞寻根示范点”万寿尚书庙内举行，现场通过民俗暖场展演、两岸信物交换、闽台茶香相融等环节，让两岸青年在榕城的烟火气与信俗文化中，开启跨越山海的寻根之旅。 台湾桃园白沙屯妈祖联谊会执行秘书陈玄丰是该活动的常客，连续多年组织台湾青年跨海而来。他告诉记者，从岛内前来参加的人数逐年递增，今年有五六十人，来自台南、南投、桃园等多地，涵盖各行各业。 “我们今年将攀爬惠安笔架山、走古道，效仿古代先贤，重走他们走过的路，相信会有别样的体验。”陈玄丰说，参加此活动不只是旅游观光，更希望传承中华文化，把当地的人文风情分享给台湾朋友，让大家真切感受到闽台文化同根同源、生活息息相关。 据介绍，活动为期8天，将持续至3月27日，全程徒步跨越300多公里，最终抵达泉州通淮关岳庙。沿途，两岸青年将参与寻根缅怀、民俗展演、公益慈善等系列活动。本届寻根之旅还将通过社交平台全程直播，把闽台特色信俗文化与两岸青年交流的动人瞬间，传递给更多两岸同胞。",
+      "url": "https://www.news.cn/tw/20260320/95e9e707be654def9342e32cd1982122/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "US",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國外交部敦促美方在台灣問題上謹言慎行。"
+    },
+    "confidence": 0.98,
     "original_article": {
       "date": "2026-03-19",
       "title": "外交部：美方应在台湾问题上谨言慎行",
@@ -7677,12 +7754,17 @@
   {
     "category": "CCP_news_and_blog",
     "is_relevant": true,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "台灣旅遊業因陸客減少而復甦乏力，業者盼台灣當局早日開放陸客來台以提振經濟。"
+    },
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-03-19",
       "title": "岛内旅游业复苏动能不足 业者盼当局早日开放陆客来台",
