@@ -7774,5 +7774,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國軍方透過詩詞宣傳，強調其在台海地區的軍事力量與守衛決心。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-20",
+      "title": "#东部熄灯号#长风伴翼征霄汉，赤胆为锋镇八方。#阅海峡#",
+      "content": "#东部熄灯号#长风伴翼征霄汉，赤胆为锋镇八方。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5278664699940144",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-20",
+      "title": "【#迷彩赛场竞风流#】旌旗猎猎，青春飞扬！东部战区空军某部军体运动会火热开幕。官兵身着迷彩，列阵赛场...",
+      "content": "【#迷彩赛场竞风流#】旌旗猎猎，青春飞扬！东部战区空军某部军体运动会火热开幕。官兵身着迷彩，列阵赛场，用嘹亮口号和铿锵步伐奏响军营“最强音”。现场气氛热烈，大家目光如炬、士气高涨，将满腔热血化作震天呐喊，尽显新时代革命军人逐梦空天的强大气场。（吴宇东、王思齐、郑祥冰、黄文涛） ...全文",
+      "url": "https://m.weibo.cn/detail/5278543904245006",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
