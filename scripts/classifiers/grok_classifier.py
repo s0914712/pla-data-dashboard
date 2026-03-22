@@ -34,19 +34,27 @@ class GrokNewsClassifier:
 
     # 可重試的 HTTP 狀態碼
     RETRYABLE_STATUS_CODES = {429, 500, 502, 503, 504}
-    # Primary model：失敗 3 次後切換 Fallback
-    PRIMARY_MAX_RETRIES = 3
-    PRIMARY_RETRY_DELAYS = [10, 30, 60]       # 退避時間（秒）
-    # Fallback model
-    FALLBACK_MODEL = "gemini-2.5-flash"
-    FALLBACK_MAX_RETRIES = 2
-    FALLBACK_RETRY_DELAYS = [15, 30]
-    
+
+    # 模型優先順序：免費模型優先，付費模型兜底
+    MODEL_CHAIN = [
+        # --- 免費模型（優先使用）---
+        "nemotron-3-super-120b-a12b:free",
+        "deepseek-prover-v2:free",
+        "fal-ai/nano-banana",
+        "llama-3.2-1b-instruct",
+        # --- 原有模型（兜底）---
+        "gemini-2.0-flash-thinking-exp-0121:free",
+        "gemini-2.5-flash",
+    ]
+
+    # 每個模型的重試次數與退避
+    PER_MODEL_MAX_RETRIES = 2
+    PER_MODEL_RETRY_DELAYS = [10, 30]
+
     def __init__(self, api_key: str, max_content_chars: int = 800,
                  enable_cache: bool = True):
         self.api_key = api_key.strip()
         self.api_url = "https://api.apertis.ai/v1/chat/completions"
-        self.model = "gemini-2.0-flash-thinking-exp-0121:free"
         self.max_content_chars = max_content_chars
         # trust_env=False 防止 CI/CD 環境代理設定干擾
         self.client = httpx.Client(timeout=60, trust_env=False)
@@ -60,8 +68,10 @@ class GrokNewsClassifier:
         masked_key = self.api_key[:8] + "..." + self.api_key[-4:] if len(self.api_key) > 12 else "***"
         print(f"[GrokClassifier] ========== 診斷資訊 ==========")
         print(f"[GrokClassifier] API URL      : {self.api_url}")
-        print(f"[GrokClassifier] Primary Model: {self.model} (max {self.PRIMARY_MAX_RETRIES} retries)")
-        print(f"[GrokClassifier] Fallback Model: {self.FALLBACK_MODEL} (after primary fails, max {self.FALLBACK_MAX_RETRIES} retries)")
+        print(f"[GrokClassifier] Model chain  : {len(self.MODEL_CHAIN)} models")
+        for i, m in enumerate(self.MODEL_CHAIN):
+            print(f"[GrokClassifier]   [{i+1}] {m}")
+        print(f"[GrokClassifier] Per-model retries: {self.PER_MODEL_MAX_RETRIES}")
         print(f"[GrokClassifier] API Key      : {masked_key} (length={len(self.api_key)})")
         print(f"[GrokClassifier] Content chars: {self.max_content_chars}")
         print(f"[GrokClassifier] Cache        : {'enabled' if self._cache is not None else 'disabled'}")
@@ -170,29 +180,25 @@ class GrokNewsClassifier:
 
     def _call_api(self, messages: List[Dict]) -> Optional[str]:
         """
-        調用 API：Primary model 失敗 3 次後自動切換 Fallback model。
+        調用 API：依序嘗試 MODEL_CHAIN 中的模型，每個模型重試數次。
 
         Returns:
-            API 回應內容，失敗時返回 None。
+            API 回應內容，所有模型皆失敗時返回 None。
         """
-        # Phase 1: primary model
-        result = self._try_model(
-            messages, self.model,
-            self.PRIMARY_MAX_RETRIES, self.PRIMARY_RETRY_DELAYS
-        )
-        if result is not None:
-            return result
+        for i, model in enumerate(self.MODEL_CHAIN):
+            result = self._try_model(
+                messages, model,
+                self.PER_MODEL_MAX_RETRIES, self.PER_MODEL_RETRY_DELAYS
+            )
+            if result is not None:
+                return result
 
-        # Phase 2: fallback model
-        print(f"[GrokClassifier] ⚠️  Primary model failed {self.PRIMARY_MAX_RETRIES} times, "
-              f"switching to fallback: {self.FALLBACK_MODEL}")
-        result = self._try_model(
-            messages, self.FALLBACK_MODEL,
-            self.FALLBACK_MAX_RETRIES, self.FALLBACK_RETRY_DELAYS
-        )
-        if result is None:
-            print(f"[GrokClassifier] ❌ Fallback model also failed, giving up.")
-        return result
+            if i < len(self.MODEL_CHAIN) - 1:
+                next_model = self.MODEL_CHAIN[i + 1]
+                print(f"[GrokClassifier] [{model}] failed, trying next: {next_model}")
+
+        print(f"[GrokClassifier] All {len(self.MODEL_CHAIN)} models failed, giving up.")
+        return None
     
     def classify_single(self, article: Dict) -> Dict:
         """

@@ -28,11 +28,19 @@ from updaters.github_updater import GitHubUpdater
 from updaters.naval_transit_updater import NavalTransitUpdater
 
 
+def _create_grok_classifier() -> "GrokNewsClassifier":
+    """建立 Grok 分類器（需 GROK_API_KEY）"""
+    api_key = os.environ.get("GROK_API_KEY")
+    if not api_key:
+        raise RuntimeError("GROK_API_KEY not found in environment")
+    return GrokNewsClassifier(api_key)
+
+
 def _create_classifier() -> NewsClassifier:
     """
     根據 CLASSIFIER_BACKEND 環境變數建立分類器。
 
-    CLASSIFIER_BACKEND=bert  → BertNewsClassifier（離線，需先訓練模型）
+    CLASSIFIER_BACKEND=bert  → BertNewsClassifier（離線，失敗時自動 fallback 到 Grok）
     CLASSIFIER_BACKEND=grok  → GrokNewsClassifier（需 GROK_API_KEY）
     未設定時預設使用 grok（向後相容）。
     """
@@ -41,16 +49,17 @@ def _create_classifier() -> NewsClassifier:
     if backend == "bert":
         from classifiers.bert_classifier import BertNewsClassifier
         model_dir = os.environ.get("BERT_MODEL_DIR", "models/bert_news_classifier")
-        print(f"[Main] 使用 BERT 分類器 (model_dir={model_dir})")
-        return BertNewsClassifier(model_dir=model_dir)
+        try:
+            print(f"[Main] 嘗試使用 BERT 分類器 (model_dir={model_dir})")
+            return BertNewsClassifier(model_dir=model_dir)
+        except Exception as e:
+            print(f"[Main] BERT 分類器載入失敗: {e}")
+            print(f"[Main] 自動切換到 Grok LLM 分類器...")
+            return _create_grok_classifier()
 
     # 預設: grok
-    api_key = os.environ.get("GROK_API_KEY")
-    if not api_key:
-        print("❌ GROK_API_KEY not found in environment")
-        sys.exit(1)
     print("[Main] 使用 Grok LLM 分類器")
-    return GrokNewsClassifier(api_key)
+    return _create_grok_classifier()
 # ---------------------------------------------------------------------------
 # Helper: JSON 合併
 # ---------------------------------------------------------------------------
