@@ -7822,5 +7822,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": -0.25,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-03-23",
+      "title": "#直击东部战区练兵备战现场#【#实弹射击比武登场#  】近日，第71集团军“临汾旅”组织建制单位自动...",
+      "content": "#直击东部战区练兵备战现场#【#实弹射击比武登场#  】近日，第71集团军“临汾旅”组织建制单位自动步枪操作比武。参赛官兵以赛促训、以比强能，用实力书写忠诚，用汗水诠释担当，充分展现训练成效。（廖鹏）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5279540470613096",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
