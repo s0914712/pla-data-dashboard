@@ -7846,5 +7846,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区海军护卫舰支队多艘舰艇在某海域进行联合主炮对海射击、航行补给、防空反导等实战化训练",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-24",
+      "title": "#直击东部战区练兵备战现场#【#舰艇编队实战化训练火热展开#】春潮翻涌，战舰驰骋。近日，东部战区海军...",
+      "content": "#直击东部战区练兵备战现场#【#舰艇编队实战化训练火热展开#】春潮翻涌，战舰驰骋。近日，东部战区海军某护卫舰支队多艘舰艇组成编队，奔赴某海域，围绕联合主炮对海射击、航行补给、防空反导等重难点科目展开实战化训练，全面锤炼官兵应急反应能力和舰艇协同作战水平。（刘嘉） #时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5279902858218961",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区以战领训，强化实战素质",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-03-23",
+      "title": "#东部熄灯号#以战领训强素质，向战而行铸忠魂。#阅海峡#",
+      "content": "#东部熄灯号#以战领训强素质，向战而行铸忠魂。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5279751863795869",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-23",
+      "title": "【#军体运动会暨枪王挑战赛来袭# 】近日，武警江苏总队南京支队隆重举办“超越自我·勇攀高峰”军体运动...",
+      "content": "【#军体运动会暨枪王挑战赛来袭# 】近日，武警江苏总队南京支队隆重举办“超越自我·勇攀高峰”军体运动会暨枪王挑战赛，数百名官兵齐聚赛场，同台竞技，展示精武本领，培塑顽强作风。（杨春周、安白苏拉）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5279631067578847",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
