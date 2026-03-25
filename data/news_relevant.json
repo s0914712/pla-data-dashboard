@@ -5365,5 +5365,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军开展野战导航通信处置演练，锤炼官兵应急导航保障能力",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-25",
+      "title": "#直击东部战区练兵备战现场#【#野战导航处置演练热血展开#】近日，东部战区空军某场站着眼实战需求，开...",
+      "content": "#直击东部战区练兵备战现场#【#野战导航处置演练热血展开#】近日，东部战区空军某场站着眼实战需求，开展野战导航通信处置演练，全面锤炼官兵应急导航保障能力。（吴凯斯、程文晶、刘程远、沈汪源）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5280265246084234",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.85,
+    "original_article": {
+      "date": "2026-03-24",
+      "title": "#东部熄灯号# 长风卷浪起，碧海守初心。#阅海峡#",
+      "content": "#东部熄灯号# 长风卷浪起，碧海守初心。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5280114251408592",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.35,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军气象官兵组织专攻精练，锤炼观云测雨、把脉天候的能力",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.92,
+    "original_article": {
+      "date": "2026-03-24",
+      "title": "#时刻准备战斗#【#锤炼观云测雨硬功#】风云变幻皆是战场信息。#世界气象日#来临之际，东部战区空军某...",
+      "content": "#时刻准备战斗#【#锤炼观云测雨硬功#】风云变幻皆是战场信息。#世界气象日#来临之际，东部战区空军某场站气象官兵组织专攻精练，进一步锤炼观云测雨、把脉天候的能力，用忠诚与专业守护战鹰高飞远航。 （梁丰、马亚洲、刘子龙、陆洋）",
+      "url": "https://m.weibo.cn/detail/5279993455444846",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
