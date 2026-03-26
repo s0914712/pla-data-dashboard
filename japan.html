@@ -173,6 +173,18 @@
             margin-bottom: 1rem;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             border-left: 4px solid #c94b4b;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .latest-event-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+        }
+
+        .latest-event-card.is-active {
+            border-left-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0,123,255,0.25), 0 8px 20px rgba(0,0,0,0.15);
         }
 
         .latest-event-card .event-date {
@@ -253,6 +265,43 @@
         .event-popup .badge {
             font-size: 0.7rem;
             margin-right: 0.25rem;
+        }
+
+        .location-source-badge {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 0.72rem;
+            margin-left: 0.25rem;
+            vertical-align: middle;
+        }
+
+        .source-parsed { background: #27ae60; }
+        .source-keyword { background: #f39c12; }
+        .source-fallback { background: #7f8c8d; }
+
+        .section-header-inline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .section-toggle-btn {
+            border: 1px solid rgba(230, 126, 34, 0.35);
+            background: #fff8f1;
+            color: #b95f13;
+            border-radius: 16px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 0.25rem 0.65rem;
+            cursor: pointer;
+        }
+
+        .section-collapsible.is-collapsed .section-content {
+            display: none;
         }
 
         .pulse-marker {
@@ -565,46 +614,51 @@
     </div>
 
     <!-- MSA Military Exercise Warnings Section -->
-    <div class="card-custom" style="border-top: 3px solid #e67e22;">
-        <h5 style="color: #e67e22;">MSA Navigation Warnings - Military Exercises (航行警告)</h5>
-        <p class="text-muted mb-2">
-            Data Source: <a href="https://www.msa.gov.cn" target="_blank" class="source-link" style="color:#e67e22;">China MSA (中國海事局)</a> |
-            Total Warnings: <span id="msaTotalWarnings">-</span> |
-            Date Range: <span id="msaDateRange">-</span>
-        </p>
-
-        <!-- MSA Stats -->
-        <div class="row mb-3">
-            <div class="col-md-3 col-sm-6 mb-2">
-                <div class="stat-card">
-                    <div class="stat-label">Military Exercises</div>
-                    <div class="msa-stat-value" id="msaExerciseCount">-</div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 mb-2">
-                <div class="stat-card">
-                    <div class="stat-label">Live Fire Drills</div>
-                    <div class="msa-stat-value" id="msaLiveFireCount">-</div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 mb-2">
-                <div class="stat-card">
-                    <div class="stat-label">Rocket Launches</div>
-                    <div class="msa-stat-value" id="msaRocketCount">-</div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 mb-2">
-                <div class="stat-card">
-                    <div class="stat-label">With Coordinates</div>
-                    <div class="msa-stat-value" id="msaCoordsCount">-</div>
-                </div>
-            </div>
+    <div class="card-custom section-collapsible" id="msaSection" style="border-top: 3px solid #e67e22;">
+        <div class="section-header-inline">
+            <h5 style="color: #e67e22; margin-bottom:0;">MSA Navigation Warnings - Military Exercises (航行警告)</h5>
+            <button type="button" class="section-toggle-btn" id="msaToggleBtn">收合</button>
         </div>
+        <div class="section-content mt-2">
+            <p class="text-muted mb-2">
+                Data Source: <a href="https://www.msa.gov.cn" target="_blank" class="source-link" style="color:#e67e22;">China MSA (中國海事局)</a> |
+                Total Warnings: <span id="msaTotalWarnings">-</span> |
+                Date Range: <span id="msaDateRange">-</span>
+            </p>
 
-        <!-- Warning Cards -->
-        <div class="row" id="msaWarningCards">
-            <div class="col-12 text-center py-3">
-                <span class="text-muted">Loading military exercise warnings...</span>
+            <!-- MSA Stats -->
+            <div class="row mb-3">
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <div class="stat-card">
+                        <div class="stat-label">Military Exercises</div>
+                        <div class="msa-stat-value" id="msaExerciseCount">-</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <div class="stat-card">
+                        <div class="stat-label">Live Fire Drills</div>
+                        <div class="msa-stat-value" id="msaLiveFireCount">-</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <div class="stat-card">
+                        <div class="stat-label">Rocket Launches</div>
+                        <div class="msa-stat-value" id="msaRocketCount">-</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <div class="stat-card">
+                        <div class="stat-label">With Coordinates</div>
+                        <div class="msa-stat-value" id="msaCoordsCount">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Warning Cards -->
+            <div class="row" id="msaWarningCards">
+                <div class="col-12 text-center py-3">
+                    <span class="text-muted">Loading military exercise warnings...</span>
+                </div>
             </div>
         </div>
     </div>
@@ -696,6 +750,8 @@ let map = null;
 let msaLayerGroup = null;
 let straitLayerGroup = null;
 const isMobile = window.innerWidth < 768;
+let activeEventIndex = null;
+let eventMarkerBuckets = new Map();
 
 // Strait coordinates
 const straitCoords = {
@@ -728,6 +784,7 @@ const eventGeoAnchors = {
 let latestEventMarkers = [];
 
 window.addEventListener('load', async function() {
+    setupMSASectionToggle();
     initMap();
     await Promise.all([loadTransitData(), loadMSAWarnings()]);
     updateStatistics();
@@ -736,6 +793,22 @@ window.addEventListener('load', async function() {
     renderTable();
     renderMSAWarnings();
 });
+
+function setupMSASectionToggle() {
+    const section = document.getElementById('msaSection');
+    const btn = document.getElementById('msaToggleBtn');
+    if (!section || !btn) return;
+
+    if (isMobile) {
+        section.classList.add('is-collapsed');
+        btn.textContent = '展開';
+    }
+
+    btn.addEventListener('click', function() {
+        section.classList.toggle('is-collapsed');
+        btn.textContent = section.classList.contains('is-collapsed') ? '展開' : '收合';
+    });
+}
 
 function initMap() {
     map = L.map('map').setView([28, 122], isMobile ? 3 : 4);
@@ -789,8 +862,8 @@ function initMap() {
 
     // Add layer control
     const overlays = {
-        'Japan MOD Straits': straitLayerGroup,
-        'MSA Military Warnings': msaLayerGroup
+        '艦艇穿越 (Japan MOD)': straitLayerGroup,
+        '航警演訓區 (MSA)': msaLayerGroup
     };
     L.control.layers(null, overlays, { position: 'topright', collapsed: false }).addTo(map);
 
@@ -970,6 +1043,9 @@ function resolveEventLocation(event, straitInfo) {
 
 function renderLatestEvents() {
     const container = document.getElementById('latestEventsContainer');
+    latestEventMarkers = [];
+    activeEventIndex = null;
+    eventMarkerBuckets = new Map();
 
     // Find latest 3 events with remarks (sorted by date descending)
     const eventsWithRemarks = transitData
@@ -1007,7 +1083,7 @@ function renderLatestEvents() {
 
         const cardHtml = `
             <div class="col-md-4 mb-3">
-                <div class="latest-event-card">
+                <div class="latest-event-card" data-event-index="${index}">
                     <div class="event-date">
                         <strong>${event.date || 'Unknown Date'}</strong>
                         ${direction ? `<span class="ml-2 badge badge-secondary">${direction}</span>` : ''}
@@ -1029,11 +1105,69 @@ function renderLatestEvents() {
             addEventMarker(event, straitInfo, index);
         }
     });
+
+    const eventCards = container.querySelectorAll('.latest-event-card');
+    eventCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const index = parseInt(card.dataset.eventIndex, 10);
+            focusEventByIndex(index, true);
+        });
+    });
+
+    if (eventCards.length > 0) {
+        focusEventByIndex(0, false);
+    }
+}
+
+function focusEventByIndex(index, openPopup = false) {
+    activeEventIndex = index;
+    const cards = document.querySelectorAll('#latestEventsContainer .latest-event-card');
+    cards.forEach(card => {
+        const cardIndex = parseInt(card.dataset.eventIndex, 10);
+        card.classList.toggle('is-active', cardIndex === index);
+    });
+
+    const marker = latestEventMarkers[index];
+    if (marker) {
+        map.flyTo(marker.getLatLng(), Math.max(map.getZoom(), isMobile ? 5 : 6), { animate: true, duration: 0.5 });
+        if (openPopup) marker.openPopup();
+    }
+}
+
+function getEventDisplayPosition(lat, lng) {
+    // Keep geo accuracy, but avoid exact-overlap markers hiding each other.
+    const bucketKey = `${lat.toFixed(3)},${lng.toFixed(3)}`;
+    const count = eventMarkerBuckets.get(bucketKey) || 0;
+    eventMarkerBuckets.set(bucketKey, count + 1);
+
+    if (count === 0) return { lat, lng };
+
+    const pointsPerRing = 6;
+    const ring = Math.floor((count - 1) / pointsPerRing) + 1;
+    const angleIndex = (count - 1) % pointsPerRing;
+    const angle = (Math.PI * 2 / pointsPerRing) * angleIndex;
+    const step = isMobile ? 0.16 : 0.10;
+    const offset = step * ring;
+
+    return {
+        lat: lat + Math.sin(angle) * offset,
+        lng: lng + Math.cos(angle) * offset
+    };
 }
 
 function addEventMarker(event, straitInfo, index) {
     const resolvedLocation = resolveEventLocation(event, straitInfo);
     if (!resolvedLocation) return;
+    const confidenceClass = resolvedLocation.confidence === 'parsed'
+        ? 'source-parsed'
+        : resolvedLocation.confidence === 'keyword-anchor'
+            ? 'source-keyword'
+            : 'source-fallback';
+    const confidenceLabel = resolvedLocation.confidence === 'parsed'
+        ? '公告解析座標'
+        : resolvedLocation.confidence === 'keyword-anchor'
+            ? '地名關鍵字座標'
+            : '海峽中心點估算';
 
     const icon = L.divIcon({
         className: 'custom-event-marker',
@@ -1050,13 +1184,24 @@ function addEventMarker(event, straitInfo, index) {
             color: white;
             font-weight: bold;
             font-size: 14px;
+            outline: 3px solid ${
+                resolvedLocation.confidence === 'parsed'
+                    ? '#27ae60'
+                    : resolvedLocation.confidence === 'keyword-anchor'
+                        ? '#f39c12'
+                        : '#7f8c8d'
+            };
+            outline-offset: 1px;
         ">${index + 1}</div>`,
         iconSize: [30, 30],
         iconAnchor: [15, 15]
     });
 
     const marker = L.marker(
-        [resolvedLocation.lat, resolvedLocation.lng],
+        (() => {
+            const displayPos = getEventDisplayPosition(resolvedLocation.lat, resolvedLocation.lng);
+            return [displayPos.lat, displayPos.lng];
+        })(),
         { icon: icon, zIndexOffset: 1000 }
     ).addTo(map);
 
@@ -1076,13 +1221,7 @@ function addEventMarker(event, straitInfo, index) {
                 <strong>Date:</strong> ${event.date || '-'}<br>
                 ${direction ? `<strong>Direction:</strong> ${direction}<br>` : ''}
                 <strong>Straits:</strong> ${straitBadges || '-'}
-                <br><strong>定位來源:</strong> ${
-                    resolvedLocation.confidence === 'parsed'
-                        ? '公告解析座標'
-                        : resolvedLocation.confidence === 'keyword-anchor'
-                            ? '地名關鍵字座標'
-                            : '海峽中心點估算'
-                }
+                <br><strong>定位來源:</strong> <span class="location-source-badge ${confidenceClass}">${confidenceLabel}</span>
             </div>
             ${event['艦型'] && event['艦型'] !== '未提及' ? `<div style="margin-bottom:8px;"><strong>艦型 (Vessel Type):</strong><br><small>${event['艦型']}</small></div>` : ''}
             <div style="background:#f8f9fa;padding:8px;border-radius:5px;font-size:0.85rem;line-height:1.5;">
@@ -1093,6 +1232,7 @@ function addEventMarker(event, straitInfo, index) {
     `;
 
     marker.bindPopup(popupContent, { maxWidth: 350 });
+    marker.on('click', () => focusEventByIndex(index, false));
     latestEventMarkers.push(marker);
 }
 
