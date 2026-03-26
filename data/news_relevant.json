@@ -5533,5 +5533,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区海军某部开展伪装网下水电应急抢修保障演练，锤炼胜战本领。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-26",
+      "title": "#直击东部战区练兵备战现场#【#锤炼水电应急抢修能力#】近日，东部战区海军某部紧贴实战背景，开展伪装...",
+      "content": "#直击东部战区练兵备战现场#【#锤炼水电应急抢修能力#】近日，东部战区海军某部紧贴实战背景，开展伪装网下水电应急抢修保障演练。参演官兵密切协作，进一步锤炼胜战本领。（石光耀、曲云峰、范秋虹、出宇琛） #当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5280627634472106",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.85,
+    "original_article": {
+      "date": "2026-03-25",
+      "title": "#东部熄灯号# 潮平岸阔催人进，风正扬帆正当时。#阅海峡#",
+      "content": "#东部熄灯号# 潮平岸阔催人进，风正扬帆正当时。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5280476643459243",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-25",
+      "title": "【#开展双三互活动密切内部关系#】近日，东部战区空军某部组织开展“双三互”活动。通过专题教育、谈心交...",
+      "content": "【#开展双三互活动密切内部关系#】近日，东部战区空军某部组织开展“双三互”活动。通过专题教育、谈心交流、骨干带教、学习互助等方式，进一步密切内部关系，营造团结友爱、积极向上的良好氛围。（陈雨佳、陈浩、汪劲飞）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5280355843572358",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
