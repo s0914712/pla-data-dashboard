@@ -52,7 +52,7 @@
         }
 
         #map {
-            height: 450px;
+            height: 680px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
@@ -115,6 +115,39 @@
             padding: 10px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .map-priority {
+            padding: 1.25rem;
+        }
+
+        .map-priority h5 {
+            margin-bottom: 0.35rem;
+        }
+
+        .legend-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            margin-bottom: 0.35rem;
+            font-weight: bold;
+        }
+
+        .legend-toggle-btn {
+            border: 0;
+            background: #f1f3f5;
+            color: #495057;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            padding: 0.15rem 0.45rem;
+            line-height: 1.2;
+            cursor: pointer;
+            display: none;
+        }
+
+        .legend.is-collapsed .legend-content {
+            display: none;
         }
 
         .update-info {
@@ -306,7 +339,25 @@
 
             /* Map height on mobile */
             #map {
-                height: 300px !important;
+                height: 420px !important;
+            }
+
+            .map-priority {
+                padding: 0.85rem;
+            }
+
+            .legend {
+                max-width: 150px;
+                padding: 8px;
+                font-size: 0.72rem;
+            }
+
+            .legend-header {
+                margin-bottom: 0;
+            }
+
+            .legend-toggle-btn {
+                display: inline-block;
             }
 
             /* Card and chart containers */
@@ -407,7 +458,7 @@
             }
 
             #map {
-                height: 250px !important;
+                height: 360px !important;
             }
         }
 
@@ -422,7 +473,7 @@
             }
 
             #map {
-                height: 250px !important;
+                height: 320px !important;
             }
         }
     </style>
@@ -467,6 +518,13 @@
         <strong>Date Range:</strong> <span id="dateRange">-</span>
     </div>
 
+    <!-- Priority Map -->
+    <div class="card-custom map-priority">
+        <h5>Strait Locations, Transit Events & Military Exercise Zones</h5>
+        <p class="text-muted mb-2">Use layer controls (top-right) to toggle Japan MOD straits and MSA military warning zones. Click areas for details.</p>
+        <div id="map"></div>
+    </div>
+
     <!-- Statistics Cards -->
     <div class="row mb-4">
         <div class="col-md-3 col-sm-6 mb-3">
@@ -504,13 +562,6 @@
                 <span class="text-muted">Loading latest events...</span>
             </div>
         </div>
-    </div>
-
-    <!-- Map -->
-    <div class="card-custom">
-        <h5>Strait Locations, Transit Events & Military Exercise Zones</h5>
-        <p class="text-muted mb-2">Use layer controls (top-right) to toggle Japan MOD straits and MSA military warning zones. Click areas for details.</p>
-        <div id="map" style="height:550px;"></div>
     </div>
 
     <!-- MSA Military Exercise Warnings Section -->
@@ -654,6 +705,26 @@ const straitCoords = {
     'tsushima': { lat: 34.2000, lng: 129.3000, name: '對馬海峽 (Tsushima)', color: '#9b59b6' }
 };
 
+// Landmark anchors (from public map references)
+// Yonaguni: 24.45556,122.98889 / Okinawa Island: 26.47944,127.92778 / Miyako Strait: 25.383,126.417
+const eventGeoAnchors = {
+    yonaguniIsland: {
+        lat: 24.45556,
+        lng: 122.98889,
+        keywords: [/與那國/g, /Yonaguni/gi, /与那国/g, /よなぐに/g]
+    },
+    okinawaIsland: {
+        lat: 26.47944,
+        lng: 127.92778,
+        keywords: [/沖繩本島/g, /沖縄本島/g, /沖繩/g, /Okinawa/gi, /那霸/g, /Naha/gi]
+    },
+    miyakoStrait: {
+        lat: 25.383,
+        lng: 126.417,
+        keywords: [/宮古海峽/g, /宮古海峡/g, /宮古/g, /Miyako/gi, /Kerama Gap/gi]
+    }
+};
+
 let latestEventMarkers = [];
 
 window.addEventListener('load', async function() {
@@ -727,8 +798,14 @@ function initMap() {
     const legend = L.control({ position: 'bottomright' });
     legend.onAdd = function() {
         const div = L.DomUtil.create('div', 'legend');
+        const shouldCollapse = isMobile ? 'is-collapsed' : '';
+        div.classList.add(...shouldCollapse.split(' ').filter(Boolean));
         div.innerHTML = `
-            <div style="background: white; padding: 10px; border-radius: 5px; font-size: 0.8rem;">
+            <div class="legend-header">
+                <span>Legend</span>
+                <button type="button" class="legend-toggle-btn" aria-label="Toggle legend details">${isMobile ? '顯示' : '隱藏'}</button>
+            </div>
+            <div class="legend-content">
                 <div style="font-weight:bold; margin-bottom:4px;">Straits</div>
                 <div><span style="display:inline-block;width:12px;height:12px;background:#e74c3c;border-radius:50%;margin-right:5px;"></span>Yonaguni</div>
                 <div><span style="display:inline-block;width:12px;height:12px;background:#3498db;border-radius:50%;margin-right:5px;"></span>Miyako</div>
@@ -741,6 +818,17 @@ function initMap() {
                 <div><span style="display:inline-block;width:12px;height:12px;background:#2980b9;border-radius:2px;margin-right:5px;opacity:0.5;"></span>Military Mission</div>
             </div>
         `;
+
+        const toggleBtn = div.querySelector('.legend-toggle-btn');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                div.classList.toggle('is-collapsed');
+                toggleBtn.textContent = div.classList.contains('is-collapsed') ? '顯示' : '隱藏';
+            });
+        }
+
+        L.DomEvent.disableClickPropagation(div);
         return div;
     };
     legend.addTo(map);
@@ -774,6 +862,109 @@ function getStraitForEvent(row) {
     if (hasValue(row['宮古'])) return 'miyako';
     if (hasValue(row['大禹'])) return 'osumi';
     if (hasValue(row['對馬'])) return 'tsushima';
+    return null;
+}
+
+function extractEventCoordsFromText(text) {
+    if (!text) return [];
+    const coords = [];
+    const seen = new Set();
+
+    // 24-30.5N/123-40.2E or 24-30N 123-40E
+    const dmsPattern = /(\d{1,2})-(\d{1,2}(?:\.\d+)?)\s*([NS])\s*[\/\s]\s*(\d{1,3})-(\d{1,2}(?:\.\d+)?)\s*([EW])/gi;
+    let match;
+    while ((match = dmsPattern.exec(text)) !== null) {
+        let lat = parseFloat(match[1]) + parseFloat(match[2]) / 60;
+        let lng = parseFloat(match[4]) + parseFloat(match[5]) / 60;
+        if (match[3].toUpperCase() === 'S') lat = -lat;
+        if (match[6].toUpperCase() === 'W') lng = -lng;
+
+        const key = `${lat.toFixed(5)},${lng.toFixed(5)}`;
+        if (!seen.has(key)) {
+            seen.add(key);
+            coords.push({ lat, lng });
+        }
+    }
+
+    // 24.508N 123.670E
+    const decimalPattern = /(\d{1,2}(?:\.\d+)?)\s*([NS])\s*[\/\s,;]?\s*(\d{1,3}(?:\.\d+)?)\s*([EW])/gi;
+    while ((match = decimalPattern.exec(text)) !== null) {
+        let lat = parseFloat(match[1]);
+        let lng = parseFloat(match[3]);
+        if (match[2].toUpperCase() === 'S') lat = -lat;
+        if (match[4].toUpperCase() === 'W') lng = -lng;
+
+        const key = `${lat.toFixed(5)},${lng.toFixed(5)}`;
+        if (!seen.has(key)) {
+            seen.add(key);
+            coords.push({ lat, lng });
+        }
+    }
+
+    return coords;
+}
+
+function inferLocationFromKeywords(text) {
+    if (!text) return null;
+
+    let bestKey = null;
+    let bestScore = 0;
+
+    Object.entries(eventGeoAnchors).forEach(([key, anchor]) => {
+        const score = anchor.keywords.reduce((sum, pattern) => {
+            const matches = text.match(pattern);
+            return sum + (matches ? matches.length : 0);
+        }, 0);
+
+        if (score > bestScore) {
+            bestScore = score;
+            bestKey = key;
+        }
+    });
+
+    if (!bestKey || bestScore === 0) return null;
+
+    const anchor = eventGeoAnchors[bestKey];
+    return {
+        lat: anchor.lat,
+        lng: anchor.lng,
+        confidence: 'keyword-anchor'
+    };
+}
+
+function resolveEventLocation(event, straitInfo) {
+    const sources = [
+        event['備考'],
+        event.remark,
+        event['艦型'],
+        event['位置'],
+        event['座標']
+    ].filter(Boolean).join(' ');
+
+    const parsedCoords = extractEventCoordsFromText(sources);
+    if (parsedCoords.length > 0) {
+        const center = parsedCoords.reduce((acc, c) => ({
+            lat: acc.lat + c.lat,
+            lng: acc.lng + c.lng
+        }), { lat: 0, lng: 0 });
+        return {
+            lat: center.lat / parsedCoords.length,
+            lng: center.lng / parsedCoords.length,
+            confidence: 'parsed'
+        };
+    }
+
+    const keywordLocation = inferLocationFromKeywords(sources);
+    if (keywordLocation) return keywordLocation;
+
+    if (straitInfo) {
+        return {
+            lat: straitInfo.lat,
+            lng: straitInfo.lng,
+            confidence: 'strait-center'
+        };
+    }
+
     return null;
 }
 
@@ -841,9 +1032,8 @@ function renderLatestEvents() {
 }
 
 function addEventMarker(event, straitInfo, index) {
-    // Offset slightly to prevent overlap
-    const latOffset = (index - 1) * 0.3;
-    const lngOffset = (index - 1) * 0.5;
+    const resolvedLocation = resolveEventLocation(event, straitInfo);
+    if (!resolvedLocation) return;
 
     const icon = L.divIcon({
         className: 'custom-event-marker',
@@ -866,7 +1056,7 @@ function addEventMarker(event, straitInfo, index) {
     });
 
     const marker = L.marker(
-        [straitInfo.lat + latOffset, straitInfo.lng + lngOffset],
+        [resolvedLocation.lat, resolvedLocation.lng],
         { icon: icon, zIndexOffset: 1000 }
     ).addTo(map);
 
@@ -886,6 +1076,13 @@ function addEventMarker(event, straitInfo, index) {
                 <strong>Date:</strong> ${event.date || '-'}<br>
                 ${direction ? `<strong>Direction:</strong> ${direction}<br>` : ''}
                 <strong>Straits:</strong> ${straitBadges || '-'}
+                <br><strong>定位來源:</strong> ${
+                    resolvedLocation.confidence === 'parsed'
+                        ? '公告解析座標'
+                        : resolvedLocation.confidence === 'keyword-anchor'
+                            ? '地名關鍵字座標'
+                            : '海峽中心點估算'
+                }
             </div>
             ${event['艦型'] && event['艦型'] !== '未提及' ? `<div style="margin-bottom:8px;"><strong>艦型 (Vessel Type):</strong><br><small>${event['艦型']}</small></div>` : ''}
             <div style="background:#f8f9fa;padding:8px;border-radius:5px;font-size:0.85rem;line-height:1.5;">
