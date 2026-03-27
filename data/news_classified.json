@@ -8374,5 +8374,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区海军登陆舰大队组织舰艇编队开展多科目实战化训练，锤炼编队连续作战、应急处置和协同攻防能力",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-27",
+      "title": "#直击东部战区练兵备战现场#【#舰艇编队开展多科目实战化训练#】近日，东部战区海军某登陆舰大队组织舰...",
+      "content": "#直击东部战区练兵备战现场#【#舰艇编队开展多科目实战化训练#】近日，东部战区海军某登陆舰大队组织舰艇编队开展多科目实战化训练，全面锤炼编队连续作战、应急处置和协同攻防能力。（张成伟、朱广政、申豪东、沈旭航）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5280990022338110",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.85,
+    "original_article": {
+      "date": "2026-03-26",
+      "title": "#东部熄灯号#用奋斗擦亮青春底色，以担当彰显时代力量。#阅海峡#",
+      "content": "#东部熄灯号#用奋斗擦亮青春底色，以担当彰显时代力量。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5280839026869876",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-03-26",
+      "title": "【#提升基层骨干业务能力#】近日，东部战区空军某部组织基层党务、纪检、保卫骨干集训，综合运用法规串讲...",
+      "content": "【#提升基层骨干业务能力#】近日，东部战区空军某部组织基层党务、纪检、保卫骨干集训，综合运用法规串讲、示范授课、经验交流、疑难会诊、分组交流、考核评估等方式，加强骨干队伍建设，提升他们的履职能力，助力基层建设再上新台阶。（冯永川、徐涛、朱家俊）#基层建设#",
+      "url": "https://m.weibo.cn/detail/5280718231439356",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
