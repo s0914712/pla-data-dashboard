@@ -8590,5 +8590,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.85,
+    "original_article": {
+      "date": "2026-03-27",
+      "title": "#东部熄灯号# 业精于勤荒于嬉，行成于思毁于随。#阅海峡#",
+      "content": "#东部熄灯号# 业精于勤荒于嬉，行成于思毁于随。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5281201415002076",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-27",
+      "title": "【#军地联谊架鹊桥#】近日，东部战区空军某部主动与地方有关部门对接，精心策划组织军地青年联谊活动。数...",
+      "content": "【#军地联谊架鹊桥#】近日，东部战区空军某部主动与地方有关部门对接，精心策划组织军地青年联谊活动。数十名军地适龄未婚男女青年相聚一堂，在春日军营绽放浪漫之花。（付敢、林琨霖、许志气、林家琦）#军恋#",
+      "url": "https://m.weibo.cn/detail/5281080619565744",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
