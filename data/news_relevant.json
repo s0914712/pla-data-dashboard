@@ -6037,5 +6037,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国台办发言人批评赖清德当局操弄司法打压异己，施行‘绿色恐怖’"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-03-26",
+      "title": "国台办发言人就柯文哲一审被判17年、剥夺公权6年答记者问",
+      "content": "她表示，我们注意到了有关情况。赖清德当局为谋取政治私利，大肆操弄司法打压政治异己，施行“绿色恐怖”，大搞“顺我者昌、逆我者亡”的一套，已经激起岛内越来越多的民怨与反对。多行不义必自毙，其倒行逆施必遭台湾民众反对和唾弃。",
+      "url": "https://www.news.cn/tw/20260326/b7b19dfdc13b40fdb19f74cfc56df395/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "CN",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-03-28",
+      "title": "台湾工具机业者期待深耕大陆市场把握发展机遇",
+      "content": "与会业者表示，盼望深耕大陆市场，把握发展机遇。 本届工具机展以“AI赋能 智造永续”为主题，展览总面积超过28000平方米，展位逾1800个，预计共吸引7万名专业人士看展。 多位受访业者认为，近期大陆“十五五”规划纲要公布，有望带动大陆自动化产业投资增加，客户对工具机需求量增长。同时，大陆工具机产业发展迅猛，台企要占据市场，企业不仅需要修好“内功”，也要扎根当地。 “近些年大陆的工具机企业成长得很快。”程泰集团旗下程泰机械股份有限公司营业副处长彭文鸿说，程泰在江苏的二期工厂前年完工，目前工厂总面积约200亩，反映出企业对于大陆市场的重视。 台湾工具机发展基金会今年1月底公布的数据显示，大陆是台湾工具机出口第一大市场和进口第二大来源地。2025年台湾工具机出口总额为20.04亿美元，其中对大陆出口额为5.43亿美元，占出口总额的27.1%；同年台湾工具机进口总额为6.43亿美元，其中自大陆进口额为1.34亿美元，占进口总额的20.9%。 “今年在中国大陆市场业绩有望成长。”台湾泷泽科技股份有限公司专门展示了满足新能源汽车传动底盘配件制造需求的工具机，公司台湾地区营业副总经理何振邦告诉记者，“虽然市场竞争更加激烈，但大陆市场空间依然很大。” 据了解，台湾泷泽分公司浙江泷泽目前订单已经排到下半年。“深度融入在地市场，让我们把握住大陆电动车市场快速发展的机会。”何振邦说。",
+      "url": "https://www.news.cn/tw/20260328/f5e6ea19df8947369e76c13c5dc3ac86/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
