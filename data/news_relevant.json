@@ -6085,5 +6085,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "无锡联勤保障中心某部组织实弹射击和手榴弹实投考核，锤炼官兵胜战本领。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-03-30",
+      "title": "#直击东部战区练兵备战现场# 【#双实考核锤炼胜战本领#】近日，无锡联勤保障中心某部严密组织实弹射击...",
+      "content": "#直击东部战区练兵备战现场# 【#双实考核锤炼胜战本领#】近日，无锡联勤保障中心某部严密组织实弹射击和手榴弹实投考核，进一步锤炼官兵胜战本领。（李希恩、姚耀、李国岳）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5282077185933638",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
