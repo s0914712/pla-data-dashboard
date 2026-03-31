@@ -265,7 +265,7 @@ class PLAPredictor:
         try:
             self.weather_data = pd.read_csv(DATA_SOURCES['weather'], encoding='utf-8-sig')
             self.weather_data['date'] = pd.to_datetime(self.weather_data['date'])
-        except:
+        except Exception:
             self.weather_data = None
 
         # v2.4: 載入新聞分類資料
@@ -526,7 +526,7 @@ class PLAPredictor:
                 loss='huber', random_state=42
             )
 
-    def _build_single_day_features(self, window, base_date, day_offset, df_political=None):
+    def _build_single_day_features(self, window, base_date, day_offset):
         """v2.4: 從 window 建構單天特徵（供 walk-forward CV 和 predict_7_days 共用）"""
         target_date = base_date + timedelta(days=day_offset + 1)
         is_holiday = get_holiday_features(target_date)
@@ -581,7 +581,7 @@ class PLAPredictor:
             days_since_last_active = 30
 
         # 政治特徵
-        pol_7d = self._get_future_political_features(target_date, 7) if df_political is None else self._get_future_political_features(target_date, 7)
+        pol_7d = self._get_future_political_features(target_date, 7)
         news_feat = self._extract_news_features(target_date)
 
         features = {
@@ -972,7 +972,7 @@ class PLAPredictor:
             try:
                 existing = pd.read_csv(output_path, encoding='utf-8-sig')
                 print(f"    Existing records: {len(existing)}")
-            except:
+            except Exception:
                 pass
 
         if not existing.empty:

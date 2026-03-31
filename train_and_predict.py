@@ -401,28 +401,25 @@ def main():
     # 載入數據
     df = load_and_prepare_data(data_path)
     
-    # 分割數據
+    # 填充缺失值
+    train_median = df.iloc[:int(len(df) * 0.8)][TARGET_COL].median()
+    df[TARGET_COL] = df[TARGET_COL].fillna(train_median)
+
+    # 計算事件權重（僅用訓練集部分計算，避免資訊洩漏）
     split_idx = int(len(df) * 0.8)
+    event_weights = calculate_event_weights(df[:split_idx].copy(), TARGET_COL, EVENT_COLUMNS)
+
+    # 創建特徵（在完整數據上計算，確保 lag/rolling 在分割邊界處連續）
+    print("\n[3] 創建特徵...")
+    df = create_weighted_features(df, event_weights, is_train=True)
+    df = create_numerical_features(df, TARGET_COL)
+
+    # 分割數據（特徵計算後再分割）
     train_df = df[:split_idx].copy()
     test_df = df[split_idx:].copy()
-    
+
     print(f"\n   訓練集: {len(train_df)} 筆")
     print(f"   測試集: {len(test_df)} 筆")
-    
-    # 填充缺失值
-    train_median = train_df[TARGET_COL].median()
-    train_df[TARGET_COL] = train_df[TARGET_COL].fillna(train_median)
-    test_df[TARGET_COL] = test_df[TARGET_COL].fillna(train_median)
-    
-    # 計算事件權重
-    event_weights = calculate_event_weights(train_df, TARGET_COL, EVENT_COLUMNS)
-    
-    # 創建特徵
-    print("\n[3] 創建特徵...")
-    train_df = create_weighted_features(train_df, event_weights, is_train=True)
-    test_df = create_weighted_features(test_df, event_weights, is_train=False)
-    train_df = create_numerical_features(train_df, TARGET_COL)
-    test_df = create_numerical_features(test_df, TARGET_COL)
     
     # 獲取特徵欄位
     feature_cols, feature_groups = get_feature_columns(train_df)
