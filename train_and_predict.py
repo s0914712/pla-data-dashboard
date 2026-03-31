@@ -15,7 +15,8 @@ import joblib
 import json
 import os
 import warnings
-warnings.filterwarnings('ignore')
+warnings.filterwarnings('ignore', category=FutureWarning)
+warnings.filterwarnings('ignore', category=DeprecationWarning)
 
 # ========== 配置 ==========
 TARGET_COL = 'pla_aircraft_sorties'
@@ -133,7 +134,7 @@ def calculate_event_weights(train_data, target_col, event_cols):
     return event_weights
 
 
-def create_weighted_features(df, event_weights, is_train=True):
+def create_weighted_features(df, event_weights):
     """創建加權的事件特徵"""
     
     for event, weights in event_weights.items():
@@ -315,18 +316,21 @@ def predict_future(n_days, models_dict, normalizer, event_weights, feature_cols,
     
     if future_events is None:
         future_events = {event: [0] * n_days for event in EVENT_COLUMNS}
-    
+
     future_dates = [last_date + timedelta(days=i+1) for i in range(n_days)]
     future_df = pd.DataFrame({'date': future_dates})
-    
+
     future_df['year'] = future_df['date'].dt.year
     future_df['month'] = future_df['date'].dt.month
     future_df['quarter'] = future_df['date'].dt.quarter
     future_df['day_of_week'] = future_df['date'].dt.dayofweek
     future_df['day_of_month'] = future_df['date'].dt.day
-    
+
     for event in EVENT_COLUMNS:
-        future_df[event] = future_events.get(event, [0] * n_days)
+        event_vals = future_events.get(event, [0] * n_days)
+        if len(event_vals) != n_days:
+            raise ValueError(f"future_events['{event}'] length {len(event_vals)} != n_days {n_days}")
+        future_df[event] = event_vals
     
     historical_mean = last_data[TARGET_COL].tail(30).mean()
     future_df[TARGET_COL] = historical_mean
@@ -340,7 +344,7 @@ def predict_future(n_days, models_dict, normalizer, event_weights, feature_cols,
         combined_df = pd.concat([historical_data, future_df.iloc[:day_idx+1]], ignore_index=True)
         combined_df = combined_df.sort_values('date').reset_index(drop=True)
         
-        combined_df = create_weighted_features(combined_df, event_weights, is_train=False)
+        combined_df = create_weighted_features(combined_df, event_weights)
         combined_df = create_numerical_features(combined_df, TARGET_COL)
         
         current_row = combined_df.tail(1).copy()
@@ -374,7 +378,7 @@ def predict_future(n_days, models_dict, normalizer, event_weights, feature_cols,
             'aggressive': round(day_predictions[2], 2) if len(day_predictions) > 2 else MIN_PREDICTION
         })
         
-        future_df.loc[day_idx, TARGET_COL] = ensemble_pred
+        future_df.iloc[day_idx, future_df.columns.get_loc(TARGET_COL)] = ensemble_pred
         print(f"   {future_dates[day_idx].strftime('%Y-%m-%d')}: {ensemble_pred:.1f} 架次")
     
     return pd.DataFrame(predictions_list)
@@ -411,7 +415,7 @@ def main():
 
     # 創建特徵（在完整數據上計算，確保 lag/rolling 在分割邊界處連續）
     print("\n[3] 創建特徵...")
-    df = create_weighted_features(df, event_weights, is_train=True)
+    df = create_weighted_features(df, event_weights)
     df = create_numerical_features(df, TARGET_COL)
 
     # 分割數據（特徵計算後再分割）
