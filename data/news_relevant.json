@@ -6229,5 +6229,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中共中央和习近平总书记欢迎并邀请中国国民党主席郑丽文率团来访，推动两岸关系和平发展。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-30",
+      "title": "中共中央和习近平总书记欢迎并邀请中国国民党主席郑丽文率团来访",
+      "content": "为推动国共两党关系和两岸关系和平发展，我受权宣布，中共中央和习近平总书记欢迎并邀请郑丽文主席率中国国民党访问团于4月7日至12日到江苏、上海、北京参观访问。 宋涛表示，我们将与国民党方面就郑丽文主席来访事宜进行沟通，作出妥善安排。",
+      "url": "https://www.news.cn/tw/20260330/a051a8ddc3b24cc2b4b01e88b079d321/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "JP",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国台办称中方对日本亲台政客采取反制措施是正义之举，坚决反对干涉内政，将依法反制。"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-03-30",
+      "title": "国台办：中方对有关日本亲台政客采取反制措施是正义之举",
+      "content": "台湾问题是中国核心利益中的核心，是不可逾越的红线。古屋圭司执意同“台独”分裂势力持续勾连滋事，严重干涉中国内政，严重损害中方主权和核心利益，我们对此坚决反对，依法反制，以儆效尤。 有记者问：针对日本国会众议员古屋圭司的涉台恶劣行径，外交部今日宣布对其采取反制措施。请问对此有何评论？朱凤莲作上述回应。 她强调，民进党当局为一党私利，奴颜婢膝贴靠外部势力，数典忘祖出卖民族利益，必将遭到历史的审判。",
+      "url": "https://www.news.cn/tw/20260330/a71a67cfae634cf695197721bf2dc1d2/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-03-30",
+      "title": "“2026高雄·北京特色周”在台举行",
+      "content": "四天时间里，融合非遗工艺与舞台展演的活动陆续上演，吸引约3000名台湾民众参与。 今年的特色周共包含六个场次，主要是文艺节目展演与北京非遗工艺展示两大版块。文艺节目展演部分，来自两岸的表演者以舞传情，以乐会友，既有精彩的民乐表演，也有热情洋溢的舞蹈节目；北京非遗展示部分，多位非遗代表性传承人现场展演雕漆、内画、剪纸、皮影戏、北京料器等传统技艺，让民众可以近距离体验非遗技艺，感受中华文化之美。 本次活动由北京市东城区非物质文化遗产保护中心、北京市石景山区音乐家协会主办，台湾中华海峡两岸企业交流协会承办。 台湾中华海峡两岸企业交流协会理事长黄贵民表示，“高雄·北京特色周”自2011年举办至今，已成为两岸文化交流的重要品牌活动，不仅深化彼此理解，也促进两岸实质合作与情感连结。",
+      "url": "https://www.news.cn/tw/20260330/b1b20369283f462dbc2090f6cdb046de/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
