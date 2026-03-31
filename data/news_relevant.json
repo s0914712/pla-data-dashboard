@@ -6157,5 +6157,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.55,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区海军某导弹快艇大队数艘导弹快艇组成编队，前出任务海域，组织海上导弹攻击训练，进一步锤炼急难险杂环境下连续作战能力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-31",
+      "title": "#直击东部战区练兵备战现场#【#导弹快艇编队磨砺锋芒#】近日，东部战区海军某导弹快艇大队数艘导弹快艇...",
+      "content": "#直击东部战区练兵备战现场#【#导弹快艇编队磨砺锋芒#】近日，东部战区海军某导弹快艇大队数艘导弹快艇组成编队，前出任务海域，组织海上导弹攻击训练，进一步锤炼急难险杂环境下连续作战能力。（孙柳飞、蒋文洋、杜伯涛、王瀚文）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5282439574063476",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-03-30",
+      "title": "#东部熄灯号# 旋翼起，护深蓝万里；舰阵立，守海疆安宁。#阅海峡#",
+      "content": "#东部熄灯号# 旋翼起，护深蓝万里；舰阵立，守海疆安宁。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5282288578600306",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-30",
+      "title": "【#军体运动会热血登场#】近日，第71集团军“临汾旅”举办第十届“攻坚杯”军事体育运动会。参赛官兵用...",
+      "content": "【#军体运动会热血登场#】近日，第71集团军“临汾旅”举办第十届“攻坚杯”军事体育运动会。参赛官兵用一场充满“战味”的盛会，吹响练兵备战的冲锋号角。（鲁桦、廖鹏、万里想、耿黎） #当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5282167782639045",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
