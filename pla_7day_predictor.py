@@ -70,7 +70,8 @@ except ImportError:
     USE_CATBOOST = False
     print("[Warning] CatBoost not installed, using sklearn GradientBoosting as fallback")
 
-warnings.filterwarnings('ignore')
+warnings.filterwarnings('ignore', category=FutureWarning)
+warnings.filterwarnings('ignore', category=DeprecationWarning)
 
 # ============================================================
 # 配置
@@ -111,30 +112,29 @@ RECENCY_BOOST_FACTOR = 3   # 重複倍數（1=不重複, 3=近期資料出現3�
 HOLIDAYS_CSV_URL = 'https://raw.githubusercontent.com/s0914712/pla-data-dashboard/main/data/cn_holidays.csv'
 HOLIDAYS_CSV_LOCAL = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'cn_holidays.csv')
 
-CN_HOLIDAY_DATES = set()
+CN_HOLIDAY_DATES = None  # Lazy-loaded; populated by PLAPredictor.__init__
+
 
 def _load_holidays():
     """從 CSV 載入假日資料"""
-    global CN_HOLIDAY_DATES
     # 優先讀取本地檔案，若無則從 GitHub 讀取
     try:
         if os.path.exists(HOLIDAYS_CSV_LOCAL):
             df = pd.read_csv(HOLIDAYS_CSV_LOCAL, encoding='utf-8-sig')
         else:
             df = pd.read_csv(HOLIDAYS_CSV_URL, encoding='utf-8-sig')
-        CN_HOLIDAY_DATES = set(df['date'].astype(str).str.strip().tolist())
-        print(f"  假日資料: {len(CN_HOLIDAY_DATES)} 筆")
+        dates = set(df['date'].astype(str).str.strip().tolist())
+        print(f"  假日資料: {len(dates)} 筆")
+        return dates
     except Exception as e:
         print(f"  [Warning] 無法載入假日 CSV: {e}，使用空集合")
-        CN_HOLIDAY_DATES = set()
-
-_load_holidays()
+        return set()
 
 
 def get_holiday_features(date):
     """取得假日特徵"""
     date_str = date.strftime('%Y-%m-%d')
-    is_holiday = date_str in CN_HOLIDAY_DATES
+    is_holiday = date_str in (CN_HOLIDAY_DATES or set())
     return int(is_holiday)
 
 
@@ -142,6 +142,10 @@ class PLAPredictor:
     """PLA 架次預測系統 v2.5 - CatBoost + Zero-Regime 改善"""
 
     def __init__(self, high_threshold=None):
+        global CN_HOLIDAY_DATES
+        if CN_HOLIDAY_DATES is None:
+            CN_HOLIDAY_DATES = _load_holidays()
+
         self.reg_model = None           # 主回歸模型
         self.reg_lower = None           # 下界分位數回歸
         self.reg_upper = None           # 上界分位數回歸
@@ -265,7 +269,7 @@ class PLAPredictor:
         try:
             self.weather_data = pd.read_csv(DATA_SOURCES['weather'], encoding='utf-8-sig')
             self.weather_data['date'] = pd.to_datetime(self.weather_data['date'])
-        except:
+        except Exception:
             self.weather_data = None
 
         # v2.4: 載入新聞分類資料
@@ -332,16 +336,67 @@ class PLAPredictor:
             'news_escalation_score': escalation_score,
         }
 
-    def _create_political_features(self, df, df_events, window_days):
-        features = []
-        for _, row in df.iterrows():
-            current_date = row['date']
-            mask = (df_events['date'] >= current_date - timedelta(days=window_days)) & (df_events['date'] < current_date)
-            past = df_events[mask]
+    def _aggregate_news_daily(self):
+        """Pre-aggregate news data into daily counts for vectorized feature engineering."""
+        if not self.news_data:
+            return None
 
-            cn_stmt = past['Political_statement'].astype(str).str.contains('中共|中國|中方|國台辦', na=False).sum() if 'Political_statement' in past.columns else 0
-            features.append({f'cn_stmt_{window_days}d': cn_stmt})
-        return pd.DataFrame(features)
+        escalation_weights = {
+            'Military_Exercise': 3.0,
+            'Foreign_battleship': 2.0,
+            'US_TW_Interaction': 2.5,
+            'CN_Statement': 1.0,
+            'Regional_Security': 1.5,
+        }
+
+        records = []
+        for n in self.news_data:
+            try:
+                nd = pd.to_datetime(n['original_article']['date']).normalize()
+                cat = n.get('category', '')
+                records.append({
+                    'date': nd,
+                    'is_military': int(cat == 'Military_Exercise'),
+                    'is_us_tw': int(cat == 'US_TW_Interaction'),
+                    'is_relevant': int(bool(n.get('is_relevant'))),
+                    'sentiment': n.get('sentiment_score', 0),
+                    'escalation': escalation_weights.get(cat, 0),
+                })
+            except (KeyError, ValueError):
+                continue
+
+        if not records:
+            return None
+
+        news_df = pd.DataFrame(records)
+        daily = news_df.groupby('date').agg(
+            news_military_count=('is_military', 'sum'),
+            news_us_tw_count=('is_us_tw', 'sum'),
+            news_relevant_count=('is_relevant', 'sum'),
+            news_avg_sentiment=('sentiment', 'mean'),
+            news_escalation_score=('escalation', 'sum'),
+        ).reset_index()
+        return daily
+
+    def _create_political_features(self, df, df_events, window_days):
+        """Vectorized: rolling count of CN political statements in past N days"""
+        col_name = f'cn_stmt_{window_days}d'
+        if df_events.empty or 'Political_statement' not in df_events.columns:
+            return pd.DataFrame({col_name: [0] * len(df)})
+
+        # Pre-compute daily CN statement counts, then merge and rolling sum
+        evt = df_events[['date', 'Political_statement']].copy()
+        evt['is_cn_stmt'] = evt['Political_statement'].astype(str).str.contains(
+            '中共|中國|中方|國台辦', na=False).astype(int)
+        daily_counts = evt.groupby('date')['is_cn_stmt'].sum().reset_index()
+        daily_counts.columns = ['date', '_cn_stmt_daily']
+
+        merged = df[['date']].merge(daily_counts, on='date', how='left')
+        merged['_cn_stmt_daily'] = merged['_cn_stmt_daily'].fillna(0)
+        # shift(1) so we count strictly < current_date, then rolling window
+        merged[col_name] = merged['_cn_stmt_daily'].shift(1).rolling(
+            window_days, min_periods=1).sum().fillna(0).astype(int)
+        return merged[[col_name]].reset_index(drop=True)
 
     def prepare_features(self, df_sorties, df_political):
         """準備特徵 (v2.3 - 修正 target leaking + 精簡特徵)"""
@@ -450,25 +505,34 @@ class PLAPredictor:
         pol_feat_7d = self._create_political_features(df, df_political, 7)
         df['cn_stmt_7d'] = pol_feat_7d['cn_stmt_7d'].values
 
-        # === v2.4: US-Taiwan 互動與外國軍艦特徵（來自 merged_comprehensive_data_M） ===
-        us_tw_feat = []
-        fb_feat = []
-        for _, row in df.iterrows():
-            current_date = row['date']
-            mask = (df_political['date'] >= current_date - timedelta(days=7)) & (df_political['date'] < current_date)
-            past = df_political[mask]
-            us_tw_feat.append(past['US_Taiwan_interaction'].notna().sum() if 'US_Taiwan_interaction' in past.columns else 0)
-            fb_feat.append(past['Foreign_battleship'].notna().sum() if 'Foreign_battleship' in past.columns else 0)
-        df['us_tw_interaction_7d'] = us_tw_feat
-        df['foreign_battleship_7d'] = fb_feat
+        # === v2.4: US-Taiwan 互動與外國軍艦特徵（來自 merged_comprehensive_data_M，向量化） ===
+        for src_col, dest_col in [('US_Taiwan_interaction', 'us_tw_interaction_7d'),
+                                   ('Foreign_battleship', 'foreign_battleship_7d')]:
+            if src_col in df_political.columns:
+                daily = df_political[df_political[src_col].notna()].groupby('date').size().reset_index(name='_count')
+                merged = df[['date']].merge(daily, on='date', how='left')
+                merged['_count'] = merged['_count'].fillna(0)
+                df[dest_col] = merged['_count'].shift(1).rolling(7, min_periods=1).sum().fillna(0).astype(int).values
+            else:
+                df[dest_col] = 0
 
-        # === v2.4: 新聞分類先行指標特徵 ===
-        news_features_list = []
-        for _, row in df.iterrows():
-            news_features_list.append(self._extract_news_features(row['date']))
-        news_df = pd.DataFrame(news_features_list)
-        for col in news_df.columns:
-            df[col] = news_df[col].values
+        # === v2.4: 新聞分類先行指標特徵（向量化） ===
+        news_daily = self._aggregate_news_daily()
+        news_cols = ['news_military_count', 'news_us_tw_count', 'news_relevant_count',
+                     'news_avg_sentiment', 'news_escalation_score']
+        if news_daily is not None:
+            merged_news = df[['date']].merge(news_daily, on='date', how='left')
+            for col in news_cols:
+                if col == 'news_avg_sentiment':
+                    # For sentiment, use rolling mean instead of sum
+                    merged_news[col] = merged_news[col].fillna(0)
+                    df[col] = merged_news[col].shift(1).rolling(7, min_periods=1).mean().fillna(0).values
+                else:
+                    merged_news[col] = merged_news[col].fillna(0)
+                    df[col] = merged_news[col].shift(1).rolling(7, min_periods=1).sum().fillna(0).values
+        else:
+            for col in news_cols:
+                df[col] = 0
 
         # === 假日特徵 ===
         df['is_holiday'] = df['date'].apply(lambda d: get_holiday_features(d))
@@ -487,7 +551,7 @@ class PLAPredictor:
         print(f"    Features: {n_features} | Samples: {len(df)}")
         return df
 
-    def _scale_features(self, df, fit=True):
+    def _scale_features(self, df, fit=True, include_holiday=False):
         X_cyclic = df[self.cyclic_cols].values
         X_continuous = df[self.continuous_cols].values
         X_counts = df[self.count_cols].values
@@ -499,7 +563,10 @@ class PLAPredictor:
             X_continuous_scaled = self.scaler_continuous.transform(X_continuous)
             X_counts_scaled = self.scaler_counts.transform(X_counts)
 
-        return np.hstack([X_cyclic, X_continuous_scaled, X_counts_scaled])
+        base = np.hstack([X_cyclic, X_continuous_scaled, X_counts_scaled])
+        if include_holiday:
+            return np.hstack([base, df[self.holiday_cols].values])
+        return base
 
     def _create_regressor(self, quantile=None):
         """創建回歸模型"""
@@ -526,7 +593,7 @@ class PLAPredictor:
                 loss='huber', random_state=42
             )
 
-    def _build_single_day_features(self, window, base_date, day_offset, df_political=None):
+    def _build_single_day_features(self, window, base_date, day_offset):
         """v2.4: 從 window 建構單天特徵（供 walk-forward CV 和 predict_7_days 共用）"""
         target_date = base_date + timedelta(days=day_offset + 1)
         is_holiday = get_holiday_features(target_date)
@@ -581,7 +648,7 @@ class PLAPredictor:
             days_since_last_active = 30
 
         # 政治特徵
-        pol_7d = self._get_future_political_features(target_date, 7) if df_political is None else self._get_future_political_features(target_date, 7)
+        pol_7d = self._get_future_political_features(target_date, 7)
         news_feat = self._extract_news_features(target_date)
 
         features = {
@@ -633,7 +700,7 @@ class PLAPredictor:
 
         target = 'pla_aircraft_sorties'
         X_base = self._scale_features(df, fit=True)
-        X_full = np.hstack([X_base, df[self.holiday_cols].values])
+        X_full = self._scale_features(df, fit=False, include_holiday=True)
 
         y_reg = df[target].values
         y_clf = df['is_high'].values
@@ -875,10 +942,9 @@ class PLAPredictor:
             features = self._build_single_day_features(
                 current_window, self.latest_date, i)
 
-            is_holiday = features.pop('is_holiday')
             feat_df = pd.DataFrame([features])
             X_base = self._scale_features(feat_df, fit=False)
-            X_full = np.hstack([X_base, [[is_holiday]]])
+            X_full = self._scale_features(feat_df, fit=False, include_holiday=True)
 
             # 預測
             prob_high = self.clf_model.predict_proba(X_base)[0, 1]
@@ -932,7 +998,7 @@ class PLAPredictor:
                 'upper_bound': round(upper, 1),
                 'high_event_probability': round(prob_high * 100, 1),
                 'risk_level': risk_level,
-                'is_cn_holiday': is_holiday,
+                'is_cn_holiday': features['is_holiday'],
                 'weather_adjustment': round(weather_adj, 2),
                 'cn_stmt_7d': features['cn_stmt_7d'],
                 'ema_7': round(ema_7, 1),
@@ -972,7 +1038,7 @@ class PLAPredictor:
             try:
                 existing = pd.read_csv(output_path, encoding='utf-8-sig')
                 print(f"    Existing records: {len(existing)}")
-            except:
+            except Exception:
                 pass
 
         if not existing.empty:
