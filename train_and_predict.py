@@ -172,25 +172,28 @@ def create_weighted_features(df, event_weights):
 
 
 def create_numerical_features(df, target_col):
-    """創建數值型特徵"""
-    
+    """創建數值型特徵（shift(1) 避免 target leakage）"""
+
+    # shift(1) 確保所有特徵只使用 t-1 及更早的目標值
+    shifted = df[target_col].shift(1)
+
     # Lag 特徵
     for lag in [1, 3, 7, 14, 21, 30]:
         df[f'sortie_lag_{lag}'] = df[target_col].shift(lag)
-    
-    # 移動平均
+
+    # 移動平均（基於 shift(1) 避免同日洩漏）
     for window in [3, 7, 14, 21, 30]:
-        df[f'sortie_ma_{window}'] = df[target_col].rolling(window, min_periods=1).mean()
-        df[f'sortie_std_{window}'] = df[target_col].rolling(window, min_periods=max(2, window//3)).std()
-    
-    # 差分
-    df['sortie_diff_1'] = df[target_col].diff(1)
-    df['sortie_diff_3'] = df[target_col].diff(3)
-    df['sortie_diff_7'] = df[target_col].diff(7)
-    
-    # 百分比變化
-    df['sortie_pct_change_1'] = df[target_col].pct_change(1)
-    df['sortie_pct_change_7'] = df[target_col].pct_change(7)
+        df[f'sortie_ma_{window}'] = shifted.rolling(window, min_periods=1).mean()
+        df[f'sortie_std_{window}'] = shifted.rolling(window, min_periods=max(2, window//3)).std()
+
+    # 差分（基於 shift(1)）
+    df['sortie_diff_1'] = (shifted - shifted.shift(1))
+    df['sortie_diff_3'] = (shifted - shifted.shift(3))
+    df['sortie_diff_7'] = (shifted - shifted.shift(7))
+
+    # 百分比變化（基於 shift(1)）
+    df['sortie_pct_change_1'] = ((shifted - shifted.shift(1)) / (shifted.shift(1) + 1)).fillna(0)
+    df['sortie_pct_change_7'] = ((shifted - shifted.shift(7)) / (shifted.shift(7) + 1)).fillna(0)
     
     # 週期性特徵
     df['month_sin'] = np.sin(2 * np.pi * df['month'] / 12)
