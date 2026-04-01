@@ -1,0 +1,39 @@
+{
+  "model_version": 2,
+  "category_labels": [
+    "CN_Statement",
+    "US_Statement",
+    "TW_Statement",
+    "Military_Exercise",
+    "Foreign_battleship",
+    "US_TW_Interaction",
+    "Regional_Security",
+    "CCP_news_and_blog",
+    "Not_Relevant"
+  ],
+  "sentiment_labels": [
+    "negative",
+    "neutral",
+    "positive"
+  ],
+  "category2id": {
+    "CN_Statement": 0,
+    "US_Statement": 1,
+    "TW_Statement": 2,
+    "Military_Exercise": 3,
+    "Foreign_battleship": 4,
+    "US_TW_Interaction": 5,
+    "Regional_Security": 6,
+    "CCP_news_and_blog": 7,
+    "Not_Relevant": 8
+  },
+  "sentiment2id": {
+    "negative": 0,
+    "neutral": 1,
+    "positive": 2
+  },
+  "best_cat_acc": 0.20634920634920634,
+  "best_sent_acc": 0.6666666666666666,
+  "pretrained_name": "bert-base-chinese",
+  "max_len": 256
+}
