@@ -6397,5 +6397,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中共邀請國民黨主席郑丽文率團訪問大陸"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-03-30",
+      "title": "中国国民党主席郑丽文感谢并接受中共中央和习近平总书记邀请将率团访问大陆",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
+      "url": "https://www.news.cn/tw/20260330/39a541a4d0dc49afbf8229926e2c8bfd/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "CN",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "郑丽文称赴大陆参访反映台民意期盼和平"
+    },
+    "confidence": 0.93,
+    "original_article": {
+      "date": "2026-03-30",
+      "title": "郑丽文谈将赴大陆参访：反映了台湾主流民意的殷殷期盼",
+      "content": "郑丽文3月30日在台北召开记者会表示，此次赴大陆参访反映了台湾主流民意的殷殷期盼。 郑丽文表示，从此前国民党前主席连战、马英九访问大陆，到她此次行程，都是基于坚持“九二共识”、反对“台独”的共同政治基础。在此政治基础上，国民党要向台湾人民与全世界证明，两岸不需要兵凶战危，可以凭着自己的智慧努力，共同走出和平的康庄大道。台湾有选择，为了两岸、区域稳定与下一代的幸福，必须坚定走出和平的道路。 她表示，2月初举办的国共两党智库论坛，不仅回应了台湾百工百业对于两岸关系恢复正常化的高度期待，更在气候变迁、节能减碳、人工智能等议题上凝聚两岸智慧，作出了积极贡献。希望通过此次大陆之行，既展现对和平的共同期盼，也能体现对台湾产业、台商台企发展的关切，同时在各类前瞻性议题上，进一步探寻两岸交流合作的空间。",
+      "url": "https://www.news.cn/tw/20260330/454ed6bb5bb8437eb745f293a3ec71a5/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国台办批评赖清德“非红供应链”为倚外谋独，呼吁两岸融合"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-04-01",
+      "title": "驳赖清德“非红供应链”谬论 国台办：为“倚外谋独”把台湾产业拱手送人",
+      "content": "有记者问，赖清德近日称，台湾已融入美国主导的“非红供应链”中，未来可以确保台湾的竞争优势。岛内舆论却认为，台湾在芯片等领域应深度融入大陆机器人产业链，抢抓时代机遇。越来越多台湾民众认识到，拥抱大陆是必选项，“反中抗中”只能被越甩越远。对此有何评论？ 发言人张晗答问表示，民进党当局声称打造所谓“非红供应链”，不过是为实现其“倚外谋独”图谋而把台湾产业拱手送人。两岸经贸合作互惠互利，给台湾同胞带来了实实在在的利益。越来越多台湾同胞看到了两岸融合发展带来的便利与机遇。“十五五”期间，我们将推动科技创新和产业创新深度融合，在优化提升传统产业、培育壮大新兴产业、超前布局未来产业上开创新局面，这必将为两岸产业合作开辟更广阔的空间，为台胞台企提供更多机遇。我们始终秉持“两岸一家亲”理念，深化两岸交流合作、融合发展，让两岸同胞共享中国式现代化的成果和机遇。我们欢迎广大台湾同胞参与大陆高质量发展，共同壮大中华民族经济。（记者许晓静、张泽钰）",
+      "url": "https://www.news.cn/tw/20260401/e2bc5faa8b1643398cd32f1609f143ad/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
