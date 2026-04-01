@@ -6301,5 +6301,101 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军航空兵某部组织跨昼夜飞行训练，锤炼飞行员技战术水平和部队全天候作战能力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-01",
+      "title": "#直击东部战区练兵备战现场# 【#跨昼夜飞行训练火热展开#】近日，东部战区空军航空兵某部组织跨昼夜飞...",
+      "content": "#直击东部战区练兵备战现场# 【#跨昼夜飞行训练火热展开#】近日，东部战区空军航空兵某部组织跨昼夜飞行训练，锤炼飞行员技战术水平和部队全天候作战能力。（晏昊星）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5282801961140773",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "野外淬火砺锋芒，沙场砺兵铸铁军。#阅海峡#",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-03-31",
+      "title": "#东部熄灯号# 野外淬火砺锋芒，沙场砺兵铸铁军。#阅海峡#",
+      "content": "#东部熄灯号# 野外淬火砺锋芒，沙场砺兵铸铁军。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5282650966459466",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-03-31",
+      "title": "【#维护设备保战力#】近日，东部战区空军某部气象官兵开展水电解设备标准化维护演练，确保设备运行平稳、...",
+      "content": "【#维护设备保战力#】近日，东部战区空军某部气象官兵开展水电解设备标准化维护演练，确保设备运行平稳、数据准确，为部队提升战斗力提供坚实保证。（赵映、朱子俊、徐达仑）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5282530170241284",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-03-31",
+      "title": "【#战歌战位就是C位震撼发布# 】当青春的号角与强军的征程同频，当坚定的信仰与家国的安宁共振，新时代...",
+      "content": "【#战歌战位就是C位震撼发布# 】当青春的号角与强军的征程同频，当坚定的信仰与家国的安宁共振，新时代革命军人早已把人生的C位立在向战而行的最前方。今天，#东部战区#新媒体“战鼓”专栏发布战歌《战位就是C位》，即刻点燃铁血军魂！#战鼓砺气# （东部战区融媒体中心） 东部战区的微博视频",
+      "url": "https://m.weibo.cn/detail/5282498466283521",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
