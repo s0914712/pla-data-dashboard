@@ -22,7 +22,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning)
 TARGET_COL = 'pla_aircraft_sorties'
 EVENT_COLUMNS = ['聯合演訓', '艦通過', '航母活動', '與那國', '宮古', '大禹', '對馬', '進', '出']
 PREDICTION_DAYS = 7
-MIN_PREDICTION = 2.0
+MIN_PREDICTION = 0.0  # 允許零預測（零活動 regime）
 
 # ========== 多尺度正規化器 ==========
 class MultiScaleNormalizer:
@@ -194,6 +194,13 @@ def create_numerical_features(df, target_col):
     # 百分比變化（基於 shift(1)）
     df['sortie_pct_change_1'] = ((shifted - shifted.shift(1)) / (shifted.shift(1) + 1)).fillna(0)
     df['sortie_pct_change_7'] = ((shifted - shifted.shift(7)) / (shifted.shift(7) + 1)).fillna(0)
+
+    # Zero-regime 偵測特徵
+    df['zero_count_3d'] = shifted.rolling(3, min_periods=1).apply(lambda x: (x == 0).sum(), raw=True).fillna(0)
+    df['zero_count_7d'] = shifted.rolling(7, min_periods=1).apply(lambda x: (x == 0).sum(), raw=True).fillna(0)
+    df['recent_min_7'] = shifted.rolling(7, min_periods=1).min().fillna(0)
+    df['recent_max_7'] = shifted.rolling(7, min_periods=1).max().fillna(0)
+    df['recent_range_7'] = df['recent_max_7'] - df['recent_min_7']
     
     # 週期性特徵
     df['month_sin'] = np.sin(2 * np.pi * df['month'] / 12)
@@ -209,17 +216,21 @@ def create_numerical_features(df, target_col):
 
 
 def get_feature_columns(df):
-    """獲取特徵欄位分類"""
-    binary_features = [col for col in df.columns if col.endswith('_binary')]
-    weighted_features = [col for col in df.columns if col.endswith('_weighted') or col.endswith('_impact')]
+    """獲取特徵欄位分類（已剪枝低重要性事件特徵）"""
+    # 個別事件 binary/weighted/impact 特徵重要性 < 0.5，全部移除
+    # 僅保留聚合特徵（threat_weighted, multi_event_weighted, event_complexity）
+    binary_features = []
+    weighted_features = []
     numerical_features = [col for col in df.columns if
                          'sortie_lag' in col or 'sortie_ma' in col or
                          'sortie_diff' in col or 'sortie_std' in col or
                          'sortie_pct' in col]
     cyclical_features = [col for col in df.columns if 'sin' in col or 'cos' in col]
+    zero_regime_features = ['zero_count_3d', 'zero_count_7d', 'recent_min_7',
+                            'recent_max_7', 'recent_range_7']
     other_features = ['is_weekend', 'is_high_season', 'threat_weighted',
-                     'multi_event_weighted', 'event_complexity']
-    
+                     'multi_event_weighted', 'event_complexity'] + zero_regime_features
+
     all_feature_cols = (binary_features + weighted_features +
                        numerical_features + cyclical_features + other_features)
     
@@ -242,9 +253,21 @@ def get_feature_columns(df):
     return feature_cols, feature_groups
 
 
-def train_models(X_train, y_train, X_test, y_test):
-    """訓練多個模型"""
-    
+def train_models(X_train, y_train, X_test, y_test, train_dates=None):
+    """訓練多個模型（log1p 空間 + 時間衰減權重）"""
+
+    # 時間衰減權重：近期資料權重更高
+    sample_weight = None
+    if train_dates is not None:
+        max_date = train_dates.max()
+        days_ago = (max_date - train_dates).dt.days.values
+        sample_weight = np.exp(-0.003 * days_ago)
+        sample_weight = sample_weight / sample_weight.sum() * len(sample_weight)
+
+    # log1p 轉換目標值，降低極端值影響
+    y_train_log = np.log1p(y_train)
+    y_test_log = np.log1p(y_test)
+
     models_config = {
         'Conservative': {
             'iterations': 500,
@@ -277,28 +300,30 @@ def train_models(X_train, y_train, X_test, y_test):
             'random_seed': 42
         }
     }
-    
+
     models_dict = {}
     results = []
-    
-    print("\n[4] 訓練模型:")
+
+    print("\n[4] 訓練模型 (log1p space + time weights):")
     for model_name, params in models_config.items():
         print(f"   訓練 {model_name}...")
         model = CatBoostRegressor(**params, verbose=False)
         model.fit(
-            X_train, y_train,
-            eval_set=(X_test, y_test),
+            X_train, y_train_log,
+            eval_set=(X_test, y_test_log),
             early_stopping_rounds=50,
-            verbose=False
+            verbose=False,
+            sample_weight=sample_weight
         )
-        
+
         models_dict[model_name] = model
-        y_pred = model.predict(X_test)
-        
+        # 還原到原始尺度評估
+        y_pred = np.maximum(0, np.expm1(model.predict(X_test)))
+
         mae = mean_absolute_error(y_test, y_pred)
         rmse = np.sqrt(mean_squared_error(y_test, y_pred))
         r2 = r2_score(y_test, y_pred)
-        
+
         results.append({
             'Model': model_name,
             'RMSE': rmse,
@@ -306,7 +331,7 @@ def train_models(X_train, y_train, X_test, y_test):
             'R2': r2
         })
         print(f"      RMSE: {rmse:.4f}, MAE: {mae:.4f}, R²: {r2:.4f}")
-    
+
     return models_dict, results
 
 
@@ -365,13 +390,11 @@ def predict_future(n_days, models_dict, normalizer, event_weights, feature_cols,
         day_predictions = []
         for model_name in ['Conservative', 'Balanced', 'Aggressive']:
             if model_name in models_dict:
-                pred = models_dict[model_name].predict(X_future_scaled)[0]
-                pred = max(MIN_PREDICTION, pred)
+                # 模型在 log1p 空間預測，需 expm1 還原
+                pred = max(0, np.expm1(models_dict[model_name].predict(X_future_scaled)[0]))
                 day_predictions.append(pred)
-        
+
         ensemble_pred = np.mean(day_predictions)
-        if ensemble_pred < MIN_PREDICTION:
-            ensemble_pred = max(MIN_PREDICTION, historical_mean * 0.5)
         
         predictions_list.append({
             'date': future_dates[day_idx].strftime('%Y-%m-%d'),
@@ -453,7 +476,8 @@ def main():
     X_test_scaled = normalizer.transform(X_test)
     
     # 訓練模型
-    models_dict, results = train_models(X_train_scaled, y_train, X_test_scaled, y_test)
+    models_dict, results = train_models(X_train_scaled, y_train, X_test_scaled, y_test,
+                                        train_dates=train_df['date'])
     
     # 預測未來
     predictions_df = predict_future(
