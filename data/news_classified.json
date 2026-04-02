@@ -9070,5 +9070,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區海軍某登陸舰大隊組成舰艇編隊，緊貼實戰構設險難環境，開展實戰化訓練，突出臨機處置與多點對抗，檢驗舰艇應急應戰能力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.93,
+    "original_article": {
+      "date": "2026-04-02",
+      "title": "#直击东部战区练兵备战现场#【#舰艇编队踏浪出击#】近日，东部战区海军某登陆舰大队组成舰艇编队，紧贴...",
+      "content": "#直击东部战区练兵备战现场#【#舰艇编队踏浪出击#】近日，东部战区海军某登陆舰大队组成舰艇编队，紧贴实战构设险难环境，开展实战化训练，突出临机处置与多点对抗，全面检验舰艇应急应战能力。（邹超、吴桐、胡理淏、彭坤林）#当兵就要练练#",
+      "url": "https://m.weibo.cn/detail/5283164349796577",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-01",
+      "title": "#东部熄灯号# 铁流滚滚震敌胆,战旗猎猎卷长风。#阅海峡#",
+      "content": "#东部熄灯号# 铁流滚滚震敌胆,战旗猎猎卷长风。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5283013354067761",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-01",
+      "title": "【#红色基因代代传#】近日，江苏省军区无锡第二离职干部休养所94岁老干部钱锦树，走进无锡金桥双语实验...",
+      "content": "【#红色基因代代传#】近日，江苏省军区无锡第二离职干部休养所94岁老干部钱锦树，走进无锡金桥双语实验学校，为少先队员讲述抗战时期的烽火岁月和保家卫国的峥嵘历程，勉励孩子们牢记历史、感念党恩、勤奋学习，努力成长为有理想、能吃苦、敢担当的新时代好少年。（吴将、陶演）",
+      "url": "https://m.weibo.cn/detail/5282892558631505",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
