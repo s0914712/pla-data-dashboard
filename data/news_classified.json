@@ -9214,5 +9214,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.15,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區空軍某部進行輕武器實彈射擊考核",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-03",
+      "title": "#直击东部战区练兵备战现场#【#实弹射击火力全开#】近日，东部战区空军某部紧贴实战化训练要求，严密组...",
+      "content": "#直击东部战区练兵备战现场#【#实弹射击火力全开#】近日，东部战区空军某部紧贴实战化训练要求，严密组织轻武器实弹射击考核，全面检验前期训练质效，锤炼官兵战斗精神和实战本领。（李先知、于子航）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5283526737660048",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-02",
+      "title": "#东部熄灯号#强军号角催征急，战阵前沿砺精兵。#阅海峡#",
+      "content": "#东部熄灯号#强军号角催征急，战阵前沿砺精兵。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5283375742195659",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.2,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-02",
+      "title": "【#清明祭英烈#】在清明节即将来临之际，32517部队组织官兵前往李家发烈士陵园，开展“缅怀革命先烈...",
+      "content": "【#清明祭英烈#】在清明节即将来临之际，32517部队组织官兵前往李家发烈士陵园，开展“缅怀革命先烈，矢志奋斗强军”活动，以瞻仰烈士碑、向烈士敬献鲜花、擦拭墓碑等形式，深切缅怀先烈丰功伟绩，感悟红色传承。（姚耀）",
+      "url": "https://m.weibo.cn/detail/5283254946497347",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
