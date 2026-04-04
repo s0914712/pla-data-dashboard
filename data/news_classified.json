@@ -9334,5 +9334,101 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-03",
+      "title": "【#东部战区发布海报为了这个省#，展示统一后台湾省清明节场景！】昨天，为祖国统一献身的英雄前赴后继！...",
+      "content": "【#东部战区发布海报为了这个省#，展示统一后台湾省清明节场景！】昨天，为祖国统一献身的英雄前赴后继！今天，为祖国统一奋斗的志士披肝沥胆！后来，为祖国统一梦圆的功臣光昭日月！祖国和人民，将永远铭记他们的不朽功勋！#清明节#来临之际，东部战区发布海报《为了这个省》，展示统一后台湾省清明节 ...全文",
+      "url": "https://m.weibo.cn/detail/5283708799553916",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.25,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-04",
+      "title": "【#清明寄哀思#，薪火永相传】4月2日，东部战区空军某场站举行缅怀先烈仪式。官兵以追思之忱，铸奋进之...",
+      "content": "【#清明寄哀思#，薪火永相传】4月2日，东部战区空军某场站举行缅怀先烈仪式。官兵以追思之忱，铸奋进之志，立志赓续英烈精神，以实干担当践行初心使命。（郭政、张翼、刘程远、刘德凯）#2026年清明祭英烈#",
+      "url": "https://m.weibo.cn/detail/5283889124738206",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-03",
+      "title": "#东部熄灯号#征程万里风正劲，重任千钧再出发 。#阅海峡#",
+      "content": "#东部熄灯号#征程万里风正劲，重任千钧再出发 。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5283738129800766",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-03",
+      "title": "【#缅怀革命先烈#】清明节前夕，江苏省无锡市梁溪区人武部组织专武干部、民兵代表走进革命烈士陵园，开展...",
+      "content": "【#缅怀革命先烈#】清明节前夕，江苏省无锡市梁溪区人武部组织专武干部、民兵代表走进革命烈士陵园，开展“缅怀革命先烈、矢志奋斗强军”主题清明祭扫活动，进一步凝聚国防动员和后备力量建设的奋进力量。（张进春、相柯）",
+      "url": "https://m.weibo.cn/detail/5283617333841285",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
