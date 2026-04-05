@@ -9502,5 +9502,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-04",
+      "title": "【#缅怀先烈致敬英雄# 】#清明节# 来临之际，东部战区海军某部庄严举行&quot;传承英烈精神、矢...",
+      "content": "【#缅怀先烈致敬英雄# 】#清明节# 来临之际，东部战区海军某部庄严举行&quot;传承英烈精神、矢志奋斗强军&quot;祭奠仪式，官兵通过深切缅怀革命先烈的丰功伟绩，激发奋斗强军的热情。（李博文、刘磊、阳开鑫）#2026年清明祭英烈#",
+      "url": "https://m.weibo.cn/detail/5283979726159927",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
