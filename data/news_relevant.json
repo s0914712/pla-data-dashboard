@@ -6925,5 +6925,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-05",
+      "title": "【#缅怀先烈寄哀思#】#清明节# 来临之际，东部战区空军某场站以多种形式开展“重温誓词忆英烈”活动，...",
+      "content": "【#缅怀先烈寄哀思#】#清明节# 来临之际，东部战区空军某场站以多种形式开展“重温誓词忆英烈”活动，引导官兵坚定理想信念，筑牢忠诚底色，传承红色基因。（李奇勋、吴宇彬、李潇钒、司江明）#2026年清明祭英烈#",
+      "url": "https://m.weibo.cn/detail/5284402508333442",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-05",
+      "title": "【清明祭英烈，忠魂永铭记】#清明节# 来临之际，武警宁德支队组织机关及机动中队全体官兵赴宁德市蕉城区...",
+      "content": "【清明祭英烈，忠魂永铭记】#清明节# 来临之际，武警宁德支队组织机关及机动中队全体官兵赴宁德市蕉城区革命烈士陵园开展清明祭扫活动，深切缅怀革命先烈的丰功伟绩，#传承红色基因# ，砥砺强军之志。（吴亮超、林从雨、陈李涛、周以涛）#2026年清明祭英烈#",
+      "url": "https://m.weibo.cn/detail/5284357209589358",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-05",
+      "title": "#强军时刻#【#家国永念致敬英雄#】山河无恙，是他们心之所愿的回响；盛世灯火，是他们英雄赞歌的续章。...",
+      "content": "#强军时刻#【#家国永念致敬英雄#】山河无恙，是他们心之所愿的回响；盛世灯火，是他们英雄赞歌的续章。今天，在和平的清风中，缅怀英烈，向英雄致敬！#山河记得你# （新华社）",
+      "url": "https://m.weibo.cn/detail/5284339699155611",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
