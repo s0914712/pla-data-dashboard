@@ -9646,5 +9646,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区海军航空兵某场站紧贴春季任务特点，通过飞行保障、刺杀攻防组合等课目训练，锤炼部队遂行多样化任务本领。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-07",
+      "title": "#直击东部战区练兵备战现场#【#春日砺兵锤炼胜战本领#】近日，东部战区海军航空兵某场站紧贴春季任务特...",
+      "content": "#直击东部战区练兵备战现场#【#春日砺兵锤炼胜战本领#】近日，东部战区海军航空兵某场站紧贴春季任务特点，通过飞行保障、刺杀攻防组合等课目训练，锤炼部队遂行多样化任务本领。（王振泽、杨朔、雷剑东、平海）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5284976289120570",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
