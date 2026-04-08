@@ -7141,5 +7141,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "第71集团军某旅野外实爆训练，硝烟弥漫，爆鸣响彻云霄",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-08",
+      "title": "#直击东部战区练兵备战现场#【#实爆考核锤炼血性胆气#】近日，第71集团军某旅野外训练场硝烟弥漫，一...",
+      "content": "#直击东部战区练兵备战现场#【#实爆考核锤炼血性胆气#】近日，第71集团军某旅野外训练场硝烟弥漫，一声声爆鸣响彻云霄。他们紧贴实战要求，组织基础实爆训练，让官兵在真打实备中锤炼血性胆气。（廖鹏、耿黎、吕昊）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5285338676462118",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.05,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-07",
+      "title": "#东部熄灯号# 学之愈深，悟之愈透，行之愈笃。#阅海峡#",
+      "content": "#东部熄灯号# 学之愈深，悟之愈透，行之愈笃。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5285187681266548",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-07",
+      "title": "【#实战化演练锤炼应急处突能力#】近日，武警浙江总队舟山支队某部围绕守卫重要目标安全展开实战化演练。...",
+      "content": "【#实战化演练锤炼应急处突能力#】近日，武警浙江总队舟山支队某部围绕守卫重要目标安全展开实战化演练。官兵闻令而动，快速机动至目标地域，有效锤炼部队应急处置和协同作战能力。（王俊杰、于天淇、李晗健）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5285066885301169",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
