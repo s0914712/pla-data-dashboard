@@ -7213,5 +7213,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "兩岸事務是家事，應由兩岸同胞協商解決"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-08",
+      "title": "国台办：两岸的事是两岸同胞的家里事",
+      "content": "有记者问，对于国民党主席郑丽文率团来大陆参访，国台办发言人此前表示两岸的事是家里事，要由家里人商量着办。台陆委会对此称，大陆的说法凸显其“反介入”与“两岸问题内政化”的意图。请问对此有何评论？ 发言人朱凤莲在答问时表示，两岸同属一个中国，都是中国人，是一家人，两岸的事是两岸同胞的家里事，理应由家里人商量着办，两岸同胞有充分的智慧和能力解决好自己的问题。我们愿意在坚持“九二共识”、反对“台独”的共同政治基础上，同包括中国国民党在内的台湾各政党团体和人士一道，推动两岸关系和平发展，为台海谋和平，为同胞谋福祉，为民族谋复兴。民进党当局出于“台独”私利，污蔑抹黑不得人心。（记者尚昊、李寒芳）",
+      "url": "https://www.news.cn/tw/20260408/23d4bbc12d514657b5d67d56b3b5af54/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国台办指赖清德当局破坏两岸经济联系图谋不会得逞，两岸贸易保持增长"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-04-08",
+      "title": "国台办：赖清德当局破坏两岸经济联系的图谋不会得逞",
+      "content": "有记者问，赖清德近日称，美国已成为台湾最大对外投资目的地与出口市场，台湾对大陆投资下降，将持续与美国深化合作，维护全球供应链安全。请问对此有何评论？ 发言人朱凤莲在答问时表示，赖清德当局出于一党的政治私利，不断对美输诚，企图推动两岸经济脱钩断链，损害岛内产业和民众利益福祉，其大言不惭所说的“与美深化合作，维护全球供应链安全”，本质上是“倚美卖台”，更加暴露其为了“倚外谋独”而处心积虑，不择手段。 朱凤莲说，据海关总署统计，今年前两个月，两岸贸易总额保持稳定增长势头，达到525.4亿美元，其中大陆对台出口增长了28.1%，大陆自台进口增长了19%。这充分说明两岸经济脱不了钩、断不了链。深化两岸融合发展，符合两岸同胞的共同利益和市场规律，赖清德当局破坏两岸经济联系的图谋不得人心、不会得逞。（记者尚昊、许晓静）",
+      "url": "https://www.news.cn/tw/20260408/06cec3993c484022a2a0eaacec2c1a30/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
