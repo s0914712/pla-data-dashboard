@@ -9862,5 +9862,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军在“无厂房、无市电、无水源”条件下开展野外制氧制氮演练，包括装备紧急机动、保障阵地开设、目标伪装防护、气体检测灌充等科目，以提升战时作战保障能力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.92,
+    "original_article": {
+      "date": "2026-04-09",
+      "title": "#直击东部战区练兵备战现场# 【野外演练保战力#】近日，东部战区空军某场站在“无厂房、无市电、无水源...",
+      "content": "#直击东部战区练兵备战现场# 【野外演练保战力#】近日，东部战区空军某场站在“无厂房、无市电、无水源”条件下开展野外制氧制氮演练。他们着眼实战需求，以战时营房遭敌损毁、市电中断为背景，通过开展装备紧急机动、保障阵地开设、目标伪装防护、气体检测灌充等演练科目，进一步提升在“三无”条件下 ...全文",
+      "url": "https://m.weibo.cn/detail/5285701072455705",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-08",
+      "title": "#东部熄灯号#矢志强军担重任，聚力备战踏征程。#阅海峡#",
+      "content": "#东部熄灯号#矢志强军担重任，聚力备战踏征程。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5285550074101900",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-08",
+      "title": "【#武警人墙守护平安#】清明假期，江苏南京夫子庙景区人流如织，武警南京支队官兵“筑人墙、上点位”，用...",
+      "content": "【#武警人墙守护平安#】清明假期，江苏南京夫子庙景区人流如织，武警南京支队官兵“筑人墙、上点位”，用暖心守护，保障游客安全出行！（杨春周）#致敬人民子弟兵#",
+      "url": "https://m.weibo.cn/detail/5285429273431199",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
