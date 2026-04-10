@@ -10006,5 +10006,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军组织通信专业综合演练，以塔台摧毁为背景，开展野战塔台及通信瘫痪处理，检验极端条件下机动力量应急响应能力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-10",
+      "title": "#直击东部战区练兵备战现场# 【#跨昼夜飞行训练火热展开#】近日，东部战区空军某场站组织通信专业综合...",
+      "content": "#直击东部战区练兵备战现场# 【#跨昼夜飞行训练火热展开#】近日，东部战区空军某场站组织通信专业综合演练。他们以塔台摧毁为背景，组织开设野战塔台及通信瘫痪情况处理，重点检验在遭敌打击等极端条件下机动力量应急响应能力。（李奇勋）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5286063452719471",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-09",
+      "title": "#东部熄灯号#披坚执锐担使命，攻坚克难卫山河。#阅海峡#",
+      "content": "#东部熄灯号#披坚执锐担使命，攻坚克难卫山河。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5285912457773633",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军某部组织夜间训练，紧贴实战要求，融合穿插基础操作、快速转换部署等内容，旨在提升全时作战能力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-09",
+      "title": "【#雨夜出击淬炼实战能力#】战争不分昼夜，训练覆盖全时。近日，东部战区空军某部组织夜间训练。训练全程...",
+      "content": "【#雨夜出击淬炼实战能力#】战争不分昼夜，训练覆盖全时。近日，东部战区空军某部组织夜间训练。训练全程紧贴实战要求，坚持以考促训，精心设置战术背景，融合穿插基础操作、快速转换部署等多个重点内容，进一步夯实官兵全时作战能力。（徐佳豪、陈菲莹、段钰恒）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5285791661036714",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
