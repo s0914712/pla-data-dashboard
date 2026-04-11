@@ -10246,5 +10246,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "训战一体磨利刃，攻守兼备筑坚防。#阅海峡#"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-10",
+      "title": "#东部熄灯号# 训战一体磨利刃，攻守兼备筑坚防。#阅海峡#",
+      "content": "#东部熄灯号# 训战一体磨利刃，攻守兼备筑坚防。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5286274845381712",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-10",
+      "title": "【#队列会操强化作风养成# 】近日，东部战区海军航空兵某场站组织开展2026年队列会操，进一步加强部...",
+      "content": "【#队列会操强化作风养成# 】近日，东部战区海军航空兵某场站组织开展2026年队列会操，进一步加强部队正规化管理，强化官兵队列意识和纪律意识，推动部队作风纪律建设走深走实。（王振泽、杨朔）",
+      "url": "https://m.weibo.cn/detail/5286154053617566",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
