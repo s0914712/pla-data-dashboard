@@ -10462,5 +10462,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "第71集团军“王杰部队”侦察分队开展跨昼夜武装破袭演练，丛林渗透，跨昼夜武装破袭",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-13",
+      "title": "#直击东部战区练兵备战现场#【丛林渗透！#侦察兵跨昼夜武装破袭#】近日，第71集团军“王杰部队”侦察...",
+      "content": "#直击东部战区练兵备战现场#【丛林渗透！#侦察兵跨昼夜武装破袭#】近日，第71集团军“王杰部队”侦察分队开展跨昼夜武装破袭演练，全面锤炼侦察分队在复杂环境下的实战本领，进一步夯实部队遂行多样化任务能力基础。（江华康、万智奇）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5287150615528608",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
