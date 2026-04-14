@@ -10534,5 +10534,101 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "JP",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-14",
+      "title": "【中国海警舰艇编队4月14日在我钓鱼岛领海巡航】4月14日，中国海警2308舰艇编队在我钓鱼岛领海内...",
+      "content": "【中国海警舰艇编队4月14日在我钓鱼岛领海巡航】4月14日，中国海警2308舰艇编队在我钓鱼岛领海内巡航。这是中国海警依法开展的维权巡航活动。#中国海警发布# 【China Coast Guard Vessel Formation Conducted A Patrol in China's Territorial Waters of the Diaoyu Dao on April 14】On April 14, Ch ...全文",
+      "url": "https://m.weibo.cn/detail/5287539619663933",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-14",
+      "title": "#直击东部战区练兵备战现场# 【“四化”#锤炼驾驶员专业能力#】近日，东部战区空军某场站汽车连紧贴备...",
+      "content": "#直击东部战区练兵备战现场# 【“四化”#锤炼驾驶员专业能力#】近日，东部战区空军某场站汽车连紧贴备战打仗形势，扎实组织2026年度驾驶员复训工作，通过集约化组训、专长化任教、模拟化训练、标准化考核的&quot;四化&quot;模式，着力锤炼驾驶员业务技能与综合素质，为部队遂行各项任务筑牢运输投送根基。（陆雅 ...全文",
+      "url": "https://m.weibo.cn/detail/5287513003395671",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.85,
+    "original_article": {
+      "date": "2026-04-13",
+      "title": "#东部熄灯号# 长空铸剑凝铁胆，仗剑凌空砺忠魂。#阅海峡#",
+      "content": "#东部熄灯号# 长空铸剑凝铁胆，仗剑凌空砺忠魂。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5287362008975069",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-13",
+      "title": "【#读书分享会入脑又入心#】近日，东部战区海军某旅组织“强军思想引领我成长”主题读书分享会。官兵们结...",
+      "content": "【#读书分享会入脑又入心#】近日，东部战区海军某旅组织“强军思想引领我成长”主题读书分享会。官兵们结合使命与自身岗位，踊跃分享学习心得，进一步筑牢听党指挥、奋斗强军的思想根基。（阳开鑫、郑守炫）",
+      "url": "https://m.weibo.cn/detail/5287241212756407",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
