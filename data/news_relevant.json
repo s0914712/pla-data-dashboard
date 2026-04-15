@@ -8053,5 +8053,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-15",
+      "title": "#全民国家安全教育日# 【#多种形式组织开展全民国家安全教育#】第11个“全民国家安全教育日”来临之...",
+      "content": "#全民国家安全教育日# 【#多种形式组织开展全民国家安全教育#】第11个“全民国家安全教育日”来临之际，32520部队采取线上线下相结合的方式，通过参观九江博物馆国家安全教育展厅、教育宣讲、线上APP自主学习等形式，引导官兵筑牢思想防线，不断提高国家安全意识，增强捍卫国家主权、安全的使命感责任 ...全文",
+      "url": "https://m.weibo.cn/detail/5287875391263137",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.35,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.82,
+    "original_article": {
+      "date": "2026-04-14",
+      "title": "#东部熄灯号#唯有脚踏实地，方能仰望星空；唯有日夜兼程，才可奔赴远方。 #阅海峡#",
+      "content": "#东部熄灯号#唯有脚踏实地，方能仰望星空；唯有日夜兼程，才可奔赴远方。 #阅海峡#",
+      "url": "https://m.weibo.cn/detail/5287724396584074",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-14",
+      "title": "【#旅史故事分享点燃信仰之光#】近日，第71集团军“临汾旅”在各营区隆重举办“学旅史、传薪火、续荣光...",
+      "content": "【#旅史故事分享点燃信仰之光#】近日，第71集团军“临汾旅”在各营区隆重举办“学旅史、传薪火、续荣光”旅史故事分享交流会，引导全体官兵始终牢记初心使命，传承红色薪火，赓续旅队荣光，以过硬的军事素质和优良的战斗作风，擘画新时代新征程的宏伟蓝图。（廖鹏、耿黎、万里想、田杰）",
+      "url": "https://m.weibo.cn/detail/5287603600885502",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
