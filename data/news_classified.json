@@ -10889,5 +10889,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "第71集团军“临汾旅”严密组织建制单位自动步枪操作比武考核",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-16",
+      "title": "#直击东部战区练兵备战现场# 【激战正酣！#步枪比武考核火热登场# 】近日，第71集团军“临汾旅”严...",
+      "content": "#直击东部战区练兵备战现场# 【激战正酣！#步枪比武考核火热登场# 】近日，第71集团军“临汾旅”严密组织建制单位自动步枪操作比武考核，参赛官兵以赛促训、以比强能，充分展现新时代官兵精武强能和矢志打赢的精神风貌。（廖鹏、马明宇、万里想）",
+      "url": "https://m.weibo.cn/detail/5288237779127744",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-15",
+      "title": "#东部熄灯号# 春潮涌动启新程，矢志强军势如虹。#阅海峡#",
+      "content": "#东部熄灯号# 春潮涌动启新程，矢志强军势如虹。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5288086785231179",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-15",
+      "title": "#全民国家安全教育日# 【#军地联动送学上门共筑安全防线# 】4月14日，江苏省军区无锡第四离职干部...",
+      "content": "#全民国家安全教育日# 【#军地联动送学上门共筑安全防线# 】4月14日，江苏省军区无锡第四离职干部休养所联合驻地学校师生共同开展国家安全宣传活动。学生们上门为离休老干部送上国家安全宣传手册，讲解总体国家安全观、网络安全、保密常识等内容，并聆听隐蔽战线老同志讲述革命经历。此项活动既让老首 ...全文",
+      "url": "https://m.weibo.cn/detail/5287965988487956",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
