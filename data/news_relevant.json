@@ -8504,5 +8504,72 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區海軍導彈快艇大隊開展跨昼夜多課目實戰化訓練，包括舰炮對海射擊等10餘個課目",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-17",
+      "title": "#直击东部战区练兵备战现场# 【#导弹快艇编队开展跨昼夜实战化训练# 】近日，东部战区海军某导弹快艇...",
+      "content": "#直击东部战区练兵备战现场# 【#导弹快艇编队开展跨昼夜实战化训练# 】近日，东部战区海军某导弹快艇大队组织开展跨昼夜、多课目实战化训练，以复杂电磁环境、恶劣海况为背景，连贯展开舰炮对海射击等10余个训练课目，全面锤炼战位号手操作能力和指挥员作战运筹水平。（王贺秋、王永超）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5288600167514786",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.85,
+    "original_article": {
+      "date": "2026-04-16",
+      "title": "#东部熄灯号# 人不率则不从，身不先则不信。#阅海峡#",
+      "content": "#东部熄灯号# 人不率则不从，身不先则不信。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5288449172315177",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-04-16",
+      "title": "【#武器装备#“体检”开始了】近日，东部战区空军某部开展2026年度装备年维护工作，对武器装备进行全...",
+      "content": "【#武器装备#“体检”开始了】近日，东部战区空军某部开展2026年度装备年维护工作，对武器装备进行全面“体检”和维护保养，确保始终处于良好战备状态。（冉金山 、李唐琪、李先知、赵闰峰）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5288328376355082",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
