@@ -8782,5 +8782,125 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "王沪宁呼吁坚持一个中国原则，推动两岸和平发展，反对台独分裂。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-17",
+      "title": "王沪宁出席第七届台胞社团论坛开幕式",
+      "content": "中共中央政治局常委、全国政协主席王沪宁出席开幕式并讲话。 王沪宁表示，4月10日，习近平总书记就两岸关系发展提出坚持以正确认同促进心灵契合、坚持以和平发展守护共同家园、坚持以交流融合增进民生福祉、坚持以团结奋斗实现中华民族伟大复兴的重要主张，必将激励两岸同胞同心共创祖国统一、民族复兴的光明前景。我们要贯彻新时代党解决台湾问题的总体方略，坚持一个中国原则和“九二共识”，团结广大台湾同胞，共同推动两岸关系和平发展、推进祖国统一大业。 王沪宁表示，台胞社团论坛自2010年举办以来，为加强两岸交流、增进同胞亲情、促进心灵契合作出了许多贡献。本届论坛以“服务乡亲、沟通两岸——持续深化两岸融合发展，坚定推进祖国统一大业”为主题，表达了海内外台胞心系祖国发展、共促国家统一的心愿，传递了要和平、要发展、要交流、要合作的心声。 王沪宁表示，两岸同胞同属中华民族，都期盼台海和平安宁、期盼两岸关系改善发展、期盼生活更加美好。希望广大台湾同胞把握历史大势，坚定守护好建设好中华民族共同家园，坚定实现祖国完全统一的信心和决心。要自觉做中华文化守护者、传承者、弘扬者，增进对中华民族、中华文化、伟大祖国的认同，坚定铸牢中华民族共同体意识。要深化两岸各领域融合发展，欢迎台湾同胞和台湾青年来大陆交流发展，让两岸同胞共享中国式现代化机遇和成果。要坚定支持岛内爱国统一力量，坚决反对“台独”分裂和外来干涉。 李干杰、郑建邦、苏辉出席。中央和国家机关有关部门、有关民主党派中央和团体负责同志，海内外台胞代表，全国台联理事、名誉理事、中共二十大台湾省籍党代表、台湾省第十四届全国人大代表、十四届全国政协台联界委员，各省区市台联负责人等，共约400人参加。 全国台联会长郑建闽致开幕词。中国国民党前主席洪秀柱在会上致辞。",
+      "url": "https://www.news.cn/tw/20260417/8aef93add95d4dd798d5097e74698714/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.7,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "赖清德对美输诚贴靠，卖台祸台毁台"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-17",
+      "title": "国防部：赖清德对美输诚贴靠 卖台祸台毁台",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
+      "url": "https://www.news.cn/tw/20260417/7587ea47bc714515aa29938a6cbde639/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国防部称‘台独’是破坏台海和平的罪魁祸首"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-17",
+      "title": "国防部：“台独”是破坏台海和平的罪魁祸首",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
+      "url": "https://www.news.cn/tw/20260417/d33f54a94ad24b008ac3302d114f6a37/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "JP",
+    "country2": "CN",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "JP 雷號驅逐艦 transit",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-17",
+      "title": "东部战区新闻发言人就日本“雷”号驱逐舰过航台湾海峡发表谈话",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
+      "url": "https://www.news.cn/tw/20260417/c5bacb7022c54393b1ede55ae2e1cf0b/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-17",
+      "title": "2026年闽台青少年民族文化交流活动在福州启动",
+      "content": "包括30余名台湾少数民族青少年在内的300余名两岸青少年，将在福州开展为期6天5夜的交流活动。 启动仪式在福州华侨中学民乐团激昂的《盛世欢腾》中拉开序幕。来自台湾花莲“玛大艺术恒舞集”的青少年们表演了当地少数民族舞蹈，带动大陆师生们一起欢快起舞。随后，台湾青少年在福州华侨中学体验了版画拓印，并与大陆学生开展旱地冰球友谊赛。 福建省台联副会长欧阳迪莎说，此次活动为闽台青少年常来常往、互学互鉴、走亲走近搭建了平台。她期盼，台湾青少年亲身感受两岸融合发展示范区的蓬勃生机与浓浓温情，把此行所见所闻、所感所悟带回岛内，分享给家人亲友。 福州华侨中学校长张永久说，要以此次活动为契机，进一步拓展与台湾学校之间的校际交流，深化在教学研究、师资互访、学生研学等方面的合作，让两岸青少年的心贴得更近、情融得更深。 在福州华侨中学就读的台湾学生詹于瀚带领台湾交流团参观了校园。他说，看到台湾来的小伙伴，感到非常亲切，“大家手拉着手一起跳舞，就像一家人一样”。 台湾交流团一名老师说，台湾青少年要多到大陆走走看看，在交流中互相学习、共同进步。 “我最期待的行程是到三坊七巷参访，那里的历史文化很值得体验。”来自台湾花莲高级工业职业学校的一名同学说。 活动期间，台湾青少年还将参加罗源霍口畲族乡“三月三”民俗活动、福州海峡文化艺术中心“你好·福州”主题音乐会，前往烟台山历史风貌区、上下杭历史文化街区等地参访，并参与快闪路演。 本次活动由福建省台联、福建省民宗厅、福州市台联、福州市教育局、福州市民宗局、福州市妇联主办。",
+      "url": "https://www.news.cn/tw/20260417/d226fbe23df0425b8d62825a45347d92/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
