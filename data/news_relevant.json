@@ -8710,5 +8710,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.85,
+    "original_article": {
+      "date": "2026-04-17",
+      "title": "#东部熄灯号# 奋斗是青春最亮丽的底色，行动是青年最有效的磨砺。#阅海峡#",
+      "content": "#东部熄灯号# 奋斗是青春最亮丽的底色，行动是青年最有效的磨砺。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5288811560699167",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "JP",
+    "country2": "CN",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "JP Ikazuchi transit",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-17",
+      "title": "【东部战区新闻发言人就日本“雷”号驱逐舰过航台湾海峡发表谈话 Spokesperson of the...",
+      "content": "【东部战区新闻发言人就日本“雷”号驱逐舰过航台湾海峡发表谈话 Spokesperson of the PLA Eastern Theater Command Issues Statement on the Japanese destroyer JS Ikazuchi Transiting the Taiwan Strait】东部战区新闻发言人徐承华陆军大校表示，4月17日4时02分至17时50分，日本“雷”号驱逐舰过航 ...全文",
+      "url": "https://m.weibo.cn/detail/5288771139408195",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-17",
+      "title": "【#从严从细抓实年度军车审验工作#】近日，武警浙江总队舟山支队严密组织年度军车审验工作，坚持高标准、...",
+      "content": "【#从严从细抓实年度军车审验工作#】近日，武警浙江总队舟山支队严密组织年度军车审验工作，坚持高标准、全覆盖，对所属车辆逐台检查、逐项把关，以严谨细致的作风为车辆“把脉问诊”，确保每一台军车保持良好技战术状态，为全年执勤运输和行车安全提供坚实支撑。（李晗健、姚宏图、李凯生、何艺文）",
+      "url": "https://m.weibo.cn/detail/5288690764481643",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
