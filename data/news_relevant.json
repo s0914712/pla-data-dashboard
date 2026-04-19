@@ -8902,5 +8902,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "中國人民解放軍東部戰區在東海相關海空域開展聯合戰備巡航",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-18",
+      "title": "#东部战区位东海开展联合战备巡航#【东部战区位东海相关海空域开展联合战备巡航 PLA Eastern...",
+      "content": "#东部战区位东海开展联合战备巡航#【东部战区位东海相关海空域开展联合战备巡航 PLA Eastern Theater Command Conducts Joint Readiness Patrols in Relevant Waters and Airspace of the East China Sea】东部战区新闻发言人徐承华陆军大校表示，4月18日，中国人民解放军#东部战区#位东海相关海空域， ...全文",
+      "url": "https://m.weibo.cn/detail/5289083721226003",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
