@@ -8974,5 +8974,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区133号舰艇编队过航横当水道，赴西太平洋海域开展演训活动",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-19",
+      "title": "#东部战区舰艇编队赴西太海域演训#【东部战区组织133号舰艇编队过航横当水道，赴西太平洋海域开展演训...",
+      "content": "#东部战区舰艇编队赴西太海域演训#【东部战区组织133号舰艇编队过航横当水道，赴西太平洋海域开展演训活动 PLA Eastern Theater Command Dispatched Vessel Formation 133 to Transit Yokoate Waterway and Conduct Training in the Western Pacific】东部战区新闻发言人徐承华陆军大校表示，4月19日， ...全文",
+      "url": "https://m.weibo.cn/detail/5289480341685053",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-20",
+      "title": "#直击东部战区练兵备战现场# 【#鸟情巡查确保飞行安全# 】近日，东部战区空军某场站场务分队严密组织...",
+      "content": "#直击东部战区练兵备战现场# 【#鸟情巡查确保飞行安全# 】近日，东部战区空军某场站场务分队严密组织机场周边鸟情巡查。该分队从鸟情监测、驱鸟措施、飞行安全等关键环节入手，开展全方位、全过程巡查，有效维护机场飞行安全环境。(郑瑞晨、琚伟伦)",
+      "url": "https://m.weibo.cn/detail/5289687330851408",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
