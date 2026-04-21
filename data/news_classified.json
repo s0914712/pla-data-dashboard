@@ -11671,5 +11671,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "火箭军某部官兵挺进深山密林，开启一场‘沉浸式’密林练兵",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.85,
+    "original_article": {
+      "date": "2026-04-21",
+      "title": "#直击东部战区练兵备战现场# 【#利剑淬雨林# 】练兵场，战意浓！近日，火箭军某部官兵挺进深山密林，...",
+      "content": "#直击东部战区练兵备战现场# 【#利剑淬雨林# 】练兵场，战意浓！近日，火箭军某部官兵挺进深山密林，扎进无人之境，开启一场“沉浸式”密林练兵。(龙家俊、黄金奎、金鑫、廖小石) #时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5290049718715140",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-20",
+      "title": "#东部熄灯号# 迎风战恶浪，砺剑守海疆。#阅海峡#",
+      "content": "#东部熄灯号# 迎风战恶浪，砺剑守海疆。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5289898728492259",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-20",
+      "title": "【#追寻初心足迹 感悟谷文昌精神# 】近期，东部战区空军某部官兵走进谷文昌纪念馆，开展“学习谷文昌精...",
+      "content": "【#追寻初心足迹 感悟谷文昌精神# 】近期，东部战区空军某部官兵走进谷文昌纪念馆，开展“学习谷文昌精神，树立正确政绩观”主题教育，在缅怀中致敬初心使命，在参观中感悟实干担当。（冯瑞骐、闫志浩、朱家俊）#政绩观教育#",
+      "url": "https://m.weibo.cn/detail/5289777928077907",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
