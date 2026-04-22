@@ -9214,5 +9214,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-22",
+      "title": "#直击东部战区练兵备战现场#【#基层部队“四会”教练员培训开始了#】加钢淬火，保障打赢。4月中旬，无...",
+      "content": "#直击东部战区练兵备战现场#【#基层部队“四会”教练员培训开始了#】加钢淬火，保障打赢。4月中旬，无锡联勤保障中心第900医院与第73集团军医院共同组织东部战区百余名基层部队“四会”教练员开展热射病防治技能培训与考核，为保障部队战斗力培养战救卫勤骨干。（张文明、王一军、李金才、薛丽芳、杨文 ...全文",
+      "url": "https://m.weibo.cn/detail/5290412106581026",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-21",
+      "title": "#东部熄灯号#胸怀家国凌云志，厉兵秣马向打赢#阅海峡#",
+      "content": "#东部熄灯号#胸怀家国凌云志，厉兵秣马向打赢#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5290261111903327",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-21",
+      "title": "#直击东部战区练兵备战现场# 【#淬炼飞行员胜战本领# 】和煦春日，战鹰轰鸣。近日，东部战区空军某部...",
+      "content": "#直击东部战区练兵备战现场# 【#淬炼飞行员胜战本领# 】和煦春日，战鹰轰鸣。近日，东部战区空军某部飞行训练火热展开，他们区分飞行员能力层次，设置差异性训练重点，加强针对性带教指导，助力飞行员夯基强能，持续淬炼胜战本领。(陈艳君 李永昆)#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5290140319614609",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
