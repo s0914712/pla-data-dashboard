@@ -12103,5 +12103,101 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区133编队完成西太平洋海域演训活动，经与西水道返回",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-22",
+      "title": "#东部战区133编队完成西太海域演训#【东部战区组织133编队完成西太平洋海域演训活动，经与西水道返...",
+      "content": "#东部战区133编队完成西太海域演训#【东部战区组织133编队完成西太平洋海域演训活动，经与西水道返回 PLA Eastern Theater Command Vessel Formation 133 Completes Training in the Western Pacific and Returns Through Yonaguni-Iriomote Waterway】东部战区新闻发言人徐承华陆军大校表示，4月22日 ...全文",
+      "url": "https://m.weibo.cn/detail/5290488254696622",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.15,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-23",
+      "title": "【#人民海军生日快乐# 】浪花为号，舰旗猎猎。今天是人民海军77周岁生日，东部战区海军某部官兵以多种...",
+      "content": "【#人民海军生日快乐# 】浪花为号，舰旗猎猎。今天是人民海军77周岁生日，东部战区海军某部官兵以多种形式，为人民海军送上生日祝福。他们表示，将以忠诚赴使命，踏浪巡疆，用热血守护每一寸深蓝国土。（杨健、沈旭航、陈银钏、朱广政） #人民海军成立77周年#",
+      "url": "https://m.weibo.cn/detail/5290774499427287",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区进行千米高空跳伞训练，涉及海峡地区",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-22",
+      "title": "#东部熄灯号# 千米高空纵身跃，万里长空决胜间#阅海峡#",
+      "content": "#东部熄灯号# 千米高空纵身跃，万里长空决胜间#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5290623499768498",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-22",
+      "title": "【#立功喜报送到家#】为大力弘扬拥军优属优良传统，切实增强军人及军属的荣誉感、幸福感与归属感。近日，...",
+      "content": "【#立功喜报送到家#】为大力弘扬拥军优属优良传统，切实增强军人及军属的荣誉感、幸福感与归属感。近日，苏州市姑苏区人武部、退役军人事务局联合开展立功受奖军人送喜报活动，将一份份承载荣誉的立功喜报送到军属手中，让军人军属共享荣光。（陈斯阳、李润泽）",
+      "url": "https://m.weibo.cn/detail/5290502703548914",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
