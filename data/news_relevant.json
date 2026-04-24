@@ -9670,5 +9670,101 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-24",
+      "title": "#直击东部战区练兵备战现场#【科学轮训 锻造胜战尖刀】春风浩荡，战鼓催征。近日，武警浙江总队舟山支队...",
+      "content": "#直击东部战区练兵备战现场#【科学轮训 锻造胜战尖刀】春风浩荡，战鼓催征。近日，武警浙江总队舟山支队精心组织、周密部署分批轮训工作，重点围绕射击、识图用图、单兵综合演练等课目进行强化训练，把练思想、练作风、练技术、练战术融为一体，锤炼官兵过硬技能，为履行职责使命打下坚实基础。（范玉 ...全文",
+      "url": "https://m.weibo.cn/detail/5291136882576754",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "中国东部战区在台海附近进行铁甲舰艇和战鹰演练，标签#阅海峡#",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-23",
+      "title": "#东部熄灯号# 铁甲劈波，战鹰掠浪！#阅海峡#",
+      "content": "#东部熄灯号# 铁甲劈波，战鹰掠浪！#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5290985887632168",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-23",
+      "title": "#人民海军成立77周年#祝人民海军生日快乐！",
+      "content": "#人民海军成立77周年#祝人民海军生日快乐！",
+      "url": "https://m.weibo.cn/detail/5290888376877390",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-23",
+      "title": "【#读书活动凝聚奋进力量# 】今天是第31个#世界读书日# ，各部队以书为媒、以学促行，在读书活动中...",
+      "content": "【#读书活动凝聚奋进力量# 】今天是第31个#世界读书日# ，各部队以书为媒、以学促行，在读书活动中汲取知识养分，在思想碰撞中凝聚奋斗共识，进一步凝聚强军兴军的奋进力量。（赵前松、李朋飞、李玮、李东昇、李腾飞）",
+      "url": "https://m.weibo.cn/detail/5290865091936599",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
