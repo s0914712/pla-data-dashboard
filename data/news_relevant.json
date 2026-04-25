@@ -9838,5 +9838,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区在台海进行空中训练，云端磨利剑，蓝天写忠诚",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-24",
+      "title": "#东部熄灯号#云端磨利剑，蓝天写忠诚#阅海峡#",
+      "content": "#东部熄灯号#云端磨利剑，蓝天写忠诚#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5291348275762652",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-24",
+      "title": "【#医护专业比武锤炼保障硬功# 】近日，无锡军分区组织干休所人员开展“岗位建功强素质，比武竞技展风采...",
+      "content": "【#医护专业比武锤炼保障硬功# 】近日，无锡军分区组织干休所人员开展“岗位建功强素质，比武竞技展风采”考核比武。官兵和文职人员围绕“头部帽式包扎、微光静脉穿刺、心肺复苏救护、担架快速转运和理论知识答题”5个科目展开激烈角逐。通过以考促训，相互交流，有力提高干休所医疗服务保障工作业务水 ...全文",
+      "url": "https://m.weibo.cn/detail/5291227483734734",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
