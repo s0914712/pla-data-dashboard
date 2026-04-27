@@ -10006,5 +10006,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-27",
+      "title": "#直击东部战区练兵备战现场#【#锤炼炮兵分队快速反击能力# 】近日，东部战区陆军某部组织炮兵分队开展...",
+      "content": "#直击东部战区练兵备战现场#【#锤炼炮兵分队快速反击能力# 】近日，东部战区陆军某部组织炮兵分队开展火力反击训练。他们模拟在机动途中遭遇“敌”空中火力打击，官兵伺机对“敌”实施精准火力打击，锤炼炮兵分队密切协同、快速反击能力。（赵前松、徐晨鑫、黄振宇） #时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5292224046433283",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
