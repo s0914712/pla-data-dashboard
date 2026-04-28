@@ -12679,5 +12679,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區空軍某部依托丛林地域開展阵地防衛實戰化訓練，提升分隊快速反應與阵地防衛作戰能力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-28",
+      "title": "#直击东部战区练兵备战现场#【#阵地防卫鏖战正酣#】近日，东部战区空军某部依托丛林地域开展阵地防卫实...",
+      "content": "#直击东部战区练兵备战现场#【#阵地防卫鏖战正酣#】近日，东部战区空军某部依托丛林地域开展阵地防卫实战化训练，在实战氛围中锤炼过硬本领，磨砺血性胆气，有效提升了分队快速反应与阵地防卫作战能力。（褚文聪、黄森、施柯、嵇康 ） #当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5292586433775540",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-27",
+      "title": "#东部熄灯号#天高我为峰，云涌我破风！#阅海峡#",
+      "content": "#东部熄灯号#天高我为峰，云涌我破风！#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5292435442763716",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-27",
+      "title": "【#生日会暖兵心激士气# 】近日，东部战区空军某场站为驻训飞行员举办生日会。小小蛋糕承载浓浓战友情，...",
+      "content": "【#生日会暖兵心激士气# 】近日，东部战区空军某场站为驻训飞行员举办生日会。小小蛋糕承载浓浓战友情，欢声笑语洋溢军营大家庭的温暖，集体合影记录美好军旅时光，进一步凝聚了军心士气，激发官兵练兵备战热情。（许成艺、金少明、雷文强、陈志豪） #军营生活#",
+      "url": "https://m.weibo.cn/detail/5292314647069020",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
