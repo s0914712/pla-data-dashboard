@@ -12775,5 +12775,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-29",
+      "title": "#直击东部战区练兵备战现场# 【#导弹技术保障演练火热展开# 】近日，东部战区海军某岸导团开展导弹技...",
+      "content": "#直击东部战区练兵备战现场# 【#导弹技术保障演练火热展开# 】近日，东部战区海军某岸导团开展导弹技术保障全流程实战化演练，锤炼官兵过硬保障本领，全力夯实备战打仗根基。（甄浩、周旭、徐浩凯、司泽翔） #当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5292948821901986",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-28",
+      "title": "#东部熄灯号# 山河万里皆无恙，铁甲铿锵护四方。#阅海峡#",
+      "content": "#东部熄灯号# 山河万里皆无恙，铁甲铿锵护四方。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5292797826958708",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "JP",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中国海警称日本渔船非法进入钓鱼岛领海，依法驱离并警告日方停止侵权挑衅。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-28",
+      "title": "【中国海警依法驱离日非法进入我钓鱼岛领海船只】中国海警局新闻发言人姜略表示，4月28日，日本“鹤丸”...",
+      "content": "【中国海警依法驱离日非法进入我钓鱼岛领海船只】中国海警局新闻发言人姜略表示，4月28日，日本“鹤丸”号渔船非法进入中国钓鱼岛领海，中国海警舰艇依法对其采取必要管控措施并警告驱离。钓鱼岛及其附属岛屿是中国固有领土，我们敦促日方立即停止在该海域的一切侵权挑衅行径。中国海警将持续在钓鱼岛 ...全文",
+      "url": "https://m.weibo.cn/detail/5292729874776390",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
