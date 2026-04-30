@@ -12943,5 +12943,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "第71集团军某旅通信分队在野外陌生地域组织全要素、全流程通信演练，锤炼全域通联和应急保障能力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-30",
+      "title": "#直击东部战区练兵备战现场#【#通信分队应急保障演练火热登场# 】近日，第71集团军某旅通信分队，奔...",
+      "content": "#直击东部战区练兵备战现场#【#通信分队应急保障演练火热登场# 】近日，第71集团军某旅通信分队，奔赴野外陌生地域，组织全要素、全流程通信演练，全面锤炼全域通联和应急保障能力。（崔涛、赵前松、徐晨鑫、黄振宇）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5293311213438080",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-29",
+      "title": "#东部熄灯号# 以汗水淬炼忠诚，以坚守诠释使命。#阅海峡#",
+      "content": "#东部熄灯号# 以汗水淬炼忠诚，以坚守诠释使命。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5293160215089038",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.5,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-29",
+      "title": "【#集体生日暖兵心# 】近日，东部战区空军某部新训旅举办集体生日会，为五十余名新战友送上温情关怀。活...",
+      "content": "【#集体生日暖兵心# 】近日，东部战区空军某部新训旅举办集体生日会，为五十余名新战友送上温情关怀。活动通过观看亲友祝福、集体唱生日歌、分享蛋糕等环节，舒缓新兵思乡之情，凝聚战友情谊，助力新兵安心服役，淬火成长。（刘松芃、刘整、刘海康、宫琛凯）",
+      "url": "https://m.weibo.cn/detail/5293039419131357",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
