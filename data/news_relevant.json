@@ -10558,5 +10558,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区进行海峡相关军事准备或演习",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-04-30",
+      "title": "#东部熄灯号# 硝烟砺血性，使命催征程。#阅海峡#",
+      "content": "#东部熄灯号# 硝烟砺血性，使命催征程。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5293522602169207",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-04-30",
+      "title": "【#士兵考学提干集训开始啦#】近日，东部战区空军某部成立提干考学集训队，灵活调整工作安排、外请教师辅...",
+      "content": "【#士兵考学提干集训开始啦#】近日，东部战区空军某部成立提干考学集训队，灵活调整工作安排、外请教师辅导授课、组织共同科目强化训练，聚力打通士兵圆梦军校的“最后一公里”。（鲁骏、洪晨初、郑祺扬）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5293401806996505",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
