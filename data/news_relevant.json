@@ -10726,5 +10726,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-02",
+      "title": "Vlog·我在大陆“种春天”丨台湾“大米哥”的稻田立业梦",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
+      "url": "https://www.news.cn/tw/20260502/161cc57fc0be42a6ae0e41fce36ff89e/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中方批評賴清德搭乘外國私機訪問斯威士蘭，稱其挥霍公帑、偷渡式外窜，沦为国际笑柄，坚持一个中国原则。"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-05-02",
+      "title": "外交部发言人就赖清德搭乘斯威士兰国王“私人飞机”窜斯答记者问",
+      "content": "有记者问：据报道，台湾地区领导人赖清德已于5月2日搭乘斯威士兰国王的“私人飞机”抵斯。请问中方对此有何评论？ 发言人说，赖清德在宜兰发生地震后仅几小时，弃岛内民生于不顾，偷偷钻进一架外国飞机溜出台湾，大肆挥霍公帑，上演“偷渡式”外窜闹剧，沦为国际笑柄，拉长“台独”丑行清单。 发言人说，赖清德之流在国际上灰头土脸的遭遇再次表明，一个中国原则早已成为国际关系基本准则和国际社会普遍共识。无论民进党当局怎么勾连外部势力、以什么形式“豢养他人”，都是枉费心机，改变不了台湾是中国一部分的事实。无论“台独”分裂势力如何隐形变异，都改变不了人人喊打、抱头鼠窜的命运。 发言人说，我们奉劝斯威士兰等个别国家看清历史大势、顺应时代潮流，不要为少数“台独”分裂分子火中取栗。",
+      "url": "https://www.news.cn/tw/20260502/cbb78e4469314e5581ba49342242a92b/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.65,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國台辦稱賴清德訪問斯威士蘭是玩弄伎俩、贻笑天下"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-05-02",
+      "title": "赖清德偷偷钻进斯威士兰飞机窜访  国台办：玩弄伎俩、贻笑天下",
+      "content": "当前岛内正遭遇地震，赖清德不管不顾。由此可见其对岛内民众冷血无情，“台独”立场顽固，是彻头彻尾的“麻烦制造者”。 有记者问：赖清德此前因有关国家拒绝发放包机飞行许可，窜访斯威士兰受挫。据报道，5月2日赖清德偷偷钻进斯威士兰的飞机窜抵斯。请问对此有何评论？陈斌华在答问时作上述回应。 他指出，坚持一个中国原则是国际社会人心所向、大势所趋、大义所在，赖清德如同过街老鼠的龌龊行径，必为国际社会所耻笑。维护台海和平稳定、过上安稳富足生活，是岛内民意所盼，赖清德不顾民众安危、肆意欺骗民心，必为广大台湾同胞所唾弃。赖清德费尽心机炮制的所谓“外交成果”，不过是玩弄伎俩、贻笑天下。祖国必然统一的大势滚滚向前、不可阻挡。",
+      "url": "https://www.news.cn/tw/20260502/f82e8114ecfe45b5a01465f9ccc5533e/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
