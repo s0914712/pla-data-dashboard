@@ -141,7 +141,18 @@ def get_holiday_features(date):
 class PLAPredictor:
     """PLA 架次預測系統 v2.5 - CatBoost + Zero-Regime 改善"""
 
-    def __init__(self, high_threshold=None):
+    # Strait passage source columns in JapanandBattleship.csv → engineered feature names
+    STRAIT_FEATURE_MAP = {
+        '與那國': 'yonaguni_7d',
+        '宮古': 'miyako_7d',
+        '大禹': 'dayu_7d',
+        '對馬': 'tsushima_7d',
+        '進': 'enter_7d',
+        '出': 'exit_7d',
+        '艦型': 'vessel_type_7d',
+    }
+
+    def __init__(self, high_threshold=None, use_strait_features=False):
         global CN_HOLIDAY_DATES
         if CN_HOLIDAY_DATES is None:
             CN_HOLIDAY_DATES = _load_holidays()
@@ -159,6 +170,10 @@ class PLAPredictor:
         self.latest_date = None
         self.high_threshold = high_threshold or HIGH_THRESHOLD
         self.cv_scores = []
+        self.cv_errors_by_day = {}       # populated by train(); maps day_offset -> [abs_errors]
+        self.use_strait_features = use_strait_features
+        self.strait_feature_cols = list(self.STRAIT_FEATURE_MAP.values()) if use_strait_features else []
+        self._recent_strait = {c: 0 for c in self.strait_feature_cols}
 
         # v2.3: 精簡至 32 個核心特徵
         self.cyclic_cols = ['month_sin', 'month_cos', 'dow_sin', 'dow_cos']
@@ -199,6 +214,8 @@ class PLAPredictor:
                            'news_military_count', 'news_us_tw_count',
                            'news_relevant_count',
                            'news_escalation_score']
+        if use_strait_features:
+            self.count_cols = self.count_cols + self.strait_feature_cols
         self.holiday_cols = ['is_holiday']
 
     def load_data(self, sorties_path=None, political_path=None):
@@ -502,6 +519,19 @@ class PLAPredictor:
         # 保存最近 7 天航母活動用於預測階段
         self._recent_carrier = df['carrier'].iloc[-1] if len(df) > 0 else 0
 
+        # === 海峽通過特徵 (opt-in) ===
+        # 7 個來源欄位 → 過去 7 天通過/出入/艦型出現次數的滾動計數
+        if self.use_strait_features:
+            for src, dst in self.STRAIT_FEATURE_MAP.items():
+                if src in df.columns:
+                    raw = df[src].fillna(0).astype(str).str.strip()
+                    binary = ((raw != '') & (raw != '0') & (raw != '0.0') &
+                              (raw != 'nan')).astype(int)
+                    df[dst] = binary.shift(1).rolling(7, min_periods=1).sum().fillna(0)
+                else:
+                    df[dst] = 0
+                self._recent_strait[dst] = df[dst].iloc[-1] if len(df) > 0 else 0
+
         pol_feat_7d = self._create_political_features(df, df_political, 7)
         df['cn_stmt_7d'] = pol_feat_7d['cn_stmt_7d'].values
 
@@ -692,6 +722,10 @@ class PLAPredictor:
             'news_escalation_score': news_feat['news_escalation_score'],
             'is_holiday': is_holiday,
         }
+        # 海峽通過特徵：使用訓練期最後值的 carry-forward（與 carrier 一致）
+        if self.use_strait_features:
+            for dst in self.strait_feature_cols:
+                features[dst] = self._recent_strait.get(dst, 0)
         return features
 
     def train(self, df):
@@ -823,11 +857,13 @@ class PLAPredictor:
                 mae = np.mean(all_errors[day])
                 print(f"         Day-{day} MAE: {mae:.2f} (n={len(all_errors[day])})")
 
+        self.cv_errors_by_day = all_errors
         if cv_mae_scores:
             self.cv_scores = cv_mae_scores
             overall_errors = [e for errs in all_errors.values() for e in errs]
             overall_mae = np.mean(overall_errors) if overall_errors else 0
-            print(f"         Overall 7-day Walk-Forward MAE: {overall_mae:.2f}")
+            overall_rmse = float(np.sqrt(np.mean(np.square(overall_errors)))) if overall_errors else 0
+            print(f"         Overall 7-day Walk-Forward MAE: {overall_mae:.2f} | RMSE: {overall_rmse:.2f}")
         else:
             self.cv_scores = [0]
             print("         [Warning] No valid CV folds")
