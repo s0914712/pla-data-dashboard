@@ -10798,5 +10798,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-04",
+      "title": "【#这群年轻人出手即王炸#】这是铁甲洪流的陆战之王，这是战斗力满格的“移动国土”，这是划破天际的“炸...",
+      "content": "【#这群年轻人出手即王炸#】这是铁甲洪流的陆战之王，这是战斗力满格的“移动国土”，这是划破天际的“炸弹卡车”，这是“覆盖全球”的底牌。接过这班岗的新青年，个个都是硬茬。年轻怎么了？！年轻！气盛！年轻！气“胜”！#强军时刻##追光的你#（新华社） 东部战区的微博视频",
+      "url": "https://m.weibo.cn/detail/5294774732198028",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
