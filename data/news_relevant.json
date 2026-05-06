@@ -10918,5 +10918,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.5,
+    "sentiment_label": "中性",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-06",
+      "title": "#直击东部战区练兵备战现场#【#重机枪实弹射击火力全开#】近日，第71集团军某旅组织重机枪实弹射击训...",
+      "content": "#直击东部战区练兵备战现场#【#重机枪实弹射击火力全开#】近日，第71集团军某旅组织重机枪实弹射击训练，锤炼官兵在复杂陌生地域运用重机枪实施火力压制与精准打击能力。（肖志勇、廖鹏、吕昊、刘翰怿）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5295485536436865",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
