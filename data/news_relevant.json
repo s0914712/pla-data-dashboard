@@ -11014,5 +11014,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "决不允许‘台独’顽固分子及其亲属在大陆投资经商谋利"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-05-06",
+      "title": "国台办：决不允许“台独”顽固分子及其亲属在大陆投资经商谋利",
+      "content": "我们决不允许“台独”顽固分子及其亲属在大陆投资经商谋利，决不允许支持“台独”、破坏两岸关系的人一边在大陆赚钱、一边支持“台独”分裂活动。我们的惩“独”举措只针对极少数“台独”分子，不涉及广大台胞台企，我们将一如既往欢迎、支持广大台胞台企扎根祖国大陆发展，分享中国式现代化发展机遇与成果，让台胞台企更有幸福感、获得感。 有记者问：“台独”顽固分子刘世芳外甥颜文群所在的公司昨天发表与其切割的声明，解除颜文群在台湾总公司和大陆分公司的所有职务。请问发言人对此有何评论？陈斌华在答问时作上述表示。",
+      "url": "https://www.news.cn/tw/20260506/c20bd91492b74941af0831991ea0361b/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
