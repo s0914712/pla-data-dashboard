@@ -13543,5 +13543,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军航空兵某部开展多课目跨昼夜飞行训练，锤炼部队全天候实战能力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-07",
+      "title": "#直击东部战区练兵备战现场#【#锤炼部队全天候实战能力#】近日，东部战区空军航空兵某部紧贴实战开展多...",
+      "content": "#直击东部战区练兵备战现场#【#锤炼部队全天候实战能力#】近日，东部战区空军航空兵某部紧贴实战开展多课目跨昼夜飞行训练，锤炼部队全天候实战能力。（李长建、邢志涛） #时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5295847924302770",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-06",
+      "title": "#东部熄灯号# 长空砺剑守家国，铁血铸魂护山河。#阅海峡#",
+      "content": "#东部熄灯号# 长空砺剑守家国，铁血铸魂护山河。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5295696929360563",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "第71集团军某旅组织战备拉动演练，锤炼快速响应与应急处置能力",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-06",
+      "title": "【#战备拉动强本领# 】近日，第71集团军某旅组织战备拉动演练。官兵闻令而动，锤炼快速响应与应急处置...",
+      "content": "【#战备拉动强本领# 】近日，第71集团军某旅组织战备拉动演练。官兵闻令而动，锤炼快速响应与应急处置能力。（宋方武、马铭、宋春堂、杨海）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5295576133927276",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
