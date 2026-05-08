@@ -13639,5 +13639,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區陸軍某部開展跨昼夜衛勤綜合演練，重點在检伤分类、重伤救治、外科复苏，以提升官兵戰場應急救援和一線救治能力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-08",
+      "title": "#直击东部战区练兵备战现场# 【#淬炼战场应急救援能力# 】近日，东部战区陆军某部围绕检伤分类、重伤...",
+      "content": "#直击东部战区练兵备战现场# 【#淬炼战场应急救援能力# 】近日，东部战区陆军某部围绕检伤分类、重伤救治、外科复苏等重难点内容开展跨昼夜卫勤综合演练，锤炼官兵战场应急救援和一线救治能力。（成皓、薛维高、唐田、甘洪玲）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5296210312169537",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-07",
+      "title": "#东部熄灯号# 强军有我，使命必达！#阅海峡#",
+      "content": "#东部熄灯号# 强军有我，使命必达！#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5296059318017809",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-07",
+      "title": "【#舟艇操作骨干加钢淬火# 】近日，武警福建总队龙岩支队结合驻地汛期特点，从难、从严、从实战出发，严...",
+      "content": "【#舟艇操作骨干加钢淬火# 】近日，武警福建总队龙岩支队结合驻地汛期特点，从难、从严、从实战出发，严密组织舟艇操作骨干集训，全面提升官兵水上应急救援能力。（赵革卫、张祺）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5295938521533224",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
