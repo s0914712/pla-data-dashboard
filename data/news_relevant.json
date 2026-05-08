@@ -11110,5 +11110,101 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "US",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國外交部稱台海和平需反對台獨，堅持一中原則"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-05-07",
+      "title": "外交部：台湾问题是中国核心利益中的核心 是中美关系政治基础中的基础",
+      "content": "“恪守一个中国原则和中美三个联合公报，恪守美国历届政府在台湾问题上所做承诺，是美方应尽的国际义务，也是中美关系稳定、健康、可持续发展的必要前提。”林剑说，中方维护国家统一和领土完整的决心坚定不移。“台独”分裂与台海和平水火不容。维护台海和平稳定，就必须旗帜鲜明反对“台独”。",
+      "url": "https://www.news.cn/tw/20260507/c47067e304214f97becb37c2fc66d3e9/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "CN",
+    "sentiment_score": 0.5,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "台團體舉辦圓桌會，促兩岸對話與統一，反對台獨"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-07",
+      "title": "台湾团体举办圆桌会 探讨两岸关系发展方向",
+      "content": "本次圆桌会的主题为“避免被交易 台湾快起床”。“三閤论坛”召集人、新党副主席李胜峰说，举办这场活动是为了唤醒台湾同胞，选择正确的历史道路。 李胜峰指出，“台独”与世界主流背道而驰，台湾未来发展应以历史、血缘和文化为基础，顺应历史潮流，这才是和平的保障。 台湾“中国文化大学”兼任教授林忠山说，近期岛内民调显示，超半数民众支持两岸进行协商谈判。他呼吁台湾社会应发挥中华文化互助、信赖的精神，在两岸如何共享中华文明发展成果上投入更多关注。 新党主席吴成典在会上表示，两岸必定会统一，也一定会统一。台湾社会应顺应时代潮流，事实已经证明“台独”没有出路。 “台湾执政当局现在悬崖勒马，改弦更张，还为时不晚。”台湾政治大学国际关系研究中心兼任研究员汤绍成说。 据悉，本次活动是该圆桌会系列论坛的第一场，后续还会举办系列活动。",
+      "url": "https://www.news.cn/tw/20260507/d4528f544490454990617c24c193b595/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.7,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國外交部批評賴清德偷渡式訪問，稱其『台獨』行徑末日穷途，敦促其停止分裂行為。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-06",
+      "title": "外交部评赖清德“偷渡式”窜访：“台独”行径末日穷途，去日无多",
+      "content": "有记者问：日前赖清德乘坐斯威士兰飞机偷窜斯妄谈“外交自主”，却被国际社会和岛内民众讽刺“像个小偷”“是国际大笑话”。发言人有何回应？ 林剑说，日前，赖清德罔顾各方普遍反对，去程偷偷摸摸钻进外机，串通斯威士兰瞒报机上人员信息，靠“骗”溜入。返程，有关国家拒绝飞越，赖清德又偷飞强闯，令人不齿。一去一返、一骗一闯，赖清德无视有关国家领空和主权，冒天下之大不韪，十分危险和疯狂。赖清德“偷渡式”窜访恰恰证明“台独”分裂行径见不得光，不容于国际社会，都不过是丑闻和闹剧。 林剑表示，斯威士兰一些政客受台豢养，为“台独”提供空间，是逆历史潮流而动，中方予以强烈谴责。近年来，中方不断听到台湾所谓“邦交国”各界民众关于发展对华关系的强烈呼声。是认清大势、顺应民意，还是继续被赖清德之流肆意利用，甘当“撑场面”的政治道具，这些国家政客应该想想清楚，作出明智抉择，不要一条道走到黑。 “世界上只有一个中国，台湾是中国领土不可分割的一部分。事实一再说明，一个中国原则的共识在国际上深入人心不可动摇。”林剑指出，“‘台独’行径末日穷途，去日无多。赖清德越折腾，越寸步难行。我们敦促‘台独’分裂势力早日迷途知返，回头是岸。”",
+      "url": "https://www.news.cn/tw/20260506/9eba2ec305984d398daca398848872d1/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "台企称将不支持台独，维护两岸和平稳定"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-06",
+      "title": "台企荣炭科技：解除刘世芳亲属颜文群全部职务",
+      "content": "公司声明说，两岸同属中华民族，具有密不可分、无法切割的血脉关联。企业作为两岸人民往来交流的桥梁，负有促进相互理解、共同发展的重要使命。本公司自2016年在江西省上高县投资落地以来，作为一家台资企业，积极配合政府各项产业指导，协助当地经济发展、扎稳新能源产业在赣的基石。本公司深认两岸关系的稳健和平是企业发展的根基，维护两岸间的良好互动，更是本公司持续努力的任务及目标。 该公司在声明中郑重承诺，严格要求全体员工依法依规，避免任何破坏两岸和平稳定之政治行为，并确保企业资金仅用于纯粹之产业研发与商业发展，严禁任何资源以直接或间接形式支持“台独”或违反一中原则等具特定政治立场之人士或组织。 今年2月27日，香港媒体曝光台湾地区内部事务主管部门负责人刘世芳的亲属在大陆投资谋利且为刘提供政治献金，揭露刘世芳只许亲属“赚红钱”、不许民众搞交流。国务院台办发言人陈斌华当天就此答问表示，我们注意到有关报道，正在依法依规查处相关问题，决不允许“台独”顽固分子及其亲属在大陆投资经商谋利，决不允许支持“台独”、破坏两岸关系的人一边在大陆赚钱、一边干“吃饭砸锅”的事。",
+      "url": "https://www.news.cn/tw/20260506/e31c6124edc94d76907ff9c915969c22/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
