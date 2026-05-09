@@ -11206,5 +11206,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区陆军某部赴陌生地域组织坦克分队实弹射击考核，检验车组协同配合和精准打击能力",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-09",
+      "title": "#直击东部战区练兵备战现场# 【#实弹射击考核火力全开#】铁甲轰鸣，炮声隆隆。近日，东部战区陆军某部...",
+      "content": "#直击东部战区练兵备战现场# 【#实弹射击考核火力全开#】铁甲轰鸣，炮声隆隆。近日，东部战区陆军某部赴陌生地域组织坦克分队实弹射击考核，重点检验车组人员的协同配合和射手搜索判定目标、精准打击能力，全面锤炼部队协同打击能力。（赵前松、黄振宇） #时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5296572700557962",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-08",
+      "title": "#东部熄灯号# 仗剑巡天观沧海，执戈立阵镇八方！#阅海峡#",
+      "content": "#东部熄灯号# 仗剑巡天观沧海，执戈立阵镇八方！#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5296421705097389",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-08",
+      "title": "【#官兵献血传递爱心#】今天是第79个#世界红十字日# ，联勤保障部队第906医院开展“守护生命、热...",
+      "content": "【#官兵献血传递爱心#】今天是第79个#世界红十字日# ，联勤保障部队第906医院开展“守护生命、热血军营”无偿献血专场活动。官兵踊跃献血，一股股滚烫热血缓缓流入采血袋，汇聚成生命的暖流。大家纷纷表示，无偿献血既是助力生命救援的善举，更是弘扬红十字精神、彰显军人本色的具体体现。（齐永辉、刘 ...全文",
+      "url": "https://m.weibo.cn/detail/5296300914115254",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
