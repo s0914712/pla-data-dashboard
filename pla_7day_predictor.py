@@ -44,11 +44,18 @@ v2.5.0 Zero-Regime 改善:
 - 零 regime CI 拓寬: 考慮歷史突增可能性，避免信賴區間過窄
 - 新聞升級指標: news_escalation_score（加權軍事/外交事件）
 
+v2.6.0 移除無效 sentiment 特徵:
+- 診斷 (scripts/analysis/sentiment_correlation.py) 顯示 news_avg_sentiment
+  與 target 相關性 |r|=0.002, p=0.945 — 統計上等於 noise。
+  覆蓋率僅 7.8%，rolling+fillna(0) 進一步把訊號稀釋成 97.8% 為零。
+- 移除位置：continuous_cols、_create_news_features、_aggregate_news_daily、
+  feature engineering 區。保留 news_escalation_score / count 類特徵。
+
 Usage:
     python pla_predictor.py
 
 Author: PLA Data Dashboard
-Version: 2.5.0
+Version: 2.6.0
 """
 
 import pandas as pd
@@ -186,8 +193,6 @@ class PLAPredictor:
             'zero_count_3d', 'zero_count_7d', 'consecutive_zero',
             # v2.4: 近期 spike 偵測
             'spike_7d', 'spike_ratio',
-            # v2.4: 新聞情緒
-            'news_avg_sentiment',
             # v2.5: regime 轉換特徵
             'zero_to_active_hist',   # 歷史 0→非0 轉換率
             'active_to_zero_hist',   # 歷史 非0→0 轉換率
@@ -204,7 +209,7 @@ class PLAPredictor:
     def load_data(self, sorties_path=None, political_path=None):
         """載入資料"""
         print("=" * 60)
-        print("PLA 7-Day Prediction System v2.5")
+        print("PLA 7-Day Prediction System v2.6")
         print(f"Engine: {'CatBoost' if USE_CATBOOST else 'sklearn GradientBoosting'}")
         print("=" * 60)
         print(f"\n[1] 載入資料...")
@@ -301,7 +306,7 @@ class PLAPredictor:
         if not self.news_data:
             return {
                 'news_military_count': 0, 'news_us_tw_count': 0,
-                'news_relevant_count': 0, 'news_avg_sentiment': 0,
+                'news_relevant_count': 0,
                 'news_escalation_score': 0,
             }
 
@@ -332,7 +337,6 @@ class PLAPredictor:
             'news_military_count': sum(1 for n in recent if n.get('category') == 'Military_Exercise'),
             'news_us_tw_count': sum(1 for n in recent if n.get('category') == 'US_TW_Interaction'),
             'news_relevant_count': sum(1 for n in recent if n.get('is_relevant')),
-            'news_avg_sentiment': float(np.mean([n.get('sentiment_score', 0) for n in recent])) if recent else 0,
             'news_escalation_score': escalation_score,
         }
 
@@ -359,7 +363,6 @@ class PLAPredictor:
                     'is_military': int(cat == 'Military_Exercise'),
                     'is_us_tw': int(cat == 'US_TW_Interaction'),
                     'is_relevant': int(bool(n.get('is_relevant'))),
-                    'sentiment': n.get('sentiment_score', 0),
                     'escalation': escalation_weights.get(cat, 0),
                 })
             except (KeyError, ValueError):
@@ -373,7 +376,6 @@ class PLAPredictor:
             news_military_count=('is_military', 'sum'),
             news_us_tw_count=('is_us_tw', 'sum'),
             news_relevant_count=('is_relevant', 'sum'),
-            news_avg_sentiment=('sentiment', 'mean'),
             news_escalation_score=('escalation', 'sum'),
         ).reset_index()
         return daily
@@ -517,19 +519,16 @@ class PLAPredictor:
                 df[dest_col] = 0
 
         # === v2.4: 新聞分類先行指標特徵（向量化） ===
+        # v2.6: 移除 news_avg_sentiment — 診斷顯示與 target 相關性近 0
+        # （見 scripts/analysis/sentiment_correlation.py）
         news_daily = self._aggregate_news_daily()
         news_cols = ['news_military_count', 'news_us_tw_count', 'news_relevant_count',
-                     'news_avg_sentiment', 'news_escalation_score']
+                     'news_escalation_score']
         if news_daily is not None:
             merged_news = df[['date']].merge(news_daily, on='date', how='left')
             for col in news_cols:
-                if col == 'news_avg_sentiment':
-                    # For sentiment, use rolling mean instead of sum
-                    merged_news[col] = merged_news[col].fillna(0)
-                    df[col] = merged_news[col].shift(1).rolling(7, min_periods=1).mean().fillna(0).values
-                else:
-                    merged_news[col] = merged_news[col].fillna(0)
-                    df[col] = merged_news[col].shift(1).rolling(7, min_periods=1).sum().fillna(0).values
+                merged_news[col] = merged_news[col].fillna(0)
+                df[col] = merged_news[col].shift(1).rolling(7, min_periods=1).sum().fillna(0).values
         else:
             for col in news_cols:
                 df[col] = 0
@@ -681,7 +680,6 @@ class PLAPredictor:
             'active_to_zero_hist': active_to_zero_hist,
             'days_since_last_active': days_since_last_active,
             'last_active_value': last_active_value,
-            'news_avg_sentiment': news_feat['news_avg_sentiment'],
             'carrier': self._recent_carrier,
             'cn_stmt_7d': pol_7d['cn_stmt_7d'],
             'us_tw_interaction_7d': self._get_political_count(target_date, 7, 'US_Taiwan_interaction'),
