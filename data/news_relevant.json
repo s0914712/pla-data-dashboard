@@ -11350,5 +11350,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "台独是破坏台海和平的罪魁祸首"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-09",
+      "title": "“台独”是破坏台海和平的罪魁祸首",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
+      "url": "https://www.news.cn/tw/20260509/3fa3fc9fa00a4a8dae6d261007fd20c3/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-09",
+      "title": "“蓉汇青春·共创未来”两岸新媒体人联合采风活动在蓉启动",
+      "content": "约30名来自两岸的媒体工作者即日起在成都开展联合采风活动，活动将持续至14日。 在川注册台资企业累计超过2600家，其中三分之一涉及文化创意、数字媒体等领域。四川中国和平统一促进会秘书长王强在欢迎仪式上表示，四川与台湾，虽相隔千里，却心手相连。两岸新媒体人是时代故事的记录者，更是两岸情谊的“连心桥”。期待大家用真实客观的视角、生动鲜活的语言、丰富多彩的形式，让更多的台湾同胞了解和关注大陆的发展。 本次活动由上海依悦文化传播有限公司主办。根据安排，团队成员通过现场抽签组成战队，以战队为单位参与趣味挑战赛，设有“分组破冰—任务探索—内容共创—价值对话”四步递进式体验。 主办方表示，活动旨在把“亲身感受大陆的发展进步和中华文化，增进两岸青年朋友相互了解”这个大目标，拆解成一个个可参与、可创作的小场景。用合拍短视频代替被动参观，用共同的兴趣破冰，用共创的作品交心，用真实的故事对话。 据介绍，团队成员将走进三星堆，感受“沉睡三千年，一醒惊天下”的古蜀文明；将在杨德全蜀绣博物馆体验蜀绣非遗，体会一针一线中的匠心传承；还将参访数字经济服务平台和电商直播基地，感受四川新经济的强劲脉搏。",
+      "url": "https://www.news.cn/tw/20260509/cee80cc5ca97475081732a176adc8d8c/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
