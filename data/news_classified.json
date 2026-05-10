@@ -13903,5 +13903,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区在台海进行军事训练，展示备战状态",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-09",
+      "title": "#东部熄灯号# 砺炮沙场酬壮志，戍边铸魂耀军威。#阅海峡#",
+      "content": "#东部熄灯号# 砺炮沙场酬壮志，戍边铸魂耀军威。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5296784093744956",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.4,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-09",
+      "title": "【光荣停飞！#3名老飞告别蓝天#】近日，东部战区空军航空兵某部隆重集会，为3名达龄飞行人举行停飞仪式...",
+      "content": "【光荣停飞！#3名老飞告别蓝天#】近日，东部战区空军航空兵某部隆重集会，为3名达龄飞行人举行停飞仪式。战鹰列阵，官兵列队肃立，身披“建功蓝天、荣耀军旅”绶带的老飞们，满载岁月荣光与军旅赤诚。依依惜别之际，他们缓步环绕朝夕相伴的战机，最后一次向战鹰庄严敬礼，与蓝天、与“老伙计”温柔作别 ...全文",
+      "url": "https://m.weibo.cn/detail/5296663297264500",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
