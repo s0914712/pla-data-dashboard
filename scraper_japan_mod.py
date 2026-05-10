@@ -1,4 +1,5 @@
 import re
+import sys
 import requests
 from datetime import datetime, timedelta
 import PyPDF2
@@ -102,17 +103,40 @@ SHIP_CLASS_DICT = {
 }
 
 # 二進位欄位對應的日文關鍵詞
+# 注意：海峽欄位（與那國/宮古/大禹/對馬）改由 _detect_straits 處理，
+# 必須同時滿足「艦艇通過」語境，避免單純飛機飛經或順帶提及被誤判
 BINARY_FIELD_KEYWORDS = {
     '空中': ['ヘリコプター', '艦載機', '航空機', '発着艦', '艦載ヘリ', '飛行活動'],
     '聯合演訓': ['共同訓練', '合同演習', '共同行動', '連合演習', '共同演習'],
     '艦通過': ['通過', '航行'],
     '航母活動': ['空母', '航空母艦', '遼寧', '山東', '福建',
                 'リャオニン', 'シャンドン', 'フージェン'],
+}
+
+# 海峽偵測：日文海峽關鍵詞
+STRAIT_JP_KEYWORDS = {
     '與那國': ['与那国'],
     '宮古': ['宮古'],
     '大禹': ['大隅'],
     '對馬': ['対馬'],
 }
+
+# 艦艇實體指標（具體船艦／船種，避免把「艦載機」這種飛機誤判成艦艇）
+SHIP_INDICATORS = [
+    '艦艇', '駆逐艦', '護衛艦', '巡洋艦', '補給艦', '揚陸艦',
+    '航空母艦', '空母', '潜水艦', '掃海艦', '哨戒艦',
+    '情報収集艦', '観測艦', '測量艦', 'ミサイル艇',
+    'フリゲート', 'コルベット',
+]
+
+# 艦艇航行／通過動詞
+PASSAGE_VERBS = [
+    '通過', '航行',
+    '北上', '南下', '東進', '西進',
+    '北進', '南進',
+    '北東進', '南東進', '北西進', '南西進',
+    '進出', '進入',
+]
 
 # 海峽名稱對照（欄位名 → 繁中名稱）
 STRAIT_NAMES_ZH = {
@@ -133,6 +157,31 @@ def _detect_country(text):
         return '俄羅斯'
     else:
         return '中國'
+
+
+def _strait_is_ship_passage(text, jp_keyword, window=120):
+    """判斷文本中該海峽關鍵詞的出現是否為「艦艇通過」語境。
+
+    需同時滿足：附近窗口內存在艦艇指標 + 航行/通過動詞。
+    這樣可避免：(a) 飛機飛經海峽、(b) 順帶提及該海峽但艦艇未通過。
+    """
+    for m in re.finditer(re.escape(jp_keyword), text):
+        start = max(0, m.start() - window)
+        end = min(len(text), m.end() + window)
+        ctx = text[start:end]
+        has_ship = any(ind in ctx for ind in SHIP_INDICATORS)
+        has_motion = any(verb in ctx for verb in PASSAGE_VERBS)
+        if has_ship and has_motion:
+            return True
+    return False
+
+
+def _detect_straits(text):
+    """偵測各海峽是否有艦艇通過。回傳 {欄位名: 0/1}。"""
+    result = {}
+    for field, jp_keywords in STRAIT_JP_KEYWORDS.items():
+        result[field] = 1 if any(_strait_is_ship_passage(text, kw) for kw in jp_keywords) else 0
+    return result
 
 
 def _detect_direction(text):
@@ -233,9 +282,12 @@ def analyze_with_rules(pdf_text, date):
 
     result = {'valid_report': 1, '國家': country}
 
-    # 二進位欄位
+    # 二進位欄位（不含海峽）
     for field, keywords in BINARY_FIELD_KEYWORDS.items():
         result[field] = 1 if any(kw in pdf_text for kw in keywords) else 0
+
+    # 海峽欄位（需艦艇通過語境）
+    result.update(_detect_straits(pdf_text))
 
     # 進/出方向
     entering, exiting = _detect_direction(pdf_text)
@@ -377,10 +429,18 @@ def analyze_with_apertis(pdf_text, date):
 2. **聯合演訓**：是否與其他國家進行聯合演習或訓練（含中俄聯合） - 填 0 或 1
 3. **艦通過**：艦艇是否通過特定海域 - 填 0 或 1
 4. **航母活動**：航空母艦是否有相關活動 - 填 0 或 1
-5. **與那國**：艦艇是否經過與那國島附近 - 填 0 或 1
-6. **宮古**：艦艇是否經過宮古海峽 - 填 0 或 1
-7. **大禹**：艦艇是否經過大隅海峽 - 填 0 或 1
-8. **對馬**：艦艇是否經過對馬海峽 - 填 0 或 1
+5. **與那國**：本次報告中艦艇（艦船）是否實際通過或航行於與那國島周邊海域 - 填 0 或 1
+6. **宮古**：本次報告中艦艇（艦船）是否實際通過宮古海峽 - 填 0 或 1
+7. **大禹**：本次報告中艦艇（艦船）是否實際通過大隅海峽 - 填 0 或 1
+8. **對馬**：本次報告中艦艇（艦船）是否實際通過對馬海峽 - 填 0 或 1
+
+**海峽欄位的關鍵判定規則（非常重要，避免誤判）：**
+- 海峽欄位只記錄「艦艇（艦船）」實際的通過／航行行為。
+- 飛機（航空機、Y-9、Y-8、Y-20、J-15、ヘリコプター 等）「飛經」海峽，不算；對應海峽欄位填 0。
+- 報告若僅在地圖說明、過往背景或與本次無關處提到某海峽，但本次艦艇並未通過該海峽，該海峽欄位填 0。
+- 一份報告中只勾選「該艦艇本次實際通過」的海峽。例如報告主軸是某艦從宮古海峽南東進往太平洋，未提到對馬，則對馬=0、與那國=0、大禹=0。
+- 「沖繩-宮古間」「宮古島北的海域」等屬於宮古海峽範圍，宮古=1；單獨提到「與那國島南西」的海域則與那國=1。
+
 9. **進**：艦艇是否向東海方向航行（從太平洋進入東海） - 填 0 或 1
 10. **出**：艦艇是否向太平洋方向航行（從東海出向太平洋） - 填 0 或 1
 
@@ -548,9 +608,103 @@ def update_csv(date, data):
         return False
 
 
+def rebuild_strait_columns():
+    """重新分析歷史記錄中所有 PDF，依新規則回填 CSV 的四個海峽欄位。
+
+    僅修改 與那國/宮古/大禹/對馬 四個欄位；其他欄位（艦型、remark、進、出 等）
+    維持不變，以免覆蓋人工修正。
+    """
+    print("="*60)
+    print("🔧 海峽欄位回填模式（重跑既有 PDF，僅更新四個海峽欄位）")
+    print("="*60)
+
+    if not os.path.exists(CSV_FILE):
+        print(f"❌ CSV 不存在: {CSV_FILE}")
+        return
+
+    history = load_history()
+    pdf_files = history.get("processed_pdfs", [])
+    if not pdf_files:
+        print("⚠️ 歷史記錄為空，沒有可回填的 PDF")
+        return
+
+    print(f"📂 歷史 PDF 數: {len(pdf_files)}")
+
+    df = pd.read_csv(CSV_FILE, encoding='utf-8-sig')
+
+    # 同一日期可能有多個 PDF，採 OR 聚合
+    per_date = {}
+    strait_fields = list(STRAIT_JP_KEYWORDS.keys())
+
+    for idx, filename in enumerate(pdf_files, 1):
+        # filename 形如 p20260119_01.pdf
+        m = re.match(r'p(\d{4})(\d{2})(\d{2})_\d+\.pdf', filename)
+        if not m:
+            print(f"  [{idx}] ⏭️ 跳過格式不符: {filename}")
+            continue
+        year, month, day = m.groups()
+        date_str = f"{year}/{month}/{day}"
+        url = f"{PDF_BASE_URL}/{year}/{filename}"
+
+        print(f"  [{idx}/{len(pdf_files)}] 📥 {filename} ({date_str})...", end=" ")
+        pdf_content = download_pdf(url)
+        if not pdf_content:
+            print("失敗（404 或下載失敗）")
+            continue
+
+        try:
+            pdf_reader = PyPDF2.PdfReader(io.BytesIO(pdf_content))
+            text = ""
+            for page in pdf_reader.pages:
+                t = page.extract_text()
+                if t:
+                    text += t + "\n"
+            text = text.strip()
+        except Exception as e:
+            print(f"PDF 解析失敗: {e}")
+            continue
+
+        if not text:
+            print("無文字")
+            continue
+
+        if not is_target_navy_pdf(text):
+            # 非目標 PDF：四個海峽都是 0（但不主動覆蓋 CSV，等同沒貢獻）
+            print("非艦艇動向，略過")
+            continue
+
+        straits = _detect_straits(text)
+        bucket = per_date.setdefault(date_str, {f: 0 for f in strait_fields})
+        for f in strait_fields:
+            if straits.get(f) == 1:
+                bucket[f] = 1
+        flagged = [f for f, v in straits.items() if v == 1]
+        print(f"海峽: {flagged if flagged else '無'}")
+
+    print(f"\n📝 共 {len(per_date)} 個日期需要回填")
+    updated = 0
+    for date_str, straits in sorted(per_date.items()):
+        mask = df['date'] == date_str
+        if not mask.any():
+            print(f"  ⚠️ {date_str} 不在 CSV，略過")
+            continue
+        for f in strait_fields:
+            df.loc[mask, f] = straits[f]
+        updated += 1
+        flagged = [f for f, v in straits.items() if v == 1]
+        print(f"  ✓ {date_str} → {flagged if flagged else '全部清為 0'}")
+
+    df.to_csv(CSV_FILE, index=False, encoding='utf-8-sig')
+    print(f"\n✅ 完成，回填 {updated} 列")
+
+
 def main():
     """主程式"""
     import time
+
+    if os.getenv('REBUILD_STRAITS') == '1' or '--rebuild-straits' in sys.argv:
+        rebuild_strait_columns()
+        return
 
     print("="*60)
     print("日本防衛省中國/俄羅斯海軍艦艇動向爬蟲 V6 - 直接下載 PDF 版")
