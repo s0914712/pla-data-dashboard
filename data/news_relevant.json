@@ -11398,5 +11398,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区陆军某部火力分队开展多弹种、全要素、高强度实弹射击演练，全程紧贴实战设局，临机导调各类特情，全面锤炼火力支援体系实战效能。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-11",
+      "title": "#直击东部战区练兵备战现场# 【#火力分队实弹射击演练登场#】近日，东部战区陆军某部火力分队开展多弹...",
+      "content": "#直击东部战区练兵备战现场# 【#火力分队实弹射击演练登场#】近日，东部战区陆军某部火力分队开展多弹种、全要素、高强度实弹射击演练，全程紧贴实战设局，临机导调各类特情，全面锤炼火力支援体系实战效能。（宋磊、万智奇）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5297297476554236",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
