@@ -11446,5 +11446,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-12",
+      "title": "【#锤炼抢险救援能力#  】近日，武警福建总队宁德支队结合驻地防汛形势，开展舟艇操作骨干集训，锤炼官...",
+      "content": "【#锤炼抢险救援能力#  】近日，武警福建总队宁德支队结合驻地防汛形势，开展舟艇操作骨干集训，锤炼官兵快速反应与高效救援能力，确保部队能够“拉得出、用得上、救得下”。（雷黎明、陈李涛）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5297659867827876",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-11",
+      "title": "#东部熄灯号# 劈破斩浪巡沧海，列舰扬威镇八方。#阅海峡#",
+      "content": "#东部熄灯号# 劈破斩浪巡沧海，列舰扬威镇八方。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5297508869216178",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.35,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-11",
+      "title": "【#校准干事创业行动坐标# 】近日，东部战区空军某部“口碑·丰碑·里程碑”政绩观故事汇精彩开讲。他们...",
+      "content": "【#校准干事创业行动坐标# 】近日，东部战区空军某部“口碑·丰碑·里程碑”政绩观故事汇精彩开讲。他们邀请先进典型和红色场馆嘉宾现场讲述“漳州110”的为民情怀、“樵夫”廖俊波的尽责担当、古田会议的历史内蕴等故事，引导官兵深刻理解正确政绩观的内涵要义，校准干事创业的行动坐标。（程香铭、李永 ...全文",
+      "url": "https://m.weibo.cn/detail/5297388073517543",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
