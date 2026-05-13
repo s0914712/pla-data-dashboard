@@ -11590,5 +11590,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "71集团军某旅后勤保障分队在野外陌生地域开展过程综合实战化演练，重点考评运输、卫勤、弹药等专业，锤炼后装保障能力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-13",
+      "title": "【#锤炼后装保障能力#  】近日，71集团军某旅后勤保障分队，在野外陌生地域开展一个过程综合实战化演...",
+      "content": "【#锤炼后装保障能力#  】近日，71集团军某旅后勤保障分队，在野外陌生地域开展一个过程综合实战化演练，重点对运输、卫勤、弹药等专业进行综合考评，进一步锤炼部队后装保障能力。（李广峰、宋方武、宋春堂 ） #时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5298022252282183",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.85,
+    "original_article": {
+      "date": "2026-05-12",
+      "title": "#东部熄灯号#医者仁心，兵者铁胆！#阅海峡#",
+      "content": "#东部熄灯号#医者仁心，兵者铁胆！#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5297871257076919",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-12",
+      "title": "【#致敬军营白衣天使#】今天是第115个#国际护士节#，从无影灯下到硝烟深处，从数据密林到心灵旷野，...",
+      "content": "【#致敬军营白衣天使#】今天是第115个#国际护士节#，从无影灯下到硝烟深处，从数据密林到心灵旷野，各个军营通过不同方式，组织卫勤尖兵、医护人员度过一个充实而有意义的节日。（龙砚、黄金奎、沈星、廖凡、陶演、侯文静、耿络络）",
+      "url": "https://m.weibo.cn/detail/5297750460598972",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
