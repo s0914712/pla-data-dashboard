@@ -11902,5 +11902,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "第71集团军组织2026年度狙击手集训结业考核，重点检验狙击理论、技能、心理等五项必备素养。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-14",
+      "title": "#直击东部战区练兵备战现场# 【#狙击手淬火成钢# 】近日，第71集团军组织2026年度狙击手集训结...",
+      "content": "#直击东部战区练兵备战现场# 【#狙击手淬火成钢# 】近日，第71集团军组织2026年度狙击手集训结业考核。他们区分不同枪型、弹种和队员能力层次，重点对狙击理论、狙击技能、狙击心理等五项必备素养进行严格检验，进一步夯实狙击手专业素养和实战本领。（蒋雨铖、严子昌、胡庆峰、王瑞民）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5298384639365670",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-13",
+      "title": "#东部熄灯号# 不迷航，不退让！#阅海峡#",
+      "content": "#东部熄灯号# 不迷航，不退让！#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5298233644689865",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-13",
+      "title": "【#锤炼多型装备操作能力# 】近日，东部战区空军某部通信站开展“一专多能”训练。他们通过跨域融合、多...",
+      "content": "【#锤炼多型装备操作能力# 】近日，东部战区空军某部通信站开展“一专多能”训练。他们通过跨域融合、多型混训，全面锤炼提升官兵多型装备操作能力与应急保障水平，为构建全时全维、弹性可靠的战术通信网络筑牢坚实基础。（绪连权、杨洋、董晋博、李鹏霖、陈凯） #当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5298112848463281",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
