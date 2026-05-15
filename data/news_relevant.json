@@ -12118,5 +12118,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-15",
+      "title": "【#赛场砺精兵# 】近日，东部战区海军某军械技术保障大队第四届“砺剑潮人”军事竞赛震撼开幕。他们紧贴...",
+      "content": "【#赛场砺精兵# 】近日，东部战区海军某军械技术保障大队第四届“砺剑潮人”军事竞赛震撼开幕。他们紧贴实战后装保障需求，设置18个竞赛科目，10支代表队同台竞技，展现过硬后装保障技能。（陈小东、段嘉城、林昱欣、谭天） #当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5298747027752661",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-14",
+      "title": "#东部熄灯号# 钢铁洪流无人挡，一往无前护国疆。#阅海峡#",
+      "content": "#东部熄灯号# 钢铁洪流无人挡，一往无前护国疆。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5298596032553055",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "Eastern Theater Army conducts cross-day-night railway loading and transport exercise to enhance rapid response and long-range force projection capabilities.",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-14",
+      "title": "【#跨昼夜铁路装载投送演练登场# 】近日，东部战区陆军某部以任务为牵引，组织全员全装跨昼夜铁路装载投...",
+      "content": "【#跨昼夜铁路装载投送演练登场# 】近日，东部战区陆军某部以任务为牵引，组织全员全装跨昼夜铁路装载投送演练，锤炼部队快速反应和远程兵力投送等能力。（赵前松、黄振宇） #当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5298475236589924",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
