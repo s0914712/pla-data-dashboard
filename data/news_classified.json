@@ -14887,5 +14887,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区在台湾海峡进行实弹射击演练，枪声响起，靶标命中，弹无虚发",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-15",
+      "title": "#东部熄灯号#枪响靶落，弹无虚发！#阅海峡#",
+      "content": "#东部熄灯号#枪响靶落，弹无虚发！#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5298958420150404",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-15",
+      "title": "【#军地联合提升处突能力# 】近日，东部战区空军某部通信分队与驻地通信部门联合开展通信线路巡检，综合...",
+      "content": "【#军地联合提升处突能力# 】近日，东部战区空军某部通信分队与驻地通信部门联合开展通信线路巡检，综合运用多种技术手段，锤炼军地联合处突能力。（杨磊、董哲之、彭峰、方帅、郑祺扬 ） #时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5298837628392310",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
