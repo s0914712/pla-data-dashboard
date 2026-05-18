@@ -15151,5 +15151,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区海军航空兵组织跨昼夜、长航时不间断飞行训练，锤炼全天候、全时域作战能力",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-18",
+      "title": "【#决胜无形电磁战场# 】近日，东部战区海军航空兵某部，组织开展跨昼夜、长航时不间断飞行训练，进一步...",
+      "content": "【#决胜无形电磁战场# 】近日，东部战区海军航空兵某部，组织开展跨昼夜、长航时不间断飞行训练，进一步锤炼部队全天候、全时域作战能力，有效锤炼官兵复杂环境下应急处置、协同作战能力。（郝勇飞） #当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5299834191347954",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
