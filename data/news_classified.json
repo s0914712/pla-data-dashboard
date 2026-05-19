@@ -15247,5 +15247,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区海军某部开展多科目实战化训练，锤炼综合补给能力，强化官兵过硬技能和胜战硬功。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-19",
+      "title": "#直击东部战区练兵备战现场#【#多科目训练锤炼保障硬功#】近日，东部战区海军某部开展多科目实战化训练...",
+      "content": "#直击东部战区练兵备战现场#【#多科目训练锤炼保障硬功#】近日，东部战区海军某部开展多科目实战化训练，全程随机导调多重特情，进一步锤炼综合补给能力，强化官兵过硬技能和胜战硬功。（吴章会、尹震、吴金涛、柳兴茂） #时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5300196582886381",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.55,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-18",
+      "title": "#东部熄灯号# 灯亮路净，战鹰腾飞#阅海峡#",
+      "content": "#东部熄灯号# 灯亮路净，战鹰腾飞#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5300045584012468",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军夜间飞行训练",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-18",
+      "title": "【#星夜集结 砺剑长空# 】近日，东部战区空军某部，一场紧贴实战的夜间飞行训练正式拉开战幕，保障人员...",
+      "content": "【#星夜集结 砺剑长空# 】近日，东部战区空军某部，一场紧贴实战的夜间飞行训练正式拉开战幕，保障人员星夜集结，以精准高效、严谨细致的作风，全程护航飞行训练，科学规范设置训练科目，进一步强化专业素养，不断夯实战时保障能力。（梁丰、陆洋、刘子龙） #当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5299924788314907",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
