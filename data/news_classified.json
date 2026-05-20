@@ -15535,5 +15535,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-20",
+      "title": "#当兵就要练练练#【#实战演练淬锋芒#】近日，武警福建总队南平支队立足肩负的使命任务，组织实战化演练...",
+      "content": "#当兵就要练练练#【#实战演练淬锋芒#】近日，武警福建总队南平支队立足肩负的使命任务，组织实战化演练。他们围绕应急处置、协同作战等重难点科目，从难设置特情，锤炼官兵快速反应与攻坚能力。（毛胤德）",
+      "url": "https://m.weibo.cn/detail/5300558966818146",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区进行海峡相关军事活动",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.85,
+    "original_article": {
+      "date": "2026-05-19",
+      "title": "#东部熄灯号#汗蒸土气腾军帜，脚踏热浪滚雷霆。#阅海峡#",
+      "content": "#东部熄灯号#汗蒸土气腾军帜，脚踏热浪滚雷霆。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5300407971878477",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-19",
+      "title": "【#军体运动会火热开赛#】近日，江苏省无锡军分区“砺志铸魂、逐梦锡动”群众性体育运动会火热开幕。百余...",
+      "content": "【#军体运动会火热开赛#】近日，江苏省无锡军分区“砺志铸魂、逐梦锡动”群众性体育运动会火热开幕。百余名官兵、文职人员和职工齐聚赛场，围绕3大类13个比赛项目展开激烈角逐，有力锤炼敢打敢拼的血性胆气和奋勇争先的战斗精神。（陶演、孙海峰） #军营生活#",
+      "url": "https://m.weibo.cn/detail/5300287175658435",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
