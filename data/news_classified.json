@@ -15655,5 +15655,125 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-21",
+      "title": "解放隆化战斗中，一座桥型暗堡横亘在前，机枪火舌无情吞噬着战友的生命，几次冲锋受阻，一个坚毅的身影挺身...",
+      "content": "解放隆化战斗中，一座桥型暗堡横亘在前，机枪火舌无情吞噬着战友的生命，几次冲锋受阻，一个坚毅的身影挺身而出，以血肉之躯托起炸药包，“为了新中国，前进!”一声惊天动地的怒吼，十九岁的他为部队撕开了胜利的突破口。“完成党交给的艰巨任务最光荣”，这是他用生命写下的誓言，也是今天的“董存瑞 ...全文",
+      "url": "https://m.weibo.cn/detail/5300968816379672",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-21",
+      "title": "#今日小满# 【#小满练兵海报发布# 】今天是二十四节气中第八个节气——#小满# ，也是夏季的第二个...",
+      "content": "#今日小满# 【#小满练兵海报发布# 】今天是二十四节气中第八个节气——#小满# ，也是夏季的第二个节气。此时正是官兵淬火砺刃、练兵备战的好时节。一组练兵海报，带你走进东部战区海军航空兵某部，感受浓厚的实战实训氛围。（王振泽）",
+      "url": "https://m.weibo.cn/detail/5300921354683408",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部發言人蒋斌批評賴清德講話，稱其倚外謀獨，堅持祖國統一大勢。"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-05-20",
+      "title": "【国防部新闻发言人蒋斌就台湾地区领导人“5·20”讲话答记者问】记者：据报道，赖清德5月20日发表讲...",
+      "content": "【国防部新闻发言人蒋斌就台湾地区领导人“5·20”讲话答记者问】记者：据报道，赖清德5月20日发表讲话，声称维持台海和平稳定是台湾的“战略目标”，鼓噪强化不对称战力，提升“全民防卫韧性”。请问对此有何评论？蒋斌：面对祖国必然统一的大势和国际格局深刻调整的现实，赖清德依旧沉迷于“倚外 ...全文",
+      "url": "https://m.weibo.cn/detail/5300772365408214",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-20",
+      "title": "#东部熄灯号# 战鹰裂空，铁翼摧云。#阅海峡#",
+      "content": "#东部熄灯号# 战鹰裂空，铁翼摧云。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5300770360003014",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-20",
+      "title": "【#推动法治理念深入兵心#】第六个“民法典宣传月”期间，第71集团军“济南第一团”通过多种形式组织官...",
+      "content": "【#推动法治理念深入兵心#】第六个“民法典宣传月”期间，第71集团军“济南第一团”通过多种形式组织官兵学习《民法典》及各类法律法规知识，提升官兵尊法学法守法用法意识，推动法治理念深入兵心。（欧阳长永、赵前松、黄振宇）",
+      "url": "https://m.weibo.cn/detail/5300649563786549",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
