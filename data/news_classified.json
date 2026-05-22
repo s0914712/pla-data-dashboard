@@ -16087,5 +16087,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区海军某登陆舰大队实景化精训，专攻舰艇联合损管、应急处置等",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-22",
+      "title": "#直击东部战区练兵备战现场#【#实景化精训砺精兵#】近日，东部战区海军某登陆舰大队组成编队开展实景化...",
+      "content": "#直击东部战区练兵备战现场#【#实景化精训砺精兵#】近日，东部战区海军某登陆舰大队组成编队开展实景化精训，专攻精练舰艇联合损管、应急处置等实战科目，锤炼官兵过硬胜战本领。（朱广政、周顾彧、杨健、沈旭航）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5301283742810812",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-21",
+      "title": "#东部熄灯号#夏训百日骨成铁，一身晒痕即勋章。#阅海峡#",
+      "content": "#东部熄灯号#夏训百日骨成铁，一身晒痕即勋章。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5301132747347410",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-21",
+      "title": "【#群众性文体活力赛登场# 】近日，东部战区海军保障部举办第五届群众性文体活力赛。近百名机关干部、基...",
+      "content": "【#群众性文体活力赛登场# 】近日，东部战区海军保障部举办第五届群众性文体活力赛。近百名机关干部、基层战士在“跑中悟、思中进、赛中学”，展示军营文体活动的魅力。（刘林青、张权） #军营生活#",
+      "url": "https://m.weibo.cn/detail/5301011951649826",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
