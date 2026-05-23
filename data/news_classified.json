@@ -16250,5 +16250,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-22",
+      "title": "#东部熄灯号# 舰阵如虹，箭指深蓝！#阅海峡#",
+      "content": "#东部熄灯号# 舰阵如虹，箭指深蓝！#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5301495135995418",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-22",
+      "title": "【#扎实开展装备维护工作# 】近日，东部战区空军某部扎实开展装备维护工作。他们对照装备使用管理维护细...",
+      "content": "【#扎实开展装备维护工作# 】近日，东部战区空军某部扎实开展装备维护工作。他们对照装备使用管理维护细则，详细制订维护方案，逐一检查装备关键部位，确保各项性能良好，并安排高工带教营连技术骨干，针对疑难故障组织集中会诊，进一步提升装备维护质量。（刘焱明、张凯扬、林杰、李燕燕） ...全文",
+      "url": "https://m.weibo.cn/detail/5301374340040670",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
