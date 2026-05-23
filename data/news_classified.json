@@ -16298,5 +16298,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "US",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國外交部敦促美國以實際行動維護台海和平穩定及中美關係穩定發展"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-05-21",
+      "title": "外交部：敦促美方以实际行动维护台海和平稳定和中美关系稳定发展态势",
+      "content": "这一立场是一贯、明确、坚定的。中方敦促美方落实好中美元首会晤重要共识，兑现所作承诺和表态，慎之又慎处理台湾问题，停止向“台独”分裂势力发出错误信号，以实际行动维护台海和平稳定和中美关系稳定发展态势。",
+      "url": "https://www.news.cn/tw/20260521/7df6b674e62f43ee8b3ff3564b0c5872/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
