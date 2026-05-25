@@ -13721,5 +13721,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军某部组织高强度、多批次下半夜飞行训练，全面锤炼部队全时段作战能力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-25",
+      "title": "#直击东部战区练兵备战现场#【#锤炼部队全时段作战能力# 】近日，东部战区空军某部组织高强度、多批次...",
+      "content": "#直击东部战区练兵备战现场#【#锤炼部队全时段作战能力# 】近日，东部战区空军某部组织高强度、多批次下半夜飞行训练，全面锤炼部队全时段作战能力。（曹海元、李战锋、邢志涛） #时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5302370905883284",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
