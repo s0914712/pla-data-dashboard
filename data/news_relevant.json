@@ -13769,5 +13769,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "第71集团军某旅在东部战区进行多型爆破器材实爆应用训练，构设战场环境，实爆实炸锤炼工兵分队胜战硬功。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-26",
+      "title": "#直击东部战区练兵备战现场#【#硝烟弥漫直击实爆现场# 】近日，第71集团军某旅构设战场环境，开展多...",
+      "content": "#直击东部战区练兵备战现场#【#硝烟弥漫直击实爆现场# 】近日，第71集团军某旅构设战场环境，开展多型爆破器材实爆应用训练，在真爆实炸中锤炼工兵分队胜战硬功。（蒋雨铖、严子昌、胡庆峰、王瑞民） #时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5302733294536608",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-25",
+      "title": "#东部熄灯号#  暗夜淬刃星为火，沙场点兵月作灯。#阅海峡#",
+      "content": "#东部熄灯号#  暗夜淬刃星为火，沙场点兵月作灯。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5302582302998841",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-25",
+      "title": "【#优秀政治教员比武登场# 】近日，武警浙江总队舟山支队开展 “三会一好” 优秀政治教员比武。来自基...",
+      "content": "【#优秀政治教员比武登场# 】近日，武警浙江总队舟山支队开展 “三会一好” 优秀政治教员比武。来自基层各单位的18名政治教员和“红肩章”宣讲员同台竞技，各展风采，淬炼“会知兵、会施教、会谈心、身教好”的过硬本领。（李晗健、姚宏图、王骏）#三尺讲台显锋芒#",
+      "url": "https://m.weibo.cn/detail/5302461502849499",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
