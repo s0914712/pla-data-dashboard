@@ -13889,5 +13889,101 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区海军某部“利剑杯”群众性练兵比武火热开赛，官点围绕数十个项目展开激烈角逐，展示‘一击制胜’海岸利剑尖兵风采。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-27",
+      "title": "#直击东部战区练兵备战现场#【#海岸利剑淬锋砺刃#】近日，东部战区海军某部“利剑杯”群众性练兵比武火...",
+      "content": "#直击东部战区练兵备战现场#【#海岸利剑淬锋砺刃#】近日，东部战区海军某部“利剑杯”群众性练兵比武火热开赛，官点围绕数十个项目展开激烈角逐，展示“一击制胜”海岸利剑尖兵风采。（甄浩、司泽翔）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5303095681881254",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-26",
+      "title": "#东部熄灯号# 绿叶缠枪不缠志，深林掩身不掩心。#阅海峡#",
+      "content": "#东部熄灯号# 绿叶缠枪不缠志，深林掩身不掩心。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5302944687195088",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-26",
+      "title": "【#加强普法宣传增强官兵法治观念# 】今年五月是第六个“民法典宣传月”，为深入推进《民法典》普法宣传...",
+      "content": "【#加强普法宣传增强官兵法治观念# 】今年五月是第六个“民法典宣传月”，为深入推进《民法典》普法宣传，进一步增强官兵的法治观念，东部战区空军某部扎实开展系列普法宣传与送法服务活动，以实打实的普法成效筑牢强军根基。（巩天金、张盛辉、陈毅俊、于朔樟） #军营生活#",
+      "url": "https://m.weibo.cn/detail/5302846540219090",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "JP",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中国海警驱离日本非法进入钓鱼岛领海渔船，敦促日方停止侵权挑衅。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-26",
+      "title": "【中国海警依法驱离日非法进入我钓鱼岛领海船只】中国海警局新闻发言人姜略表示，5月26日，日本“狮子”...",
+      "content": "【中国海警依法驱离日非法进入我钓鱼岛领海船只】中国海警局新闻发言人姜略表示，5月26日，日本“狮子”号渔船非法进入中国钓鱼岛领海，中国海警舰艇依法对其采取必要管控措施并警告驱离。钓鱼岛及其附属岛屿是中国固有领土，我们敦促日方立即停止在该海域的一切侵权挑衅行径。中国海警将持续在钓鱼岛 ...全文",
+      "url": "https://m.weibo.cn/detail/5302822506857329",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
