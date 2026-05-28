@@ -14105,5 +14105,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.4,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-28",
+      "title": "【#直击新兵下连分兵仪式现场# 】近日，东部战区空军某部隆重举行2026年度春季新兵下连分兵仪式。分...",
+      "content": "【#直击新兵下连分兵仪式现场# 】近日，东部战区空军某部隆重举行2026年度春季新兵下连分兵仪式。分兵即出征，下连即战斗。一张张刚毅的面孔写满忠诚，一声声“到”响彻营区。新兵们将带着家人嘱托、怀揣强军梦想，奔赴各专业岗位。愿你们在新的集体中磨砺锋芒，在火热军营书写无悔青春！（陈叶楠 刘硕 ...全文",
+      "url": "https://m.weibo.cn/detail/5303458073937238",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-27",
+      "title": "#东部熄灯号# 笃行实干锤炼硬功，久久为功夯实战备。#阅海峡#",
+      "content": "#东部熄灯号# 笃行实干锤炼硬功，久久为功夯实战备。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5303307074807974",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.2,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-27",
+      "title": "【#文艺轻骑队巡演到一线# 】近日，解放军文化艺术中心文艺轻骑队走进东部战区海军航空兵某部，为奋战在...",
+      "content": "【#文艺轻骑队巡演到一线# 】近日，解放军文化艺术中心文艺轻骑队走进东部战区海军航空兵某部，为奋战在一线的官兵送上一场浸润心灵、鼓舞斗志的精神文化盛宴。整场慰问演出兼具思想高度、军旅温度与艺术力度，在热烈昂扬的氛围里，奏响矢志强军、聚力奋进的时代强音。（王振泽、杨朔）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5303186279370179",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
