@@ -16874,5 +16874,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军某部组织机动补网演练，锤炼部队快速反应及电磁侦搜能力",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-29",
+      "title": "#直击东部战区练兵备战现场#【#实战演训淬锋芒#】近日，东部战区空军某部组织机动补网演练，锤炼部队快...",
+      "content": "#直击东部战区练兵备战现场#【#实战演训淬锋芒#】近日，东部战区空军某部组织机动补网演练，锤炼部队快速反应及电磁侦搜能力，全力夯实胜战本领。（苗俊、李陈、褚文聪） #时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5303820462065963",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部熄灯号 聚力抓实日常实训，凝心锻造胜战尖刀",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.85,
+    "original_article": {
+      "date": "2026-05-28",
+      "title": "#东部熄灯号# 聚力抓实日常实训，凝心锻造胜战尖刀。#阅海峡#",
+      "content": "#东部熄灯号# 聚力抓实日常实训，凝心锻造胜战尖刀。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5303669462405385",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區空軍某部進行輕武器實彈射擊考核並同步開展野戰炊事訓練",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-28",
+      "title": "【#实弹射击考核和炊事训练同步展开# 】近日，东部战区空军某部严密组织轻武器射击考核，全面检验训练质...",
+      "content": "【#实弹射击考核和炊事训练同步展开# 】近日，东部战区空军某部严密组织轻武器射击考核，全面检验训练质效。同时，他们融入考核开展野战炊事训练，既保障官兵饮食，保证连续作战，又锤炼部队野战炊事保障能力。（杨磊、张李阳、吴磊、涂腾）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5303548667233013",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
