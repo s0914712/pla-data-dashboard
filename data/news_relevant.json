@@ -14441,5 +14441,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "淬火成钢砺精兵，向战而行勇冲锋。#阅海峡#"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-05-29",
+      "title": "#东部熄灯号#淬火成钢砺精兵，向战而行勇冲锋。#阅海峡#",
+      "content": "#东部熄灯号#淬火成钢砺精兵，向战而行勇冲锋。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5304031850792574",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-05-29",
+      "title": "【#篮球比赛展风采# 】近日，92752部队“擎鹰杯”篮球赛开幕。官兵齐聚赛场斗志昂扬，以竞技锤炼战...",
+      "content": "【#篮球比赛展风采# 】近日，92752部队“擎鹰杯”篮球赛开幕。官兵齐聚赛场斗志昂扬，以竞技锤炼战斗作风，尽显拼搏风采。（王振泽、杨朔） #军营生活#",
+      "url": "https://m.weibo.cn/detail/5303911055100825",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
