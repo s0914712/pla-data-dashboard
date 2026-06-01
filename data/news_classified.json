@@ -17114,5 +17114,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.35,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-01",
+      "title": "【#与英烈后代对话#】近日，东部战区空军某部邀请吴石、朱枫、陈宝仓、聂曦四位隐蔽战线英烈后代走进军营...",
+      "content": "【#与英烈后代对话#】近日，东部战区空军某部邀请吴石、朱枫、陈宝仓、聂曦四位隐蔽战线英烈后代走进军营，开展红色专题宣讲活动。宣讲现场，英烈后代娓娓讲述先辈的潜伏往事，为全体官兵带来了一场深刻的精神洗礼。官兵们纷纷表示，将传承红色血脉，砥砺打赢本领！（郭飞、韦天洋、卢家红）",
+      "url": "https://m.weibo.cn/detail/5304998218434917",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "JP",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國海警在台灣東海域執法巡查，回應日菲劃界談判"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-01",
+      "title": "【中国海警位中国台湾岛以东海域开展执法巡查】中国海警局新闻发言人姜略表示，6月1日，中国海警岱山舰编...",
+      "content": "【中国海警位中国台湾岛以东海域开展执法巡查】中国海警局新闻发言人姜略表示，6月1日，中国海警岱山舰编队位中国台湾岛以东海域依法开展执法巡查。这是针对日本和菲律宾单方面宣布启动中国台湾岛以东海域划界谈判、严重侵犯中国领土主权和海洋权益采取的必要行动。我们敦促日菲立即停止一切侵害中国主 ...全文",
+      "url": "https://m.weibo.cn/detail/5304954623362520",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军某部开展跨昼夜训练，锤炼全天候作战能力",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-01",
+      "title": "#直击东部战区练兵备战现场#【#跨昼夜训练锤炼全天候作战能力# 】近日，东部战区空军某部开展跨昼夜训...",
+      "content": "#直击东部战区练兵备战现场#【#跨昼夜训练锤炼全天候作战能力# 】近日，东部战区空军某部开展跨昼夜训练，全面锤炼部队全天候作战能力。（李凯、李潇钒、程超杰）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5304907620944734",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
