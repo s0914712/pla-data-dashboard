@@ -17258,5 +17258,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军某部轻武器实弹射击训练",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-02",
+      "title": "#直击东部战区练兵备战现场#【#轻武器实弹射击训练登场# 】近日，东部战区空军某部扎实开展轻武器实弹...",
+      "content": "#直击东部战区练兵备战现场#【#轻武器实弹射击训练登场# 】近日，东部战区空军某部扎实开展轻武器实弹射击训练，全员全身心投入，努力锤炼打赢本领。（丁钰钦、晏昊星、徐昊天）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5305270009596160",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-01",
+      "title": "#东部熄灯号#风起沙场砺将士，战鼓声声催前行。#阅海峡#",
+      "content": "#东部熄灯号#风起沙场砺将士，战鼓声声催前行。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5305119014126059",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-01",
+      "title": "【#军味十足的儿童节# 】#六一儿童节# 来临之际，江苏省军区无锡第二离职干部休养所94岁老干部钱锦...",
+      "content": "【#军味十足的儿童节# 】#六一儿童节# 来临之际，江苏省军区无锡第二离职干部休养所94岁老干部钱锦树，走进全国国防教育示范学校无锡市蠡园中心小学，参加“少年军校”成长礼活动，为少先队员讲述红军长征的故事，观看军训成果汇报表演，一起庆祝军味十足的儿童节 。（陶演）",
+      "url": "https://m.weibo.cn/detail/5305013318191075",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
