@@ -14729,5 +14729,101 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-03",
+      "title": "【#国企人民武装部举行挂牌仪式#】近日，江苏省无锡市惠山区在上汽大通无锡分公司举行国企人民武装部挂牌...",
+      "content": "【#国企人民武装部举行挂牌仪式#】近日，江苏省无锡市惠山区在上汽大通无锡分公司举行国企人民武装部挂牌仪式。此举是依法落实民兵制度，履行国防义务，加强国防建设的具体实践。（杜铭鸿）",
+      "url": "https://m.weibo.cn/detail/5305722993640177",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-03",
+      "title": "#直击东部战区练兵备战现场#【#非战争军事行动演练火热展开# 】近日，一场“战味”十足的非战争军事行...",
+      "content": "#直击东部战区练兵备战现场#【#非战争军事行动演练火热展开# 】近日，一场“战味”十足的非战争军事行动演练，在淮河某训练场如火如荼展开。水上救护、抗洪抢险、防震救灾等多个示范科目在真严险难环境下轮番进行，全面检验官兵遂行非战争军事行动救援能力。（祁玉良、黄子晗、宋春堂、庄梦程）...全文",
+      "url": "https://m.weibo.cn/detail/5305634158281077",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-02",
+      "title": "#东部熄灯号#以青春铸铠甲，以热血护山河。#阅海峡#",
+      "content": "#东部熄灯号#以青春铸铠甲，以热血护山河。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5305481402254265",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-02",
+      "title": "【#军娃进军营#】近日，东部战区海军某护卫舰支队组织百余名官兵子女走进军营，通过参观舰艇、体验海军特...",
+      "content": "【#军娃进军营#】近日，东部战区海军某护卫舰支队组织百余名官兵子女走进军营，通过参观舰艇、体验海军特色项目以及趣味亲子活动，让孩子们近距离感受军营文化，强化爱国拥军热情。（杨海帆、代亚东、吴帅广、何小凯）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5305360606036687",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
