@@ -14921,5 +14921,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军某部紧贴实战标准，主动设危局、布难局，将浓浓战味融入演训课目，着力强化官兵战斗精神培育",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-04",
+      "title": "#直击东部战区练兵备战现场# 【#锤炼敢打必胜战斗精神# 】近日，东部战区空军某部紧贴实战标准，主动...",
+      "content": "#直击东部战区练兵备战现场# 【#锤炼敢打必胜战斗精神# 】近日，东部战区空军某部紧贴实战标准，主动设危局、布难局，将浓浓战味融入演训课目，着力强化官兵战斗精神培育，引导大家立强军之志、砺精武之气、精善战之能。（李燕燕、林杰、潘超、莫汤峰）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5305994785326249",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-03",
+      "title": "#东部熄灯号#风雨锤炼钢铁意志，岁月铸就铁血担当。#阅海峡#",
+      "content": "#东部熄灯号#风雨锤炼钢铁意志，岁月铸就铁血担当。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5305843790385202",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
