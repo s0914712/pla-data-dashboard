@@ -17642,5 +17642,101 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区陆军基础质量抽考，历时3天，涵盖地雷使用、战场防护、爆破器材使用、便携式无人机操作等十余项实战化课目。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-05",
+      "title": "#直击东部战区练兵备战现场# 【#聚焦东陆质量抽考现场#】近日，东部战区陆军基础质量抽考正如火如荼展...",
+      "content": "#直击东部战区练兵备战现场# 【#聚焦东陆质量抽考现场#】近日，东部战区陆军基础质量抽考正如火如荼展开，本次考核历时3天，突出战味， 按纲从严 ，全员覆盖，涵盖地雷使用、战场防护、爆破器材使用、便携式无人机操作等十余项实战化课目，有效检验连队基础训练质效。（肖志勇、廖鹏、刘志伟、吕昊）...全文",
+      "url": "https://m.weibo.cn/detail/5306372271901028",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-05",
+      "title": "#今日芒种# 【#芒种练兵海报发布# 】今天是二十四节气中第九个节气——#芒种# ，也是夏季的第三个...",
+      "content": "#今日芒种# 【#芒种练兵海报发布# 】今天是二十四节气中第九个节气——#芒种# ，也是夏季的第三个节气。一组练兵海报，带你领略官兵的胜战豪情。（朱万福、梁佳盛、丁兴军）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5306357172668950",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-04",
+      "title": "#东部熄灯号#深耕实战锤炼硬功，凝心铸魂砥砺锋芒。#阅海峡#",
+      "content": "#东部熄灯号#深耕实战锤炼硬功，凝心铸魂砥砺锋芒。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5306206178250544",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-04",
+      "title": "【#送法进军营#】近日，东部战区军事检察院联合镇江、句容两级人民检察院到陆军某部送法，为新兵上好“兵...",
+      "content": "【#送法进军营#】近日，东部战区军事检察院联合镇江、句容两级人民检察院到陆军某部送法，为新兵上好“兵之初”法治教育第一课，详解《民法典》热点问题，强化官兵的法治意识。（付林、齐丹、徐葛婧婷）",
+      "url": "https://m.weibo.cn/detail/5306085381505382",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
