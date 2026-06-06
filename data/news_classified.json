@@ -17810,5 +17810,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.85,
+    "original_article": {
+      "date": "2026-06-05",
+      "title": "#东部熄灯号#潜心苦修胜战本领，从容直面风雨考验。#阅海峡#",
+      "content": "#东部熄灯号#潜心苦修胜战本领，从容直面风雨考验。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5306568566112697",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "EU",
+    "country2": "CN",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "荷蘭 德魯伊特號 transit",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-05",
+      "title": "【东部战区新闻发言人就荷兰军舰过航台湾海峡发表谈话】东部战区新闻发言人徐承华陆军大校表示，5月27日...",
+      "content": "【东部战区新闻发言人就荷兰军舰过航台湾海峡发表谈话】东部战区新闻发言人徐承华陆军大校表示，5月27日以来，荷兰“德鲁伊特”号护卫舰舰载直升机非法侵闯西沙领空，接续过航台湾海峡。中国人民解放军#东部战区#组织海空兵力对荷舰过航行动全程跟监警戒，有效应对处置。战区部队时刻保持高度戒备，坚 ...全文",
+      "url": "https://m.weibo.cn/detail/5306553850922124",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-05",
+      "title": "【#军体运动会火热开赛#】近日，东部战区海军某护卫舰支队组织2026年度军体运动会，他们紧扣实战背景...",
+      "content": "【#军体运动会火热开赛#】近日，东部战区海军某护卫舰支队组织2026年度军体运动会，他们紧扣实战背景，严格参照大纲要求，将军事技能与竞技体育深度融合，为部队练兵备战注入强劲动能。（杨海帆、代亚东、吴帅广、何小凯）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5306447770158239",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
