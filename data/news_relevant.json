@@ -15497,5 +15497,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "火箭军某部官兵从严从难开展实战化训练，包括烈日战术演练、深夜精准操作、山野疾驰奔袭",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-08",
+      "title": "#直击东部战区练兵备战现场# 【#从严从难开展实战化训练# 】近日，火箭军某部官兵从严从难开展实战化...",
+      "content": "#直击东部战区练兵备战现场# 【#从严从难开展实战化训练# 】近日，火箭军某部官兵从严从难开展实战化训练。从烈日下的战术演练到深夜里的精准操作，从烈焰中的挺立身影到山野间的疾驰奔袭，每一个瞬间都刻画着火箭军官兵“时刻准备着”的硬核担当。（黄金奎、龙砚）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5307444336003432",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
