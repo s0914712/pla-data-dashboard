@@ -18170,5 +18170,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區陸軍某旅組織工兵分隊赴陌生地域展開高強度、全流程橋梁架設訓練，鍛鍊部隊複雜條件下應急機動保障能力，提高野戰工程支援作戰本領。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-09",
+      "title": "#直击东部战区练兵备战现场# 【#锤炼复杂条件下应急机动保障能力# 】近日，东部战区陆军某旅组织工兵...",
+      "content": "#直击东部战区练兵备战现场# 【#锤炼复杂条件下应急机动保障能力# 】近日，东部战区陆军某旅组织工兵分队赴陌生地域展开高强度、全流程桥梁架设训练，锤炼部队复杂条件下应急机动保障能力，提高野战工程支援作战本领。（赵前松、黄振宇）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5307806724653151",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-08",
+      "title": "#东部熄灯号#不负一身戎装使命，倾尽满腔赤胆忠诚。#阅海峡#",
+      "content": "#东部熄灯号#不负一身戎装使命，倾尽满腔赤胆忠诚。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5307655728925749",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-08",
+      "title": "【#直击新兵下连仪式现场#】近日，东部战区空军某部隆重举行2026年度春季新兵下连仪式。历经集训加钢...",
+      "content": "【#直击新兵下连仪式现场#】近日，东部战区空军某部隆重举行2026年度春季新兵下连仪式。历经集训加钢淬炼，新兵们褪去初入军营时的稚嫩与青涩，以满腔热血奔赴基层一线，开启军旅生涯新篇章。(陆李祥、黄之涵、吴张哲、刘程远)#军营生活#",
+      "url": "https://m.weibo.cn/detail/5307534934278579",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
