@@ -15665,5 +15665,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區空軍航空兵部隊進行高強度多批次空戰對抗訓練，提升實戰能力",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-10",
+      "title": "#直击东部战区练兵备战现场#【#高强度多批次空战对抗训练登场# 】近日，东部战区空军航空兵某部围绕多...",
+      "content": "#直击东部战区练兵备战现场#【#高强度多批次空战对抗训练登场# 】近日，东部战区空军航空兵某部围绕多个实战化课目，展开高强度、多批次空战对抗训练，进一步锤炼飞行员技战术水平，提升部队实战能力。（文浩、熊玉峰、洪炜锋）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5308169112518852",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.85,
+    "original_article": {
+      "date": "2026-06-09",
+      "title": "#东部熄灯号#风卷战旗，猎猎作响抒壮志；月照军徽，熠熠生辉映丹心。#阅海峡#",
+      "content": "#东部熄灯号#风卷战旗，猎猎作响抒壮志；月照军徽，熠熠生辉映丹心。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5308018116794315",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.6,
+    "original_article": {
+      "date": "2026-06-09",
+      "title": "【#普法进军营#】近日，32517部队联合驻地司法局和交警大队开展“普法进军营，‘典’亮强军路”普法...",
+      "content": "【#普法进军营#】近日，32517部队联合驻地司法局和交警大队开展“普法进军营，‘典’亮强军路”普法活动，进一步强化官兵尊法、学法、守法、用法的行动自觉。（黄宗福、姚耀） #法治军营建设#",
+      "url": "https://m.weibo.cn/detail/5307897321619623",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
