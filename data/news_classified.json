@@ -18338,5 +18338,245 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国台办称赖清德挥霍民众血汗钱，搞金元外交，暴露台独本性，呼吁两岸和平"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-06-10",
+      "title": "赖清德吹嘘“突访”斯威士兰 国台办回应",
+      "content": "有记者问，近日，赖清德接受专访吹嘘其“顶住中国压力”“突访”斯威士兰，并称台湾人不愿意接受“中国统治”，希望继续过着“自由、民主、有人权”的生活。请问对此有何评论? 发言人张晗答问表示，赖清德挥霍台湾民众的血汗钱，大搞“金元外交”，斥巨资买“偷渡”，成为国际社会和岛内的笑柄，却不以为耻、反以为荣，充分暴露其“台独”本性和偏执卑劣。民进党当局在岛内一直高喊自由，却长期操控媒体，豢养网军，钳制舆论，阻挠禁限两岸人员往来和各领域交流合作，标榜民主却大搞“绿色恐怖”，滥用司法、行政等手段打压迫害政治异己，不断操纵挑起政治恶斗。大谈人权却罔顾岛内民众利益福祉，一再歧视刁难陆配群体，给岛内有关人士贴标签、扣帽子，人心尽失。 张晗指出，社会制度不同不是搞分裂的借口，只要认同一个中国原则、推进祖国统一，有话好好说，有事好商量，就没有化解不了的矛盾分歧。希望广大台湾同胞正确认识大陆社会制度和发展道路，看清民进党当局打着民主的幌子谋“独”的真实面目和险恶用心，与“台独”分裂势力及其活动划清界限，同我们一道维护台海和平稳定。（记者许晓静、马欣然）",
+      "url": "https://www.news.cn/tw/20260610/cb8269cc877a44eca1861c733361e95d/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-10",
+      "title": "国台办：中国国民党副主席张荣恭将出席第十八届海峡论坛",
+      "content": "发言人张晗应询介绍，第十八届海峡论坛大会将于6月13日在厦门举办，中国国民党副主席张荣恭等台湾各界代表人士将出席大会。目前，论坛各项筹备工作基本就绪，论坛系列活动在福建各地陆续开展。（记者冀泽、马欣然）",
+      "url": "https://www.news.cn/tw/20260610/806fa69b368246a6a6a996a7e69d65f2/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国台办批评台当局抹黑海峡论坛，称其暴露假民主真独裁"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-06-10",
+      "title": "国台办：台当局抹黑海峡论坛暴露“假民主真独裁”",
+      "content": "有记者问，第十八届海峡论坛即将举办。台陆委会称，“海峡论坛是大陆统战平台”，今年进一步扩大限制，县市政府公务与公职人员不得出席相关活动。岛内舆论认为，单凭一纸公文就禁止两岸交流让民众觉得很受威胁。请问对此有何评论? 发言人张晗答问表示，海峡论坛是坚持民间性、草根性、广泛性的两岸民间交流平台，对促进两岸各领域交流合作，增进同胞利益福祉，发挥了重要积极作用，受到两岸同胞普遍欢迎。民进党当局出于顽固“台独”立场，漠视民众意愿和地方发展需要，没有意愿也没有能力处理好两岸关系。其为一己政治私利，抹黑污蔑海峡论坛，破坏两岸交流合作，禁锢台湾民众行动和言论自由，严重损害岛内同胞利益福祉，其所作所为充分暴露了其“假民主真独裁”的本质。两岸同胞是一家人，走亲走近、走到一起的大潮流，是任何力量都阻挡不了的。（记者李寒芳、马欣然）",
+      "url": "https://www.news.cn/tw/20260610/10d4ef53a054466abd27f50a7ddd363c/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国台办称和平统一后台湾将成为和平安全繁荣之岛"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-06-10",
+      "title": "国台办：和平统一后，台湾将成为和平安全繁荣之岛",
+      "content": "有记者问，国务院台办发言人在之前发布会上已分别阐释了和平统一后台湾“七个更好”中的五个“更好”，受到两岸舆论高度关注。请问发言人对“和平统一后，有强大祖国做后盾，台湾安全保障会更好”有何阐释? 发言人张晗答问表示，和平统一后，有强大祖国做后盾，台湾人民将更安全，“台独”带来的战争风险将从根源上被消除，台湾民众不再被“台独”裹挟当炮灰，民众的血汗钱不再被挥霍用于购买军火，民宅、宫庙不会存放弹药，外部势力干涉两岸中国人内部事务的黑手将被彻底斩断。台湾将不再是外部势力的棋子，不再是民进党当局勾连外部势力妄图打造的“火药桶”、“地雷岛”和地狱景象，摆脱随时被“台独”和外部势力葬送的命运。台湾经济将可持续稳定发展，产业链、供应链将更自主可控、安全可靠，实现高质量发展和高水平安全的良性结合。台湾渔民在台湾岛周边海域生产作业的合法权益，将获得国家海上力量及时有力的保护。 张晗表示，和平统一后，台湾将成为和平、安全、繁荣之岛，由全体中华儿女共同守护，台湾同胞可以在和平安宁的环境中，真正过上安居乐业的美好生活，充分享受祖国统一、民族复兴的太平岁月。（记者尚昊、马欣然）",
+      "url": "https://www.news.cn/tw/20260610/25a969a87a834a60a49cff7abab41069/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-10",
+      "title": "国台办：要和平发展交流合作的台湾主流民意压制不住",
+      "content": "有记者问，台“民主文教基金会”近日民调显示，近六成台湾民众支持主动与大陆进行和平谈判，近七成台湾民众认为应改善两岸关系、争取和平。有岛内舆论认为，当两岸议题从统“独”转向“战争与和平”的选择时，台湾民意尤其是年轻族群的态度已出现变化。请问对此有何评论? 发言人张晗答问表示，要和平、要发展、要交流、要合作的台湾社会主流民意是压制不住的。相关民调再次证明，两岸同胞都是中国人、一家人，都期盼台海和平安宁，期盼两岸关系改善发展，期盼生活更加美好。祖国和民族的前途寄托在青年人身上。越来越多台湾同胞，特别是青年朋友认识到，台湾的发展、台湾同胞的利益福祉系于两岸关系和平发展、祖国统一、中华民族伟大复兴。我们欢迎并支持更多的两岸青年常来常往，增进理解，同心同行，把两岸关系的未来牢牢掌握在中国人自己手中。（记者王承昊、李妍）",
+      "url": "https://www.news.cn/tw/20260610/07a401bde2d64de39b923033a4bb5459/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "JP",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "外交部：绝不允许日菲侵害中方海洋权益"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-09",
+      "title": "外交部：绝不允许日菲侵害中方海洋权益",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
+      "url": "https://www.news.cn/tw/20260609/fc528317971a4bd59d3f843fe3a9f49f/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "JP",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-09",
+      "title": "日菲若一意孤行只会求锤得锤",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
+      "url": "https://www.news.cn/tw/20260609/1a95b62a8afb4387b9b323d2e82395e3/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.5,
+    "sentiment_label": "中性",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-09",
+      "title": "两岸青年学者呼吁把握人工智能时代携手智创未来",
+      "content": "两岸青年立足科创前沿携手同行，既能共享产业发展红利，也能以青春力量拉近彼此距离、增进认同，成为推动两岸关系向好发展的新生动力。 “身处人工智能飞速变革的时代，两岸青年有着广阔的合作空间。大家应多走动交流，搭建协作平台，在机器人研发、智能科创等领域联手合作，互利共赢，创造更美好的生活。”在复旦大学就读博士的台湾青年蔡孟轩说。 论坛期间，两岸青年学者走进宇树科技股份有限公司实地参访。灵活起舞、挥拳互动的智能机器人，让大家近距离感受前沿科技魅力。学者们详细了解具身智能机器人、机器狗、多功能作业载具等产品的研发历程，以及其在应急搜救、火场抢险、工业运维等场景的落地应用。 台湾青年、财新传媒国际新闻编辑徐和谦表示，多项岛内民调显示，除同根同源的历史文化纽带外，大陆科技创新与自主发展成就，也是台湾民众尤其是青年群体高度关注、心生共鸣的热点。借助此次交流参访，更加直观地认识了大陆新兴产业发展模式，以及产官学研深度融合、协同共进的创新生态。期待未来两岸能在青年互访、科技创新、产业链合作及人才培育等领域开展多项交流，深化潜力对接，探索合作机遇。 “人工智能时代，台湾在芯片制程等关键技术领域基础雄厚，大陆则在应用场景上具有发展优势。”台北市青年联合会理事长陈建维说，两岸青年可以在产品开发与应用场景上广泛合作，取长补短，更快推动项目落地。 中国社科院台湾研究所副研究员王子旗说，大陆“十五五”规划明确提出“加强青年、基层等方面交流，持续为台湾青年来大陆追梦、筑梦、圆梦创造更好条件。”各地持续完善两岸青年交流机制，让更多台湾青年融入大陆新质生产力发展大局，为两岸青年在人工智能与机器人领域协同创新提供了国家战略平台与政策支持。 北京联合大学台湾研究院讲师张啊媛表示，依托人工智能技术，两岸青年能突破地域阻隔，通过数字共创、虚拟制作等形式融合创意与技术，而大陆完整的产业链条与广阔发展空间，也将持续为台湾青年求学、就业、创业搭建优质舞台，让两岸青年共同把握智能时代发展机遇。",
+      "url": "https://www.news.cn/tw/20260609/df821333ae19453fa8043795a7fb2451/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-09",
+      "title": "本草传情 两岸嘉宾共话中医药文化发展",
+      "content": "本次大会以“中医里的生活 生活里的中医”为主题。活动期间，两岸嘉宾将参观湖南相关中药康养工业旅游基地、湖南中医药大学等地，参加相关学术论坛、中医文化体验、青年创新创业交流等形式多样的活动。 湖南省人民政府台湾事务办公室主任冯海燕表示，湖南是中医药大省，希望以本次大会为起点，推动湘台中医药合作在医疗服务、科技创新、人才培养、产业发展、文化传播等方面更加广泛、深入地开展，更好地惠及两岸同胞。 冯海燕说，中医药文化讲“正气存内，邪不可干”，深化两岸交流合作，传承弘扬好中华优秀传统文化就是正气，要顺应历史大势，携手合作、扶正祛邪、以正压邪、和合共生。当前，湖南出台了《服务台资企业发展的十条举措》，为台资企业发展提供更精准有效的服务，未来还将进一步完善台湾同胞来湘就学就业、创新创业的各项政策措施，欢迎台湾青年来湖南追梦、筑梦、圆梦，共享发展机遇。 台湾立夫医药研究文教基金会副执行长陈绍诚说，中医是两岸同胞都能认同且需要的宝贵财富。他呼吁，两岸同胞要共同珍惜这份传承不易的文化遗产，通过学术研究、医疗合作与人才培育，不断推动中医的发展与创新。 湖南中医药大学台湾校友会会长黄三德说，他已累计带动超千名台湾青年来大陆学习中医，未来校友会还将继续组织台湾师生来湘交流，让更多年轻人了解大陆中医的发展成就。 湖南中医药大学口腔医学专业台籍学生李羽丰说，在台湾夜市，药炖排骨、四物汤等特色药膳十分常见。中医药养生文化早已融入两岸民众的日常生活，大家都有着独到的养生智慧。 大会上还发布了《“敬修日行”两岸青年中医生活化共同倡议书》，倡议两岸青年从日常生活做起，共同践行健康文明的中医生活方式。",
+      "url": "https://www.news.cn/tw/20260609/28f0b814a5ae4ec290e192342b81848f/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-08",
+      "title": "台湾豫剧团“夏韵”公演将推出经典喜剧",
+      "content": "据台湾豫剧团介绍，两部戏将于高雄中山堂剧场上演，7月11日演出《唐伯虎点秋香》，12日推出双生双旦奇情喜剧《香囊记》。两部戏皆为台湾豫剧经典保留剧目，集结旗下顶尖演员阵容，包括台湾“豫剧王子”刘建华、剧团当家花旦萧扬玲等，希望在仲夏时节为观众带来艺文欢乐。 在《唐伯虎点秋香》中，刘建华将饰演唐伯虎，萧扬玲饰演秋香，以诙谐方式描写“爱与成全”的经典喜剧；《香囊记》除由刘建华饰演王天才外，还集结实力派演员谢文琪、张瑄庭等，以错认、离散与重逢，讲述一段对爱与承诺坚守信念的故事。 豫剧从河南传入台湾已逾70年。台湾豫剧团自落脚高雄左营后，经过几代艺术家不懈努力，使得豫剧这一民族文化瑰宝在台湾得以保存并发扬光大。2014年，豫剧团启动经典传承计划，用充满新鲜创意与舞台活力的方式呈现戏曲文化。 剧团相关负责人受访表示，两部戏特别进行创新，如在演员排练或对戏时，导演都会与演员实时沟通，了解演员想呈现的舞台效果，对脚本、对白加以调整，以符合现代观众审美需求。希望通过戏曲表演的唱念做打和对人物情感的演绎，实现经典作品的重演与诠释，让观众领略到戏曲跨越时代的舞台魅力。",
+      "url": "https://www.news.cn/tw/20260608/f7c1ca63b1df4204b8e023dbe124fad6/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
