@@ -18578,5 +18578,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-11",
+      "title": "#直击东部战区练兵备战现场#【#昼夜兼程向战飞#】近日，东部战区空军航空兵某部数架战机依次升空，开展...",
+      "content": "#直击东部战区练兵备战现场#【#昼夜兼程向战飞#】近日，东部战区空军航空兵某部数架战机依次升空，开展跨昼夜实战化训练，进一步锤炼全天候作战与快速反应能力。（朱云龙 、严浩誉） #时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5308531499598124",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "东部战区舰艇巡航台湾海峡，维护国家主权与地区和平"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-10",
+      "title": "#东部熄灯号#战舰巡航巡碧浪，雄鹰列阵护长空。#阅海峡#",
+      "content": "#东部熄灯号#战舰巡航巡碧浪，雄鹰列阵护长空。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5308380505440484",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-10",
+      "title": "#高考加油# 【#志愿服务队为高考护航#】近日，2026年全国高考拉开帷幕。为给广大考生营造安全、有...",
+      "content": "#高考加油# 【#志愿服务队为高考护航#】近日，2026年全国高考拉开帷幕。为给广大考生营造安全、有序、温馨的考试环境，江苏省无锡市梁溪区人武部组织辖区专武干部、民兵和退役军人成立志愿服务队，积极开展“温情护考、圆梦启航”活动，通过“驻点值守＋沿线巡逻”相结合的方式，为考生和家长提供全方 ...全文",
+      "url": "https://m.weibo.cn/detail/5308259709485441",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
