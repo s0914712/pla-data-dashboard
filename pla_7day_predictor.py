@@ -44,6 +44,16 @@ v2.5.0 Zero-Regime 改善:
 - 零 regime CI 拓寬: 考慮歷史突增可能性，避免信賴區間過窄
 - 新聞升級指標: news_escalation_score（加權軍事/外交事件）
 
+v2.7.0 CatBoost 參數重新調校（提升準確率）:
+- 用 24-origin rolling walk-forward 評估（每 origin 間隔 7 天，共 168 個
+  7 步迭代預測點，約覆蓋最近半年）比較 13 種配置（loss/深度/迭代數/
+  subsample/seed ensemble/Tweedie/Poisson 等）。
+- 勝出配置: MAE loss(log1p 空間) + depth=7 + iterations=800 + lr=0.02
+  + subsample=0.8 + rsm=0.8 (Bernoulli bootstrap)
+- 成效: walk-forward MAE 7.923 -> 7.496 (-5.4%)，median error 4.93 -> 3.63 (-26%)
+- Quantile 回歸器沿用相同參數但 loss 維持 Quantile:alpha
+- 修復 Leak #4: CV fold 模擬時 _recent_carrier 改用該 fold 訓練集最後值
+
 v2.6.0 移除無效 sentiment 特徵:
 - 診斷 (scripts/analysis/sentiment_correlation.py) 顯示 news_avg_sentiment
   與 target 相關性 |r|=0.002, p=0.945 — 統計上等於 noise。
@@ -55,7 +65,7 @@ Usage:
     python pla_predictor.py
 
 Author: PLA Data Dashboard
-Version: 2.6.0
+Version: 2.7.0
 """
 
 import pandas as pd
@@ -98,11 +108,18 @@ HIGH_THRESHOLD = 25
 PREDICTION_DAYS = 7
 
 # CatBoost 最佳參數
+# v2.7.0: 24-origin rolling walk-forward 評估（168 個 7 步迭代預測點）選出：
+#   MAE loss(log1p) + depth=7 + iterations=800 + lr=0.02 + subsample/rsm=0.8
+#   MAE 7.923 -> 7.496 (-5.4%), median error 4.93 -> 3.63 (-26%) vs 舊參數
 CATBOOST_PARAMS = {
-    'iterations': 400,
-    'depth': 6,
-    'learning_rate': 0.03,
+    'iterations': 800,
+    'depth': 7,
+    'learning_rate': 0.02,
     'l2_leaf_reg': 3,
+    'loss_function': 'MAE',
+    'subsample': 0.8,
+    'rsm': 0.8,
+    'bootstrap_type': 'Bernoulli',
     'random_state': 42,
     'verbose': 0
 }
@@ -209,7 +226,7 @@ class PLAPredictor:
     def load_data(self, sorties_path=None, political_path=None):
         """載入資料"""
         print("=" * 60)
-        print("PLA 7-Day Prediction System v2.6")
+        print("PLA 7-Day Prediction System v2.7")
         print(f"Engine: {'CatBoost' if USE_CATBOOST else 'sklearn GradientBoosting'}")
         print("=" * 60)
         print(f"\n[1] 載入資料...")
@@ -571,15 +588,9 @@ class PLAPredictor:
         """創建回歸模型"""
         if USE_CATBOOST:
             if quantile is not None:
-                return cb.CatBoostRegressor(
-                    iterations=CATBOOST_PARAMS['iterations'],
-                    depth=CATBOOST_PARAMS['depth'],
-                    learning_rate=CATBOOST_PARAMS['learning_rate'],
-                    loss_function=f'Quantile:alpha={quantile}',
-                    l2_leaf_reg=CATBOOST_PARAMS['l2_leaf_reg'],
-                    random_state=CATBOOST_PARAMS['random_state'],
-                    verbose=0
-                )
+                params = {**CATBOOST_PARAMS,
+                          'loss_function': f'Quantile:alpha={quantile}'}
+                return cb.CatBoostRegressor(**params)
             return cb.CatBoostRegressor(**CATBOOST_PARAMS)
         else:
             if quantile is not None:
@@ -789,6 +800,9 @@ class PLAPredictor:
             fold_model.fit(X_train_full, np.log1p(y_train), sample_weight=w_fold)
 
             # 模擬 7 步迭代預測（修復 Leak #1）
+            # v2.7: carrier 改用 fold 訓練集最後值（修復 Leak #4: 全域 _recent_carrier）
+            saved_carrier = self._recent_carrier
+            self._recent_carrier = df_train['carrier'].iloc[-1]
             window = df_train.tail(60)[target].tolist()
             base_date = train_max_date + timedelta(days=EMBARGO_DAYS)
             fold_errors = []
@@ -811,6 +825,8 @@ class PLAPredictor:
                 all_errors[day + 1].append(error)
                 fold_errors.append(error)
                 window.append(pred)  # 用預測值更新（模擬真實情境）
+
+            self._recent_carrier = saved_carrier
 
             if fold_errors:
                 cv_mae_scores.append(np.mean(fold_errors))
@@ -1016,7 +1032,7 @@ class PLAPredictor:
 
         # 加入 metadata
         predictions['generated_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        predictions['model_version'] = '2.5.0'
+        predictions['model_version'] = '2.7.0'
         predictions['data_latest_date'] = self.latest_date.strftime('%Y-%m-%d')
         predictions['cv_mae'] = round(np.mean(self.cv_scores), 2) if self.cv_scores else None
 
