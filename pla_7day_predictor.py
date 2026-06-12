@@ -54,6 +54,20 @@ v2.7.0 CatBoost 參數重新調校（提升準確率）:
 - Quantile 回歸器沿用相同參數但 loss 維持 Quantile:alpha
 - 修復 Leak #4: CV fold 模擬時 _recent_carrier 改用該 fold 訓練集最後值
 
+v2.8.0 航行警告前瞻特徵（台海地理圍欄）:
+- 新增 navwarn_active：生效時間窗涵蓋目標日的台海軍事航警數。
+  航警公告通常提前 1-7 天發布，是模型中唯一「真正面向未來」的訊號，
+  可在預測時點合法使用（公告於 base_date 前發布、生效於未來）。
+- 新增 navwarn_pub_3d：目標日前 1-3 天發布的台海軍事航警數（升溫訊號）。
+- 地理圍欄 21-28.5N / 117-124E（台灣海峽、東海南部、巴士海峽北側），
+  排除渤海、北部灣、海南等與台海活動無關的演習區。
+- 生效時間窗 best-effort 解析中文公告（X月X日至Y日等格式），
+  失敗 fallback 為發布日後 1-5 天。
+- 配套：scripts/scrape_nav_warnings.py 改為累積合併模式（以 url 去重），
+  修復原 workflow 每日覆蓋導致歷史遺失的問題（先前僅存 12 筆）。
+- 注意：目前歷史資料極少，特徵近乎全零、暫時不影響預測；
+  隨每日累積（建議 3-6 個月後）可用 walk-forward 驗證實際貢獻。
+
 v2.6.0 移除無效 sentiment 特徵:
 - 診斷 (scripts/analysis/sentiment_correlation.py) 顯示 news_avg_sentiment
   與 target 相關性 |r|=0.002, p=0.945 — 統計上等於 noise。
@@ -65,7 +79,7 @@ Usage:
     python pla_predictor.py
 
 Author: PLA Data Dashboard
-Version: 2.7.0
+Version: 2.8.0
 """
 
 import pandas as pd
@@ -99,9 +113,16 @@ DATA_SOURCES = {
     'political': 'https://raw.githubusercontent.com/s0914712/pla-data-dashboard/main/data/merged_comprehensive_data_M.csv',
     'weather': 'https://raw.githubusercontent.com/s0914712/pla-data-dashboard/main/data/airport_weather_forecast.csv',
     'news': 'https://raw.githubusercontent.com/s0914712/pla-data-dashboard/main/data/news_classified.json',
+    'navwarn': 'https://raw.githubusercontent.com/s0914712/pla-data-dashboard/main/data/navigation_warnings/military_exercises.csv',
 }
 
 NEWS_LOCAL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'news_classified.json')
+NAVWARN_LOCAL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                  'data', 'navigation_warnings', 'military_exercises.csv')
+
+# v2.8: 台海周邊地理圍欄（涵蓋台灣海峽、東海南部、巴士海峽北側）
+# 福建/浙江/廣東沿海演習區落在此範圍；渤海、北部灣、海南南部會被排除
+NAVWARN_GEOFENCE = {'lat_min': 21.0, 'lat_max': 28.5, 'lon_min': 117.0, 'lon_max': 124.0}
 
 OUTPUT_PATH = 'data/predictions/latest_prediction.csv'
 HIGH_THRESHOLD = 25
@@ -220,13 +241,16 @@ class PLAPredictor:
                            'us_tw_interaction_7d', 'foreign_battleship_7d',
                            'news_military_count', 'news_us_tw_count',
                            'news_relevant_count',
-                           'news_escalation_score']
+                           'news_escalation_score',
+                           # v2.8: 航行警告前瞻特徵（公告提前數天發布，是真正面向未來的訊號）
+                           'navwarn_active', 'navwarn_pub_3d']
         self.holiday_cols = ['is_holiday']
+        self.navwarn_events = []  # v2.8: 由 load_data 填入
 
     def load_data(self, sorties_path=None, political_path=None):
         """載入資料"""
         print("=" * 60)
-        print("PLA 7-Day Prediction System v2.7")
+        print("PLA 7-Day Prediction System v2.8")
         print(f"Engine: {'CatBoost' if USE_CATBOOST else 'sklearn GradientBoosting'}")
         print("=" * 60)
         print(f"\n[1] 載入資料...")
@@ -297,9 +321,13 @@ class PLAPredictor:
         # v2.4: 載入新聞分類資料
         self.news_data = self._load_news_data()
 
+        # v2.8: 載入航行警告（台海地理圍欄）
+        self.navwarn_events = self._load_navwarn_data()
+
         print(f"  架次資料: {len(df_sorties)} 筆")
         print(f"  政治事件: {len(df_political)} 筆")
         print(f"  新聞資料: {len(self.news_data)} 篇")
+        print(f"  台海航警: {len(self.navwarn_events)} 筆")
         print(f"  最新日期: {self.latest_date.strftime('%Y-%m-%d')}")
 
         return df_sorties, df_political
@@ -317,6 +345,114 @@ class PLAPredictor:
         except Exception as e:
             print(f"  [Warning] 無法載入新聞資料: {e}")
             return []
+
+    def _load_navwarn_data(self):
+        """v2.8: 載入 MSA 軍事航行警告，地理圍欄過濾後解析生效時間窗。
+
+        回傳 list of dict: {'publish', 'start', 'end'}（皆為 normalized Timestamp）。
+        航警公告通常提前 1-7 天發布，可在預測時點合法使用未來生效資訊。
+        """
+        try:
+            if os.path.exists(NAVWARN_LOCAL_PATH):
+                df = pd.read_csv(NAVWARN_LOCAL_PATH, encoding='utf-8-sig')
+            else:
+                df = pd.read_csv(DATA_SOURCES['navwarn'], encoding='utf-8-sig')
+        except Exception as e:
+            print(f"  [Warning] 無法載入航行警告資料: {e}")
+            return []
+
+        events = []
+        for _, row in df.iterrows():
+            publish = pd.to_datetime(row.get('publish_date'), errors='coerce')
+            if pd.isna(publish):
+                continue
+            publish = publish.normalize()
+
+            # 地理圍欄：任一座標落在台海周邊範圍才採計
+            coords_str = str(row.get('coordinates', '') or '')
+            in_fence = False
+            for pair in coords_str.split(';'):
+                parts = pair.strip().split(',')
+                if len(parts) != 2:
+                    continue
+                try:
+                    lat, lon = float(parts[0]), float(parts[1])
+                except ValueError:
+                    continue
+                if (NAVWARN_GEOFENCE['lat_min'] <= lat <= NAVWARN_GEOFENCE['lat_max'] and
+                        NAVWARN_GEOFENCE['lon_min'] <= lon <= NAVWARN_GEOFENCE['lon_max']):
+                    in_fence = True
+                    break
+            if not in_fence:
+                continue
+
+            text = f"{row.get('time_periods', '') or ''} {row.get('content_preview', '') or ''}"
+            start, end = self._parse_navwarn_window(publish, text)
+            events.append({'publish': publish, 'start': start, 'end': end})
+
+        return events
+
+    @staticmethod
+    def _parse_navwarn_window(publish, text):
+        """v2.8: 從公告文字解析演習生效起訖日（best-effort）。
+
+        支援格式如「3月18日0800时至25日2400时」「3月16日至17日」「4月1日，0800时至1200时」。
+        解析失敗時 fallback 為發布日後 1-5 天（航警典型提前量）。
+        """
+        import re
+
+        def infer_year(month):
+            # 公告月份遠小於發布月份 → 跨年（12 月發布隔年 1 月演習）
+            year = publish.year
+            if month < publish.month - 6:
+                year += 1
+            return year
+
+        # 結束日必須帶「日」字，避免把「0800时至1200时」的時刻誤判為結束日期
+        m = re.search(
+            r'(\d{1,2})月(\d{1,2})日(?:[0-9时:，,\s]*[至到](?:(\d{1,2})月)?(\d{1,2})日)?',
+            str(text))
+        if m:
+            sm, sd = int(m.group(1)), int(m.group(2))
+            try:
+                start = pd.Timestamp(year=infer_year(sm), month=sm, day=sd)
+            except ValueError:
+                start = None
+            if start is not None:
+                end = start
+                if m.group(4):
+                    em = int(m.group(3)) if m.group(3) else sm
+                    ed = int(m.group(4))
+                    try:
+                        end = pd.Timestamp(year=infer_year(em), month=em, day=ed)
+                        if end < start:
+                            end = start
+                    except ValueError:
+                        end = start
+                # 防解析爆炸：演習窗最長 30 天
+                end = min(end, start + timedelta(days=30))
+                return start, end
+
+        # fallback: 發布日後 1-5 天
+        return publish + timedelta(days=1), publish + timedelta(days=5)
+
+    def _get_navwarn_features(self, target_date, as_of=None):
+        """v2.8: 目標日的航警特徵。as_of 之前發布的公告才視為已知（CV 防洩漏）。
+
+        navwarn_active: 生效時間窗涵蓋目標日的台海軍事航警數（前瞻訊號）
+        navwarn_pub_3d: 目標日前 1-3 天內發布的台海軍事航警數（升溫訊號）
+        """
+        active = 0
+        pub_3d = 0
+        for w in self.navwarn_events:
+            if as_of is not None and w['publish'] >= as_of:
+                continue
+            if w['start'] <= target_date <= w['end']:
+                active += 1
+            delta = (target_date - w['publish']).days
+            if 1 <= delta <= 3:
+                pub_3d += 1
+        return {'navwarn_active': active, 'navwarn_pub_3d': pub_3d}
 
     def _extract_news_features(self, target_date, lookback_days=7):
         """v2.5: 從 news_classified.json 提取先行指標特徵（嚴格 < target_date）"""
@@ -550,6 +686,19 @@ class PLAPredictor:
             for col in news_cols:
                 df[col] = 0
 
+        # === v2.8: 航行警告前瞻特徵（嚴格用發布日 < 當日的公告，避免同日洩漏） ===
+        navwarn_active = np.zeros(len(df))
+        navwarn_pub_3d = np.zeros(len(df))
+        dates = df['date']
+        for w in self.navwarn_events:
+            known = (dates > w['publish']).values
+            in_window = ((dates >= w['start']) & (dates <= w['end'])).values
+            navwarn_active += (known & in_window).astype(float)
+            days_since_pub = (dates - w['publish']).dt.days
+            navwarn_pub_3d += days_since_pub.between(1, 3).values.astype(float)
+        df['navwarn_active'] = navwarn_active
+        df['navwarn_pub_3d'] = navwarn_pub_3d
+
         # === 假日特徵 ===
         df['is_holiday'] = df['date'].apply(lambda d: get_holiday_features(d))
 
@@ -660,6 +809,9 @@ class PLAPredictor:
         # 政治特徵
         pol_7d = self._get_future_political_features(target_date, 7)
         news_feat = self._extract_news_features(target_date)
+        # v2.8: 航警特徵——只用 base_date（含）以前發布的公告，與訓練/CV 語意一致
+        navwarn_feat = self._get_navwarn_features(
+            target_date, as_of=base_date + timedelta(days=1))
 
         features = {
             'month_sin': np.sin(2 * np.pi * target_date.month / 12),
@@ -699,6 +851,8 @@ class PLAPredictor:
             'news_us_tw_count': news_feat['news_us_tw_count'],
             'news_relevant_count': news_feat['news_relevant_count'],
             'news_escalation_score': news_feat['news_escalation_score'],
+            'navwarn_active': navwarn_feat['navwarn_active'],
+            'navwarn_pub_3d': navwarn_feat['navwarn_pub_3d'],
             'is_holiday': is_holiday,
         }
         return features
@@ -1032,7 +1186,7 @@ class PLAPredictor:
 
         # 加入 metadata
         predictions['generated_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        predictions['model_version'] = '2.7.0'
+        predictions['model_version'] = '2.8.0'
         predictions['data_latest_date'] = self.latest_date.strftime('%Y-%m-%d')
         predictions['cv_mae'] = round(np.mean(self.cv_scores), 2) if self.cv_scores else None
 
