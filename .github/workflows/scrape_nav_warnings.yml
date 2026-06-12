@@ -14,6 +14,7 @@ on:
       - main
     paths:
       - 'scripts/scrapers/NavigationWarning_scraper.py'
+      - 'scripts/scrape_nav_warnings.py'
       - '.github/workflows/scrape_nav_warnings.yml'
 
 jobs:
@@ -36,116 +37,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests beautifulsoup4 pandas lxml httpx
     
-    - name: 🎯 Run Military Exercise Scraper
+    - name: 🎯 Run Military Exercise Scraper (cumulative merge)
       run: |
-        python << 'PYTHON_SCRIPT'
-        import sys
-        import json
-        import pandas as pd
-        from pathlib import Path
-        from datetime import datetime
-        from collections import Counter
-        
-        sys.path.insert(0, 'scripts')
-        from scrapers.NavigationWarning_scraper import NavigationWarningScraper
-        
-        print('🎯 開始爬取軍事演習相關航行警告...')
-        
-        # ✅ 修正：使用正確的參數
-        with NavigationWarningScraper(delay=1.0) as scraper:
-            warnings = scraper.run(
-                days_back=365,    # 過去365天
-                max_pages=1       # 每個海事局抓1頁（約20篇）
-            )
-        
-        # 創建輸出目錄
-        output_dir = Path('data/navigation_warnings')
-        output_dir.mkdir(parents=True, exist_ok=True)
-
-        # 如果爬取失敗（0 結果），保留現有數據
-        if not warnings:
-            print('⚠️  未獲取到新數據，保留現有數據')
-            json_path = output_dir / 'military_exercises.json'
-            if json_path.exists():
-                with open(json_path, 'r', encoding='utf-8') as f:
-                    warnings = json.load(f)
-                print(f'📂 已載入現有數據: {len(warnings)} 條記錄')
-            else:
-                warnings = []
-
-        # 定義欄位
-        columns = [
-            'publish_date',       # 發布日期
-            'title',              # 標題
-            'channel',            # 海事局
-            'time_periods',       # 演習時間範圍
-            'coordinate_count',   # 經緯度數量
-            'coordinates',        # 經緯度（十進制）
-            'coordinates_raw',    # 經緯度（原始格式）
-            'content_preview',    # 內容預覽
-            'url',                # 鏈接
-            'scraped_at'          # 抓取時間
-        ]
-
-        # 保存 CSV
-        if warnings:
-            df = pd.DataFrame(warnings)
-            csv_path = output_dir / 'military_exercises.csv'
-            df.to_csv(csv_path, index=False, encoding='utf-8-sig')
-            print(f'💾 已保存: {csv_path} ({len(df)} 條記錄)')
-        else:
-            csv_path = output_dir / 'military_exercises.csv'
-            pd.DataFrame(columns=columns).to_csv(
-                csv_path,
-                index=False,
-                encoding='utf-8-sig'
-            )
-            print(f'💾 已保存空文件: {csv_path}')
-
-        # 保存 JSON
-        json_path = output_dir / 'military_exercises.json'
-        with open(json_path, 'w', encoding='utf-8') as f:
-            json.dump(warnings, f, ensure_ascii=False, indent=2)
-        print(f'💾 已保存: {json_path}')
-        
-        # 生成統計
-        if warnings:
-            coords_count = sum(1 for w in warnings if w.get('coordinate_count', 0) > 0)
-            time_count = sum(1 for w in warnings if w.get('time_periods'))
-            
-            stats = {
-                'update_time': datetime.now().isoformat(),
-                'total_warnings': len(warnings),
-                'with_coordinates': coords_count,
-                'with_time_periods': time_count,
-                'date_range': {
-                    'earliest': min(w['publish_date'] for w in warnings if w['publish_date']),
-                    'latest': max(w['publish_date'] for w in warnings if w['publish_date'])
-                },
-                'by_channel': dict(Counter(w['channel'] for w in warnings))
-            }
-        else:
-            stats = {
-                'update_time': datetime.now().isoformat(),
-                'total_warnings': 0,
-                'with_coordinates': 0,
-                'with_time_periods': 0,
-                'date_range': {'earliest': None, 'latest': None},
-                'by_channel': {}
-            }
-        
-        # 保存統計
-        stats_path = output_dir / 'statistics.json'
-        with open(stats_path, 'w', encoding='utf-8') as f:
-            json.dump(stats, f, ensure_ascii=False, indent=2)
-        print(f'💾 已保存: {stats_path}')
-        
-        # 輸出摘要
-        print(f'\n✅ 任務完成！')
-        print(f'   總計警告: {len(warnings)} 條')
-        print(f'   含經緯度: {stats["with_coordinates"]} 條')
-        print(f'   含時間範圍: {stats["with_time_periods"]} 條')
-        PYTHON_SCRIPT
+        # 累積合併模式：新資料與現有資料以 url 去重合併，歷史不會被覆蓋
+        python scripts/scrape_nav_warnings.py --max-pages 2 --days-back 365
     
     - name: 📊 Display statistics
       run: |
