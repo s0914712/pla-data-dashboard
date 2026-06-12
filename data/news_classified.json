@@ -18842,5 +18842,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军某部组织轻武器实弹射击，压弹、击发，官兵动作利落，以实战标准检验训练成果。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-12",
+      "title": "#直击东部战区练兵备战现场#【#实弹射击尽显硬核战味#】近日，东部战区空军某部组织轻武器实弹射击。压...",
+      "content": "#直击东部战区练兵备战现场#【#实弹射击尽显硬核战味#】近日，东部战区空军某部组织轻武器实弹射击。压弹、击发，官兵们动作利落，枪响与硝烟交织，以实战标准检验训练成果。（黄忠杰、王桐、黄文涛、郑祥冰）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5308893887989099",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-11",
+      "title": "#东部熄灯号#细研变局谋胜算，勤操兵器砺兵魂。#阅海峡#",
+      "content": "#东部熄灯号#细研变局谋胜算，勤操兵器砺兵魂。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5308742893310829",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-11",
+      "title": "【#书香润心铸忠诚#】近日，东部战区海军在某登陆舰支队举行“习近平强军思想引领我成长”体会交流活动。...",
+      "content": "【#书香润心铸忠诚#】近日，东部战区海军在某登陆舰支队举行“习近平强军思想引领我成长”体会交流活动。12名来自不同岗位的优秀官兵代表，立足岗位实践、回望成长历程，以真挚感悟、鲜活故事、铿锵誓言，为官兵带来一场浸润心灵、启迪初心的书香盛宴。（丁斐煜） #军营生活#",
+      "url": "https://m.weibo.cn/detail/5308622096566195",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
