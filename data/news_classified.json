@@ -18914,5 +18914,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-12",
+      "title": "#东部熄灯号#雄鹰振翼，拱卫云天。#阅海峡#",
+      "content": "#东部熄灯号#雄鹰振翼，拱卫云天。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5309105281171969",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-12",
+      "title": "【#政绩观教育宣讲在一线#】近日，武警第二机动总队某支队“蓝天卫士”理论小分队深入一线开展宣讲。情景...",
+      "content": "【#政绩观教育宣讲在一线#】近日，武警第二机动总队某支队“蓝天卫士”理论小分队深入一线开展宣讲。情景展演用兵言兵语讲真实小故事，用小切口展示大道理，让教育鲜活立体、入脑入心。（陶用、李浩阳、朱柬旭、张振）#思想政治教育#",
+      "url": "https://m.weibo.cn/detail/5308984484431819",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
