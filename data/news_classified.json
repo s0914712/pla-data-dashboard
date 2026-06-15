@@ -19202,5 +19202,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-15",
+      "title": "【#参观见学赓续红色血脉#】近日，92029部队组织官兵赴宁德市福安闽东革命纪念馆观见学。一张张珍贵...",
+      "content": "【#参观见学赓续红色血脉#】近日，92029部队组织官兵赴宁德市福安闽东革命纪念馆观见学。一张张珍贵的照片、一件件陈列的物品，在官兵的脑海中构建出先辈们不惧生死、浴血拼杀的场景。在讲解员的带领下，官兵对先辈无私奉献、拼搏奋进的精神有了更为深刻的感悟。（孙柳飞、沈晓龙、蒋文洋）  ...全文",
+      "url": "https://m.weibo.cn/detail/5310071648551182",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军组织下半夜飞行训练",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-15",
+      "title": "#直击东部战区练兵备战现场#【#下半夜飞行训练火热展开# 】近日，东部战区空军某部组织下半夜飞行训练...",
+      "content": "#直击东部战区练兵备战现场#【#下半夜飞行训练火热展开# 】近日，东部战区空军某部组织下半夜飞行训练。飞行员克服夜间飞行能见度低、身体疲劳等挑战，在夜色掩护下连续作业，锤炼胜战本领。（李建伟、张云帆、田梓航、吴宇晟 ）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5309981051323217",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
