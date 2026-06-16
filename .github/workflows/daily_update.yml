@@ -45,7 +45,9 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          # Install CPU-only PyTorch to avoid multi-GB CUDA packages that exhaust the runner disk
+          pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+          pip install --no-cache-dir -r requirements.txt
           playwright install chromium --with-deps
       
       # 4. 執行更新腳本
