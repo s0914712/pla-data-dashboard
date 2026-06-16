@@ -929,6 +929,21 @@ function hasValue(val) {
     return val && val !== '' && val !== 'FALSE' && val !== '0' && val !== 'false';
 }
 
+function getEventRemark(row) {
+    // The CSV is inconsistent: the textual transit report lives in 備考 for some
+    // rows and in `remark` for others, while `remark` also carries leftover
+    // boolean placeholders ("True"/"False") that are not real reports.
+    const candidates = [row['備考'], row.remark, row['remark']];
+    for (const c of candidates) {
+        if (!c) continue;
+        const t = String(c).trim();
+        if (t === '' || t === '-') continue;
+        if (/^(true|false)$/i.test(t)) continue;
+        return t;
+    }
+    return '';
+}
+
 function getStraitForEvent(row) {
     // Determine which strait the event occurred at
     if (hasValue(row['與那國'])) return 'yonaguni';
@@ -1007,8 +1022,7 @@ function inferLocationFromKeywords(text) {
 
 function resolveEventLocation(event, straitInfo) {
     const sources = [
-        event['備考'],
-        event.remark,
+        getEventRemark(event),
         event['艦型'],
         event['位置'],
         event['座標']
@@ -1049,7 +1063,7 @@ function renderLatestEvents() {
 
     // Find latest 3 events with remarks (sorted by date descending)
     const eventsWithRemarks = transitData
-        .filter(row => row.remark && row.remark.trim() !== '' && row.remark !== '-')
+        .filter(row => getEventRemark(row) !== '')
         .sort((a, b) => {
             const dateA = new Date(a.date?.replace(/\//g, '-') || '1970-01-01');
             const dateB = new Date(b.date?.replace(/\//g, '-') || '1970-01-01');
@@ -1093,17 +1107,18 @@ function renderLatestEvents() {
                     </div>
                     ${event['艦型'] && event['艦型'] !== '未提及' ? `<div class="mt-2"><small><strong>艦型:</strong> ${event['艦型']}</small></div>` : ''}
                     <div class="event-remark mt-2">
-                        ${event.remark || 'No details available'}
+                        ${getEventRemark(event) || 'No details available'}
                     </div>
                 </div>
             </div>
         `;
         container.innerHTML += cardHtml;
 
-        // Add marker on map for this event
-        if (straitInfo) {
-            addEventMarker(event, straitInfo, index);
-        }
+        // Always attempt to place a marker. resolveEventLocation prefers explicit
+        // coordinates parsed from the report text, then a keyword-inferred anchor,
+        // and only falls back to the strait centre, so events without a strait
+        // flag still appear on the map when their text is geolocatable.
+        addEventMarker(event, straitInfo, index);
     });
 
     const eventCards = container.querySelectorAll('.latest-event-card');
@@ -1226,14 +1241,16 @@ function addEventMarker(event, straitInfo, index) {
             ${event['艦型'] && event['艦型'] !== '未提及' ? `<div style="margin-bottom:8px;"><strong>艦型 (Vessel Type):</strong><br><small>${event['艦型']}</small></div>` : ''}
             <div style="background:#f8f9fa;padding:8px;border-radius:5px;font-size:0.85rem;line-height:1.5;">
                 <strong>Report:</strong><br>
-                ${event.remark || 'No details available'}
+                ${getEventRemark(event) || 'No details available'}
             </div>
         </div>
     `;
 
     marker.bindPopup(popupContent, { maxWidth: 350 });
     marker.on('click', () => focusEventByIndex(index, false));
-    latestEventMarkers.push(marker);
+    // Index-aligned with the event cards so focusEventByIndex looks up the right
+    // marker even when some events are not placed on the map.
+    latestEventMarkers[index] = marker;
 }
 
 function updateStatistics() {
@@ -1387,7 +1404,7 @@ function renderTable() {
             <td>${hasValue(row['聯合演訓']) ? '✅' : '-'}</td>
             <td class="${dirClass}">${direction}</td>
             <td><small>${row['艦型'] || '-'}</small></td>
-            <td><small>${row['備考'] || row['remark'] || '-'}</small></td>
+            <td><small>${getEventRemark(row) || '-'}</small></td>
         `;
         tbody.appendChild(tr);
     });
