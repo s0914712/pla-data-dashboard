@@ -19394,5 +19394,173 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.4,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-17",
+      "title": "【#帮助下连新兵尽快适应新环境# 】近日，东部战区空军某部组织春季新兵开展教育训练。通过暖心帮带与科...",
+      "content": "【#帮助下连新兵尽快适应新环境# 】近日，东部战区空军某部组织春季新兵开展教育训练。通过暖心帮带与科学施训，助力新战友快速融入军营生活，早日成长为合格的新时代革命军人。（王飞、谭家瑞）#思想政治教育#",
+      "url": "https://m.weibo.cn/detail/5310797682049415",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "陆军第73集团军某旅在东部战区海域组织冲锋舟操舟机训练，锤炼舟艇操作骨干能力",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-17",
+      "title": "#直击东部战区练兵备战现场# 【#锤炼舟艇操作骨干能力#】近日，陆军第73集团军某旅立足实战需求，依...",
+      "content": "#直击东部战区练兵备战现场# 【#锤炼舟艇操作骨干能力#】近日，陆军第73集团军某旅立足实战需求，依托驻训场周边海域组织冲锋舟操舟机训练，进一步提升官兵在复杂环境下遂行任务能力。（丁兴军、朱万福）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5310705827319150",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-16",
+      "title": "#东部熄灯号#浪作沙场磨锋刃，舟为战甲固海疆。#阅海峡#",
+      "content": "#东部熄灯号#浪作沙场磨锋刃，舟为战甲固海疆。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5310554832372218",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-16",
+      "title": "【#参观警示教育基地#】近日，东部战区空军某场站组织官兵赴驻地监狱警示教育基地参观。通过聆听讲解员典...",
+      "content": "【#参观警示教育基地#】近日，东部战区空军某场站组织官兵赴驻地监狱警示教育基地参观。通过聆听讲解员典型案例讲解、参观廉洁教育文化墙、观看服刑人员现身说法警示教育片，进一步增强官兵廉洁意识与法治观念。（周旭朝、胡泽栖、王飞）",
+      "url": "https://m.weibo.cn/detail/5310434035892554",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "夜間長航時飛行訓練",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-16",
+      "title": "#直击东部战区练兵备战现场#【#长航时飞行训练火热登场# 】近日，东部战区空军航空兵某部组织夜间长航...",
+      "content": "#直击东部战区练兵备战现场#【#长航时飞行训练火热登场# 】近日，东部战区空军航空兵某部组织夜间长航时飞行训练，在实战化环境中检验了多项战术战法，有效锤炼了部队夜间作战能力。（姚耀、谢钦春、严浩誉、朱云龙 ）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5310343439193240",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-15",
+      "title": "#东部熄灯号#晨踏朝露，苦练杀敌本领；夜枕星光，坚守岗位初心。#阅海峡#",
+      "content": "#东部熄灯号#晨踏朝露，苦练杀敌本领；夜枕星光，坚守岗位初心。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5310192444768589",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-15",
+      "title": "【新华社权威速览 | #习近平党建思想内涵要义#】",
+      "content": "【新华社权威速览 | #习近平党建思想内涵要义#】",
+      "url": "https://m.weibo.cn/detail/5310185537012755",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
