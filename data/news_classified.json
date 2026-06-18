@@ -19610,5 +19610,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "陆军第71集团军某旅高炮分队组织跨昼夜实弹射击训练，锤炼空情预警、指挥控制、火力打击等综合作战能力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.92,
+    "original_article": {
+      "date": "2026-06-18",
+      "title": "#直击东部战区练兵备战现场#【#跨昼夜实弹射击火力全开#】 近日，陆军第71集团军某旅高炮分队组织跨...",
+      "content": "#直击东部战区练兵备战现场#【#跨昼夜实弹射击火力全开#】 近日，陆军第71集团军某旅高炮分队组织跨昼夜实弹射击训练，有效锤炼了分队空情预警、指挥控制、火力打击等综合作战能力。（郭程、廖文茂、薛维高、王雨、温赛、高绪、陈果）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5311068214658662",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-17",
+      "title": "#东部熄灯号# 密林潜行藏锐影，枪鸣破雾定乾坤。#阅海峡#",
+      "content": "#东部熄灯号# 密林潜行藏锐影，枪鸣破雾定乾坤。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5310917220237850",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
