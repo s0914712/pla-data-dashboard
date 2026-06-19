@@ -17129,5 +17129,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-18",
+      "title": "#东部熄灯号#寒夜砺剑藏锐势，弹膛待啸慑八方。#阅海峡#",
+      "content": "#东部熄灯号#寒夜砺剑藏锐势，弹膛待啸慑八方。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5311279608107326",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-18",
+      "title": "【#一日三捷传军功#】近日，江苏省南京市江宁区打响了二等功臣“三响炮”，三名来自94672部队的官兵...",
+      "content": "【#一日三捷传军功#】近日，江苏省南京市江宁区打响了二等功臣“三响炮”，三名来自94672部队的官兵均荣立服务保障二等功，江宁区人武部联合区退役军人事务局通过庄重的送喜报仪式，营造“一人当兵、全家光荣”的浓厚氛围。（王婧宇）",
+      "url": "https://m.weibo.cn/detail/5311158811623711",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
