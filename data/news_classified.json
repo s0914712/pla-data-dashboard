@@ -19970,5 +19970,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.5,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-22",
+      "title": "【#一站式优惠购物服务进军营# 】近日，东部战区空军某部营区内热闹非凡。该部联合驻地政府将千余款优质...",
+      "content": "【#一站式优惠购物服务进军营# 】近日，东部战区空军某部营区内热闹非凡。该部联合驻地政府将千余款优质货品搬进营区，为官兵送上“一站式”优惠购物服务。这是深化军地融合的生动实践。（洪炜锋、熊玉峰、汪劲飞）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5312608363086278",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军某场站组织野战油库开设演练，锤炼应急油料保障能力",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-22",
+      "title": "#直击东部战区练兵备战现场# 【#锤炼应急油料保障能力# 】近日，东部战区空军某场站组织野战油库开设...",
+      "content": "#直击东部战区练兵备战现场# 【#锤炼应急油料保障能力# 】近日，东部战区空军某场站组织野战油库开设演练。为实战条件下完成油料保障任务夯实基础。（曾德龙、刘程远、张力文）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5312517766382977",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
