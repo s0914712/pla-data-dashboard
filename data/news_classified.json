@@ -20042,5 +20042,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-23",
+      "title": "【忠诚善战，气霸海空！#这支英雄部队曾3次被毛主席点将出征#】回望长空战史，同温层搏杀、零高度歼敌等...",
+      "content": "【忠诚善战，气霸海空！#这支英雄部队曾3次被毛主席点将出征#】回望长空战史，同温层搏杀、零高度歼敌等空战传奇震撼人心，王崑、舒积成、王鸿喜、高翔等空战英模的胜战故事广为流传。今天，#东部战区#新媒体“战鼓”专栏带你走进战队——“海空雄鹰团”，领略这支曾3次被毛主席点将出征的英雄部队守卫 ...全文",
+      "url": "https://m.weibo.cn/detail/5312937281192572",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-23",
+      "title": "【#深山砺兵昼夜突击#】近日，武警第二机动总队某支队组织侦察中队在陌生地域展开跨昼夜多课目连贯训练。...",
+      "content": "【#深山砺兵昼夜突击#】近日，武警第二机动总队某支队组织侦察中队在陌生地域展开跨昼夜多课目连贯训练。官兵身负重装，在泥泞路与陡崖边交替掩护、隐蔽渗透，一场真打实抗的演练在崇山峻岭间激烈打响。（张涛、陈泽清、梁烨博） #时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5312880158444144",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-22",
+      "title": "#东部熄灯号#振翅云端担使命，满腔热血护河山。#阅海峡#",
+      "content": "#东部熄灯号#振翅云端担使命，满腔热血护河山。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5312729159305049",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
