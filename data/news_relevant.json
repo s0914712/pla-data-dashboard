@@ -17537,5 +17537,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-23",
+      "title": "#东部熄灯号#冷月操戈凝劲骨，戎装亮剑护家国。#阅海峡#",
+      "content": "#东部熄灯号#冷月操戈凝劲骨，戎装亮剑护家国。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5313091547433536",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
