@@ -17585,5 +17585,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.85,
+    "original_article": {
+      "date": "2026-06-25",
+      "title": "#直击东部战区练兵备战现场#【#维护保养为战蓄能#】近日，东部战区空军某部组织开展武器装备换季保养工...",
+      "content": "#直击东部战区练兵备战现场#【#维护保养为战蓄能#】近日，东部战区空军某部组织开展武器装备换季保养工作，官兵按照规范流程陆续展开作业，确保车辆始终处于良好的技战术状态。（周毅、褚文聪、李星雨）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5313604930503068",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-24",
+      "title": "#东部熄灯号# 炎阳铸铁骨，热血砺戎装#阅海峡#",
+      "content": "#东部熄灯号# 炎阳铸铁骨，热血砺戎装#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5313453935041597",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.5,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-24",
+      "title": "【#东部战区发布重磅视频八十二#】1943年春，苏北战局危急！日伪军千余人扫荡淮海抗日根据地。危急关...",
+      "content": "【#东部战区发布重磅视频八十二#】1943年春，苏北战局危急！日伪军千余人扫荡淮海抗日根据地。危急关头，新四军82名勇士主动断后、死守刘老庄。他们血战12小时，用生命掩护机关和群众安全转移，全员壮烈牺牲。英魂不灭，薪火相传。如今“刘老庄连”精神永续，今天，东部战区新媒体“战鼓”专栏发布战例 ...全文",
+      "url": "https://m.weibo.cn/detail/5313364345753768",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
