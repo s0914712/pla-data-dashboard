@@ -20474,5 +20474,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.45,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "陆军第71集团军某旅在陌生地域进行机动演练，检验快速反应和协同配合能力",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-26",
+      "title": "#直击东部战区练兵备战现场#【#兵车辚辚向战行# 】近日，陆军第71集团军某旅组织部队在陌生地域展开...",
+      "content": "#直击东部战区练兵备战现场#【#兵车辚辚向战行# 】近日，陆军第71集团军某旅组织部队在陌生地域展开机动演练，有效检验部队快速反应、协同配合等综合作战能力。（赵钱松、黄振宇）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5313967317848246",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-25",
+      "title": "#东部熄灯号# 舱中传檄风云动，号令铿锵定四方。#阅海峡#",
+      "content": "#东部熄灯号# 舱中传檄风云动，号令铿锵定四方。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5313816326832629",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-25",
+      "title": "【#东部战区发布战歌乘风破浪的青春#】 号角声声的练兵场，手中是火热滚烫的钢枪，胸中是誓死不退的担当...",
+      "content": "【#东部战区发布战歌乘风破浪的青春#】 号角声声的练兵场，手中是火热滚烫的钢枪，胸中是誓死不退的担当。当昂扬军歌响彻四方，让赤诚热血为使命奔涌，让无畏青春向战场冲锋！今天，#东部战区#新媒体“战鼓”专栏发布战歌《乘风破浪的青春》，致敬每一位以青春护山河的人民子弟兵！#战鼓励气# （东部战 ...全文",
+      "url": "https://m.weibo.cn/detail/5313745859644415",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
