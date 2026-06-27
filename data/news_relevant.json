@@ -18564,5 +18564,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-26",
+      "title": "【感人！#空军军医捐赠造血干细胞#】近日，东部战区空军某场站军医贾鹏完成两天共 9 小时造血干细胞采...",
+      "content": "【感人！#空军军医捐赠造血干细胞#】近日，东部战区空军某场站军医贾鹏完成两天共 9 小时造血干细胞采集，为血液病患者送去生命希望。多年来他坚持无偿献血，累计 26 次献血超1万毫升。（刘彦辰、陈珊） #致敬人民子弟兵#",
+      "url": "https://m.weibo.cn/detail/5314057914548659",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
