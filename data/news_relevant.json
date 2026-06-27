@@ -1254,6 +1254,913 @@
     }
   },
   {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "Foreign_battleship": "中共航艦福建號航經台灣海峽國軍嚴密監控| 政治"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-06-23",
+      "title": "中共航艦福建號航經台灣海峽國軍嚴密監控| 政治",
+      "content": "中共航艦福建號航經台灣海峽國軍嚴密監控| 政治",
+      "url": "https://www.cna.com.tw/news/aipl/202606230350.aspx",
+      "source": "naval_transits"
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部稱7艘共艦3架共機越中線擾台，國軍監控應處"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-23",
+      "title": "7艘共艦3架次共機擾台國軍監控| 政治",
+      "content": "（中央社記者 游凱翔 台北23日電）國防部今天發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲7艘共艦、7艘公務船，以及3架次共機越中線擾北部、西南空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲7艘共艦、7艘公務船，以及6架次共機，其中3架次共機逾越台灣海峽中線，並侵擾北部、西南空域。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：林家嫻）1150623 #台灣海峽",
+      "url": "https://www.cna.com.tw/news/aipl/202606230035.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_Taiwan_interaction": "",
+      "Military_exercise": "7艘共艦、20架次共機越中線擾台",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-22",
+      "title": "7艘共艦20架次共機擾台國軍監控| 政治",
+      "content": "（中央社記者 游凱翔 台北22日電）國防部今天發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲7艘共艦、5艘公務船，以及20架次共機越中線擾北部、西南空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲7艘共艦、5艘公務船，以及23架次共機，其中20架次共機逾越台灣海峽中線，並侵擾北部、西南空域。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：林家嫻）1150622 #台灣海峽",
+      "url": "https://www.cna.com.tw/news/aipl/202606220025.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部表示，19架次共機進入台灣西南空域及西太平洋遠海長航，國軍嚴密監控並適切應處。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-21",
+      "title": "共機19架次進西太平洋遠海長航國軍嚴密監控| 政治",
+      "content": "（中央社記者 游凱翔 台北21日電）國防部今天表示，自上午8時10分起，19架次共機進入台灣西南空域及西太平洋從事「遠海長航」，國軍運用聯合情監偵手段嚴密掌握。 國防部下午發布新聞稿表示，自上午8時10分起，陸續偵獲中共殲16、空警500及運油20等各型主、輔戰機計21架次出海活動，其中19架次進入台灣西南空域及西太平洋從事「遠海長航」。 國防部強調，國軍運用聯合情監偵手段嚴密掌握，並檢派任務機、艦及岸置飛彈系統適切應處。（編輯：林克倫）1150621 #中共",
+      "url": "https://www.cna.com.tw/news/aipl/202606210100.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部稱偵獲8艘共艦、4艘公務船及2架次共機在台海周邊活動，國軍嚴密監控"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-21",
+      "title": "8艘共艦2架次共機擾台國軍監控| 政治",
+      "content": "（中央社記者 游凱翔 台北21日電）國防部今天發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲8艘共艦、4艘公務船及2架次共機，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲8艘共艦、4艘公務船，及2架次共機持續在台海周邊活動。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：蘇志宗）1150621 #共機",
+      "url": "https://www.cna.com.tw/news/aipl/202606210021.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "中共2架次輔戰機及6艘軍艦在台海西南空域活動",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-26",
+      "title": "中共8機艦台海周邊活動國軍嚴密監控應處| 政治",
+      "content": "（中央社記者 吳書緯 台北26日電）國防部表示，自昨天上午6時至今天上午6時，偵獲共機2架次進入西南空域，以及6艘共艦，總計中共8機艦持續在台海周邊活動，國軍嚴密監控與應處。 根據國防部今天公布的「中共解放軍進入台海周邊空域活動示意圖」，國軍於昨天上午7時45分至昨天上午11時55分，在台灣海峽中線以東的台灣西南空域偵獲中共2架次輔戰機。 國防部指出，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：張均懋）1150626 #中共",
+      "url": "https://www.cna.com.tw/news/aipl/202606260055.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "偵獲共機1架及共艦7艘，總計中共8機艦持續在台海周邊活動，國軍嚴密監控與應處",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-27",
+      "title": "中共8機艦台海周邊活動國軍嚴密監控應處| 政治",
+      "content": "（中央社記者 吳書緯 台北27日電）國防部表示，自昨天上午6時至今天上午6時，偵獲共機1架及共艦7艘，總計中共8機艦持續在台海周邊活動，國軍嚴密監控與應處。 根據國防部今天公布的「中共解放軍進入台海周邊空域活動示意圖」，國軍於昨天上午8時10分至昨天上午10時50分，在台灣海峽空域偵獲中共1架輔戰機。 國防部指出，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：林淑媛）1150627 #中共解放軍",
+      "url": "https://www.cna.com.tw/news/aipl/202606270034.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國國防部發言人稱東風-17實彈發射是紀念戰略導彈部隊建軍60週年，不必過度解讀。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-26",
+      "title": "東風17實彈發射首度曝光共軍：不必過度關聯解讀| 兩岸",
+      "content": "（中央社台北26日電）中國中央電視台日前首度曝光共軍東風-17高超音速飛彈的實彈發射畫面，由於近期多場大規模軍事演習聚集亞太，因而引起關注。對此，中共國防部發言人張曉剛25日表示，今年是中共戰略導彈部隊組建60週年，有關報導反映建設發展情況，不必過度關聯解讀。 本周有三場大規模軍事演習聚集亞太。環太平洋軍事演習於6月24日至7月31日在夏威夷群島及其周邊地區舉行。本次演習共有31個國家參加，參演規模創下歷史新高。與此同時，美日「堅毅之龍」、「英勇盾牌」兩大聯合軍演同步在西太平洋展開。 近日，中國央視首次曝光了東風-17高超音速飛彈的實彈發射畫面。有分析指出，畫面公佈的時間點是在七國集團峰會（G7）剛結束，環太平洋軍演啟動前，是在釋放中共解放軍有能力實施遠端精確打擊的訊號。",
+      "url": "https://www.cna.com.tw/news/acn/202606260213.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "CN",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "美日『勇敢之盾2026』大規模軍演、台灣『立即備戰操演』、環太平洋軍演(RIMPAC)31國參與",
+      "Foreign_battleship": "",
+      "Political_statement": "張曉剛稱解放軍高度戒備，批評民進黨製造緊張，稱福建艦航行例行訓練"
+    },
+    "confidence": 0.93,
+    "original_article": {
+      "date": "2026-06-25",
+      "title": "國際多場軍演登場中國似被針對稱高度戒備| 兩岸",
+      "content": "（中央社記者 張淑伶 北京25日電）國際上正有多場軍演，被認為針對中國的意味濃厚。中國國防部發言人張曉剛今天稱，解放軍始終保持高度戒備。對於福建艦23日航經台灣海峽，陸方稱這是例行訓練。 國軍22日起展開一連5天「立即備戰操演」。今天中國國防部例行記者會上，有媒體提問，美日正展開「勇敢之盾2026」大規模軍演，台灣也同步舉行備戰操演，雙方演訓時間高度重合，針對台海的意味很強，中方有何評論。 張曉剛稱，「民進黨當局蓄意製造緊張」，「靠軍演壯膽換不來真正安全」，並指中共解放軍始終保持高度戒備，「堅決挫敗任何台獨妄動」。 不過，對於台灣國防部本月初嚴密掌握並公開共軍無偵10無人機騷擾台灣周邊海、空域的影像，張曉剛卻稱，共軍在台灣島周邊開展演訓活動是「合理合法、光明正大」。 另外，在國軍展開「立即備戰操演」之際，中共航艦福建號23日航經台灣海峽，國軍運用聯合情監偵手段嚴密監控，同時也披露甲板上無艦載機的監控照片。 張曉剛說，這是福建艦展開的例行訓練，今後還會繼續組織。 海上跨國軍事演習「環太平洋軍演」24日登場，今年共有31國參與，包括應對灰色地帶威脅、潛在對手以及威權擴張。",
+      "url": "https://www.cna.com.tw/news/acn/202606250329.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_TW_Interaction",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "TW",
+    "sentiment_score": 0.55,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "前美國副總統國安特別顧問艾斯特普稱更緊密台美夥伴關係是台海平衡重要元素，讚美台防衛支出增加，指出國會兩黨支持是關鍵。",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-23",
+      "title": "美前官員：更緊密台美關係是台海平衡重要元素| 政治",
+      "content": "（中央社記者 廖漢原 紐約22日專電）前美國副總統國安特別顧問艾斯特普今天在紐約舉行的研討會指出，更緊密的美台夥伴及合作關係仍是美中台各方平衡的重要元素；美國行政部門支持台灣訊號雖時有混亂，但國會兩黨高度支持才是重點。 費城智庫「外交政策研究所」（Foreign Policy Research Institute，FPRI）研究員暨前美國副總統賀錦麗（Kamala Harris）的國家安全特別顧問艾斯特普（Chris Estep），22日在駐紐約辦事處舉行的「台灣的戰略展望及美台關係的未來」研討會提出上述說法。 艾斯特普指出，美國政策制定者讚揚台灣近期採取行動提高防衛支出，這是重要的。從台海安全局勢及北京習慣性軍事支出來看，很清楚的，更緊密的台美夥伴關係與合作仍然是各方平衡的重要部分。 他強調，美國挺台若要獲得（美國民眾）的支持，以這種方式向（美國）中間選民說明，相信他們會瞭解美國在重要夥伴的防衛能力上仍扮演重要角色。 艾斯特普分析，對擁有傳統軍事優勢的國家而言，要將傳統優勢轉化為可接受的政治結論，未來的戰爭形式只會更為困難，在中東及烏克蘭、俄羅斯等都有案例。台北與華府政策制定者面臨的難題與挑戰，北京同樣要面對。 他認為，未來數年中國國家主席習近平與北京官員必須處理軍事行動上的問題，共軍的老問題不會自己解決。美中台三方政策決定者未來都得思考困難在哪，組合不同的拼圖，同時納入現存不同形狀與大小的拼圖，這對北京來說將更形困難。 艾斯特普表示，美國行政部門支持台灣訊號雖時有混亂，但國會兩黨仍高度支持台灣，這才是重點，美國的工具也從軍售擴大到軍事融資、總統授權撥款及台灣安全合作協議等。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aipl/202606230058.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "CN",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "民進黨中國部稱台海和平穩定已成民主國家共同語言，批評中國單方面改變現狀。"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-06-25",
+      "title": "民進黨中國部：台海和平是民主國家共同語言| 政治",
+      "content": "（中央社記者 葉素萍 台北25日電）英國、法國、德國駐台機構以聯合聲明反對任何單方面改變台海現狀的行為。AIT也表示，中國試圖在台灣和平管理長達70多年的海域行使管理權，加劇緊張情勢。民進黨中國部今天說，台海和平穩定已成為民主國家共同語言。全世界愈來愈清楚，誰在維持和平、誰在製造麻煩。 民進黨中國部透過臉書發文指出，最近幾天國際社會接連對中國在台灣周邊的挑釁行動發出明確訊號，顯示國際社會對中國威脅的認知，已從單一事件提升為對整個印太安全秩序的共同關切。 民進黨中國部說，從近5年的發展來看，無論是G7、美日韓峰會、歐盟、北約、QUAD、美澳雙長會議，甚至各國元首雙邊峰會，「維持台海和平穩定、反對片面改變現狀」，已經成為民主國家共同語言。",
+      "url": "https://www.cna.com.tw/news/aipl/202606250055.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "CN",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "第30屆環太平洋軍事演習（RIMPAC）於2026年6月25日在夏威夷檀香山開幕，由美軍指揮官賈布隆領導，參與國家包括美國、日本、南韓等。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-25",
+      "title": "史上最大環太平洋軍演登場指揮官：以實力求和平| 國際",
+      "content": "（中央社記者 林宏翰 夏威夷檀香山24日專電）第30屆環太平洋軍事演習今天開幕，指揮官賈布隆回答中央社記者提問，表示「美軍奉行『以實力求和平』，嚇阻就是我們透過實力維持和平的方式」。 2026年第30屆環太平洋軍事演習聯合部隊指揮官賈布隆（左）與日本（中）、韓國（右）將領出席開幕記者會。本次演習，南韓首次擔任海上聯合部隊指揮官。中央社記者林宏翰夏威夷檀香山攝 115年6月25日",
+      "url": "https://www.cna.com.tw/news/aopl/202606250045.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Regional_Security",
+    "is_relevant": true,
+    "country1": "AU",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "美、日、台、澳合作鋪設海底電纜提升太平洋島國數位韌性",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "維持台海和平與穩定符合澳洲及整體印太區域的利益"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-24",
+      "title": "澳洲新州議會印太夥伴茶會跨黨派議員挺台海和平| 政治",
+      "content": "（中央社記者 丘德真 雪梨24日專電）澳洲新南威爾斯州（NSW）州議會台灣、美國及日本三大友誼小組今天聯合舉辦「印太夥伴交流」茶會，跨黨派州議員與會強調，維持台海和平與穩定符合澳洲及整體印太區域的利益，民主國家有責任攜手捍衛核心價值。 新州州議會今天舉辦「印太夥伴交流：彰顯共享價值，鏈結區域友誼」聯合茶會，日本駐雪梨總領事山中修、美國駐雪梨總領事柯傑民（Jeremy Cornforth）及駐雪梨台北經濟文化辦事處長吳正偉應邀出席。 這次活動由新州議會「友美小組」主席麥克雷倫瓊斯（Natasha Maclaren-Jones），以及「友日小組」主席庫克（Stephanie Cooke）共同主持。 麥克雷倫瓊斯致詞表示，這次交流展現了新州議會跨黨派的高度共識；她指出，面對全球地緣政治情勢日益動盪，台、美、日、澳夥伴關係不僅互利互惠，也共享民主、法治及尊重主權等珍貴價值。 麥克雷倫瓊斯強調，維持台海和平與穩定符合澳洲乃至整體印太區域的利益；任何國家都有權決定自己的未來，民主國家有責任攜手捍衛核心價值。 庫克致詞時表示，作為全球經濟成長與創新核心區域的印太地區，正面臨嚴峻的挑戰，當前台海、南海局勢緊張，有國家企圖以脅迫手段改變現狀，澳、美、日、台等夥伴必須高度警惕，共同捍衛航行自由、自由貿易及和平解決爭端等核心原則。 美國駐雪梨總領事柯傑民（Jeremy Cornforth）發表簡報時提到，美、日、台、澳、紐等理念相近5國與 Google合作，共同為吐瓦魯（Tuvalu）等太平洋島國家鋪設海底電纜，提升區域數位韌性；此外，美、日、台、澳亦在馬紹爾群島（Marshall Islands）攜手支持島國永續發展。 吳正偉在會中簡報指出，印太區域的自由、安全與繁榮，是區域內各成員休戚與共、彼此牽動的共同關注議題。 吳正偉強調，台灣致力提升自我防衛能力，感謝美國政府堅定承諾、持續對台販售防衛性武器；他也對澳、日持續關注、支持台海和平穩定表達謝忱。 吳正偉強調，美、日、歐及拉美民主盟友均與台灣深化合作，並且從中獲益；他認為新州亦能複製此成功模式，盼新州設立駐台貿易辦公室，提升合作關係。 吳正偉並在新州跨黨派議員及各國領事團共同見證下，代表外交部頒贈「睦誼外交獎章」給新州議會「友台小組」主席羅伯茲（Anthony Roberts）以及共同主席麥德莫特（Hugh McDermott），表彰他們長期支持深化台澳關係，以行動力挺台灣國際參與等重要推案之卓越貢獻。 羅伯茲致謝詞表示，自2013年擔任「友台小組」主席至今，個人家庭與台澳關係一同茁壯成長。他比喻台、美、日等盟友為真正的「逆境摯友」（winter friends）；在最艱困的時刻依然攜手相挺、不離不棄。",
+      "url": "https://www.cna.com.tw/news/aipl/202606240353.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_Statement",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "CN",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國國防部呼籲美方促進地區和平穩定，亞太非地緣博弈棋局"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-25",
+      "title": "美軍印太司令部更名為對付中國？北京回應| 兩岸",
+      "content": "（中央社記者 張淑伶 北京25日電）美軍「印太司令部」日前改回舊稱「太平洋司令部」，分析指這是美方要集中有限資源對付中國。中國國防部發言人張曉剛說，希望美方多做促進地區和平穩定的事。 張曉剛今天在中國國防部例行記者會上被問到相關問題時說，「改名是美軍自己的事」。但他強調，亞太是和平發展的高地，不是地緣博弈的棋局，希望美方多做真正有利於增進互信，促進地區和平穩定的事。 香港科技大學榮休教授丁學良24日在信報刊文表示，目前美國政府抓住的主要矛盾是太平洋區域，也就是針對中國增長的軍力。美軍目前把「印度」從戰區司令部的名稱中砍掉，主要是資源不足，不得不把有限軍費集中用在中國周邊。",
+      "url": "https://www.cna.com.tw/news/acn/202606250291.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_Statement",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "美官員稱美對台政策未變，中方在美中會談必提台軍售，未違背六項保證"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-26",
+      "title": "美官員：美中會談中方必提軍售未悖離六項保證| 政治",
+      "content": "（中央社記者 廖漢原 紐約25日專電）美國國務院亞太助卿戴桑布雷今天在聯邦眾議院外交委員會聽證會指出，美國對台政策沒有改變。議員質疑總統川普的談話顯示違背六項保證；他強調，美中所有會談中方都會提到台灣與軍售。這經常討論，但沒有悖離六項保證。 中國及美國國旗示意圖。（Shutterstock圖庫）",
+      "url": "https://www.cna.com.tw/news/aipl/202606260032.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_TW_Interaction",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "US",
+    "sentiment_score": 0.62,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "立法院長韓國瑜率跨黨派立委訪華府，獲超過30位美國聯邦眾議員支持，呼籲批准140億美元對台軍售並推動美台避免雙重課稅。",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "美議員跨黨派支持台軍售及避免雙重稅"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-06-25",
+      "title": "韓國瑜率團訪華府美議員挺軍售、避免雙重課稅| 政治",
+      "content": "（中央社記者 侯姿瑩 華盛頓24日專電）立法院長韓國瑜率跨黨派立委訪問華府，今天出席駐美代表處舉辦的歡迎酒會，活動也有超過30位美國聯邦眾議員參加。議員表示，美國會對台支持是跨黨派的，呼籲川普政府批准140億美元對台軍售，美台避免雙重課稅也必須達陣。 韓國瑜21日率跨黨派立委訪美，繼鳳凰城後，昨晚抵達華府。訪團今天會晤7位民主黨籍聯邦參議員，包括參院外交委員會民主黨首席議員夏亨（Jeanne Shaheen）、參議員達克沃斯（Tammy Duckworth）及金安迪（Andy Kim），下午接著出席駐美代表處在美國聯邦眾議院朗沃斯辦公大樓（Longworth House Office Building）舉辦的國會台灣連線酒會。 出席酒會的美議員包括前眾議院議長裴洛西（Nancy Pelosi）、眾議院「國會台灣連線」共同主席貝拉（Ami Bera）及史坦頓（Greg Stanton）、眾院外交委員會榮譽主席麥考爾（Michael McCaul），以及趙美心（Judy Chu）、劉雲平（Ted Lieu）等33位聯邦眾議員，橫跨民主、共和兩黨。 裴洛西致詞表示，美國國會對台灣的支持是跨黨派的，參、眾兩院都是如此。 貝拉指出，美台關係依舊強健，「台灣關係法堅定不移、六項保證堅定不移、我們不會就對台軍售進行談判，這是我們的政策」。台灣的未來必須由台灣人民決定。 他還說，很高興看到代表所有台灣黨派的代表團來訪。 另一方面，趙美心強調，雙重課稅是美台之間需要解決的一大問題，這是她將此議題列為自己在國會首要任務之一的原因。身為聯邦眾議院歲計委員會（House Ways and Means Committee）成員，她先前協助推進「美台快速雙重稅收減免法案」，這項法案已在眾議院高票通過。 她說，「我們必須讓參議院開始審議，然後讓它簽署成法」，以加強美台夥伴關係。 在安全議題方面，劉雲平認為，阻止中國做出愚蠢舉動的最佳方法，是確保印太地區的所有國家都有資源來防衛自己。他呼籲川普政府批准140億美元的對台軍售。",
+      "url": "https://www.cna.com.tw/news/aipl/202606250127.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_TW_Interaction",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "美國民主黨參議員會晤立院訪團，發表聲明促川普政府勿延宕對台140億美元軍售，並讚賞台250億美元特別防衛預算。",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "美國民主黨參議員促川普政府勿延宕對台140億美元軍售，讚賞台250億美元特別防衛預算。"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-06-25",
+      "title": "民主黨參議員會立院訪團籲川普政府勿延宕對台軍售| 政治",
+      "content": "（中央社記者 廖漢原 紐約24日專電）美國聯邦參議院外交委員會民主黨首席議員夏亨與同黨籍議員，今天會晤立委訪問團。議員們發表聲明指出，對立院跨黨派推進250億美元特別防衛預算感到鼓舞，川普政府不應再延宕140億美元對台軍售案。 參院外委員會民主黨首席議員夏亨（Jeanne Shaheen）及民主黨籍參議員達克沃斯（Tammy Duckworth）、夏茨（Brian Schatz）、羅森（Jacky Rosen）、默克利（Jeff Merkley）、安迪．金（Andy Kim）與絲拉金（Elissa Slotkin），24日會晤立院訪團並發表聲明。 聲明指出，感謝與立法院長韓國瑜及各黨立委討論美台堅實夥伴關係的機會，雙方關係奠基於共享民主價值及印太地區和平穩定的共同承諾。根據台灣關係法與六項保證，美國致力維繫對台灣緊密友好關係，提供防衛性武器並支持遏制中華人民共和國日益增加的脅迫。 美方也歡迎台灣對美國經濟的歷史性投資，這將創造美國民眾高收入就業機會，促進科技產業發展。國會應持續推進處理雙重課稅的立法工作，緩解美台業者的負擔。 聲明寫道，台灣立法院跨黨派持續積極推進250億美元（新台幣7800億元）特別防衛預算，美方對此感到鼓舞。台灣可由美國提供的防衛性武器，提高自衛能力。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aipl/202606250078.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_TW_Interaction",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "US",
+    "sentiment_score": 0.5,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "立法院長韓國瑜率跨黨派立委訪美，參訪台積電亞利桑那州廠並與台商供應鏈座談",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-23",
+      "title": "韓國瑜訪台積電亞利桑那州廠與業者座談交換意見| 政治",
+      "content": "（中央社記者 劉冠廷 台北23日電）立法院長韓國瑜率跨黨派立委訪美，於美國鳳凰城時間22日下午前往台積電亞利桑那州廠參訪，與10餘家赴美投資的台積電供應鏈廠商座談交流，聽取業者分享在美設廠及營運情形，並就人才招募、法規調適、建廠成本及簽證申請等議題交換意見。 立法院長韓國瑜率跨黨派立委訪美，於美國鳳凰城時間22日下午前往台積電亞利桑那州廠參訪，與10餘家赴美投資的台積電供應鏈廠商座談交流。（立法院提供）中央社記者劉冠廷傳真 115年6月23日",
+      "url": "https://www.cna.com.tw/news/aipl/202606230129.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-25",
+      "title": "忠魂永留存——两岸同胞在北京西山追思无名英雄",
+      "content": "”25日，白色恐怖受难者遗族家属、台湾隐蔽战线烈士后代等共约40位两岸同胞齐聚北京再度吟唱这段旋律，以一曲《安息歌》缅怀先烈、遥寄哀思。 6月25日，台湾地区政治受难人互助会总会长李素慧向无名英雄献花（手机照片）。新华社记者 王承昊 摄 松柏苍苍，群山肃穆。上午9时许，一行人来到北京西山无名英雄纪念广场。这座2013年落成的广场坐西朝东、气势恢宏，专门纪念1950年代为国家统一、人民解放事业牺牲于台湾的隐蔽战线无名英雄。 众人沿石阶缓步拾级而上，两侧的灰白花岗岩纪念墙上，846位埋骨宝岛的烈士英名熠熠生辉。从上海专程赶来、年近八旬的蔡健驻足墙前，一眼便认出了父亲蔡文仲的名字。 “我1岁时父亲便奔赴台湾，与家人基本没有联系。”起初，蔡健不知父亲为何离开，后来通过台湾亲历者的转述及档案的公开，他才逐渐了解、读懂父亲。“父亲最终在台北马场町英勇赴死，他怀揣祖国统一、改造社会的理想从容就义。如今，他的名字被镌刻于此，我心中既有慰藉，更有难以言说的自豪。” 青山不语，忠魂永存。来到广场正中，一座长14米、高4米的纪念碑巍然屹立，5组浮雕再现了隐蔽战线的5个战斗场景，浮雕前，以吴石、朱枫、陈宝仓、聂曦为原型的英雄雕像赫然伫立，现场两岸同胞在这里默哀、献唱、献花、鞠躬，共同追思先烈，抒发期盼祖国早日实现完全统一的赤诚心愿。 6月25日，两岸同胞向无名英雄纪念碑鞠躬致敬（手机照片）。新华社记者 王承昊 摄 陈宝仓烈士的孙女陈怡来到现场，距离她上一次到此追思祖父不过十余日。6月10日，这里刚举办纪念吴石、朱枫、陈宝仓、聂曦烈士牺牲76周年的活动，彼时她便专程到场缅怀先辈。 “随着电视剧《沉默的荣耀》的热播，这段悲壮往事走进了公众视野。不少两岸年轻人了解后，心中都涌起对无名先烈深深的崇敬。”家住北京的陈怡常走进高校和民主党派进行宣讲，一遍遍讲述先辈潜伏斗争的过往，“老一辈都慢慢不在了，但这段用生命书写的家国记忆不能断线，传承先烈的理想与精神是我们后人的责任。” 海峡相望，丹心相承。台湾地区政治受难人互助会是岛内规模最大的白色恐怖政治受难人团体，以“爱乡爱国改造社会、民主统一走向富强”为基本立场，每年都会在台湾举办春祭、秋祭，致敬先烈。 “今天在北京西山无名英雄纪念碑前，我们缅怀追思先烈英雄事迹，宣扬先辈爱国爱乡精神，向烈士报告这盛世如你们所愿。我们相信团结两岸珍惜和平的中国人，实现中华民族伟大复兴，完成国家统一必将胜利。”互助会总会长李素慧高声诵读祭文，恳切字句直抵人心。 李素慧的父亲李苍降在日据时期曾因阅读反日书籍而入狱。1947年，李苍降在台湾秘密加入中国共产党，后因此被捕，于1950年被枪决。李苍降被捕时，他的妻子曾碧丽已怀有身孕，在狱中生下女儿。 李素慧的微信昵称是“黎红”，这个名字源自父亲的遗言。“父亲嘱托母亲，若是孩子平安出世，便取名‘黎红’。他希望自己的孩子和祖国一样，像‘黎明的红日’，冉冉上升，拥有希望和未来。”她说。 斯人已逝，薪火永续。“每一次到西山祭奠，都是我们向先烈的庄严宣誓。”互助会秘书长蔡裕荣动情地说，当年无数先辈怀揣民族解放、改造社会、国家统一的理想从容就义，以滚烫鲜血铺就后人前行之路。“今日我们齐聚碑前追思致敬，便是要接续先辈未竟之志，守住爱国统一的赤诚信念。期盼两岸早日迎来完全统一，告慰所有埋骨宝岛的无名英雄。”",
+      "url": "https://www.news.cn/tw/20260625/8031e110d9c54e73b15e8b5be317eeab/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.85,
+    "original_article": {
+      "date": "2026-06-25",
+      "title": "海峡零距离丨“阿公阿嬷，我回家了！”",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
+      "url": "https://www.news.cn/tw/20260625/6e2ab460cfed48b2a067423929a12c28/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.65,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-24",
+      "title": "两岸影展台北启幕——电影告诉我们：两岸没有距离",
+      "content": "” 台湾两岸电影交流委员会主任委员、台湾导演朱延平表示 两岸电影展举办17年来从未中断 培养出一批忠实观众 不少台湾观众喜爱《长安的荔枝》 有人为配合电影风格 特意身着马面裙前来观影 人们期盼这样的活动越办越多 通过电影进一步了解大陆 影展期间，多位大陆电影人 参加多场面向观众的映后谈和行业交流活动 《日掛中天》主演张颂文说 “两岸”听起来是距离 但在饮食习惯、文化习俗上 “一点距离都没有” 光影不息，交流不断 印证两岸共同的文化与情感 见证两岸从未走远 也必将越走越近 记者：褚萌萌 李建华 视频：张泽钰 马鸣达（实习生） 新华社对外部制作",
+      "url": "https://www.news.cn/tw/20260624/092c77e1237d46ad83e00247abe1be5f/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.65,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中国国防部警告坚决挫败台独妄动，称统一大势不可阻挡"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-06-25",
+      "title": "国防部：坚决挫败任何“台独”妄动",
+      "content": "有记者问，美日正在开展“英勇盾牌”大规模军演，台军同步举行备战操演，双方演训时间高度重合，针对台海的意味很强，请问对此有何评论？ “民进党当局蓄意制造紧张，升高两岸对立对抗，不得人心。靠军演壮胆换不来真正安全。不管是谁，把对抗当成常态，把民生福祉放在政治私利之后，最终都将付出相应代价。”张晓刚表示，解放军始终保持高度戒备，坚决挫败任何“台独”妄动。 有记者就台湾地区领导人赖清德近日表示不会放弃提高防务支出等情况提问。张晓刚表示，民进党当局变本加厉挥霍台湾老百姓的血汗钱，投入毫无意义的军购无底洞，加速把台湾推入兵凶战危险境。正告民进党当局，统一大势不可阻挡，“以武谋独”必将自取灭亡。 有记者问，据报道，赖清德称推动无人机产业是台湾重大政策，无人机可以塑造“地狱景象”，吓阻效果巨大。请问对此有何评论？ 张晓刚表示，赖清德总想把台湾民众往火坑里推，大肆谋“独”引战，挑动两岸对立对抗。要和平还是战争，要人间烟火还是“地狱景象”？相信台湾老百姓有自己的选择。 “希望台湾同胞认清赖清德‘战争制造者’‘和平破坏者’的邪恶面目，坚守大义、顺应大势，与我们一道反对‘台独’分裂，守护中华民族共同家园。”张晓刚说。 有记者问，赖清德与外媒会见时表示，台湾“拒绝‘一国两制’和中国共产党统治”不应被解读为挑衅，并呼吁大陆放弃“武力攻台”。请问对此有何评论？ 张晓刚表示，“和平统一、一国两制”是我们解决台湾问题的基本方针，是实现祖国统一的最佳方式，对两岸同胞和中华民族最有利。当前赖清德当局顽固坚持“台独”立场，不断谋“独”挑衅，是危害台湾安全的根源所在。 “我们决不允许‘台独’分裂势力以任何名义、任何方式把台湾从中国分裂出去。任何分裂祖国的势力和行径必将遭到全中国人民的迎头痛击。”张晓刚说。",
+      "url": "https://www.news.cn/tw/20260625/f606091dc77c41749569c768f3e32d2e/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中方注意洪都拉斯澄清台当局‘复交’谎言，坚持一个中国原则，台独逆流注定失败。"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-06-25",
+      "title": "中方注意到洪都拉斯对台湾当局“复交”谎言作出澄清",
+      "content": "这再次说明坚持一个中国原则是国际大义、人心所向、大势所趋，“台独”势力和民进党当局逆潮流而动，不得人心，注定失败。 当日例行记者会上，有记者问：据报道，近期台湾外事部门负责人称，台当局正同洪都拉斯政要及社会群体就所谓台洪“复交”进行对话磋商。日前，洪外交部在社交媒体发声，澄清洪并未就“复交”事同台湾当局保持官方对话或接触。洪外事主管部门将根据现行外交承诺实施国家外交政策。中方对此有何评论？ 郭嘉昆说，中方注意到洪都拉斯政府已经对台湾当局的谎言作出澄清。这再次说明坚持一个中国原则是国际大义、人心所向、大势所趋，“台独”势力和民进党当局逆潮流而动，不得人心，注定失败。 郭嘉昆说，中洪建交以来，双边关系在一个中国原则基础上实现快速发展，各领域务实合作助力洪经济社会建设。事实充分证明，中洪建交符合两国和两国人民根本和长远利益。中方愿在一个中国原则基础上，推动中洪关系不断向前发展。",
+      "url": "https://www.news.cn/tw/20260625/8cebb5d07ae745c08bdbc9cae38e755f/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.62,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国台办称和平统一后台湾同胞将共享国家尊荣，获更多国际空间与福祉。"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-06-24",
+      "title": "国台办：和平统一后，台湾同胞将共享国家尊严和荣耀",
+      "content": "台湾的对外交往渠道将全面拓宽，台湾同胞将以主人翁身份参与国际事务；台商台企将深度融入全球供应链产业链，在全球市场的发展空间更大、竞争力更强；台湾同胞在海外能更便捷、更顺畅得到祖国的支持和帮助。 张晗指出，中国是联合国安理会常任理事国，提出全球发展倡议、全球安全倡议、全球文明倡议、全球治理倡议，国际影响力、感召力、塑造力显著提升。目前，中国同183个国家建交，同各国和地区组织的伙伴关系数量增加到153对；中国已经是160多个国家和地区的主要贸易伙伴，与31个国家和地区签署24个自贸协定，加入了几乎所有普遍性政府间国际组织，参加了600多项国际公约及修正案；推动创建金砖国家新开发银行、亚洲基础设施投资银行、世界互联网大会国际组织、国际调解院等多边机制。我们的“朋友圈”持续壮大，是世界和平的建设者、全球发展的贡献者、国际秩序的维护者、公共产品的提供者。 她表示，实现两岸和平统一，不仅是中华民族和中国人民之福，也是国际社会和世界人民之福。中国的统一，不会损害任何国家的正当利益包括其在台湾的经济利益，只会为台湾同胞带来更多福祉，只会给各国带来更多发展机遇，只会给亚太地区和世界繁荣稳定注入更多正能量，只会为构建人类命运共同体、为世界和平发展和人类进步事业作出更大贡献。 今年是孙中山先生诞辰160周年。张晗答问表示，孙中山先生是伟大的爱国主义者、中国民主革命的伟大先驱，他的精神和情怀是两岸同胞共同的精神财富。6月27日至29日，第六届海峡两岸中山论坛将在广东中山举办。论坛以“弘扬中山先生奋斗精神，共谋中华民族伟大复兴”为主题，活动内容包括开幕式、分论坛和台湾高层次人才湾区行交流、“中山先生与台湾”档案史料展等9项活动。",
+      "url": "https://www.news.cn/tw/20260624/7af2e273b7a542dcaca01b59c0d454fa/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.65,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国台办谴责赖清德台独言论，警告不排除使用武力，促其接受九二共识。"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-06-24",
+      "title": "国台办：赖清德对外叫嚣坐实“台独”陷入穷途末路",
+      "content": "民进党当局顽固坚持“台独”分裂立场，妄图改变两岸同属一个中国的台海现状，是对二战胜利成果的否定、是对战后国际秩序的挑战。国际社会坚持一中原则、反对“台独”分裂普遍共识和岛内要和平、要发展、要交流、要合作的主流民意，充分证明“台独”分裂没有出路，“反中抗中”注定失败。赖清德频频对外叫嚣，恰恰暴露其内心的焦虑与不安，坐实“台独”日益陷入穷途末路。 有记者问：赖清德近日称，“台湾主权在民，中华民国与中华人民共和国互不隶属”、“台湾前途只有2300万人可以决定”，宣称“台湾愿与国际社会合作维持台海现状”。请问对此有何评论？张晗在答问中作上述表示。 她说，世界上只有一个中国，台湾是中国的一部分，台湾是全体中国人的台湾，台湾的前途只能由包括台湾同胞在内的14亿多中国人共同决定。无论赖清德说什么、做什么，都改变不了台湾是中国领土一部分的历史和法理事实，阻挡不了祖国终将统一、也必将统一的历史大势。 赖清德近日称，“呼吁中国放弃在南海、东海及台海扩军，也放弃武力攻打台湾”，并称台湾“愿在对等尊严的原则下与中国进行交流合作，促进和平共荣发展”。对此，张晗应询评论指出，当前，南海和东海局势保持总体稳定。民进党当局顽固坚持“台独”分裂立场，妄图“倚外谋独”“以武谋独”，是台海局势紧张动荡的根源，也是地区和平稳定的“麻烦制造者”。 她强调，我们愿以最大诚意、尽最大努力争取和平统一的前景，但决不承诺放弃使用武力，决不为任何形式的“台独”分裂活动留下任何空间。民进党当局只有承认体现一个中国原则的“九二共识”，停止“台独”分裂行径，两岸协商对话才能恢复，两岸关系才能重回和平发展的正确轨道。",
+      "url": "https://www.news.cn/tw/20260624/2cd4b59035934b6eb113346b10ee8dc6/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國台辦批評台當局阻礙海峽論壇農產品簽約，稱其做法不得人心，呼籲順應民意促進兩岸交流"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-24",
+      "title": "台当局扬言查处海峡论坛签约业者 国台办：不得人心",
+      "content": "我们秉持“两岸一家亲”理念，采取一系列措施，与岛内有关团体、热心人士帮助台湾农渔民朋友拓展大陆市场，为台湾农渔产品找出路、拓销路、稳收益，深受广大台湾民众的欢迎。民进党当局对此横加阻拦，甚至扬言要查处相关业者，专横跋扈，莫此为甚。台湾农渔业界的强烈愤慨、岛内舆论的纷纷谴责，表明民进党当局的做法不得人心、千夫所指。 有记者问：台陆委会主委邱垂正近日称，将要求农业部门对赴海峡论坛参与农渔产品对接签约的花莲等地5个农渔业团体进行查处，引发岛内舆论广泛批评。请问对此有何评论？张晗作上述回应。 对于大陆在海峡论坛期间宣布采购台东凤梨释迦、屏东石斑鱼等农渔产品，邱垂正称，大陆长期将农产品作为对台“统战”工具，并通过政治条件影响市场，不希望农民落入“养套杀”陷阱。张晗就此指出，民进党当局动辄攻击、抹黑大陆，利用民生问题进行政治操弄，再次暴露了他们与民为敌、“逢中必反”的恶劣本质。是谁在为台湾农民朋友们着想，是谁在损害他们的利益，台湾农民朋友们心中自有一杆秤。奉劝民进党当局顺应岛内主流民意、回应业界呼声，多做促进两岸交流合作的事，而不是与民为敌、挡民获利。 她说，“统战”是统一战线的简称，“大团结、大联合”是统一战线的永恒主题。日本侵华战争全面爆发后，抗日民族统一战线正式形成，为取得抗日战争的伟大胜利作出了伟大贡献。现在“统战”的主要意涵还是“团结”，还是凝聚人心、汇聚力量。民进党当局一再把“统战”污名化，并用以抹黑大陆惠台利民政策、两岸交流活动等，用心险恶。希望广大台湾同胞厘清“统战”的本源、本义，勿再受其愚弄、蛊惑。 台陆委会发言人梁文杰近日称，“凤梨释迦台湾人几乎不吃，可以说是完全仰大陆鼻息的农产品”，引发岛内舆论哗然。张晗就此答问指出，民进党当局一贯漠视民瘼、罔顾民生、损害民利，不仅不关心、不在意、不解决岛内基层农渔民的生计问题，还挖苦、轻视、贬损农渔业者的劳动成果，攻击、污蔑、抹黑大陆的好意善意。公道自在人心，其胡作非为已在岛内激起民怨。民进党当局如不停止政治操弄、停止阻限两岸交流合作，必遭民意更大反噬。 张晗在回答相关问题时还指出，民进党政客高高在上、自以为是，不知民间疾苦。道歉，并不能平息农渔民的怒火，也挽回不了失去的人心。民进党当局最应该道歉的是违背岛内主流民意、阻挡两岸交流合作，最应该改变的是“台独”分裂立场和谋“独”挑衅行径。 对于台东县长饶庆铃以视频方式参与海峡论坛期间有关采购岛内农渔产品签约会，邱垂正称，饶庆铃先前已有相关违规记录，将请主管机关依规进行行政查处。张晗对此答问表示，饶庆铃县长以预录影片方式参与十项促进两岸交流合作的政策措施对接签约会，推广台东农产品，为当地民众谋福祉，得到广泛支持与肯定。民进党当局出于谋“独”私利，一再阻挠破坏，为相关活动设置重重障碍，现在又要“秋后算账”，根本是滥权妄为、专门与台湾老百姓作对，自己坏事干绝，又不让别人做好事，遭到越来越多台湾民众的反对。 在回答大陆进口台湾农产品相关问题时，张晗表示，我们一贯秉持“两岸一家亲”理念，尽最大努力为台湾同胞办实事、做好事、解难事，出台一系列惠及台湾农渔民、企业的政策措施，帮助台湾农民朋友拓展大陆市场，切实增进台湾同胞利益福祉。是谁在帮助台湾农民，是谁在伤害台湾农民，相信大家看得很清楚。我们将一如既往积极推动两岸农业合作，为台湾农渔民排忧解难，也欢迎更多台农台企来大陆投资兴业，共享机遇，共谋发展。",
+      "url": "https://www.news.cn/tw/20260624/de60ce96e85541d19f26558beae34e03/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.5,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国台办宣布第六届海峡两岸中山论坛将于6月下旬举办，主题为弘扬中山精神，欢迎台湾青年寻根交流。"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-06-24",
+      "title": "国台办：第六届海峡两岸中山论坛6月下旬举办",
+      "content": "论坛以“弘扬中山先生奋斗精神，共谋中华民族伟大复兴”为主题，活动内容包括开幕式、分论坛和台湾高层次人才湾区行交流、“中山先生与台湾”档案史料展等9项活动。 张晗表示，今年是孙中山先生诞辰160周年。孙中山先生是伟大的爱国主义者、中国民主革命的伟大先驱，他的精神和情怀是两岸同胞共同的精神财富。广东有着光荣且悠久的革命传统，是近代中国革命的发祥地，也是孙中山先生的故乡。她表示，我们热忱欢迎台湾同胞特别是台湾青年朋友来广东踏访中山文脉，奔赴滨海之约，邂逅客家风情，感受地道烟火，把握发展机遇，实现人生理想。 有记者问：近日，一位台湾青年演员在短视频平台发布一则寻根视频，手持家族族谱向大陆网友求助，表示“想回去寻找一下我的根在哪”。两岸网友、当地民众热心帮助，不到两天就帮他找到位于广东汕头的祖籍地。端午节期间，他回到汕头宗祠祭祖。有评论称，“今天连上了，就不能再断开”。对此有何评论？ 张晗表示，这位台湾演员到汕头寻根的视频一经发布，迅速在海峡两岸受到关注，收获满屏“欢迎回家”的暖心留言。一纸泛黄族谱跨海连线，千里寻根之梦终得圆满。一句“阿公阿嬷，我回家了”，让两岸期待团圆的同胞泪水潸然；正值端午，与族人共同包家乡特有的咸甜粽子，共享家宴，让两岸宗亲再续百年情缘。 她指出，慎终追远、敬宗睦族是中华民族的优良传统，近年来越来越多台湾青年回到大陆祖籍地寻根问祖。这充分表明，两岸同胞同根同源、同文同种，是血脉相连、休戚与共的命运共同体。我们欢迎更多台湾乡亲来大陆找找祖地祠堂，看看自己家族的族谱，感受家的温暖，传递家的亲情，与大陆同胞一道守护好、建设好中华民族的共同家园。国务院台办、各地各级台办愿为此提供必要的支持和帮助。",
+      "url": "https://www.news.cn/tw/20260624/7ce37d1d9f8f40aa9f34b320dbb73c1c/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國台辦批評民進黨阻礙兩岸旅遊交流，稱其為政治操弄。"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-06-24",
+      "title": "国台办发言人就沪闽旅游业者申请赴岛内踩线被驳回答记者问",
+      "content": "有记者问：据了解，近日上海、福建旅游业者申请赴岛内旅游踩线被台湾有关方面驳回。请问对此有何评论？ 陈斌华表示，为贯彻落实十项促进两岸交流合作的政策措施，积极推动上海、福建居民赴岛内个人游试点，两地旅游业界迅速组织从业者踩线团申请入岛实地考察线路、对接岛内旅游业者。这是大陆方面顺应两岸民众的共同期盼，积极务实推动两岸民间往来、助力台湾观光产业的善意举措。 他指出，踩线是旅游开放前常规行业操作，目的是对接食宿、景点、接待流程，属于纯民间、纯业务交流。但民进党当局却单方面抛出“必须先经观光‘小两会’协商”作为前置门槛，直接驳回踩线团入岛申请，是典型的政治操弄、人为设障。 陈斌华表示，众所周知，《海峡两岸关于大陆居民赴台旅游协议》是海协会和海基会在“九二共识”基础上协商并签订。民进党当局拒不承认“九二共识”，其观光主管部门甚至叫嚣“台湾与中国通过‘小两会’进行双边协商”，充分反映出其否定“九二共识”、破坏两岸交流、推行“台独”分裂的本质和图谋。 他还表示，必须强调指出的是，民进党当局倒行逆施，无视台湾旅游业者生存困境与普通民众民生诉求，人为掐断旅游市场复苏通道，以各种站不住脚的理由拒绝大陆居民赴岛内旅游，以牺牲台湾民众切身利益来谋取政治私利，正日益引起岛内旅游业者和民众的强烈愤慨。相信广大台湾同胞能够看清民进党当局阻限两岸交流交往的险恶用心，坚决反对民进党当局违背民意的恶行。",
+      "url": "https://www.news.cn/tw/20260624/0ae6b81b274549bdacabc050c5b629ee/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国台办警告民进党若不停止阻限两岸合作将遭民意反噬"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-24",
+      "title": "国台办：民进党当局如不停止阻限两岸合作，必遭反噬",
+      "content": "有记者问，就在大陆积极为台湾部分县市的凤梨释迦等农渔产品拓展销路之际，台陆委会发言人梁文杰近日称，“凤梨释迦台湾人几乎不吃，可以说是完全仰大陆鼻息的农产品”，引发岛内舆论哗然，认为这是一味政治操弄，根本不管台湾农民生计，请问对此有何评论？ 发言人张晗答问表示，民进党当局一贯漠视民瘼、罔顾民生、损害民利，他们不仅不关心、不在意、不解决岛内基层农渔民的生计问题，还挖苦、轻视、贬损农渔业者的劳动成果，攻击、污蔑、抹黑大陆的好意善意。公道自在人心，其胡作非为已在岛内激起民怨。民进党当局如不停止政治操弄，停止阻限两岸交流合作，必遭民意更大反噬。（记者马欣然、李寒芳）",
+      "url": "https://www.news.cn/tw/20260624/a7cdcd8455bd4a199b347f2c8070b8c0/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国台办称民进党当局是地区和平稳定的‘麻烦制造者’，坚持台独立场，是台海紧张根源。"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-06-24",
+      "title": "国台办：民进党当局是地区和平稳定的“麻烦制造者”",
+      "content": "有记者问，赖清德近日称，“呼吁中国放弃在南海、东海及台海扩军，也放弃武力攻打台湾”，并称台湾“愿在对等尊严的原则下与中国进行交流合作，促进和平共荣发展”。请问对此有何评论？ 发言人张晗答问表示，当前南海和东海局势保持总体稳定，民进党当局顽固坚持“台独”分裂立场，妄图“倚外谋独”“以武谋独”，是台海局势紧张动荡的根源，也是地区和平稳定的“麻烦制造者”。我要强调的是，我们愿意以最大诚意、尽最大努力争取和平统一的前景，但决不承诺放弃使用武力，决不为任何形式的“台独”分裂留下任何空间。民进党当局只有承认体现一个中国原则的“九二共识”，停止“台独”分裂行径，两岸协商对话才能恢复，两岸关系才能重回和平发展的正确轨道。（记者赵博、朱娜）",
+      "url": "https://www.news.cn/tw/20260624/24dbd946e4094e57b258ab7c36bb10da/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "CN",
+    "sentiment_score": 0.5,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-26",
+      "title": "今年以来厦金“小三通”出入境旅客量突破100万人次",
+      "content": "目前，厦金“小三通”航线每日稳定开行24个往返船班。厦门边检总站高崎边检站边防检查处副处长刘希杰介绍，从客流构成来看，今年以来台胞出入境数量约80万人次，同比增长超35%。其中，“首来族”台胞增长态势亮眼，今年已有近4万台胞经此航线首来大陆，同比增长超70%。同时，福建、上海居民赴金门旅游政策红利持续释放，“厦门+金门”联游产品带动两岸旅游市场升温。 今年以来，高崎边检站通过“边检e窗”综合业务全覆盖、“人、证、票、船”多维数据交互系统、“i海台”出行服务一体机等手段，持续优化通关举措，保障旅客往来高效便捷。",
+      "url": "https://www.news.cn/tw/20260626/76e9f4d307c74b53bd8575186b9b43c4/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-23",
+      "title": "中国故事丨两岸家书：跨越海峡的“岁月情书”",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
+      "url": "https://www.news.cn/tw/20260623/22f5540c5949408594e6a28372094677/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-26",
+      "title": "#东部熄灯号# 暗夜持枪磨硬功，靶场砺剑向战场。#阅海峡#",
+      "content": "#东部熄灯号# 暗夜持枪磨硬功，靶场砺剑向战场。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5314178710504295",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "陆军第71集团军某旅在陌生地域开展机动演练，检验快速反应、协同配合等综合作战能力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-26",
+      "title": "#直击东部战区练兵备战现场#【#兵车辚辚向战行# 】近日，陆军第71集团军某旅组织部队在陌生地域展开...",
+      "content": "#直击东部战区练兵备战现场#【#兵车辚辚向战行# 】近日，陆军第71集团军某旅组织部队在陌生地域展开机动演练，有效检验部队快速反应、协同配合等综合作战能力。（赵钱松、黄振宇）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5313967317848246",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-25",
+      "title": "【#东部战区发布战歌乘风破浪的青春#】 号角声声的练兵场，手中是火热滚烫的钢枪，胸中是誓死不退的担当...",
+      "content": "【#东部战区发布战歌乘风破浪的青春#】 号角声声的练兵场，手中是火热滚烫的钢枪，胸中是誓死不退的担当。当昂扬军歌响彻四方，让赤诚热血为使命奔涌，让无畏青春向战场冲锋！今天，#东部战区#新媒体“战鼓”专栏发布战歌《乘风破浪的青春》，致敬每一位以青春护山河的人民子弟兵！#战鼓励气# （东部战 ...全文",
+      "url": "https://m.weibo.cn/detail/5313745859644415",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-25",
+      "title": "#直击东部战区练兵备战现场#【#维护保养为战蓄能#】近日，东部战区空军某部组织开展武器装备换季保养工...",
+      "content": "#直击东部战区练兵备战现场#【#维护保养为战蓄能#】近日，东部战区空军某部组织开展武器装备换季保养工作，官兵按照规范流程陆续展开作业，确保车辆始终处于良好的技战术状态。（周毅、褚文聪、李星雨）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5313604930503068",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "东部战区新媒体赞扬海空雄鹰团历史英雄事迹，强调忠诚善战、守卫领空"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-23",
+      "title": "【忠诚善战，气霸海空！#这支英雄部队曾3次被毛主席点将出征#】回望长空战史，同温层搏杀、零高度歼敌等...",
+      "content": "【忠诚善战，气霸海空！#这支英雄部队曾3次被毛主席点将出征#】回望长空战史，同温层搏杀、零高度歼敌等空战传奇震撼人心，王崑、舒积成、王鸿喜、高翔等空战英模的胜战故事广为流传。今天，#东部战区#新媒体“战鼓”专栏带你走进战队——“海空雄鹰团”，领略这支曾3次被毛主席点将出征的英雄部队守卫 ...全文",
+      "url": "https://m.weibo.cn/detail/5312937281192572",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军野战油库演练，锤炼应急油料保障能力",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.92,
+    "original_article": {
+      "date": "2026-06-22",
+      "title": "#直击东部战区练兵备战现场# 【#锤炼应急油料保障能力# 】近日，东部战区空军某场站组织野战油库开设...",
+      "content": "#直击东部战区练兵备战现场# 【#锤炼应急油料保障能力# 】近日，东部战区空军某场站组织野战油库开设演练。为实战条件下完成油料保障任务夯实基础。（曾德龙、刘程远、张力文）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5312517766382977",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
     "category": "Military_Exercise",
     "is_relevant": true,
     "country1": "CN",
@@ -17399,30 +18306,6 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.5,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "东部战区空军某场站组织野战油库开设演练，锤炼应急油料保障能力",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-06-22",
-      "title": "#直击东部战区练兵备战现场# 【#锤炼应急油料保障能力# 】近日，东部战区空军某场站组织野战油库开设...",
-      "content": "#直击东部战区练兵备战现场# 【#锤炼应急油料保障能力# 】近日，东部战区空军某场站组织野战油库开设演练。为实战条件下完成油料保障任务夯实基础。（曾德龙、刘程远、张力文）#时刻准备战斗#",
-      "url": "https://m.weibo.cn/detail/5312517766382977",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
     "sentiment_score": 0.65,
     "sentiment_label": "positive",
     "extracted_data": {
@@ -17438,30 +18321,6 @@
       "content": "当日，大陆公祭伏羲大典在甘肃省天水市举行。这是两岸连续第13年共同举行祭祀伏羲活动。 在新北市三重区先啬宫，典礼于上午9时50分正式开始，象征伏羲位居“三皇之首、九五至尊”。活动开始前，主办方特别邀请当地小学生，身穿传统服饰，集体诵唱主办方创作的“中华伏羲谣”。 6月21日，在台湾新北市举行的2026（丙午）年两岸共祭中华人文始祖伏羲典礼现场，参与活动的台湾各界代表欣赏小朋友唱诵“中华伏羲谣”。新华社发 钟鼓齐鸣中，在主祭官和陪祭官的带领下，台湾各界人士代表循古礼完成迎神、上香、叩首或行鞠躬礼、送神等流程，现场气氛庄严肃穆。 担任主祭官的先啬宫董事长李乾龙表示，伏羲是中华民族共同尊崇的精神源头。先啬宫连续多年参与两岸共祭伏羲活动，与甘肃天水同日同时共祭，深刻揭示了两岸拥有共同的文化血脉。 台湾中华伏羲文化学会发起会长张馥堂在此次祭典担任陪祭官。他表示，守护与传承伏羲信仰是中华儿女的共同责任。未来学会正式成立后，将致力于加强相关文化与学术交流，让伏羲文化在台湾进一步发扬光大。 6月21日，在台湾新北市举行的2026（丙午）年两岸共祭中华人文始祖伏羲典礼现场，台湾甘肃同乡会成员同台湾中华伏羲文化学会发起会长张馥堂合影留念。新华社发 台北故宫博物院前研究员朱惠良受访时说，自己此前参与过甘肃天水的祭祀活动，这次又来到先啬宫，心情非常激动。两岸共祭伏羲体现了中华民族的文化传承，体现了两岸同胞对自己数千年的文化根脉一直保持着崇敬，并矢志传承下去。 “参加完活动全程非常感动。”台北故宫博物院前研究员林天人说，两岸文化同根同源，除了伏羲，两岸还有很多共同的民俗信仰，希望未来多举办这样的活动，持续推动两岸和平发展。 伏羲是中华人文始祖，位列“三皇之首”。祭祀伏羲世代传承，2014年首次实现海峡两岸共祭伏羲。此次活动由新北市三重先啬宫主办、台湾中华伏羲文化学会筹备处协办。",
       "url": "https://www.news.cn/tw/20260621/5e1714e4848e4616ac9973d020372fc8/c.html",
       "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "",
-    "sentiment_score": 0.3,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-06-23",
-      "title": "【忠诚善战，气霸海空！#这支英雄部队曾3次被毛主席点将出征#】回望长空战史，同温层搏杀、零高度歼敌等...",
-      "content": "【忠诚善战，气霸海空！#这支英雄部队曾3次被毛主席点将出征#】回望长空战史，同温层搏杀、零高度歼敌等空战传奇震撼人心，王崑、舒积成、王鸿喜、高翔等空战英模的胜战故事广为流传。今天，#东部战区#新媒体“战鼓”专栏带你走进战队——“海空雄鹰团”，领略这支曾3次被毛主席点将出征的英雄部队守卫 ...全文",
-      "url": "https://m.weibo.cn/detail/5312937281192572",
-      "source": "weibo",
       "category": "",
       "sentiment": ""
     }
@@ -17519,30 +18378,6 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-06-23",
-      "title": "中国故事丨两岸家书：跨越海峡的“岁月情书”",
-      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
-      "url": "https://www.news.cn/tw/20260623/22f5540c5949408594e6a28372094677/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
     "sentiment_score": -0.4,
     "sentiment_label": "negative",
     "extracted_data": {
@@ -17582,30 +18417,6 @@
       "content": "影展期间，众多大陆电影人还将参加多场面向观众的映后谈和行业交流活动。 本次上映的大陆电影题材多样，包括文艺片《日掛中天》、历史战争片《东极岛》、古装电影《长安的荔枝》、讲述闽南渔村故事的剧情电影《浪浪人生》，以及《戏台》《你行！你上！》《我的朋友安德烈》《拼桌》等。 “电影跨越海峡拉近距离，让两岸同胞在故事里接近彼此。”中国电影基金会理事长张丕民在开幕式上致辞表示，近年来，两岸电影人一路相伴、交流合作，拍出了很多有温度、有情怀的好作品，为两岸观众带来了许多好看难忘的电影。 台湾两岸电影交流委员会主任委员、台湾导演朱延平说，两岸电影展举办17年来从未中断，早已成为跨越海峡两岸的文化纽带。今年大陆电影在台湾的售票情况相当火热，证明两岸电影展已经培养出一批忠实观众。 《日掛中天》是本次影展的首发作品。主演张颂文在分享感受时说，台湾观众给予自己的热情和友善十分难忘，映后谈环节感觉到台湾观众的观影水平很高，提出的问题都是主创团队一直在思考的，捕捉到了导演想要表达的信息。 电影《戏台》是一个以民国时期梨园行为背景的喜剧作品，涉及较多京剧知识。演员余少群受访时说：“两岸同根同源，京剧等传统艺术在台湾得到了很好的传承，两岸文化一脉相承，相信台湾观众观看影片能引发内心共鸣。” 此次大陆电影展的影片于6月22日至27日在台北大巨蛋秀泰影城放映，多部影片场次被抢购一空。此前第十七届两岸电影展之台湾电影展在四川雅安举办，展映《96分钟》《女孩》《深度安静》等7部台湾影片。",
       "url": "https://www.news.cn/tw/20260623/90d406a4c3534bdf871e376a40b42602/c.html",
       "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.85,
-    "original_article": {
-      "date": "2026-06-25",
-      "title": "#直击东部战区练兵备战现场#【#维护保养为战蓄能#】近日，东部战区空军某部组织开展武器装备换季保养工...",
-      "content": "#直击东部战区练兵备战现场#【#维护保养为战蓄能#】近日，东部战区空军某部组织开展武器装备换季保养工作，官兵按照规范流程陆续展开作业，确保车辆始终处于良好的技战术状态。（周毅、褚文聪、李星雨）#时刻准备战斗#",
-      "url": "https://m.weibo.cn/detail/5313604930503068",
-      "source": "weibo",
       "category": "",
       "sentiment": ""
     }
@@ -17661,198 +18472,6 @@
   {
     "category": "CCP_news_and_blog",
     "is_relevant": true,
-    "country1": "TW",
-    "country2": "CN",
-    "sentiment_score": 0.6,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-06-24",
-      "title": "两岸影展台北启幕——电影告诉我们：两岸没有距离",
-      "content": "” 台湾两岸电影交流委员会主任委员、台湾导演朱延平表示 两岸电影展举办17年来从未中断 培养出一批忠实观众 不少台湾观众喜爱《长安的荔枝》 有人为配合电影风格 特意身着马面裙前来观影 人们期盼这样的活动越办越多 通过电影进一步了解大陆 影展期间，多位大陆电影人 参加多场面向观众的映后谈和行业交流活动 《日掛中天》主演张颂文说 “两岸”听起来是距离 但在饮食习惯、文化习俗上 “一点距离都没有” 光影不息，交流不断 印证两岸共同的文化与情感 见证两岸从未走远 也必将越走越近 记者：褚萌萌 李建华 视频：张泽钰 马鸣达（实习生） 新华社对外部制作",
-      "url": "https://www.news.cn/tw/20260624/092c77e1237d46ad83e00247abe1be5f/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": 0.62,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "国台办称和平统一后台湾同胞将共享国家尊荣，拓宽外交渠道，融入全球供应链，获更多支持。"
-    },
-    "confidence": 0.96,
-    "original_article": {
-      "date": "2026-06-24",
-      "title": "国台办：和平统一后，台湾同胞将共享国家尊严和荣耀",
-      "content": "台湾的对外交往渠道将全面拓宽，台湾同胞将以主人翁身份参与国际事务；台商台企将深度融入全球供应链产业链，在全球市场的发展空间更大、竞争力更强；台湾同胞在海外能更便捷、更顺畅得到祖国的支持和帮助。 张晗指出，中国是联合国安理会常任理事国，提出全球发展倡议、全球安全倡议、全球文明倡议、全球治理倡议，国际影响力、感召力、塑造力显著提升。目前，中国同183个国家建交，同各国和地区组织的伙伴关系数量增加到153对；中国已经是160多个国家和地区的主要贸易伙伴，与31个国家和地区签署24个自贸协定，加入了几乎所有普遍性政府间国际组织，参加了600多项国际公约及修正案；推动创建金砖国家新开发银行、亚洲基础设施投资银行、世界互联网大会国际组织、国际调解院等多边机制。我们的“朋友圈”持续壮大，是世界和平的建设者、全球发展的贡献者、国际秩序的维护者、公共产品的提供者。 她表示，实现两岸和平统一，不仅是中华民族和中国人民之福，也是国际社会和世界人民之福。中国的统一，不会损害任何国家的正当利益包括其在台湾的经济利益，只会为台湾同胞带来更多福祉，只会给各国带来更多发展机遇，只会给亚太地区和世界繁荣稳定注入更多正能量，只会为构建人类命运共同体、为世界和平发展和人类进步事业作出更大贡献。 今年是孙中山先生诞辰160周年。张晗答问表示，孙中山先生是伟大的爱国主义者、中国民主革命的伟大先驱，他的精神和情怀是两岸同胞共同的精神财富。6月27日至29日，第六届海峡两岸中山论坛将在广东中山举办。论坛以“弘扬中山先生奋斗精神，共谋中华民族伟大复兴”为主题，活动内容包括开幕式、分论坛和台湾高层次人才湾区行交流、“中山先生与台湾”档案史料展等9项活动。",
-      "url": "https://www.news.cn/tw/20260624/7af2e273b7a542dcaca01b59c0d454fa/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.65,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "國台辦稱賴清德台獨言論徒勞，堅持一中原則與和平統一。"
-    },
-    "confidence": 0.96,
-    "original_article": {
-      "date": "2026-06-24",
-      "title": "国台办：赖清德对外叫嚣坐实“台独”陷入穷途末路",
-      "content": "民进党当局顽固坚持“台独”分裂立场，妄图改变两岸同属一个中国的台海现状，是对二战胜利成果的否定、是对战后国际秩序的挑战。国际社会坚持一中原则、反对“台独”分裂普遍共识和岛内要和平、要发展、要交流、要合作的主流民意，充分证明“台独”分裂没有出路，“反中抗中”注定失败。赖清德频频对外叫嚣，恰恰暴露其内心的焦虑与不安，坐实“台独”日益陷入穷途末路。 有记者问：赖清德近日称，“台湾主权在民，中华民国与中华人民共和国互不隶属”、“台湾前途只有2300万人可以决定”，宣称“台湾愿与国际社会合作维持台海现状”。请问对此有何评论？张晗在答问中作上述表示。 她说，世界上只有一个中国，台湾是中国的一部分，台湾是全体中国人的台湾，台湾的前途只能由包括台湾同胞在内的14亿多中国人共同决定。无论赖清德说什么、做什么，都改变不了台湾是中国领土一部分的历史和法理事实，阻挡不了祖国终将统一、也必将统一的历史大势。 赖清德近日称，“呼吁中国放弃在南海、东海及台海扩军，也放弃武力攻打台湾”，并称台湾“愿在对等尊严的原则下与中国进行交流合作，促进和平共荣发展”。对此，张晗应询评论指出，当前，南海和东海局势保持总体稳定。民进党当局顽固坚持“台独”分裂立场，妄图“倚外谋独”“以武谋独”，是台海局势紧张动荡的根源，也是地区和平稳定的“麻烦制造者”。 她强调，我们愿以最大诚意、尽最大努力争取和平统一的前景，但决不承诺放弃使用武力，决不为任何形式的“台独”分裂活动留下任何空间。民进党当局只有承认体现一个中国原则的“九二共识”，停止“台独”分裂行径，两岸协商对话才能恢复，两岸关系才能重回和平发展的正确轨道。",
-      "url": "https://www.news.cn/tw/20260624/2cd4b59035934b6eb113346b10ee8dc6/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "国台办批评台当局威胁查处海峡论坛签约业者，称不得人心"
-    },
-    "confidence": 0.96,
-    "original_article": {
-      "date": "2026-06-24",
-      "title": "台当局扬言查处海峡论坛签约业者 国台办：不得人心",
-      "content": "我们秉持“两岸一家亲”理念，采取一系列措施，与岛内有关团体、热心人士帮助台湾农渔民朋友拓展大陆市场，为台湾农渔产品找出路、拓销路、稳收益，深受广大台湾民众的欢迎。民进党当局对此横加阻拦，甚至扬言要查处相关业者，专横跋扈，莫此为甚。台湾农渔业界的强烈愤慨、岛内舆论的纷纷谴责，表明民进党当局的做法不得人心、千夫所指。 有记者问：台陆委会主委邱垂正近日称，将要求农业部门对赴海峡论坛参与农渔产品对接签约的花莲等地5个农渔业团体进行查处，引发岛内舆论广泛批评。请问对此有何评论？张晗作上述回应。 对于大陆在海峡论坛期间宣布采购台东凤梨释迦、屏东石斑鱼等农渔产品，邱垂正称，大陆长期将农产品作为对台“统战”工具，并通过政治条件影响市场，不希望农民落入“养套杀”陷阱。张晗就此指出，民进党当局动辄攻击、抹黑大陆，利用民生问题进行政治操弄，再次暴露了他们与民为敌、“逢中必反”的恶劣本质。是谁在为台湾农民朋友们着想，是谁在损害他们的利益，台湾农民朋友们心中自有一杆秤。奉劝民进党当局顺应岛内主流民意、回应业界呼声，多做促进两岸交流合作的事，而不是与民为敌、挡民获利。 她说，“统战”是统一战线的简称，“大团结、大联合”是统一战线的永恒主题。日本侵华战争全面爆发后，抗日民族统一战线正式形成，为取得抗日战争的伟大胜利作出了伟大贡献。现在“统战”的主要意涵还是“团结”，还是凝聚人心、汇聚力量。民进党当局一再把“统战”污名化，并用以抹黑大陆惠台利民政策、两岸交流活动等，用心险恶。希望广大台湾同胞厘清“统战”的本源、本义，勿再受其愚弄、蛊惑。 台陆委会发言人梁文杰近日称，“凤梨释迦台湾人几乎不吃，可以说是完全仰大陆鼻息的农产品”，引发岛内舆论哗然。张晗就此答问指出，民进党当局一贯漠视民瘼、罔顾民生、损害民利，不仅不关心、不在意、不解决岛内基层农渔民的生计问题，还挖苦、轻视、贬损农渔业者的劳动成果，攻击、污蔑、抹黑大陆的好意善意。公道自在人心，其胡作非为已在岛内激起民怨。民进党当局如不停止政治操弄、停止阻限两岸交流合作，必遭民意更大反噬。 张晗在回答相关问题时还指出，民进党政客高高在上、自以为是，不知民间疾苦。道歉，并不能平息农渔民的怒火，也挽回不了失去的人心。民进党当局最应该道歉的是违背岛内主流民意、阻挡两岸交流合作，最应该改变的是“台独”分裂立场和谋“独”挑衅行径。 对于台东县长饶庆铃以视频方式参与海峡论坛期间有关采购岛内农渔产品签约会，邱垂正称，饶庆铃先前已有相关违规记录，将请主管机关依规进行行政查处。张晗对此答问表示，饶庆铃县长以预录影片方式参与十项促进两岸交流合作的政策措施对接签约会，推广台东农产品，为当地民众谋福祉，得到广泛支持与肯定。民进党当局出于谋“独”私利，一再阻挠破坏，为相关活动设置重重障碍，现在又要“秋后算账”，根本是滥权妄为、专门与台湾老百姓作对，自己坏事干绝，又不让别人做好事，遭到越来越多台湾民众的反对。 在回答大陆进口台湾农产品相关问题时，张晗表示，我们一贯秉持“两岸一家亲”理念，尽最大努力为台湾同胞办实事、做好事、解难事，出台一系列惠及台湾农渔民、企业的政策措施，帮助台湾农民朋友拓展大陆市场，切实增进台湾同胞利益福祉。是谁在帮助台湾农民，是谁在伤害台湾农民，相信大家看得很清楚。我们将一如既往积极推动两岸农业合作，为台湾农渔民排忧解难，也欢迎更多台农台企来大陆投资兴业，共享机遇，共谋发展。",
-      "url": "https://www.news.cn/tw/20260624/de60ce96e85541d19f26558beae34e03/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": 0.6,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "国台办宣布第六届海峡两岸中山论坛6月下旬举办，主题弘扬中山精神，欢迎台青寻根。"
-    },
-    "confidence": 0.96,
-    "original_article": {
-      "date": "2026-06-24",
-      "title": "国台办：第六届海峡两岸中山论坛6月下旬举办",
-      "content": "论坛以“弘扬中山先生奋斗精神，共谋中华民族伟大复兴”为主题，活动内容包括开幕式、分论坛和台湾高层次人才湾区行交流、“中山先生与台湾”档案史料展等9项活动。 张晗表示，今年是孙中山先生诞辰160周年。孙中山先生是伟大的爱国主义者、中国民主革命的伟大先驱，他的精神和情怀是两岸同胞共同的精神财富。广东有着光荣且悠久的革命传统，是近代中国革命的发祥地，也是孙中山先生的故乡。她表示，我们热忱欢迎台湾同胞特别是台湾青年朋友来广东踏访中山文脉，奔赴滨海之约，邂逅客家风情，感受地道烟火，把握发展机遇，实现人生理想。 有记者问：近日，一位台湾青年演员在短视频平台发布一则寻根视频，手持家族族谱向大陆网友求助，表示“想回去寻找一下我的根在哪”。两岸网友、当地民众热心帮助，不到两天就帮他找到位于广东汕头的祖籍地。端午节期间，他回到汕头宗祠祭祖。有评论称，“今天连上了，就不能再断开”。对此有何评论？ 张晗表示，这位台湾演员到汕头寻根的视频一经发布，迅速在海峡两岸受到关注，收获满屏“欢迎回家”的暖心留言。一纸泛黄族谱跨海连线，千里寻根之梦终得圆满。一句“阿公阿嬷，我回家了”，让两岸期待团圆的同胞泪水潸然；正值端午，与族人共同包家乡特有的咸甜粽子，共享家宴，让两岸宗亲再续百年情缘。 她指出，慎终追远、敬宗睦族是中华民族的优良传统，近年来越来越多台湾青年回到大陆祖籍地寻根问祖。这充分表明，两岸同胞同根同源、同文同种，是血脉相连、休戚与共的命运共同体。我们欢迎更多台湾乡亲来大陆找找祖地祠堂，看看自己家族的族谱，感受家的温暖，传递家的亲情，与大陆同胞一道守护好、建设好中华民族的共同家园。国务院台办、各地各级台办愿为此提供必要的支持和帮助。",
-      "url": "https://www.news.cn/tw/20260624/7ce37d1d9f8f40aa9f34b320dbb73c1c/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "国台办批评民进党阻挡大陆旅游踩线团，称其为政治操弄。"
-    },
-    "confidence": 0.96,
-    "original_article": {
-      "date": "2026-06-24",
-      "title": "国台办发言人就沪闽旅游业者申请赴岛内踩线被驳回答记者问",
-      "content": "有记者问：据了解，近日上海、福建旅游业者申请赴岛内旅游踩线被台湾有关方面驳回。请问对此有何评论？ 陈斌华表示，为贯彻落实十项促进两岸交流合作的政策措施，积极推动上海、福建居民赴岛内个人游试点，两地旅游业界迅速组织从业者踩线团申请入岛实地考察线路、对接岛内旅游业者。这是大陆方面顺应两岸民众的共同期盼，积极务实推动两岸民间往来、助力台湾观光产业的善意举措。 他指出，踩线是旅游开放前常规行业操作，目的是对接食宿、景点、接待流程，属于纯民间、纯业务交流。但民进党当局却单方面抛出“必须先经观光‘小两会’协商”作为前置门槛，直接驳回踩线团入岛申请，是典型的政治操弄、人为设障。 陈斌华表示，众所周知，《海峡两岸关于大陆居民赴台旅游协议》是海协会和海基会在“九二共识”基础上协商并签订。民进党当局拒不承认“九二共识”，其观光主管部门甚至叫嚣“台湾与中国通过‘小两会’进行双边协商”，充分反映出其否定“九二共识”、破坏两岸交流、推行“台独”分裂的本质和图谋。 他还表示，必须强调指出的是，民进党当局倒行逆施，无视台湾旅游业者生存困境与普通民众民生诉求，人为掐断旅游市场复苏通道，以各种站不住脚的理由拒绝大陆居民赴岛内旅游，以牺牲台湾民众切身利益来谋取政治私利，正日益引起岛内旅游业者和民众的强烈愤慨。相信广大台湾同胞能够看清民进党当局阻限两岸交流交往的险恶用心，坚决反对民进党当局违背民意的恶行。",
-      "url": "https://www.news.cn/tw/20260624/0ae6b81b274549bdacabc050c5b629ee/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "国台办警告民进党若不停止阻限两岸合作将遭民意反噬"
-    },
-    "confidence": 0.96,
-    "original_article": {
-      "date": "2026-06-24",
-      "title": "国台办：民进党当局如不停止阻限两岸合作，必遭反噬",
-      "content": "有记者问，就在大陆积极为台湾部分县市的凤梨释迦等农渔产品拓展销路之际，台陆委会发言人梁文杰近日称，“凤梨释迦台湾人几乎不吃，可以说是完全仰大陆鼻息的农产品”，引发岛内舆论哗然，认为这是一味政治操弄，根本不管台湾农民生计，请问对此有何评论？ 发言人张晗答问表示，民进党当局一贯漠视民瘼、罔顾民生、损害民利，他们不仅不关心、不在意、不解决岛内基层农渔民的生计问题，还挖苦、轻视、贬损农渔业者的劳动成果，攻击、污蔑、抹黑大陆的好意善意。公道自在人心，其胡作非为已在岛内激起民怨。民进党当局如不停止政治操弄，停止阻限两岸交流合作，必遭民意更大反噬。（记者马欣然、李寒芳）",
-      "url": "https://www.news.cn/tw/20260624/a7cdcd8455bd4a199b347f2c8070b8c0/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "国台办称民进党当局是地区和平稳定的“麻烦制造者”，坚持一个中国原则，反对台独"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-06-24",
-      "title": "国台办：民进党当局是地区和平稳定的“麻烦制造者”",
-      "content": "有记者问，赖清德近日称，“呼吁中国放弃在南海、东海及台海扩军，也放弃武力攻打台湾”，并称台湾“愿在对等尊严的原则下与中国进行交流合作，促进和平共荣发展”。请问对此有何评论？ 发言人张晗答问表示，当前南海和东海局势保持总体稳定，民进党当局顽固坚持“台独”分裂立场，妄图“倚外谋独”“以武谋独”，是台海局势紧张动荡的根源，也是地区和平稳定的“麻烦制造者”。我要强调的是，我们愿意以最大诚意、尽最大努力争取和平统一的前景，但决不承诺放弃使用武力，决不为任何形式的“台独”分裂留下任何空间。民进党当局只有承认体现一个中国原则的“九二共识”，停止“台独”分裂行径，两岸协商对话才能恢复，两岸关系才能重回和平发展的正确轨道。（记者赵博、朱娜）",
-      "url": "https://www.news.cn/tw/20260624/24dbd946e4094e57b258ab7c36bb10da/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
     "sentiment_score": 0.6,
@@ -17879,30 +18498,6 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.45,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "陆军第71集团军某旅在陌生地域进行机动演练，检验快速反应和协同配合能力",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-06-26",
-      "title": "#直击东部战区练兵备战现场#【#兵车辚辚向战行# 】近日，陆军第71集团军某旅组织部队在陌生地域展开...",
-      "content": "#直击东部战区练兵备战现场#【#兵车辚辚向战行# 】近日，陆军第71集团军某旅组织部队在陌生地域展开机动演练，有效检验部队快速反应、协同配合等综合作战能力。（赵钱松、黄振宇）#时刻准备战斗#",
-      "url": "https://m.weibo.cn/detail/5313967317848246",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
     "sentiment_score": -0.6,
     "sentiment_label": "negative",
     "extracted_data": {
@@ -17918,126 +18513,6 @@
       "content": "#东部熄灯号# 舱中传檄风云动，号令铿锵定四方。#阅海峡#",
       "url": "https://m.weibo.cn/detail/5313816326832629",
       "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.3,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-06-25",
-      "title": "【#东部战区发布战歌乘风破浪的青春#】 号角声声的练兵场，手中是火热滚烫的钢枪，胸中是誓死不退的担当...",
-      "content": "【#东部战区发布战歌乘风破浪的青春#】 号角声声的练兵场，手中是火热滚烫的钢枪，胸中是誓死不退的担当。当昂扬军歌响彻四方，让赤诚热血为使命奔涌，让无畏青春向战场冲锋！今天，#东部战区#新媒体“战鼓”专栏发布战歌《乘风破浪的青春》，致敬每一位以青春护山河的人民子弟兵！#战鼓励气# （东部战 ...全文",
-      "url": "https://m.weibo.cn/detail/5313745859644415",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": 0.6,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-06-25",
-      "title": "忠魂永留存——两岸同胞在北京西山追思无名英雄",
-      "content": "”25日，白色恐怖受难者遗族家属、台湾隐蔽战线烈士后代等共约40位两岸同胞齐聚北京再度吟唱这段旋律，以一曲《安息歌》缅怀先烈、遥寄哀思。 6月25日，台湾地区政治受难人互助会总会长李素慧向无名英雄献花（手机照片）。新华社记者 王承昊 摄 松柏苍苍，群山肃穆。上午9时许，一行人来到北京西山无名英雄纪念广场。这座2013年落成的广场坐西朝东、气势恢宏，专门纪念1950年代为国家统一、人民解放事业牺牲于台湾的隐蔽战线无名英雄。 众人沿石阶缓步拾级而上，两侧的灰白花岗岩纪念墙上，846位埋骨宝岛的烈士英名熠熠生辉。从上海专程赶来、年近八旬的蔡健驻足墙前，一眼便认出了父亲蔡文仲的名字。 “我1岁时父亲便奔赴台湾，与家人基本没有联系。”起初，蔡健不知父亲为何离开，后来通过台湾亲历者的转述及档案的公开，他才逐渐了解、读懂父亲。“父亲最终在台北马场町英勇赴死，他怀揣祖国统一、改造社会的理想从容就义。如今，他的名字被镌刻于此，我心中既有慰藉，更有难以言说的自豪。” 青山不语，忠魂永存。来到广场正中，一座长14米、高4米的纪念碑巍然屹立，5组浮雕再现了隐蔽战线的5个战斗场景，浮雕前，以吴石、朱枫、陈宝仓、聂曦为原型的英雄雕像赫然伫立，现场两岸同胞在这里默哀、献唱、献花、鞠躬，共同追思先烈，抒发期盼祖国早日实现完全统一的赤诚心愿。 6月25日，两岸同胞向无名英雄纪念碑鞠躬致敬（手机照片）。新华社记者 王承昊 摄 陈宝仓烈士的孙女陈怡来到现场，距离她上一次到此追思祖父不过十余日。6月10日，这里刚举办纪念吴石、朱枫、陈宝仓、聂曦烈士牺牲76周年的活动，彼时她便专程到场缅怀先辈。 “随着电视剧《沉默的荣耀》的热播，这段悲壮往事走进了公众视野。不少两岸年轻人了解后，心中都涌起对无名先烈深深的崇敬。”家住北京的陈怡常走进高校和民主党派进行宣讲，一遍遍讲述先辈潜伏斗争的过往，“老一辈都慢慢不在了，但这段用生命书写的家国记忆不能断线，传承先烈的理想与精神是我们后人的责任。” 海峡相望，丹心相承。台湾地区政治受难人互助会是岛内规模最大的白色恐怖政治受难人团体，以“爱乡爱国改造社会、民主统一走向富强”为基本立场，每年都会在台湾举办春祭、秋祭，致敬先烈。 “今天在北京西山无名英雄纪念碑前，我们缅怀追思先烈英雄事迹，宣扬先辈爱国爱乡精神，向烈士报告这盛世如你们所愿。我们相信团结两岸珍惜和平的中国人，实现中华民族伟大复兴，完成国家统一必将胜利。”互助会总会长李素慧高声诵读祭文，恳切字句直抵人心。 李素慧的父亲李苍降在日据时期曾因阅读反日书籍而入狱。1947年，李苍降在台湾秘密加入中国共产党，后因此被捕，于1950年被枪决。李苍降被捕时，他的妻子曾碧丽已怀有身孕，在狱中生下女儿。 李素慧的微信昵称是“黎红”，这个名字源自父亲的遗言。“父亲嘱托母亲，若是孩子平安出世，便取名‘黎红’。他希望自己的孩子和祖国一样，像‘黎明的红日’，冉冉上升，拥有希望和未来。”她说。 斯人已逝，薪火永续。“每一次到西山祭奠，都是我们向先烈的庄严宣誓。”互助会秘书长蔡裕荣动情地说，当年无数先辈怀揣民族解放、改造社会、国家统一的理想从容就义，以滚烫鲜血铺就后人前行之路。“今日我们齐聚碑前追思致敬，便是要接续先辈未竟之志，守住爱国统一的赤诚信念。期盼两岸早日迎来完全统一，告慰所有埋骨宝岛的无名英雄。”",
-      "url": "https://www.news.cn/tw/20260625/8031e110d9c54e73b15e8b5be317eeab/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "TW",
-    "country2": "CN",
-    "sentiment_score": 0.5,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "阿公阿嬷，我回家了！"
-    },
-    "confidence": 0.7,
-    "original_article": {
-      "date": "2026-06-25",
-      "title": "海峡零距离丨“阿公阿嬷，我回家了！”",
-      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
-      "url": "https://www.news.cn/tw/20260625/6e2ab460cfed48b2a067423929a12c28/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.8,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "China warns Taiwan independence will be crushed."
-    },
-    "confidence": 0.96,
-    "original_article": {
-      "date": "2026-06-25",
-      "title": "国防部：坚决挫败任何“台独”妄动",
-      "content": "有记者问，美日正在开展“英勇盾牌”大规模军演，台军同步举行备战操演，双方演训时间高度重合，针对台海的意味很强，请问对此有何评论？ “民进党当局蓄意制造紧张，升高两岸对立对抗，不得人心。靠军演壮胆换不来真正安全。不管是谁，把对抗当成常态，把民生福祉放在政治私利之后，最终都将付出相应代价。”张晓刚表示，解放军始终保持高度戒备，坚决挫败任何“台独”妄动。 有记者就台湾地区领导人赖清德近日表示不会放弃提高防务支出等情况提问。张晓刚表示，民进党当局变本加厉挥霍台湾老百姓的血汗钱，投入毫无意义的军购无底洞，加速把台湾推入兵凶战危险境。正告民进党当局，统一大势不可阻挡，“以武谋独”必将自取灭亡。 有记者问，据报道，赖清德称推动无人机产业是台湾重大政策，无人机可以塑造“地狱景象”，吓阻效果巨大。请问对此有何评论？ 张晓刚表示，赖清德总想把台湾民众往火坑里推，大肆谋“独”引战，挑动两岸对立对抗。要和平还是战争，要人间烟火还是“地狱景象”？相信台湾老百姓有自己的选择。 “希望台湾同胞认清赖清德‘战争制造者’‘和平破坏者’的邪恶面目，坚守大义、顺应大势，与我们一道反对‘台独’分裂，守护中华民族共同家园。”张晓刚说。 有记者问，赖清德与外媒会见时表示，台湾“拒绝‘一国两制’和中国共产党统治”不应被解读为挑衅，并呼吁大陆放弃“武力攻台”。请问对此有何评论？ 张晓刚表示，“和平统一、一国两制”是我们解决台湾问题的基本方针，是实现祖国统一的最佳方式，对两岸同胞和中华民族最有利。当前赖清德当局顽固坚持“台独”立场，不断谋“独”挑衅，是危害台湾安全的根源所在。 “我们决不允许‘台独’分裂势力以任何名义、任何方式把台湾从中国分裂出去。任何分裂祖国的势力和行径必将遭到全中国人民的迎头痛击。”张晓刚说。",
-      "url": "https://www.news.cn/tw/20260625/f606091dc77c41749569c768f3e32d2e/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.5,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "中方指出洪都拉斯澄清未與台當局復交，重申一中原則，稱台獨勢力逆潮流而動，注定失敗。"
-    },
-    "confidence": 0.96,
-    "original_article": {
-      "date": "2026-06-25",
-      "title": "中方注意到洪都拉斯对台湾当局“复交”谎言作出澄清",
-      "content": "这再次说明坚持一个中国原则是国际大义、人心所向、大势所趋，“台独”势力和民进党当局逆潮流而动，不得人心，注定失败。 当日例行记者会上，有记者问：据报道，近期台湾外事部门负责人称，台当局正同洪都拉斯政要及社会群体就所谓台洪“复交”进行对话磋商。日前，洪外交部在社交媒体发声，澄清洪并未就“复交”事同台湾当局保持官方对话或接触。洪外事主管部门将根据现行外交承诺实施国家外交政策。中方对此有何评论？ 郭嘉昆说，中方注意到洪都拉斯政府已经对台湾当局的谎言作出澄清。这再次说明坚持一个中国原则是国际大义、人心所向、大势所趋，“台独”势力和民进党当局逆潮流而动，不得人心，注定失败。 郭嘉昆说，中洪建交以来，双边关系在一个中国原则基础上实现快速发展，各领域务实合作助力洪经济社会建设。事实充分证明，中洪建交符合两国和两国人民根本和长远利益。中方愿在一个中国原则基础上，推动中洪关系不断向前发展。",
-      "url": "https://www.news.cn/tw/20260625/8cebb5d07ae745c08bdbc9cae38e755f/c.html",
-      "source": "xinhua",
       "category": "",
       "sentiment": ""
     }
