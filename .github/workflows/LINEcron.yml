@@ -2,13 +2,17 @@ name: LINE Bot Auto Push
 
 on:
   schedule:
-    # GitHub 的 cron 是使用 UTC 時間。
-    # 若要在台灣時間 (UTC+8) 每天早上 8:00 執行，這裡要設定為 0:00 (8 - 8 = 0)
+    # GitHub 的 cron 使用 UTC 時間。
+    # 台灣時間 (UTC+8) 每天早上 07:00 = UTC 前一日 23:00 (7 - 8 = -1 → 23:00)
     # 格式：分 時 日 月 星期
-    - cron: '0 0 * * *'
-  
-  # 加入 workflow_dispatch 可以讓你在 GitHub 網頁上按按鈕手動測試，不用苦等排程
-  workflow_dispatch: 
+    - cron: '0 23 * * *'
+
+  # workflow_dispatch 可在 GitHub 網頁手動觸發測試，不用等排程
+  workflow_dispatch:
+
+# 需要寫入權限，讓 GITHUB_TOKEN 能把預測圖 commit 進 repo（LINE 圖片訊息需要公開網址）
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -16,19 +20,21 @@ jobs:
 
     steps:
       - name: 取得程式碼 (Checkout)
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 設定 Python 環境
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
-      - name: 安裝套件 (requests)
-        run: pip install requests
+      - name: 安裝套件
+        run: pip install requests pandas matplotlib
 
-      - name: 執行發送訊息腳本
+      - name: 執行每日簡報推播腳本
         env:
-          # 將 Secrets 轉化為腳本可以讀取的環境變數
-          LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
-          LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
-        run: python send_message.py
+          # 對應實際設定的 GitHub Secret 名稱
+          LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINECHANNELACCESSTOKEN }}
+          LINE_USER_ID: ${{ secrets.USERID }}
+          # 上傳預測圖取得公開 raw 網址（Actions 內建 token）
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/send_message.py
