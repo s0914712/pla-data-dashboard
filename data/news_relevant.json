@@ -18636,5 +18636,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "第73集团军某旅在陌生海域开展两栖装甲车海上限制路驾驶训练，锻造敢打必胜的两栖刀锋。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-29",
+      "title": "#直击东部战区练兵备战现场#【#锻造敢打必胜的两栖刀锋# 】白浪翻滚，战车轰鸣。近日，第73集团军某...",
+      "content": "#直击东部战区练兵备战现场#【#锻造敢打必胜的两栖刀锋# 】白浪翻滚，战车轰鸣。近日，第73集团军某旅在陌生海域开展两栖装甲车海上限制路驾驶训练，全力锻造敢打必胜的两栖刀锋。（王梦圆、肖祖滨、汪宏杰）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5315054481965429",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
