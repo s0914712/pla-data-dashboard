@@ -21501,5 +21501,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "东部战区空军某部制作练兵备战海报，展示官兵锻造能打胜仗空天铁拳的决心"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-30",
+      "title": "【#锻造能打胜仗的空天铁拳# 】东部战区空军某部在组建纪念日来临之际，制作了一组练兵备战海报，展示官...",
+      "content": "【#锻造能打胜仗的空天铁拳# 】东部战区空军某部在组建纪念日来临之际，制作了一组练兵备战海报，展示官兵胸怀强军壮志、守卫万里河山，全力锻造能打胜仗空天铁拳的坚定决心 ！（姚尧、于英适）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5315416873242979",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-29",
+      "title": "#东部熄灯号# 晚霞铺染长空路，战机振翅卫海天。#阅海峡#",
+      "content": "#东部熄灯号# 晚霞铺染长空路，战机振翅卫海天。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5315265874365104",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-29",
+      "title": "【#淬火砺兵启新程#】近日，东部战区空军某部组织春季新兵集训。镜头记录下他们参观荣誉长廊、打卡营区地...",
+      "content": "【#淬火砺兵启新程#】近日，东部战区空军某部组织春季新兵集训。镜头记录下他们参观荣誉长廊、打卡营区地标，闲暇围坐读书交流、弹奏吉他放松身心、训练场上刻苦参训的昂扬风貌。丰富的文化活动与扎实训练相融，助为新战友快速融入新集体。（王健、褚文聪、李星雨、李昌起 ） #军营生活#",
+      "url": "https://m.weibo.cn/detail/5315145077098490",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
