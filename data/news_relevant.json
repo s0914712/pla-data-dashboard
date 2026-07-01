@@ -18876,5 +18876,101 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-01",
+      "title": "#庆祝建党105周年# 【#东部战区发布重磅MV战旗向党旗报告#】 党旗领航，战旗列阵。党的第105...",
+      "content": "#庆祝建党105周年# 【#东部战区发布重磅MV战旗向党旗报告#】 党旗领航，战旗列阵。党的第105个生日来临之际，在党旗军旗升起的华东大地，东部战区官兵唱响炽烈战歌。初心如炬，共赴大考；联合砺兵，静待破晓！今天，东部战区发布重磅MV#战旗向党旗报告#，热烈庆祝中国共产党成立105周年！（东部战区融 ...全文",
+      "url": "https://m.weibo.cn/detail/5315765260780486",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区陆军第71集团军某旅组织迫击炮实弹射击训练，在逼真战场环境中磨砺过硬打赢本领。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-01",
+      "title": "#直击东部战区练兵备战现场#【#迫击炮怒吼震沙场#】硝烟砺精兵，炮火淬血性。近日，东部战区陆军第71...",
+      "content": "#直击东部战区练兵备战现场#【#迫击炮怒吼震沙场#】硝烟砺精兵，炮火淬血性。近日，东部战区陆军第71集团军某旅组织迫击炮实弹射击训练，在逼真战场环境中磨砺过硬打赢本领。（肖志勇、廖鹏、吕昊）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5315839655674855",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-06-30",
+      "title": "#东部熄灯号#尾焰划破长夜，只为黎明更安宁。#阅海峡#",
+      "content": "#东部熄灯号#尾焰划破长夜，只为黎明更安宁。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5315628262758216",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-06-30",
+      "title": "#庆祝建党105周年# 【#我与党旗合个影#】党的105周岁生日来临之际，武警第二机动总队某支队开展...",
+      "content": "#庆祝建党105周年# 【#我与党旗合个影#】党的105周岁生日来临之际，武警第二机动总队某支队开展主题党日活动。全体党员面对鲜红党旗重温入党誓词，官兵踊跃与党旗合影，用镜头定格赤诚初心。战旗永远跟着党旗走，官兵们以满腔热血向伟大的中国共产党献上生日祝福！（张涛、王梦林、孙新）",
+      "url": "https://m.weibo.cn/detail/5315507467323697",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
