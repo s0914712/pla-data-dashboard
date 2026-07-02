@@ -21789,5 +21789,101 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-02",
+      "title": "【#半年考核砺精兵#】战鼓催征，秣马厉兵。近日，武警南京支队严密组织半年军事训练考核，全面检验部队战...",
+      "content": "【#半年考核砺精兵#】战鼓催征，秣马厉兵。近日，武警南京支队严密组织半年军事训练考核，全面检验部队战斗力水平，持续激发官兵练兵热情。（杨春周）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5316141645562144",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "双脚丈量过的土地，每一寸都叫中国。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-01",
+      "title": "#东部熄灯号#双脚丈量过的土地，每一寸都叫中国。#阅海峡#",
+      "content": "#东部熄灯号#双脚丈量过的土地，每一寸都叫中国。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5315990650095780",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-01",
+      "title": "#庆祝建党105周年# 【#寻访党章守护者#，坚守初心使命】党的105周岁生日来临之际，联勤保障部队...",
+      "content": "#庆祝建党105周年# 【#寻访党章守护者#，坚守初心使命】党的105周岁生日来临之际，联勤保障部队第906医院组织党员代表走进张人亚纪念馆，开展主题党日活动。大家参观展厅，学习“党章守护者”张人亚舍命保护首部党章的感人事迹，重温入党誓词，并结合卫勤保障、临床救治工作交流心得。大家表示，要传承 ...全文",
+      "url": "https://m.weibo.cn/detail/5315900053127646",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-01",
+      "title": "【#誓言铮铮映初心# 】7月1日，东部战区海军航空兵某部组织全体新入党人员走进#海空雄鹰团# 荣誉室...",
+      "content": "【#誓言铮铮映初心# 】7月1日，东部战区海军航空兵某部组织全体新入党人员走进#海空雄鹰团# 荣誉室，举行庄严的入党宣誓仪式。誓言铿锵，映照入党初心；荣誉无声，激荡强军使命。新党员们在历史与现实的交汇中接受精神洗礼，在荣誉与使命的感召下坚定强军信念。（王振泽、杨朔）  #庆祝建党105周年#",
+      "url": "https://m.weibo.cn/detail/5315869854666086",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
