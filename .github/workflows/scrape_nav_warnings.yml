@@ -35,9 +35,13 @@ jobs:
     - name: 📦 Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests beautifulsoup4 pandas lxml httpx
+        pip install requests beautifulsoup4 pandas lxml 'httpx[socks]'
     
     - name: 🎯 Run Military Exercise Scraper (cumulative merge)
+      env:
+        # msa.gov.cn 自 2026-03 底起對境外 IP 的資料頁回 403，
+        # 需透過中國區代理存取（repo secret，格式 http(s)/socks5://user:pass@host:port）
+        MSA_PROXY: ${{ secrets.MSA_PROXY }}
       run: |
         # 累積合併模式：新資料與現有資料以 url 去重合併，歷史不會被覆蓋
         python scripts/scrape_nav_warnings.py --max-pages 2 --days-back 365
