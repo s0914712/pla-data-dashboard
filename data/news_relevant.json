@@ -19116,5 +19116,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-03",
+      "title": "#直击东部战区练兵备战现场#【#战伤救治练硬功#】近日，东部战区海军某部组织战伤救治技术比武。参赛官...",
+      "content": "#直击东部战区练兵备战现场#【#战伤救治练硬功#】近日，东部战区海军某部组织战伤救治技术比武。参赛官兵围绕火线搜救、止血包扎、伤员转运等课目同台比拼，展示复杂战场环境条件下应急救治能力。（阳开鑫、黎雪、王略）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5316504032904085",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-02",
+      "title": "#东部熄灯号#炮管指向的地方，就是心安的方向。#阅海峡#",
+      "content": "#东部熄灯号#炮管指向的地方，就是心安的方向。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5316353037960760",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-02",
+      "title": "【#铁心向党铸忠诚#】党旗猎猎，誓言铮铮。7月1日，东部战区空军某部组织开展主题党日活动。通过唱军歌...",
+      "content": "【#铁心向党铸忠诚#】党旗猎猎，誓言铮铮。7月1日，东部战区空军某部组织开展主题党日活动。通过唱军歌、重温入党誓词、缅怀革命先烈、组织纪律专题授课等方式，引导全体党员筑牢“搏击长空心向党”的信仰根基，强化“向战而行、迎战而上”的责任担当。（翟羽昕、蒋海波、王飞宇）#庆祝建党105周年#",
+      "url": "https://m.weibo.cn/detail/5316232242008268",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
