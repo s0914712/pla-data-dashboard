@@ -19423,5 +19423,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.6,
+    "original_article": {
+      "date": "2026-07-03",
+      "title": "#东部熄灯号#深山里的篝火，守护灯火里的中国。#阅海峡#",
+      "content": "#东部熄灯号#深山里的篝火，守护灯火里的中国。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5316715425828091",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-03",
+      "title": "【中央军委举行晋升上将军衔仪式  习近平颁发命令状并向晋衔的军官表示祝贺】解放军报北京7月3日电  ...",
+      "content": "【中央军委举行晋升上将军衔仪式  习近平颁发命令状并向晋衔的军官表示祝贺】解放军报北京7月3日电  中央军委晋升上将军衔仪式3日在北京八一大楼举行。中央军委主席习近平出席晋衔仪式。上午10时30分许，晋衔仪式在庄严的中华人民共和国国歌声中开始。中央军委副主席张升民主持晋衔仪式，宣读中央军委 ...全文",
+      "url": "https://m.weibo.cn/detail/5316665093915417",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-03",
+      "title": "#树立和践行正确政绩观学习教育# 【#主题党日活动锤炼党性修养# 】近日，东部战区空军某部组织党员代...",
+      "content": "#树立和践行正确政绩观学习教育# 【#主题党日活动锤炼党性修养# 】近日，东部战区空军某部组织党员代表走进泉州市党内政治生活体验馆，开展“践行正确政绩观、重塑党员好样子”主题党日活动。全体党员重温入党誓词、参观专题展区，沉浸式学习党内政治生活发展史、古田会议历史，在回望初心、对标榜样中 ...全文",
+      "url": "https://m.weibo.cn/detail/5316594630394106",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
