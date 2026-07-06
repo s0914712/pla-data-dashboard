@@ -22907,5 +22907,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-06",
+      "title": "#直击东部战区练兵备战现场#【#扎实做好装备维护保养工作# 】近日，东部战区海军某部驻训分队扎实开展...",
+      "content": "#直击东部战区练兵备战现场#【#扎实做好装备维护保养工作# 】近日，东部战区海军某部驻训分队扎实开展装备维护保养工作。官兵对武器装备进行全面“体检”，确保其性能稳定、状态良好，为遂行多样化军事任务筑牢坚实基础。（汪文豪、汪银银、杨一帆、周诗桐、王焕森、潘伟）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5317591196238159",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
