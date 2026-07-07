@@ -22974,5 +22974,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-06",
+      "title": "#东部熄灯号#你护装备周全，装备护你凯旋。#阅海峡#",
+      "content": "#东部熄灯号#你护装备周全，装备护你凯旋。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5317802589164193",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-06",
+      "title": "【#携笔从戎燃青春#】近日，江苏省南京市江宁区人武部严密组织辖区112名大学毕业生，前往江宁医院开发...",
+      "content": "【#携笔从戎燃青春#】近日，江苏省南京市江宁区人武部严密组织辖区112名大学毕业生，前往江宁医院开发区院区参加2026年秋季征兵体检，接受祖国挑选。（王婧宇）#征兵季#",
+      "url": "https://m.weibo.cn/detail/5317681793467181",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "China conducted a submarine-launched strategic missile test launch in the Pacific high seas, using a training mock warhead, landing in designated area.",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-06",
+      "title": "【#中国海军成功组织潜射战略导弹试射#】新华社北京7月6日电（于晓泉、孙飞）7月6日12时01分，中...",
+      "content": "【#中国海军成功组织潜射战略导弹试射#】新华社北京7月6日电（于晓泉、孙飞）7月6日12时01分，中国人民解放军海军1艘战略核潜艇向太平洋相关公海海域，成功发射1发携载训练模拟弹头的潜射战略导弹，准确落入预定海域。此次导弹试射是中方年度军事训练的例行性安排，已事先向有关国家作了通报，符合国际 ...全文",
+      "url": "https://m.weibo.cn/detail/5317672505966775",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
