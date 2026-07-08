@@ -20349,5 +20349,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区第71集团军某旅炮兵分队进行全要素、多课目、多弹种实弹战术演练，检验野外复杂环境下情报侦察、精准打击与快打快撤能力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-08",
+      "title": "#直击东部战区练兵备战现场# 【#全要素实弹战术演练登场# 】仲夏时节，战车轰鸣。第71集团军某旅炮...",
+      "content": "#直击东部战区练兵备战现场# 【#全要素实弹战术演练登场# 】仲夏时节，战车轰鸣。第71集团军某旅炮兵分队一场全要素、多课目、多弹种实弹战术演练骤然打响。此次演练旨在检验炮兵分队在野外复杂环境下情报侦察、精准打击与快打快撤能力。（肖志勇、廖鹏、纪相云、唐鹏新）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5318315972235987",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-07",
+      "title": "#东部熄灯号#无惧骄阳烈日，苦练胜战底气。#阅海峡#",
+      "content": "#东部熄灯号#无惧骄阳烈日，苦练胜战底气。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5318164977289661",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-07",
+      "title": "#战鼓砺气# 【炸弹卡车！#歼16战斗机高清画面来了#】 它是“制空尖刀”——全环境、多弹型，可近可...",
+      "content": "#战鼓砺气# 【炸弹卡车！#歼16战斗机高清画面来了#】 它是“制空尖刀”——全环境、多弹型，可近可远杀伤力强，依托空天信息网络支撑，可快速夺控制空权；它是“突击先锋”——防外打击、区域快反、火力支援，挂载多型精确制导武器，兼备常态化警戒、防空拦截与纵深突击能力，形成全时段、全天候、多目 ...全文",
+      "url": "https://m.weibo.cn/detail/5318112133254828",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
