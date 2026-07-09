@@ -23502,5 +23502,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區海軍某部組織跨昼夜電子對抗訓練，鍛鍊全天候網電對抗能力",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-09",
+      "title": "#直击东部战区练兵备战现场# 【#跨昼夜电子对抗训练火热展开# 】近日，东部战区海军某部组织跨昼夜电...",
+      "content": "#直击东部战区练兵备战现场# 【#跨昼夜电子对抗训练火热展开# 】近日，东部战区海军某部组织跨昼夜电子对抗训练，锤炼全天候网电对抗能力。（汪银银、汪文豪）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5318678360097036",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区进行练兵备战，闻令而动敢争先",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-08",
+      "title": "#东部熄灯号#练兵备战不松懈，闻令而动敢争先。#阅海峡#",
+      "content": "#东部熄灯号#练兵备战不松懈，闻令而动敢争先。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5318527365167269",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-08",
+      "title": "【#奋斗者说故事会催人奋进#】近日，东部战区空军某部举办“一名党员就是一面旗帜——奋斗者说”故事会。...",
+      "content": "【#奋斗者说故事会催人奋进#】近日，东部战区空军某部举办“一名党员就是一面旗帜——奋斗者说”故事会。5位来自基层不同岗位的党员代表，用质朴的语言和真挚的情感，讲述了自己在平凡战位上拼搏奉献、勇当先锋，矢志强军、追逐梦想的动人故事。（郭政、吴张哲、张力文、刘德凯、杨霖凯）  ...全文",
+      "url": "https://m.weibo.cn/detail/5318414119469343",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
