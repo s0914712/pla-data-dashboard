@@ -26,7 +26,7 @@ jobs:
     - name: 📦 Install dependencies
       run: pip install httpx
 
-    - name: 🧪 Test msa.gov.cn access strategies
+    - name: 🧪 Test msa.gov.cn access strategies (round 3)
       env:
         FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
       run: |
@@ -34,83 +34,76 @@ jobs:
         import os, sys, json
         import httpx
 
+        CID = 'C8896863-B101-4C43-8705-536A03EB46FF'  # 辽宁海事局
         MSA_HOME = 'https://www.msa.gov.cn/'
-        CHANNEL_PAGE = 'https://www.msa.gov.cn/page/channelPage.do?channelids=C8896863-B101-4C43-8705-536A03EB46FF'
-        MSA_URL = ('https://www.msa.gov.cn/page/channelArticles.do'
-                   '?channelids=C8896863-B101-4C43-8705-536A03EB46FF&pageNo=1')  # 辽宁海事局
+        CHANNEL_PAGE = f'https://www.msa.gov.cn/page/channelPage.do?channelids={CID}'
+        MSA_URL = f'https://www.msa.gov.cn/page/channelArticles.do?channelids={CID}&pageNo=1'
         UA = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
               'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
 
-        def show(label, status, body):
-            has = '/page/article.do?articleId=' in (body or '')
-            print(f'  {label}: HTTP {status} | len {len(body or "")} | 含文章連結 {has}')
-            if not has and body:
-                print(f'    前160字: {body[:160]!r}')
-            return has
+        def has_links(body):
+            return '/page/article.do?articleId=' in (body or '')
 
-        # ===== 直連（無代理）各種標頭策略 =====
-        print('=== 直連 httpx ===')
-        # 1) 無 Referer（基準，預期 403）
-        try:
-            with httpx.Client(timeout=30, headers={'User-Agent': UA}, follow_redirects=True) as c:
-                r = c.get(MSA_URL)
-                show('1) 無 Referer', r.status_code, r.text)
-        except Exception as e:
-            print(f'  1) 例外 {type(e).__name__}: {e}')
-
-        # 2) 只帶 Referer=首頁
-        try:
-            with httpx.Client(timeout=30, headers={'User-Agent': UA}, follow_redirects=True) as c:
-                r = c.get(MSA_URL, headers={'Referer': MSA_HOME})
-                show('2) 帶 Referer=首頁', r.status_code, r.text)
-        except Exception as e:
-            print(f'  2) 例外 {type(e).__name__}: {e}')
-
-        # 3) 先訪首頁建 session（拿 cookie）+ 帶 Referer 模擬點擊
+        # ===== 直連：AJAX 標頭 X-Requested-With =====
+        print('=== 直連 httpx + X-Requested-With ===')
         try:
             with httpx.Client(timeout=30, headers={'User-Agent': UA,
                     'Accept-Language': 'zh-CN,zh;q=0.9'}, follow_redirects=True) as c:
                 h = c.get(MSA_HOME)
-                print(f'  3a) 首頁 HTTP {h.status_code}, cookies={dict(c.cookies)}')
-                r = c.get(MSA_URL, headers={'Referer': CHANNEL_PAGE})
-                show('3b) session+Referer=欄目頁', r.status_code, r.text)
+                print(f'  首頁 HTTP {h.status_code}, cookies={dict(c.cookies)}')
+                r = c.get(MSA_URL, headers={'Referer': CHANNEL_PAGE,
+                        'X-Requested-With': 'XMLHttpRequest'})
+                print(f'  channelArticles+XHR: HTTP {r.status_code} | len {len(r.text)} | 連結 {has_links(r.text)}')
+                if not has_links(r.text):
+                    print(f'    前140字: {r.text[:140]!r}')
         except Exception as e:
-            print(f'  3) 例外 {type(e).__name__}: {e}')
+            print(f'  例外 {type(e).__name__}: {e}')
 
         # ===== Firecrawl =====
         key = (os.getenv('FIRECRAWL_API_KEY') or '').strip()
         if not key:
-            print('\n⚠️ 無 FIRECRAWL_API_KEY，略過 Firecrawl 測試')
-            sys.exit(0)
+            print('\n⚠️ 無 FIRECRAWL_API_KEY，略過'); sys.exit(0)
         API = 'https://api.firecrawl.dev/v2/scrape'
         FH = {'Authorization': f'Bearer {key}', 'Content-Type': 'application/json'}
 
         def fc(label, payload):
             print(f'\n--- Firecrawl {label} ---')
             try:
-                with httpx.Client(timeout=180) as c:
+                with httpx.Client(timeout=200) as c:
                     r = c.post(API, headers=FH, json=payload)
                     d = r.json()
                     if not d.get('success'):
-                        print(f'  success=False error={d.get("error")!r}')
-                        return
+                        print(f'  success=False error={d.get("error")!r}'); return
                     data = d.get('data', {}); meta = data.get('metadata', {})
-                    body = data.get('rawHtml') or data.get('html') or data.get('markdown') or ''
-                    show(f'statusCode={meta.get("statusCode")}', meta.get('statusCode'), body)
+                    body = data.get('rawHtml') or data.get('html') or ''
+                    md = data.get('markdown') or ''
+                    links = data.get('links') or []
+                    art_links = [l for l in links if 'article.do?articleId=' in l]
+                    print(f'  statusCode={meta.get("statusCode")} | rawHtml len {len(body)} | '
+                          f'md len {len(md)} | links {len(links)} | 文章連結數 {len(art_links)}')
+                    print(f'  rawHtml 含連結: {has_links(body)} | md 含連結: {has_links(md)}')
+                    if art_links[:3]:
+                        print(f'  範例文章連結: {art_links[:3]}')
+                    elif body:
+                        print(f'  rawHtml 前140字: {body[:140]!r}')
             except Exception as e:
                 print(f'  例外 {type(e).__name__}: {e}')
 
-        print('\n=== Firecrawl ===')
-        # F1) Firecrawl 抓首頁（測 IP 是否被整站封）
-        fc('F1) 首頁', {'url': MSA_HOME, 'formats': ['rawHtml'], 'onlyMainContent': False})
-        # F2) Firecrawl 帶 Referer 標頭抓資料頁
-        fc('F2) 資料頁 + headers Referer',
+        print('\n=== Firecrawl round 3 ===')
+        # G1) 欄目頁（使用者實際點開的頁），渲染 + 等 AJAX，取 links
+        fc('G1) channelPage.do 渲染',
+           {'url': CHANNEL_PAGE, 'formats': ['rawHtml', 'links'],
+            'onlyMainContent': False, 'waitFor': 6000})
+        # G2) 資料頁 + AJAX 標頭
+        fc('G2) channelArticles.do + X-Requested-With',
            {'url': MSA_URL, 'formats': ['rawHtml'], 'onlyMainContent': False,
-            'headers': {'Referer': MSA_HOME, 'User-Agent': UA}})
-        # F3) Firecrawl stealth + Referer
-        fc('F3) stealth + Referer',
-           {'url': MSA_URL, 'formats': ['rawHtml'], 'onlyMainContent': False,
-            'proxy': 'stealth', 'headers': {'Referer': CHANNEL_PAGE}})
+            'headers': {'X-Requested-With': 'XMLHttpRequest', 'Referer': CHANNEL_PAGE}})
+        # G3) 同 session 先過首頁再抓資料頁（actions 多步）
+        fc('G3) actions: 先訪首頁→再navigate資料頁',
+           {'url': MSA_HOME, 'formats': ['rawHtml'], 'onlyMainContent': False,
+            'actions': [{'type': 'wait', 'milliseconds': 3000},
+                        {'type': 'navigate', 'url': MSA_URL},
+                        {'type': 'wait', 'milliseconds': 3000}]})
 
         print('\n（診斷用，不判定成敗）')
         EOF
