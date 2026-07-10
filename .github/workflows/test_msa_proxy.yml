@@ -1,0 +1,85 @@
+name: Test MSA_PROXY connectivity
+
+# 暫時性診斷 workflow：驗證 MSA_PROXY secret 是否能連上 msa.gov.cn。
+# 驗證完成後可刪除此檔案。
+on:
+  workflow_dispatch:
+
+jobs:
+  test-proxy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v4
+
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: 📦 Install dependencies
+      run: pip install 'httpx[socks]'
+
+    - name: 🧪 Test proxy connectivity
+      env:
+        MSA_PROXY: ${{ secrets.MSA_PROXY }}
+      run: |
+        python - <<'EOF'
+        import os, sys
+        sys.path.insert(0, 'scripts')
+        import httpx
+        from scrapers.base_scraper import BaseScraper
+
+        proxy = BaseScraper._normalize_proxy(os.getenv('MSA_PROXY'))
+        if not proxy:
+            print('❌ MSA_PROXY secret 未設定或為空')
+            sys.exit(1)
+        print('✅ MSA_PROXY 已設定（值不顯示）')
+
+        MSA_URL = ('https://www.msa.gov.cn/page/channelArticles.do'
+                   '?channelids=C8896863-B101-4C43-8705-536A03EB46FF&pageNo=1')  # 辽宁海事局
+        UA = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+              'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
+        failed = False
+
+        # 1) 出口 IP 確認
+        print('\n--- 1) 經 proxy 查出口 IP (ipinfo.io) ---')
+        try:
+            with httpx.Client(proxy=proxy, timeout=60, headers=UA) as c:
+                r = c.get('https://ipinfo.io/json')
+                info = r.json()
+                print(f"HTTP {r.status_code} | ip={info.get('ip')} "
+                      f"country={info.get('country')} city={info.get('city')} org={info.get('org')}")
+                if info.get('country') != 'CN':
+                    print('⚠️  出口不在中國，msa.gov.cn 可能仍會擋')
+        except Exception as e:
+            print(f'❌ proxy 連 ipinfo 失敗: {type(e).__name__}: {e}')
+            failed = True
+
+        # 2) 經 proxy 打 msa.gov.cn 航警列表頁
+        print('\n--- 2) 經 proxy 抓 msa.gov.cn 航警列表 ---')
+        try:
+            with httpx.Client(proxy=proxy, timeout=60, headers=UA, follow_redirects=True) as c:
+                r = c.get(MSA_URL)
+                has_articles = '/page/article.do?articleId=' in r.text
+                print(f'HTTP {r.status_code} | 長度 {len(r.text)} | 含文章連結: {has_articles}')
+                if r.status_code != 200 or not has_articles:
+                    print(f'回應前 300 字: {r.text[:300]!r}')
+                    failed = True
+                else:
+                    print('✅ msa.gov.cn 經 proxy 存取成功！')
+        except Exception as e:
+            print(f'❌ proxy 連 msa.gov.cn 失敗: {type(e).__name__}: {e}')
+            failed = True
+
+        # 3) 對照組：直連（預期 403）
+        print('\n--- 3) 對照組：直連 msa.gov.cn（預期 403）---')
+        try:
+            with httpx.Client(timeout=30, headers=UA, follow_redirects=True) as c:
+                r = c.get(MSA_URL)
+                print(f'HTTP {r.status_code}')
+        except Exception as e:
+            print(f'直連失敗: {type(e).__name__}: {e}')
+
+        sys.exit(1 if failed else 0)
+        EOF

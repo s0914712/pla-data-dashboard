@@ -45,14 +45,28 @@ class BaseScraper(ABC):
             follow_redirects=True,
         )
         # MSA 網站對境外 IP 封鎖資料頁，可透過 MSA_PROXY 指定中國區代理
-        proxy = os.getenv('MSA_PROXY')
+        proxy = self._normalize_proxy(os.getenv('MSA_PROXY'))
         if proxy:
             # httpx >= 0.26 用 proxy=，舊版用 proxies=
             params = inspect.signature(httpx.Client.__init__).parameters
             client_kwargs['proxy' if 'proxy' in params else 'proxies'] = proxy
             print(f"[{self.name}] 🌐 使用 MSA_PROXY 代理發送請求")
         self.client = httpx.Client(**client_kwargs)
-    
+
+    @staticmethod
+    def _normalize_proxy(value: Optional[str]) -> Optional[str]:
+        """接受 URL 格式或代理商常見的 host:port:user:pass 格式"""
+        if not value:
+            return None
+        value = value.strip()
+        if '://' in value:
+            return value
+        parts = value.split(':')
+        if len(parts) == 4 and parts[1].isdigit():
+            host, port, user, pwd = parts
+            return f'http://{user}:{pwd}@{host}:{port}'
+        return value
+
     def fetch_page(self, url: str, retries: int = 3) -> Optional[str]:
         """
         獲取網頁內容，帶重試機制
