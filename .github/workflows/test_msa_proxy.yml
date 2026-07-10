@@ -27,7 +27,8 @@ jobs:
 
     - name: 🧪 Test proxy connectivity
       env:
-        MSA_PROXY: ${{ secrets.MSA_PROXY }}
+        # 同時接受 MSA_PROXY / MAS_PROXY 兩種 secret 名稱
+        MSA_PROXY: ${{ secrets.MSA_PROXY || secrets.MAS_PROXY }}
       run: |
         python - <<'EOF'
         import os, sys
