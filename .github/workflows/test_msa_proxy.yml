@@ -116,12 +116,22 @@ jobs:
             'actions': [{'type': 'wait', 'milliseconds': 3500},
                         {'type': 'executeJavascript', 'script': f"window.location.href = {json.dumps(MSA_URL)};"},
                         {'type': 'wait', 'milliseconds': 4000}]})
-        # H2) 落在首頁解挑戰 → 同源 fetch 資料頁，回傳 HTML（javascriptReturns）
-        fc_raw('H2) 首頁→同源fetch資料頁',
+        # H2) 落在首頁解挑戰 → 同源 fetch 資料頁，回傳 HTML（promise 寫法避免 top-level await）
+        fc_raw('H2) 首頁→同源fetch資料頁(promise)',
            {'url': MSA_HOME, 'formats': ['rawHtml'], 'onlyMainContent': False,
             'actions': [{'type': 'wait', 'milliseconds': 3500},
                         {'type': 'executeJavascript',
-                         'script': f"const r = await fetch({json.dumps(MSA_URL)}, {{headers:{{'X-Requested-With':'XMLHttpRequest'}}}}); return await r.text();"}]})
+                         'script': (f"return fetch({json.dumps(MSA_URL)}, "
+                                    "{headers:{'X-Requested-With':'XMLHttpRequest'},credentials:'include'})"
+                                    ".then(r => r.status + '|' + r.url).catch(e => 'ERR:' + e);")}]})
+        # H2b) 同上但回傳 body 前段
+        fc_raw('H2b) 首頁→同源fetch資料頁(body)',
+           {'url': MSA_HOME, 'formats': ['rawHtml'], 'onlyMainContent': False,
+            'actions': [{'type': 'wait', 'milliseconds': 3500},
+                        {'type': 'executeJavascript',
+                         'script': (f"return fetch({json.dumps(MSA_URL)}, "
+                                    "{headers:{'X-Requested-With':'XMLHttpRequest'},credentials:'include'})"
+                                    ".then(r => r.text()).catch(e => 'ERR:' + e);")}]})
 
         print('\n（診斷用，不判定成敗）')
         EOF
