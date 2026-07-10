@@ -23742,5 +23742,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "第71集团军某旅组织群众性练兵比武，百余名训练尖子围绕共同课目和步（机）枪手专业技能两大类12个课目展开角逐。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-10",
+      "title": "#直击东部战区练兵备战现场#【#群众性练兵比武热血展开#】近日，第71集团军某旅严密组织群众性练兵比...",
+      "content": "#直击东部战区练兵备战现场#【#群众性练兵比武热血展开#】近日，第71集团军某旅严密组织群众性练兵比武。百余名来自基层一线的训练尖子围绕共同课目、步（机）枪手专业技能两大类12个课目展开激烈角逐，展示过硬打赢本领。（肖志勇、廖鹏、王泽宇、廖浩广）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5319040748486834",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-09",
+      "title": "#东部熄灯号#沙场砺锋芒，少年定四方。#阅海峡#",
+      "content": "#东部熄灯号#沙场砺锋芒，少年定四方。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5318889752762948",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-09",
+      "title": "【#王牌号手何贤达来了#】 火箭军某部一级军士长何贤达，入伍29年来，精通多型导弹发射技能，先后参加...",
+      "content": "【#王牌号手何贤达来了#】 火箭军某部一级军士长何贤达，入伍29年来，精通多型导弹发射技能，先后参加重大演训任务30余次，荣立一等功1次、二等功2次、三等功3次，获得 “全军爱军精武标兵”“全军‘四有’优秀个人标兵”“全军优秀政治教员”“全国敬业奉献模范”等荣誉，入选“最美新时代革命军人” ...全文",
+      "url": "https://m.weibo.cn/detail/5318829360027476",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
