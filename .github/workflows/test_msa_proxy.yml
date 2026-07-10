@@ -4,6 +4,11 @@ name: Test MSA_PROXY connectivity
 # 驗證完成後可刪除此檔案。
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - claude/nav-warnings-cutoff-u0yauw
+    paths:
+      - '.github/workflows/test_msa_proxy.yml'
 
 jobs:
   test-proxy:
