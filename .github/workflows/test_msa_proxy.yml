@@ -26,7 +26,7 @@ jobs:
     - name: 📦 Install dependencies
       run: pip install httpx
 
-    - name: 🧪 Test Firecrawl on msa.gov.cn
+    - name: 🧪 Test msa.gov.cn access strategies
       env:
         FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
       run: |
@@ -34,56 +34,83 @@ jobs:
         import os, sys, json
         import httpx
 
-        key = (os.getenv('FIRECRAWL_API_KEY') or '').strip()
-        if not key:
-            print('❌ FIRECRAWL_API_KEY secret 未設定或為空')
-            sys.exit(1)
-        print('✅ FIRECRAWL_API_KEY 已設定（值不顯示）')
-
-        API = 'https://api.firecrawl.dev/v2/scrape'
+        MSA_HOME = 'https://www.msa.gov.cn/'
+        CHANNEL_PAGE = 'https://www.msa.gov.cn/page/channelPage.do?channelids=C8896863-B101-4C43-8705-536A03EB46FF'
         MSA_URL = ('https://www.msa.gov.cn/page/channelArticles.do'
                    '?channelids=C8896863-B101-4C43-8705-536A03EB46FF&pageNo=1')  # 辽宁海事局
-        HEADERS = {'Authorization': f'Bearer {key}', 'Content-Type': 'application/json'}
+        UA = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+              'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
 
-        def try_scrape(label, payload):
-            print(f'\n--- {label} ---')
-            print(f'  payload: {json.dumps({k:v for k,v in payload.items() if k!="url"}, ensure_ascii=False)}')
+        def show(label, status, body):
+            has = '/page/article.do?articleId=' in (body or '')
+            print(f'  {label}: HTTP {status} | len {len(body or "")} | 含文章連結 {has}')
+            if not has and body:
+                print(f'    前160字: {body[:160]!r}')
+            return has
+
+        # ===== 直連（無代理）各種標頭策略 =====
+        print('=== 直連 httpx ===')
+        # 1) 無 Referer（基準，預期 403）
+        try:
+            with httpx.Client(timeout=30, headers={'User-Agent': UA}, follow_redirects=True) as c:
+                r = c.get(MSA_URL)
+                show('1) 無 Referer', r.status_code, r.text)
+        except Exception as e:
+            print(f'  1) 例外 {type(e).__name__}: {e}')
+
+        # 2) 只帶 Referer=首頁
+        try:
+            with httpx.Client(timeout=30, headers={'User-Agent': UA}, follow_redirects=True) as c:
+                r = c.get(MSA_URL, headers={'Referer': MSA_HOME})
+                show('2) 帶 Referer=首頁', r.status_code, r.text)
+        except Exception as e:
+            print(f'  2) 例外 {type(e).__name__}: {e}')
+
+        # 3) 先訪首頁建 session（拿 cookie）+ 帶 Referer 模擬點擊
+        try:
+            with httpx.Client(timeout=30, headers={'User-Agent': UA,
+                    'Accept-Language': 'zh-CN,zh;q=0.9'}, follow_redirects=True) as c:
+                h = c.get(MSA_HOME)
+                print(f'  3a) 首頁 HTTP {h.status_code}, cookies={dict(c.cookies)}')
+                r = c.get(MSA_URL, headers={'Referer': CHANNEL_PAGE})
+                show('3b) session+Referer=欄目頁', r.status_code, r.text)
+        except Exception as e:
+            print(f'  3) 例外 {type(e).__name__}: {e}')
+
+        # ===== Firecrawl =====
+        key = (os.getenv('FIRECRAWL_API_KEY') or '').strip()
+        if not key:
+            print('\n⚠️ 無 FIRECRAWL_API_KEY，略過 Firecrawl 測試')
+            sys.exit(0)
+        API = 'https://api.firecrawl.dev/v2/scrape'
+        FH = {'Authorization': f'Bearer {key}', 'Content-Type': 'application/json'}
+
+        def fc(label, payload):
+            print(f'\n--- Firecrawl {label} ---')
             try:
                 with httpx.Client(timeout=180) as c:
-                    r = c.post(API, headers=HEADERS, json=payload)
-                    print(f'  Firecrawl HTTP {r.status_code}')
-                    try:
-                        d = r.json()
-                    except Exception:
-                        print(f'  非 JSON 回應前 300 字: {r.text[:300]!r}')
-                        return
+                    r = c.post(API, headers=FH, json=payload)
+                    d = r.json()
                     if not d.get('success'):
-                        print(f'  success=False, error={d.get("error")!r}, 前300字={str(d)[:300]!r}')
+                        print(f'  success=False error={d.get("error")!r}')
                         return
-                    data = d.get('data', {})
-                    meta = data.get('metadata', {})
-                    html = data.get('rawHtml') or data.get('html') or ''
-                    md = data.get('markdown') or ''
-                    body = html or md
-                    has_articles = '/page/article.do?articleId=' in body
-                    print(f'  目標 statusCode: {meta.get("statusCode")}')
-                    print(f'  rawHtml/markdown 長度: {len(body)}')
-                    print(f'  含文章連結 article.do?articleId=: {has_articles}')
-                    if has_articles:
-                        print('  ✅ 成功抓到航警列表！')
-                    else:
-                        print(f'  內容前 200 字: {body[:200]!r}')
+                    data = d.get('data', {}); meta = data.get('metadata', {})
+                    body = data.get('rawHtml') or data.get('html') or data.get('markdown') or ''
+                    show(f'statusCode={meta.get("statusCode")}', meta.get('statusCode'), body)
             except Exception as e:
-                print(f'  例外: {type(e).__name__}: {e}')
+                print(f'  例外 {type(e).__name__}: {e}')
 
-        base = {'url': MSA_URL, 'formats': ['rawHtml'], 'onlyMainContent': False}
-
-        try_scrape('A) 預設', dict(base))
-        try_scrape('B) proxy=auto', dict(base, proxy='auto'))
-        try_scrape('C) proxy=stealth + location CN',
-                   dict(base, proxy='stealth', location={'country': 'CN', 'languages': ['zh-CN']}))
-        try_scrape('D) proxy=stealth + waitFor 5s',
-                   dict(base, proxy='stealth', waitFor=5000))
+        print('\n=== Firecrawl ===')
+        # F1) Firecrawl 抓首頁（測 IP 是否被整站封）
+        fc('F1) 首頁', {'url': MSA_HOME, 'formats': ['rawHtml'], 'onlyMainContent': False})
+        # F2) Firecrawl 帶 Referer 標頭抓資料頁
+        fc('F2) 資料頁 + headers Referer',
+           {'url': MSA_URL, 'formats': ['rawHtml'], 'onlyMainContent': False,
+            'headers': {'Referer': MSA_HOME, 'User-Agent': UA}})
+        # F3) Firecrawl stealth + Referer
+        fc('F3) stealth + Referer',
+           {'url': MSA_URL, 'formats': ['rawHtml'], 'onlyMainContent': False,
+            'proxy': 'stealth', 'headers': {'Referer': CHANNEL_PAGE}})
 
         print('\n（診斷用，不判定成敗）')
         EOF
