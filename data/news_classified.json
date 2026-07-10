@@ -23814,5 +23814,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-09",
+      "title": "微纪录片丨从台湾来的炸货店",
+      "content": "2025年，根据自己的美食经验，在政府的帮助下，他很快在天津开起了一家炸货店。 他找供应商、试原料，把台湾的调料一样一样搬过来，在油锅里一遍一遍地试，只为让这里的人们感受到“台湾味道”的热情。 大陆的快速发展和产业链愈加成熟，让越来越多的台湾青年在这里扎根、奋斗。如今，两岸青年交流从比较陌生走向热络，也让未来充满无限可能。 作者：李怡汐、张宇琪、郝杰 新华社音视频部制作",
+      "url": "https://www.news.cn/tw/20260709/68a551835595485eb6b653091c4db171/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-09",
+      "title": "两岸青年在陕西共赴文化之约",
+      "content": "8日，“相约长安·青春同行”——第三届陕台文化交流周暨海峡两岸青年汉唐文化夏令营活动开幕式暨交流分享会在西安举办，来自两岸的500余名青年和各界代表共赴一场文化之约。 开幕式上，台湾时事评论员赖岳谦说，这是他第三次到访陕西，最大的感触仍是这里深厚的文化底蕴，文化和旅游的结合让他感受到了文化的生命力。“我认为通过两岸文化交流，让这股强大的生命力进入台湾，对于台湾的未来非常有帮助。” 在西安美术学院就读的台湾学生郝珮君分享了在陕学习生活的收获与感悟，“我很真切地感受到我脚下踩的土地和海峡彼岸的家乡同根同源，同文同种”。她说，两岸青年共同拥有的亲情、友情、乡愁和梦想，会让彼此紧紧相依相连。 “从前的时候是一家人，现在还是一家人……”两岸青年联袂献演《我们都是一家人》《送你一个长安》《鼓舞声声迎盛世》《一路生花》等精彩歌舞节目。秦腔经典片段韵味悠长，台青原创歌曲《岁岁守望》深情动人。 开幕式后，两岸青年和各界代表走进陕西省文化馆（曲江馆区）非遗展区，沉浸式体验面塑、剪纸、泥塑、扇画等传统技艺，观看西安鼓乐、木偶戏、华山戏法等特色展演。 学习戏曲专业的台湾青年黄立稐对秦腔表演印象深刻，他表示返程后会鼓励身边人多到大陆交流体验。 据悉，第三届陕台文化交流周暨海峡两岸青年汉唐文化夏令营活动以“弘扬中华文化，谱写青春华章”为主题，将持续至10月。来自陕台两地的青年和各界代表5000余人，其中台胞台青2600余人，将参加40余项活动，在科技、教育、文化、学术、体育和旅游等领域开展交流互动。",
+      "url": "https://www.news.cn/tw/20260709/d46a4f752c5c465d93b52eb429336f40/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
