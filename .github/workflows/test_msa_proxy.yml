@@ -9,6 +9,7 @@ on:
       - claude/nav-warnings-cutoff-u0yauw
     paths:
       - '.github/workflows/test_msa_proxy.yml'
+      - 'scripts/scrapers/base_scraper.py'
 
 jobs:
   test-proxy:
