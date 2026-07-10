@@ -89,21 +89,39 @@ jobs:
             except Exception as e:
                 print(f'  例外 {type(e).__name__}: {e}')
 
-        print('\n=== Firecrawl round 3 ===')
-        # G1) 欄目頁（使用者實際點開的頁），渲染 + 等 AJAX，取 links
-        fc('G1) channelPage.do 渲染',
-           {'url': CHANNEL_PAGE, 'formats': ['rawHtml', 'links'],
-            'onlyMainContent': False, 'waitFor': 6000})
-        # G2) 資料頁 + AJAX 標頭
-        fc('G2) channelArticles.do + X-Requested-With',
-           {'url': MSA_URL, 'formats': ['rawHtml'], 'onlyMainContent': False,
-            'headers': {'X-Requested-With': 'XMLHttpRequest', 'Referer': CHANNEL_PAGE}})
-        # G3) 同 session 先過首頁再抓資料頁（actions 多步）
-        fc('G3) actions: 先訪首頁→再navigate資料頁',
+        def fc_raw(label, payload):
+            print(f'\n--- Firecrawl {label} ---')
+            try:
+                with httpx.Client(timeout=200) as c:
+                    r = c.post(API, headers=FH, json=payload)
+                    d = r.json()
+                    if not d.get('success'):
+                        print(f'  success=False error={d.get("error")!r} 前300={str(d)[:300]!r}'); return
+                    data = d.get('data', {}); meta = data.get('metadata', {})
+                    body = data.get('rawHtml') or data.get('html') or ''
+                    jsret = (data.get('actions') or {}).get('javascriptReturns') or []
+                    print(f'  最終 statusCode={meta.get("statusCode")} | finalURL={meta.get("sourceURL")}')
+                    print(f'  rawHtml len {len(body)} | 含連結 {has_links(body)}')
+                    for i, jr in enumerate(jsret):
+                        v = jr.get('value') if isinstance(jr, dict) else jr
+                        s = v if isinstance(v, str) else json.dumps(v, ensure_ascii=False)
+                        print(f'  jsReturn[{i}] len={len(s)} 含連結={has_links(s)} 前120={s[:120]!r}')
+            except Exception as e:
+                print(f'  例外 {type(e).__name__}: {e}')
+
+        print('\n=== Firecrawl round 4（同 session 先過首頁）===')
+        # H1) 落在首頁解挑戰 → executeJavascript 改 location 到資料頁 → 等待 → 抓最終頁
+        fc_raw('H1) 首頁→JS改location→資料頁',
            {'url': MSA_HOME, 'formats': ['rawHtml'], 'onlyMainContent': False,
-            'actions': [{'type': 'wait', 'milliseconds': 3000},
-                        {'type': 'navigate', 'url': MSA_URL},
-                        {'type': 'wait', 'milliseconds': 3000}]})
+            'actions': [{'type': 'wait', 'milliseconds': 3500},
+                        {'type': 'executeJavascript', 'script': f"window.location.href = {json.dumps(MSA_URL)};"},
+                        {'type': 'wait', 'milliseconds': 4000}]})
+        # H2) 落在首頁解挑戰 → 同源 fetch 資料頁，回傳 HTML（javascriptReturns）
+        fc_raw('H2) 首頁→同源fetch資料頁',
+           {'url': MSA_HOME, 'formats': ['rawHtml'], 'onlyMainContent': False,
+            'actions': [{'type': 'wait', 'milliseconds': 3500},
+                        {'type': 'executeJavascript',
+                         'script': f"const r = await fetch({json.dumps(MSA_URL)}, {{headers:{{'X-Requested-With':'XMLHttpRequest'}}}}); return await r.text();"}]})
 
         print('\n（診斷用，不判定成敗）')
         EOF
