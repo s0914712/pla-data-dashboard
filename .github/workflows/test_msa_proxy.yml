@@ -1,6 +1,6 @@
-name: Test MSA_PROXY connectivity
+name: Test MSA scrape connectivity
 
-# 暫時性診斷 workflow：驗證 MSA_PROXY secret 是否能連上 msa.gov.cn。
+# 暫時性診斷 workflow：驗證 Firecrawl 能否抓 msa.gov.cn 航警頁。
 # 驗證完成後可刪除此檔案。
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ on:
       - 'scripts/scrapers/base_scraper.py'
 
 jobs:
-  test-proxy:
+  test-firecrawl:
     runs-on: ubuntu-latest
     steps:
     - name: 📥 Checkout repository
@@ -24,79 +24,66 @@ jobs:
         python-version: '3.11'
 
     - name: 📦 Install dependencies
-      run: pip install 'httpx[socks]'
+      run: pip install httpx
 
-    - name: 🧪 Test proxy connectivity
+    - name: 🧪 Test Firecrawl on msa.gov.cn
       env:
-        # 同時接受 MSA_PROXY / MAS_PROXY 兩種 secret 名稱
-        MSA_PROXY: ${{ secrets.MSA_PROXY || secrets.MAS_PROXY }}
+        FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
       run: |
         python - <<'EOF'
-        import os, sys
-        sys.path.insert(0, 'scripts')
+        import os, sys, json
         import httpx
-        from scrapers.base_scraper import BaseScraper
 
-        proxy = BaseScraper._normalize_proxy(os.getenv('MSA_PROXY'))
-        if not proxy:
-            print('❌ MSA_PROXY secret 未設定或為空')
+        key = (os.getenv('FIRECRAWL_API_KEY') or '').strip()
+        if not key:
+            print('❌ FIRECRAWL_API_KEY secret 未設定或為空')
             sys.exit(1)
-        print('✅ MSA_PROXY 已設定（值不顯示）')
+        print('✅ FIRECRAWL_API_KEY 已設定（值不顯示）')
 
-        MSA_HOME = 'https://www.msa.gov.cn'
+        API = 'https://api.firecrawl.dev/v2/scrape'
         MSA_URL = ('https://www.msa.gov.cn/page/channelArticles.do'
                    '?channelids=C8896863-B101-4C43-8705-536A03EB46FF&pageNo=1')  # 辽宁海事局
-        UA = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
-              'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
+        HEADERS = {'Authorization': f'Bearer {key}', 'Content-Type': 'application/json'}
 
-        def fetch(label, url, client_kwargs, req_headers=None, expect_note=''):
+        def try_scrape(label, payload):
             print(f'\n--- {label} ---')
+            print(f'  payload: {json.dumps({k:v for k,v in payload.items() if k!="url"}, ensure_ascii=False)}')
             try:
-                with httpx.Client(timeout=60, headers=UA, follow_redirects=True, **client_kwargs) as c:
-                    r = c.get(url, headers=req_headers or {})
-                    has_articles = '/page/article.do?articleId=' in r.text
-                    print(f'HTTP {r.status_code} | 長度 {len(r.text)} | 含文章連結: {has_articles} {expect_note}')
-                    return r.status_code, has_articles
+                with httpx.Client(timeout=180) as c:
+                    r = c.post(API, headers=HEADERS, json=payload)
+                    print(f'  Firecrawl HTTP {r.status_code}')
+                    try:
+                        d = r.json()
+                    except Exception:
+                        print(f'  非 JSON 回應前 300 字: {r.text[:300]!r}')
+                        return
+                    if not d.get('success'):
+                        print(f'  success=False, error={d.get("error")!r}, 前300字={str(d)[:300]!r}')
+                        return
+                    data = d.get('data', {})
+                    meta = data.get('metadata', {})
+                    html = data.get('rawHtml') or data.get('html') or ''
+                    md = data.get('markdown') or ''
+                    body = html or md
+                    has_articles = '/page/article.do?articleId=' in body
+                    print(f'  目標 statusCode: {meta.get("statusCode")}')
+                    print(f'  rawHtml/markdown 長度: {len(body)}')
+                    print(f'  含文章連結 article.do?articleId=: {has_articles}')
+                    if has_articles:
+                        print('  ✅ 成功抓到航警列表！')
+                    else:
+                        print(f'  內容前 200 字: {body[:200]!r}')
             except Exception as e:
-                # ProxyError=代理拒絕轉發；HTTPStatusError=網站回錯誤碼
-                print(f'例外: {type(e).__name__}: {e} {expect_note}')
-                return None, False
+                print(f'  例外: {type(e).__name__}: {e}')
 
-        P = {'proxy': proxy}
+        base = {'url': MSA_URL, 'formats': ['rawHtml'], 'onlyMainContent': False}
 
-        # 1) 出口 IP
-        print('\n--- 1) 經 proxy 查出口 IP (ipinfo.io) ---')
-        try:
-            with httpx.Client(proxy=proxy, timeout=60, headers=UA) as c:
-                info = c.get('https://ipinfo.io/json').json()
-                print(f"ip={info.get('ip')} country={info.get('country')} "
-                      f"city={info.get('city')} org={info.get('org')}")
-        except Exception as e:
-            print(f'❌ {type(e).__name__}: {e}')
-
-        # 2) 經 proxy 打一般中國 HTTPS 網站（百度）→ 證明 proxy 能通 CN HTTPS
-        fetch('2) 經 proxy 抓 baidu.com（對照：一般中國網站）', 'https://www.baidu.com', P)
-
-        # 3) 經 proxy 打 msa.gov.cn 首頁（你說瀏覽器能開）
-        fetch('3) 經 proxy 抓 msa.gov.cn 首頁', MSA_HOME, P)
-
-        # 4) 經 proxy 打航警列表頁（純 GET）
-        fetch('4) 經 proxy 抓航警列表（純 GET）', MSA_URL, P)
-
-        # 5) 經 proxy + session 預熱 + Referer（模擬從首頁點進去）
-        print('\n--- 5) 經 proxy + 先訪首頁建 session + 帶 Referer ---')
-        try:
-            with httpx.Client(proxy=proxy, timeout=60, headers=UA, follow_redirects=True) as c:
-                h = c.get(MSA_HOME)
-                print(f'  首頁 HTTP {h.status_code}, cookies: {dict(c.cookies)}')
-                r = c.get(MSA_URL, headers={'Referer': MSA_HOME})
-                has_articles = '/page/article.do?articleId=' in r.text
-                print(f'  列表 HTTP {r.status_code} | 含文章連結: {has_articles}')
-        except Exception as e:
-            print(f'  例外: {type(e).__name__}: {e}')
-
-        # 6) 對照組：直連航警頁（預期 HTTP 403，非 ProxyError）
-        fetch('6) 對照：直連航警列表（預期 HTTP 403）', MSA_URL, {}, expect_note='← 直連')
+        try_scrape('A) 預設', dict(base))
+        try_scrape('B) proxy=auto', dict(base, proxy='auto'))
+        try_scrape('C) proxy=stealth + location CN',
+                   dict(base, proxy='stealth', location={'country': 'CN', 'languages': ['zh-CN']}))
+        try_scrape('D) proxy=stealth + waitFor 5s',
+                   dict(base, proxy='stealth', waitFor=5000))
 
         print('\n（診斷用，不判定成敗）')
         EOF
