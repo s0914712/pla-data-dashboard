@@ -55,10 +55,14 @@ class BaseScraper(ABC):
 
     @staticmethod
     def _normalize_proxy(value: Optional[str]) -> Optional[str]:
-        """接受 URL 格式或代理商常見的 host:port:user:pass 格式"""
+        """接受 URL 格式或代理商常見的 host:port:user:pass 格式；
+        若誤貼多行（多組節點），取第一個非空行"""
         if not value:
             return None
-        value = value.strip()
+        lines = [ln.strip() for ln in value.strip().splitlines() if ln.strip()]
+        if not lines:
+            return None
+        value = lines[0]
         if '://' in value:
             return value
         parts = value.split(':')
