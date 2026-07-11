@@ -1152,58 +1152,20 @@
             </div>
         </div>
 
-        <!-- Japan MOD & Navigation Warnings Summary -->
+        <!-- Japan MOD Summary -->
         <div class="japan-mod-summary" id="japanModSummary" style="display: none;">
             <div class="section-header">
-                <h4 class="section-title">Japan MOD & Navigation Warnings</h4>
+                <h4 class="section-title">Japan MOD</h4>
                 <a href="japan.html" class="view-forecast-btn">
                     Full Details <span>→</span>
                 </a>
             </div>
             <div class="row">
-                <div class="col-lg-8 mb-3">
+                <div class="col-lg-12 mb-3">
                     <div class="pred-mini-chart" style="height:auto;">
-                        <h6>Strait Locations, Transit Events & Military Exercise Zones</h6>
+                        <h6>Strait Locations & Transit Events</h6>
                         <p class="text-muted mb-2" style="font-size:0.75rem;">Use layer controls (top-right) to toggle layers. Click areas for details.</p>
                         <div id="homeMap" style="height:420px;border-radius:8px;"></div>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-3">
-                    <div class="pred-mini-chart" style="height:auto;">
-                        <h6>MSA Navigation Warnings (航行警告)</h6>
-                        <div class="d-flex justify-content-between mb-2" style="font-size:0.75rem;">
-                            <span class="text-muted">Total: <strong id="homeMsaTotal">-</strong></span>
-                            <span class="text-muted" id="homeMsaDateRange"></span>
-                        </div>
-                        <div class="row mb-2" id="homeMsaStats">
-                            <div class="col-6 mb-1">
-                                <div style="background:#f8f9fa;border-radius:6px;padding:0.4rem 0.6rem;font-size:0.75rem;">
-                                    <span style="color:#e74c3c;">Military Ex.</span>
-                                    <strong id="homeMsaExercise" style="float:right;">-</strong>
-                                </div>
-                            </div>
-                            <div class="col-6 mb-1">
-                                <div style="background:#f8f9fa;border-radius:6px;padding:0.4rem 0.6rem;font-size:0.75rem;">
-                                    <span style="color:#e67e22;">Live Fire</span>
-                                    <strong id="homeMsaLiveFire" style="float:right;">-</strong>
-                                </div>
-                            </div>
-                            <div class="col-6 mb-1">
-                                <div style="background:#f8f9fa;border-radius:6px;padding:0.4rem 0.6rem;font-size:0.75rem;">
-                                    <span style="color:#8e44ad;">Rocket</span>
-                                    <strong id="homeMsaRocket" style="float:right;">-</strong>
-                                </div>
-                            </div>
-                            <div class="col-6 mb-1">
-                                <div style="background:#f8f9fa;border-radius:6px;padding:0.4rem 0.6rem;font-size:0.75rem;">
-                                    <span style="color:#2980b9;">With Coords</span>
-                                    <strong id="homeMsaCoords" style="float:right;">-</strong>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="homeMsaWarningList" style="max-height:320px;overflow-y:auto;">
-                            <span class="text-muted" style="font-size:0.8rem;">Loading...</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1297,18 +1259,15 @@
         let charts = {};
         let predMiniChart = null;
         let homeMap = null;
-        let homeMsaLayerGroup = null;
         let homeStraitLayerGroup = null;
-        let homeMsaWarningData = [];
         let riskDoughnutChart = null;
 
         window.addEventListener('load', async function () {
             await loadData();
             initializeCharts();
             updateDashboard();
-            await Promise.all([loadPredictionSummary(), loadArticles(), loadHomeMSAWarnings()]);
+            await Promise.all([loadPredictionSummary(), loadArticles()]);
             initHomeMap();
-            renderHomeMSAWarnings();
             document.getElementById('loading').style.display = 'none';
             document.getElementById('mainContent').style.display = 'block';
         });
@@ -1810,7 +1769,6 @@
             }).addTo(homeMap);
 
             homeStraitLayerGroup = L.layerGroup().addTo(homeMap);
-            homeMsaLayerGroup = L.layerGroup().addTo(homeMap);
 
             // Add strait markers
             Object.entries(homeStraitCoords).forEach(([key, strait]) => {
@@ -1844,8 +1802,7 @@
 
             // Layer controls
             const overlays = {
-                'Japan MOD Straits': homeStraitLayerGroup,
-                'MSA Military Warnings': homeMsaLayerGroup
+                'Japan MOD Straits': homeStraitLayerGroup
             };
             L.control.layers(null, overlays, { position: 'topright', collapsed: false }).addTo(homeMap);
 
@@ -1860,10 +1817,6 @@
                         <div><span style="display:inline-block;width:10px;height:10px;background:#3498db;border-radius:50%;margin-right:4px;"></span>Miyako</div>
                         <div><span style="display:inline-block;width:10px;height:10px;background:#2ecc71;border-radius:50%;margin-right:4px;"></span>Osumi</div>
                         <div><span style="display:inline-block;width:10px;height:10px;background:#9b59b6;border-radius:50%;margin-right:4px;"></span>Tsushima</div>
-                        <div style="font-weight:bold;margin-top:4px;margin-bottom:3px;">MSA Warnings</div>
-                        <div><span style="display:inline-block;width:10px;height:10px;background:#e74c3c;border-radius:2px;margin-right:4px;opacity:0.5;"></span>Exercise</div>
-                        <div><span style="display:inline-block;width:10px;height:10px;background:#e67e22;border-radius:2px;margin-right:4px;opacity:0.5;"></span>Live Fire</div>
-                        <div><span style="display:inline-block;width:10px;height:10px;background:#8e44ad;border-radius:2px;margin-right:4px;opacity:0.5;"></span>Rocket</div>
                     </div>
                 `;
                 return div;
@@ -1927,211 +1880,6 @@
             });
         }
 
-        async function loadHomeMSAWarnings() {
-            try {
-                const response = await fetch('data/navigation_warnings/military_exercises.csv');
-                if (!response.ok) return;
-                const text = await response.text();
-                const cleanText = text.replace(/^\uFEFF/, '');
-                const parsed = Papa.parse(cleanText, { header: true, skipEmptyLines: true });
-
-                homeMsaWarningData = parsed.data.map(row => {
-                    let coords = homeParseCoords(row.coordinates);
-                    let timePeriods = row.time_periods || '';
-                    const content = row.content_preview || '';
-                    if (coords.length === 0 && content) coords = homeExtractCoordsFromContent(content);
-                    if (!timePeriods && content) timePeriods = homeExtractTime(content);
-                    return {
-                        ...row,
-                        parsedCoords: coords,
-                        parsedTime: timePeriods,
-                        warningType: homeClassifyWarning(row.title, content)
-                    };
-                });
-            } catch (error) {
-                console.error('Error loading MSA warnings:', error);
-            }
-        }
-
-        function homeParseCoords(coordStr) {
-            if (!coordStr || coordStr.trim() === '') return [];
-            return coordStr.split(';').map(pair => {
-                const parts = pair.trim().split(',');
-                if (parts.length === 2) {
-                    const lat = parseFloat(parts[0]);
-                    const lon = parseFloat(parts[1]);
-                    if (!isNaN(lat) && !isNaN(lon)) return { lat, lon };
-                }
-                return null;
-            }).filter(Boolean);
-        }
-
-        function homeExtractCoordsFromContent(text) {
-            const coords = [];
-            const seen = new Set();
-            const pattern1 = /(\d{1,2})-(\d{1,2}(?:\.\d+)?)\s*([NS])\s*[\/\s]\s*(\d{1,3})-(\d{1,2}(?:\.\d+)?)\s*([EW])/g;
-            let match;
-            while ((match = pattern1.exec(text)) !== null) {
-                let lat = parseFloat(match[1]) + parseFloat(match[2]) / 60;
-                let lon = parseFloat(match[4]) + parseFloat(match[5]) / 60;
-                if (match[3] === 'S') lat = -lat;
-                if (match[6] === 'W') lon = -lon;
-                const key = lat.toFixed(4) + ',' + lon.toFixed(4);
-                if (!seen.has(key)) { seen.add(key); coords.push({ lat: Math.round(lat * 10000) / 10000, lon: Math.round(lon * 10000) / 10000 }); }
-            }
-            const pattern2 = /(\d{1,2}(?:\.\d+)?)\s*([NS])\s*(\d{1,3}(?:\.\d+)?)\s*([EW])/g;
-            while ((match = pattern2.exec(text)) !== null) {
-                let lat = parseFloat(match[1]);
-                let lon = parseFloat(match[3]);
-                if (match[2] === 'S') lat = -lat;
-                if (match[4] === 'W') lon = -lon;
-                const key = lat.toFixed(4) + ',' + lon.toFixed(4);
-                if (!seen.has(key)) { seen.add(key); coords.push({ lat, lon }); }
-            }
-            return coords;
-        }
-
-        function homeExtractTime(text) {
-            let m = text.match(/自(\d{1,2}月\d{1,2}日)至(\d{1,2}月?\d{1,2}日)[，,]\s*每日(\d{4}时至\d{4}时)/);
-            if (m) return m[0];
-            m = text.match(/\d{1,2}月\d{1,2}日\d{4}时至\d{4}时/);
-            if (m) return m[0];
-            m = text.match(/自?\d{1,2}月\d{1,2}日\d{1,4}时至\d{1,2}月?\d{1,2}日?\d{1,4}时/);
-            if (m) return m[0];
-            m = text.match(/FROM\s+\d{6}\s*UTC\s+TO\s+\d{6}\s*UTC/i);
-            if (m) return m[0];
-            return '';
-        }
-
-        function homeClassifyWarning(title, content) {
-            const text = ((title || '') + ' ' + (content || '')).toLowerCase();
-            if (/火箭发射|火箭残骸|rocket/.test(text)) return 'rocket';
-            if (/实弹|射击|live.?fire|gunnery|射擊/.test(text)) return 'livefire';
-            if (/军事任务|military.?mission|軍事任務/.test(text)) return 'mission';
-            if (/演习|exercise|演練|演訓|军演|軍演/.test(text)) return 'exercise';
-            return 'other';
-        }
-
-        function homeGetWarningColor(type) {
-            const colors = { exercise: '#e74c3c', livefire: '#e67e22', rocket: '#8e44ad', mission: '#2980b9', other: '#7f8c8d' };
-            return colors[type] || colors.other;
-        }
-
-        function homeGetWarningLabel(type) {
-            const labels = { exercise: '军事演习', livefire: '实弹射击', rocket: '火箭发射', mission: '军事任务', other: '航行警告' };
-            return labels[type] || labels.other;
-        }
-
-        function homeExtractCleanContent(text) {
-            let clean = text
-                .replace(/English\s+x\s+中国海事公众号.*?航行警告\s+\S+海事局\s*/s, '')
-                .replace(/发布时间：\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}\s+\[字体：\s*大\s*中\s*小\s*\]\s*分享到：\s*/, '')
-                .replace(/\s+/g, ' ')
-                .trim();
-            const codeMatch = clean.match(/([A-Za-z\u4e00-\u9fa5]航警?\d+\/\d+|[A-Z]{2,3}\d+\/\d+)/);
-            if (codeMatch) {
-                const idx = clean.indexOf(codeMatch[0]);
-                if (idx >= 0) clean = clean.substring(idx);
-            }
-            return clean;
-        }
-
-        function renderHomeMSAWarnings() {
-            if (!homeMsaWarningData || homeMsaWarningData.length === 0) return;
-
-            // Update stats
-            const types = { exercise: 0, livefire: 0, rocket: 0, mission: 0, other: 0 };
-            let withCoords = 0;
-            homeMsaWarningData.forEach(w => {
-                types[w.warningType] = (types[w.warningType] || 0) + 1;
-                if (w.parsedCoords.length > 0) withCoords++;
-            });
-
-            document.getElementById('homeMsaTotal').textContent = homeMsaWarningData.length;
-            document.getElementById('homeMsaExercise').textContent = types.exercise + types.mission;
-            document.getElementById('homeMsaLiveFire').textContent = types.livefire;
-            document.getElementById('homeMsaRocket').textContent = types.rocket;
-            document.getElementById('homeMsaCoords').textContent = withCoords;
-
-            const dates = homeMsaWarningData.filter(w => w.publish_date).map(w => w.publish_date).sort();
-            if (dates.length > 0) {
-                document.getElementById('homeMsaDateRange').textContent = `${dates[0]} ~ ${dates[dates.length - 1]}`;
-            }
-
-            // Render compact warning list
-            const container = document.getElementById('homeMsaWarningList');
-            const sorted = [...homeMsaWarningData].sort((a, b) => (b.publish_date || '').localeCompare(a.publish_date || ''));
-            container.innerHTML = '';
-
-            sorted.forEach((w) => {
-                const color = homeGetWarningColor(w.warningType);
-                const label = homeGetWarningLabel(w.warningType);
-                const hasCoords = w.parsedCoords.length > 0;
-                const cleanContent = homeExtractCleanContent(w.content_preview || '');
-
-                container.innerHTML += `
-                    <div class="home-warning-item">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="home-warning-badge" style="background:${color};">${label}</span>
-                            <small class="text-muted">${w.publish_date || '-'}</small>
-                        </div>
-                        <div style="margin-top:2px;font-size:0.75rem;color:#4a5568;">${(w.title || '-').substring(0, 60)}${(w.title || '').length > 60 ? '...' : ''}</div>
-                        ${w.parsedTime ? `<div style="font-size:0.7rem;color:#718096;">${w.parsedTime}</div>` : ''}
-                    </div>
-                `;
-
-                // Add to map
-                if (hasCoords && homeMap && homeMsaLayerGroup) {
-                    homeAddMSAToMap(w);
-                }
-            });
-        }
-
-        function homeAddMSAToMap(warning) {
-            const coords = warning.parsedCoords;
-            const color = homeGetWarningColor(warning.warningType);
-            const label = homeGetWarningLabel(warning.warningType);
-            const cleanContent = homeExtractCleanContent(warning.content_preview || '');
-
-            const popupHtml = `
-                <div style="min-width:200px;max-width:300px;">
-                    <h6 style="color:${color};margin-bottom:4px;">${label}</h6>
-                    <strong>Title:</strong> ${warning.title || '-'}<br>
-                    <strong>Date:</strong> ${warning.publish_date || '-'}<br>
-                    ${warning.parsedTime ? `<strong>Time:</strong> ${warning.parsedTime}<br>` : ''}
-                    <div style="background:#f8f9fa;padding:6px;border-radius:4px;margin-top:4px;font-size:0.75rem;max-height:100px;overflow-y:auto;">
-                        ${cleanContent.substring(0, 200)}${cleanContent.length > 200 ? '...' : ''}
-                    </div>
-                </div>
-            `;
-
-            if (coords.length === 1) {
-                const circle = L.circle([coords[0].lat, coords[0].lon], {
-                    radius: 11112, color: color, fillColor: color, fillOpacity: 0.2, weight: 2, dashArray: '5, 5'
-                });
-                circle.bindPopup(popupHtml, { maxWidth: 300 });
-                homeMsaLayerGroup.addLayer(circle);
-
-                const icon = L.divIcon({
-                    className: 'msa-marker',
-                    html: `<div style="background:${color};width:10px;height:10px;border-radius:50%;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.4);"></div>`,
-                    iconSize: [10, 10], iconAnchor: [5, 5]
-                });
-                const marker = L.marker([coords[0].lat, coords[0].lon], { icon: icon });
-                marker.bindPopup(popupHtml, { maxWidth: 300 });
-                homeMsaLayerGroup.addLayer(marker);
-            } else if (coords.length >= 3) {
-                const latlngs = coords.map(c => [c.lat, c.lon]);
-                const polygon = L.polygon(latlngs, { color: color, fillColor: color, fillOpacity: 0.2, weight: 2 });
-                polygon.bindPopup(popupHtml, { maxWidth: 300 });
-                homeMsaLayerGroup.addLayer(polygon);
-            } else if (coords.length === 2) {
-                const bounds = L.latLngBounds(coords.map(c => [c.lat, c.lon]));
-                const rect = L.rectangle(bounds, { color: color, fillColor: color, fillOpacity: 0.2, weight: 2 });
-                rect.bindPopup(popupHtml, { maxWidth: 300 });
-                homeMsaLayerGroup.addLayer(rect);
-            }
-        }
     </script>
 
     <!-- Bootstrap JS for navbar -->
