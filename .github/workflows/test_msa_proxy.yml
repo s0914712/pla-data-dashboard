@@ -1,6 +1,6 @@
 name: Test MSA scrape connectivity
 
-# 暫時性診斷 workflow：探測可繞開 WAF 的替代 MSA 端點。
+# 暫時性診斷 workflow：測繪可通省級海事局子站的航警列表端點與文章格式。
 # 驗證完成後可刪除此檔案。
 on:
   workflow_dispatch:
@@ -26,7 +26,7 @@ jobs:
     - name: 📦 Install dependencies
       run: pip install httpx beautifulsoup4
 
-    - name: 🧪 Probe alternative MSA endpoints
+    - name: 🗺️ Map provincial MSA nav-warning endpoints
       run: |
         python - <<'EOF'
         import httpx, re
@@ -34,47 +34,48 @@ jobs:
 
         UA = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
               'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
-        MIL_KW = ['军事', '演习', '实弹', '射击', '禁航', '禁止驶入', '火箭', '军演']
+        KW = ['警告', '通告', '航行', '军事', '演习', '实弹', '射击', '禁航', '禁止驶入']
 
-        # 各地海事局獨立子站 + 主站 wap 端點（可能不在 /page/* 的 WAF 後面）
-        TARGETS = {
-            '广西-contentlist':  'http://www.gx.msa.gov.cn/contentlist.html?classid=16',
-            '上海-hxtjgsj':      'https://www.sh.msa.gov.cn/hxtjgsj/index.jhtml',
-            '连云港-hxjg':       'https://www.lyg.msa.gov.cn/hxjg/index.jhtml',
-            '主站wap-info_warn':  'https://www.msa.gov.cn/msacncms_wap/pages/info_warn.do?channelId=9C219298-B27F-460E-995A-99401B3FF6AF',
-            '辽宁-首頁':          'https://www.ln.msa.gov.cn/',
-            '山东-首頁':          'https://www.sd.msa.gov.cn/',
-            '海南-首頁':          'https://www.hi.msa.gov.cn/',
-        }
+        def get(url):
+            with httpx.Client(timeout=45, headers={'User-Agent': UA,
+                    'Accept-Language': 'zh-CN,zh;q=0.9'}, follow_redirects=True, verify=False) as c:
+                return c.get(url)
 
-        for name, url in TARGETS.items():
-            print(f'\n=== {name} ===\n  {url}')
+        def analyse(name, url, dump_html=0):
+            print(f'\n===== {name} =====\n  {url}')
             try:
-                with httpx.Client(timeout=40, headers={'User-Agent': UA,
-                        'Accept-Language': 'zh-CN,zh;q=0.9'}, follow_redirects=True, verify=False) as c:
-                    r = c.get(url)
-                    body = r.text
-                    soup = BeautifulSoup(body, 'html.parser')
-                    # 收集看起來像公告詳情的連結
-                    links = []
-                    for a in soup.find_all('a', href=True):
-                        h = a['href']
-                        t = a.get_text(strip=True)
-                        if re.search(r'(article|content|info|detail|show|view|\.jhtml|\.html)', h, re.I) and len(t) >= 6:
-                            links.append((t, h))
-                    mil = [(t, h) for t, h in links if any(k in t for k in MIL_KW)]
-                    denied = 'ACCESS DENIED' in body or r.status_code == 403
-                    print(f'  HTTP {r.status_code} | len {len(body)} | ACCESS DENIED: {denied}')
-                    print(f'  連結總數 {len(links)} | 疑似軍事航警 {len(mil)}')
-                    for t, h in mil[:4]:
-                        print(f'    - {t[:40]} -> {h[:80]}')
-                    if not mil and links[:3]:
-                        for t, h in links[:3]:
-                            print(f'    (sample) {t[:36]} -> {h[:70]}')
-                    if denied:
-                        print(f'    前120字: {body[:120]!r}')
+                r = get(url)
             except Exception as e:
-                print(f'  例外 {type(e).__name__}: {str(e)[:150]}')
+                print(f'  例外 {type(e).__name__}: {str(e)[:150]}'); return
+            body = r.text
+            print(f'  HTTP {r.status_code} | len {len(body)}')
+            soup = BeautifulSoup(body, 'html.parser')
+            # 1) 含關鍵字的連結
+            hits = []
+            for a in soup.find_all('a', href=True):
+                t = a.get_text(strip=True)
+                if any(k in t for k in KW) and len(t) >= 4:
+                    hits.append((t, a['href']))
+            print(f'  關鍵字連結 {len(hits)} 筆：')
+            for t, h in hits[:12]:
+                print(f'    - {t[:38]} -> {h[:90]}')
+            # 2) 內嵌 AJAX/資料端點線索
+            eps = set(re.findall(r'''["'\(]([^"'\(\)\s]*(?:\.do|\.jhtml|list|List|json|classid|channelId)[^"'\)\s]*)["'\)]''', body))
+            eps = [e for e in eps if len(e) < 120 and ('/' in e or '.do' in e or '.jhtml' in e or 'list' in e.lower())]
+            print(f'  疑似端點 {len(eps)} 筆：')
+            for e in list(eps)[:12]:
+                print(f'    ep: {e[:110]}')
+            if dump_html:
+                print('  --- HTML 前段 ---')
+                print(body[:dump_html])
+
+        # 广西：classid=16 疑似航警列表
+        analyse('广西 contentlist?classid=16', 'http://www.gx.msa.gov.cn/contentlist.html?classid=16', dump_html=1200)
+        # 上海：航行通警告数据
+        analyse('上海 hxtjgsj', 'https://www.sh.msa.gov.cn/hxtjgsj/index.jhtml')
+        # 山东：站內搜尋「航行警告」/找欄目
+        analyse('山东 首頁', 'https://www.sd.msa.gov.cn/')
+        analyse('山东 站內搜尋 航行警告', 'https://www.sd.msa.gov.cn/search.jsp?keyword=%E8%88%AA%E8%A1%8C%E8%AD%A6%E5%91%8A')
 
         print('\n（診斷用，不判定成敗）')
         EOF
