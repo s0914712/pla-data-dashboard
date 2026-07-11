@@ -1,6 +1,6 @@
 name: Test MSA scrape connectivity
 
-# 暫時性診斷 workflow：驗證 Firecrawl 能否抓 msa.gov.cn 航警頁。
+# 暫時性診斷 workflow：探測可繞開 WAF 的替代 MSA 端點。
 # 驗證完成後可刪除此檔案。
 on:
   workflow_dispatch:
@@ -24,114 +24,57 @@ jobs:
         python-version: '3.11'
 
     - name: 📦 Install dependencies
-      run: pip install httpx
+      run: pip install httpx beautifulsoup4
 
-    - name: 🧪 Test msa.gov.cn access strategies (round 3)
-      env:
-        FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
+    - name: 🧪 Probe alternative MSA endpoints
       run: |
         python - <<'EOF'
-        import os, sys, json
-        import httpx
+        import httpx, re
+        from bs4 import BeautifulSoup
 
-        CID = 'C8896863-B101-4C43-8705-536A03EB46FF'  # 辽宁海事局
-        MSA_HOME = 'https://www.msa.gov.cn/'
-        CHANNEL_PAGE = f'https://www.msa.gov.cn/page/channelPage.do?channelids={CID}'
-        MSA_URL = f'https://www.msa.gov.cn/page/channelArticles.do?channelids={CID}&pageNo=1'
         UA = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
               'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
+        MIL_KW = ['军事', '演习', '实弹', '射击', '禁航', '禁止驶入', '火箭', '军演']
 
-        def has_links(body):
-            return '/page/article.do?articleId=' in (body or '')
+        # 各地海事局獨立子站 + 主站 wap 端點（可能不在 /page/* 的 WAF 後面）
+        TARGETS = {
+            '广西-contentlist':  'http://www.gx.msa.gov.cn/contentlist.html?classid=16',
+            '上海-hxtjgsj':      'https://www.sh.msa.gov.cn/hxtjgsj/index.jhtml',
+            '连云港-hxjg':       'https://www.lyg.msa.gov.cn/hxjg/index.jhtml',
+            '主站wap-info_warn':  'https://www.msa.gov.cn/msacncms_wap/pages/info_warn.do?channelId=9C219298-B27F-460E-995A-99401B3FF6AF',
+            '辽宁-首頁':          'https://www.ln.msa.gov.cn/',
+            '山东-首頁':          'https://www.sd.msa.gov.cn/',
+            '海南-首頁':          'https://www.hi.msa.gov.cn/',
+        }
 
-        # ===== 直連：AJAX 標頭 X-Requested-With =====
-        print('=== 直連 httpx + X-Requested-With ===')
-        try:
-            with httpx.Client(timeout=30, headers={'User-Agent': UA,
-                    'Accept-Language': 'zh-CN,zh;q=0.9'}, follow_redirects=True) as c:
-                h = c.get(MSA_HOME)
-                print(f'  首頁 HTTP {h.status_code}, cookies={dict(c.cookies)}')
-                r = c.get(MSA_URL, headers={'Referer': CHANNEL_PAGE,
-                        'X-Requested-With': 'XMLHttpRequest'})
-                print(f'  channelArticles+XHR: HTTP {r.status_code} | len {len(r.text)} | 連結 {has_links(r.text)}')
-                if not has_links(r.text):
-                    print(f'    前140字: {r.text[:140]!r}')
-        except Exception as e:
-            print(f'  例外 {type(e).__name__}: {e}')
-
-        # ===== Firecrawl =====
-        key = (os.getenv('FIRECRAWL_API_KEY') or '').strip()
-        if not key:
-            print('\n⚠️ 無 FIRECRAWL_API_KEY，略過'); sys.exit(0)
-        API = 'https://api.firecrawl.dev/v2/scrape'
-        FH = {'Authorization': f'Bearer {key}', 'Content-Type': 'application/json'}
-
-        def fc(label, payload):
-            print(f'\n--- Firecrawl {label} ---')
+        for name, url in TARGETS.items():
+            print(f'\n=== {name} ===\n  {url}')
             try:
-                with httpx.Client(timeout=200) as c:
-                    r = c.post(API, headers=FH, json=payload)
-                    d = r.json()
-                    if not d.get('success'):
-                        print(f'  success=False error={d.get("error")!r}'); return
-                    data = d.get('data', {}); meta = data.get('metadata', {})
-                    body = data.get('rawHtml') or data.get('html') or ''
-                    md = data.get('markdown') or ''
-                    links = data.get('links') or []
-                    art_links = [l for l in links if 'article.do?articleId=' in l]
-                    print(f'  statusCode={meta.get("statusCode")} | rawHtml len {len(body)} | '
-                          f'md len {len(md)} | links {len(links)} | 文章連結數 {len(art_links)}')
-                    print(f'  rawHtml 含連結: {has_links(body)} | md 含連結: {has_links(md)}')
-                    if art_links[:3]:
-                        print(f'  範例文章連結: {art_links[:3]}')
-                    elif body:
-                        print(f'  rawHtml 前140字: {body[:140]!r}')
+                with httpx.Client(timeout=40, headers={'User-Agent': UA,
+                        'Accept-Language': 'zh-CN,zh;q=0.9'}, follow_redirects=True, verify=False) as c:
+                    r = c.get(url)
+                    body = r.text
+                    soup = BeautifulSoup(body, 'html.parser')
+                    # 收集看起來像公告詳情的連結
+                    links = []
+                    for a in soup.find_all('a', href=True):
+                        h = a['href']
+                        t = a.get_text(strip=True)
+                        if re.search(r'(article|content|info|detail|show|view|\.jhtml|\.html)', h, re.I) and len(t) >= 6:
+                            links.append((t, h))
+                    mil = [(t, h) for t, h in links if any(k in t for k in MIL_KW)]
+                    denied = 'ACCESS DENIED' in body or r.status_code == 403
+                    print(f'  HTTP {r.status_code} | len {len(body)} | ACCESS DENIED: {denied}')
+                    print(f'  連結總數 {len(links)} | 疑似軍事航警 {len(mil)}')
+                    for t, h in mil[:4]:
+                        print(f'    - {t[:40]} -> {h[:80]}')
+                    if not mil and links[:3]:
+                        for t, h in links[:3]:
+                            print(f'    (sample) {t[:36]} -> {h[:70]}')
+                    if denied:
+                        print(f'    前120字: {body[:120]!r}')
             except Exception as e:
-                print(f'  例外 {type(e).__name__}: {e}')
-
-        def fc_raw(label, payload):
-            print(f'\n--- Firecrawl {label} ---')
-            try:
-                with httpx.Client(timeout=200) as c:
-                    r = c.post(API, headers=FH, json=payload)
-                    d = r.json()
-                    if not d.get('success'):
-                        print(f'  success=False error={d.get("error")!r} 前300={str(d)[:300]!r}'); return
-                    data = d.get('data', {}); meta = data.get('metadata', {})
-                    body = data.get('rawHtml') or data.get('html') or ''
-                    jsret = (data.get('actions') or {}).get('javascriptReturns') or []
-                    print(f'  最終 statusCode={meta.get("statusCode")} | finalURL={meta.get("sourceURL")}')
-                    print(f'  rawHtml len {len(body)} | 含連結 {has_links(body)}')
-                    for i, jr in enumerate(jsret):
-                        v = jr.get('value') if isinstance(jr, dict) else jr
-                        s = v if isinstance(v, str) else json.dumps(v, ensure_ascii=False)
-                        print(f'  jsReturn[{i}] len={len(s)} 含連結={has_links(s)} 前120={s[:120]!r}')
-            except Exception as e:
-                print(f'  例外 {type(e).__name__}: {e}')
-
-        print('\n=== Firecrawl round 4（同 session 先過首頁）===')
-        # H1) 落在首頁解挑戰 → executeJavascript 改 location 到資料頁 → 等待 → 抓最終頁
-        fc_raw('H1) 首頁→JS改location→資料頁',
-           {'url': MSA_HOME, 'formats': ['rawHtml'], 'onlyMainContent': False,
-            'actions': [{'type': 'wait', 'milliseconds': 3500},
-                        {'type': 'executeJavascript', 'script': f"window.location.href = {json.dumps(MSA_URL)};"},
-                        {'type': 'wait', 'milliseconds': 4000}]})
-        # H2) 落在首頁解挑戰 → 同源 fetch 資料頁，回傳 HTML（promise 寫法避免 top-level await）
-        fc_raw('H2) 首頁→同源fetch資料頁(promise)',
-           {'url': MSA_HOME, 'formats': ['rawHtml'], 'onlyMainContent': False,
-            'actions': [{'type': 'wait', 'milliseconds': 3500},
-                        {'type': 'executeJavascript',
-                         'script': (f"return fetch({json.dumps(MSA_URL)}, "
-                                    "{headers:{'X-Requested-With':'XMLHttpRequest'},credentials:'include'})"
-                                    ".then(r => r.status + '|' + r.url).catch(e => 'ERR:' + e);")}]})
-        # H2b) 同上但回傳 body 前段
-        fc_raw('H2b) 首頁→同源fetch資料頁(body)',
-           {'url': MSA_HOME, 'formats': ['rawHtml'], 'onlyMainContent': False,
-            'actions': [{'type': 'wait', 'milliseconds': 3500},
-                        {'type': 'executeJavascript',
-                         'script': (f"return fetch({json.dumps(MSA_URL)}, "
-                                    "{headers:{'X-Requested-With':'XMLHttpRequest'},credentials:'include'})"
-                                    ".then(r => r.text()).catch(e => 'ERR:' + e);")}]})
+                print(f'  例外 {type(e).__name__}: {str(e)[:150]}')
 
         print('\n（診斷用，不判定成敗）')
         EOF
