@@ -1,6 +1,6 @@
 name: Test MSA scrape connectivity
 
-# 暫時性診斷 workflow：測主站 .jhtml 頻道頁是否繞開 /page/* 的 WAF。
+# 暫時性驗證 workflow：跑真實爬蟲(.jhtml 端點)確認端到端可用。驗證後刪除。
 on:
   workflow_dispatch:
   push:
@@ -8,7 +8,9 @@ on:
       - claude/nav-warnings-cutoff-u0yauw
     paths:
       - '.github/workflows/test_msa_proxy.yml'
+      - 'scripts/scrapers/NavigationWarning_scraper.py'
       - 'scripts/scrapers/base_scraper.py'
+      - 'scripts/scrape_nav_warnings.py'
 
 jobs:
   test-firecrawl:
@@ -23,72 +25,18 @@ jobs:
         python-version: '3.11'
 
     - name: 📦 Install dependencies
-      run: pip install httpx beautifulsoup4
+      run: pip install requests beautifulsoup4 pandas lxml httpx
 
-    - name: 🧪 Probe main-site .jhtml channel pages
+    - name: 🧪 Run real scraper end-to-end (no commit)
       run: |
+        python scripts/scrape_nav_warnings.py --max-pages 1 --days-back 365 || true
+        echo "===== statistics.json ====="
+        cat data/navigation_warnings/statistics.json | python -m json.tool
+        echo "===== 前幾筆(標題/日期/頻道/座標數) ====="
         python - <<'EOF'
-        import httpx, re
-        from bs4 import BeautifulSoup
-
-        UA = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
-              'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
-
-        CHANNELS = {
-            '上海': '94DF14CE-1110-415D-A44E-67593E76619F',
-            '辽宁': 'C8896863-B101-4C43-8705-536A03EB46FF',
-            '广西': '86DE2FFF-FF2C-47F9-8359-FD1F20D6508F',
-            '海南': 'D3340711-057B-494B-8FA0-9EEDC4C5EAD9',
-        }
-
-        def hexid(cid):
-            return cid.replace('-', '').lower()
-
-        def probe(name, url):
-            print(f'\n=== {name} ===\n  {url}')
-            try:
-                with httpx.Client(timeout=45, headers={'User-Agent': UA,
-                        'Accept-Language': 'zh-CN,zh;q=0.9'}, follow_redirects=True, verify=False) as c:
-                    r = c.get(url)
-            except Exception as e:
-                print(f'  例外 {type(e).__name__}: {str(e)[:150]}'); return None
-            body = r.text
-            denied = 'ACCESS DENIED' in body
-            print(f'  HTTP {r.status_code} | len {len(body)} | ACCESS DENIED {denied}')
-            if denied or r.status_code != 200:
-                print(f'  前120: {body[:120]!r}'); return None
-            soup = BeautifulSoup(body, 'html.parser')
-            arts = []
-            for a in soup.find_all('a', href=True):
-                h = a['href']; t = a.get_text(strip=True)
-                if re.search(r'(/art/|art_\d+_\d+|article|/con[^/]*\.jhtml|/\d{4}/)', h) and len(t) >= 6:
-                    arts.append((t, h))
-            print(f'  疑似文章連結 {len(arts)} 筆：')
-            for t, h in arts[:8]:
-                print(f'    - {t[:44]} -> {h[:90]}')
-            return arts
-
-        for name, cid in CHANNELS.items():
-            hx = hexid(cid)
-            arts = probe(f'{name} .jhtml 列表', f'https://www.msa.gov.cn/{hx}/index.jhtml')
-            # 若有文章連結，抓第一篇看內容是否含經緯度/時間
-            if arts:
-                t, h = arts[0]
-                if h.startswith('/'):
-                    h = 'https://www.msa.gov.cn' + h
-                elif not h.startswith('http'):
-                    h = f'https://www.msa.gov.cn/{hx}/' + h
-                try:
-                    with httpx.Client(timeout=45, headers={'User-Agent': UA}, follow_redirects=True, verify=False) as c:
-                        ar = c.get(h)
-                    txt = BeautifulSoup(ar.text, 'html.parser').get_text(' ', strip=True)
-                    coord = re.search(r'\d{1,3}-\d{1,2}(?:\.\d+)?[NS]', txt) or re.search(r'\d{1,2}°\d{1,2}′', txt)
-                    tm = re.search(r'\d{1,2}月\d{1,2}日', txt)
-                    print(f'    首篇 HTTP {ar.status_code} len {len(ar.text)} | 有座標 {bool(coord)} | 有日期 {bool(tm)}')
-                    if coord:
-                        print(f'      座標樣本: {txt[coord.start():coord.start()+60]!r}')
-                except Exception as e:
-                    print(f'    首篇例外 {type(e).__name__}: {str(e)[:120]}')
-
-        print('\n（診斷用，不判定成敗）')
+        import json
+        rows = json.load(open('data/navigation_warnings/military_exercises.json'))
+        print(f'總筆數 {len(rows)}')
+        for r in rows[-8:]:
+            print(f"  {r.get('publish_date')} | {r.get('channel')} | 座標{r.get('coordinate_count')} | {str(r.get('title'))[:40]}")
         EOF

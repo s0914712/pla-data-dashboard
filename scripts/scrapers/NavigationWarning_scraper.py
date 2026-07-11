@@ -54,49 +54,51 @@ class NavigationWarningScraper(BaseScraper):
         return any(kw in title for kw in self.MILITARY_KEYWORDS)
     
     def fetch_channel_list(self, channel_id: str, channel_name: str, page: int = 1) -> Optional[List[Dict]]:
-        """取得特定海事局的航警列表；存取失敗時回傳 None（與「沒有文章」的 [] 區分）"""
-        url = f"{self.BASE_URL}/page/channelArticles.do?channelids={channel_id}&pageNo={page}"
+        """取得特定海事局的航警列表；存取失敗時回傳 None（與「沒有文章」的 [] 區分）
+
+        改用主站 .jhtml 頻道頁 /{channelid去橫線小寫}/index.jhtml。
+        原本的 /page/channelArticles.do 自 2026-03 起被 WAF 擋（403 ACCESS DENIED），
+        而 .jhtml 頻道頁不在該 WAF 路徑後面、可正常存取。
+        文章連結格式為 /html/cnmsa/.../article/YYYY/{hash}.html?hav=...
+        """
+        hex_id = channel_id.replace('-', '').lower()
+        if page <= 1:
+            url = f"{self.BASE_URL}/{hex_id}/index.jhtml"
+        else:
+            url = f"{self.BASE_URL}/{hex_id}/index_{page}.jhtml"
 
         html = self.fetch_page(url)
         if not html:
             print(f"[{self.name}] ❌ 無法訪問 {channel_name} (第 {page} 頁)")
             return None
-        
+
         from bs4 import BeautifulSoup
         soup = BeautifulSoup(html, 'html.parser')
         articles = []
-        
-        # 尋找所有文章鏈接
+
         for link in soup.find_all('a', href=True):
             href = link['href']
-            if '/page/article.do?articleId=' not in href:
+            # 航警文章詳情頁：/html/cnmsa/.../article/....html
+            if '/article/' not in href or '.html' not in href or '/html/cnmsa/' not in href:
                 continue
-            
-            title = link.get_text(strip=True)
-            if not title:
+
+            raw = link.get_text(strip=True)
+            if not raw:
                 continue
-            
-            # 檢查是否為軍事相關
-            is_military = self.is_military_related(title)
-            
-            # 提取日期
+
+            # 列表文字通常為「標題—X航警NN/YY YYYY-MM-DD」，日期黏在末端
             date_text = ''
-            next_sibling = link.find_next_sibling(string=True)
-            if next_sibling:
-                date_match = re.search(r'\d{4}-\d{2}-\d{2}', str(next_sibling))
-                if date_match:
-                    date_text = date_match.group()
-            
-            if not date_text:
-                parent = link.find_parent('li') or link.find_parent('div')
-                if parent:
-                    parent_text = parent.get_text()
-                    date_match = re.search(r'\d{4}-\d{2}-\d{2}', parent_text)
-                    if date_match:
-                        date_text = date_match.group()
-            
+            date_match = re.search(r'\d{4}-\d{2}-\d{2}', raw)
+            if date_match:
+                date_text = date_match.group()
+                title = raw[:date_match.start()].strip()
+            else:
+                title = raw
+
+            is_military = self.is_military_related(title)
+
             full_url = href if href.startswith('http') else self.BASE_URL + href
-            
+
             articles.append({
                 'title': title,
                 'url': full_url,
@@ -104,7 +106,7 @@ class NavigationWarningScraper(BaseScraper):
                 'channel': channel_name,
                 'is_military': is_military
             })
-        
+
         return articles
     
     def fetch_article_content(self, url: str) -> Optional[str]:
