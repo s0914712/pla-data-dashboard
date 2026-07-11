@@ -101,16 +101,26 @@ def main():
     existing_df = load_existing()
 
     new_warnings = []
+    all_channels_failed = False
     try:
         from scrapers.NavigationWarning_scraper import NavigationWarningScraper
         with NavigationWarningScraper(delay=1.0) as scraper:
             new_warnings = scraper.run(days_back=args.days_back, max_pages=args.max_pages)
+            all_channels_failed = scraper.ok_channels == 0
         print(f'🎯 本次抓取: {len(new_warnings)} 筆')
     except Exception as e:
         print(f'⚠️  爬取失敗（保留現有資料）: {e}')
+        all_channels_failed = True
 
     merged_df, n_new = merge_warnings(existing_df, new_warnings)
     stats = save_outputs(merged_df, n_new)
+
+    if all_channels_failed:
+        # 所有海事局都無法存取（如 2026 年 3 月底起網站對境外 IP 回 403）。
+        # 已保留現有資料，但以非零狀態離開讓 workflow 紅燈，避免故障靜默。
+        print('\n❌ 所有海事局頻道皆無法存取，資料未更新（現有資料已保留）。')
+        print('   請檢查 msa.gov.cn 是否封鎖來源 IP，或確認 MSA_PROXY secret 是否有效。')
+        sys.exit(1)
 
     print(f'\n✅ 完成！總計 {stats["total_warnings"]} 筆（新增 {n_new}）')
 

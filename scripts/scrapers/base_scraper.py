@@ -7,6 +7,8 @@
 """
 
 import httpx
+import inspect
+import os
 import time
 import re
 from datetime import datetime, timedelta
@@ -36,13 +38,39 @@ class BaseScraper(ABC):
     def __init__(self, name: str, timeout: int = 30, delay: float = 1.0):
         self.name = name
         self.timeout = timeout
-        self.delay = delay 
-        self.client = httpx.Client(
+        self.delay = delay
+        client_kwargs = dict(
             timeout=timeout,
             headers=self.DEFAULT_HEADERS,
-            follow_redirects=True
+            follow_redirects=True,
         )
-    
+        # MSA 網站對境外 IP 封鎖資料頁，可透過 MSA_PROXY 指定中國區代理
+        proxy = self._normalize_proxy(os.getenv('MSA_PROXY'))
+        if proxy:
+            # httpx >= 0.26 用 proxy=，舊版用 proxies=
+            params = inspect.signature(httpx.Client.__init__).parameters
+            client_kwargs['proxy' if 'proxy' in params else 'proxies'] = proxy
+            print(f"[{self.name}] 🌐 使用 MSA_PROXY 代理發送請求")
+        self.client = httpx.Client(**client_kwargs)
+
+    @staticmethod
+    def _normalize_proxy(value: Optional[str]) -> Optional[str]:
+        """接受 URL 格式或代理商常見的 host:port:user:pass 格式；
+        若誤貼多行（多組節點），取第一個非空行"""
+        if not value:
+            return None
+        lines = [ln.strip() for ln in value.strip().splitlines() if ln.strip()]
+        if not lines:
+            return None
+        value = lines[0]
+        if '://' in value:
+            return value
+        parts = value.split(':')
+        if len(parts) == 4 and parts[1].isdigit():
+            host, port, user, pwd = parts
+            return f'http://{user}:{pwd}@{host}:{port}'
+        return value
+
     def fetch_page(self, url: str, retries: int = 3) -> Optional[str]:
         """
         獲取網頁內容，帶重試機制
@@ -60,6 +88,12 @@ class BaseScraper(ABC):
                 response = self.client.get(url)
                 response.raise_for_status()
                 return response.text
+            except httpx.HTTPStatusError as e:
+                body_preview = e.response.text[:200].replace('\n', ' ')
+                print(f"[{self.name}] Attempt {attempt + 1} failed for {url}: "
+                      f"HTTP {e.response.status_code}, body: {body_preview}")
+                if attempt < retries - 1:
+                    time.sleep(self.delay * (attempt + 1))
             except httpx.HTTPError as e:
                 print(f"[{self.name}] Attempt {attempt + 1} failed for {url}: {e}")
                 if attempt < retries - 1:

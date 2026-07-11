@@ -45,55 +45,60 @@ class NavigationWarningScraper(BaseScraper):
     
     def __init__(self, timeout: int = 30, delay: float = 1.0):
         super().__init__(name="msa_military", timeout=timeout, delay=delay)
+        # run() 之後記錄可存取/不可存取的海事局數，供上層判斷是否全面失敗
+        self.ok_channels = 0
+        self.failed_channels = 0
     
     def is_military_related(self, title: str) -> bool:
         """檢查標題是否與軍事相關"""
         return any(kw in title for kw in self.MILITARY_KEYWORDS)
     
-    def fetch_channel_list(self, channel_id: str, channel_name: str, page: int = 1) -> List[Dict]:
-        """取得特定海事局的航警列表"""
-        url = f"{self.BASE_URL}/page/channelArticles.do?channelids={channel_id}&pageNo={page}"
-        
+    def fetch_channel_list(self, channel_id: str, channel_name: str, page: int = 1) -> Optional[List[Dict]]:
+        """取得特定海事局的航警列表；存取失敗時回傳 None（與「沒有文章」的 [] 區分）
+
+        改用主站 .jhtml 頻道頁 /{channelid去橫線小寫}/index.jhtml。
+        原本的 /page/channelArticles.do 自 2026-03 起被 WAF 擋（403 ACCESS DENIED），
+        而 .jhtml 頻道頁不在該 WAF 路徑後面、可正常存取。
+        文章連結格式為 /html/cnmsa/.../article/YYYY/{hash}.html?hav=...
+        """
+        hex_id = channel_id.replace('-', '').lower()
+        if page <= 1:
+            url = f"{self.BASE_URL}/{hex_id}/index.jhtml"
+        else:
+            url = f"{self.BASE_URL}/{hex_id}/index_{page}.jhtml"
+
         html = self.fetch_page(url)
         if not html:
-            print(f"[{self.name}] ❌ 無法訪問 {channel_name}")
-            return []
-        
+            print(f"[{self.name}] ❌ 無法訪問 {channel_name} (第 {page} 頁)")
+            return None
+
         from bs4 import BeautifulSoup
         soup = BeautifulSoup(html, 'html.parser')
         articles = []
-        
-        # 尋找所有文章鏈接
+
         for link in soup.find_all('a', href=True):
             href = link['href']
-            if '/page/article.do?articleId=' not in href:
+            # 航警文章詳情頁：/html/cnmsa/.../article/....html
+            if '/article/' not in href or '.html' not in href or '/html/cnmsa/' not in href:
                 continue
-            
-            title = link.get_text(strip=True)
-            if not title:
+
+            raw = link.get_text(strip=True)
+            if not raw:
                 continue
-            
-            # 檢查是否為軍事相關
-            is_military = self.is_military_related(title)
-            
-            # 提取日期
+
+            # 列表文字通常為「標題—X航警NN/YY YYYY-MM-DD」，日期黏在末端
             date_text = ''
-            next_sibling = link.find_next_sibling(string=True)
-            if next_sibling:
-                date_match = re.search(r'\d{4}-\d{2}-\d{2}', str(next_sibling))
-                if date_match:
-                    date_text = date_match.group()
-            
-            if not date_text:
-                parent = link.find_parent('li') or link.find_parent('div')
-                if parent:
-                    parent_text = parent.get_text()
-                    date_match = re.search(r'\d{4}-\d{2}-\d{2}', parent_text)
-                    if date_match:
-                        date_text = date_match.group()
-            
+            date_match = re.search(r'\d{4}-\d{2}-\d{2}', raw)
+            if date_match:
+                date_text = date_match.group()
+                title = raw[:date_match.start()].strip()
+            else:
+                title = raw
+
+            is_military = self.is_military_related(title)
+
             full_url = href if href.startswith('http') else self.BASE_URL + href
-            
+
             articles.append({
                 'title': title,
                 'url': full_url,
@@ -101,7 +106,7 @@ class NavigationWarningScraper(BaseScraper):
                 'channel': channel_name,
                 'is_military': is_military
             })
-        
+
         return articles
     
     def fetch_article_content(self, url: str) -> Optional[str]:
@@ -297,17 +302,33 @@ class NavigationWarningScraper(BaseScraper):
             標準格式的航行警告列表
         """
         print(f"[{self.name}] 🚢 開始爬取 {len(self.CHANNELS)} 個海事局的航行警告...")
-        
+
         all_warnings = []
         military_only = True  # 固定只抓軍事相關
         max_articles_per_channel = max_pages * 20  # 每頁約20篇
-        
+        self.ok_channels = 0
+        self.failed_channels = 0
+
         for channel_name, channel_id in self.CHANNELS.items():
             print(f"[{self.name}] 📍 正在處理: {channel_name}")
-            
-            # 取得列表
-            articles = self.fetch_channel_list(channel_id, channel_name)
-            
+
+            # 逐頁取得列表；只要有任一頁成功即視為該頻道可存取
+            articles = []
+            channel_ok = False
+            for page in range(1, max_pages + 1):
+                page_articles = self.fetch_channel_list(channel_id, channel_name, page=page)
+                if page_articles is None:
+                    break
+                channel_ok = True
+                if not page_articles:
+                    break
+                articles.extend(page_articles)
+
+            if channel_ok:
+                self.ok_channels += 1
+            else:
+                self.failed_channels += 1
+
             if military_only:
                 articles = [a for a in articles if a['is_military']]
             
@@ -357,8 +378,9 @@ class NavigationWarningScraper(BaseScraper):
             import time
             time.sleep(1)
         
-        print(f"[{self.name}] ✅ 完成！共抓取 {len(all_warnings)} 篇航行警告")
-        
+        print(f"[{self.name}] ✅ 完成！共抓取 {len(all_warnings)} 篇航行警告 "
+              f"(頻道可存取 {self.ok_channels}/{len(self.CHANNELS)})")
+
         return self.to_standard_format(all_warnings)
     
     def to_standard_format(self, warnings: List[Dict]) -> List[Dict]:

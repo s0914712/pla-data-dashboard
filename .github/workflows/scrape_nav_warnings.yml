@@ -36,11 +36,12 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install requests beautifulsoup4 pandas lxml httpx
-    
+
     - name: 🎯 Run Military Exercise Scraper (cumulative merge)
       run: |
         # 累積合併模式：新資料與現有資料以 url 去重合併，歷史不會被覆蓋
-        python scripts/scrape_nav_warnings.py --max-pages 2 --days-back 365
+        # 抓主站 .jhtml 頻道頁（每頻道最新一頁 ~20 篇），繞開 /page/* 的 WAF
+        python scripts/scrape_nav_warnings.py --max-pages 1 --days-back 365
     
     - name: 📊 Display statistics
       run: |
