@@ -23862,5 +23862,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-10",
+      "title": "#东部熄灯号# 丹心铸魂永守忠诚，铁甲卫国不负山河。#阅海峡#",
+      "content": "#东部熄灯号# 丹心铸魂永守忠诚，铁甲卫国不负山河。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5319252140625248",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-10",
+      "title": "#东风旋律#【重磅推出！火箭军原创MV《东风 东风》】和平的日子里，我们爱沉默。亮相的那一刻，我们是...",
+      "content": "#东风旋律#【重磅推出！火箭军原创MV《东风 东风》】和平的日子里，我们爱沉默。亮相的那一刻，我们是雷霆。虽然不说一句话，却让世界睁大眼睛。因为我们的名字，叫东风，东风。大漠深山我待命，长天万里我腾空。一声号令风雷动，山河无恙，东风如虹。强军的旗帜下，我们铸忠诚。砺剑的征途上，我 ...全文",
+      "url": "https://m.weibo.cn/detail/5319180406489160",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-10",
+      "title": "【#聆听一线党员的初心故事#】近日，武警福建总队宁德支队隆重举办“战位映照党旗红・扎根闽东建新功”优...",
+      "content": "【#聆听一线党员的初心故事#】近日，武警福建总队宁德支队隆重举办“战位映照党旗红・扎根闽东建新功”优秀共产党员先进事迹报告会。7名来自机关、基层一线的优秀党员代表依次登台，以亲身经历讲述忠诚戍边、精武强能、实干奉献的军旅故事。这堂浸润初心、直击人心的党课，在礼堂内激荡起奋进强军的磅 ...全文",
+      "url": "https://m.weibo.cn/detail/5319138895201654",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
