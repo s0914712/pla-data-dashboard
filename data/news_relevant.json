@@ -21237,5 +21237,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "第71集团军某旅开展多火器、全要素、跨昼夜实弹射击演练，全面锤炼官兵临机处置和协同作战能力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-13",
+      "title": "#直击东部战区练兵备战现场#【燃！#多火器实弹射击演练火热展开# 】黄沙漫卷，炮声震天。近日，第71...",
+      "content": "#直击东部战区练兵备战现场#【燃！#多火器实弹射击演练火热展开# 】黄沙漫卷，炮声震天。近日，第71集团军某旅开展多火器、全要素、跨昼夜实弹射击演练，全面锤炼官兵临机处置和协同作战能力。（赵前松）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5320127912085605",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
