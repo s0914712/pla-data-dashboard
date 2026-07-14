@@ -21285,5 +21285,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-14",
+      "title": "#直击东部战区练兵备战现场#【#多课目实训现场超燃#】近日，东部战区空军某部组织多课目实战化训练，全...",
+      "content": "#直击东部战区练兵备战现场#【#多课目实训现场超燃#】近日，东部战区空军某部组织多课目实战化训练，全面锤炼官兵综合体能、战术素养和协同作战水平。（褚文聪、李星雨、施柯、周毅、鲁航宇）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5320490299430039",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-13",
+      "title": "#东部熄灯号# 胸怀天下家国，肩担日月山河。#阅海峡#",
+      "content": "#东部熄灯号# 胸怀天下家国，肩担日月山河。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5320339305013101",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-13",
+      "title": "【#那些藏在故事里的微光#】近日，东部战区空军某场站举办故事演说会。来自基层的十余名官兵代表登上讲台...",
+      "content": "【#那些藏在故事里的微光#】近日，东部战区空军某场站举办故事演说会。来自基层的十余名官兵代表登上讲台，以朴实的语言、真挚的情感、生动的演绎讲述奋斗、奉献、廉洁、安全的故事，用一个个鲜活的强军故事勾勒出新时代官兵的使命担当，引发全场热烈共鸣。（徐瀚森、王飞、王军、胡泽栖、谭家瑞）",
+      "url": "https://m.weibo.cn/detail/5320226058011403",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
