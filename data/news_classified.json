@@ -24318,5 +24318,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.5,
+    "sentiment_label": "中性",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-15",
+      "title": "【#锤炼暗夜排弹抢修硬功# 】近日，东部战区空军某场站开展排弹抢修演练。官兵按照分工，娴熟操作、密切...",
+      "content": "【#锤炼暗夜排弹抢修硬功# 】近日，东部战区空军某场站开展排弹抢修演练。官兵按照分工，娴熟操作、密切配合，为战时高效完成排弹抢修任务夯实基础。（郑瑞晨、王远东、琚伟伦、柳兴） #时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5320852687814799",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-14",
+      "title": "#东部熄灯号#枕戈听风雨，待旦看晨星。#阅海峡#",
+      "content": "#东部熄灯号#枕戈听风雨，待旦看晨星。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5320701692875453",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-14",
+      "title": "【#参观见学强使命# 】近日，东部战区海军某综合仓库组织部分官兵、文职人员赴福建省东山县谷文昌纪念馆...",
+      "content": "【#参观见学强使命# 】近日，东部战区海军某综合仓库组织部分官兵、文职人员赴福建省东山县谷文昌纪念馆参观见学。这是他们扎实开展树立和践行正确政绩观学习教育的一个具体举措。大家在参观见学中感悟榜样力量、淬炼忠诚党性、激发创业热情。（黄和聪、程晨旭） #树立和践行正确政绩观学习教育#",
+      "url": "https://m.weibo.cn/detail/5320580896920070",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
