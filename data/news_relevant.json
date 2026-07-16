@@ -21598,5 +21598,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.5,
+    "sentiment_label": "中性",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "班组实训现场超燃",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-16",
+      "title": "#直击东部战区练兵备战现场#【#班组实训现场超燃#】近日，东部战区空军某部挺近密林深处开展班组战术训...",
+      "content": "#直击东部战区练兵备战现场#【#班组实训现场超燃#】近日，东部战区空军某部挺近密林深处开展班组战术训练，有效夯实技战术基础，全面提升班组协同作战能力。（褚文聪、周骏、林正统、陈思远）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5321215074894136",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区在微博发布训练动员信息，称‘练兵不畏苦，备战只求赢’，并标注#阅海峡#，暗示针对台湾海峡的演习准备。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-15",
+      "title": "#东部熄灯号# 练兵不畏苦，备战只求赢。#阅海峡#",
+      "content": "#东部熄灯号# 练兵不畏苦，备战只求赢。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5321064080744467",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.5,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-15",
+      "title": "【#群众性练兵比武#】近日，中国人民解放军32517部队举办群众性练兵比武暨军事体育运动会，此次比武...",
+      "content": "【#群众性练兵比武#】近日，中国人民解放军32517部队举办群众性练兵比武暨军事体育运动会，此次比武紧贴实战需求，涵盖军事体育、专业技能、班组协同三大板块，全体参赛人员热情饱满、昂扬斗志，展现了过硬的作风和精湛的技能，在激烈比拼中锤炼打赢本领，立起备战打仗鲜明导向。（黄宗福、姚耀） ...全文",
+      "url": "https://m.weibo.cn/detail/5320943284258195",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
