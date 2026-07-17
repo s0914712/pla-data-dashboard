@@ -21857,5 +21857,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-17",
+      "title": "#直击东部战区练兵备战现场#【#多课目实弹射击考核火热展开# 】近日，第71集团军某旅开展多课目实弹...",
+      "content": "#直击东部战区练兵备战现场#【#多课目实弹射击考核火热展开# 】近日，第71集团军某旅开展多课目实弹射击考核，检验部队快打快撤、精准协同等实战能力。（李佳鑫、柯志圣、李晓龙、王赵衡）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5321577463025381",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-16",
+      "title": "#东部熄灯号#怒吼惊天地，铁血铸军魂。#阅海峡#",
+      "content": "#东部熄灯号#怒吼惊天地，铁血铸军魂。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5321426468079953",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-16",
+      "title": "【#文艺轻骑队来啦# 】近日，空军蓝天文艺轻骑队来到东部战区空军某部，他们把舞台搭在了离战位最近的地...",
+      "content": "【#文艺轻骑队来啦# 】近日，空军蓝天文艺轻骑队来到东部战区空军某部，他们把舞台搭在了离战位最近的地方，为官兵送上了一场“兵味”十足、直抵人心的文艺盛宴。（李星雨、李辉） #军营生活#",
+      "url": "https://m.weibo.cn/detail/5321305672123335",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
