@@ -157,18 +157,6 @@
   },
   {
     "publish_date": "2026-06-30",
-    "title": "火箭发射—琼航警116/26",
-    "channel": "海南海事局",
-    "time_periods": "自7月2日至7月3日，每日2050时至2250时",
-    "coordinate_count": 1,
-    "coordinates": "19.6,110.93",
-    "coordinates_raw": "19-36.00N 110-55.80E",
-    "content_preview": "琼航警116/26，南海，自7月2日至7月3日，每日2050时至2250时，在以19-36.00N 110-55.80E为中心，5.4海里为半径的圆形区域内进行火箭发射，禁止驶入。",
-    "url": "https://www.msa.gov.cn/html/cnmsa/hxaq/article/2026/a6fcf27a094d4af3acc4cbed1605304f.html?hav=1jWj6r2hy0eaxkS9FLhQN6ovxI",
-    "scraped_at": "2026-07-11T01:36:20.490109"
-  },
-  {
-    "publish_date": "2026-06-30",
     "title": "实弹射击—辽航警285/26",
     "channel": "辽宁海事局",
     "time_periods": NaN,
@@ -178,6 +166,18 @@
     "content_preview": "辽航警285/26，黄海北部，自7月1日1000时至2日1700时和自7月6日1200时至8日1700时在38-44N122-04E、38-44N122-08E、38-40N122-08E、38-40N122-04E诸点连线范围内实弹射击。禁止驶入。",
     "url": "https://www.msa.gov.cn/html/cnmsa/hxaq/article/2026/d71f8f7074fb402faa1d245d7db00b1d.html?hav=1jWj6r2hy0eaxkS9FXIm5zSGZl",
     "scraped_at": "2026-07-11T01:35:49.114235"
+  },
+  {
+    "publish_date": "2026-06-30",
+    "title": "火箭发射—琼航警116/26",
+    "channel": "海南海事局",
+    "time_periods": "自7月2日至7月3日，每日2050时至2250时",
+    "coordinate_count": 1,
+    "coordinates": "19.6,110.93",
+    "coordinates_raw": "19-36.00N 110-55.80E",
+    "content_preview": "琼航警116/26，南海，自7月2日至7月3日，每日2050时至2250时，在以19-36.00N 110-55.80E为中心，5.4海里为半径的圆形区域内进行火箭发射，禁止驶入。",
+    "url": "https://www.msa.gov.cn/html/cnmsa/hxaq/article/2026/a6fcf27a094d4af3acc4cbed1605304f.html?hav=1jWj6r2hy0eaxkS9FLhQN6ovxI",
+    "scraped_at": "2026-07-11T01:36:20.490109"
   },
   {
     "publish_date": "2026-07-01",
@@ -313,15 +313,15 @@
   },
   {
     "publish_date": "2026-07-08",
-    "title": "渤海军事演习—辽航警293/26",
-    "channel": "辽宁海事局",
-    "time_periods": "自7月9日1200时至1900时; 9日1200时至1900时",
-    "coordinate_count": 4,
-    "coordinates": "40.6595,120.9947; 40.6595,121.0623; 40.629,121.0628; 40.6293,120.9935",
-    "coordinates_raw": "40-39.57N 120-59.68E; 40-39.57N 121-03.74E; 40-37.74N 121-03.77E; 40-37.76N 120-59.61E",
-    "content_preview": "辽航警293/26，渤海，自7月9日1200时至1900时在40-39.57N 120-59.68E、40-39.57N 121-03.74E、40-37.74N 121-03.77E和40-37.76N 120-59.61E诸点连线范围内进行军事演习。禁止驶入。",
-    "url": "https://www.msa.gov.cn/html/cnmsa/hxaq/article/2026/4839cd2d4feb4488acf324c8c5e63164.html?hav=1jWj6r2hy2Jd86AvitmHjbLJuI",
-    "scraped_at": "2026-07-11T01:35:29.297738"
+    "title": "实弹射击—粤航警442/26",
+    "channel": "广东海事局",
+    "time_periods": NaN,
+    "coordinate_count": 0,
+    "coordinates": NaN,
+    "coordinates_raw": NaN,
+    "content_preview": "粤航警442/26，北部湾，7月9日至11日，在以下六点连线海域内进行实弹射击： （1）21-20.0N，109-30.0E； （2）21-20.0N，109-44.0E； （3）21-15.5N，109-47.5E； （4）21-13.5N，109-47.5E； （5）21-10.0N，109-44.0E； （6）21-10.0N，109-30.0E。禁止驶入。",
+    "url": "https://www.msa.gov.cn/html/cnmsa/hxaq/article/2026/8a448c585102458e80a5107aaaf841a0.html?hav=1jWj6r2hy2Jd86AvdYSq5Gt0AV",
+    "scraped_at": "2026-07-11T01:36:04.711410"
   },
   {
     "publish_date": "2026-07-08",
@@ -337,15 +337,15 @@
   },
   {
     "publish_date": "2026-07-08",
-    "title": "实弹射击—粤航警442/26",
-    "channel": "广东海事局",
-    "time_periods": NaN,
-    "coordinate_count": 0,
-    "coordinates": NaN,
-    "coordinates_raw": NaN,
-    "content_preview": "粤航警442/26，北部湾，7月9日至11日，在以下六点连线海域内进行实弹射击： （1）21-20.0N，109-30.0E； （2）21-20.0N，109-44.0E； （3）21-15.5N，109-47.5E； （4）21-13.5N，109-47.5E； （5）21-10.0N，109-44.0E； （6）21-10.0N，109-30.0E。禁止驶入。",
-    "url": "https://www.msa.gov.cn/html/cnmsa/hxaq/article/2026/8a448c585102458e80a5107aaaf841a0.html?hav=1jWj6r2hy2Jd86AvdYSq5Gt0AV",
-    "scraped_at": "2026-07-11T01:36:04.711410"
+    "title": "渤海军事演习—辽航警293/26",
+    "channel": "辽宁海事局",
+    "time_periods": "自7月9日1200时至1900时; 9日1200时至1900时",
+    "coordinate_count": 4,
+    "coordinates": "40.6595,120.9947; 40.6595,121.0623; 40.629,121.0628; 40.6293,120.9935",
+    "coordinates_raw": "40-39.57N 120-59.68E; 40-39.57N 121-03.74E; 40-37.74N 121-03.77E; 40-37.76N 120-59.61E",
+    "content_preview": "辽航警293/26，渤海，自7月9日1200时至1900时在40-39.57N 120-59.68E、40-39.57N 121-03.74E、40-37.74N 121-03.77E和40-37.76N 120-59.61E诸点连线范围内进行军事演习。禁止驶入。",
+    "url": "https://www.msa.gov.cn/html/cnmsa/hxaq/article/2026/4839cd2d4feb4488acf324c8c5e63164.html?hav=1jWj6r2hy2Jd86AvitmHjbLJuI",
+    "scraped_at": "2026-07-11T01:35:29.297738"
   },
   {
     "publish_date": "2026-07-09",
@@ -469,18 +469,6 @@
   },
   {
     "publish_date": "2026-07-14",
-    "title": "渤海军事演习—辽航警301/26",
-    "channel": "辽宁海事局",
-    "time_periods": "自7月15日2000时至16日0600时",
-    "coordinate_count": 6,
-    "coordinates": "39.8517,119.8637; 40.1897,120.3922; 40.1883,120.4955; 40.3628,120.5888; 40.1105,120.6313; 39.8538,120.2475",
-    "coordinates_raw": "39-51.10N 119-51.82E; 40-11.38N 120-23.53E; 40-11.30N 120-29.73E; 40-21.77N 120-35.33E; 40-06.63N 120-37.88E; 39-51.23N 120-14.85E",
-    "content_preview": "辽航警301/26，渤海，自7月15日2000时至16日0600时在39-51.10N 119-51.82E、40-11.38N 120-23.53E、40-11.30N 120-29.73E、40-21.77N 120-35.33E、40-06.63N 120-37.88E和39-51.23N 120-14.85E诸点连线范围内进行军事演习。禁止驶入。",
-    "url": "https://www.msa.gov.cn/html/cnmsa/hxaq/article/2026/425adb3462ac41a688bc9df6bd1572b0.html?hav=1jWj6r2hy2JdE32AEQjMkiEuaG",
-    "scraped_at": "2026-07-15T05:09:14.560680"
-  },
-  {
-    "publish_date": "2026-07-14",
     "title": "实弹射击—鲁航警549/26",
     "channel": "山东海事局",
     "time_periods": "7月15日0000时至17日2400时",
@@ -502,6 +490,18 @@
     "content_preview": "English 首页 机构职能 机构职责 领导介绍 内设机构 直属单位 政府信息公开 法定主动公开内容 政府信息公开指南 政府信息公开制度 政府信息公开年报 依申请公开 互联网+政务 我要办事 在线查询 航行安全 AIS信息服务 安全信息 北极航道 安全知识 潮汐查询 搜救辅助 海图改正通告 海图服务 事故教训 海事履约 互动交流 在线访谈 政策法规解读 网上咨询 意见征集·在线调查 局长信箱 投诉举报 海事数据 首页 航行安全 安全信息 航行警告 辽宁海事局 BOHAI SEA MILITARY EXERCISES—LN264/26 来源：葫芦岛海事局 文号：LN264/26 发布时间：2026-07-14 18:56 [字体： 大 中 小 ] 分享到： LN264/26 BOHAI SEA MILITARY EXERCISES IN AREA BOUNDED BY THE LINES JOINING 39-51.10N 119-51.82E,40-11.38N 120-23.53E,40-11.30N 120-29.73E,40-21.77N 120-35.33E,40-06.63",
     "url": "https://www.msa.gov.cn/html/cnmsa/hxaq/article/2026/c466ccd6b6934914.html?hav=1jWj6r2hy2JdE32AEQjMkiEuaG",
     "scraped_at": "2026-07-15T05:09:17.572999"
+  },
+  {
+    "publish_date": "2026-07-14",
+    "title": "渤海军事演习—辽航警301/26",
+    "channel": "辽宁海事局",
+    "time_periods": "自7月15日2000时至16日0600时",
+    "coordinate_count": 6,
+    "coordinates": "39.8517,119.8637; 40.1897,120.3922; 40.1883,120.4955; 40.3628,120.5888; 40.1105,120.6313; 39.8538,120.2475",
+    "coordinates_raw": "39-51.10N 119-51.82E; 40-11.38N 120-23.53E; 40-11.30N 120-29.73E; 40-21.77N 120-35.33E; 40-06.63N 120-37.88E; 39-51.23N 120-14.85E",
+    "content_preview": "辽航警301/26，渤海，自7月15日2000时至16日0600时在39-51.10N 119-51.82E、40-11.38N 120-23.53E、40-11.30N 120-29.73E、40-21.77N 120-35.33E、40-06.63N 120-37.88E和39-51.23N 120-14.85E诸点连线范围内进行军事演习。禁止驶入。",
+    "url": "https://www.msa.gov.cn/html/cnmsa/hxaq/article/2026/425adb3462ac41a688bc9df6bd1572b0.html?hav=1jWj6r2hy2JdE32AEQjMkiEuaG",
+    "scraped_at": "2026-07-15T05:09:14.560680"
   },
   {
     "publish_date": "2026-07-15",
@@ -601,9 +601,21 @@
   },
   {
     "publish_date": "2026-07-17",
+    "title": "MILITARY ACTIVITY—GD426/26",
+    "channel": "广东海事局",
+    "time_periods": "",
+    "coordinate_count": 5,
+    "coordinates": "23.5528,117.1138; 23.525,117.125; 23.5295,117.2463; 23.5167,117.2542; 23.6362,117.3083",
+    "coordinates_raw": "23-33.17N 117-06.83E; 23-31.50N 117-07.50E; 23-31.77N 117-14.78E; 23-31.00N 117-15.25E; 23-38.17N 117-18.50E",
+    "content_preview": "English 首页 机构职能 机构职责 领导介绍 内设机构 直属单位 政府信息公开 法定主动公开内容 政府信息公开指南 政府信息公开制度 政府信息公开年报 依申请公开 互联网+政务 我要办事 在线查询 航行安全 AIS信息服务 安全信息 北极航道 安全知识 潮汐查询 搜救辅助 海图改正通告 海图服务 事故教训 海事履约 互动交流 在线访谈 政策法规解读 网上咨询 意见征集·在线调查 局长信箱 投诉举报 海事数据 首页 航行安全 安全信息 航行警告 广东海事局 MILITARY ACTIVITY—GD426/26 来源：潮州海事局 文号：GD426/26 发布时间：2026-07-17 17:11 [字体： 大 中 小 ] 分享到： GD426/26 SOUTH CHINA SEA MILITARY ACTIVITY IN AREA BOUNDED BY 23-33.17N 117-06.83E;23-31.50N 117-07.50E;23-31.77N 117-14.78E;23-31.00N 117-15.25E;23-38.17N 117-18.50E;23-38.67N 11",
+    "url": "https://www.msa.gov.cn/html/cnmsa/hxaq/article/2026/134c8dc08a242ff3.html?hav=1jWj6r2hy2JdE7QPuBDaXhuCye",
+    "scraped_at": "2026-07-18T05:05:03.155320"
+  },
+  {
+    "publish_date": "2026-07-17",
     "title": "军事活动-莱州湾—鲁航警569/26",
     "channel": "山东海事局",
-    "time_periods": "",
+    "time_periods": NaN,
     "coordinate_count": 4,
     "coordinates": "37.6102,119.8025; 37.597,119.93; 37.4593,119.81; 37.4722,119.663",
     "coordinates_raw": "37-36.61N 119-48.15E; 37-35.82N 119-55.80E; 37-27.56N 119-48.60E; 37-28.33N 119-39.78E",
@@ -615,12 +627,48 @@
     "publish_date": "2026-07-17",
     "title": "MILITARY ACTIVITY-LAIZHOU BAY—SD525/26",
     "channel": "山东海事局",
-    "time_periods": "",
+    "time_periods": NaN,
     "coordinate_count": 4,
     "coordinates": "37.6102,119.8025; 37.597,119.93; 37.4593,119.81; 37.4722,119.663",
     "coordinates_raw": "37-36.61N 119-48.15E; 37-35.82N 119-55.80E; 37-27.56N 119-48.60E; 37-28.33N 119-39.78E",
     "content_preview": "English 首页 机构职能 机构职责 领导介绍 内设机构 直属单位 政府信息公开 法定主动公开内容 政府信息公开指南 政府信息公开制度 政府信息公开年报 依申请公开 互联网+政务 我要办事 在线查询 航行安全 AIS信息服务 安全信息 北极航道 安全知识 潮汐查询 搜救辅助 海图改正通告 海图服务 事故教训 海事履约 互动交流 在线访谈 政策法规解读 网上咨询 意见征集·在线调查 局长信箱 投诉举报 海事数据 首页 航行安全 安全信息 航行警告 山东海事局 MILITARY ACTIVITY-LAIZHOU BAY—SD525/26 来源：烟台海事局 文号：SD525/26 发布时间：2026-07-17 09:17 [字体： 大 中 小 ] 分享到： SD525/26 BOHAI SEA MILITARY ACTIVITY IN AREA BOUNDED BY THE LINES JOINING 37-36.61N 119-48.15E,37-35.82N 119-55.80E,37-27.56N 119-48.60E,37-28.33N 119-39.78E FROM 20 T",
     "url": "https://www.msa.gov.cn/html/cnmsa/hxaq/article/2026/fa4584ee2667dc7a.html?hav=1jWj6r2hy2JdE7QPotlvF5nDkn",
     "scraped_at": "2026-07-17T05:22:17.408570"
+  },
+  {
+    "publish_date": "2026-07-17",
+    "title": "军事演习—粤航警483/26",
+    "channel": "广东海事局",
+    "time_periods": "7月18日0000时至2400时; 18日0000时至2400时; 2026年7月18日0000时至2400时",
+    "coordinate_count": 6,
+    "coordinates": "23.5528,117.1138; 23.525,117.125; 23.5295,117.2463; 23.5167,117.2542; 23.6362,117.3083; 23.6445,117.2888",
+    "coordinates_raw": "23-33.17N 117-06.83E; 23-31.50N 117-07.50E; 23-31.77N 117-14.78E; 23-31.00N 117-15.25E; 23-38.17N 117-18.50E; 23-38.67N 117-17.33E",
+    "content_preview": "粤航警483/26，南海，自2026年7月18日0000时至2400时，在以六点连线海域内进行军事活动： （1）23-33.17N 117-06.83E; （2）23-31.50N 117-07.50E; （3）23-31.77N 117-14.78E; （4）23-31.00N 117-15.25E; （5）23-38.17N 117-18.50E; （6）23-38.67N 117-17.33E。禁止驶入。",
+    "url": "https://www.msa.gov.cn/html/cnmsa/hxaq/article/2026/cd39685149124b48a39f0f1e25fd9e63.html?hav=1jWj6r2hy2JdE7QPuBDaXhuCye",
+    "scraped_at": "2026-07-18T05:05:04.986069"
+  },
+  {
+    "publish_date": "2026-07-18",
+    "title": "军事任务—辽航警315/26",
+    "channel": "辽宁海事局",
+    "time_periods": "自7月18日1800时至20日1800时",
+    "coordinate_count": 4,
+    "coordinates": "39.85,119.8833; 39.85,120.6167; 39.3167,120.6167; 39.3167,119.8833",
+    "coordinates_raw": "39-51N119-53E; 39-51N120-37E; 39-19N120-37E; 39-19N119-53E",
+    "content_preview": "辽航警315/26，渤海，自7月18日1800时至20日1800时在39-51N119-53E、39-51N120-37E、39-19N120-37E、39-19N119-53E诸点连线范围内执行军事任务。禁止驶入。",
+    "url": "https://www.msa.gov.cn/html/cnmsa/hxaq/article/2026/6b1423954d684d8b8a9220b39d0a59b9.html?hav=1jWj6r2hy2JdE8tASfMfgZlM0c",
+    "scraped_at": "2026-07-18T05:04:34.393777"
+  },
+  {
+    "publish_date": "2026-07-18",
+    "title": "MILITARY MISSION—LN272/26",
+    "channel": "辽宁海事局",
+    "time_periods": "FROM 181000UTC TO 201000UTC",
+    "coordinate_count": 4,
+    "coordinates": "39.85,119.8833; 39.85,120.6167; 39.3167,120.6167; 39.3167,119.8833",
+    "coordinates_raw": "39-51N119-53E; 39-51N120-37E; 39-19N120-37E; 39-19N119-53E",
+    "content_preview": "English 首页 机构职能 机构职责 领导介绍 内设机构 直属单位 政府信息公开 法定主动公开内容 政府信息公开指南 政府信息公开制度 政府信息公开年报 依申请公开 互联网+政务 我要办事 在线查询 航行安全 AIS信息服务 安全信息 北极航道 安全知识 潮汐查询 搜救辅助 海图改正通告 海图服务 事故教训 海事履约 互动交流 在线访谈 政策法规解读 网上咨询 意见征集·在线调查 局长信箱 投诉举报 海事数据 首页 航行安全 安全信息 航行警告 辽宁海事局 MILITARY MISSION—LN272/26 来源：大连海事局 文号：LN272/26 发布时间：2026-07-18 12:43 [字体： 大 中 小 ] 分享到： LN272/26 BOHAI SEA MILITARY MISSION IN AREA BOUNDED BY THE LINES JOINING 39-51N119-53E,39-51N120-37E,39-19N120-37E,39-19N119-53E FROM 181000UTC TO 201000UTC JUL.ENTERING PROHIBITED",
+    "url": "https://www.msa.gov.cn/html/cnmsa/hxaq/article/2026/6e74159b2eabf4b6.html?hav=1jWj6r2hy2JdE8tASfMfgZlM0c",
+    "scraped_at": "2026-07-18T05:04:36.786952"
   }
 ]
