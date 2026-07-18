@@ -24914,5 +24914,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-17",
+      "title": "#东部熄灯号#低空掠敌影，铁翼斩长风。#阅海峡#",
+      "content": "#东部熄灯号#低空掠敌影，铁翼斩长风。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5321788855690952",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-17",
+      "title": "【#参观见学铭记历史#】近日，东部战区空军某部组织优秀党务工作者和优秀共产党员代表走进沙家浜革命历史...",
+      "content": "【#参观见学铭记历史#】近日，东部战区空军某部组织优秀党务工作者和优秀共产党员代表走进沙家浜革命历史纪念馆，开展“芦荡深处寻初心、烽火薪传践使命”活动。官兵们在泛黄的家书、褪色的军装前驻足凝思，从烽火岁月的鱼水深情中汲取信仰力量，将参观见学换发出的政治热情转化为练兵备战的不竭动力。 ...全文",
+      "url": "https://m.weibo.cn/detail/5321668059732618",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
