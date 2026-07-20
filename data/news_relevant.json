@@ -22412,5 +22412,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "第71集团军王杰部队防空分队在滨海演训场进行高强度全要素实战化实弹射击演练",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-20",
+      "title": "#直击东部战区练兵备战现场# 【#真打实抗锤炼新战力# 】近日，第71集团军王杰部队防空分队机动至某...",
+      "content": "#直击东部战区练兵备战现场# 【#真打实抗锤炼新战力# 】近日，第71集团军王杰部队防空分队机动至某滨海演训场，开展高强度、全要素实战化实弹射击演练，在真打实抗中检验新训法、锤炼新战力。（朱海军、万智奇）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5322664627146677",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
