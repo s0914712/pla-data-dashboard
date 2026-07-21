@@ -1,9 +1,9 @@
 {
-  "update_time": "2026-07-20T05:50:11.508611",
-  "total_warnings": 61,
-  "new_this_run": 2,
-  "with_coordinates": 57,
-  "with_time_periods": 35,
+  "update_time": "2026-07-21T05:30:28.246007",
+  "total_warnings": 62,
+  "new_this_run": 1,
+  "with_coordinates": 58,
+  "with_time_periods": 36,
   "date_range": {
     "earliest": "2026-03-15",
     "latest": "2026-07-20"
@@ -17,6 +17,7 @@
     "天津海事局": 1,
     "上海海事局": 2,
     "河北海事局": 2,
-    "山东海事局": 5
+    "山东海事局": 5,
+    "浙江海事局": 1
   }
 }
