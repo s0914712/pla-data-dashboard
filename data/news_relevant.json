@@ -22508,5 +22508,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区空军某场站野战救护演练",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-21",
+      "title": "#直击东部战区练兵备战现场# 【#阵地救护所上演生命接力# 】近日，东部战区空军某场站，一场紧贴实战...",
+      "content": "#直击东部战区练兵备战现场# 【#阵地救护所上演生命接力# 】近日，东部战区空军某场站，一场紧贴实战背景的野战救护演练骤然打响，进一步锤炼了救护骨干的实战技能。（周小飞、饶品欢、吴宇彬、司江明 ）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5323027018416287",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.85,
+    "original_article": {
+      "date": "2026-07-20",
+      "title": "#东部熄灯号#远搜千里外，近捕百丈中#阅海峡#",
+      "content": "#东部熄灯号#远搜千里外，近捕百丈中#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5322876019286864",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区海军两栖攻击舰与气垫艇融合训练，锤炼精准投送、随时能战能力",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-20",
+      "title": "#直击东部战区练兵备战现场#【#两栖攻击舰与气垫艇开展融合训练# 】近日，东部战区海军某部组织实战化...",
+      "content": "#直击东部战区练兵备战现场#【#两栖攻击舰与气垫艇开展融合训练# 】近日，东部战区海军某部组织实战化背景下两栖攻击舰与气垫艇融合训练，锤炼精准投送、随时能战能力。（顾浩、汪晓锋、孙锡涛）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5322755223323202",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
