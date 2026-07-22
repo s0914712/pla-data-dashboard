@@ -25469,5 +25469,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "第72集团军某旅炮兵分队千里机动至西北戈壁进行多弹种、临极限、全要素的综合实弹射击演练",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-22",
+      "title": "#直击东部战区练兵备战现场#【#火力铁拳千里机动向战行# 】近日，第72集团军某旅炮兵分队，千里机动...",
+      "content": "#直击东部战区练兵备战现场#【#火力铁拳千里机动向战行# 】近日，第72集团军某旅炮兵分队，千里机动至西北戈壁，拉开了一场多弹种、临极限、全要素的综合实弹射击演练，进一步锤炼官兵胜战本领。（曹百炘、刘红杰、周鑫宇、孔维政）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5323389402088002",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-21",
+      "title": "#东部熄灯号#霄汉砺兵常怀赤胆，银机振翼永护山河。#阅海峡#",
+      "content": "#东部熄灯号#霄汉砺兵常怀赤胆，银机振翼永护山河。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5323238407934736",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-21",
+      "title": "【#现地课堂助推教育直抵兵心#】近日，东部战区空军某旅通过挖掘社会教育资源，以现地参观感悟、重温红色...",
+      "content": "【#现地课堂助推教育直抵兵心#】近日，东部战区空军某旅通过挖掘社会教育资源，以现地参观感悟、重温红色故事、情景再现演绎等形式拓展教育内容，有效增强了思想政治教育的针对性和感染力。（陈昕、黄友南、刘程昊、庄强宏 ）#思想政治教育#",
+      "url": "https://m.weibo.cn/detail/5323117611190680",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
