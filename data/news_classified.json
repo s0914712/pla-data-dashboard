@@ -25541,5 +25541,125 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国台办批评民进党当局丧失民族立场，附和外部势力攻击抹黑大陆。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-22",
+      "title": "民进党当局附和菲方抹黑大陆 国台办：丧失民族立场",
+      "content": "有记者问，对于菲律宾近日在仁爱礁蓄意挑衅，暴力袭击中方执法人员，事后还歪曲炒作。台外事部门竟然附和称，“谴责大陆使用武力伤人”，反对任何片面以武力、胁迫及灰色地带袭扰等方式改变现状的企图与行动。请问对此有何评论？ 发言人张晗答问表示，关于菲律宾在仁爱礁蓄意挑衅、袭击中国海警执法人员一事，有关部门已第一时间阐明了事实真相，公布了现场画面，并向菲方提出了严正交涉。仁爱礁是中国南沙群岛的一部分，是中国领土。民进党当局丧失民族立场，附和外部势力混淆是非，攻击抹黑大陆，再次暴露了其数典忘祖、倚外谋“独”的邪恶本质。（记者许晓静、陆烨）",
+      "url": "https://www.news.cn/tw/20260722/0e46ae51c1f94df4993d53c2e7de3ea6/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中国驻伊尔库茨克总领馆协助受伤台胞，称保护台湾同胞是职责。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-22",
+      "title": "驻伊尔库茨克总领馆协助受伤台胞 国台办：职责所在",
+      "content": "有记者问，近日，有台胞在俄罗斯伊尔库茨克州附近遭遇车祸。中国驻伊尔库茨克总领馆获悉后第一时间协助伤员前往当地医院救治，并探望慰问受伤台胞。请问对此有何评论？ 发言人张晗答问表示，据了解，近日，有台胞旅行团在俄罗斯伊尔库茨克州附近遭遇车祸。中国驻伊尔库茨克总领馆深夜接获台胞求助信息后，第一时间协调当地医院派出救护车辆实施救助，并探望慰问了伤势较重的台湾同胞。目前受伤台胞情况稳定。 她表示，两岸同胞都是中国人，为包括台湾同胞在内的中国公民在境外提供领事保护和协助是我们的职责所在。哪里有同胞的期待和诉求，哪里就会有祖国的关爱和守护。我们将继续为同胞们遮风挡雨、排忧解难，让每一个中国人都感受到祖国的温暖与强大。（记者许晓静、王承昊）",
+      "url": "https://www.news.cn/tw/20260722/94d0b5fa18e541e59378fddd5726c3f6/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.55,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国台办称两岸贸易额达1850亿美元，强调交流合作互利互赢，任何人皆无法阻挡"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-07-22",
+      "title": "国台办：两岸交流合作互利互赢任何人都阻挡不了",
+      "content": "有记者询问，近日，台湾地区行政机构负责人卓荣泰在出席“亚洲台湾商会联合总会”活动时称，台湾已修正过去对“中国单一市场”的依赖，移转到欧美及南向国家；对于台商在全世界投资也组成了协助平台。请问对此有何评论？ 张晗答问表示，2026年上半年，两岸贸易额达到1850亿美元，其中大陆自台进口1331亿美元，同比增幅22.5%。大陆对台出口319亿美元，同比增幅32.9%。这充分说明，两岸产业结构优势互补，合作前景广阔。加强两岸经贸合作，深化两岸融合发展，符合两岸同胞企业的共同利益，也是经济规律和市场原则共同作用的结果。两岸交流合作、互利互赢是任何人都阻挡不了的。（记者冀泽、王承昊）",
+      "url": "https://www.news.cn/tw/20260722/6aa06c038ca44f9ea7425567d6bbfa4b/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国台办批评台当局编造失联数据，制造寒蝉效应，其行可耻其心可诛"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-22",
+      "title": "台当局威胁民众审慎赴陆 国台办：其行可耻其心可诛",
+      "content": "有记者问，台陆委会近日称，今后每周定期公布民众赴大陆失联、遭关押等数据，提醒大众赴大陆要审慎评估，“能不去就不去”。请问对此有何评论？ 发言人张晗答问表示，据国家出入境管理局统计，今年1-6月两岸人员往来311.9万人次，同比增长22.1%。其中，台胞来大陆285万人次，同比增长24.9%。越来越多的台湾同胞来大陆交流参访、学习就业、旅游观光。 她表示，我们依法维护来大陆的台湾同胞生命财产安全和合法权益，广大台湾同胞平安顺利往返两岸。民进党当局罔顾事实，编造谎言，屡屡翻炒所谓“失联人员数据”，企图制造“寒蝉效应”，欺骗、恐吓台湾民众以达到限缩两岸交流、隔断两岸同胞亲情的目的，其行可耻，其心可诛。（记者马欣然、陆烨）",
+      "url": "https://www.news.cn/tw/20260722/186343c01e94460a8df773cd8b22679d/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.75,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国台办称赖清德为‘台湾之害’，批评其台独立场破坏两岸和平"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-07-22",
+      "title": "国台办：赖清德已成为“台湾之害”",
+      "content": "有记者问，民进党7月19日举行全代会，兼任民进党主席的台湾地区领导人赖清德在会上再度鼓吹两岸“互不隶属”等分裂言论，大肆渲染大陆对台“威胁”，叫嚣绝不让“民主台湾”变成“中国台湾”等。请问对此有何评论？ 发言人张晗答问表示，赖清德在民进党全代会上大放厥词、大言不惭，讲话通篇充斥着敌意与冲撞、谎言与谰言、偏执与狂妄，再次暴露其“台独”立场冥顽不化，滋事挑衅、激进冒险、害台毁台、一意孤行，充分证明赖清德、民进党是破坏两岸关系稳定和台湾社会安宁的祸根，是台海及地区和平稳定的乱源，是不折不扣的和平破坏者、战争煽动者、麻烦制造者。 她表示，此次赖清德讲话中再度宣扬“台独”分裂谬论，鼓吹两岸“互不隶属”，猖狂挑战一个中国原则，彻底撕下其所谓没有“台独”问题的伪装，露出“台独”工作者的本来面目。 张晗表示，赖清德上台以来大搞“绿色恐怖”，极力钳制言论自由，滥用司法打压政治异己，肆意迫害支持两岸关系发展的力量，粗暴损害台湾民众参与两岸交流合作的正当权益，这样一个践踏民主、妨害自由、戕害法治的人竟然还夸夸其谈“民主自由”，鼓噪“民主对抗威权”，真是恬不知耻。简而言之，赖清德已经成为“台湾之害”，民进党已经成为最大的祸台团体，已经引发岛内民众强烈不满。 她强调，台湾是中国的台湾，从来不是一个国家，过去不是，今后也绝对不是。台湾问题是上世纪40年代中国内战遗留问题，不管台湾地区以什么方式选举，选了什么人，都改变不了台湾是中国一部分的地位，都割裂不了两岸同属一个中国的历史和法理联结，都打破不了台湾前途只能由包括台湾同胞在内的全体中国人民共同决定的铁律。我们坚持一个中国原则和“九二共识”，广泛团结台湾同胞，坚决打击“台独”分裂，维护台海和平稳定。祖国必然统一的大势，浩浩荡荡，不可阻挡。（记者尚昊、王承昊）",
+      "url": "https://www.news.cn/tw/20260722/80b280b9518b4a8dacf921d8ff9f5c6c/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
