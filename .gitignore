@@ -27,5 +27,6 @@ node_modules/
 *.csv.bak
 *.xlsx~
 
-# LINE daily-brief chart (generated at runtime, uploaded to main by the workflow)
+# LINE daily-brief images (generated at runtime, uploaded to main by the workflow)
 data/charts/line_forecast_3day.png
+data/charts/nav_warning_map.png

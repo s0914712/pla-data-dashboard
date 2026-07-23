@@ -27,8 +27,11 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: 安裝中文字型（地圖圖例用）
+        run: sudo apt-get update && sudo apt-get install -y fonts-noto-cjk
+
       - name: 安裝套件
-        run: pip install requests pandas matplotlib
+        run: pip install requests pandas matplotlib pillow
 
       - name: 執行每日簡報推播腳本
         env:
