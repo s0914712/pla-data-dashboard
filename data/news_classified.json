@@ -25661,5 +25661,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.25,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "#直击东部战区练兵备战现场#【#为战护航直通战位#】“八一”建军节前夕，联勤保障部队第900医院聚焦...",
+      "content": "#直击东部战区练兵备战现场#【#为战护航直通战位#】“八一”建军节前夕，联勤保障部队第900医院聚焦保障打赢目标，组织多支专家医疗队奔赴基层部队开展“三巡三送”医疗巡诊服务，同步开展军事训练伤防治技能培训与考核，为保障部队战斗力培养战救卫勤骨干。（张文明、高升斌、周全、陈晓芬） ...全文",
+      "url": "https://m.weibo.cn/detail/5323751789953308",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-22",
+      "title": "#东部熄灯号#不惧深海颠簸，锤炼胜战本领。#阅海峡#",
+      "content": "#东部熄灯号#不惧深海颠簸，锤炼胜战本领。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5323600795014007",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-22",
+      "title": "【#新兵复训工作周密展开# 】千锤百炼，淬火成钢。连日来，东部战区空军某部周密开展新兵复训工作。他们...",
+      "content": "【#新兵复训工作周密展开# 】千锤百炼，淬火成钢。连日来，东部战区空军某部周密开展新兵复训工作。他们针对新兵“第二适应期”特点，从军事训练、教育管理、作风养成等多个方面科学定制集训计划，坚持把尊重新兵的个性差异和成长诉求落到具体细节中，帮助他们快速融入新环境、适应新集体。（陈昕、张 ...全文",
+      "url": "https://m.weibo.cn/detail/5323479999841617",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
