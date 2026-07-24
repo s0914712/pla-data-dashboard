@@ -1311,6 +1311,246 @@
     }
   },
   {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "共軍直升機首度穿越台海中線",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "學者指共軍直升機首越台海中線國防部：有效掌握應處| 政治",
+      "content": "（中央社記者 吳書緯 台北23日電）國防部日前偵獲共軍機艦在台海活動，國防院學者揭仲分析，共軍直升機首度穿越台海中線，出現2種灰色地帶新態樣。國防部今天回應表示，國軍運用聯合情監偵手段，已有效掌握、適切應處，相關臆測非事實。 國防部21日上午公布的共機艦動態中，統計自20日上午6時起至21日上午6時，偵獲5艘共艦、6艘公務船及4架次共機進入北部、中部及東南空域；值得注意的是，在20日上午10時20分至同日晚上7時40分期間，分別有直升機、無人機在台海中線一帶，以及北部及東南方的台灣防空識別區（ADIZ）活動。",
+      "url": "https://www.cna.com.tw/news/aipl/202607230031.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_Statement",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "CN",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "美國反對中國海警船進入台海，稱違背戰略穩定"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "美國務卿：中海警船至台海域違背戰略穩定美方不同意| 政治",
+      "content": "（中央社記者 廖漢原 華盛頓22日專電）美國國務卿盧比歐今天在馬尼拉指出，美國明確不同意中國派遣海警船至台灣海域，這違背兩國討論戰略穩定的精神，美國將持續航行國際海域。此外，中國國家主席習近平9月訪美是會談主題，希望確認合作範圍，為訪問奠下基礎。 美國國務卿盧比歐22日在菲律賓東協外長會議場邊舉辦記者會。（美聯社）",
+      "url": "https://www.cna.com.tw/news/aipl/202607230010.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部指出中共預計今日發射火箭將經過台灣防空識別區"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "國防部：中共預計今發射火箭將經過台灣防空識別區| 政治",
+      "content": "（中央社記者 吳書緯 台北23日電）國防部表示，自昨天上午6時至今天上午6時，偵獲共機21架次，其中20架次逾越中線進入北部及西南空域，以及6艘共艦、2艘公務船，總計中共29機艦船持續在台海周邊活動，國軍嚴密監控與應處。 國防部並發布中共公告運載火箭發射活動，指出中共預計今天於西昌衛星發射中心執行運載火箭發射，飛行方向朝向西太平洋，且會經過台灣防空識別區（ADIZ）。 根據國防部今天公布的「中共解放軍進入台海周邊空域活動示意圖」，國軍於昨天上午7時20分至昨天晚間8時35分，在台灣海峽空域偵獲中共6架次主、輔戰機、直升機及無人機，其中5架次逾越中線。 透過 Google News 追蹤中央社",
+      "url": "https://www.cna.com.tw/news/aipl/202607230042.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "China conducted live-fire drills in two areas of the Taiwan Strait near Dongshan Island, Fujian, from 06:00 to 18:00 on July 23 and July 24, 2026.",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "中國公布連2天在台灣海峽部分海域實彈射擊| 兩岸",
+      "content": "（中央社台北23日電）央視網今天報導，中國海事局官網公布，漳州海事局發布上午航行警告，今天早上6時至晚上6時、明天早上6時至晚上6時，在台灣海峽2處海域進行實彈射擊，禁止進入。經對照海圖，這2處海域均在福建東山島近海。 中國公布實彈射擊 航港局初判無影響、商港進出正常",
+      "url": "https://www.cna.com.tw/news/acn/202607230101.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "陸委會表示饒慶鈴談話未涉重大政治議題，查處結果將很快出爐。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "查饒慶鈴預錄現身海峽論壇陸委會：很快有結論| 兩岸",
+      "content": "（中央社記者 李雅雯 台北23日電）台東縣長饒慶鈴透過預錄影片方式現身海峽論壇。陸委會今天表示，饒慶鈴的談話沒有牽涉到比較重大的政治性議題，查處結果很快會有結論。 大陸委員會（陸委會）下午召開例行記者會，由副主委兼發言人梁文傑主持。 梁文傑表示，根據農業部了解的結果，當初提到有農漁組織派人前往海峽論壇簽約；實際上沒有簽訂任何明確合約，對岸也沒有允諾採買多少農漁產品，目前未見任何合約、訂單，「基本上，它是一個等於是作秀的樣子」。 梁文傑重申，中國大陸對台政策是「上下一條鞭」；台灣在應對中國大陸時，也不能夠「中央講一套、地方做一套」，否則沒有辦法應付兩岸現況。當中央認為某些兩岸活動不適合參加時，中央、地方都不該去參加，這是基本原則。",
+      "url": "https://www.cna.com.tw/news/acn/202607230347.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_Statement",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "CN",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "美國國務卿盧比歐稱任何國家無權限制台灣海峽國際水道通行自由"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "盧比歐：任何國家都無權限制台海通行自由| 國際",
+      "content": "（中央社馬尼拉23日綜合外電報導）亞洲、歐洲及北美外交高層今天將在東協區域論壇中，討論區域安全議題。美國國務卿盧比歐今天發文指出，任何國家都無權限制台灣海峽在內的國際水道通行自由。 美國國務卿盧比歐（Marco Rubio）今天在社群媒體X發文指出：「30多年來，東協區域論壇（ASEAN Regional Forum）一直支持針對影響區域的安全議題展開對話。任何國家都無權限制國際水道的商業往來與通行自由，包括台灣海峽在內。」",
+      "url": "https://www.cna.com.tw/news/aopl/202607230155.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Regional_Security",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "CN",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "美日韓外長強調台海和平穩定，關切中國ICBM發射"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "韓美日外長重申朝鮮半島無核化強調台海和平穩定| 國際",
+      "content": "（中央社馬尼拉22日綜合外電報導）南韓、美國及日本外交首長今天在馬尼拉進行三方會談，會後重申朝鮮半島無核化原則並將強化美日韓三邊合作，同時強調維護台灣海峽和平穩定的重要性。 首爾放送新聞（SBS）報導，南韓外長趙顯、美國國務卿盧比歐（Marco Rubio）以及日本外相茂木敏充今天在會談中，討論三邊防衛合作、加強海上安全、促進能源安全、因應網路威脅，以及推動包含東南亞在內的整個印太地區和平與穩定等議題。 在台海議題方面，美國國務院在新聞稿中指出，3名外長均「強調維護台灣海峽和平穩定的重要性」，並「對中國近期向太平洋發射洲際彈道飛彈（ICBM）表示關切，指出事前通報不足」。 美國務院新聞稿也提到，3國均承諾「共同反對經濟脅迫以及將供應鏈武器化，推動關鍵供應鏈的風險管理與多元化」，並擴大就「戰略重要性日益提升的北極議題」的討論。 南韓外交部則指出，3方「就單方面改變現況的企圖等區域局勢交換意見，並重申強化海事安全，恪守以「聯合國海洋公約」（United Nations Convention on the Law of the Sea）為代表的國際法，維護東南亞等印太地區的航行與飛越自由」。 南韓外交部所稱的「企圖片面改變現況」，被認為是指中國在南海擴張領土主張的行動。 此外，3人在會中也針對近來朝鮮半島局勢交換評估意見。南韓外交部表示，他們重申在堅持半島無核化原則的同時，維持對北韓強力的威嚇立場，並同意在北韓政策方面保持密切協調，透過對話與外交手段，共同維護朝鮮半島的和平與穩定。",
+      "url": "https://www.cna.com.tw/news/aopl/202607230041.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.55,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区海军某部组织舰载直升机实弹射击及海上着舰训练",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-24",
+      "title": "#直击东部战区练兵备战现场#【#直击舰载直升机实弹射击及海上着舰训练#  】近日，东部战区海军某部紧...",
+      "content": "#直击东部战区练兵备战现场#【#直击舰载直升机实弹射击及海上着舰训练#  】近日，东部战区海军某部紧贴实战化训练要求，组织舰载直升机实弹射击及海上着舰训练，进一步锤炼部队全天候作战能力。（董满、刘建义、王新宇、王浩景）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5324114178607436",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "#东部熄灯号#深山淬刃强本领，隐蔽突袭勇担当。#阅海峡#",
+      "content": "#东部熄灯号#深山淬刃强本领，隐蔽突袭勇担当。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5323963183145256",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "#直击东部战区练兵备战现场#【#为战护航直通战位#】“八一”建军节前夕，联勤保障部队第900医院聚焦...",
+      "content": "#直击东部战区练兵备战现场#【#为战护航直通战位#】“八一”建军节前夕，联勤保障部队第900医院聚焦保障打赢目标，组织多支专家医疗队奔赴基层部队开展“三巡三送”医疗巡诊服务，同步开展军事训练伤防治技能培训与考核，为保障部队战斗力培养战救卫勤骨干。（张文明、高升斌、周全、陈晓芬） ...全文",
+      "url": "https://m.weibo.cn/detail/5323751789953308",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
     "category": "TW_Statement",
     "is_relevant": true,
     "country1": "CN",
@@ -22769,30 +23009,6 @@
       "content": "有记者问，民进党7月19日举行全代会，兼任民进党主席的台湾地区领导人赖清德在会上再度鼓吹两岸“互不隶属”等分裂言论，大肆渲染大陆对台“威胁”，叫嚣绝不让“民主台湾”变成“中国台湾”等。请问对此有何评论？ 发言人张晗答问表示，赖清德在民进党全代会上大放厥词、大言不惭，讲话通篇充斥着敌意与冲撞、谎言与谰言、偏执与狂妄，再次暴露其“台独”立场冥顽不化，滋事挑衅、激进冒险、害台毁台、一意孤行，充分证明赖清德、民进党是破坏两岸关系稳定和台湾社会安宁的祸根，是台海及地区和平稳定的乱源，是不折不扣的和平破坏者、战争煽动者、麻烦制造者。 她表示，此次赖清德讲话中再度宣扬“台独”分裂谬论，鼓吹两岸“互不隶属”，猖狂挑战一个中国原则，彻底撕下其所谓没有“台独”问题的伪装，露出“台独”工作者的本来面目。 张晗表示，赖清德上台以来大搞“绿色恐怖”，极力钳制言论自由，滥用司法打压政治异己，肆意迫害支持两岸关系发展的力量，粗暴损害台湾民众参与两岸交流合作的正当权益，这样一个践踏民主、妨害自由、戕害法治的人竟然还夸夸其谈“民主自由”，鼓噪“民主对抗威权”，真是恬不知耻。简而言之，赖清德已经成为“台湾之害”，民进党已经成为最大的祸台团体，已经引发岛内民众强烈不满。 她强调，台湾是中国的台湾，从来不是一个国家，过去不是，今后也绝对不是。台湾问题是上世纪40年代中国内战遗留问题，不管台湾地区以什么方式选举，选了什么人，都改变不了台湾是中国一部分的地位，都割裂不了两岸同属一个中国的历史和法理联结，都打破不了台湾前途只能由包括台湾同胞在内的全体中国人民共同决定的铁律。我们坚持一个中国原则和“九二共识”，广泛团结台湾同胞，坚决打击“台独”分裂，维护台海和平稳定。祖国必然统一的大势，浩浩荡荡，不可阻挡。（记者尚昊、王承昊）",
       "url": "https://www.news.cn/tw/20260722/80b280b9518b4a8dacf921d8ff9f5c6c/c.html",
       "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "CN",
-    "sentiment_score": 0.25,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-07-23",
-      "title": "#直击东部战区练兵备战现场#【#为战护航直通战位#】“八一”建军节前夕，联勤保障部队第900医院聚焦...",
-      "content": "#直击东部战区练兵备战现场#【#为战护航直通战位#】“八一”建军节前夕，联勤保障部队第900医院聚焦保障打赢目标，组织多支专家医疗队奔赴基层部队开展“三巡三送”医疗巡诊服务，同步开展军事训练伤防治技能培训与考核，为保障部队战斗力培养战救卫勤骨干。（张文明、高升斌、周全、陈晓芬） ...全文",
-      "url": "https://m.weibo.cn/detail/5323751789953308",
-      "source": "weibo",
       "category": "",
       "sentiment": ""
     }
