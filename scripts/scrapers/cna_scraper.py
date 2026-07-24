@@ -32,6 +32,9 @@ class CNAScraper(BaseScraper):
         "軍售台灣 site:cna.com.tw",        # 對台軍售
         "訪台 site:cna.com.tw",           # 官員訪台
         "東部戰區 site:cna.com.tw",       # 東部戰區公告
+        "實彈射擊 site:cna.com.tw",        # 實彈射擊公告（海事局/航行警告）
+        "航行警告 site:cna.com.tw",        # 海事局航行警告 / 禁航公告
+        "禁航 海域 site:cna.com.tw",       # 劃設禁航區
     ]
 
     def __init__(self, timeout: int = 30, delay: float = 1.5):
@@ -70,6 +73,8 @@ class CNAScraper(BaseScraper):
             '共機', '共艦', '共軍', '解放軍',
             '美艦', '美軍',
             '軍演', '演習', '戰備',
+            '實彈射擊', '實彈', '射擊',      # 實彈射擊公告
+            '航行警告', '禁航', '海事局',    # 海事局航行警告 / 禁航公告
             '軍售', '軍購',
             '訪台', '過境',
             '東部戰區', '南部戰區',

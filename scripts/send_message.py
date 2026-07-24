@@ -131,6 +131,68 @@ def summarize_forecast(fc):
     return "\n".join(lines)
 
 
+# 火砲/演習「公告」判定：需同時命中「射擊/演習類」與「航警/禁區類」關鍵字，
+# 才視為劃設禁航／射擊區的公告，藉此排除東部戰區日常實彈操演等宣傳貼文。
+_FIRE_TERMS = [
+    "實彈射擊", "实弹射击", "實彈演習", "实弹演习", "火砲射擊", "火炮射击",
+    "實彈", "实弹", "軍事訓練", "军事训练", "軍事演習", "军事演习",
+    "軍演", "军演", "演訓",
+]
+_ANNOUNCE_TERMS = [
+    "航行警告", "航行警報", "航行警报", "海事局", "禁航", "禁航區", "禁航区",
+    "禁止進入", "禁止进入", "禁止駛入", "禁止驶入", "禁止船舶", "劃設", "划设",
+]
+
+
+def summarize_fire_announcements(yesterday):
+    """從新聞掃描「軍演／實彈射擊公告」，補足 MSA 海事航警可能遺漏者。
+
+    例如中央社轉述海事局航行警告（劃設實彈射擊禁航區）的報導，
+    MSA 官網爬蟲未必即時涵蓋，這裡以新聞來源補上。
+    需同時命中射擊/演習類與航警/禁區類關鍵字，避免日常操演宣傳誤入。
+    """
+    data = _safe_read_json(NEWS_JSON)
+    if not data:
+        return None
+
+    cutoff = (yesterday - timedelta(days=NEWS_LOOKBACK_DAYS)).strftime("%Y-%m-%d")
+    y_str = yesterday.strftime("%Y-%m-%d")
+
+    def art(a):
+        return a.get("original_article") if isinstance(a, dict) else None
+
+    matches = []
+    seen_titles = set()
+    for a in data:
+        oa = art(a)
+        if not isinstance(oa, dict):
+            continue
+        date = _s(oa.get("date")).strip()
+        if not (cutoff <= date <= y_str):
+            continue
+        ed = a.get("extracted_data") if isinstance(a.get("extracted_data"), dict) else {}
+        title = _s(oa.get("title")).strip()
+        text = f"{title} {_s(oa.get('content'))} {_s(ed.get('Military_exercise'))}"
+        if not (any(k in text for k in _FIRE_TERMS) and any(k in text for k in _ANNOUNCE_TERMS)):
+            continue
+        key = title[:30]
+        if key in seen_titles:
+            continue
+        seen_titles.add(key)
+        matches.append((date, title, _s(oa.get("source")), _s(oa.get("url"))))
+
+    if not matches:
+        return None
+
+    matches.sort(reverse=True)
+    lines = ["🎯 軍演／實彈射擊公告（新聞補充）："]
+    for date, title, src, url in matches[:MAX_ITEMS_PER_SOURCE]:
+        label = SOURCE_LABELS.get(src, src)
+        clean = title.replace("\n", " ").split("|")[0].strip()[:50]
+        lines.append(f"  • [{date}] {clean}（{label}）")
+    return "\n".join(lines)
+
+
 def summarize_nav_warnings(yesterday):
     """MSA 火砲射擊/演習航警：取昨日（無則近期）公告。"""
     data = _safe_read_json(NAV_WARN_JSON)
@@ -278,6 +340,12 @@ def compose_report_text(yesterday):
         summarize_japan_mod(),
         "",
         summarize_nav_warnings(yesterday),
+    ]
+    # 軍演／實彈射擊公告（新聞補充）：僅在有命中時，緊接 MSA 航警之後
+    fire_ann = summarize_fire_announcements(yesterday)
+    if fire_ann:
+        sections += ["", fire_ann]
+    sections += [
         "",
         summarize_news(yesterday),
         "",
