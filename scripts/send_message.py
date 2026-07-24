@@ -29,6 +29,7 @@ import base64
 import json
 import math
 import os
+import re
 import sys
 import traceback
 from datetime import datetime, timedelta, timezone
@@ -128,6 +129,68 @@ def summarize_forecast(fc):
             f"  {emoji} {date_str}：約 {pred:.1f} 架次"
             f"（90% 區間 {lo:.0f}–{hi:.0f}{prob_str}）"
         )
+    return "\n".join(lines)
+
+
+# 火砲/演習「公告」判定：需同時命中「射擊/演習類」與「航警/禁區類」關鍵字，
+# 才視為劃設禁航／射擊區的公告，藉此排除東部戰區日常實彈操演等宣傳貼文。
+_FIRE_TERMS = [
+    "實彈射擊", "实弹射击", "實彈演習", "实弹演习", "火砲射擊", "火炮射击",
+    "實彈", "实弹", "軍事訓練", "军事训练", "軍事演習", "军事演习",
+    "軍演", "军演", "演訓",
+]
+_ANNOUNCE_TERMS = [
+    "航行警告", "航行警報", "航行警报", "海事局", "禁航", "禁航區", "禁航区",
+    "禁止進入", "禁止进入", "禁止駛入", "禁止驶入", "禁止船舶", "劃設", "划设",
+]
+
+
+def summarize_fire_announcements(yesterday):
+    """從新聞掃描「軍演／實彈射擊公告」，補足 MSA 海事航警可能遺漏者。
+
+    例如中央社轉述海事局航行警告（劃設實彈射擊禁航區）的報導，
+    MSA 官網爬蟲未必即時涵蓋，這裡以新聞來源補上。
+    需同時命中射擊/演習類與航警/禁區類關鍵字，避免日常操演宣傳誤入。
+    """
+    data = _safe_read_json(NEWS_JSON)
+    if not data:
+        return None
+
+    cutoff = (yesterday - timedelta(days=NEWS_LOOKBACK_DAYS)).strftime("%Y-%m-%d")
+    y_str = yesterday.strftime("%Y-%m-%d")
+
+    def art(a):
+        return a.get("original_article") if isinstance(a, dict) else None
+
+    matches = []
+    seen_titles = set()
+    for a in data:
+        oa = art(a)
+        if not isinstance(oa, dict):
+            continue
+        date = _s(oa.get("date")).strip()
+        if not (cutoff <= date <= y_str):
+            continue
+        ed = a.get("extracted_data") if isinstance(a.get("extracted_data"), dict) else {}
+        title = _s(oa.get("title")).strip()
+        text = f"{title} {_s(oa.get('content'))} {_s(ed.get('Military_exercise'))}"
+        if not (any(k in text for k in _FIRE_TERMS) and any(k in text for k in _ANNOUNCE_TERMS)):
+            continue
+        key = title[:30]
+        if key in seen_titles:
+            continue
+        seen_titles.add(key)
+        matches.append((date, title, _s(oa.get("source")), _s(oa.get("url"))))
+
+    if not matches:
+        return None
+
+    matches.sort(reverse=True)
+    lines = ["🎯 軍演／實彈射擊公告（新聞補充）："]
+    for date, title, src, url in matches[:MAX_ITEMS_PER_SOURCE]:
+        label = SOURCE_LABELS.get(src, src)
+        clean = title.replace("\n", " ").split("|")[0].strip()[:50]
+        lines.append(f"  • [{date}] {clean}（{label}）")
     return "\n".join(lines)
 
 
@@ -278,6 +341,12 @@ def compose_report_text(yesterday):
         summarize_japan_mod(),
         "",
         summarize_nav_warnings(yesterday),
+    ]
+    # 軍演／實彈射擊公告（新聞補充）：僅在有命中時，緊接 MSA 航警之後
+    fire_ann = summarize_fire_announcements(yesterday)
+    if fire_ann:
+        sections += ["", fire_ann]
+    sections += [
         "",
         summarize_news(yesterday),
         "",
@@ -491,6 +560,100 @@ def select_range_warnings(yesterday, max_zones=8):
     return zones
 
 
+# 度分格式座標，例如「23-41.31N、117-31.49E」= 23°41.31′N, 117°31.49′E
+_DMS_TOKEN = re.compile(r'(\d{1,3})[-–](\d{1,2}(?:\.\d+)?)\s*([NSEWnsew])')
+
+
+def _dms_to_decimal(deg, minutes):
+    return float(deg) + float(minutes) / 60.0
+
+
+def extract_coord_zones_from_text(text, max_gap=25):
+    """從新聞內文抽取度分座標，依文字間距切分成多個多邊形群組。
+
+    一篇公告常含多個射擊區（不同日期各一組頂點），以座標間的字元距離
+    分群：同一多邊形的頂點僅以「、；」分隔（間距小），不同區之間隔著整句
+    敘述（間距大）。回傳 [[(lat,lon),…], …]。
+    """
+    toks = []
+    for m in _DMS_TOKEN.finditer(_s(text)):
+        val = _dms_to_decimal(m.group(1), m.group(2))
+        hemi = m.group(3).upper()
+        if hemi in ("S", "W"):
+            val = -val
+        toks.append((m.start(), m.end(), "lat" if hemi in ("N", "S") else "lon", val))
+    if not toks:
+        return []
+
+    groups = [[toks[0]]]
+    for prev, tok in zip(toks, toks[1:]):
+        if tok[0] - prev[1] <= max_gap:
+            groups[-1].append(tok)
+        else:
+            groups.append([tok])
+
+    result = []
+    for g in groups:
+        pts, pending_lat = [], None
+        for _, _, kind, val in g:
+            if kind == "lat":
+                pending_lat = val
+            elif pending_lat is not None:  # lon，與前一個 lat 配對
+                pts.append((pending_lat, val))
+                pending_lat = None
+        # 僅保留東亞海域合理範圍，排除誤抓
+        pts = [(la, lo) for la, lo in pts if 0 < la < 60 and 100 < lo < 150]
+        if pts:
+            result.append(pts)
+    return result
+
+
+def select_news_range_warnings(yesterday, max_zones=6):
+    """從新聞內文（中央社等）抽取含座標的實彈射擊／演習公告範圍。
+
+    補足 MSA 官網海事航警未即時涵蓋者（例如中央社轉述海事局劃設的
+    台灣海峽實彈射擊禁航區，內文附有度分座標）。
+    """
+    data = _safe_read_json(NEWS_JSON)
+    if not data:
+        return []
+    cutoff = (yesterday - timedelta(days=NEWS_LOOKBACK_DAYS)).strftime("%Y-%m-%d")
+    y_str = yesterday.strftime("%Y-%m-%d")
+
+    zones = []
+    for a in data:
+        oa = a.get("original_article") if isinstance(a, dict) else None
+        if not isinstance(oa, dict):
+            continue
+        date = _s(oa.get("date")).strip()
+        if not (cutoff <= date <= y_str):
+            continue
+        ed = a.get("extracted_data") if isinstance(a.get("extracted_data"), dict) else {}
+        title = _s(oa.get("title")).strip()
+        content = _s(oa.get("content"))
+        text = f"{title} {content} {_s(ed.get('Military_exercise'))}"
+        if not (any(k in text for k in _FIRE_TERMS) and any(k in text for k in _ANNOUNCE_TERMS)):
+            continue
+        groups = extract_coord_zones_from_text(content)
+        if not groups:
+            continue
+        clean = title.replace("\n", " ").split("|")[0].strip()
+        for gi, pts in enumerate(groups, 1):
+            suffix = f"(區{gi})" if len(groups) > 1 else ""
+            zones.append({
+                "title": f"{clean[:16]}{suffix}",
+                "channel": _s(oa.get("source")),
+                "period": date,
+                "date": date,
+                "points": pts,
+                "fire": True,        # 皆屬實彈射擊／演習公告
+                "from_news": True,   # 標記來源，地圖上以虛線區別
+            })
+            if len(zones) >= max_zones:
+                return zones
+    return zones
+
+
 # ── OpenStreetMap 底圖（純 requests + PIL，失敗則退回無底圖）──────────
 def _deg2num(lat, lon, z):
     lat_r = math.radians(lat)
@@ -570,7 +733,7 @@ def _fetch_osm_basemap(min_lat, max_lat, min_lon, max_lon, max_tiles=25):
 def generate_range_map(yesterday):
     """畫出近日火砲射擊／演習公告範圍地圖，存 PNG，回傳路徑（無資料或失敗回 None）。"""
     try:
-        zones = select_range_warnings(yesterday)
+        zones = select_range_warnings(yesterday) + select_news_range_warnings(yesterday)
         if not zones:
             print("⚠️  無可繪製的航警範圍，跳過地圖")
             return None
@@ -611,19 +774,22 @@ def generate_range_map(yesterday):
 
         for i, z in enumerate(zones, 1):
             color = "#DC2626" if z["fire"] else "#EA9010"
+            ls = "--" if z.get("from_news") else "-"   # 新聞來源以虛線區別
             pts = z["points"]
             plons = [p[1] for p in pts]
             plats = [p[0] for p in pts]
             if len(pts) >= 3:
                 poly = mpatches.Polygon(list(zip(plons, plats)), closed=True,
                                         facecolor=color, edgecolor=color,
-                                        alpha=0.30, linewidth=1.8, zorder=3)
+                                        alpha=0.30, linewidth=1.8, linestyle=ls,
+                                        zorder=3)
                 ax.add_patch(poly)
                 ax.plot(plons + [plons[0]], plats + [plats[0]],
-                        color=color, linewidth=1.8, zorder=4)
+                        color=color, linewidth=1.8, linestyle=ls, zorder=4)
                 cx, cy = sum(plons) / len(plons), sum(plats) / len(plats)
             elif len(pts) == 2:
-                ax.plot(plons, plats, color=color, linewidth=2.2, zorder=4)
+                ax.plot(plons, plats, color=color, linewidth=2.2,
+                        linestyle=ls, zorder=4)
                 cx, cy = sum(plons) / 2, sum(plats) / 2
             else:  # 單點（如火箭發射）
                 ax.plot(plons, plats, marker="*", markersize=16,
@@ -643,12 +809,13 @@ def generate_range_map(yesterday):
         legend_handles = []
         for i, z in enumerate(zones, 1):
             color = "#DC2626" if z["fire"] else "#EA9010"
-            label = f"{i}. {z['title'][:18]}"
+            src_tag = "〔新聞〕" if z.get("from_news") else ""
+            label = f"{i}. {src_tag}{z['title'][:18]}"
             if z["period"]:
                 label += f"（{z['period'][:16]}）"
             legend_handles.append(mpatches.Patch(color=color, label=label))
-        legend_title = "紅＝火砲/實彈射擊　橙＝演習/訓練/禁航" if cjk_font \
-            else "red = live fire / orange = exercise"
+        legend_title = "紅＝火砲/實彈射擊　橙＝演習/訓練/禁航　虛線＝新聞來源" if cjk_font \
+            else "red = live fire / orange = exercise / dashed = news"
         ax.legend(handles=legend_handles, fontsize=8,
                   loc="upper center", bbox_to_anchor=(0.5, -0.08),
                   ncol=1, framealpha=0.95, title=legend_title, title_fontsize=8.5)
