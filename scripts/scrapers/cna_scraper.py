@@ -222,19 +222,35 @@ class CNAScraper(BaseScraper):
             
             response.raise_for_status()
             html = response.text
-            
-            # 鎖定內文容器
-            paragraph_match = re.search(r'class="paragraph"[^>]*>(.*?)</div>', html, re.DOTALL)
-            content = paragraph_match.group(1) if paragraph_match else ""
-            
-            if not content:
-                article_match = re.search(r'<article[^>]*>(.*?)</article>', html, re.DOTALL)
-                content = article_match.group(1) if article_match else ""
-            
+
+            # 鎖定內文區塊：從 class="paragraph" 起，至常見的頁尾/分享/相關新聞前止。
+            # （舊版只抓到第一個 </div>，遇到段落間的相關新聞插入 <div> 會被截斷，
+            #  導致像海事局航行警告的經緯度座標所在的後段落遺失。）
+            start = html.find('class="paragraph"')
+            region = html[start:] if start != -1 else html
+            for marker in ('class="paragraphInfo"', 'class="shareBar"',
+                           'class="social', 'id="stories"', 'class="relatedNews"',
+                           'class="moreArticle"', '<footer'):
+                mi = region.find(marker)
+                if mi != -1:
+                    region = region[:mi]
+                    break
+
+            # 擷取區塊內所有 <p> 段落文字並串接，保留完整內文（含座標段落）
+            paras = re.findall(r'<p[^>]*>(.*?)</p>', region, re.DOTALL)
+            if paras:
+                content = " ".join(paras)
+            else:
+                # 退回：整段 paragraph 容器，或 <article>
+                pm = re.search(r'class="paragraph"[^>]*>(.*?)</article>', html, re.DOTALL)
+                if not pm:
+                    pm = re.search(r'<article[^>]*>(.*?)</article>', html, re.DOTALL)
+                content = pm.group(1) if pm else region
+
             # 清理標籤與多餘空格
             content = re.sub(r'<[^>]+>', ' ', content)
             content = re.sub(r'\s+', ' ', content)
-            
+
             return content.strip() if content else "[內文提取失敗]"
             
         except Exception as e:
