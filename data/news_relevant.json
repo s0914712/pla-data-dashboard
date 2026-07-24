@@ -23084,5 +23084,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "【#大暑练兵海报发布#】大暑时节，苦练精兵。今天，我们迎来#二十四节气#中的大暑。让我们通过一组海报...",
+      "content": "【#大暑练兵海报发布#】大暑时节，苦练精兵。今天，我们迎来#二十四节气#中的大暑。让我们通过一组海报，一起领略高温酷暑下官兵烈日沙场、汗透戎装，实战化练兵备战热潮。（张振、齐芷悦、兰斌千、刘婧雯、褚文聪）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5323842391380291",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
