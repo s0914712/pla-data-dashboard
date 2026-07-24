@@ -1315,11 +1315,11 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.4,
+    "sentiment_score": -0.6,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "共軍直升機首度穿越台海中線",
+      "Military_exercise": "共軍直升機首度穿越台海中線，並在中線以東R9限航區內長時間平行飛行，出現灰色地帶新態樣",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
@@ -1327,9 +1327,417 @@
     "original_article": {
       "date": "2026-07-23",
       "title": "學者指共軍直升機首越台海中線國防部：有效掌握應處| 政治",
-      "content": "（中央社記者 吳書緯 台北23日電）國防部日前偵獲共軍機艦在台海活動，國防院學者揭仲分析，共軍直升機首度穿越台海中線，出現2種灰色地帶新態樣。國防部今天回應表示，國軍運用聯合情監偵手段，已有效掌握、適切應處，相關臆測非事實。 國防部21日上午公布的共機艦動態中，統計自20日上午6時起至21日上午6時，偵獲5艘共艦、6艘公務船及4架次共機進入北部、中部及東南空域；值得注意的是，在20日上午10時20分至同日晚上7時40分期間，分別有直升機、無人機在台海中線一帶，以及北部及東南方的台灣防空識別區（ADIZ）活動。",
+      "content": "（中央社記者 吳書緯 台北23日電）國防部日前偵獲共軍機艦在台海活動，國防院學者揭仲分析，共軍直升機首度穿越台海中線，出現2種灰色地帶新態樣。國防部今天回應表示，國軍運用聯合情監偵手段，已有效掌握、適切應處，相關臆測非事實。 國防部21日上午公布的共機艦動態中，統計自20日上午6時起至21日上午6時，偵獲5艘共艦、6艘公務船及4架次共機進入北部、中部及東南空域；值得注意的是，在20日上午10時20分至同日晚上7時40分期間，分別有直升機、無人機在台海中線一帶，以及北部及東南方的台灣防空識別區（ADIZ）活動。 國防部智庫、國防安全研究院國防戰略與資源研究所委任副研究員揭仲則分析，直升機首度穿越台海中線，並在中線以東R9限航區內長時間平行飛行，一天內出現2種灰色地帶新態樣，恐為武力犯台的空中機動與無人機協同作戰訓練，值得關注。 國防部上午對此接受中央社訪問回應，針對共軍艦載直升機及無人機，在台灣週邊海空域的相關活動，國防部運用聯合情監偵手段，已有效掌握、適切應處，相關臆測並非事實。（編輯：蘇龍麒）1150723 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
       "url": "https://www.cna.com.tw/news/aipl/202607230031.aspx",
       "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.55,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部稱中共火箭經過台灣防空識別區，並報告多架共機艦船活動"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-24",
+      "title": "國防部：中共23日發射運載火箭經過台灣防空識別區| 政治",
+      "content": "（中央社記者 吳書緯 台北24日電）國防部今天表示，偵獲中共昨天晚間8時在四川西昌衛星發射中心執行運載火箭發射，火箭朝西太平洋飛行，並經過台灣防空識別區。 國防部今天發布中共解放軍台海周邊海、空域動態，自昨天上午6時至今天上午6時，偵獲共機8架次，其中6架次逾越中線進入北部、西南及東部空域，以及6艘共艦、4艘公務船，總計中共18機艦船持續在台海周邊活動，國軍嚴密監控與應處，並發布偵獲中共執行運載火箭發射活動。 根據國防部今天公布的「中共解放軍進入台海周邊空域活動示意圖」，國軍於昨天下午3時45分至昨天晚間7時10分，在台灣海峽空域偵獲中共3架次主戰機及直升機，其中1架次逾越中線。 國軍於昨天上午7時20分至昨天中午12時55分，在海峽中線以東的台灣西南空域偵獲中共2架次輔戰機及無人機。國軍另於昨天下午4時15分至昨天晚間7時15分在台灣防空識別區內的台灣北部空域偵獲中共1架直升機。 國軍於昨天上午9時至昨天晚間6時35分在台灣防空識別區內的台灣東部空域，偵獲中共2架直升機。 國防部指出，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：楊蘭軒）1150724 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aipl/202607240088.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Regional_Security",
+    "is_relevant": false,
+    "country1": "PH",
+    "country2": "EU",
+    "sentiment_score": 0.4,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "菲律賓瑞典國防合作聚焦海事安全與戰機現代化| 國際",
+      "content": "（中央社記者 林行健 馬尼拉23日專電）菲律賓與瑞典今天同意深化國防合作，範圍將擴及海事安全、網路安全、認知作戰、混合威脅、民防及太空等領域，以及潛在「獅鷲」戰機採購案。 菲律賓國防部長鐵歐多洛（Gilberto Teodoro Jr.）今天在馬尼拉會見瑞典國防部長約松（Pål Jonson），兩人於會後召開聯合記者會。 約松表示，這是他擔任防長後第2度訪菲，也是瑞典推動印太防務戰略的一環。 他說明，瑞典於2年前公布印太防務戰略後，就持續加強與區域夥伴互動，包括派員參與菲律賓主辦的軍演、派遣參謀人員進駐美國印太司令部（現已改回舊稱太平洋司令部），並出席香格里拉對話，以深入了解印太區域的安全局勢。 約松指出，自從俄羅斯入侵烏克蘭之後，歐洲-大西洋與印太安全更加緊密相連，因此瑞典希望與菲律賓建立更深層的戰略夥伴關係。 鐵歐多洛表示，為因應近年周邊安全環境變化，菲律賓正重新評估空軍及整體武力現代化需求，加快建立國家防衛韌性。 對於外界關注的瑞典JAS 39「獅鷲」（Gripen）戰機採購案，鐵歐多洛表示，菲方將檢視空軍現代化需求，希望所有裝備平台都採購最新版本，並具備完整配套。 約松則強調，是否採購「獅鷲」戰機是菲律賓的主權決定，瑞典仍維持原有提案，認為這是一項具有競爭力的方案，但這並非他此次訪菲的主要目的，瑞典更希望藉此進一步拓展雙邊合作。 除了軍備合作之外，雙方也同意擴大海事安全合作，包括海事監控、資訊交流及海岸防衛領域合作，並在網路安全、認知作戰、混合威脅、太空及民防等領域深化交流。 約松表示，瑞典在波羅的海面臨海底關鍵基礎設施保護、GPS干擾及俄羅斯「影子船隊」等挑戰，相關經驗可與菲律賓分享；鐵歐多洛認為，瑞典全民防衛與韌性建設經驗值得菲律賓借鏡。 兩位部長並重申，支持以聯合國海洋法公約（UNCLOS）及2016年南海仲裁裁決在內的國際法，維護海洋秩序。 鐵歐多洛表示，菲律賓與瑞典已就多項具體合作措施達成共識，將在適當時機對外公布。 他補充，菲律賓政府感謝歐盟27個會員國一致支持南海仲裁裁決，形容這是歐盟首度以整體名義在此議題表達支持，菲律賓人民應銘記這項支持。（編輯：唐聲揚）1150723 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aopl/202607230192.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_Statement",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "TW",
+    "sentiment_score": 0.25,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "美國國務卿盧比歐表示對台軍售與習近平訪美無關聯，政策未變，維持台海穩定。"
+    },
+    "confidence": 0.96,
+    "original_article": {
+      "date": "2026-07-24",
+      "title": "盧比歐：華府對台政策未變軍售和習近平訪美無關聯| 政治",
+      "content": "（中央社記者 侯姿瑩 華盛頓23日專電）美國國務卿盧比歐今天表示，美國對台軍售和中國國家主席習近平訪美並無關聯，如同任何軍售一樣，華府必須先滿足自身裝備需求；盧比歐也說，美國不希望印太地區成為衝突之地，因此希望處理好美中關係，並重申美對台政策沒有改變。 盧比歐（Marco Rubio）本週出訪菲律賓，出席在馬尼拉舉行的東亞高峰會和以安全議題為主的東協區域論壇（ARF），並於23日在菲律賓接受日本放送協會（NHK）訪問。 根據國務院公布的訪問逐字稿，盧比歐被問及美國是否在習近平9月訪美前，不會批准新一批對台軍售時表示，他認為軍售和訪問並無關聯。 有關對台軍售，他指出，美國才在去年12月進行史上最大規模的單一對台軍售。如同任何軍售一樣，美國必須先滿足自身裝備需求。 另一方面，盧比歐表示，美中是全球最大的兩個經濟體，兩國都擁有核子武器，中國軍隊日益強大，美國則擁有世界上最強大的軍事力量。「因此，我們必須與中國保持關係」，必須能進行溝通，在能夠合作的領域，需要且應該進行合作。 他還說，美國希望看到穩定、和平與繁榮，不希望印太地區成為衝突之地，因此希望處理好美中關係，並與中方保持互動。 他也認為，在某些領域，雙方仍將持續存在分歧，特別是涉及貿易和航行自由的問題上。在美中存有巨大分歧的議題上，雙方需要討論、試圖管控，並確保問題不會演變成某種衝突。 同時，盧比歐也重申，美國對台政策沒有改變。 美國總統川普（Donald Trump）5月訪問中國，會晤習近平後曾說，很快會就新一批140億美元的對台軍售做出決定。 對於這項尚待批准的對台軍售，盧比歐22日在馬尼拉接受媒體聯訪表示，目前內部仍在進行審查。（編輯：陳慧萍）1150724 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aipl/202607240073.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Regional_Security",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "JP",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "中國海警艦艇釣魚台海域巡航宣稱依法維權活動| 兩岸",
+      "content": "（中央社台北23日電）中國海警局於官網發布「維權執法」消息表示，中國海警艦艇編隊今天在釣魚台列嶼「領海」維權巡航。 中國海警局指出，中國海警橫沙艦編隊7月23日在「我釣魚島及其附屬島嶼領海內維權巡航」，並強調這是中國海警「依法開展的維權巡航活動」。 本月稍早，日本與中國海巡船曾在釣魚台列嶼附近對峙。 兩艘中國海警局船隻7日上午駛入釣魚台列嶼附近日方宣稱的「領海」後，被日本海上保安廳驅離。 中國海警局當時也聲稱，已經驅離該海域的日本船隻。（編輯： 馮昭 /陳彥鈞）1150723 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/acn/202607230385.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "MY",
+    "country2": "TW",
+    "sentiment_score": 0.5,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-24",
+      "title": "馬來西亞國立大學校長訪台交流ESG等高教議題| 生活",
+      "content": "（中央社記者 陳至中 台北24日電）教育部今天表示，馬來西亞國立大學（UKM）賈蘇（Dato' Dr.Sufian Jusoh）近日率團訪台，參訪多所大學，交流校園ESG永續發展等多項議題，促進高教的實質合作。 教育部今天發布新聞稿指出，賈蘇帶領UKM國際事務中心主管一行4人於7月14日至17日訪台，陸續拜會陽明交通大學、銘傳大學等校，瞭解台灣高教發展趨勢。 在交流中，雙方針對建立學士與碩博士雙聯學位學制、推動師生短期互訪交流、展開跨國學術共同研究、透過產學合作延攬與培育專業人才，以及校園ESG永續發展、產業鏈結、人才培育實務等多項前瞻高教議題，進行了廣泛且深入的討論。 教育部指出，馬來西亞一直為僑生的重要來源，華文獨立中學、華校董事聯合會總會，更是台灣招收外籍學生的重要來源與樞紐。根據2025年統計資料，馬來西亞留台學生數達8740人，排名第3位，僅次於越南、印尼。 教育部表示，將持續提升高等教育國際化發展，也鼓勵各大學拓展全球觸角，期盼持續透過學術交流，促成台灣與全球大專實質合作，培育具備國際視野與永續競爭力的新世代人才，進一步鞏固台灣在全球高教網絡中的重要夥伴地位。（編輯：管中維）1150724 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/ahel/202607240067.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "PH",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "菲律賓留學生逾5千人科技部次長訪台促合作| 生活",
+      "content": "（中央社記者 陳至中 台北23日電）近年菲律賓來台留學人數成長，114學年度已突破5000人。菲律賓科技部次長沙阿袞（Maridon O. Sahagun）近日率團訪台，盼深化雙方的STEM與雙語教育合作。 教育部今天發布新聞稿指出，沙阿袞（Maridon O. Sahagun）近日帶領菲律賓菁英高中校長與主管一共16人訪台，參訪台北市立中正高中、台灣科技大學、中央研究院、國立故宮博物院，本月17日更前往中山大學參與「2026台菲高中交流圓桌會議」，並實地觀摩國際學生創新營「Shark Tank」決賽。 教育部國際司長李毓娟表示，114學年菲律賓在台留學生總數已達5536人，躍升為台灣第5大境外學位生來源國（前4大依序是越南、印尼、馬來西亞、日本）。多數菲國學子投入工程、製造、資通訊科技及醫學等領域。 教育部近年逐步擴增獎學金名額，115年共提供菲律賓學生24個台灣獎學金名額。同時也委託中山大學設立的菲律賓台灣教育中心，已成功在當地開設193個華語班，成為推動雙方教育合作的重要橋樑。 教育部期盼透實地參訪與圓桌對話，促成台灣與菲律賓高中建立更多永續的合作機制，未來能推薦更多優秀畢業學生來台就學，共同培育具國際競爭力的高科技人才。（編輯：李亨山）1150723 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/ahel/202607230090.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "China conducted live-fire drills in two areas of the Taiwan Strait near Dongshan Island on July 23-24, 2026.",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "中國公布連2天在台灣海峽部分海域實彈射擊| 兩岸",
+      "content": "（中央社台北23日電）央視網今天報導，中國海事局官網公布，漳州海事局發布上午航行警告，今天早上6時至晚上6時、明天早上6時至晚上6時，在台灣海峽2處海域進行實彈射擊，禁止進入。經對照海圖，這2處海域均在福建東山島近海。 據「閩航警126/26」公告，該項軍事演習在「台灣海峽，東海」。 7月23日早上6時至晚上6時，在以下5點連線範圍內進行實彈射擊：23-41.31N、117-31.49E；23-36.23N、117-28.73E；23-35.10N、117-30.10E；23-38.60N、117-36.21E；23-41.30N、117-34.58E。這一區域位在東山島近海。 7月24日早上6時至晚上6時，在以下4點連線範圍內進行實彈射擊：23-37.00N、117-26.50E；23-37.00N、117-29.50E；23-33.00N、117-29.50E；23-33.00N、117-26.50E。這一區域同樣位在東山島近海。（編輯： 陳鎧妤 /邱國強）1150723 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/acn/202607230101.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-24",
+      "title": "美軍連13晚空襲伊朗 局勢升溫油價飆破100美元",
+      "content": "（中央社開羅23日綜合外電報導）隨著關於航運路線的衝突升級，美軍今天宣布正在對伊朗發動連續第13晚的空襲。稍早，葉門獲伊朗支持的青年運動叛軍表示，他們在紅海攻擊兩艘沙烏地阿拉伯油輪，這可能使伊朗戰爭擴大，國際原油價格也突破每桶100美元。 綜合法新社與美聯社報導，美軍中央司令部（US Central Command）表示：「美軍於美東時間今天晚間6時45分再次對伊朗軍事目標發動夜間空襲。這些打擊行動目的在追究伊朗的責任，並削弱伊斯蘭革命衛隊（Islamic Revolutionary Guard Corps）對商業航運構成的威脅。」同時，美方正努力重新掌控荷莫茲海峽（Strait of Hormuz），並恢復國際航運的暢通。 不久後，伊朗國營媒體報導，荷莫茲海峽沿岸地區阿巴斯（Bandar Abbas）與葛希姆島（Qeshm）發生爆炸，據稱有兩人受傷，西北方的安迪米希克（Andimeshk）與奧米迪耶（Omidiyeh）附近也傳出爆炸聲響。 在全球經濟已因伊朗封鎖荷莫茲海峽而深受衝擊之際，青年運動（Houthi）又威脅將關閉另一條關鍵貿易路線。美伊為爭奪對荷莫茲海峽的控制權，持續升高攻擊力道。和平時期，全球有1/5的石油與天然氣經由荷莫茲海峽運輸，如今戰端再起，引發各國搶尋替代路線的熱潮。 總統川普威脅，如果繼續對船隻發動攻擊，青年運動將面臨「重大軍事懲罰」。 川普在社群媒體上寫道：「如果他們再次這麼做，美國將追究伊朗的責任，因為青年運動是伊朗的代理人或代理勢力，我們將對伊朗、當然還有青年運動本身施以重大軍事懲罰。」 隨著雙方言辭交鋒升級，這場衝突造成的經濟衝擊也加劇，國際基準布倫特原油（Brent Crude）價格今天大漲超過6%，來到每桶破100美元，創下自5月以來新高。美伊雙方上月曾達成初步和平協議，但這項協議現在已宣告破裂。（編譯： 張曉雯 ）1150724 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aopl/202607240044.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_Statement",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "CN",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "美國國務卿盧比歐稱任何國家無權限制台海通行自由"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "盧比歐：任何國家都無權限制台海通行自由| 國際",
+      "content": "（中央社馬尼拉23日綜合外電報導）亞洲、歐洲及北美外交高層今天將在東協區域論壇中，討論區域安全議題。美國國務卿盧比歐今天發文指出，任何國家都無權限制台灣海峽在內的國際水道通行自由。 美國國務卿盧比歐（Marco Rubio）今天在社群媒體X發文指出：「30多年來，東協區域論壇（ASEAN Regional Forum）一直支持針對影響區域的安全議題展開對話。任何國家都無權限制國際水道的商業往來與通行自由，包括台灣海峽在內。」 路透社報導，亞洲、歐洲及北美的外交高層今天將齊聚馬尼拉參加東協區域論壇，會中將聚焦安全議題，美伊戰爭及荷莫茲海峽（Strait of Hormuz）封鎖的議題可能成為主要討論重點。 在中東爆發新一波攻擊導致局勢升溫之際，與會部長預計將在會中呼籲和平解決問題。 南海問題以及北京與美國盟邦菲律賓之間長期存在的緊張局勢，將是這次會議的另一大焦點；根據雙邊條約，華府當局有義務在菲律賓船隻遭受攻擊時提供防衛支援。 美國國務卿盧比歐、俄羅斯外交部長拉夫羅夫（Sergei Lavrov）、歐盟外交暨安全政策高級代表卡拉斯（Kaja Kallas），以及來自中國、澳洲、印度、日本、英國等國的外交高層都將出席這場會議。（編譯： 張茗喧 ）1150723 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aopl/202607230155.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "SG",
+    "country2": "SG",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "新加坡透過「全面防衛日」演習，模擬數位通訊受阻情境，旨在提升國家數位韌性與民眾應變能力。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "新加坡模擬網路受阻演習制度化增強數位韌性意識| 國際",
+      "content": "（中央社記者 吳昇鴻 新加坡23日專電）台灣城鎮韌性演習最近納入行動網路降速演練受矚目，新加坡每年也有類似的演習機制，包含部分網站進入維護模式模擬數位服務受阻。專家分析，各國重視數位韌性將通訊受阻納入演練，藉此提升民眾對資通訊威脅的認識。 新加坡國防部、資訊通訊媒體發展局（IMDA）、能源市場管理局（EMA）與民防部隊等單位組織「新加坡齊心應變演習」（Exercise SG Ready），這項演習通常配合每年2月新加坡「全面防衛日」（Total Defence Day）活動。 新加坡全面防衛日主要是紀念1942年2月15日淪落日軍手中的日子，1984年提出「全民防衛」構想，由軍事防衛、民事防衛、經濟防衛、社會防衛、數位防衛及心理防衛等支柱打造防衛體系。 回顧今年初的新加坡演習以「你為中斷做好準備了嗎？」為主題，根據官方資料，重點為演練社會應對數位通訊受衝擊和停電等威脅的能力。 亞洲人工智慧協會（Asia AI Association）媒體與出版主管謝偉鏗今天告訴中央社記者，近年各國重視數位韌性，除了防範駭客攻擊，也將網路通訊受阻等情境納入各項演練。以新加坡為例，政府透過演習模擬數位通訊受影響，藉此提醒民眾做好備援準備，並提升對資通訊威脅的認識與應變能力。 為了配合演練，當時多個非緊急應用程式（App）和網站進入1小時的維護模式，參與的平台包括平價餐點資訊網站、新加坡特許會計師協會網站、後備軍人相關應用程式及部分政府機關網站。 聯合早報報導，新加坡數位發展及新聞部長楊莉明昨天在「營運科技網路安全專家小組論壇」演講時提及，新加坡將再次更新關鍵基礎設施的資安行為準則，要求業者強化風險監測與應變能力，以應對人工智慧驅動的網路攻擊，以及更具隱蔽性的進階持續性威脅。 「進階持續性駭侵」是一種網路攻擊，指的是入侵者在未經授權的情況下取得並維持對目標的存取權限，且長時間不被發現。 關鍵資訊基礎設施（CII）涵蓋能源、供水、醫療、金融及媒體等重要領域。新加坡網路安全局將與相關業者合作部署偵測系統，以便及早發現異常活動。業者須建立完整演練機制，確保一旦發生資安事件能迅速且協同應變。（編輯：唐聲揚）1150723 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aopl/202607230348.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "伊朗軍方還擊美軍科威特與約旦目標遭襲| 國際",
+      "content": "（中央社德黑蘭23日綜合外電報導）伊朗軍方與伊朗伊斯蘭革命衛隊（IRGC）今天表示，在美軍攻擊伊朗後，已對科威特多處美軍基地發動攻擊；革命衛隊並指出，已攻擊並摧毀約旦數項美軍軍事資產。 法新社報導，革命衛隊與伊朗軍方透過國營電視台各自發布聲明，革命衛隊宣稱已攻擊科威特的阿里賽勒姆（Ali Al Salem）基地、阿達伊里營（Camp Udairi）及一座電信塔；軍方則稱已打擊阿里賽勒姆基地、杜哈營（Camp Doha）與艾瑞夫江營（Camp Arifjan）。 革命衛隊在國營電視台的另一項聲明指出，革命衛隊已完成在約旦的攻擊，目標包括美國「薩德」（THAAD）飛彈防禦系統雷達、「愛國者」（Patriot）系統、反火箭、火砲和迫擊砲（C-RAM）雷達及一座直升機機棚。（實習編譯： 洪嘉琪 /核稿：徐崇哲）1150723 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aopl/202607230247.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "沙烏地油輪紅海遇襲伊朗稱阻3船通過荷莫茲海峽| 國際",
+      "content": "（中央社利雅德/德黑蘭23日綜合外電報導）沙烏地阿拉伯今天證實一艘油輪在紅海遇襲。與此同時，伊朗宣稱他們阻止3艘油輪通過荷莫茲海峽，其中一艘爆炸起火。 葉門叛軍「青年運動」（Houthi）聲稱在紅海（Red Sea）襲擊兩艘沙烏地油輪「恩塞利亞號」（Encelia）和「萊拉號」（Layla）後，沙烏地國營媒體沙烏地新聞社（SPA）今天引述官方消息人士報導，隸屬一家沙烏地公司的「恩塞利亞號」駛經紅海時遭到攻擊，但未提到另一艘油輪。 這名消息人士說，「恩塞利亞號」船頭起火，但全體船員均安然無恙。 法新社報導，伊朗伊斯蘭革命衛隊（IRGC）今天表示，他們阻止3艘油輪通過荷莫茲海峽（Strait of Hormuz）。美國和伊朗正爭奪這條重要水道控制權。 伊朗伊斯蘭革命衛隊在伊朗國營媒體引述的聲明中宣稱，3艘油輪受到美軍慫恿，試圖通過荷莫茲海峽南邊布有水雷的航道，但其中一艘爆炸起火後，其餘兩艘迅速掉頭返回。 聲明並未說明這起事件發生時間。 伊朗伊斯蘭革命衛隊還警告，任何受美國欺騙、企圖未經與伊朗協調就通過的船隻都將面臨同樣下場。（編譯： 盧映孜 ）1150723 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aopl/202607230143.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": false,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "逾70件国博文创精品亮相台北老街",
+      "content": "超过70件中国国家博物馆典藏文物的衍生创意产品在此集中亮相。 据了解，本次活动由海峡两岸旅游交流协会台北办事处携手中国国家博物馆与台湾中华八方文化交流协会共同举办。 7月23日，观众在文创展现场观展、拍照。新华社记者 黄扬 摄 此次展览以古人一日生活轨迹作为叙事主轴，设置“晨起有仪”“衣着有度”“闲情有韵”三个主题单元，展出逾70件国博文创精品。这其中，既有此前广受欢迎的“网红”文创——明孝端皇后凤冠系列产品；也有结合椅披纹饰设计的服装、配饰，做工精致，别具匠心；更有以鼎造型为基础设计的毛绒玩具，憨态可掬，萌趣十足。 台湾中华八方文化交流协会执行长邓安琪表示，希望通过这次展览打破大众对文物“古老、遥远、高冷”的刻板印象，以贴近日常生活的方式，呈现传统文化的丰富内涵与趣味，让观众感受文物与当代生活之间的联系。 迪化街是台北保存最完整的老街。清代晚期，大稻埕码头商船云集，邻近的迪化街发展成繁华的商家聚落。如今，这里仍聚集不少南北杂货铺、中药行和布匹店。 邓安琪说，此次文创展选址于迪化老街古色古香的传统建筑中，恰好可以为前来观展的台湾民众搭建起一座“连接过去、当下与未来的文化桥梁”。 “这些文创产品特别棒，我很喜欢。它们把美的事物融入到日常生活里。”身穿汉服前来观展的台北市民罗怡婷说。看到此次展出的精美饰品，令钟爱新中式服饰的她“一见倾心”。她期待未来有机会到北京旅游，“到国博去逛逛”。 海峡两岸旅游交流协会台北办事处表示，中华文化底蕴深厚，是联结两岸的精神纽带。此次文创展以“生活化、年轻化、大众化”的方式解读中华千年文化，期盼通过一件件文创作品，促进两岸文化血脉进一步交融共生，也让千年中华美学在当代生活中持续传承、焕发全新光彩。 据悉，该项展览自7月19日起免费向公众开放，将持续举行至8月16日。 这是7月23日拍摄的文创展现场。新华社记者 黄扬 摄",
+      "url": "https://www.news.cn/tw/20260723/a082981cba4c486f91cf7546123a5d47/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "舰载直升机实弹射击及海上着舰训练",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-24",
+      "title": "#直击东部战区练兵备战现场#【#直击舰载直升机实弹射击及海上着舰训练#  】近日，东部战区海军某部紧...",
+      "content": "#直击东部战区练兵备战现场#【#直击舰载直升机实弹射击及海上着舰训练#  】近日，东部战区海军某部紧贴实战化训练要求，组织舰载直升机实弹射击及海上着舰训练，进一步锤炼部队全天候作战能力。（董满、刘建义、王新宇、王浩景）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5324114178607436",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "#东部熄灯号#深山淬刃强本领，隐蔽突袭勇担当。#阅海峡#",
+      "content": "#东部熄灯号#深山淬刃强本领，隐蔽突袭勇担当。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5323963183145256",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": false,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "大暑时节苦练精兵，官兵在高温下进行实战化练兵",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "【#大暑练兵海报发布#】大暑时节，苦练精兵。今天，我们迎来#二十四节气#中的大暑。让我们通过一组海报...",
+      "content": "【#大暑练兵海报发布#】大暑时节，苦练精兵。今天，我们迎来#二十四节气#中的大暑。让我们通过一组海报，一起领略高温酷暑下官兵烈日沙场、汗透戎装，实战化练兵备战热潮。（张振、齐芷悦、兰斌千、刘婧雯、褚文聪）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5323842391380291",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": false,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-23",
+      "title": "#直击东部战区练兵备战现场#【#为战护航直通战位#】“八一”建军节前夕，联勤保障部队第900医院聚焦...",
+      "content": "#直击东部战区练兵备战现场#【#为战护航直通战位#】“八一”建军节前夕，联勤保障部队第900医院聚焦保障打赢目标，组织多支专家医疗队奔赴基层部队开展“三巡三送”医疗巡诊服务，同步开展军事训练伤防治技能培训与考核，为保障部队战斗力培养战救卫勤骨干。（张文明、高升斌、周全、陈晓芬） ...全文",
+      "url": "https://m.weibo.cn/detail/5323751789953308",
+      "source": "weibo",
       "category": "",
       "sentiment": ""
     }
@@ -1377,102 +1785,6 @@
       "title": "國防部：中共預計今發射火箭將經過台灣防空識別區| 政治",
       "content": "（中央社記者 吳書緯 台北23日電）國防部表示，自昨天上午6時至今天上午6時，偵獲共機21架次，其中20架次逾越中線進入北部及西南空域，以及6艘共艦、2艘公務船，總計中共29機艦船持續在台海周邊活動，國軍嚴密監控與應處。 國防部並發布中共公告運載火箭發射活動，指出中共預計今天於西昌衛星發射中心執行運載火箭發射，飛行方向朝向西太平洋，且會經過台灣防空識別區（ADIZ）。 根據國防部今天公布的「中共解放軍進入台海周邊空域活動示意圖」，國軍於昨天上午7時20分至昨天晚間8時35分，在台灣海峽空域偵獲中共6架次主、輔戰機、直升機及無人機，其中5架次逾越中線。 透過 Google News 追蹤中央社",
       "url": "https://www.cna.com.tw/news/aipl/202607230042.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Regional_Security",
-    "is_relevant": false,
-    "country1": "CN",
-    "country2": "JP",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-07-23",
-      "title": "中國海警艦艇釣魚台海域巡航宣稱依法維權活動| 兩岸",
-      "content": "（中央社台北23日電）中國海警局於官網發布「維權執法」消息表示，中國海警艦艇編隊今天在釣魚台列嶼「領海」維權巡航。 中國海警局指出，中國海警橫沙艦編隊7月23日在「我釣魚島及其附屬島嶼領海內維權巡航」，並強調這是中國海警「依法開展的維權巡航活動」。 本月稍早，日本與中國海巡船曾在釣魚台列嶼附近對峙。",
-      "url": "https://www.cna.com.tw/news/acn/202607230385.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Regional_Security",
-    "is_relevant": false,
-    "country1": "PH",
-    "country2": "EU",
-    "sentiment_score": 0.3,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-07-23",
-      "title": "菲律賓瑞典國防合作聚焦海事安全與戰機現代化| 國際",
-      "content": "（中央社記者 林行健 馬尼拉23日專電）菲律賓與瑞典今天同意深化國防合作，範圍將擴及海事安全、網路安全、認知作戰、混合威脅、民防及太空等領域，以及潛在「獅鷲」戰機採購案。 菲律賓國防部長鐵歐多洛（Gilberto Teodoro Jr.）今天在馬尼拉會見瑞典國防部長約松（Pål Jonson），兩人於會後召開聯合記者會。 約松表示，這是他擔任防長後第2度訪菲，也是瑞典推動印太防務戰略的一環。 他說明，瑞典於2年前公布印太防務戰略後，就持續加強與區域夥伴互動，包括派員參與菲律賓主辦的軍演、派遣參謀人員進駐美國印太司令部（現已改回舊稱太平洋司令部），並出席香格里拉對話，以深入了解印太區域的安全局勢。 約松指出，自從俄羅斯入侵烏克蘭之後，歐洲-大西洋與印太安全更加緊密相連，因此瑞典希望與菲律賓建立更深層的戰略夥伴關係。 鐵歐多洛表示，為因應近年周邊安全環境變化，菲律賓正重新評估空軍及整體武力現代化需求，加快建立國家防衛韌性。 對於外界關注的瑞典JAS 39「獅鷲」（Gripen）戰機採購案，鐵歐多洛表示，菲方將檢視空軍現代化需求，希望所有裝備平台都採購最新版本，並具備完整配套。 約松則強調，是否採購「獅鷲」戰機是菲律賓的主權決定，瑞典仍維持原有提案，認為這是一項具有競爭力的方案，但這並非他此次訪菲的主要目的，瑞典更希望藉此進一步拓展雙邊合作。 除了軍備合作之外，雙方也同意擴大海事安全合作，包括海事監控、資訊交流及海岸防衛領域合作，並在網路安全、認知作戰、混合威脅、太空及民防等領域深化交流。 約松表示，瑞典在波羅的海面臨海底關鍵基礎設施保護、GPS干擾及俄羅斯「影子船隊」等挑戰，相關經驗可與菲律賓分享；鐵歐多洛認為，瑞典全民防衛與韌性建設經驗值得菲律賓借鏡。 兩位部長並重申，支持以聯合國海洋法公約（UNCLOS）及2016年南海仲裁裁決在內的國際法，維護海洋秩序。 透過 Google News 追蹤中央社",
-      "url": "https://www.cna.com.tw/news/aopl/202607230192.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-07-23",
-      "title": "菲律賓留學生逾5千人科技部次長訪台促合作| 生活",
-      "content": "（中央社記者 陳至中 台北23日電）近年菲律賓來台留學人數成長，114學年度已突破5000人。菲律賓科技部次長沙阿袞（Maridon O. Sahagun）近日率團訪台，盼深化雙方的STEM與雙語教育合作。 教育部今天發布新聞稿指出，沙阿袞（Maridon O. Sahagun）近日帶領菲律賓菁英高中校長與主管一共16人訪台，參訪台北市立中正高中、台灣科技大學、中央研究院、國立故宮博物院，本月17日更前往中山大學參與「2026台菲高中交流圓桌會議」，並實地觀摩國際學生創新營「Shark Tank」決賽。 教育部國際司長李毓娟表示，114學年菲律賓在台留學生總數已達5536人，躍升為台灣第5大境外學位生來源國（前4大依序是越南、印尼、馬來西亞、日本）。多數菲國學子投入工程、製造、資通訊科技及醫學等領域。 透過 Google News 追蹤中央社",
-      "url": "https://www.cna.com.tw/news/ahel/202607230090.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Military_Exercise",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "China conducted live-fire drills in two areas of the Taiwan Strait near Dongshan Island, Fujian, from 06:00 to 18:00 on July 23 and July 24, 2026.",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-07-23",
-      "title": "中國公布連2天在台灣海峽部分海域實彈射擊| 兩岸",
-      "content": "（中央社台北23日電）央視網今天報導，中國海事局官網公布，漳州海事局發布上午航行警告，今天早上6時至晚上6時、明天早上6時至晚上6時，在台灣海峽2處海域進行實彈射擊，禁止進入。經對照海圖，這2處海域均在福建東山島近海。 中國公布實彈射擊 航港局初判無影響、商港進出正常",
-      "url": "https://www.cna.com.tw/news/acn/202607230101.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -1551,30 +1863,6 @@
     }
   },
   {
-    "category": "US_Statement",
-    "is_relevant": true,
-    "country1": "US",
-    "country2": "CN",
-    "sentiment_score": 0.6,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "美國國務卿盧比歐稱任何國家無權限制台灣海峽國際水道通行自由"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-07-23",
-      "title": "盧比歐：任何國家都無權限制台海通行自由| 國際",
-      "content": "（中央社馬尼拉23日綜合外電報導）亞洲、歐洲及北美外交高層今天將在東協區域論壇中，討論區域安全議題。美國國務卿盧比歐今天發文指出，任何國家都無權限制台灣海峽在內的國際水道通行自由。 美國國務卿盧比歐（Marco Rubio）今天在社群媒體X發文指出：「30多年來，東協區域論壇（ASEAN Regional Forum）一直支持針對影響區域的安全議題展開對話。任何國家都無權限制國際水道的商業往來與通行自由，包括台灣海峽在內。」",
-      "url": "https://www.cna.com.tw/news/aopl/202607230155.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
     "category": "Regional_Security",
     "is_relevant": true,
     "country1": "US",
@@ -1594,188 +1882,6 @@
       "content": "（中央社馬尼拉22日綜合外電報導）南韓、美國及日本外交首長今天在馬尼拉進行三方會談，會後重申朝鮮半島無核化原則並將強化美日韓三邊合作，同時強調維護台灣海峽和平穩定的重要性。 首爾放送新聞（SBS）報導，南韓外長趙顯、美國國務卿盧比歐（Marco Rubio）以及日本外相茂木敏充今天在會談中，討論三邊防衛合作、加強海上安全、促進能源安全、因應網路威脅，以及推動包含東南亞在內的整個印太地區和平與穩定等議題。 在台海議題方面，美國國務院在新聞稿中指出，3名外長均「強調維護台灣海峽和平穩定的重要性」，並「對中國近期向太平洋發射洲際彈道飛彈（ICBM）表示關切，指出事前通報不足」。 美國務院新聞稿也提到，3國均承諾「共同反對經濟脅迫以及將供應鏈武器化，推動關鍵供應鏈的風險管理與多元化」，並擴大就「戰略重要性日益提升的北極議題」的討論。 南韓外交部則指出，3方「就單方面改變現況的企圖等區域局勢交換意見，並重申強化海事安全，恪守以「聯合國海洋公約」（United Nations Convention on the Law of the Sea）為代表的國際法，維護東南亞等印太地區的航行與飛越自由」。 南韓外交部所稱的「企圖片面改變現況」，被認為是指中國在南海擴張領土主張的行動。 此外，3人在會中也針對近來朝鮮半島局勢交換評估意見。南韓外交部表示，他們重申在堅持半島無核化原則的同時，維持對北韓強力的威嚇立場，並同意在北韓政策方面保持密切協調，透過對話與外交手段，共同維護朝鮮半島的和平與穩定。",
       "url": "https://www.cna.com.tw/news/aopl/202607230041.aspx",
       "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
-    "original_article": {
-      "date": "2026-07-23",
-      "title": "新加坡模擬網路受阻演習制度化增強數位韌性意識| 國際",
-      "content": "（中央社記者 吳昇鴻 新加坡23日專電）台灣城鎮韌性演習最近納入行動網路降速演練受矚目，新加坡每年也有類似的演習機制，包含部分網站進入維護模式模擬數位服務受阻。專家分析，各國重視數位韌性將通訊受阻納入演練，藉此提升民眾對資通訊威脅的認識。 城鎮韌性演習14縣市手機降速30分鐘 能滑社群或行動支付嗎？QA一次看",
-      "url": "https://www.cna.com.tw/news/aopl/202607230348.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {},
-    "confidence": 0.0,
-    "original_article": {
-      "date": "2026-07-23",
-      "title": "伊朗軍方還擊美軍科威特與約旦目標遭襲| 國際",
-      "content": "（中央社德黑蘭23日綜合外電報導）伊朗軍方與伊朗伊斯蘭革命衛隊（IRGC）今天表示，在美軍攻擊伊朗後，已對科威特多處美軍基地發動攻擊；革命衛隊並指出，已攻擊並摧毀約旦數項美軍軍事資產。 法新社報導，革命衛隊與伊朗軍方透過國營電視台各自發布聲明，革命衛隊宣稱已攻擊科威特的阿里賽勒姆（Ali Al Salem）基地、阿達伊里營（Camp Udairi）及一座電信塔；軍方則稱已打擊阿里賽勒姆基地、杜哈營（Camp Doha）與艾瑞夫江營（Camp Arifjan）。 革命衛隊在國營電視台的另一項聲明指出，革命衛隊已完成在約旦的攻擊，目標包括美國「薩德」（THAAD）飛彈防禦系統雷達、「愛國者」（Patriot）系統、反火箭、火砲和迫擊砲（C-RAM）雷達及一座直升機機棚。（實習編譯： 洪嘉琪 /核稿：徐崇哲）1150723 #科威特",
-      "url": "https://www.cna.com.tw/news/aopl/202607230247.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "",
-    "country2": "",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-07-23",
-      "title": "沙烏地油輪紅海遇襲伊朗稱阻3船通過荷莫茲海峽| 國際",
-      "content": "（中央社利雅德/德黑蘭23日綜合外電報導）沙烏地阿拉伯今天證實一艘油輪在紅海遇襲。與此同時，伊朗宣稱他們阻止3艘油輪通過荷莫茲海峽，其中一艘爆炸起火。 葉門叛軍「青年運動」（Houthi）聲稱在紅海（Red Sea）襲擊兩艘沙烏地油輪「恩塞利亞號」（Encelia）和「萊拉號」（Layla）後，沙烏地國營媒體沙烏地新聞社（SPA）今天引述官方消息人士報導，隸屬一家沙烏地公司的「恩塞利亞號」駛經紅海時遭到攻擊，但未提到另一艘油輪。 這名消息人士說，「恩塞利亞號」船頭起火，但全體船員均安然無恙。 法新社報導，伊朗伊斯蘭革命衛隊（IRGC）今天表示，他們阻止3艘油輪通過荷莫茲海峽（Strait of Hormuz）。美國和伊朗正爭奪這條重要水道控制權。 伊朗伊斯蘭革命衛隊在伊朗國營媒體引述的聲明中宣稱，3艘油輪受到美軍慫恿，試圖通過荷莫茲海峽南邊布有水雷的航道，但其中一艘爆炸起火後，其餘兩艘迅速掉頭返回。",
-      "url": "https://www.cna.com.tw/news/aopl/202607230143.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": false,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": 0.6,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-07-23",
-      "title": "逾70件国博文创精品亮相台北老街",
-      "content": "超过70件中国国家博物馆典藏文物的衍生创意产品在此集中亮相。 据了解，本次活动由海峡两岸旅游交流协会台北办事处携手中国国家博物馆与台湾中华八方文化交流协会共同举办。 7月23日，观众在文创展现场观展、拍照。新华社记者 黄扬 摄 此次展览以古人一日生活轨迹作为叙事主轴，设置“晨起有仪”“衣着有度”“闲情有韵”三个主题单元，展出逾70件国博文创精品。这其中，既有此前广受欢迎的“网红”文创——明孝端皇后凤冠系列产品；也有结合椅披纹饰设计的服装、配饰，做工精致，别具匠心；更有以鼎造型为基础设计的毛绒玩具，憨态可掬，萌趣十足。 台湾中华八方文化交流协会执行长邓安琪表示，希望通过这次展览打破大众对文物“古老、遥远、高冷”的刻板印象，以贴近日常生活的方式，呈现传统文化的丰富内涵与趣味，让观众感受文物与当代生活之间的联系。 迪化街是台北保存最完整的老街。清代晚期，大稻埕码头商船云集，邻近的迪化街发展成繁华的商家聚落。如今，这里仍聚集不少南北杂货铺、中药行和布匹店。 邓安琪说，此次文创展选址于迪化老街古色古香的传统建筑中，恰好可以为前来观展的台湾民众搭建起一座“连接过去、当下与未来的文化桥梁”。 “这些文创产品特别棒，我很喜欢。它们把美的事物融入到日常生活里。”身穿汉服前来观展的台北市民罗怡婷说。看到此次展出的精美饰品，令钟爱新中式服饰的她“一见倾心”。她期待未来有机会到北京旅游，“到国博去逛逛”。 海峡两岸旅游交流协会台北办事处表示，中华文化底蕴深厚，是联结两岸的精神纽带。此次文创展以“生活化、年轻化、大众化”的方式解读中华千年文化，期盼通过一件件文创作品，促进两岸文化血脉进一步交融共生，也让千年中华美学在当代生活中持续传承、焕发全新光彩。 据悉，该项展览自7月19日起免费向公众开放，将持续举行至8月16日。 这是7月23日拍摄的文创展现场。新华社记者 黄扬 摄",
-      "url": "https://www.news.cn/tw/20260723/a082981cba4c486f91cf7546123a5d47/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Military_Exercise",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.55,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "东部战区海军某部组织舰载直升机实弹射击及海上着舰训练",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-07-24",
-      "title": "#直击东部战区练兵备战现场#【#直击舰载直升机实弹射击及海上着舰训练#  】近日，东部战区海军某部紧...",
-      "content": "#直击东部战区练兵备战现场#【#直击舰载直升机实弹射击及海上着舰训练#  】近日，东部战区海军某部紧贴实战化训练要求，组织舰载直升机实弹射击及海上着舰训练，进一步锤炼部队全天候作战能力。（董满、刘建义、王新宇、王浩景）#时刻准备战斗#",
-      "url": "https://m.weibo.cn/detail/5324114178607436",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-07-23",
-      "title": "#东部熄灯号#深山淬刃强本领，隐蔽突袭勇担当。#阅海峡#",
-      "content": "#东部熄灯号#深山淬刃强本领，隐蔽突袭勇担当。#阅海峡#",
-      "url": "https://m.weibo.cn/detail/5323963183145256",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": false,
-    "country1": "CN",
-    "country2": "CN",
-    "sentiment_score": 0.3,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-07-23",
-      "title": "【#大暑练兵海报发布#】大暑时节，苦练精兵。今天，我们迎来#二十四节气#中的大暑。让我们通过一组海报...",
-      "content": "【#大暑练兵海报发布#】大暑时节，苦练精兵。今天，我们迎来#二十四节气#中的大暑。让我们通过一组海报，一起领略高温酷暑下官兵烈日沙场、汗透戎装，实战化练兵备战热潮。（张振、齐芷悦、兰斌千、刘婧雯、褚文聪）#当兵就要练练练#",
-      "url": "https://m.weibo.cn/detail/5323842391380291",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "CN",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-07-23",
-      "title": "#直击东部战区练兵备战现场#【#为战护航直通战位#】“八一”建军节前夕，联勤保障部队第900医院聚焦...",
-      "content": "#直击东部战区练兵备战现场#【#为战护航直通战位#】“八一”建军节前夕，联勤保障部队第900医院聚焦保障打赢目标，组织多支专家医疗队奔赴基层部队开展“三巡三送”医疗巡诊服务，同步开展军事训练伤防治技能培训与考核，为保障部队战斗力培养战救卫勤骨干。（张文明、高升斌、周全、陈晓芬） ...全文",
-      "url": "https://m.weibo.cn/detail/5323751789953308",
-      "source": "weibo",
       "category": "",
       "sentiment": ""
     }
