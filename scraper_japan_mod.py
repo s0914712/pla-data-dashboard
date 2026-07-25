@@ -167,10 +167,27 @@ def _detect_country(text):
 
 
 def _split_sentences(text):
-    """依日文句讀切句。防衛省 PDF 以 。 結尾，也會用換行分隔條列。"""
-    parts = re.split(r'[。\n]', text)
-    return [p.strip() for p in parts if p.strip()]
+    """依日文句讀切句。
 
+    只在「。」斷句，**不能**把換行當句子邊界。PDF 文字抽取會在句子中間
+    插入換行，實測診斷輸出的「句子」長這樣：
+
+        「その後、これらの艦艇が与那国島（沖縄県）と西表島との間の海域を南西進し、太」
+        「（日）から６日（月）にかけて与那国島と西表島との間の海域を南西進した後、令和」
+
+    第一段結尾是「太」（太平洋被截斷），第二段開頭是「（日）」—— 都是
+    換行片段而非句子。照 \\n 斷句會把「なお」「ものと同一である」這類
+    關鍵措辭跟海峽名切到不同片段，過往指涉的判定就永遠碰不到。
+
+    日文不用空白分詞，所以直接把換行去掉再依「。」切即可。
+    """
+    joined = re.sub(r'[\r\n]+', '', text)
+    return [p.strip() for p in joined.split('。') if p.strip()]
+
+
+# 句中的明示日期，例如「3月8日」「３月５日」（全形亦可，\d 在 Python3
+# 會匹配全形數字）。用來區分「本次航跡」與「回顧先前航行」。
+EXPLICIT_DATE_RE = re.compile(r'(\d{1,2})月(\d{1,2})日')
 
 # 指向「過往事例」而非本次航跡的措辭。防衛省的報告常在末段補述
 # 「なお、当該艦艇は先般…を通過している」，講的是先前的航行；
@@ -180,9 +197,27 @@ PRIOR_REFERENCE_MARKERS = [
     'これまで', '既に', 'すでに',
 ]
 
+# 「…したものと同一である」= 這批艦艇與先前某次航行的是同一批。
+# 純粹是身分識別，講的不是本次航跡。實測三筆殘留衝突有兩筆靠這個判掉：
+#   p20260318_02「令和８年３月１５日に与那国島…北東進したものと同一で」
+#   p20260701_01「なお、当該艦艇は、６月２７日に対馬海峡を南西進したものと同一である」
+IDENTITY_REFERENCE_MARKERS = ['ものと同一', 'と同一である', '同一のもの']
+
+# 「なお、」開頭的補述句在防衛省報告裡幾乎都是回顧先前航行。單看「なお」
+# 太寬鬆，因此要求同時出現明示日期或身分識別措辭才判為過往指涉。
+SUPPLEMENTARY_MARKER = 'なお'
+
 
 def _is_prior_reference(sentence):
-    return any(mark in sentence for mark in PRIOR_REFERENCE_MARKERS)
+    if any(mark in sentence for mark in PRIOR_REFERENCE_MARKERS):
+        return True
+    if any(mark in sentence for mark in IDENTITY_REFERENCE_MARKERS):
+        return True
+    if SUPPLEMENTARY_MARKER in sentence and EXPLICIT_DATE_RE.search(sentence):
+        # 例：p20260310_01「なお、これらの艦艇は３月５日（木）から６日（金）
+        # にかけて、対馬海峡を南西進」—— 報告日是 3/10，講的是 3/5 的事。
+        return True
+    return False
 
 
 def _strait_is_ship_passage(text, jp_keyword):
@@ -311,11 +346,6 @@ def _strait_trigger_sentences(text, jp_keyword):
         if any(verb in sentence for verb in PASSAGE_VERBS):
             hits.append(sentence)
     return hits
-
-
-# 句中的明示日期，例如「3月8日」。多日航跡的報告會在同一份 PDF 裡
-# 描述不同日期經過不同海峽，這是區分「誤判」與「跨日航跡」的關鍵。
-EXPLICIT_DATE_RE = re.compile(r'(\d{1,2})月(\d{1,2})日')
 
 
 def diagnose_strait_conflict(text, straits):
