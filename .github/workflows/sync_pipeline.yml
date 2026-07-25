@@ -1,0 +1,65 @@
+name: 資料同步管線
+
+# 把各爬蟲的產出統一搬進 comprehensive 與 naval_transits。
+#
+# 排在各爬蟲之後執行：日本防衛省 06:00 UTC、每日新聞更新較早，
+# 這裡取 08:00 UTC，確保來源都已更新完畢。
+on:
+  schedule:
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: '只報告不寫入（先看看會改什麼）'
+        type: boolean
+        default: false
+      fill_japan_dates:
+        description: '為日本防衛省有資料但 comprehensive 缺少的日期補列（comprehensive 會從約 1000 列長到約 2700 列）'
+        type: boolean
+        default: false
+
+concurrency:
+  group: csv-battleship-writers
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: pip install pandas
+
+    - name: Run sync pipeline
+      run: |
+        ARGS=""
+        if [ "${{ inputs.dry_run }}" != "true" ]; then ARGS="$ARGS --apply"; fi
+        if [ "${{ inputs.fill_japan_dates }}" = "true" ]; then ARGS="$ARGS --fill-japan-dates"; fi
+        echo "執行: python scripts/sync_pipeline.py $ARGS"
+        python scripts/sync_pipeline.py $ARGS
+
+    - name: Commit and push if changes
+      if: ${{ inputs.dry_run != true }}
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add data/merged_comprehensive_data_M.csv data/naval_transits.csv
+        if ! git diff --staged --quiet; then
+          git commit -m "🔗 資料同步 $(date +'%Y-%m-%d %H:%M')"
+          for i in 1 2 3 4; do
+            git push && break
+            echo "Push failed (attempt $i/4), pulling latest changes..."
+            git pull --rebase --autostash -X theirs origin main
+            sleep $((2 ** i))
+          done
+        else
+          echo "沒有異動，略過提交"
+        fi
