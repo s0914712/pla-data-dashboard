@@ -26381,5 +26381,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区铁甲列阵演习，夯实胜战根基，涉及海峡方向",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-24",
+      "title": "#东部熄灯号#轰鸣铁甲列阵，夯实胜战根基。#阅海峡#",
+      "content": "#东部熄灯号#轰鸣铁甲列阵，夯实胜战根基。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5324325570746545",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-24",
+      "title": "【#寻根战地铸军魂#】近日，东部战区空军某部组织官兵赴“八二三”战地公园进行参观见学。官兵参观战地坑...",
+      "content": "【#寻根战地铸军魂#】近日，东部战区空军某部组织官兵赴“八二三”战地公园进行参观见学。官兵参观战地坑道、历史遗迹和红色教育馆，在安业民烈士纪念碑前重温入党誓词，通过聆听讲解、观摩珍贵史料，沉浸式感悟“八二三”战地精神，大家纷纷表示：要赓续红色血脉，把先烈精神转化为练兵备战的强劲动力 ...全文",
+      "url": "https://m.weibo.cn/detail/5324204774785468",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
