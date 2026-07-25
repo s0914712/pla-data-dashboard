@@ -448,6 +448,62 @@ def _resolve_month_day(month, day, report_date):
     return candidate
 
 
+# 和曆年號起始年。令和元年 = 2019。
+REIWA_DATE_RE = re.compile(r'令和\s*(\d{1,2})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日')
+
+
+def collect_prior_transits(text, report_date):
+    """從「なお…ものと同一である」的回溯補述抽出過往通過紀錄。
+
+    這些補述本身不能算成本次航跡（所以被抑制），但它們明確陳述了
+    **先前確實發生過的通過**，而那些日子我們未必有抓到對應的 PDF。
+
+    實測 19 筆抑制紀錄裡有 13 個 (日期, 海峽) 組合是 CSV 完全沒標的，
+    例如「なお、当該艦艇は、６月２７日（土）に対馬海峡を南西進した
+    ものと同一である」—— 6/27 的對馬通過在 CSV 裡是空的。等於報告
+    白送了資料卻沒收。
+
+    句中日期在海峽名之前，例如：
+
+        ３月５日（木）から６日（金）にかけて、対馬海峡を南西進し、
+        ３月９日（月）に与那国島と西表島との間の海域を南西進した
+
+    所以每個海峽取「最近的前一個日期」。
+    """
+    report_date = pd.Timestamp(report_date)
+    found = []
+
+    for sentence in _split_sentences(text):
+        if not _is_prior_reference(sentence):
+            continue
+
+        # 收集句中所有日期的位置
+        dates = []
+        for mm in REIWA_DATE_RE.finditer(sentence):
+            era, mon, day = (_to_halfwidth_int(g) for g in mm.groups())
+            try:
+                dates.append((mm.end(), pd.Timestamp(year=2018 + era, month=mon, day=day)))
+            except ValueError:
+                continue
+        for mm in EXPLICIT_DATE_RE.finditer(sentence):
+            # 已被 令和 版本涵蓋的位置就不重複收
+            if any(abs(mm.end() - pos) < 4 for pos, _ in dates):
+                continue
+            mon, day = (_to_halfwidth_int(g) for g in mm.groups())
+            dates.append((mm.end(), _resolve_month_day(mon, day, report_date)))
+        if not dates:
+            continue
+        dates.sort()
+
+        for field in STRAIT_JP_PATTERNS:
+            for rx in STRAIT_JP_REGEX[field]:
+                for sm in rx.finditer(sentence):
+                    prior = [dt for pos, dt in dates if pos <= sm.start()]
+                    if prior:
+                        found.append((prior[-1], field, sentence[:120]))
+    return found
+
+
 def collect_suppressed_mentions(text):
     """列出「有海峽名 + 通過動詞，但被判為過往指涉而未採計」的句子。
 
@@ -1034,6 +1090,8 @@ def rebuild_strait_columns(target_dates=None):
     per_date = {}
     per_country = {}
     diagnostics = []
+    backfilled = []
+    processed_report_dates = set()
     strait_fields = list(STRAIT_JP_PATTERNS.keys())
 
     for idx, filename in enumerate(pdf_files, 1):
@@ -1091,6 +1149,16 @@ def rebuild_strait_columns(target_dates=None):
             per_date.setdefault(target, {x: 0 for x in strait_fields})[f] = 1
         # 即使沒有任何海峽，報告日仍要建 bucket，好把該日清為 0
         per_date.setdefault(date_str, {f: 0 for f in strait_fields})
+        processed_report_dates.add(date_str)
+
+        # 回溯補述裡明講的過往通過：只增不減。那些日子未必有自己的 PDF，
+        # 但報告已經確認通過發生過，等於白送的資料。
+        for event, field, _ in collect_prior_transits(text, pd.Timestamp(date_str.replace('/', '-'))):
+            target = event.strftime('%Y/%m/%d')
+            bucket = per_date.setdefault(target, {f: 0 for f in strait_fields})
+            if bucket[field] != 1:
+                bucket[field] = 1
+                backfilled.append((target, field, filename))
         # 同時回填國家。反正 PDF 已經解析過了，順手記下來 —— 既有 1941 列
         # 都沒有國家欄位，導致俄羅斯艦艇（守護級、杜布納級、維什尼亞級）
         # 在下游無法與解放軍區分。
@@ -1110,7 +1178,15 @@ def rebuild_strait_columns(target_dates=None):
         flagged = [f for f, v in straits.items() if v == 1]
         print(f"海峽: {flagged if flagged else '無'} / 國家: {detected}")
 
+    # 只透過回溯補述產生、沒有自己 PDF 的日期
+    backfill_only_dates = {d for d, _, _ in backfilled} - set(processed_report_dates)
+
     print(f"\n📝 共 {len(per_date)} 個日期需要回填")
+    if backfilled:
+        print(f"   其中 {len(backfilled)} 筆來自回溯補述（報告明講的過往通過）:")
+        for target, field, src in sorted(backfilled):
+            mark = ' [該日無自己的 PDF]' if target in backfill_only_dates else ''
+            print(f"     {target} {field}  <- {src}{mark}")
     if '國家' not in df.columns:
         df['國家'] = pd.NA
     updated = 0
@@ -1120,6 +1196,9 @@ def rebuild_strait_columns(target_dates=None):
             print(f"  ⚠️ {date_str} 不在 CSV，略過")
             continue
         for f in strait_fields:
+            # 只由回溯補述而來的日期不做清零，避免把該日原本的資料抹掉
+            if straits[f] == 0 and date_str in backfill_only_dates:
+                continue
             df.loc[mask, f] = straits[f]
         countries = per_country.get(date_str) or set()
         if countries:
@@ -1144,6 +1223,8 @@ def rebuild_strait_columns(target_dates=None):
             'dates_updated': updated,
             'conflict_count': len(conflicts),
             'suppressed_count': len(suppressed),
+            'backfilled_count': len(backfilled),
+            'backfilled': [{'date': d, 'strait': f, 'source': s_} for d, f, s_ in backfilled],
             'conflicts': conflicts,
             'suppressed': suppressed,
         }, fh, ensure_ascii=False, indent=2)
