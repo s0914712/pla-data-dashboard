@@ -11,6 +11,14 @@ Naval Transit Updater / 軍艦通過更新器
 import csv
 import re
 from datetime import datetime, timedelta
+
+try:
+    from . import naval_transit_enricher as enricher
+except ImportError:  # 直接以腳本方式執行時
+    try:
+        import naval_transit_enricher as enricher
+    except ImportError:
+        enricher = None
 from pathlib import Path
 from typing import List, Dict, Optional, Tuple
 
@@ -245,10 +253,23 @@ class NavalTransitUpdater:
                 "Sorties_Prev_5d": s_prev5d,
                 "Increase": s_inc,
                 "": url,
+                "Source": "新聞自動分類",
             }
+
+            # 在寫入前就清洗與抽取。ships 來自新聞標題原文，直接寫進去會
+            # 帶著版面標籤（「| 政治」）、缺國家、沒有艦型，之後全部要人工
+            # 回頭清。把處理放在這裡，資料落地就是乾淨的。
+            if enricher is not None:
+                if enricher.is_pla_activity(ships, country):
+                    print(f"[NavalTransitUpdater] Skip PLA activity: {ships[:40]}")
+                    continue
+                new_row, notes = enricher.enrich(new_row)
+                if notes:
+                    print(f"[NavalTransitUpdater] Enriched: {'; '.join(notes)}")
+
             existing.append(new_row)
             added += 1
-            print(f"[NavalTransitUpdater] Added: {norm_date} - {ships[:50]}...")
+            print(f"[NavalTransitUpdater] Added: {norm_date} - {new_row['Ships'][:50]}...")
 
         if added > 0:
             self._save(existing)

@@ -367,6 +367,45 @@ REBUILD_DATES="2025-07-24,2025-08-07,2025-08-08,2026-01-15,2026-02-16,\
 
 驗證：7/21 報告 → `宮古` 歸入 2026-07-19（-2 天）；7/7 報告 → 無標記。
 
+### 6.6 資料同步管線（自動化）
+
+`scripts/sync_pipeline.py` + `.github/workflows/sync_pipeline.yml`（每日 08:00 UTC）
+
+在這之前四段管線各寫各的、中間沒人負責搬運：
+
+| 缺口 | 後果 |
+|---|---|
+| `data_merger` 的 `MERGE_COLUMNS` 只複製 2 欄 | 海峽與國家判定停在 JapanandBattleship，進不了 comprehensive |
+| 沒有 naval_transits → comprehensive 的寫入者 | 69 筆裡 57 筆從未寫入 |
+| `naval_transit_updater` 把新聞標題整條當艦艇描述 | 版面標籤、共軍動態、缺國家全靠人工回頭清 |
+
+管線流程（每步冪等，可每天無腦跑）：
+
+1. `naval_transits.csv` 正規化 —— 清版面標籤、依艦名前綴補國家、抽舷號與艦型
+2. `naval_transits` → comprehensive 的 `Foreign_battleship`（含補列）
+3. `JapanandBattleship` → comprehensive（架次、航母、四海峽、國家）
+4. 一致性檢查
+
+**步驟順序有意義**：步驟 2 會往 comprehensive 新增列，必須排在步驟 3 之前，
+否則新列要等下一輪才會被日本防衛省的資料填滿（實測原順序需跑三次才收斂）。
+
+**減少人工確認的關鍵是把清洗移到寫入端**（`naval_transit_enricher.py`）：
+
+- 艦名前綴（`USS`/`HMS`/`HMCS`/`JS`…）判國家，比新聞裡的國名提及可靠，
+  標為 high 信心；靠中文國名關鍵字的標 medium
+- 舷號用格式比對（`DDG-113`、`T-AGS 65`、`FFH 156`）
+- 共軍動態一律排除，但**已標記為非 CN 國家或含外艦前綴時例外** ——
+  新聞常把兩者寫在同一則（「共軍派出32架戰機…同時英國海軍巡邏艦史佩號
+  通過台海」講的是 HMS Spey 的通過）
+
+首次執行成果：艦型 3/62 → 59/62、`Country` 空值歸零、comprehensive 的
+`Foreign_battleship` 66 → 68、海峽標記進入 comprehensive 20 格。
+
+**已知限制**：comprehensive 只有 277 個有效日期，日本防衛省有 1941 天，
+所以有海峽標記的 135 天裡有 118 天在 comprehensive 沒有對應列，資料進不去。
+`--fill-japan-dates` 可補列，但 comprehensive 會從約 1000 列長到約 2700 列，
+預設不開，由使用者決定。
+
 ### 6.5 PDF 原文快取（離線驗證）
 
 `data/pdf_texts/japan_mod_texts.json`
@@ -469,6 +508,13 @@ python3 scripts/analysis/build_pit_features.py
 # 台海通過同步（預設 dry-run）
 python3 scripts/updaters/sync_naval_to_comprehensive.py
 python3 scripts/updaters/sync_naval_to_comprehensive.py --apply
+
+# 資料同步管線（預設 dry-run）
+python3 scripts/sync_pipeline.py
+python3 scripts/sync_pipeline.py --apply
+
+# 新增一筆外艦通過紀錄
+python3 scripts/updaters/add_naval_transit.py --list
 
 # 離線驗證海峽判讀（讀 data/pdf_texts/ 快取，不需網路）
 python3 scripts/analysis/verify_strait_parsing.py --diff

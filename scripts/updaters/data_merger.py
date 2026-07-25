@@ -31,11 +31,18 @@ class DataMerger:
         "contents/data/JapanandBattleship.csv"
     )
     
-    # 要從 JapanandBattleship.csv 複製的欄位
+    # 從 JapanandBattleship.csv 複製到 comprehensive 的欄位。
+    #
+    # 原本只有前兩個，導致防衛省辛苦解析出來的海峽通過與國家判定完全
+    # 進不了 comprehensive —— 稽核時才發現那邊的 Foreign_battleship
+    # 有 57 筆從未寫入，根因就是沒人負責搬。
     MERGE_COLUMNS = [
         'pla_aircraft_sorties',
         'china_carrier_present',
-        # 如果有其他欄位也可以加入
+        # 日本水域通過（由 scraper_japan_mod 的句子級判讀產出）
+        '與那國', '宮古', '大禹', '對馬',
+        # 國家判定，用於在下游區分共軍與俄艦
+        '國家',
     ]
     
     def __init__(self, timeout: int = 30, local_path: Optional[str] = None):
