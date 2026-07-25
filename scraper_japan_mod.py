@@ -17,6 +17,16 @@ CSV_FILE = 'data/JapanandBattleship.csv'
 # 歷史記錄文件（避免重複爬取）
 HISTORY_FILE = 'data/japan_scrape_history.json'
 
+# PDF 抽出文字的本地快取。
+#
+# 這個檔案存在的理由是「判讀邏輯要能離線反覆驗證」。海峽/日期的判讀規則
+# 改一次就要重抓一次 152 份 PDF，而開發環境的 egress policy 擋掉
+# www.mod.go.jp，等於每輪都得靠 CI 跑一次再把結果貼回來 —— 一個判斷要花
+# 一整輪往返，前面已經因此連錯三次方向。
+#
+# 把抽出的文字存進專案後，改規則可以直接對快取重跑並當場驗證，不必動網路。
+PDF_TEXT_CACHE = 'data/pdf_texts/japan_mod_texts.json'
+
 APERTIS_API_KEY = os.getenv('APERTIS_API_KEY') or os.getenv('STIMA_API_KEY')
 APERTIS_MODEL = 'gemini-2.5-flash-lite-preview-06-17'
 APERTIS_BASE_URL = 'https://api.apertis.ai/v1'
@@ -169,6 +179,61 @@ STRAIT_NAMES_ZH = {
     '大禹': '大隅海峽',
     '與那國': '與那國島附近',
 }
+
+
+def load_text_cache():
+    """讀取 PDF 文字快取，回傳 {filename: {...}}。"""
+    if not os.path.exists(PDF_TEXT_CACHE):
+        return {}
+    try:
+        with open(PDF_TEXT_CACHE, 'r', encoding='utf-8') as fh:
+            data = json.load(fh)
+        return data.get('texts', data)
+    except Exception as e:
+        print(f"⚠️ 讀取文字快取失敗: {e}")
+        return {}
+
+
+def save_text_cache(texts):
+    """寫回文字快取。以檔名為鍵，方便和 processed_pdfs 對照。"""
+    os.makedirs(os.path.dirname(PDF_TEXT_CACHE), exist_ok=True)
+    payload = {
+        'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'count': len(texts),
+        'source': PDF_BASE_URL,
+        'texts': dict(sorted(texts.items())),
+    }
+    with open(PDF_TEXT_CACHE, 'w', encoding='utf-8') as fh:
+        json.dump(payload, fh, ensure_ascii=False, indent=1)
+
+
+def fetch_pdf_text(filename, url, cache, use_cache=True):
+    """取得 PDF 文字：優先用快取，沒有才下載。
+
+    回傳 (text, from_cache)。text 為 None 表示該 PDF 不存在或解析失敗。
+    """
+    if use_cache and filename in cache:
+        entry = cache[filename]
+        return entry.get('text'), True
+
+    pdf_content = download_pdf(url)
+    if not pdf_content:
+        return None, False
+
+    try:
+        reader = PyPDF2.PdfReader(io.BytesIO(pdf_content))
+        text = '\n'.join(p.extract_text() or '' for p in reader.pages).strip()
+    except Exception as e:
+        print(f"PDF 解析失敗: {e}", end=" ")
+        return None, False
+
+    if text:
+        cache[filename] = {
+            'url': url,
+            'text': text,
+            'fetched_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        }
+    return (text or None), False
 
 
 def _detect_country(text):
@@ -1050,7 +1115,7 @@ def update_csv(date, data):
         return False
 
 
-def rebuild_strait_columns(target_dates=None):
+def rebuild_strait_columns(target_dates=None, use_cache=True):
     """重新分析歷史記錄中所有 PDF，依新規則回填 CSV 的四個海峽欄位。
 
     僅修改 與那國/宮古/大禹/對馬 四個欄位；其他欄位（艦型、remark、進、出 等）
@@ -1086,6 +1151,12 @@ def rebuild_strait_columns(target_dates=None):
 
     df = pd.read_csv(CSV_FILE, encoding='utf-8-sig')
 
+    text_cache = load_text_cache()
+    downloaded = 0
+    if text_cache:
+        print(f"📄 文字快取: {len(text_cache)} 份"
+              f"{'（優先使用，缺的才下載）' if use_cache else '（--refetch：全部重新下載）'}")
+
     # 同一日期可能有多個 PDF，採 OR 聚合
     per_date = {}
     per_country = {}
@@ -1105,27 +1176,15 @@ def rebuild_strait_columns(target_dates=None):
         url = f"{PDF_BASE_URL}/{year}/{filename}"
 
         print(f"  [{idx}/{len(pdf_files)}] 📥 {filename} ({date_str})...", end=" ")
-        pdf_content = download_pdf(url)
-        if not pdf_content:
+        text, from_cache = fetch_pdf_text(filename, url, text_cache, use_cache=use_cache)
+        if not text:
             # 指定日期模式會把每天 01~10 號全部探一遍，多數不存在，屬正常
             print("不存在" if target_dates else "失敗（404 或下載失敗）")
             continue
-
-        try:
-            pdf_reader = PyPDF2.PdfReader(io.BytesIO(pdf_content))
-            text = ""
-            for page in pdf_reader.pages:
-                t = page.extract_text()
-                if t:
-                    text += t + "\n"
-            text = text.strip()
-        except Exception as e:
-            print(f"PDF 解析失敗: {e}")
-            continue
-
-        if not text:
-            print("無文字")
-            continue
+        if from_cache:
+            print("(快取)", end=" ")
+        else:
+            downloaded += 1
 
         if not is_target_navy_pdf(text):
             # 非目標 PDF：四個海峽都是 0（但不主動覆蓋 CSV，等同沒貢獻）
@@ -1211,6 +1270,11 @@ def rebuild_strait_columns(target_dates=None):
     df.to_csv(CSV_FILE, index=False, encoding='utf-8-sig')
     print(f"\n✅ 完成，回填 {updated} 列")
 
+    if text_cache:
+        save_text_cache(text_cache)
+        print(f"📄 文字快取已更新: {PDF_TEXT_CACHE}（{len(text_cache)} 份，"
+              f"本次新下載 {downloaded} 份）")
+
     # 一律寫出診斷檔（即使沒有衝突），這樣檔案存在與否就能確認新版邏輯有跑到。
     os.makedirs('data/logs', exist_ok=True)
     out_path = 'data/logs/strait_conflicts.json'
@@ -1266,7 +1330,9 @@ def main():
             if arg.startswith('--dates='):
                 raw_dates = arg.split('=', 1)[1]
         dates = [d.strip() for d in raw_dates.split(',') if d.strip()]
-        rebuild_strait_columns(target_dates=dates or None)
+        # --refetch / REFETCH=1：忽略文字快取，全部重新下載（PDF 有更新時用）
+        use_cache = not (os.getenv('REFETCH') == '1' or '--refetch' in sys.argv)
+        rebuild_strait_columns(target_dates=dates or None, use_cache=use_cache)
         return
 
     print("="*60)
@@ -1325,6 +1391,7 @@ def main():
     updated_pdfs = 0
     found_pdfs = 0
     skipped_history = 0
+    run_text_cache = load_text_cache()
 
     for idx, pdf_info in enumerate(pdf_urls, 1):
         pdf_url = pdf_info['url']
@@ -1380,6 +1447,14 @@ def main():
             continue
 
         # 檢查是否為中國/俄羅斯海軍相關
+        # 不論是否為目標 PDF 都存進快取。判讀規則之後可能改變，
+        # 現在判定為「非艦艇動向」的文件，將來重新判讀時仍需要原文。
+        run_text_cache[filename] = {
+            'url': pdf_url,
+            'text': pdf_text,
+            'fetched_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        }
+
         if not is_target_navy_pdf(pdf_text):
             print(f"    ⏭️ 非中國/俄羅斯海軍艦艇相關\n")
             continue
@@ -1430,6 +1505,10 @@ def main():
     # 儲存歷史記錄
     history["processed_pdfs"] = sorted(processed_set)
     save_history(history)
+
+    if run_text_cache:
+        save_text_cache(run_text_cache)
+        print(f"📄 文字快取: {PDF_TEXT_CACHE}（{len(run_text_cache)} 份）")
 
     print(f"\n{'='*60}")
     print(f"📊 掃描完成:")

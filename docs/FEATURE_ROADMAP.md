@@ -367,6 +367,38 @@ REBUILD_DATES="2025-07-24,2025-08-07,2025-08-08,2026-01-15,2026-02-16,\
 
 驗證：7/21 報告 → `宮古` 歸入 2026-07-19（-2 天）；7/7 報告 → 無標記。
 
+### 6.5 PDF 原文快取（離線驗證）
+
+`data/pdf_texts/japan_mod_texts.json`
+
+海峽判讀的規則改一次就要重抓 152 份 PDF 才知道對不對，而開發環境的
+egress policy 擋掉 `www.mod.go.jp`，等於每個判斷都得靠 CI 跑一輪、把
+結果貼回來才能確認。這條線已經因此連錯三次方向（幾何規則、句子級規則
+過嚴、`なお` 連坐），每次都花掉一整輪往返。
+
+爬蟲現在會把抽出的文字存進專案（正常爬取與回填模式都會寫），之後改規則
+可以直接對快取重跑並當場驗證：
+
+```bash
+python3 scripts/analysis/verify_strait_parsing.py            # 全部
+python3 scripts/analysis/verify_strait_parsing.py --pdf p20260721_01.pdf
+python3 scripts/analysis/verify_strait_parsing.py --date 2026-07-21
+python3 scripts/analysis/verify_strait_parsing.py --diff     # 與 CSV 現況比對
+python3 scripts/analysis/verify_strait_parsing.py --show p20260707_01.pdf
+```
+
+輸出包含每份 PDF 的海峽判定、事件日期歸屬（與報告日的偏移）、抑制原因
+與原句、回溯補填、地理衝突。`--diff` 會列出新版規則相對 CSV 現況會新增
+與移除哪些標記，改規則前先看這個就知道影響範圍。
+
+要點：
+
+- **不論是否為目標 PDF 都存**。現在判定為「非艦艇動向」的文件，將來
+  改判讀規則時仍需要原文。
+- 回填模式**優先用快取**，缺的才下載；PDF 有更新時用 `--refetch`
+  或 `REFETCH=1` 強制重抓。
+- workflow 已加 `git add`，快取會隨執行一併提交。
+
 ### 6.4 回溯補述可補完 13 筆缺漏（2026-07-25 發現）
 
 `suppressed_count: 19` 那批被抑制的補述，本身不能算成本次航跡，但它們
@@ -437,6 +469,9 @@ python3 scripts/analysis/build_pit_features.py
 # 台海通過同步（預設 dry-run）
 python3 scripts/updaters/sync_naval_to_comprehensive.py
 python3 scripts/updaters/sync_naval_to_comprehensive.py --apply
+
+# 離線驗證海峽判讀（讀 data/pdf_texts/ 快取，不需網路）
+python3 scripts/analysis/verify_strait_parsing.py --diff
 
 # 海峽欄位回填（需在 GitHub Actions 上跑，本機 egress 擋 mod.go.jp）
 REBUILD_STRAITS=1 python scraper_japan_mod.py                  # 依歷史記錄
