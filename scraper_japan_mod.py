@@ -148,39 +148,153 @@ STRAIT_NAMES_ZH = {
 
 
 def _detect_country(text):
-    """從日文文本偵測國家"""
+    """從日文文本偵測國家。
+
+    不要在沒有任何國家標記時預設回傳「中國」—— 那會把俄羅斯艦艇
+    和無法判定的報告全部算成解放軍。實測 2026 年有多筆俄羅斯艦艇
+    （守護級、杜布納級、維什尼亞級）混在資料裡，若無國家欄位就無法
+    在下游篩掉。判定不出來時回傳「未知」，由使用端決定怎麼處理。
+    """
     has_china = '中国' in text
     has_russia = 'ロシア' in text or '露海軍' in text
     if has_china and has_russia:
         return '中國、俄羅斯'
-    elif has_russia:
+    if has_russia:
         return '俄羅斯'
-    else:
+    if has_china:
         return '中國'
+    return '未知'
 
 
-def _strait_is_ship_passage(text, jp_keyword, window=120):
+def _split_sentences(text):
+    """依日文句讀切句。防衛省 PDF 以 。 結尾，也會用換行分隔條列。"""
+    parts = re.split(r'[。\n]', text)
+    return [p.strip() for p in parts if p.strip()]
+
+
+# 指向「過往事例」而非本次航跡的措辭。防衛省的報告常在末段補述
+# 「なお、当該艦艇は先般…を通過している」，講的是先前的航行；
+# 把這種句子算進來，就會讓一次對馬海峽的通報同時標記到與那國。
+PRIOR_REFERENCE_MARKERS = [
+    '先般', '前回', '過去', '昨年', '前年', '以前',
+    'これまで', '既に', 'すでに',
+]
+
+
+def _is_prior_reference(sentence):
+    return any(mark in sentence for mark in PRIOR_REFERENCE_MARKERS)
+
+
+def _strait_is_ship_passage(text, jp_keyword):
     """判斷文本中該海峽關鍵詞的出現是否為「艦艇通過」語境。
 
-    需同時滿足：附近窗口內存在艦艇指標 + 航行/通過動詞。
-    這樣可避免：(a) 飛機飛經海峽、(b) 順帶提及該海峽但艦艇未通過。
+    以「句子」為範圍判斷，需同時滿足：同一句內有海峽名 + 艦艇指標 +
+    航行/通過動詞。
+
+    原本用 ±120 字元的滑動窗口，實際上會跨過好幾個句子。防衛省的
+    PDF 常在同一段落裡先描述本次航跡、再附帶提及其他海域或過往事例，
+    240 字元的窗口足以把不相干的海峽一起吃進來 —— 結果是 2026-01 起
+    出現 13 筆地理上不可能的組合，例如 2026-02-16 同時標記對馬海峽
+    （北緯 34 度）與與那國（北緯 24 度），相距約 1,400 公里，同一批
+    艦艇一天內不可能都經過。那些列的艦型多為俄羅斯艦艇（守護級、
+    杜布納級、巴爾克級），實際只通過對馬海峽。
     """
-    for m in re.finditer(re.escape(jp_keyword), text):
-        start = max(0, m.start() - window)
-        end = min(len(text), m.end() + window)
-        ctx = text[start:end]
-        has_ship = any(ind in ctx for ind in SHIP_INDICATORS)
-        has_motion = any(verb in ctx for verb in PASSAGE_VERBS)
+    for sentence in _split_sentences(text):
+        if jp_keyword not in sentence or _is_prior_reference(sentence):
+            continue
+        has_ship = any(ind in sentence for ind in SHIP_INDICATORS)
+        has_motion = any(verb in sentence for verb in PASSAGE_VERBS)
         if has_ship and has_motion:
             return True
     return False
 
 
+# 各海峽的概略緯度，用於地理一致性檢查。
+STRAIT_LATITUDE = {
+    '對馬': 34.4,    # 對馬海峽，日本海入口
+    '大禹': 31.0,    # 大隅海峽，九州南方
+    '宮古': 24.8,    # 宮古海峽
+    '與那國': 24.4,  # 與那國島附近，最接近台灣
+}
+
+# 同日可同時成立的最大緯度跨距（度）。宮古與與那國相鄰（差 0.4 度）
+# 可同時出現；對馬與宮古相差近 10 度則否。
+MAX_STRAIT_LAT_SPAN = 7.0
+
+
+def _enforce_strait_geography(straits, evidence=None):
+    """剔除地理上不可能同時成立的海峽組合。
+
+    同一批艦艇一天內不可能橫跨相距上千公里的海峽。衝突時依「文本證據
+    強度」決定保留哪一群，而不是照緯度猜。
+
+    這點很重要：2026 年那批誤判多半是俄羅斯艦艇（守護級、杜布納級、
+    巴爾克級），實際航跡是對馬海峽（海參崴往東海），與那國才是誤判。
+    若照「保留南側」之類的幾何規則去猜，會正好砍掉真的那個。證據強度
+    （該海峽在多少個含通過語境的句子裡出現）才是可靠依據。
+
+    evidence 為 None 時（例如對既有資料做事後檢查）不做取捨，只回報
+    衝突，交由人工判斷 —— 沒有文本就沒有依據，猜了只會製造假資料。
+    """
+    active = [f for f, v in straits.items() if v == 1 and f in STRAIT_LATITUDE]
+    if len(active) < 2:
+        return straits, []
+
+    lats = sorted((STRAIT_LATITUDE[f], f) for f in active)
+    if lats[-1][0] - lats[0][0] <= MAX_STRAIT_LAT_SPAN:
+        return straits, []
+
+    # 依最大緯度斷層切成南北兩群
+    gaps = [(lats[i + 1][0] - lats[i][0], i) for i in range(len(lats) - 1)]
+    _, split_at = max(gaps)
+    south = [f for _, f in lats[:split_at + 1]]
+    north = [f for _, f in lats[split_at + 1:]]
+
+    if evidence is None:
+        return straits, []      # 無文本可依據，不做取捨
+
+    score = lambda group: sum(evidence.get(f, 0) for f in group)
+    if score(south) == score(north):
+        return straits, []      # 證據相當，同樣不猜
+
+    keep = south if score(south) > score(north) else north
+    dropped = [f for f in active if f not in keep]
+    cleaned = dict(straits)
+    for f in dropped:
+        cleaned[f] = 0
+    return cleaned, dropped
+
+
+def _strait_evidence_count(text, jp_keyword):
+    """該海峽出現在多少個「艦艇通過」語境的句子裡。"""
+    n = 0
+    for sentence in _split_sentences(text):
+        if jp_keyword not in sentence or _is_prior_reference(sentence):
+            continue
+        if (any(ind in sentence for ind in SHIP_INDICATORS)
+                and any(verb in sentence for verb in PASSAGE_VERBS)):
+            n += 1
+    return n
+
+
+def detect_strait_conflict(straits):
+    """對既有資料做事後檢查，回傳地理上互斥的海峽組合（不修改資料）。"""
+    active = [f for f, v in straits.items() if v == 1 and f in STRAIT_LATITUDE]
+    if len(active) < 2:
+        return []
+    lats = sorted(STRAIT_LATITUDE[f] for f in active)
+    return active if (lats[-1] - lats[0]) > MAX_STRAIT_LAT_SPAN else []
+
+
 def _detect_straits(text):
     """偵測各海峽是否有艦艇通過。回傳 {欄位名: 0/1}。"""
-    result = {}
+    result, evidence = {}, {}
     for field, jp_keywords in STRAIT_JP_KEYWORDS.items():
-        result[field] = 1 if any(_strait_is_ship_passage(text, kw) for kw in jp_keywords) else 0
+        evidence[field] = sum(_strait_evidence_count(text, kw) for kw in jp_keywords)
+        result[field] = 1 if evidence[field] > 0 else 0
+    result, dropped = _enforce_strait_geography(result, evidence)
+    if dropped:
+        print(f"      ⚠️  海峽組合地理上不一致，依證據強度剔除: {'、'.join(dropped)}")
     return result
 
 
@@ -304,8 +418,11 @@ def analyze_with_rules(pdf_text, date):
     # 活躍海峽
     active_straits = [f for f in ['與那國', '宮古', '大禹', '對馬'] if result.get(f) == 1]
 
-    # 備註
-    result['remark'] = _generate_remark(country, ship_count, ship_classes, active_straits, entering, exiting)
+    # 備註寫入「備考」而非「remark」。
+    # remark 是舊有的布林欄位（1439 筆 True / 133 筆 False），把生成的
+    # 中文描述寫進去會蓋掉原本的語意，也讓該欄位同時混有布林值與文字。
+    result['備考'] = _generate_remark(country, ship_count, ship_classes,
+                                      active_straits, entering, exiting)
 
     return result
 
@@ -593,9 +710,19 @@ def update_csv(date, data):
             print(f"      ⚠️  找不到日期 {date} 的行")
             return False
 
+        # 這些欄位是後來才加的，舊 CSV 沒有。原本的 `if key in df.columns`
+        # 會把它們靜默丟掉 —— 國家判定就是這樣消失的（analyze_with_rules
+        # 算出來了，但寫不進去），導致俄羅斯艦艇在下游無法辨識。
+        for col in ('國家', '備考'):
+            if col in data and col not in df.columns:
+                df[col] = pd.NA
+
+        dropped = [k for k in data if k not in df.columns]
         for key, value in data.items():
             if key in df.columns:
                 df.loc[mask, key] = value
+        if dropped:
+            print(f"      ⚠️  以下欄位不存在於 CSV，未寫入: {', '.join(dropped)}")
 
         df.to_csv(CSV_FILE, index=False, encoding='utf-8-sig')
         print(f"      ✓ 已更新日期 {date} 的資料")
@@ -608,7 +735,7 @@ def update_csv(date, data):
         return False
 
 
-def rebuild_strait_columns():
+def rebuild_strait_columns(target_dates=None):
     """重新分析歷史記錄中所有 PDF，依新規則回填 CSV 的四個海峽欄位。
 
     僅修改 與那國/宮古/大禹/對馬 四個欄位；其他欄位（艦型、remark、進、出 等）
@@ -622,18 +749,31 @@ def rebuild_strait_columns():
         print(f"❌ CSV 不存在: {CSV_FILE}")
         return
 
-    history = load_history()
-    pdf_files = history.get("processed_pdfs", [])
-    if not pdf_files:
-        print("⚠️ 歷史記錄為空，沒有可回填的 PDF")
-        return
-
-    print(f"📂 歷史 PDF 數: {len(pdf_files)}")
+    if target_dates:
+        # 指定日期時直接依命名規則探測 PDF，不倚賴歷史記錄。
+        # japan_scrape_history.json 只回溯到 2026-02-18，更早的問題日期
+        # （例如 2025-07-24、2026-01-15）不在裡面，但 PDF 仍在防衛省網站上。
+        pdf_files = []
+        for d in target_dates:
+            date_compact = d.replace('-', '').replace('/', '')
+            for num in range(1, MAX_PDF_NUM_PER_DAY + 1):
+                pdf_files.append(f"p{date_compact}_{num:02d}.pdf")
+        print(f"🎯 指定日期模式: {len(target_dates)} 個日期，"
+              f"探測 {len(pdf_files)} 個候選 PDF")
+        print(f"   日期: {', '.join(target_dates)}")
+    else:
+        history = load_history()
+        pdf_files = history.get("processed_pdfs", [])
+        if not pdf_files:
+            print("⚠️ 歷史記錄為空，沒有可回填的 PDF")
+            return
+        print(f"📂 歷史 PDF 數: {len(pdf_files)}")
 
     df = pd.read_csv(CSV_FILE, encoding='utf-8-sig')
 
     # 同一日期可能有多個 PDF，採 OR 聚合
     per_date = {}
+    per_country = {}
     strait_fields = list(STRAIT_JP_KEYWORDS.keys())
 
     for idx, filename in enumerate(pdf_files, 1):
@@ -649,7 +789,8 @@ def rebuild_strait_columns():
         print(f"  [{idx}/{len(pdf_files)}] 📥 {filename} ({date_str})...", end=" ")
         pdf_content = download_pdf(url)
         if not pdf_content:
-            print("失敗（404 或下載失敗）")
+            # 指定日期模式會把每天 01~10 號全部探一遍，多數不存在，屬正常
+            print("不存在" if target_dates else "失敗（404 或下載失敗）")
             continue
 
         try:
@@ -678,10 +819,20 @@ def rebuild_strait_columns():
         for f in strait_fields:
             if straits.get(f) == 1:
                 bucket[f] = 1
+        # 同時回填國家。反正 PDF 已經解析過了，順手記下來 —— 既有 1941 列
+        # 都沒有國家欄位，導致俄羅斯艦艇（守護級、杜布納級、維什尼亞級）
+        # 在下游無法與解放軍區分。
+        countries = per_country.setdefault(date_str, set())
+        detected = _detect_country(text)
+        if detected != '未知':
+            countries.update(p for p in detected.split('、') if p)
+
         flagged = [f for f, v in straits.items() if v == 1]
-        print(f"海峽: {flagged if flagged else '無'}")
+        print(f"海峽: {flagged if flagged else '無'} / 國家: {detected}")
 
     print(f"\n📝 共 {len(per_date)} 個日期需要回填")
+    if '國家' not in df.columns:
+        df['國家'] = pd.NA
     updated = 0
     for date_str, straits in sorted(per_date.items()):
         mask = df['date'] == date_str
@@ -690,9 +841,13 @@ def rebuild_strait_columns():
             continue
         for f in strait_fields:
             df.loc[mask, f] = straits[f]
+        countries = per_country.get(date_str) or set()
+        if countries:
+            df.loc[mask, '國家'] = '、'.join(sorted(countries))
         updated += 1
         flagged = [f for f, v in straits.items() if v == 1]
-        print(f"  ✓ {date_str} → {flagged if flagged else '全部清為 0'}")
+        country_str = '、'.join(sorted(countries)) if countries else '未知'
+        print(f"  ✓ {date_str} → {flagged if flagged else '全部清為 0'} [{country_str}]")
 
     df.to_csv(CSV_FILE, index=False, encoding='utf-8-sig')
     print(f"\n✅ 完成，回填 {updated} 列")
@@ -703,7 +858,13 @@ def main():
     import time
 
     if os.getenv('REBUILD_STRAITS') == '1' or '--rebuild-straits' in sys.argv:
-        rebuild_strait_columns()
+        # 可指定要重跑的日期（逗號分隔），不指定則沿用歷史記錄裡的全部 PDF。
+        raw_dates = os.getenv('REBUILD_DATES', '')
+        for arg in sys.argv:
+            if arg.startswith('--dates='):
+                raw_dates = arg.split('=', 1)[1]
+        dates = [d.strip() for d in raw_dates.split(',') if d.strip()]
+        rebuild_strait_columns(target_dates=dates or None)
         return
 
     print("="*60)
