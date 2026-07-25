@@ -46,6 +46,9 @@ JAPAN_MERGE_COLUMNS = [
     "與那國", "宮古", "大禹", "對馬", "國家",
 ]
 
+# 四海峽是二元欄位（0/1），與架次那種計數欄位在報表上要分開處理
+STRAIT_COLUMNS = ["與那國", "宮古", "大禹", "對馬"]
+
 # naval_transits 需要的結構化欄位
 NAVAL_EXTRA_COLUMNS = [
     "Ship_Type", "Hull_Number", "Mission_Note",
@@ -103,17 +106,18 @@ def step_japan_to_comprehensive(apply_changes, fill_missing_dates=False):
         existing_dates = set(comp["_d"].dropna())
         missing = sorted(d for d in source if d not in existing_dates)
         if missing:
-            new_rows = []
-            for d in missing:
-                row = {c: pd.NA for c in comp.columns}
-                row["date"] = d.strftime("%Y/%-m/%-d")
-                row["_d"] = d
-                new_rows.append(row)
-            comp = pd.concat([comp, pd.DataFrame(new_rows)], ignore_index=True)
-            added_rows = len(new_rows)
+            # 不用 pd.concat —— 整批全是 NA 的新列會觸發 dtype 推斷的
+            # FutureWarning，未來版本行為還會改變。逐列以 .loc 附加可以
+            # 完全沿用 comp 既有的 dtype，也不需要額外處理。
+            start = len(comp)
+            for offset, d in enumerate(missing):
+                comp.loc[start + offset, "date"] = d.strftime("%Y/%-m/%-d")
+                comp.loc[start + offset, "_d"] = d
+            added_rows = len(missing)
             print(f"      新增 {added_rows} 個缺少的日期列")
 
     filled = {c: 0 for c in JAPAN_MERGE_COLUMNS}
+    marks = {c: 0 for c in JAPAN_MERGE_COLUMNS}   # 其中值為 1 的（真的有通過）
     for idx, row in comp.iterrows():
         src = source.get(row["_d"])
         if src is None:
@@ -126,11 +130,18 @@ def step_japan_to_comprehensive(apply_changes, fill_missing_dates=False):
             if pd.isna(current) or str(current).strip() == "":
                 comp.at[idx, col] = src[col]
                 filled[col] += 1
+                # 只有海峽是二元欄位，「值為 1」才有「有通過」的意義。
+                # 架次的 1 就只是 1 架，數它沒有意義。
+                if col in STRAIT_COLUMNS and str(src[col]).strip() in ("1", "1.0"):
+                    marks[col] += 1
 
     total = sum(filled.values()) + added_rows
     for col, n in filled.items():
         if n:
-            print(f"      {col:<22} 補入 {n} 格")
+            # 海峽欄位補進去的多半是 0（當天沒通過），0 同樣是有效資訊，
+            # 但「補了幾格」和「其中幾格是真的有通過」意義差很多，分開報。
+            detail = f"（其中 {marks[col]} 格為 1）" if marks[col] else ""
+            print(f"      {col:<22} 補入 {n} 格{detail}")
     if not total:
         print("      沒有可補的空格（已同步）")
 
@@ -159,9 +170,14 @@ def step_naval_to_comprehensive(apply_changes):
     return result.returncode
 
 
-def step_verify():
-    """步驟 4：一致性檢查。"""
-    print("\n[4/4] 一致性檢查")
+def step_verify(apply_changes=True):
+    """步驟 4：一致性檢查。
+
+    讀的是磁碟上的現況。dry-run 沒有寫檔，所以這裡看到的是「跑之前」的
+    狀態，不是前面幾步算出來的預期結果 —— 標題明講，免得誤以為沒作用。
+    """
+    label = "一致性檢查" if apply_changes else "一致性檢查（磁碟現況，非本次預期結果）"
+    print(f"\n[4/4] {label}")
     japan = pd.read_csv(JAPAN_CSV, encoding="utf-8-sig")
     comp = pd.read_csv(COMPREHENSIVE_CSV, encoding="utf-8-sig")
     naval = pd.read_csv(NAVAL_CSV, encoding="utf-8-sig")
@@ -217,7 +233,7 @@ def main():
     step_enrich_naval(args.apply)
     step_naval_to_comprehensive(args.apply)
     step_japan_to_comprehensive(args.apply, args.fill_japan_dates)
-    step_verify()
+    step_verify(args.apply)
 
     print("\n" + "=" * 62)
     if args.apply:
