@@ -180,9 +180,25 @@ def _split_sentences(text):
     關鍵措辭跟海峽名切到不同片段，過往指涉的判定就永遠碰不到。
 
     日文不用空白分詞，所以直接把換行去掉再依「。」切即可。
+
+    接合換行後句子會變長，可能一句裡同時含「本次航跡」與「なお」補述，
+    例如：
+
+        「その後、当該艦艇が大隅海峡を東進した、なお、当該艦艇は６月
+          ２７日に対馬海峡を南西進したものと同一である」
+
+    整句判為過往指涉的話，連本次航跡也會被丟掉。因此在「なお」處再切
+    一刀，讓補述自成一段，前半的本次航跡得以保留。
     """
     joined = re.sub(r'[\r\n]+', '', text)
-    return [p.strip() for p in joined.split('。') if p.strip()]
+    segments = []
+    for sentence in joined.split('。'):
+        # 用 lookahead 保留「なお」在後段開頭，供 _is_prior_reference 判別
+        for seg in re.split(r'(?=なお[、，])', sentence):
+            seg = seg.strip()
+            if seg:
+                segments.append(seg)
+    return segments
 
 
 # 句中的明示日期，例如「3月8日」「３月５日」（全形亦可，\d 在 Python3
