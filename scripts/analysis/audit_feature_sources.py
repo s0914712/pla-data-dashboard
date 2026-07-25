@@ -44,9 +44,11 @@ SORTIES_CSV = "data/JapanandBattleship.csv"
 NEWS_JSON = "data/news_classified.json"
 NAVWARN_CSV = "data/navigation_warnings/military_exercises.csv"
 NAVAL_CSV = "data/naval_transits.csv"
+WEATHER_PIT_CSV = "data/features/weather_pit.csv"
 
-# 目前的地理圍欄。實測 80 筆航警只有 4 筆通過 —— 多數演習公告
-# 落在北部灣（經度 108 度附近），被這個範圍排除掉。
+# 台海地理圍欄。修好座標解析後 80 筆有 6 筆通過（修正前 4 筆）。
+# 通過數仍低不是圍欄的問題 —— 爬蟲抓的是全中國海事局，遼寧 22 筆在
+# 渤海、海南 16 筆在南海、廣西 12 筆在北部灣，本來就與台海無關。
 GEOFENCE = {"lat_min": 21.0, "lat_max": 28.5, "lon_min": 117.0, "lon_max": 124.0}
 
 MIN_NONZERO_RATIO = 0.15   # 非零天數低於此比例，AUC 不予採信
@@ -122,6 +124,21 @@ def load_naval_daily(index):
     out = pd.DataFrame(index=index)
     out["naval_transit"] = nt.groupby("Date").size().reindex(index).fillna(0)
     return out, (nt["Date"].min(), nt["Date"].max())
+
+
+def load_weather_pit(index, horizon=1):
+    """point-in-time 天氣預報。由 build_pit_features.py 從 git 歷史產生。
+
+    這是唯一真正前瞻的來源：as_of 當天就看得到 as_of+horizon 的預報，
+    不必等事件發生。用磁碟上那份被覆寫過的檔案回填歷史會造成洩漏。
+    """
+    if not os.path.exists(WEATHER_PIT_CSV):
+        return pd.DataFrame(index=index), None
+    pit = pd.read_csv(WEATHER_PIT_CSV, parse_dates=["as_of", "target_date"])
+    pit = pit[pit["horizon"] == horizon].set_index("as_of")
+    pit = pit.drop(columns=[c for c in ("target_date", "horizon") if c in pit.columns])
+    pit.columns = [f"wx_{c}" for c in pit.columns]
+    return pit.reindex(index), (pit.index.min(), pit.index.max())
 
 
 def column_span(series):
@@ -271,6 +288,7 @@ def main():
     print("=" * 74)
 
     news, news_span = load_news_daily(index)
+    weather, weather_span = load_weather_pit(index)
     navwarn, navwarn_span = load_navwarn_daily(index)
     naval, naval_span = load_naval_daily(index)
 
@@ -278,6 +296,7 @@ def main():
         (news, news_span, "新聞 (xinhua / weibo / cna)"),
         (navwarn, navwarn_span, "MSA 航行警告"),
         (naval, naval_span, "海軍過境"),
+        (weather, weather_span, "天氣預報 (point-in-time, h=1)"),
     ]:
         if span is not None and not frame.empty:
             univariate_report(frame, target, label)
@@ -286,6 +305,12 @@ def main():
     if dense_news_span:
         incremental_value(sorties, news, ["news_relevant", "news_total", "src_xinhua"],
                           dense_news_span, "新聞")
+    if weather_span and not weather.empty:
+        # 一次只加一欄。184 列硬塞 7 個天氣特徵會稀釋掉序列特徵，
+        # 實測全加會讓 CV AUC 從 0.735 掉到 0.637。
+        best_wx = [c for c in ("wx_wind_max", "wx_precip_total") if c in weather.columns]
+        if best_wx:
+            incremental_value(sorties, weather, best_wx[:1], weather_span, "天氣預報")
     navwarn_span_eff = column_span(navwarn["navwarn_pub"]) if "navwarn_pub" in navwarn else None
     if navwarn_span_eff:
         incremental_value(sorties, navwarn, ["navwarn_pub"],

@@ -191,8 +191,13 @@ class NavigationWarningScraper(BaseScraper):
 
         coords = []
 
-        # 格式1: 38-31.3N121-33.2E or 31-21.60N/121-36.63E (with optional / separator)
-        pattern1 = r'(\d{1,2})-(\d{1,2}(?:\.\d+)?)\s*([NS])\s*[/\s]?\s*(\d{1,3})-(\d{1,2}(?:\.\d+)?)\s*([EW])'
+        # 格式1: 38-31.3N121-33.2E / 31-21.60N/121-36.63E / 23-41.31N、117-31.49E
+        #
+        # 分隔符必須包含全形頓號與逗號。福建海事局的公告用「、」分隔經緯度
+        # （例：1）23-41.31N、117-31.49E），只認 / 和空白的話會整批解析失敗 ——
+        # 而福建正對台灣海峽，是這個資料源裡最相關的來源。
+        pattern1 = (r'(\d{1,2})-(\d{1,2}(?:\.\d+)?)\s*([NS])\s*[/\s、，,]?\s*'
+                    r'(\d{1,3})-(\d{1,2}(?:\.\d+)?)\s*([EW])')
         for match in re.finditer(pattern1, text):
             lat_deg, lat_min, lat_dir, lon_deg, lon_min, lon_dir = match.groups()
             lat = float(lat_deg) + float(lat_min) / 60
