@@ -401,10 +401,23 @@ REBUILD_DATES="2025-07-24,2025-08-07,2025-08-08,2026-01-15,2026-02-16,\
 首次執行成果：艦型 3/62 → 59/62、`Country` 空值歸零、comprehensive 的
 `Foreign_battleship` 66 → 68、海峽標記進入 comprehensive 20 格。
 
-**已知限制**：comprehensive 只有 277 個有效日期，日本防衛省有 1941 天，
-所以有海峽標記的 135 天裡有 118 天在 comprehensive 沒有對應列，資料進不去。
-`--fill-japan-dates` 可補列，但 comprehensive 會從約 1000 列長到約 2700 列，
-預設不開，由使用者決定。
+**`--fill-japan-dates` 已於 2026-07-25 執行**（原本 comprehensive 只有 277 個
+有效日期、日本防衛省有 1941 天，有海峽標記的 135 天裡 118 天進不去）：
+
+| 項目 | 前 | 後 |
+|---|---|---|
+| 列數 | 1021 | 2767 |
+| 有效日期 | 277 | 2023 |
+| 海峽標記（值為 1） | 20 | **149**（與 JapanandBattleship 一致） |
+| `pla_aircraft_sorties` | 211 | 1957 |
+
+既有欄位完全未受影響（`Foreign_battleship` 68、`Political_statement` 41、
+`china_carrier_present` 126、`US_Taiwan_interaction` 21 皆不變）。
+
+**尚待處理**：檔案裡有 744 列的日期為空，原始內容是
+`,,,,NaT,,,,,,,,,,,,,,,,` —— 除了 `year_month` 欄有個字串 `"NaT"`（早期
+pandas 寫檔把 NaT 字串化的產物）之外沒有任何資料。純垃圾列，可安全移除，
+但屬於刪除既有資料，待確認後再做。
 
 ### 6.5 PDF 原文快取（離線驗證）
 
