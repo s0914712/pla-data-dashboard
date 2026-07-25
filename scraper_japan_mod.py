@@ -199,14 +199,7 @@ def _strait_is_ship_passage(text, jp_keyword):
     艦艇一天內不可能都經過。那些列的艦型多為俄羅斯艦艇（守護級、
     杜布納級、巴爾克級），實際只通過對馬海峽。
     """
-    for sentence in _split_sentences(text):
-        if jp_keyword not in sentence or _is_prior_reference(sentence):
-            continue
-        has_ship = any(ind in sentence for ind in SHIP_INDICATORS)
-        has_motion = any(verb in sentence for verb in PASSAGE_VERBS)
-        if has_ship and has_motion:
-            return True
-    return False
+    return _strait_evidence_count(text, jp_keyword) > 0
 
 
 # 各海峽的概略緯度，用於地理一致性檢查。
@@ -265,14 +258,37 @@ def _enforce_strait_geography(straits, evidence=None):
     return cleaned, dropped
 
 
+def _sentences_with_ship_context(text):
+    """逐句掃描，並讓「艦艇主語」延續到後續句子。
+
+    防衛省的報告只在第一句點名艦艇，之後用「その後、…」接續描述航跡：
+
+        ロシア海軍のステレグシチー級フリゲート1隻が対馬海峡を南下した。
+        その後、3月10日、与那国島と台湾との間の海域を南東進した。
+
+    第二句沒有任何艦艇名詞。若要求每一句都自帶艦艇指標，這種跨句的
+    多段航跡會被整段漏掉 —— 這正是先前把句子級規則寫太嚴的後果。
+    因此一旦出現艦艇指標就視為「艦艇語境成立」，延續到後續句子；
+    只有遇到指向過往事例的句子才中斷（那一段講的是別次航行）。
+    """
+    ship_context = False
+    for sentence in _split_sentences(text):
+        if _is_prior_reference(sentence):
+            ship_context = False       # 過往事例，語境重置且該句不採計
+            yield sentence, False
+            continue
+        if any(ind in sentence for ind in SHIP_INDICATORS):
+            ship_context = True
+        yield sentence, ship_context
+
+
 def _strait_evidence_count(text, jp_keyword):
     """該海峽出現在多少個「艦艇通過」語境的句子裡。"""
     n = 0
-    for sentence in _split_sentences(text):
-        if jp_keyword not in sentence or _is_prior_reference(sentence):
+    for sentence, has_ship in _sentences_with_ship_context(text):
+        if jp_keyword not in sentence or not has_ship:
             continue
-        if (any(ind in sentence for ind in SHIP_INDICATORS)
-                and any(verb in sentence for verb in PASSAGE_VERBS)):
+        if any(verb in sentence for verb in PASSAGE_VERBS):
             n += 1
     return n
 
@@ -286,7 +302,47 @@ def detect_strait_conflict(straits):
     return active if (lats[-1] - lats[0]) > MAX_STRAIT_LAT_SPAN else []
 
 
-def _detect_straits(text):
+def _strait_trigger_sentences(text, jp_keyword):
+    """回傳觸發該海峽判定的句子，供診斷用。"""
+    hits = []
+    for sentence, has_ship in _sentences_with_ship_context(text):
+        if jp_keyword not in sentence or not has_ship:
+            continue
+        if any(verb in sentence for verb in PASSAGE_VERBS):
+            hits.append(sentence)
+    return hits
+
+
+# 句中的明示日期，例如「3月8日」。多日航跡的報告會在同一份 PDF 裡
+# 描述不同日期經過不同海峽，這是區分「誤判」與「跨日航跡」的關鍵。
+EXPLICIT_DATE_RE = re.compile(r'(\d{1,2})月(\d{1,2})日')
+
+
+def diagnose_strait_conflict(text, straits):
+    """偵測到地理衝突時，收集判斷依據供人工確認。
+
+    目前仍有 4 筆單一 PDF 就產生不可能組合（2026-03-10、03-16、04-22、
+    07-01，皆為俄羅斯艦艇）。可能是誤判，也可能是報告涵蓋數天的航跡 ——
+    艦艇先經對馬海峽、數日後才到與那國，兩者都寫在同一份 PDF 裡。
+    這兩種情況的修法完全不同，沒有原文無法判斷，所以先輸出證據而不猜。
+    """
+    conflicting = detect_strait_conflict(straits)
+    if not conflicting:
+        return None
+    detail = {}
+    for field in conflicting:
+        sentences = []
+        for kw in STRAIT_JP_KEYWORDS[field]:
+            sentences.extend(_strait_trigger_sentences(text, kw))
+        detail[field] = [
+            {'sentence': s[:200],
+             'explicit_dates': ['%s月%s日' % m for m in EXPLICIT_DATE_RE.findall(s)]}
+            for s in sentences
+        ]
+    return detail
+
+
+def _detect_straits(text, diagnostics=None, source=None):
     """偵測各海峽是否有艦艇通過。回傳 {欄位名: 0/1}。"""
     result, evidence = {}, {}
     for field, jp_keywords in STRAIT_JP_KEYWORDS.items():
@@ -295,6 +351,12 @@ def _detect_straits(text):
     result, dropped = _enforce_strait_geography(result, evidence)
     if dropped:
         print(f"      ⚠️  海峽組合地理上不一致，依證據強度剔除: {'、'.join(dropped)}")
+
+    if diagnostics is not None:
+        detail = diagnose_strait_conflict(text, result)
+        if detail:
+            diagnostics.append({'source': source, 'straits': detail})
+            print(f"      🔍 仍有地理衝突，已記錄觸發句供人工確認")
     return result
 
 
@@ -774,6 +836,7 @@ def rebuild_strait_columns(target_dates=None):
     # 同一日期可能有多個 PDF，採 OR 聚合
     per_date = {}
     per_country = {}
+    diagnostics = []
     strait_fields = list(STRAIT_JP_KEYWORDS.keys())
 
     for idx, filename in enumerate(pdf_files, 1):
@@ -814,7 +877,7 @@ def rebuild_strait_columns(target_dates=None):
             print("非艦艇動向，略過")
             continue
 
-        straits = _detect_straits(text)
+        straits = _detect_straits(text, diagnostics=diagnostics, source=filename)
         bucket = per_date.setdefault(date_str, {f: 0 for f in strait_fields})
         for f in strait_fields:
             if straits.get(f) == 1:
@@ -851,6 +914,15 @@ def rebuild_strait_columns(target_dates=None):
 
     df.to_csv(CSV_FILE, index=False, encoding='utf-8-sig')
     print(f"\n✅ 完成，回填 {updated} 列")
+
+    if diagnostics:
+        os.makedirs('data/logs', exist_ok=True)
+        out_path = 'data/logs/strait_conflicts.json'
+        with open(out_path, 'w', encoding='utf-8') as fh:
+            json.dump(diagnostics, fh, ensure_ascii=False, indent=2)
+        print(f"\n🔍 {len(diagnostics)} 份 PDF 仍有地理衝突，觸發句已寫入 {out_path}")
+        for item in diagnostics:
+            print(f"   {item['source']}: {'、'.join(item['straits'].keys())}")
 
 
 def main():
