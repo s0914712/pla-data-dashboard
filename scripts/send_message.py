@@ -522,8 +522,52 @@ def _parse_coords(coord_str):
     return pts
 
 
+def _zone_centroid(pts):
+    """多邊形頂點的平均座標 (lat, lon)。"""
+    return (sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts))
+
+
+def _zones_close(c1, c2, tol=0.05):
+    """兩個形心是否接近（同一射擊區）。"""
+    return abs(c1[0] - c2[0]) <= tol and abs(c1[1] - c2[1]) <= tol
+
+
+def _dedup_zones(zones, tol=0.05):
+    """依形心近似跨來源去重，保留先出現者（MSA 官方優先於新聞）。"""
+    out, cents = [], []
+    for z in zones:
+        pts = z.get("points")
+        if not pts:
+            continue
+        c = _zone_centroid(pts)
+        if any(_zones_close(c, pc, tol) for pc in cents):
+            continue
+        cents.append(c)
+        out.append(z)
+    return out
+
+
+def _warning_coord_groups(w):
+    """回傳該航警的多邊形群組 [[(lat,lon),…], …] 與是否來自自由文字解析。
+
+    優先用結構化 coordinates 欄（單一多邊形）；缺時退回 content_preview
+    的度分座標解析（可含多個射擊區）。
+    """
+    pts = _parse_coords(w.get("coordinates"))
+    if pts:
+        return [pts], False
+    groups = extract_coord_zones_from_text(w.get("content_preview"))
+    if groups:
+        return groups, True
+    return [], False
+
+
 def select_range_warnings(yesterday, max_zones=8):
-    """挑昨日（無則近期）且含座標的火砲射擊／演習航警，回傳解析後清單。"""
+    """挑昨日（無則近期）且含座標的火砲射擊／演習航警，回傳解析後清單。
+
+    座標來源：優先結構化 coordinates 欄；若為空則解析 content_preview
+    內的度分座標（如福建海事局闽航警只把座標寫在公告文字裡）。
+    """
     data = _safe_read_json(NAV_WARN_JSON)
     if not data:
         return []
@@ -531,7 +575,8 @@ def select_range_warnings(yesterday, max_zones=8):
     y_str = yesterday.strftime("%Y-%m-%d")
 
     def has_coords(w):
-        return len(_parse_coords(w.get("coordinates"))) >= 1
+        groups, _ = _warning_coord_groups(w)
+        return len(groups) >= 1
 
     recent = [w for w in data
               if cutoff <= _s(w.get("publish_date")) <= y_str and has_coords(w)]
@@ -539,24 +584,40 @@ def select_range_warnings(yesterday, max_zones=8):
         recent = sorted([w for w in data if has_coords(w)],
                         key=lambda w: _s(w.get("publish_date")), reverse=True)[:5]
 
-    # 英文重複公告（同一則的英文版）多半座標相同，去重：以座標字串為 key
-    seen, zones = set(), []
+    # 中文標題優先（同一公告有中英文兩版時，去重保留中文那筆）
+    def _has_cjk(s):
+        return any('一' <= ch <= '鿿' for ch in _s(s))
+    recent.sort(key=lambda w: (not _has_cjk(w.get("title")), _s(w.get("publish_date"))))
+
+    # 以形心去重（涵蓋中英文重複公告、及同一公告多來源）
+    zones, cents = [], []
     for w in recent:
-        pts = _parse_coords(w.get("coordinates"))
-        key = w.get("coordinates")
-        if key in seen:
+        groups, from_text = _warning_coord_groups(w)
+        if not groups:
             continue
-        seen.add(key)
-        zones.append({
-            "title": _s(w.get("title")).strip(),
-            "channel": _s(w.get("channel")).strip(),
-            "period": _s(w.get("time_periods")).strip(),
-            "date": _s(w.get("publish_date")).strip(),
-            "points": pts,
-            "fire": _is_fire_warning(w.get("title")),
-        })
-        if len(zones) >= max_zones:
-            break
+        title = _s(w.get("title")).strip()
+        preview = _s(w.get("content_preview"))
+        # 火砲/實彈判定兼看內文：闽航警等標題寫「军事演习」但內文為「实弹射击」
+        is_fire = _is_fire_warning(f"{title} {preview}")
+        multi = len(groups) > 1
+        for gi, pts in enumerate(groups, 1):
+            c = _zone_centroid(pts)
+            if any(_zones_close(c, pc) for pc in cents):
+                continue
+            cents.append(c)
+            suffix = f"(區{gi})" if multi else ""
+            zones.append({
+                "title": f"{title[:18]}{suffix}",
+                "channel": _s(w.get("channel")).strip(),
+                "period": _s(w.get("time_periods")).strip() or _s(w.get("publish_date")).strip(),
+                "date": _s(w.get("publish_date")).strip(),
+                "points": pts,
+                "fire": is_fire,
+                # 由 content_preview 文字解析者列入放大子圖（通常是台灣海峽射擊公告）
+                "detail": from_text,
+            })
+            if len(zones) >= max_zones:
+                return zones
     return zones
 
 
@@ -730,10 +791,55 @@ def _fetch_osm_basemap(min_lat, max_lat, min_lon, max_lon, max_tiles=25):
     return mosaic, extent
 
 
+def _draw_zones_on_ax(ax, numbered_zones, spread_labels=False):
+    """在指定 ax 上畫出各區塊多邊形/線/單點與編號圓圈。
+
+    numbered_zones 為 [(編號, zone), …]，編號沿用總覽圖圖例，確保放大子圖一致。
+    spread_labels=True 時，對過度接近的編號圓圈做小幅位移避免重疊。
+    """
+    xlim, ylim = ax.get_xlim(), ax.get_ylim()
+    span = max(abs(xlim[1] - xlim[0]), abs(ylim[1] - ylim[0])) or 1.0
+    thresh, step = span * 0.02, span * 0.03
+    placed = []
+    for idx, z in numbered_zones:
+        color = "#DC2626" if z["fire"] else "#EA9010"
+        ls = "--" if z.get("from_news") else "-"   # 新聞來源虛線；MSA（含文字解析）實線
+        pts = z["points"]
+        plons = [p[1] for p in pts]
+        plats = [p[0] for p in pts]
+        if len(pts) >= 3:
+            poly = mpatches.Polygon(list(zip(plons, plats)), closed=True,
+                                    facecolor=color, edgecolor=color,
+                                    alpha=0.30, linewidth=1.8, linestyle=ls, zorder=3)
+            ax.add_patch(poly)
+            ax.plot(plons + [plons[0]], plats + [plats[0]],
+                    color=color, linewidth=1.8, linestyle=ls, zorder=4)
+            cx, cy = sum(plons) / len(plons), sum(plats) / len(plats)
+        elif len(pts) == 2:
+            ax.plot(plons, plats, color=color, linewidth=2.2, linestyle=ls, zorder=4)
+            cx, cy = sum(plons) / 2, sum(plats) / 2
+        else:  # 單點（如火箭發射）
+            ax.plot(plons, plats, marker="*", markersize=16, color=color, zorder=4)
+            cx, cy = plons[0], plats[0]
+        if spread_labels:
+            k = 0
+            while k < 8 and any(abs(cx - px) < thresh and abs(cy - py) < thresh
+                                for px, py in placed):
+                cx += step
+                cy += step
+                k += 1
+        placed.append((cx, cy))
+        ax.annotate(str(idx), (cx, cy), fontsize=10, fontweight="bold",
+                    color="white", ha="center", va="center", zorder=5,
+                    bbox=dict(boxstyle="circle,pad=0.25", fc=color, ec="white", lw=1))
+
+
 def generate_range_map(yesterday):
     """畫出近日火砲射擊／演習公告範圍地圖，存 PNG，回傳路徑（無資料或失敗回 None）。"""
     try:
-        zones = select_range_warnings(yesterday) + select_news_range_warnings(yesterday)
+        # MSA 官方在前、新聞在後，依形心跨來源去重（同一射擊區保留官方那筆）
+        zones = _dedup_zones(select_range_warnings(yesterday)
+                             + select_news_range_warnings(yesterday))
         if not zones:
             print("⚠️  無可繪製的航警範圍，跳過地圖")
             return None
@@ -772,38 +878,50 @@ def generate_range_map(yesterday):
             ax.set_ylim(min_lat, max_lat)
             ax.grid(alpha=0.3, linewidth=0.5)
 
-        for i, z in enumerate(zones, 1):
-            color = "#DC2626" if z["fire"] else "#EA9010"
-            ls = "--" if z.get("from_news") else "-"   # 新聞來源以虛線區別
-            pts = z["points"]
-            plons = [p[1] for p in pts]
-            plats = [p[0] for p in pts]
-            if len(pts) >= 3:
-                poly = mpatches.Polygon(list(zip(plons, plats)), closed=True,
-                                        facecolor=color, edgecolor=color,
-                                        alpha=0.30, linewidth=1.8, linestyle=ls,
-                                        zorder=3)
-                ax.add_patch(poly)
-                ax.plot(plons + [plons[0]], plats + [plats[0]],
-                        color=color, linewidth=1.8, linestyle=ls, zorder=4)
-                cx, cy = sum(plons) / len(plons), sum(plats) / len(plats)
-            elif len(pts) == 2:
-                ax.plot(plons, plats, color=color, linewidth=2.2,
-                        linestyle=ls, zorder=4)
-                cx, cy = sum(plons) / 2, sum(plats) / 2
-            else:  # 單點（如火箭發射）
-                ax.plot(plons, plats, marker="*", markersize=16,
-                        color=color, zorder=4)
-                cx, cy = plons[0], plats[0]
-            ax.annotate(str(i), (cx, cy), fontsize=10, fontweight="bold",
-                        color="white", ha="center", va="center", zorder=5,
-                        bbox=dict(boxstyle="circle,pad=0.25", fc=color, ec="white", lw=1))
+        numbered = list(enumerate(zones, 1))
+        _draw_zones_on_ax(ax, numbered, spread_labels=True)
 
         ax.set_xlabel("Longitude", fontsize=9)
         ax.set_ylabel("Latitude", fontsize=9)
         title = "解放軍火砲射擊／演習公告範圍（近日）" if cjk_font \
             else "PLA Firing / Exercise Warning Areas (recent)"
         ax.set_title(title, fontsize=13, fontweight="bold")
+
+        # 放大子圖：聚焦由自由文字解析的射擊公告（新聞或 MSA content_preview），
+        # 讓在總覽尺度下被壓成幾像素的台灣海峽射擊區範圍看得清楚
+        try:
+            detail = [(i, z) for i, z in numbered if z.get("detail") or z.get("from_news")]
+            if detail:
+                dlats = [p[0] for _, z in detail for p in z["points"]]
+                dlons = [p[1] for _, z in detail for p in z["points"]]
+                dmin_lat, dmax_lat = min(dlats), max(dlats)
+                dmin_lon, dmax_lon = min(dlons), max(dlons)
+                overview_w = max_lon - min_lon
+                detail_w = dmax_lon - dmin_lon
+                # 僅在細節區塊相對總覽夠小時才放大（否則總覽已足夠清楚）
+                if overview_w > 0 and (detail_w / overview_w) < 0.4:
+                    dpad_lat = max((dmax_lat - dmin_lat) * 0.4, 0.15)
+                    dpad_lon = max((dmax_lon - dmin_lon) * 0.4, 0.15)
+                    ilat0, ilat1 = dmin_lat - dpad_lat, dmax_lat + dpad_lat
+                    ilon0, ilon1 = dmin_lon - dpad_lon, dmax_lon + dpad_lon
+                    inset = ax.inset_axes([0.02, 0.58, 0.36, 0.36])
+                    ibase, iext = _fetch_osm_basemap(ilat0, ilat1, ilon0, ilon1)
+                    if ibase is not None:
+                        import numpy as np
+                        inset.imshow(np.asarray(ibase), extent=iext,
+                                     origin="upper", zorder=0)
+                    else:
+                        inset.set_facecolor("#dcecf5")
+                    inset.set_xlim(ilon0, ilon1)
+                    inset.set_ylim(ilat0, ilat1)
+                    _draw_zones_on_ax(inset, detail, spread_labels=False)
+                    inset.tick_params(labelsize=6)
+                    ititle = "台灣海峽射擊區放大" if cjk_font \
+                        else "Taiwan Strait firing areas (zoom)"
+                    inset.set_title(ititle, fontsize=8, fontweight="bold")
+                    ax.indicate_inset_zoom(inset, edgecolor="black", alpha=0.6)
+        except Exception as e:
+            print(f"⚠️  放大子圖繪製失敗（略過）: {e}")
 
         # 圖例：編號 → 公告標題（截短），放在地圖下方避免遮擋範圍
         legend_handles = []
