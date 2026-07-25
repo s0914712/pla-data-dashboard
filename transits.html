@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strait Transits - PLA Sorties Dashboard</title>
+    <meta name="description" content="外國軍艦通過台灣海峽紀錄：美國、日本、英國、加拿大等國海軍艦艇的過境時間、艦型與任務性質。">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <style>
+        body { background: #f4f6f9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif; }
+        .navbar-custom { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
+        .navbar-custom .navbar-brand, .navbar-custom .nav-link { color: #fff; }
+        .navbar-custom .nav-link:hover { color: #cfe2ff; }
+        .page-head { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: #fff; padding: 2.5rem 0; margin-bottom: 2rem; }
+        .stat-card { background: #fff; border-radius: 10px; padding: 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,.07); height: 100%; }
+        .stat-num { font-size: 2rem; font-weight: 700; color: #1e3c72; line-height: 1.1; }
+        .stat-label { color: #6c757d; font-size: .85rem; }
+        .panel { background: #fff; border-radius: 10px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,.07); margin-bottom: 1.5rem; }
+        .transit-row { border-left: 4px solid #adb5bd; padding: .85rem 1rem; margin-bottom: .75rem; background: #fff;
+                       border-radius: 0 8px 8px 0; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+        .transit-row .date { font-weight: 700; color: #1e3c72; }
+        .transit-row .ships { font-weight: 600; margin: .2rem 0; }
+        .transit-row .type { color: #495057; font-size: .9rem; }
+        .transit-row .note { color: #6c757d; font-size: .87rem; margin-top: .35rem; }
+        .badge-country { font-size: .78rem; padding: .3em .6em; }
+        .badge-approx { background: #ffc107; color: #333; font-size: .72rem; }
+        .filter-btn.active { background: #1e3c72; color: #fff; border-color: #1e3c72; }
+        .chart-box { position: relative; height: 300px; }
+        @media (max-width: 576px) { .stat-num { font-size: 1.5rem; } .chart-box { height: 240px; } }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">PLA Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="prediction.html">ML Prediction</a></li>
+                <li class="nav-item"><a class="nav-link" href="weather.html">Airport Weather</a></li>
+                <li class="nav-item"><a class="nav-link" href="japan.html">Japan MOD</a></li>
+                <li class="nav-item active"><a class="nav-link" href="transits.html">Strait Transits</a></li>
+                <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+                <li class="nav-item"><a class="nav-link" href="download.html">Download</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="page-head">
+    <div class="container">
+        <h2 class="mb-1">外國軍艦通過台灣海峽</h2>
+        <p class="mb-0" style="opacity:.85">Foreign Naval Transits of the Taiwan Strait — 過境時間、艦型與任務性質</p>
+    </div>
+</div>
+
+<div class="container pb-5">
+
+    <div class="row mb-4">
+        <div class="col-6 col-md-3 mb-3"><div class="stat-card">
+            <div class="stat-num" id="statTotal">–</div><div class="stat-label">總紀錄數</div></div></div>
+        <div class="col-6 col-md-3 mb-3"><div class="stat-card">
+            <div class="stat-num" id="statYear">–</div><div class="stat-label">今年通過次數</div></div></div>
+        <div class="col-6 col-md-3 mb-3"><div class="stat-card">
+            <div class="stat-num" id="statCountries">–</div><div class="stat-label">涉及國家數</div></div></div>
+        <div class="col-6 col-md-3 mb-3"><div class="stat-card">
+            <div class="stat-num" id="statLatest">–</div><div class="stat-label">最近一次</div></div></div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-7 mb-3"><div class="panel">
+            <h5 class="mb-3">歷年通過次數</h5><div class="chart-box"><canvas id="yearChart"></canvas></div></div></div>
+        <div class="col-lg-5 mb-3"><div class="panel">
+            <h5 class="mb-3">國家分布</h5><div class="chart-box"><canvas id="countryChart"></canvas></div></div></div>
+    </div>
+
+    <div class="panel">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+            <h5 class="mb-2 mb-md-0">通過紀錄</h5>
+            <div id="filters"></div>
+        </div>
+        <div id="list"><p class="text-muted">載入中…</p></div>
+    </div>
+
+    <p class="text-muted small">
+        資料來源：媒體報導與公開資訊彙整（<code>data/naval_transits.csv</code>）。
+        標示「日期近似」者為報導僅提及概略時間（如「7月中旬」），確切日期待查證。
+        本頁只列外國海軍艦艇，共軍動態請見
+        <a href="japan.html">Japan MOD</a> 與 <a href="index.html">首頁</a>。
+    </p>
+</div>
+
+<script>
+const CSV_URL = 'data/naval_transits.csv';
+
+// Country 欄位在歷史資料裡寫法不一（US / Japan / JP / Multi (US+Canada) …），
+// 顯示前正規化，否則同一個國家會被拆成好幾類。
+const COUNTRY_ALIAS = {
+    US: '美國', USA: '美國', JP: '日本', JAPAN: '日本', UK: '英國',
+    CANADA: '加拿大', FRANCE: '法國', GERMANY: '德國', AUSTRALIA: '澳洲',
+    NETHERLANDS: '荷蘭', 'NEW ZEALAND': '紐西蘭', TURKEY: '土耳其',
+    VIETNAM: '越南', OTHER: '其他'
+};
+const FLAG = {
+    美國: '🇺🇸', 日本: '🇯🇵', 英國: '🇬🇧', 加拿大: '🇨🇦', 法國: '🇫🇷',
+    德國: '🇩🇪', 澳洲: '🇦🇺', 荷蘭: '🇳🇱', 紐西蘭: '🇳🇿',
+    土耳其: '🇹🇷', 越南: '🇻🇳', 多國: '🏳️', 未註明: '❔'
+};
+const COLORS = ['#1e3c72','#c0392b','#27ae60','#8e44ad','#e67e22','#16a085','#2980b9','#7f8c8d','#d35400'];
+
+function normCountry(raw) {
+    const s = String(raw || '').trim();
+    if (!s || s === 'nan') return '未註明';
+    if (/^multi/i.test(s)) return '多國';
+    return COUNTRY_ALIAS[s.toUpperCase()] || s;
+}
+
+// 共軍動態不屬於「外國軍艦通過」。這些列是新聞分類管線誤收進來的
+// （Country=CN 或內容寫「共艦」），語意完全不同，必須排除。
+function isPLA(row) {
+    const c = String(row.Country || '').trim().toUpperCase();
+    if (c === 'CN') return true;
+    return /共艦|中共軍艦|共軍|中國海警/.test(String(row.Ships || ''));
+}
+
+let ALL = [], activeFilter = 'ALL';
+
+function render() {
+    const rows = activeFilter === 'ALL' ? ALL : ALL.filter(r => r.country === activeFilter);
+    const list = document.getElementById('list');
+    if (!rows.length) { list.innerHTML = '<p class="text-muted">沒有符合的紀錄。</p>'; return; }
+
+    list.innerHTML = rows.map(r => {
+        const approx = r.precision && r.precision !== 'exact'
+            ? `<span class="badge badge-approx ml-2">日期${r.precision === 'range' ? '為區間' : '近似'}</span>` : '';
+        const dateText = r.dateNote || r.date.toISOString().slice(0, 10);
+        return `
+        <div class="transit-row" style="border-left-color:${r.color}">
+          <div class="d-flex justify-content-between align-items-start flex-wrap">
+            <div class="date">${r.date.toISOString().slice(0,10)}
+              ${r.dateNote && r.dateNote !== dateText ? '' : ''}${approx}</div>
+            <span class="badge badge-secondary badge-country">${FLAG[r.country] || ''} ${r.country}</span>
+          </div>
+          <div class="ships">${r.ships || '—'}</div>
+          ${r.type ? `<div class="type">🚢 ${r.type}</div>` : ''}
+          ${r.note ? `<div class="note">${r.note}</div>` : ''}
+          ${r.dateNote ? `<div class="note">原始日期描述：${r.dateNote}</div>` : ''}
+        </div>`;
+    }).join('');
+}
+
+function buildFilters() {
+    const counts = {};
+    ALL.forEach(r => counts[r.country] = (counts[r.country] || 0) + 1);
+    const names = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+    document.getElementById('filters').innerHTML =
+        [`<button class="btn btn-sm btn-outline-secondary filter-btn active mr-1 mb-1" data-c="ALL">全部 ${ALL.length}</button>`]
+        .concat(names.map(n =>
+            `<button class="btn btn-sm btn-outline-secondary filter-btn mr-1 mb-1" data-c="${n}">${FLAG[n]||''} ${n} ${counts[n]}</button>`))
+        .join('');
+    document.querySelectorAll('.filter-btn').forEach(b => b.onclick = () => {
+        document.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        activeFilter = b.dataset.c;
+        render();
+    });
+}
+
+function drawCharts() {
+    const byYear = {}, byCountry = {};
+    ALL.forEach(r => {
+        byYear[r.date.getFullYear()] = (byYear[r.date.getFullYear()] || 0) + 1;
+        byCountry[r.country] = (byCountry[r.country] || 0) + 1;
+    });
+    const years = Object.keys(byYear).sort();
+    new Chart(document.getElementById('yearChart'), {
+        type: 'bar',
+        data: { labels: years, datasets: [{ label: '通過次數', data: years.map(y => byYear[y]), backgroundColor: '#2a5298' }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+                   scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } }
+    });
+    const cs = Object.keys(byCountry).sort((a, b) => byCountry[b] - byCountry[a]);
+    new Chart(document.getElementById('countryChart'), {
+        type: 'doughnut',
+        data: { labels: cs.map(c => `${FLAG[c]||''} ${c}`),
+                datasets: [{ data: cs.map(c => byCountry[c]), backgroundColor: cs.map((_, i) => COLORS[i % COLORS.length]) }] },
+        options: { responsive: true, maintainAspectRatio: false,
+                   plugins: { legend: { position: 'right', labels: { boxWidth: 12, font: { size: 11 } } } } }
+    });
+}
+
+Papa.parse(CSV_URL, {
+    download: true, header: true, skipEmptyLines: true,
+    complete: res => {
+        const colorOf = {};
+        ALL = res.data
+            .filter(r => r.Date && !isPLA(r))
+            .map(r => {
+                const d = new Date(String(r.Date).replace(/\//g, '-'));
+                if (isNaN(d)) return null;
+                const country = normCountry(r.Country);
+                if (!(country in colorOf)) colorOf[country] = COLORS[Object.keys(colorOf).length % COLORS.length];
+                return {
+                    date: d, country, color: colorOf[country],
+                    ships: r.Ships, type: r.Ship_Type, note: r.Mission_Note,
+                    precision: r.Date_Precision, dateNote: r.Date_Note
+                };
+            })
+            .filter(Boolean)
+            .sort((a, b) => b.date - a.date);
+
+        const thisYear = new Date().getFullYear();
+        document.getElementById('statTotal').textContent = ALL.length;
+        document.getElementById('statYear').textContent = ALL.filter(r => r.date.getFullYear() === thisYear).length;
+        document.getElementById('statCountries').textContent = new Set(ALL.map(r => r.country)).size;
+        document.getElementById('statLatest').textContent =
+            ALL.length ? ALL[0].date.toISOString().slice(5, 10) : '–';
+
+        buildFilters();
+        drawCharts();
+        render();
+    },
+    error: () => { document.getElementById('list').innerHTML =
+        '<p class="text-danger">載入 naval_transits.csv 失敗。</p>'; }
+});
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
