@@ -30,3 +30,6 @@ node_modules/
 # LINE daily-brief images (generated at runtime, uploaded to main by the workflow)
 data/charts/line_forecast_3day.png
 data/charts/nav_warning_map.png
+
+# PDF 原文快取是刻意提交的（供離線驗證判讀邏輯），不要忽略
+!data/pdf_texts/japan_mod_texts.json

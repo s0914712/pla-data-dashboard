@@ -17,6 +17,16 @@ CSV_FILE = 'data/JapanandBattleship.csv'
 # 歷史記錄文件（避免重複爬取）
 HISTORY_FILE = 'data/japan_scrape_history.json'
 
+# PDF 抽出文字的本地快取。
+#
+# 這個檔案存在的理由是「判讀邏輯要能離線反覆驗證」。海峽/日期的判讀規則
+# 改一次就要重抓一次 152 份 PDF，而開發環境的 egress policy 擋掉
+# www.mod.go.jp，等於每輪都得靠 CI 跑一次再把結果貼回來 —— 一個判斷要花
+# 一整輪往返，前面已經因此連錯三次方向。
+#
+# 把抽出的文字存進專案後，改規則可以直接對快取重跑並當場驗證，不必動網路。
+PDF_TEXT_CACHE = 'data/pdf_texts/japan_mod_texts.json'
+
 APERTIS_API_KEY = os.getenv('APERTIS_API_KEY') or os.getenv('STIMA_API_KEY')
 APERTIS_MODEL = 'gemini-2.5-flash-lite-preview-06-17'
 APERTIS_BASE_URL = 'https://api.apertis.ai/v1'
@@ -113,13 +123,37 @@ BINARY_FIELD_KEYWORDS = {
                 'リャオニン', 'シャンドン', 'フージェン'],
 }
 
-# 海峽偵測：日文海峽關鍵詞
-STRAIT_JP_KEYWORDS = {
-    '與那國': ['与那国'],
-    '宮古': ['宮古'],
-    '大禹': ['大隅'],
-    '對馬': ['対馬'],
+# 海峽偵測：必須匹配「水道本身」的表述，不能只認島名。
+#
+# 防衛省報告會用島名描述**位置**，那不是通過。例如令和８年７月２１日：
+#
+#     令和８年７月１８日（土）…宮古島（沖縄県）の南約９０ｋｍの海域に
+#     おいて、同海域を北東進する…情報収集艦を確認した。
+#     その後、１９日（日）に当該艦艇が、沖縄本島と宮古島との間の海域を
+#     北西進し、東シナ海へ向けて航行した。
+#
+# 7/18 那句是「宮古島以南 90 公里」的目擊位置，7/19 那句才是宮古海峽的
+# 通過。只認「宮古」二字會把兩者都算成通過，還會把日期歸到較早的 7/18。
+#
+# 島名之間常插入括號（如「宮古島（沖縄県）との間」），所以用 .{0,12} 容錯。
+STRAIT_JP_PATTERNS = {
+    '與那國': [r'与那国海峡',
+               r'与那国島.{0,12}と台湾.{0,12}との間',
+               r'与那国島.{0,12}と西表島.{0,12}との間'],
+    '宮古': [r'宮古海峡',
+             r'沖縄本島.{0,12}と宮古島.{0,12}との間'],
+    '大禹': [r'大隅海峡'],
+    '對馬': [r'対馬海峡'],
 }
+
+STRAIT_JP_REGEX = {
+    field: [re.compile(p) for p in patterns]
+    for field, patterns in STRAIT_JP_PATTERNS.items()
+}
+
+
+def _mentions_strait(text, field):
+    return any(rx.search(text) for rx in STRAIT_JP_REGEX[field])
 
 # 艦艇實體指標（具體船艦／船種，避免把「艦載機」這種飛機誤判成艦艇）
 SHIP_INDICATORS = [
@@ -145,6 +179,61 @@ STRAIT_NAMES_ZH = {
     '大禹': '大隅海峽',
     '與那國': '與那國島附近',
 }
+
+
+def load_text_cache():
+    """讀取 PDF 文字快取，回傳 {filename: {...}}。"""
+    if not os.path.exists(PDF_TEXT_CACHE):
+        return {}
+    try:
+        with open(PDF_TEXT_CACHE, 'r', encoding='utf-8') as fh:
+            data = json.load(fh)
+        return data.get('texts', data)
+    except Exception as e:
+        print(f"⚠️ 讀取文字快取失敗: {e}")
+        return {}
+
+
+def save_text_cache(texts):
+    """寫回文字快取。以檔名為鍵，方便和 processed_pdfs 對照。"""
+    os.makedirs(os.path.dirname(PDF_TEXT_CACHE), exist_ok=True)
+    payload = {
+        'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'count': len(texts),
+        'source': PDF_BASE_URL,
+        'texts': dict(sorted(texts.items())),
+    }
+    with open(PDF_TEXT_CACHE, 'w', encoding='utf-8') as fh:
+        json.dump(payload, fh, ensure_ascii=False, indent=1)
+
+
+def fetch_pdf_text(filename, url, cache, use_cache=True):
+    """取得 PDF 文字：優先用快取，沒有才下載。
+
+    回傳 (text, from_cache)。text 為 None 表示該 PDF 不存在或解析失敗。
+    """
+    if use_cache and filename in cache:
+        entry = cache[filename]
+        return entry.get('text'), True
+
+    pdf_content = download_pdf(url)
+    if not pdf_content:
+        return None, False
+
+    try:
+        reader = PyPDF2.PdfReader(io.BytesIO(pdf_content))
+        text = '\n'.join(p.extract_text() or '' for p in reader.pages).strip()
+    except Exception as e:
+        print(f"PDF 解析失敗: {e}", end=" ")
+        return None, False
+
+    if text:
+        cache[filename] = {
+            'url': url,
+            'text': text,
+            'fetched_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        }
+    return (text or None), False
 
 
 def _detect_country(text):
@@ -333,6 +422,153 @@ def _sentences_with_ship_context(text):
         yield sentence, ship_context
 
 
+# 只有「日」沒有「月」的表述，例如「その後、１９日（日）に当該艦艇が」。
+# 月份要從上下文（報告開頭的完整日期）繼承。
+DAY_ONLY_RE = re.compile(r'(?<![０-９\d月])(\d{1,2})日\s*[（(][日月火水木金土][)）]')
+
+# 帶星期的「N月N日（曜）」，優先於裸日期
+DATED_WITH_WEEKDAY_RE = re.compile(r'(\d{1,2})月(\d{1,2})日\s*[（(][日月火水木金土][)）]')
+
+# 內文的事件日：「令和８年７月１８日（土）午前３時頃」
+#
+# 一定要要求後面帶星期，否則會抓到 PDF 標題的報告日。標題長這樣：
+#
+#     令和８年７月２１日          <- 報告日，不帶星期
+#     統 合 幕 僚 監 部
+#     中国海軍艦艇の動向について
+#     令和８年７月１８日（土）午前３時頃、…   <- 事件日，帶星期
+#
+# 去除換行後標題會跟內文接合成同一段，只找「令和X年N月N日」會命中標題那個。
+REPORT_EVENT_DATE_RE = re.compile(
+    r'令和\s*(\d{1,2})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日\s*[（(][日月火水木金土][)）]')
+
+
+def _to_halfwidth_int(s):
+    return int(str(s).translate(str.maketrans('０１２３４５６７８９', '0123456789')))
+
+
+def extract_event_dates(text, report_date):
+    """回傳 {海峽: 實際通過日}，而非報告日。
+
+    防衛省的報告日常晚於事件日 1~3 天。例如令和８年７月２１日的報告：
+
+        令和８年７月１８日（土）午前３時頃、…宮古島の南約９０ｋｍの海域…
+        その後、１９日（日）に当該艦艇が、沖縄本島と宮古島との間の海域を
+        北西進し、東シナ海へ向けて航行した
+
+    宮古海峽的通過發生在 **７月１９日**，但檔名是 p20260721_xx.pdf。
+    把海峽記在報告日上會造成系統性偏移，對以日期為鍵的下游分析是錯的。
+
+    判定順序：句中完整日期 → 句中「N日」（月份沿用上下文）→ 報告開頭的
+    事件日 → 報告日本身。
+    """
+    report_date = pd.Timestamp(report_date)
+
+    # 報告開頭的事件日，作為沒有日期線索時的基準
+    m = REPORT_EVENT_DATE_RE.search(text)
+    if m:
+        _, mon, day = (_to_halfwidth_int(g) for g in m.groups())
+        base = _resolve_month_day(mon, day, report_date)
+    else:
+        base = report_date
+
+    result = {}
+    context_month = base.month
+    for sentence, has_ship in _sentences_with_ship_context(text):
+        if _is_prior_reference(sentence) or not has_ship:
+            continue
+        if not any(verb in sentence for verb in PASSAGE_VERBS):
+            continue
+
+        # 帶星期的日期才是敘事日期；不帶的可能是標題殘留或編號
+        full = (DATED_WITH_WEEKDAY_RE.search(sentence)
+                or EXPLICIT_DATE_RE.search(sentence))
+        if full:
+            mon, day = (_to_halfwidth_int(g) for g in full.groups())
+            context_month = mon
+            event = _resolve_month_day(mon, day, report_date)
+        else:
+            day_only = DAY_ONLY_RE.search(sentence)
+            event = (_resolve_month_day(context_month, _to_halfwidth_int(day_only.group(1)),
+                                        report_date)
+                     if day_only else base)
+
+        for field in STRAIT_JP_PATTERNS:
+            if _mentions_strait(sentence, field):
+                # 同一海峽出現多次時取最早的一次（航跡起點）
+                if field not in result or event < result[field]:
+                    result[field] = event
+    return result
+
+
+def _resolve_month_day(month, day, report_date):
+    """把「N月N日」補上年份。日期晚於報告日時視為去年。"""
+    year = report_date.year
+    try:
+        candidate = pd.Timestamp(year=year, month=month, day=day)
+    except ValueError:
+        return report_date
+    if candidate > report_date + pd.Timedelta(days=1):
+        candidate = pd.Timestamp(year=year - 1, month=month, day=day)
+    return candidate
+
+
+# 和曆年號起始年。令和元年 = 2019。
+REIWA_DATE_RE = re.compile(r'令和\s*(\d{1,2})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日')
+
+
+def collect_prior_transits(text, report_date):
+    """從「なお…ものと同一である」的回溯補述抽出過往通過紀錄。
+
+    這些補述本身不能算成本次航跡（所以被抑制），但它們明確陳述了
+    **先前確實發生過的通過**，而那些日子我們未必有抓到對應的 PDF。
+
+    實測 19 筆抑制紀錄裡有 13 個 (日期, 海峽) 組合是 CSV 完全沒標的，
+    例如「なお、当該艦艇は、６月２７日（土）に対馬海峡を南西進した
+    ものと同一である」—— 6/27 的對馬通過在 CSV 裡是空的。等於報告
+    白送了資料卻沒收。
+
+    句中日期在海峽名之前，例如：
+
+        ３月５日（木）から６日（金）にかけて、対馬海峡を南西進し、
+        ３月９日（月）に与那国島と西表島との間の海域を南西進した
+
+    所以每個海峽取「最近的前一個日期」。
+    """
+    report_date = pd.Timestamp(report_date)
+    found = []
+
+    for sentence in _split_sentences(text):
+        if not _is_prior_reference(sentence):
+            continue
+
+        # 收集句中所有日期的位置
+        dates = []
+        for mm in REIWA_DATE_RE.finditer(sentence):
+            era, mon, day = (_to_halfwidth_int(g) for g in mm.groups())
+            try:
+                dates.append((mm.end(), pd.Timestamp(year=2018 + era, month=mon, day=day)))
+            except ValueError:
+                continue
+        for mm in EXPLICIT_DATE_RE.finditer(sentence):
+            # 已被 令和 版本涵蓋的位置就不重複收
+            if any(abs(mm.end() - pos) < 4 for pos, _ in dates):
+                continue
+            mon, day = (_to_halfwidth_int(g) for g in mm.groups())
+            dates.append((mm.end(), _resolve_month_day(mon, day, report_date)))
+        if not dates:
+            continue
+        dates.sort()
+
+        for field in STRAIT_JP_PATTERNS:
+            for rx in STRAIT_JP_REGEX[field]:
+                for sm in rx.finditer(sentence):
+                    prior = [dt for pos, dt in dates if pos <= sm.start()]
+                    if prior:
+                        found.append((prior[-1], field, sentence[:120]))
+    return found
+
+
 def collect_suppressed_mentions(text):
     """列出「有海峽名 + 通過動詞，但被判為過往指涉而未採計」的句子。
 
@@ -342,10 +578,9 @@ def collect_suppressed_mentions(text):
     推測後來也證實是錯的。與其再猜，不如把抑制原因一併記錄下來。
     """
     out = []
-    for field, keywords in STRAIT_JP_KEYWORDS.items():
-        for kw in keywords:
-            for sentence in _split_sentences(text):
-                if kw not in sentence or not _is_prior_reference(sentence):
+    for field in STRAIT_JP_PATTERNS:
+        for sentence in _split_sentences(text):
+                if not _mentions_strait(sentence, field) or not _is_prior_reference(sentence):
                     continue
                 if not any(verb in sentence for verb in PASSAGE_VERBS):
                     continue
@@ -366,11 +601,11 @@ def collect_suppressed_mentions(text):
     return out
 
 
-def _strait_evidence_count(text, jp_keyword):
+def _strait_evidence_count(text, field):
     """該海峽出現在多少個「艦艇通過」語境的句子裡。"""
     n = 0
     for sentence, has_ship in _sentences_with_ship_context(text):
-        if jp_keyword not in sentence or not has_ship:
+        if not has_ship or not _mentions_strait(sentence, field):
             continue
         if any(verb in sentence for verb in PASSAGE_VERBS):
             n += 1
@@ -386,11 +621,11 @@ def detect_strait_conflict(straits):
     return active if (lats[-1] - lats[0]) > MAX_STRAIT_LAT_SPAN else []
 
 
-def _strait_trigger_sentences(text, jp_keyword):
+def _strait_trigger_sentences(text, field):
     """回傳觸發該海峽判定的句子，供診斷用。"""
     hits = []
     for sentence, has_ship in _sentences_with_ship_context(text):
-        if jp_keyword not in sentence or not has_ship:
+        if not has_ship or not _mentions_strait(sentence, field):
             continue
         if any(verb in sentence for verb in PASSAGE_VERBS):
             hits.append(sentence)
@@ -410,9 +645,7 @@ def diagnose_strait_conflict(text, straits):
         return None
     detail = {}
     for field in conflicting:
-        sentences = []
-        for kw in STRAIT_JP_KEYWORDS[field]:
-            sentences.extend(_strait_trigger_sentences(text, kw))
+        sentences = _strait_trigger_sentences(text, field)
         detail[field] = [
             {'sentence': s[:200],
              'explicit_dates': ['%s月%s日' % m for m in EXPLICIT_DATE_RE.findall(s)]}
@@ -424,8 +657,8 @@ def diagnose_strait_conflict(text, straits):
 def _detect_straits(text, diagnostics=None, source=None):
     """偵測各海峽是否有艦艇通過。回傳 {欄位名: 0/1}。"""
     result, evidence = {}, {}
-    for field, jp_keywords in STRAIT_JP_KEYWORDS.items():
-        evidence[field] = sum(_strait_evidence_count(text, kw) for kw in jp_keywords)
+    for field in STRAIT_JP_PATTERNS:
+        evidence[field] = _strait_evidence_count(text, field)
         result[field] = 1 if evidence[field] > 0 else 0
     result, dropped = _enforce_strait_geography(result, evidence)
     if dropped:
@@ -882,7 +1115,7 @@ def update_csv(date, data):
         return False
 
 
-def rebuild_strait_columns(target_dates=None):
+def rebuild_strait_columns(target_dates=None, use_cache=True):
     """重新分析歷史記錄中所有 PDF，依新規則回填 CSV 的四個海峽欄位。
 
     僅修改 與那國/宮古/大禹/對馬 四個欄位；其他欄位（艦型、remark、進、出 等）
@@ -918,11 +1151,19 @@ def rebuild_strait_columns(target_dates=None):
 
     df = pd.read_csv(CSV_FILE, encoding='utf-8-sig')
 
+    text_cache = load_text_cache()
+    downloaded = 0
+    if text_cache:
+        print(f"📄 文字快取: {len(text_cache)} 份"
+              f"{'（優先使用，缺的才下載）' if use_cache else '（--refetch：全部重新下載）'}")
+
     # 同一日期可能有多個 PDF，採 OR 聚合
     per_date = {}
     per_country = {}
     diagnostics = []
-    strait_fields = list(STRAIT_JP_KEYWORDS.keys())
+    backfilled = []
+    processed_report_dates = set()
+    strait_fields = list(STRAIT_JP_PATTERNS.keys())
 
     for idx, filename in enumerate(pdf_files, 1):
         # filename 形如 p20260119_01.pdf
@@ -935,27 +1176,15 @@ def rebuild_strait_columns(target_dates=None):
         url = f"{PDF_BASE_URL}/{year}/{filename}"
 
         print(f"  [{idx}/{len(pdf_files)}] 📥 {filename} ({date_str})...", end=" ")
-        pdf_content = download_pdf(url)
-        if not pdf_content:
+        text, from_cache = fetch_pdf_text(filename, url, text_cache, use_cache=use_cache)
+        if not text:
             # 指定日期模式會把每天 01~10 號全部探一遍，多數不存在，屬正常
             print("不存在" if target_dates else "失敗（404 或下載失敗）")
             continue
-
-        try:
-            pdf_reader = PyPDF2.PdfReader(io.BytesIO(pdf_content))
-            text = ""
-            for page in pdf_reader.pages:
-                t = page.extract_text()
-                if t:
-                    text += t + "\n"
-            text = text.strip()
-        except Exception as e:
-            print(f"PDF 解析失敗: {e}")
-            continue
-
-        if not text:
-            print("無文字")
-            continue
+        if from_cache:
+            print("(快取)", end=" ")
+        else:
+            downloaded += 1
 
         if not is_target_navy_pdf(text):
             # 非目標 PDF：四個海峽都是 0（但不主動覆蓋 CSV，等同沒貢獻）
@@ -963,22 +1192,60 @@ def rebuild_strait_columns(target_dates=None):
             continue
 
         straits = _detect_straits(text, diagnostics=diagnostics, source=filename)
-        bucket = per_date.setdefault(date_str, {f: 0 for f in strait_fields})
+
+        # 海峽要記在「實際通過日」，不是報告日。防衛省的報告常晚 1~3 天，
+        # 例如令和８年７月２１日的報告寫的是 ７月１９日 的宮古海峽通過。
+        # 記在報告日上會造成系統性偏移。
+        event_dates = extract_event_dates(text, pd.Timestamp(date_str.replace('/', '-')))
         for f in strait_fields:
-            if straits.get(f) == 1:
-                bucket[f] = 1
+            if straits.get(f) != 1:
+                continue
+            event = event_dates.get(f)
+            target = event.strftime('%Y/%m/%d') if event is not None else date_str
+            if target != date_str:
+                offset = (event - pd.Timestamp(date_str.replace('/', '-'))).days
+                print(f"      📅 {f} 歸入實際通過日 {target}（報告日 {date_str}，{offset:+d} 天）")
+            per_date.setdefault(target, {x: 0 for x in strait_fields})[f] = 1
+        # 即使沒有任何海峽，報告日仍要建 bucket，好把該日清為 0
+        per_date.setdefault(date_str, {f: 0 for f in strait_fields})
+        processed_report_dates.add(date_str)
+
+        # 回溯補述裡明講的過往通過：只增不減。那些日子未必有自己的 PDF，
+        # 但報告已經確認通過發生過，等於白送的資料。
+        for event, field, _ in collect_prior_transits(text, pd.Timestamp(date_str.replace('/', '-'))):
+            target = event.strftime('%Y/%m/%d')
+            bucket = per_date.setdefault(target, {f: 0 for f in strait_fields})
+            if bucket[field] != 1:
+                bucket[field] = 1
+                backfilled.append((target, field, filename))
         # 同時回填國家。反正 PDF 已經解析過了，順手記下來 —— 既有 1941 列
         # 都沒有國家欄位，導致俄羅斯艦艇（守護級、杜布納級、維什尼亞級）
         # 在下游無法與解放軍區分。
-        countries = per_country.setdefault(date_str, set())
         detected = _detect_country(text)
-        if detected != '未知':
-            countries.update(p for p in detected.split('、') if p)
+        # 國家屬於整份報告，因此這份報告貢獻到的每個日期都要帶上
+        # （海峽可能被歸到報告日以外的實際通過日）。
+        contributed = {date_str} | {
+            (event_dates[f].strftime('%Y/%m/%d'))
+            for f in strait_fields
+            if straits.get(f) == 1 and event_dates.get(f) is not None
+        }
+        for target_date in contributed:
+            countries = per_country.setdefault(target_date, set())
+            if detected != '未知':
+                countries.update(p for p in detected.split('、') if p)
 
         flagged = [f for f, v in straits.items() if v == 1]
         print(f"海峽: {flagged if flagged else '無'} / 國家: {detected}")
 
+    # 只透過回溯補述產生、沒有自己 PDF 的日期
+    backfill_only_dates = {d for d, _, _ in backfilled} - set(processed_report_dates)
+
     print(f"\n📝 共 {len(per_date)} 個日期需要回填")
+    if backfilled:
+        print(f"   其中 {len(backfilled)} 筆來自回溯補述（報告明講的過往通過）:")
+        for target, field, src in sorted(backfilled):
+            mark = ' [該日無自己的 PDF]' if target in backfill_only_dates else ''
+            print(f"     {target} {field}  <- {src}{mark}")
     if '國家' not in df.columns:
         df['國家'] = pd.NA
     updated = 0
@@ -988,6 +1255,9 @@ def rebuild_strait_columns(target_dates=None):
             print(f"  ⚠️ {date_str} 不在 CSV，略過")
             continue
         for f in strait_fields:
+            # 只由回溯補述而來的日期不做清零，避免把該日原本的資料抹掉
+            if straits[f] == 0 and date_str in backfill_only_dates:
+                continue
             df.loc[mask, f] = straits[f]
         countries = per_country.get(date_str) or set()
         if countries:
@@ -999,6 +1269,11 @@ def rebuild_strait_columns(target_dates=None):
 
     df.to_csv(CSV_FILE, index=False, encoding='utf-8-sig')
     print(f"\n✅ 完成，回填 {updated} 列")
+
+    if text_cache:
+        save_text_cache(text_cache)
+        print(f"📄 文字快取已更新: {PDF_TEXT_CACHE}（{len(text_cache)} 份，"
+              f"本次新下載 {downloaded} 份）")
 
     # 一律寫出診斷檔（即使沒有衝突），這樣檔案存在與否就能確認新版邏輯有跑到。
     os.makedirs('data/logs', exist_ok=True)
@@ -1012,6 +1287,8 @@ def rebuild_strait_columns(target_dates=None):
             'dates_updated': updated,
             'conflict_count': len(conflicts),
             'suppressed_count': len(suppressed),
+            'backfilled_count': len(backfilled),
+            'backfilled': [{'date': d, 'strait': f, 'source': s_} for d, f, s_ in backfilled],
             'conflicts': conflicts,
             'suppressed': suppressed,
         }, fh, ensure_ascii=False, indent=2)
@@ -1053,7 +1330,9 @@ def main():
             if arg.startswith('--dates='):
                 raw_dates = arg.split('=', 1)[1]
         dates = [d.strip() for d in raw_dates.split(',') if d.strip()]
-        rebuild_strait_columns(target_dates=dates or None)
+        # --refetch / REFETCH=1：忽略文字快取，全部重新下載（PDF 有更新時用）
+        use_cache = not (os.getenv('REFETCH') == '1' or '--refetch' in sys.argv)
+        rebuild_strait_columns(target_dates=dates or None, use_cache=use_cache)
         return
 
     print("="*60)
@@ -1112,6 +1391,7 @@ def main():
     updated_pdfs = 0
     found_pdfs = 0
     skipped_history = 0
+    run_text_cache = load_text_cache()
 
     for idx, pdf_info in enumerate(pdf_urls, 1):
         pdf_url = pdf_info['url']
@@ -1167,6 +1447,14 @@ def main():
             continue
 
         # 檢查是否為中國/俄羅斯海軍相關
+        # 不論是否為目標 PDF 都存進快取。判讀規則之後可能改變，
+        # 現在判定為「非艦艇動向」的文件，將來重新判讀時仍需要原文。
+        run_text_cache[filename] = {
+            'url': pdf_url,
+            'text': pdf_text,
+            'fetched_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        }
+
         if not is_target_navy_pdf(pdf_text):
             print(f"    ⏭️ 非中國/俄羅斯海軍艦艇相關\n")
             continue
@@ -1217,6 +1505,10 @@ def main():
     # 儲存歷史記錄
     history["processed_pdfs"] = sorted(processed_set)
     save_history(history)
+
+    if run_text_cache:
+        save_text_cache(run_text_cache)
+        print(f"📄 文字快取: {PDF_TEXT_CACHE}（{len(run_text_cache)} 份）")
 
     print(f"\n{'='*60}")
     print(f"📊 掃描完成:")
