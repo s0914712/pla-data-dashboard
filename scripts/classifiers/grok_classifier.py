@@ -35,15 +35,16 @@ class GrokNewsClassifier:
     # 可重試的 HTTP 狀態碼
     RETRYABLE_STATUS_CODES = {429, 500, 502, 503, 504}
 
-    # 模型優先順序：免費模型優先，付費模型兜底
+    # 模型優先順序（依序嘗試，前一個失敗才換下一個）。
+    # 已移除下列失效模型（每日 workflow 實測皆無法產出，只會拖慢執行）：
+    #   nemotron-3-super-120b-a12b:free      → 回應缺 'choices'，無法解析
+    #   deepseek-prover-v2:free              → HTTP 404 model_not_found
+    #   fal-ai/nano-banana                   → HTTP 404（且為影像模型，非文字分類用）
+    #   llama-3.2-1b-instruct                → 每次逾時（且 1B 模型分類品質不足）
+    #   gemini-2.0-flash-thinking-exp-0121:free → HTTP 404 model_not_found
+    # 僅保留實測可用的 gemini-2.5-flash；其單一模型仍有 PER_MODEL_MAX_RETRIES 次重試。
+    # 若日後確認其他模型可用，再加入此清單作為兜底。
     MODEL_CHAIN = [
-        # --- 免費模型（優先使用）---
-        "nemotron-3-super-120b-a12b:free",
-        "deepseek-prover-v2:free",
-        "fal-ai/nano-banana",
-        "llama-3.2-1b-instruct",
-        # --- 原有模型（兜底）---
-        "gemini-2.0-flash-thinking-exp-0121:free",
         "gemini-2.5-flash",
     ]
 
