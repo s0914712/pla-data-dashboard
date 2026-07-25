@@ -333,6 +333,39 @@ def _sentences_with_ship_context(text):
         yield sentence, ship_context
 
 
+def collect_suppressed_mentions(text):
+    """列出「有海峽名 + 通過動詞，但被判為過往指涉而未採計」的句子。
+
+    這類抑制是靜默的 —— 沒有地理衝突就不會有任何輸出，於是無從得知
+    某天的標記為何歸零。實測 2026-07-07（大隅）與 2026-07-20（宮古）
+    在去除換行後標記消失，因為沒有衝突所以查不到原因，只能靠推測；
+    推測後來也證實是錯的。與其再猜，不如把抑制原因一併記錄下來。
+    """
+    out = []
+    for field, keywords in STRAIT_JP_KEYWORDS.items():
+        for kw in keywords:
+            for sentence in _split_sentences(text):
+                if kw not in sentence or not _is_prior_reference(sentence):
+                    continue
+                if not any(verb in sentence for verb in PASSAGE_VERBS):
+                    continue
+                reasons = []
+                if any(m in sentence for m in PRIOR_REFERENCE_MARKERS):
+                    reasons.append('過往措辭')
+                if any(m in sentence for m in IDENTITY_REFERENCE_MARKERS):
+                    reasons.append('身分識別')
+                if SUPPLEMENTARY_MARKER in sentence and EXPLICIT_DATE_RE.search(sentence):
+                    reasons.append('なお+明示日期')
+                out.append({
+                    'strait': field,
+                    'reason': '、'.join(reasons),
+                    'sentence': sentence[:200],
+                    'explicit_dates': ['%s月%s日' % m
+                                       for m in EXPLICIT_DATE_RE.findall(sentence)],
+                })
+    return out
+
+
 def _strait_evidence_count(text, jp_keyword):
     """該海峽出現在多少個「艦艇通過」語境的句子裡。"""
     n = 0
@@ -401,8 +434,14 @@ def _detect_straits(text, diagnostics=None, source=None):
     if diagnostics is not None:
         detail = diagnose_strait_conflict(text, result)
         if detail:
-            diagnostics.append({'source': source, 'straits': detail})
+            diagnostics.append({'kind': 'conflict', 'source': source, 'straits': detail})
             print(f"      🔍 仍有地理衝突，已記錄觸發句供人工確認")
+        # 未被採計的海峽提及也要留紀錄，否則標記歸零時查不到原因
+        suppressed = [s for s in collect_suppressed_mentions(text)
+                      if result.get(s['strait']) != 1]
+        if suppressed:
+            diagnostics.append({'kind': 'suppressed', 'source': source,
+                                'mentions': suppressed})
     return result
 
 
@@ -965,28 +1004,41 @@ def rebuild_strait_columns(target_dates=None):
     os.makedirs('data/logs', exist_ok=True)
     out_path = 'data/logs/strait_conflicts.json'
     with open(out_path, 'w', encoding='utf-8') as fh:
+        conflicts = [d for d in diagnostics if d.get('kind') == 'conflict']
+        suppressed = [d for d in diagnostics if d.get('kind') == 'suppressed']
         json.dump({
             'generated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             'pdfs_scanned': len(pdf_files),
             'dates_updated': updated,
-            'conflict_count': len(diagnostics),
-            'conflicts': diagnostics,
+            'conflict_count': len(conflicts),
+            'suppressed_count': len(suppressed),
+            'conflicts': conflicts,
+            'suppressed': suppressed,
         }, fh, ensure_ascii=False, indent=2)
 
     # 同時把觸發句印到 stdout。GitHub Actions 的 runner 是 ephemeral，
     # 只要 commit 步驟沒 add 到這個檔案就會消失，但 log 一定留得下來。
+    conflicts = [d for d in diagnostics if d.get('kind') == 'conflict']
+    suppressed = [d for d in diagnostics if d.get('kind') == 'suppressed']
     print("\n" + "=" * 60)
-    if diagnostics:
-        print(f"🔍 {len(diagnostics)} 份 PDF 仍有地理衝突（觸發句如下，另存 {out_path}）")
-        for item in diagnostics:
+    if conflicts:
+        print(f"🔍 {len(conflicts)} 份 PDF 仍有地理衝突（另存 {out_path}）")
+        for item in conflicts:
             print(f"\n--- {item['source']}")
             for field, entries in item['straits'].items():
                 for e in entries:
-                    dates = '、'.join(e['explicit_dates']) or '無'
-                    print(f"    [{field}] 明示日期={dates}")
+                    print(f"    [{field}] 明示日期={'、'.join(e['explicit_dates']) or '無'}")
                     print(f"        {e['sentence']}")
     else:
-        print(f"✅ 沒有偵測到地理衝突（診斷檔仍已寫入 {out_path}）")
+        print("✅ 沒有偵測到地理衝突")
+    if suppressed:
+        print(f"\n🔇 {len(suppressed)} 份 PDF 有被抑制的海峽提及（判為過往指涉而未採計）")
+        for item in suppressed:
+            print(f"\n--- {item['source']}")
+            for e in item['mentions']:
+                print(f"    [{e['strait']}] 抑制原因={e['reason']} "
+                      f"明示日期={'、'.join(e['explicit_dates']) or '無'}")
+                print(f"        {e['sentence']}")
     print("=" * 60)
 
 
