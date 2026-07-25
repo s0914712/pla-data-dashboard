@@ -735,7 +735,7 @@ def update_csv(date, data):
         return False
 
 
-def rebuild_strait_columns():
+def rebuild_strait_columns(target_dates=None):
     """重新分析歷史記錄中所有 PDF，依新規則回填 CSV 的四個海峽欄位。
 
     僅修改 與那國/宮古/大禹/對馬 四個欄位；其他欄位（艦型、remark、進、出 等）
@@ -749,18 +749,31 @@ def rebuild_strait_columns():
         print(f"❌ CSV 不存在: {CSV_FILE}")
         return
 
-    history = load_history()
-    pdf_files = history.get("processed_pdfs", [])
-    if not pdf_files:
-        print("⚠️ 歷史記錄為空，沒有可回填的 PDF")
-        return
-
-    print(f"📂 歷史 PDF 數: {len(pdf_files)}")
+    if target_dates:
+        # 指定日期時直接依命名規則探測 PDF，不倚賴歷史記錄。
+        # japan_scrape_history.json 只回溯到 2026-02-18，更早的問題日期
+        # （例如 2025-07-24、2026-01-15）不在裡面，但 PDF 仍在防衛省網站上。
+        pdf_files = []
+        for d in target_dates:
+            date_compact = d.replace('-', '').replace('/', '')
+            for num in range(1, MAX_PDF_NUM_PER_DAY + 1):
+                pdf_files.append(f"p{date_compact}_{num:02d}.pdf")
+        print(f"🎯 指定日期模式: {len(target_dates)} 個日期，"
+              f"探測 {len(pdf_files)} 個候選 PDF")
+        print(f"   日期: {', '.join(target_dates)}")
+    else:
+        history = load_history()
+        pdf_files = history.get("processed_pdfs", [])
+        if not pdf_files:
+            print("⚠️ 歷史記錄為空，沒有可回填的 PDF")
+            return
+        print(f"📂 歷史 PDF 數: {len(pdf_files)}")
 
     df = pd.read_csv(CSV_FILE, encoding='utf-8-sig')
 
     # 同一日期可能有多個 PDF，採 OR 聚合
     per_date = {}
+    per_country = {}
     strait_fields = list(STRAIT_JP_KEYWORDS.keys())
 
     for idx, filename in enumerate(pdf_files, 1):
@@ -776,7 +789,8 @@ def rebuild_strait_columns():
         print(f"  [{idx}/{len(pdf_files)}] 📥 {filename} ({date_str})...", end=" ")
         pdf_content = download_pdf(url)
         if not pdf_content:
-            print("失敗（404 或下載失敗）")
+            # 指定日期模式會把每天 01~10 號全部探一遍，多數不存在，屬正常
+            print("不存在" if target_dates else "失敗（404 或下載失敗）")
             continue
 
         try:
@@ -805,10 +819,20 @@ def rebuild_strait_columns():
         for f in strait_fields:
             if straits.get(f) == 1:
                 bucket[f] = 1
+        # 同時回填國家。反正 PDF 已經解析過了，順手記下來 —— 既有 1941 列
+        # 都沒有國家欄位，導致俄羅斯艦艇（守護級、杜布納級、維什尼亞級）
+        # 在下游無法與解放軍區分。
+        countries = per_country.setdefault(date_str, set())
+        detected = _detect_country(text)
+        if detected != '未知':
+            countries.update(p for p in detected.split('、') if p)
+
         flagged = [f for f, v in straits.items() if v == 1]
-        print(f"海峽: {flagged if flagged else '無'}")
+        print(f"海峽: {flagged if flagged else '無'} / 國家: {detected}")
 
     print(f"\n📝 共 {len(per_date)} 個日期需要回填")
+    if '國家' not in df.columns:
+        df['國家'] = pd.NA
     updated = 0
     for date_str, straits in sorted(per_date.items()):
         mask = df['date'] == date_str
@@ -817,9 +841,13 @@ def rebuild_strait_columns():
             continue
         for f in strait_fields:
             df.loc[mask, f] = straits[f]
+        countries = per_country.get(date_str) or set()
+        if countries:
+            df.loc[mask, '國家'] = '、'.join(sorted(countries))
         updated += 1
         flagged = [f for f, v in straits.items() if v == 1]
-        print(f"  ✓ {date_str} → {flagged if flagged else '全部清為 0'}")
+        country_str = '、'.join(sorted(countries)) if countries else '未知'
+        print(f"  ✓ {date_str} → {flagged if flagged else '全部清為 0'} [{country_str}]")
 
     df.to_csv(CSV_FILE, index=False, encoding='utf-8-sig')
     print(f"\n✅ 完成，回填 {updated} 列")
@@ -830,7 +858,13 @@ def main():
     import time
 
     if os.getenv('REBUILD_STRAITS') == '1' or '--rebuild-straits' in sys.argv:
-        rebuild_strait_columns()
+        # 可指定要重跑的日期（逗號分隔），不指定則沿用歷史記錄裡的全部 PDF。
+        raw_dates = os.getenv('REBUILD_DATES', '')
+        for arg in sys.argv:
+            if arg.startswith('--dates='):
+                raw_dates = arg.split('=', 1)[1]
+        dates = [d.strip() for d in raw_dates.split(',') if d.strip()]
+        rebuild_strait_columns(target_dates=dates or None)
         return
 
     print("="*60)

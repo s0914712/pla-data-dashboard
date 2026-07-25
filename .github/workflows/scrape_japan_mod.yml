@@ -5,6 +5,11 @@ on:
     # 每天台北時間 14:00 執行 (UTC 06:00)
     - cron: '0 6 * * *'
   workflow_dispatch:  # 允許手動觸發
+    inputs:
+      rebuild_straits:
+        description: '海峽欄位回填模式：重抓歷史 PDF，只更新四個海峽欄位與國家欄位，不動艦型/備考等人工修正'
+        type: boolean
+        default: false
 
 concurrency:
   group: csv-battleship-writers
@@ -28,6 +33,8 @@ jobs:
         pip install pandas PyPDF2 httpx requests python-dateutil
 
     - name: Run Japan MOD scraper
+      env:
+        REBUILD_STRAITS: ${{ inputs.rebuild_straits && '1' || '0' }}
       run: python scraper_japan_mod.py
       
     - name: Commit and push if changes

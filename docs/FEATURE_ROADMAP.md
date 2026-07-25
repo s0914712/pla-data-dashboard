@@ -126,7 +126,8 @@ python3 scripts/analysis/build_pit_features.py     # 重建/擴充
 - [ ] **日本水域分類的 13 筆地理衝突需人工複核**（見下節）。這些列目前仍是
       錯的，只有新抓的資料會走修正後的邏輯。
 - [ ] **`國家` 欄位回填**。`scraper_japan_mod.py` 現在會輸出國家，但既有
-      1941 列沒有。俄羅斯艦艇混在資料裡且無法辨識。
+      1941 列沒有。俄羅斯艦艇混在資料裡且無法辨識。回填模式會在重抓 PDF 時
+      一併寫入，但只涵蓋抓得到 PDF 的日期。
 
 ### 中優先
 
@@ -179,8 +180,31 @@ python3 scripts/analysis/build_pit_features.py     # 重建/擴充
 （海參崴往東海），與那國才是誤判 —— 若照「保留南側」之類的幾何規則去猜，
 會正好砍掉真的那個。證據不足時一律不猜，只回報衝突。
 
-**既有 13 筆未自動修正**，因為沒有原始 PDF 文本就沒有判斷依據，猜了只會
-製造假資料。需人工複核，或重抓 PDF 後重跑。
+**既有 13 筆需重抓 PDF 修正。** 沒有原始文本就沒有判斷依據，猜了只會製造
+假資料，所以不做自動推測。
+
+重抓要在 GitHub Actions 上跑 —— 開發環境的 egress policy 擋掉了
+`www.mod.go.jp`（proxy 回 403），無法從本機取得 PDF。
+
+```
+Actions -> 爬取日本防衛省中國海軍艦艇動向 -> Run workflow
+  rebuild_straits: true
+```
+
+或指定日期（`japan_scrape_history.json` 只回溯到 2026-02-18，更早的
+5 個問題日期不在歷史中，需用指定日期模式直接依命名規則探測）：
+
+```bash
+REBUILD_DATES="2025-07-24,2025-08-07,2025-08-08,2026-01-15,2026-02-16,\
+2026-03-10,2026-03-16,2026-03-18,2026-04-24,2026-05-07,2026-05-13,\
+2026-06-30,2026-07-16" REBUILD_STRAITS=1 python scraper_japan_mod.py
+```
+
+回填模式只改四個海峽欄位與 `國家`，不動 `艦型`/`備考`/`進`/`出`，
+以免覆蓋人工修正。
+
+以假文本驗證過的預期結果：
+`2026-02-16` → 對馬=1、與那國=0、國家=俄羅斯（原本兩者都是 1）。
 
 ### 6.2 台海通過未寫入 comprehensive
 
@@ -222,6 +246,10 @@ python3 scripts/analysis/build_pit_features.py
 # 台海通過同步（預設 dry-run）
 python3 scripts/updaters/sync_naval_to_comprehensive.py
 python3 scripts/updaters/sync_naval_to_comprehensive.py --apply
+
+# 海峽欄位回填（需在 GitHub Actions 上跑，本機 egress 擋 mod.go.jp）
+REBUILD_STRAITS=1 python scraper_japan_mod.py                  # 依歷史記錄
+REBUILD_STRAITS=1 REBUILD_DATES="2026-02-16,..." python scraper_japan_mod.py
 
 # 模型回測（surge 導向，非 MAE）
 python3 scripts/analysis/backtest_predictor.py --days 60 --horizons 1,3,7
