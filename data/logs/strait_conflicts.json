@@ -1,9 +1,37 @@
 {
-  "generated_at": "2026-07-25 22:18:18",
+  "generated_at": "2026-07-25 22:37:58",
   "pdfs_scanned": 152,
-  "dates_updated": 52,
+  "dates_updated": 75,
   "conflict_count": 0,
-  "suppressed_count": 19,
+  "suppressed_count": 16,
+  "backfilled_count": 5,
+  "backfilled": [
+    {
+      "date": "2026/03/05",
+      "strait": "對馬",
+      "source": "p20260310_01.pdf"
+    },
+    {
+      "date": "2025/10/05",
+      "strait": "與那國",
+      "source": "p20260316_01.pdf"
+    },
+    {
+      "date": "2025/10/03",
+      "strait": "對馬",
+      "source": "p20260316_01.pdf"
+    },
+    {
+      "date": "2026/02/16",
+      "strait": "與那國",
+      "source": "p20260422_02.pdf"
+    },
+    {
+      "date": "2026/02/14",
+      "strait": "對馬",
+      "source": "p20260422_02.pdf"
+    }
+  ],
   "conflicts": [],
   "suppressed": [
     {
@@ -251,34 +279,6 @@
     },
     {
       "kind": "suppressed",
-      "source": "p20260720_01.pdf",
-      "mentions": [
-        {
-          "strait": "宮古",
-          "reason": "身分識別、なお+明示日期",
-          "sentence": "なお、これらの艦艇は、７月１６日（木）に沖縄本島と宮古島の間の海域を南進したものと同一である",
-          "explicit_dates": [
-            "７月１６日"
-          ]
-        }
-      ]
-    },
-    {
-      "kind": "suppressed",
-      "source": "p20260721_01.pdf",
-      "mentions": [
-        {
-          "strait": "宮古",
-          "reason": "身分識別、なお+明示日期",
-          "sentence": "なお、これらの艦艇は、７月１６日（木）に沖縄本島と宮古島の間の海域を南進したものと同一である",
-          "explicit_dates": [
-            "７月１６日"
-          ]
-        }
-      ]
-    },
-    {
-      "kind": "suppressed",
       "source": "p20260721_04.pdf",
       "mentions": [
         {
@@ -287,20 +287,6 @@
           "sentence": "なお、これらの艦艇は、７月１日（水）から２日（木）にかけて、対馬海峡を南西進したものと同一である",
           "explicit_dates": [
             "７月１日"
-          ]
-        }
-      ]
-    },
-    {
-      "kind": "suppressed",
-      "source": "p20260721_06.pdf",
-      "mentions": [
-        {
-          "strait": "宮古",
-          "reason": "身分識別、なお+明示日期",
-          "sentence": "なお、これらの艦艇は、７月１６日（木）に沖縄本島と宮古島の間の海域を南進し、１９日（日）に沖ノ鳥島（東京都）の南西の海域を北東進したものと同一である",
-          "explicit_dates": [
-            "７月１６日"
           ]
         }
       ]
