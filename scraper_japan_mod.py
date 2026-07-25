@@ -915,14 +915,33 @@ def rebuild_strait_columns(target_dates=None):
     df.to_csv(CSV_FILE, index=False, encoding='utf-8-sig')
     print(f"\n✅ 完成，回填 {updated} 列")
 
+    # 一律寫出診斷檔（即使沒有衝突），這樣檔案存在與否就能確認新版邏輯有跑到。
+    os.makedirs('data/logs', exist_ok=True)
+    out_path = 'data/logs/strait_conflicts.json'
+    with open(out_path, 'w', encoding='utf-8') as fh:
+        json.dump({
+            'generated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            'pdfs_scanned': len(pdf_files),
+            'dates_updated': updated,
+            'conflict_count': len(diagnostics),
+            'conflicts': diagnostics,
+        }, fh, ensure_ascii=False, indent=2)
+
+    # 同時把觸發句印到 stdout。GitHub Actions 的 runner 是 ephemeral，
+    # 只要 commit 步驟沒 add 到這個檔案就會消失，但 log 一定留得下來。
+    print("\n" + "=" * 60)
     if diagnostics:
-        os.makedirs('data/logs', exist_ok=True)
-        out_path = 'data/logs/strait_conflicts.json'
-        with open(out_path, 'w', encoding='utf-8') as fh:
-            json.dump(diagnostics, fh, ensure_ascii=False, indent=2)
-        print(f"\n🔍 {len(diagnostics)} 份 PDF 仍有地理衝突，觸發句已寫入 {out_path}")
+        print(f"🔍 {len(diagnostics)} 份 PDF 仍有地理衝突（觸發句如下，另存 {out_path}）")
         for item in diagnostics:
-            print(f"   {item['source']}: {'、'.join(item['straits'].keys())}")
+            print(f"\n--- {item['source']}")
+            for field, entries in item['straits'].items():
+                for e in entries:
+                    dates = '、'.join(e['explicit_dates']) or '無'
+                    print(f"    [{field}] 明示日期={dates}")
+                    print(f"        {e['sentence']}")
+    else:
+        print(f"✅ 沒有偵測到地理衝突（診斷檔仍已寫入 {out_path}）")
+    print("=" * 60)
 
 
 def main():

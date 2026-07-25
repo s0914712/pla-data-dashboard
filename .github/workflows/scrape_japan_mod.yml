@@ -42,6 +42,8 @@ jobs:
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git add data/JapanandBattleship.csv data/japan_scrape_history.json
+        # 回填模式的海峽衝突診斷。runner 是 ephemeral，沒 add 就跟著消失。
+        git add -f data/logs/strait_conflicts.json 2>/dev/null || true
         if ! git diff --quiet || ! git diff --staged --quiet; then
           git commit -m "🇯🇵 更新日本防衛省資料 $(date +'%Y-%m-%d %H:%M')"
           # Retry push with pull --rebase to handle concurrent updates
