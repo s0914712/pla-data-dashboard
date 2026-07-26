@@ -69,6 +69,8 @@ SHIP_CLASS_DICT = {
     'ルーヤンＩ級': '旅洋I級驅逐艦',
     'ルーヤンI級': '旅洋I級驅逐艦',
     'ルーヤン級': '旅洋級驅逐艦',
+    'ジャンカイⅢ級': '江凱III級護衛艦',
+    'ジャンカイIII級': '江凱III級護衛艦',
     'ジャンカイⅡ級': '江凱II級護衛艦',
     'ジャンカイII級': '江凱II級護衛艦',
     'ジャンカイＩ級': '江凱I級護衛艦',
@@ -81,6 +83,7 @@ SHIP_CLASS_DICT = {
     'ジャンウェイ級': '江衛級護衛艦',
     'ジャンダオ級': '江島級護衛艦',
     'レンハイ級': '南昌級驅逐艦',
+    'ユーシェン級': '玉申級兩棲攻擊艦',
     'ソブレメンヌイ級': '現代級驅逐艦',
     'フチ級': '福池級綜合補給艦',
     'ルージョウ級': '旅洲級巡洋艦',
@@ -94,6 +97,9 @@ SHIP_CLASS_DICT = {
     'ユアン級': '元級潛艇',
     'ソン級': '宋級潛艇',
     # 俄羅斯海軍
+    'クズネツォフ級': '庫茲涅佐夫級航空母艦',
+    'ウダロイⅢ級': '無畏III級驅逐艦',
+    'ウダロイIII級': '無畏III級驅逐艦',
     'ウダロイⅠ級': '無畏I級驅逐艦',
     'ウダロイI級': '無畏I級驅逐艦',
     'ウダロイ級': '無畏級驅逐艦',
@@ -106,8 +112,14 @@ SHIP_CLASS_DICT = {
     'グリシャV級': '格里莎V級護衛艦',
     'グリシャ級': '格里莎級護衛艦',
     'ドゥブナ級': '杜布納級補給艦',
+    'チリキン級': '契利金級補給艦',
+    'アムガ級': '阿姆加級飛彈補給艦',
+    'タランタルⅢ級': '毒蜘蛛III級飛彈艇',
+    'タランタルIII級': '毒蜘蛛III級飛彈艇',
     'バルク級': '巴爾克級遠洋拖船',
     'ヴィシュニャ級': '維什尼亞級情報收集艦',
+    'ヴィシニャ級': '維什尼亞級情報收集艦',   # 統幕文件兩種音譯都用過
+    'バルザム級': '巴爾贊姆級情報收集艦',
     'キロ級': '基洛級潛艇',
     'マルシャル・ネデリン級': '涅傑林元帥級觀測艦',
 }
@@ -713,12 +725,44 @@ def _detect_direction(text):
     return entering, exiting
 
 
+# 字典未收錄時的艦級擷取。統幕的寫法固定是「〈片假名艦級〉級〈艦種〉」，
+# 例如「ルーヤンⅢ級ミサイル駆逐艦」。SHIP_CLASS_DICT 是手工維護的 50 筆對照，
+# 新艦級一出現就會落到「未提及」—— 原文明明寫了艦型，下游卻看不到。
+# 這裡把未收錄的艦級原樣保留（標記 ※ 表示未翻譯），至少不會憑空消失。
+_SHIP_CLASS_FALLBACK_RE = re.compile(
+    r'([ァ-ヴー]{2,12}[ⅠⅡⅢⅣⅤ0-9０-９]?)級\s*'
+    # 艦種取最長：貪婪量詞才會吃到「潜水艦救難艦」而不是停在「潜水艦」
+    r'([一-龥ぁ-んァ-ヴー]{0,10}(?:艦|艇|母|フリゲート|コルベット|タンカー))?'
+)
+
+
 def _extract_ship_classes(text):
     """從日文文本提取艦艇級別並翻譯為繁中"""
     found = []
+    matched_jp = []
     for jp_name, zh_name in SHIP_CLASS_DICT.items():
-        if jp_name in text and zh_name not in found:
-            found.append(zh_name)
+        if jp_name in text:
+            matched_jp.append(jp_name)
+            if zh_name not in found:
+                found.append(zh_name)
+
+    # 回退：把字典沒收錄的艦級原樣補上。不能只在「完全沒命中」時才做 ——
+    # 一份通報常同時提到多艘不同艦級，只要其中一艘在字典裡，其餘未收錄的
+    # 就會被整批吞掉（實測：ジャンカイⅢ級與フユ級同時出現的編隊通報）。
+    # 同一艦級在文中有時帶艦種有時不帶（「ジャンカイⅢ級」vs
+    # 「ジャンカイⅢ級フリゲート」），以艦級名為鍵取最完整的一筆。
+    by_class = {}
+    for m in _SHIP_CLASS_FALLBACK_RE.finditer(text):
+        base = m.group(1)
+        token = f'{base}級'
+        # 已被字典涵蓋的就跳過，避免同一艘艦出現譯名與原文兩筆
+        if any(token in jp or jp in token for jp in matched_jp):
+            continue
+        raw = f'{token}{m.group(2) or ""}'.strip()
+        if len(raw) > len(by_class.get(base, '')):
+            by_class[base] = raw
+    found.extend(f'※{raw}' for raw in by_class.values())
+
     if not found:
         return '未提及'
     return '、'.join(found)
@@ -1087,8 +1131,19 @@ def update_csv(date, data):
         mask = df['date'] == date
 
         if not mask.any():
-            print(f"      ⚠️  找不到日期 {date} 的行")
-            return False
+            # 舊版在這裡 return False，防衛省當天的解析結果就直接消失。
+            # JapanandBattleship.csv 的日期列是由 scraper.py（國防部共機架次）
+            # 建立的，只要國防部當天沒發布或爬蟲失敗，防衛省的艦艇通報就永遠
+            # 寫不進去 —— 兩個來源本來就不保證同一天都有資料，不該互為前提。
+            # 改成補一列（架次欄留空，代表未觀測而非 0）。
+            new_row = {col: pd.NA for col in df.columns}
+            new_row['date'] = date
+            df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+            df = df.sort_values(
+                'date', key=lambda s: pd.to_datetime(s, format='mixed', errors='coerce')
+            ).reset_index(drop=True)
+            mask = df['date'] == date
+            print(f"      ➕ CSV 原無日期 {date}，已新增列")
 
         # 這些欄位是後來才加的，舊 CSV 沒有。原本的 `if key in df.columns`
         # 會把它們靜默丟掉 —— 國家判定就是這樣消失的（analyze_with_rules

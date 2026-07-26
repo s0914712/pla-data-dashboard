@@ -45,6 +45,9 @@ import matplotlib.dates as mdates
 import matplotlib.patches as mpatches
 import pandas as pd
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from nav_warning_dates import parse_periods, format_periods_zh  # noqa: E402
+
 # ── 路徑（相對於 repo root）─────────────────────────────────
 REPO_ROOT = Path(__file__).resolve().parent.parent
 NEWS_JSON = REPO_ROOT / "data" / "news_classified.json"
@@ -74,6 +77,20 @@ SOURCE_LABELS = {
 }
 
 RISK_EMOJI = {"LOW": "🟢", "MEDIUM": "🟡", "MEDIUM-HIGH": "🟠", "HIGH": "🔴", "CRITICAL": "🔴"}
+
+# 「高架次」門檻，與 pla_7day_predictor.HIGH_THRESHOLD 一致。
+# 分類器就是用這個門檻訓練的，顯示時必須講同一個數字，否則 45% 到底是
+# 「>=25 架次」還是「>=30 架次」的機率無從得知。
+HIGH_SORTIE_THRESHOLD = 25
+
+# 高架次機率只在 D+1 顯示。pla_surge_model.py 的回測（見該檔 docstring）
+# 顯示 surge 機率在 h=1 的 ROC-AUC 是 0.764，h>=2 掉到 0.45-0.57 —— 等同亂猜。
+# 把三天並排顯示會讓兩個亂數看起來跟有訊號的那個一樣可信。
+PROB_SIGNAL_HORIZON = 1
+
+# 計算基準發生率的回看天數（用來讓機率有比較基準：45% 是高是低，
+# 取決於平常多久出現一次高架次日）
+BASE_RATE_WINDOW_DAYS = 365
 
 
 # ============================================================
@@ -117,18 +134,33 @@ def summarize_forecast(fc):
     if fc.empty:
         return "📊 未來 3 日預測：暫無資料"
     lines = ["📊 未來 3 日 PLA 架次預測："]
-    for _, r in fc.iterrows():
+    for i, (_, r) in enumerate(fc.iterrows()):
         emoji = RISK_EMOJI.get(str(r.get("risk_level", "")).upper(), "⚪")
         date_str = r["date"].strftime("%m/%d")
         pred = r.get("predicted_sorties", 0)
         lo = r.get("lower_bound", 0)
         hi = r.get("upper_bound", 0)
         prob = r.get("high_event_probability", "")
-        prob_str = f"，高活動機率 {prob:.0f}%" if isinstance(prob, (int, float)) else ""
+        # 機率只掛在 D+1。h>=2 的 surge 機率回測 AUC 約 0.5，寫出來只是誤導。
+        prob_str = ""
+        if i < PROB_SIGNAL_HORIZON and isinstance(prob, (int, float)) and prob == prob:
+            prob_str = f"，高架次(≥{HIGH_SORTIE_THRESHOLD})機率 {prob:.0f}%"
         lines.append(
             f"  {emoji} {date_str}：約 {pred:.1f} 架次"
             f"（90% 區間 {lo:.0f}–{hi:.0f}{prob_str}）"
         )
+    base = high_sortie_base_rate()
+    if base is not None:
+        lines.append(f"  （近一年高架次日基準發生率 ~{base:.0f}%；D+2 之後機率無鑑別力故不列）")
+
+    errs = load_recent_errors()
+    if not errs.empty:
+        mae = errs["prediction_error"].abs().mean()
+        detail = "、".join(
+            f'{r["date"]:%m/%d} 實際 {r["actual_sorties"]:.0f}／預測 '
+            f'{r["predicted_sorties"]:.1f}（{r["prediction_error"]:+.1f}）'
+            for _, r in errs.iterrows())
+        lines.append(f"  📉 過去 {len(errs)} 日誤差 MAE {mae:.1f}：{detail}")
     return "\n".join(lines)
 
 
@@ -194,6 +226,64 @@ def summarize_fire_announcements(yesterday):
     return "\n".join(lines)
 
 
+def warning_period_text(w):
+    """該航警的起訖日顯示字串。
+
+    優先用爬蟲寫下的 time_periods（已是格式化過的短字串，不需截斷）；
+    舊資料若還是空的，就當場從 title + content_preview 重解析一次。
+
+    絕對不要對這個字串做切片 —— 起訖日被切斷正是使用者回報的問題：
+    舊版 time_periods 是一串重疊的原始比對片段（例如
+    "7月20日0600时至22日1200时; 2026年7月20日0600时至22日1200时"），
+    再套 [:40] 就會停在「至22日12」，迄日就此消失。
+    """
+    text = _s(w.get("time_periods")).strip()
+    if text:
+        return text
+    periods = parse_periods(
+        f"{_s(w.get('title'))} {_s(w.get('content_preview'))}",
+        _s(w.get("publish_date")))
+    return format_periods_zh(periods)
+
+
+def _dedup_cn_en_twins(warnings):
+    """同一則航警的中英文兩版只留一則，優先留有起訖日的那則。
+
+    海事局同一份公告會發中文版（浙航警655/26）與英文版（ZJ284/26），編號不同
+    但座標完全相同。舊版把兩則都列出來，佔掉 5 則的名額，而英文版的起訖日
+    格式（FROM 16 TO 17 MAR）舊 parser 又解不出來，等於用一半版面顯示
+    「起訖日未載明」的重複內容。地圖那邊早就用形心去重，文字這邊沒有。
+    """
+    def twin_key(w):
+        # 用第一個頂點當鍵，不用整串座標：英文版的 content_preview 常被截斷，
+        # 解出來的頂點數比中文版少，整串比對永遠不會相等。
+        pts = _parse_coords(w.get("coordinates"))
+        if not pts:
+            return ''
+        return f"{pts[0][0]:.3f},{pts[0][1]:.3f}"
+
+    best = {}
+    order = []
+    for w in warnings:
+        key = twin_key(w)
+        if not key:
+            order.append(w)          # 沒座標無從配對，原樣保留
+            continue
+        prev = best.get(key)
+        if prev is None:
+            best[key] = w
+            order.append(w)
+            continue
+        # 有起訖日的優先；同分則優先中文標題
+        def score(x):
+            return (bool(warning_period_text(x)),
+                    any('一' <= c <= '鿿' for c in _s(x.get("title"))))
+        if score(w) > score(prev):
+            order[order.index(prev)] = w
+            best[key] = w
+    return order
+
+
 def summarize_nav_warnings(yesterday):
     """MSA 火砲射擊/演習航警：取昨日（無則近期）公告。"""
     data = _safe_read_json(NAV_WARN_JSON)
@@ -209,75 +299,145 @@ def summarize_nav_warnings(yesterday):
         fallback = True
     if not recent:
         return "⚠️ MSA 軍事航警：近日無新增"
+
+    recent = _dedup_cn_en_twins(recent)
     head = "⚠️ MSA 火砲射擊/演習航警" + ("（近期）：" if fallback else "（昨日）：")
     lines = [head]
     for w in recent[:MAX_ITEMS_PER_SOURCE]:
         ch = _s(w.get("channel")).strip()
-        title = _s(w.get("title")).strip()[:40]
-        period = _s(w.get("time_periods")).strip()[:40]
+        title = _s(w.get("title")).strip()
+        period = warning_period_text(w)
         pub = _s(w.get("publish_date")).strip()
-        line = f"  • [{pub}] {ch} {title}"
-        if period:
-            line += f"（{period}）"
-        lines.append(line)
+        lines.append(f"  • [{pub}] {ch} {title}")
+        # 起訖日另起一行，永遠完整。整份簡報有 5000 字預算，實際用不到一半，
+        # 沒有理由為了省字把日期切掉。
+        lines.append(f"      🕒 {period}" if period else "      🕒 起訖日未載明")
     return "\n".join(lines)
 
 
-def summarize_japan_mod():
+# 欄位名 → 顯示名。用於旗標與 remark 文字兩種來源的地點判定。
+STRAIT_LABELS = [("宮古", "宮古海峽"), ("對馬", "對馬海峽"),
+                 ("大禹", "大隅海峽"), ("與那國", "與那國島附近")]
+ACTIVITY_LABELS = [("空中", "空中活動"), ("航母活動", "航母活動"),
+                   ("艦通過", "艦艇通過"), ("聯合演訓", "聯合演訓")]
+
+
+def _on(row, col):
+    return str(row.get(col, "")).strip() in ("1", "1.0")
+
+
+def _japan_locations(row):
+    """該筆通報的地點。
+
+    海峽旗標由 scraper_japan_mod 歸檔在「實際通過日」而非報告日，所以後續
+    追蹤報告的旗標會全為 0（例：2026/07/20、07/21 的 remark 明寫「經宮古海峽
+    向太平洋航行」，四個旗標卻都是 0，通過本身記在 07/16）。只讀旗標的話，
+    使用者收到的就只剩「艦艇通過」而沒有地點——正是回報的問題。
+    所以旗標與 remark 文字兩邊都取，聯集後輸出。
+    """
+    found = [name for col, name in STRAIT_LABELS if _on(row, col)]
+    text = _s(row.get("remark")) + " " + _s(row.get("備考"))
+    for _, name in STRAIT_LABELS:
+        # 「與那國島附近」在 remark 裡就是這個寫法，比對前兩字即可
+        if name[:3] in text and name not in found:
+            found.append(name)
+    return found
+
+
+def _japan_report_line(row, prefix="  • "):
+    """單筆防衛省通報：日期｜國家｜艘數｜艦型｜地點｜方向。"""
+    date_str = _s(row.get("date")).strip()
+    bits = []
+
+    country = _s(row.get("國家")).strip()
+    if country and country not in ("nan", "未知"):
+        bits.append(country)
+
+    # 艘數只能從 remark 文字取。plan_vessel_sorties 是國防部通報的「共艦」
+    # 每日艘數（由 scraper.py 寫入），跟防衛省這一則通報的艦艇數無關 ——
+    # 混用會出現「6 艘」配上「1艘艦艇航行」的自相矛盾。
+    m = re.search(r'(\d+)\s*艘', _s(row.get("remark")))
+    if m:
+        bits.append(f"{m.group(1)} 艘")
+
+    acts = [name for col, name in ACTIVITY_LABELS if _on(row, col)]
+    if acts:
+        bits.append("、".join(acts))
+
+    head = f"{prefix}[{date_str}] " + "｜".join(bits) if bits else f"{prefix}[{date_str}]"
+
+    detail = []
+    # 艦型完整輸出，不截斷。多艦編隊的艦型串常超過 40 字，舊版的 [:40]
+    # 會從中間切掉，等於後半編隊資訊消失。
+    ship = _s(row.get("艦型")).strip()
+    if ship and ship not in ("未提及", "nan"):
+        detail.append(f"艦型：{ship}")
+
+    locs = _japan_locations(row)
+    if locs:
+        detail.append(f"地點：{'、'.join(locs)}")
+
+    direction = []
+    if _on(row, "進"):
+        direction.append("進入東海")
+    if _on(row, "出"):
+        direction.append("出往太平洋")
+    if direction:
+        detail.append("航向：" + "、".join(direction))
+
+    lines = [head]
+    for d in detail:
+        lines.append(f"      {d}")
+
+    remark = _s(row.get("remark")).strip()
+    if remark and remark not in ("False", "nan", "True"):
+        lines.append(f"      {remark}")
+    return "\n".join(lines)
+
+
+def summarize_japan_mod(recent_days=3):
     """日本防衛省（統合幕僚監部）最新通報摘要。"""
     try:
         if not JAPAN_MOD_CSV.exists():
             return "🇯🇵 日本防衛省：無資料"
         df = pd.read_csv(JAPAN_MOD_CSV, encoding="utf-8-sig")
+        df["_date"] = pd.to_datetime(df["date"], format="mixed", errors="coerce")
         mask = (
-            df["remark"].notna()
+            df["_date"].notna()
+            & df["remark"].notna()
             & (df["remark"].astype(str).str.strip() != "")
             & (df["remark"].astype(str) != "False")
         )
-        valid = df[mask]
+        valid = df[mask].sort_values("_date")   # 依日期排序，不靠列順序
         if valid.empty:
             return "🇯🇵 日本防衛省：近日無通報"
-        latest = valid.iloc[-1]
 
-        def on(col):
-            return str(latest.get(col, "")).strip() in ("1", "1.0")
+        latest_date = valid["_date"].max()
+        window = valid[valid["_date"] >= latest_date - timedelta(days=recent_days - 1)]
+        shown = window.tail(MAX_ITEMS_PER_SOURCE).iloc[::-1]
 
-        straits = [name for col, name in
-                   [("宮古", "宮古海峽"), ("對馬", "對馬海峽"),
-                    ("大禹", "大隅海峽"), ("與那國", "與那國")] if on(col)]
-        acts = [name for col, name in
-                [("空中", "空中活動"), ("航母活動", "航母活動"),
-                 ("艦通過", "艦艇通過"), ("聯合演訓", "聯合演訓")] if on(col)]
-        parts = []
-        if acts:
-            parts.append("、".join(acts))
-        if straits:
-            parts.append("經 " + "、".join(straits))
-        flag_summary = "；".join(parts)
+        lines = ["🇯🇵 日本防衛省（統合幕僚監部）通報："]
+        for _, row in shown.iterrows():
+            lines.append(_japan_report_line(row))
 
-        # 主要內容優先採用 remark（爬蟲已產生的繁中詳述），
-        # 只有在 remark 缺失時才退回旗標欄位摘要，最後才是「有通報」。
-        # （先前只用旗標欄位，遇到旗標全為 0 的單艦航行通報就只剩「有通報」。）
-        remark = _s(latest.get("remark")).strip()
-        if remark and remark not in ("False", "nan"):
-            summary = remark
-        elif flag_summary:
-            summary = flag_summary
-        else:
-            summary = "有通報"
+        # 近日通報常是「單艦航行」這種沒有艦型也沒有海峽的簡短續報。
+        # 這時再往回找最近一筆有艦型或地點的通報補上，否則使用者連續好幾天
+        # 都只看到「艦艇通過」而不知道是什麼艦、走哪裡 —— 正是回報的問題。
+        def has_detail(r):
+            ship = _s(r.get("艦型")).strip()
+            return (ship not in ("", "未提及", "nan")) or bool(_japan_locations(r))
 
-        line = f"🇯🇵 日本防衛省（{latest['date']}）：{summary}"
-
-        # 若 remark 未涵蓋旗標資訊，補上活動／海峽標籤，方便快速掃描
-        if summary == remark and flag_summary:
-            line += f"｜{flag_summary}"
-
-        ship = str(latest.get("艦型", "")).strip()
-        if ship and ship not in ("", "未提及", "nan") and ship not in summary:
-            line += f"｜艦型：{ship[:40]}"
-        return line
+        if not any(has_detail(r) for _, r in shown.iterrows()):
+            shown_dates = set(shown["_date"])
+            older = [r for _, r in valid.iloc[::-1].iterrows()
+                     if r["_date"] not in shown_dates and has_detail(r)]
+            if older:
+                lines.append("  ↩ 最近一次有艦型／地點的通報：")
+                lines.append(_japan_report_line(older[0], prefix="  • "))
+        return "\n".join(lines)
     except Exception as e:
         print(f"⚠️  讀取日本防衛省資料失敗: {e}")
+        traceback.print_exc()
         return "🇯🇵 日本防衛省：讀取失敗"
 
 
@@ -362,8 +522,53 @@ def compose_report_text(yesterday):
 # ============================================================
 # 預測圖（30 日歷史 + 未來 3 日）
 # ============================================================
-def generate_chart(days_history=30, days_forecast=FORECAST_DAYS):
-    """畫 30 日實際架次 + 未來 3 日預測，存 PNG，回傳路徑（失敗回 None）。"""
+def high_sortie_base_rate(window_days=BASE_RATE_WINDOW_DAYS):
+    """近 N 天實際出現「高架次日」的比例（%）。
+
+    機率沒有基準就無法解讀。實測基準約 10-18%，所以 45% 大約是 3 倍 lift，
+    而 15% 其實低於平常 —— 沒有這條參考，兩者看起來都只是「一個百分比」。
+    回傳 None 代表算不出來（資料不足），呼叫端應略過基準標註。
+    """
+    try:
+        df = pd.read_csv(JAPAN_MOD_CSV, encoding="utf-8-sig")
+        df["date"] = pd.to_datetime(df["date"], format="mixed", errors="coerce")
+        df = df.dropna(subset=["date", "pla_aircraft_sorties"])
+        cutoff = df["date"].max() - timedelta(days=window_days)
+        recent = df[df["date"] >= cutoff]["pla_aircraft_sorties"].astype(float)
+        if len(recent) < 30:
+            return None
+        return float((recent >= HIGH_SORTIE_THRESHOLD).mean() * 100)
+    except Exception as e:
+        print(f"⚠️  計算基準發生率失敗: {e}")
+        return None
+
+
+def load_recent_errors(days=3):
+    """取最近 N 天「已有實際值」的預測誤差。
+
+    latest_prediction.csv 每天由 pla_7day_predictor.run() 回填 actual_sorties
+    與 prediction_error，且同日期的舊預測會被當天的新預測取代，所以留在檔案裡
+    的過去日期都是 h=1（前一日對隔天）的預測 —— 這正是誤差最有意義的那個 horizon。
+    """
+    try:
+        df = pd.read_csv(PRED_CSV, encoding="utf-8-sig")
+        df["date"] = pd.to_datetime(df["date"], errors="coerce")
+        df = df.dropna(subset=["date"])
+        done = df[df["actual_sorties"].notna() & df["predicted_sorties"].notna()]
+        return done.sort_values("date").tail(days).reset_index(drop=True)
+    except Exception as e:
+        print(f"⚠️  讀取歷史誤差失敗: {e}")
+        return pd.DataFrame()
+
+
+def generate_chart(days_history=30, days_forecast=FORECAST_DAYS, error_days=3):
+    """畫預測圖：上為 30 日歷史 + 未來 3 日預測，下為過去 3 日預測誤差。
+
+    D+1 另外標出「高架次機率」。只標 D+1 是刻意的：pla_surge_model.py 的
+    回測（見該檔 docstring）顯示 surge 機率只在 h=1 有鑑別力（ROC-AUC 0.764），
+    h>=2 掉到 0.45-0.57 等同亂猜。把三天的機率並排畫出來會讓兩個亂數看起來
+    跟一個有訊號的數字一樣可信。
+    """
     try:
         hist = pd.read_csv(JAPAN_MOD_CSV, encoding="utf-8-sig")
         hist["date"] = pd.to_datetime(hist["date"], format="mixed", errors="coerce")
@@ -376,15 +581,48 @@ def generate_chart(days_history=30, days_forecast=FORECAST_DAYS):
             print("⚠️  歷史或預測資料不足，跳過產圖")
             return None
 
-        plt.rcParams["font.sans-serif"] = ["DejaVu Sans"]
-        fig, ax = plt.subplots(figsize=(8, 4), dpi=150)
+        errs = load_recent_errors(error_days)
+
+        # 中文可用就用中文；LINEcron.yml 已安裝 fonts-noto-cjk。
+        # 找不到 CJK 字型時整張圖退回英文，不要讓標籤變成豆腐字。
+        cjk = _setup_cjk_font()
+        if cjk:
+            plt.rcParams["font.sans-serif"] = [cjk, "DejaVu Sans"]
+            plt.rcParams["axes.unicode_minus"] = False
+            L = {
+                "actual": "實際架次", "pred": "預測（未來 3 日）", "ci": "90% 區間",
+                "sorties": "架次", "date": "日期",
+                "title": "共機架次 — 近 30 日實際 ＋ 未來 3 日預測",
+                "err_title": f"過去 {error_days} 日預測誤差（實際 - 預測）",
+                "err_y": "誤差", "mae": "MAE",
+                "prob": "高架次機率", "no_signal": "D+2/D+3 機率無鑑別力，不顯示",
+                "past_pred": f"過去 {error_days} 日當時預測",
+                "base": "基準發生率",
+            }
+        else:
+            plt.rcParams["font.sans-serif"] = ["DejaVu Sans"]
+            L = {
+                "actual": "Actual", "pred": "Predicted (next 3d)", "ci": "90% CI",
+                "sorties": "Sorties", "date": "Date",
+                "title": "PLA Aircraft Sorties — 30-Day History + 3-Day Forecast",
+                "err_title": f"Prediction Error, Last {error_days} Days (actual - predicted)",
+                "err_y": "Error", "mae": "MAE",
+                "prob": "P(high)", "no_signal": "D+2/D+3 probability not skillful - omitted",
+                "past_pred": f"Predicted, last {error_days}d",
+                "base": "base rate",
+            }
+
+        fig, (ax, axe) = plt.subplots(
+            2, 1, figsize=(8, 5.6), dpi=150,
+            gridspec_kw={"height_ratios": [3, 1.3], "hspace": 0.55})
         fig.patch.set_facecolor("#ffffff")
         ax.set_facecolor("#fafafa")
+        axe.set_facecolor("#fafafa")
 
-        # 歷史實際
+        # ── 上：歷史 + 預測 ──────────────────────────────
         ax.plot(hist["date"], hist["pla_aircraft_sorties"],
                 color="#2563EB", linewidth=1.8, marker="o", markersize=3,
-                label="Actual Sorties", zorder=3)
+                label=L["actual"], zorder=3)
 
         # 串接最後實際點 → 第一個預測點
         ax.plot([hist["date"].iloc[-1], pred["date"].iloc[0]],
@@ -394,32 +632,87 @@ def generate_chart(days_history=30, days_forecast=FORECAST_DAYS):
         # 預測線 + 信賴區間
         ax.plot(pred["date"], pred["predicted_sorties"],
                 color="#DC2626", linewidth=2.0, marker="s", markersize=5,
-                linestyle="--", label="Predicted (next 3d)", zorder=3)
+                linestyle="--", label=L["pred"], zorder=3)
         ax.fill_between(pred["date"], pred["lower_bound"].clip(lower=0),
                         pred["upper_bound"], color="#DC2626", alpha=0.12,
-                        label="90% CI")
+                        label=L["ci"])
 
-        # 預測數值標註
+        # 過去 3 日的預測點疊在實際線上，讓誤差長條圖有對照
+        if not errs.empty:
+            ax.plot(errs["date"], errs["predicted_sorties"],
+                    linestyle="none", marker="x", markersize=6,
+                    color="#9CA3AF", markeredgewidth=1.6, zorder=4,
+                    label=L["past_pred"])
+
         for _, r in pred.iterrows():
             ax.annotate(f'{r["predicted_sorties"]:.1f}',
                         (r["date"], r["predicted_sorties"]),
                         textcoords="offset points", xytext=(0, 10),
                         fontsize=9, fontweight="bold", color="#DC2626", ha="center")
 
+        # D+1 高架次機率標註
+        d1 = pred.iloc[0]
+        prob = d1.get("high_event_probability")
+        if isinstance(prob, (int, float)) and prob == prob:
+            risk = _s(d1.get("risk_level")).upper()
+            box_color = {"HIGH": "#B91C1C", "MEDIUM-HIGH": "#EA580C",
+                         "MEDIUM": "#CA8A04"}.get(risk, "#15803D")
+            label = f'D+1 {L["prob"]} (≥{HIGH_SORTIE_THRESHOLD}) {prob:.0f}%'
+            base = high_sortie_base_rate()
+            if base is not None:
+                label += f'\n{L["base"]} ~{base:.0f}%'
+            ax.annotate(
+                label, (d1["date"], d1["predicted_sorties"]),
+                textcoords="offset points", xytext=(-6, 34),
+                fontsize=8, fontweight="bold", color="white", ha="right",
+                bbox=dict(boxstyle="round,pad=0.4", fc=box_color, ec="none", alpha=0.92),
+                arrowprops=dict(arrowstyle="-", color=box_color, lw=1.2))
+            # 放在標題下方而不是圖面內，避免壓到信賴區間的陰影
+            ax.annotate(L["no_signal"], (0.5, 1.015), xycoords="axes fraction",
+                        fontsize=7.5, color="#6B7280", ha="center", va="bottom",
+                        style="italic")
+
         ax.xaxis.set_major_formatter(mdates.DateFormatter("%m/%d"))
         ax.xaxis.set_major_locator(mdates.DayLocator(interval=3))
-        plt.xticks(rotation=45, fontsize=8)
-        plt.yticks(fontsize=8)
-        ax.set_xlabel("Date", fontsize=9)
-        ax.set_ylabel("Sorties", fontsize=9)
-        ax.set_title("PLA Aircraft Sorties — 30-Day History + 3-Day Forecast",
-                     fontsize=11, fontweight="bold")
+        ax.tick_params(axis="x", rotation=45, labelsize=8)
+        ax.tick_params(axis="y", labelsize=8)
+        ax.set_ylabel(L["sorties"], fontsize=9)
+        ax.set_title(L["title"], fontsize=11, fontweight="bold", pad=18)
         ax.legend(fontsize=7.5, loc="upper left", framealpha=0.9)
         ax.grid(axis="y", alpha=0.3, linewidth=0.5)
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
         ax.set_ylim(bottom=0)
-        plt.tight_layout()
+
+        # ── 下：過去 3 日誤差 ────────────────────────────
+        if errs.empty:
+            axe.text(0.5, 0.5, "—", ha="center", va="center", fontsize=12,
+                     color="#9CA3AF", transform=axe.transAxes)
+            axe.set_xticks([])
+            axe.set_yticks([])
+        else:
+            labels = [d.strftime("%m/%d") for d in errs["date"]]
+            values = errs["prediction_error"].astype(float).tolist()
+            colors = ["#DC2626" if v > 0 else "#2563EB" for v in values]
+            bars = axe.bar(labels, values, color=colors, alpha=0.75, width=0.32)
+            span = max(abs(v) for v in values) or 1.0
+            for bar, v, (_, r) in zip(bars, values, errs.iterrows()):
+                axe.annotate(
+                    f'{v:+.1f}\n({r["actual_sorties"]:.0f} vs {r["predicted_sorties"]:.1f})',
+                    (bar.get_x() + bar.get_width() / 2, v),
+                    textcoords="offset points",
+                    xytext=(0, 6 if v >= 0 else -22),
+                    fontsize=7.5, ha="center", color="#374151")
+            axe.axhline(0, color="#374151", linewidth=0.9)
+            axe.set_ylim(-span * 1.9, span * 1.9)
+            mae = sum(abs(v) for v in values) / len(values)
+            axe.set_title(f'{L["err_title"]}　{L["mae"]} {mae:.1f}',
+                          fontsize=9.5, fontweight="bold")
+            axe.set_ylabel(L["err_y"], fontsize=8)
+            axe.tick_params(labelsize=8)
+            axe.grid(axis="y", alpha=0.25, linewidth=0.5)
+            axe.spines["top"].set_visible(False)
+            axe.spines["right"].set_visible(False)
 
         CHART_OUT.parent.mkdir(parents=True, exist_ok=True)
         fig.savefig(CHART_OUT, bbox_inches="tight", facecolor="white")
@@ -609,7 +902,7 @@ def select_range_warnings(yesterday, max_zones=8):
             zones.append({
                 "title": f"{title[:18]}{suffix}",
                 "channel": _s(w.get("channel")).strip(),
-                "period": _s(w.get("time_periods")).strip() or _s(w.get("publish_date")).strip(),
+                "period": warning_period_text(w) or _s(w.get("publish_date")).strip(),
                 "date": _s(w.get("publish_date")).strip(),
                 "points": pts,
                 "fire": is_fire,
@@ -928,9 +1221,11 @@ def generate_range_map(yesterday):
         for i, z in enumerate(zones, 1):
             color = "#DC2626" if z["fire"] else "#EA9010"
             src_tag = "〔新聞〕" if z.get("from_news") else ""
-            label = f"{i}. {src_tag}{z['title'][:18]}"
+            label = f"{i}. {src_tag}{z['title']}"
+            # 起訖日不截斷。舊版的 [:16] 是斷字最嚴重的地方——
+            # 「07/20 0600 至 07/22 1200」會被切成「07/20 0600 至 07/2」。
             if z["period"]:
-                label += f"（{z['period'][:16]}）"
+                label += f"（{z['period']}）"
             legend_handles.append(mpatches.Patch(color=color, label=label))
         legend_title = "紅＝火砲/實彈射擊　橙＝演習/訓練/禁航　虛線＝新聞來源" if cjk_font \
             else "red = live fire / orange = exercise / dashed = news"

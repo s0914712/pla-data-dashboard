@@ -8,10 +8,20 @@
 專注於軍事任務、實彈射擊等相關公告
 """
 
+import os
 import re
+import sys
 from datetime import datetime
 from typing import List, Dict, Optional
 from .base_scraper import BaseScraper
+
+# 起訖日解析集中在 scripts/nav_warning_dates.py。這支模組可能以套件
+# （scripts.scrapers.…）或以 sys.path 加了 scripts/ 的方式被載入，兩種都要能 import。
+try:
+    from ..nav_warning_dates import parse_periods, format_periods_zh, period_bounds
+except ImportError:  # pragma: no cover - 相依於呼叫端的載入方式
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from nav_warning_dates import parse_periods, format_periods_zh, period_bounds
 
 
 class NavigationWarningScraper(BaseScraper):
@@ -141,6 +151,21 @@ class NavigationWarningScraper(BaseScraper):
         
         return content
     
+    # 找不到航警編號時，用正文起點的標記把網站導覽列切掉。少了這一步，
+    # body 文字會從「English 首页 机构职能…」開始，公告本體被推到 500 字之後，
+    # 起訖日連同內容一起被 fallback 的截斷丟掉（實測 86 筆裡有 24 筆長度剛好
+    # 是 500 且都含導覽列文字，起訖日全數遺失）。
+    _BODY_ANCHORS = [
+        r'发布时间\s*[：:]\s*\d{4}-\d{2}-\d{2}',
+        r'来源\s*[：:]',
+        r'文号\s*[：:]',
+        r'航行警告',
+    ]
+
+    # 正文長度上限。原本 500 對含座標列表的公告太短 —— 座標往往佔掉三四百字，
+    # 起訖日寫在座標之後（"…AND 40-37.74N 121-03.77E FROM 231000UTC TO…"）。
+    MAX_CONTENT_CHARS = 1500
+
     def extract_core_content(self, text: str) -> str:
         """提取核心內容：從航警編號到「收藏」之間的文字"""
         # 尋找航警編號開始位置
@@ -148,9 +173,9 @@ class NavigationWarningScraper(BaseScraper):
             r'([a-zA-Z沪津辽冀鲁浙闽粤桂琼深厦甬青连珠汕湛苏]航警?\d+/\d+)',
             r'([A-Z]{2,3}\d+/\d+)',
         ]
-        
+
         start_pos = -1
-        
+
         for pattern in start_patterns:
             matches = list(re.finditer(pattern, text))
             if matches:
@@ -161,10 +186,16 @@ class NavigationWarningScraper(BaseScraper):
                         break
                 if start_pos != -1:
                     break
-        
+
         if start_pos == -1:
-            return text[:500]
-        
+            for anchor in self._BODY_ANCHORS:
+                m = re.search(anchor, text)
+                if m:
+                    start_pos = m.start()
+                    break
+        if start_pos == -1:
+            return text[:self.MAX_CONTENT_CHARS]
+
         # 尋找結束位置
         end_patterns = ['收藏', '打印本页', '关闭窗口']
         end_pos = len(text)
@@ -179,9 +210,9 @@ class NavigationWarningScraper(BaseScraper):
         core_content = re.sub(r'\s+', ' ', core_content)
         
         # 限制長度
-        if len(core_content) > 1000:
-            core_content = core_content[:1000] + '...'
-        
+        if len(core_content) > self.MAX_CONTENT_CHARS:
+            core_content = core_content[:self.MAX_CONTENT_CHARS] + '...'
+
         return core_content
     
     def parse_coordinates(self, text: str) -> List[Dict]:
@@ -262,39 +293,16 @@ class NavigationWarningScraper(BaseScraper):
         
         return unique_coords
     
-    def parse_time_period(self, text: str) -> List[str]:
-        """解析時間範圍"""
-        if not text:
-            return []
+    def parse_time_period(self, text: str, publish_date=None) -> List:
+        """解析演習/射擊窗，回傳 nav_warning_dates.Period 清單。
 
-        times = []
+        舊版跑六條互相重疊的 regex、只回 `list(set(m.group()))`，capture group
+        全部丟掉，下游拿到的是一串長度不定、順序不穩的原始片段——正是 LINE
+        推播把迄日切斷的根源。解析邏輯已集中到 scripts/nav_warning_dates.py，
+        這裡只負責轉呼叫。
+        """
+        return parse_periods(text, publish_date)
 
-        # 格式1: X月X日X时至X日X时
-        pattern1 = r'(\d{1,2})月(\d{1,2})日(\d{1,2})时至(\d{1,2})日?(\d{1,2})时'
-        times.extend([m.group() for m in re.finditer(pattern1, text)])
-
-        # 格式2: 自X月X日X时至X月X日X时
-        pattern2 = r'自?(\d{1,2})月(\d{1,2})日(\d{1,4})时至(\d{1,2})月?(\d{1,2})日?(\d{1,4})时'
-        times.extend([m.group() for m in re.finditer(pattern2, text)])
-
-        # 格式3: XXXX年X月X日
-        pattern3 = r'(\d{4})年(\d{1,2})月(\d{1,2})日(?:\s*(\d{1,2}):?(\d{2}))?(?:时)?(?:至|[-~])(\d{4})?年?(\d{1,2})?月?(\d{1,2})日?(?:\s*(\d{1,2}):?(\d{2}))?(?:时)?'
-        times.extend([m.group() for m in re.finditer(pattern3, text)])
-
-        # 格式4: X日XXXX时至XXXX时
-        pattern4 = r'(\d{1,2})日(\d{4})时至(\d{4})时'
-        times.extend([m.group() for m in re.finditer(pattern4, text)])
-
-        # 格式5: 自X月X日至X月X日，每日XXXX时至XXXX时 (date range + daily time)
-        pattern5 = r'自(\d{1,2})月(\d{1,2})日至(\d{1,2})月?(\d{1,2})日[，,]\s*每日(\d{4})时至(\d{4})时'
-        times.extend([m.group() for m in re.finditer(pattern5, text)])
-
-        # 格式6: English UTC: FROM DDHHMM UTC TO DDHHMM UTC
-        pattern6 = r'FROM\s+(\d{6})\s*UTC\s+TO\s+(\d{6})\s*UTC'
-        times.extend([m.group() for m in re.finditer(pattern6, text, re.IGNORECASE)])
-
-        return list(set(times))
-    
     def run(self, days_back: int = 365, max_pages: int = 1) -> List[Dict]:
         """
         執行爬蟲 (符合 BaseScraper 的簽名)
@@ -358,10 +366,12 @@ class NavigationWarningScraper(BaseScraper):
                 if content:
                     # 解析座標
                     coordinates = self.parse_coordinates(content)
-                    
-                    # 解析時間
-                    time_periods = self.parse_time_period(content)
-                    
+
+                    # 解析時間：標題也一起餵進去（英文公告的月份常只出現在標題後段），
+                    # 發布日用來推斷公告未寫出的年份與月份
+                    time_periods = self.parse_time_period(
+                        f"{article['title']} {content}", article.get('date'))
+
                     warning = {
                         'title': article['title'],
                         'channel': channel_name,
@@ -402,14 +412,18 @@ class NavigationWarningScraper(BaseScraper):
                 coords_raw_list = [c['raw'] for c in w['coordinates']]
                 coords_raw = '; '.join(coords_raw_list)
             
-            # 格式化時間範圍
-            time_periods_str = '; '.join(w['time_periods']) if w['time_periods'] else ''
-            
+            # 格式化時間範圍：time_periods 現在是給人看的短字串（不需截斷），
+            # start_date / end_date 則是給下游程式用的結構化欄位。
+            periods = w['time_periods']
+            start, end = period_bounds(periods)
+
             std_warning = {
                 'publish_date': w['publish_date'],
                 'title': w['title'],
                 'channel': w['channel'],
-                'time_periods': time_periods_str,
+                'time_periods': format_periods_zh(periods),
+                'start_date': start.isoformat() if start else '',
+                'end_date': end.isoformat() if end else '',
                 'coordinate_count': w['coordinate_count'],
                 'coordinates': coords_str,
                 'coordinates_raw': coords_raw,

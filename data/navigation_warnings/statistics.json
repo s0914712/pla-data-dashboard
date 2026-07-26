@@ -1,9 +1,10 @@
 {
-  "update_time": "2026-07-26T05:42:13.638479",
+  "update_time": "2026-07-26T08:10:13.887571",
   "total_warnings": 86,
   "new_this_run": 0,
   "with_coordinates": 80,
-  "with_time_periods": 51,
+  "with_time_periods": 68,
+  "with_start_date": 68,
   "date_range": {
     "earliest": "2026-03-15",
     "latest": "2026-07-25"
