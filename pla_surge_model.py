@@ -30,11 +30,20 @@ from sklearn.ensemble import (
     HistGradientBoostingClassifier,
     HistGradientBoostingRegressor,
 )
+from sklearn.linear_model import LogisticRegression
 
 SURGE_THRESHOLD = 20
 SIGNAL_HORIZON = 1        # 超過這個 horizon 的 surge 機率不具鑑別力
 CONFORMAL_WINDOW = 180    # 殘差校準窗口（天）
 MIN_TRAIN_ROWS = 400
+# 校準窗至少要有幾個正樣本才做校準。
+#
+# 這裡用 Platt（logistic）而不是 isotonic，是實測後的選擇：校準窗只有約 180 天、
+# 正樣本 20 上下，isotonic 會產生大片平坦區間，把不同的預測壓成同一個值。
+# 實測 h=1/thr=20 的 PR-AUC 因此由 0.259 掉到 0.168、ROC-AUC 0.636 → 0.565 ——
+# 排序能力被校準本身破壞掉了。Platt 是嚴格單調的，AUC 完全不變，
+# 只把系統性偏移（class_weight='balanced' 造成的整體推高）拉回來。
+MIN_CALIBRATION_POSITIVES = 8
 RANDOM_STATE = 42
 
 POINT_PARAMS = dict(
@@ -45,6 +54,16 @@ SURGE_PARAMS = dict(
     max_iter=300, max_depth=4, learning_rate=0.05,
     class_weight="balanced", random_state=RANDOM_STATE,
 )
+
+
+def _logit(p, eps=1e-6):
+    """機率 → log-odds，並整形成 sklearn 要的 (n, 1)。
+
+    Platt 要在 log-odds 上做才是標準做法；直接對機率做線性 logistic
+    等於再套一層 sigmoid，對已經接近 0/1 的輸出幾乎沒有調整能力。
+    """
+    a = np.clip(np.asarray(p, dtype=float), eps, 1 - eps)
+    return np.log(a / (1 - a)).reshape(-1, 1)
 
 
 def to_daily_series(df, date_col="date", value_col="pla_aircraft_sorties"):
@@ -128,6 +147,7 @@ class HorizonModel:
         self.features = None
         self.residuals = None      # 供 conformal 區間使用
         self.surge_base_rate = None
+        self.calibrator = None     # Platt，把分類器輸出映回真實機率
 
     def fit(self, series):
         frame = build_features(series, self.horizon, self.threshold)
@@ -151,6 +171,18 @@ class HorizonModel:
             X[:-n_cal], y[:-n_cal])
         self.residuals = y[-n_cal:] - cal_model.predict(X[-n_cal:])
 
+        # 機率校準。SURGE_PARAMS 用 class_weight='balanced'，那是為了讓分類器
+        # 在稀疏正樣本下學得動，代價是輸出機率被整體推高 —— 實測 Brier 0.1230
+        # 比「全押 base rate」的 0.0998 還差，也就是那個百分比本身不能當機率讀。
+        # 這裡用跟 conformal 同一段樣本外資料配 Platt 把它映射回真實頻率。
+        head, held = y_surge[:-n_cal], y_surge[-n_cal:]
+        if 0 < head.sum() < len(head) and \
+                MIN_CALIBRATION_POSITIVES <= held.sum() < len(held):
+            cal_clf = HistGradientBoostingClassifier(**SURGE_PARAMS).fit(
+                X[:-n_cal], head)
+            raw = cal_clf.predict_proba(X[-n_cal:])[:, 1]
+            self.calibrator = LogisticRegression().fit(_logit(raw), held)
+
         # 最終模型用全部資料重訓（標準 split-conformal 作法）
         self.point = HistGradientBoostingRegressor(**POINT_PARAMS).fit(X, y)
         # 全零或全一時分類器無法訓練（極短序列才會發生）
@@ -166,9 +198,13 @@ class HorizonModel:
 
         point = float(max(0.0, self.point.predict(X)[0]))
         if self.surge is not None:
-            surge_p = float(self.surge.predict_proba(X)[0, 1])
+            surge_raw = float(self.surge.predict_proba(X)[0, 1])
         else:
-            surge_p = self.surge_base_rate
+            surge_raw = self.surge_base_rate
+
+        surge_p = surge_raw
+        if self.calibrator is not None:
+            surge_p = float(self.calibrator.predict_proba(_logit([surge_raw]))[0, 1])
 
         lo_q, hi_q = np.quantile(self.residuals, [0.05, 0.95])
         return {
@@ -178,6 +214,10 @@ class HorizonModel:
             "lower": float(max(0.0, point + lo_q)),
             "upper": float(point + hi_q),
             "surge_probability": surge_p,
+            # 未校準的原始輸出，供上線後監看校準漂移
+            "surge_probability_raw": surge_raw,
+            "surge_calibrated": self.calibrator is not None,
+            "surge_base_rate": self.surge_base_rate,
             "surge_signal_valid": self.horizon <= SIGNAL_HORIZON,
         }
 

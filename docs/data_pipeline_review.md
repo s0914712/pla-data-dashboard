@@ -23,7 +23,7 @@ git history 本身就是交易紀錄——`scripts/analysis/build_pit_features.p
 | 中央社 / 新華社 / 微博 | `scripts/main.py` + `scripts/scrapers/` | `data/news_classified.json` | `daily_update.yml` `15 0` 等 |
 | Windy 機場天氣 | `scripts/scrapers/weather_scraper.py` | `data/airport_weather_forecast.csv` | `weather.yml` `30 0,12` |
 | 跨檔同步 | `scripts/sync_pipeline.py` | `merged_comprehensive_data_M.csv`, `naval_transits.csv` | `sync_pipeline.yml` `0 8` |
-| 預測 | `pla_7day_predictor.py` (CatBoost) | `data/predictions/latest_prediction.csv` | `daily_prediction.yml` `0 2` |
+| 預測 | `predict_surge_daily.py` (SurgeForecaster) | `data/predictions/latest_prediction.csv` | `daily_prediction.yml` `0 2` |
 | LINE 推播 | `scripts/send_message.py` | 兩張 PNG ＋ 一則文字 | `LINEcron.yml` `0 23` |
 
 這個「CSV as DB」架構本身是合理取捨：零運維成本、資料可直接被 GitHub Pages
@@ -118,7 +118,56 @@ body（含「English 首页 机构职能…」導覽列），公告本體被擠�
 
 依「影響 × 風險」排序。
 
-### 3.1 預測用遞迴多步，D+2 之後的區間會塌陷 — 高影響
+### 3.1 ~~預測用遞迴多步~~ — 已處理，模型已換
+
+**2026-07-26 更新：預測核心已由 CatBoost 換成 `pla_surge_model.SurgeForecaster`**
+（進入點 `predict_surge_daily.py`，`daily_prediction.yml` 已改指向它；
+`pla_7day_predictor.py` 原封保留，改回一行即可回滾）。
+
+依據是修好後的 `backtest_predictor.py`（`--days 120 --horizons 1 --refit 28`，
+2026-03-28~07-26，121 天、15 個 surge 日）。同一支腳本同時跑樸素基準線與線上模型，
+所有數字都是同一個窗口、同一套指標：
+
+| model | MAE | pin90 | bias | cov90 | PR-AUC | ROC-AUC | Brier | recall |
+|---|---|---|---|---|---|---|---|---|
+| baseline persistence | 8.07 | 4.03 | +0.02 | – | – | – | – | – |
+| baseline EMA-14 | 6.56 | 3.37 | −0.21 | – | – | – | – | – |
+| baseline median-28 | 6.18 | 4.21 | −2.81 | – | – | – | – | – |
+| **surge model h=1** | 6.17 | **3.03** | **+0.13** | **97%** | **0.329** | **0.647** | **0.1062** | **47%** |
+| deployed（舊 CatBoost） | **5.87** | 3.97 | −2.59 | 54% | 0.141 | 0.555 | 0.1410 | 20% |
+
+（`Brier0` = 全押 base rate = 0.1086；`recall` 是 20% 告警預算下的召回率。
+`bias` 在這支腳本裡是 `預測−實際`，與本文其他處的符號相反。）
+
+新模型在**除了 MAE 以外的每一項都贏**，包含贏過三條樸素基準線的 `pin90`。
+舊模型只贏 MAE —— 而 MAE 正是獎勵低估的那個指標（見下）。
+`Brier 0.1062 < Brier0 0.1086`，代表校準後的機率終於比「全押 base rate」有價值。
+
+`cov90 = 97%` 略高於名目 90%，區間偏保守；這比舊模型的 54% 好得多，但仍應持續監看。
+
+**MAE 變差是預期的取捨，不是退步。** 架次分布右偏（mean 7.2 / median 4 / q90 22），
+MAE 的最佳解是條件中位數，所以最小化 MAE 等於訓練模型系統性低估——
+舊模型 160 天裡點預測從未超過 17.4（實際最高 36），18 次 surge 一次都沒抓到。
+判定成敗請看 `cov90` / `pin90` / `PR_AUC`。
+
+一併處理掉的：遞迴餵回（改 direct multi-horizon）、SMOTE、recency 複製列、
+區間事後加寬、天氣調整（稽核增益 `+0.011 [-0.076,+0.143]`，跨 0）。
+
+門檻由 25 降到 20：thr=25 的 ROC-AUC 只有 0.547（正樣本 11 個），與亂猜無法區分。
+
+機率校準用 **Platt（logistic on log-odds）而非 isotonic**——這是實測選擇。
+校準窗僅約 180 天、正樣本 20 上下，isotonic 會產生大片平坦區間把不同預測壓成同值，
+實測 PR-AUC 因此由 0.259 掉到 0.168、ROC-AUC 0.636 → 0.565。Platt 嚴格單調，
+在 160 天窗上把平均輸出由 22.3%（實際 11.2%，膨脹 1.98×）拉到 17.8%（1.58×），
+Brier 0.1230 → 0.1007，排序幾乎無損（PR-AUC 0.259 → 0.238）。
+
+**仍需監看**：
+- 校準後仍有 1.58× 的殘餘膨脹，機率偏高的方向沒有完全消除
+- 樣本量不足：15~18 個正樣本，ROC-AUC 95% CI 約 [0.49, 0.78]。
+  方向明確、精度不足，需要累積更多事件才能確認
+- `cov90` 97% 偏保守，區間可能過寬
+
+<details><summary>原始問題描述（已修）</summary>
 
 `pla_7day_predictor.predict_7_days()` 第 1176 行 `current_window.append(pred_final)`
 把預測值餵回特徵窗，D+2..D+7 的 lag/rolling 特徵是建立在預測值而非實測值上。
@@ -134,7 +183,14 @@ repo 內另一版模型 `pla_surge_model.py` 的 docstring 明確記錄了這件
 `predict_7_days` 改成 direct multi-horizon。本次已先在 LINE 端把 D+2/D+3 的機率
 拿掉（只顯示 D+1 並標示基準發生率），避免把兩個亂數與一個有訊號的數字並排展示。
 
-### 3.2 預測器從 `raw.githubusercontent.com` 讀資料，而不是讀 checkout — 中高影響
+</details>
+
+### 3.2 ~~預測器從 `raw.githubusercontent.com` 讀資料~~ — 新進入點已修
+
+`predict_surge_daily.load_sorties()` 改為優先讀本機 checkout，讀不到才回退遠端。
+舊的 `pla_7day_predictor.py:112-116` 仍是原樣（該檔已不在排程路徑上）。
+
+<details><summary>原始問題描述（新進入點已修）</summary>
 
 `pla_7day_predictor.py:112-116` 的 `DATA_SOURCES` 全部指向 main 分支的 raw URL。
 `daily_prediction.yml` 明明已經 checkout 了 repo，卻讀網路上的版本。兩個後果：
@@ -144,6 +200,8 @@ repo 內另一版模型 `pla_surge_model.py` 的 docstring 明確記錄了這件
 - **無法離線重現**：本地跑預測拿到的資料跟 CI 不同，回測結果無法對照
 
 **建議**：預設讀本機路徑，raw URL 只當 fallback。
+
+</details>
 
 ### 3.3 push 用 `git pull --rebase -X theirs`，可能丟掉本次抓到的列 — 中影響
 
@@ -179,7 +237,15 @@ rebase 期間 `-X theirs` 解在 **incoming upstream** 那一側，CSV 起衝突
 **建議**：要嘛把爬蟲收斂到福建/廣東/浙江三個面向台海的海事局以提高訊噪比，
 要嘛保留全量但把特徵改成「按海區分開的多個欄位」，不要混成一個。
 
-### 3.6 儀表板的高架次門檻與模型不一致 — 低影響但會誤導
+### 3.6 ~~儀表板門檻不一致~~ — 已統一為 20
+
+`prediction.html` 的 `>= 30` 改為讀預測檔的 `surge_threshold` 欄位；
+`send_message.py` 的 `HIGH_SORTIE_THRESHOLD` 由 25 改為 20，與
+`pla_surge_model.SURGE_THRESHOLD` 一致。舊版寫死 30 還有個隱藏後果：
+點預測從未達到 30，所以「方向準確率」實際上退化成「實際值 <30 的天數比例」＝98%，
+看起來很漂亮但沒有任何資訊。
+
+<details><summary>原始問題描述（已修）</summary>
 
 `prediction.html:738-739` 用 `>= 30` 計算 direction accuracy，但模型的
 `HIGH_THRESHOLD = 25`（`pla_7day_predictor.py:128`），而未上線的
@@ -189,6 +255,8 @@ rebase 期間 `-X theirs` 解在 **incoming upstream** 那一側，CSV 起衝突
 前端讀取而不是寫死。本次 `send_message.py` 已把門檻寫成具名常數
 `HIGH_SORTIE_THRESHOLD = 25` 並在推播文字中明示（「高架次(≥25)機率」），
 使用者至少能知道那個百分比在講什麼。
+
+</details>
 
 ### 3.7 `data/JapanandBattleship.csv` 的 `remark` / `備考` 語意分裂 — 低影響
 
@@ -200,6 +268,10 @@ rebase 期間 `-X theirs` 解在 **incoming upstream** 那一側，CSV 起衝突
 
 ### 3.8 雜項
 
+- `scripts/analysis/backtest_predictor.py` **原本根本無法執行**：
+  `main()` 裡 `global REFIT_EVERY` 寫在 `add_argument(default=REFIT_EVERY)` 之後，
+  是 `SyntaxError`。也就是說它 docstring 裡記錄的那些數字不可能來自這個版本。
+  已修，並補上區間覆蓋率、Brier、pinball 與三條樸素基準線
 - `scripts/scrapers/weather_report.csv` 是 1 byte 的空檔，誤 commit 進 scrapers 套件
 - `scraper_japan_mod.generate_pdf_urls()` 用暴力猜測 URL（每天試 `_01`..`_10`），
   一天 300 次請求且無法得知是否漏抓。改成解析統幕的發表資料列表頁較可靠。
@@ -219,4 +291,16 @@ python3 scripts/send_message.py --dry-run
 
 # 防衛省解析規則對 PDF 快取重跑（不連線）
 python3 scripts/analysis/verify_strait_parsing.py --diff
+
+# 預測模型（新進入點）
+python3 predict_surge_daily.py --dry-run
+
+# 回測：含樸素基準線、區間覆蓋率、Brier、pinball
+python3 scripts/analysis/backtest_predictor.py --days 365 --horizons 1,3 --refit 28
 ```
+
+回測輸出的判讀順序：
+1. `cov90` 應落在 85~95%（名目 90%）。這是換模型最主要的收益
+2. `bias` 應在 ±0.5 內
+3. `PR_AUC` 要明顯高於 base rate；`Brier` 要低於 `Brier0`（全押 base rate）
+4. `MAE` **不是**驗收指標——它在此分布上獎勵低估，看 `pin90`
