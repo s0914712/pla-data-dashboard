@@ -23,10 +23,12 @@ jobs:
         with:
           python-version: '3.11'
 
+      # SurgeForecaster 只需要 scikit-learn 的 HistGradientBoosting，
+      # 不再需要 catboost 與 imbalanced-learn（SMOTE 已移除）。
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pandas numpy scikit-learn imbalanced-learn catboost
+          pip install pandas numpy scikit-learn
 
       - name: Run prediction
         run: |
@@ -36,7 +38,9 @@ jobs:
           echo "Files in data/predictions/:"
           ls -la data/predictions/ || echo "No predictions directory"
           echo ""
-          python pla_7day_predictor.py
+          # 回滾方式：把下面這行換回 `python pla_7day_predictor.py`。
+          # 舊模型檔案保留未動，兩者輸出同一份 CSV schema。
+          python predict_surge_daily.py
           echo ""
           echo "=== Prediction script completed ==="
 

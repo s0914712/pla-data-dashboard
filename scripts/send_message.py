@@ -76,16 +76,21 @@ SOURCE_LABELS = {
     "naval_transits": "美/外軍艦動向",
 }
 
-RISK_EMOJI = {"LOW": "🟢", "MEDIUM": "🟡", "MEDIUM-HIGH": "🟠", "HIGH": "🔴", "CRITICAL": "🔴"}
+RISK_EMOJI = {"LOW": "🟢", "MEDIUM": "🟡", "MEDIUM-HIGH": "🟠", "HIGH": "🔴",
+              "CRITICAL": "🔴", "UNKNOWN": "⚪"}
 
-# 「高架次」門檻，與 pla_7day_predictor.HIGH_THRESHOLD 一致。
-# 分類器就是用這個門檻訓練的，顯示時必須講同一個數字，否則 45% 到底是
-# 「>=25 架次」還是「>=30 架次」的機率無從得知。
-HIGH_SORTIE_THRESHOLD = 25
+# 「高架次」門檻，與 pla_surge_model.SURGE_THRESHOLD 一致。
+# 分類器就是用這個門檻訓練的，顯示時必須講同一個數字，否則「45%」到底是
+# 「>=20 架次」還是「>=30 架次」的機率無從得知。
+#
+# 由 25 改成 20 是實測結果：同一個 160 天評估窗、h=1，thr=25 的 ROC-AUC 只有
+# 0.547（正樣本 11 個），與亂猜無法區分；thr=20 是 0.622、PR-AUC 0.238
+# 對 base rate 0.113 有 2.1 倍 lift。門檻太高會讓正樣本太稀疏，模型學不動也測不準。
+HIGH_SORTIE_THRESHOLD = 20
 
-# 高架次機率只在 D+1 顯示。pla_surge_model.py 的回測（見該檔 docstring）
-# 顯示 surge 機率在 h=1 的 ROC-AUC 是 0.764，h>=2 掉到 0.45-0.57 —— 等同亂猜。
-# 把三天並排顯示會讓兩個亂數看起來跟有訊號的那個一樣可信。
+# 高架次機率只在 D+1 顯示 —— h>=2 實測 ROC-AUC 0.45-0.57，等同亂猜。
+# 上游 predict_surge_daily.py 對 h>=2 直接寫 NaN、risk_level 給 UNKNOWN，
+# 這裡的過濾是第二道防線。
 PROB_SIGNAL_HORIZON = 1
 
 # 計算基準發生率的回看天數（用來讓機率有比較基準：45% 是高是低，
@@ -151,7 +156,8 @@ def summarize_forecast(fc):
         )
     base = high_sortie_base_rate()
     if base is not None:
-        lines.append(f"  （近一年高架次日基準發生率 ~{base:.0f}%；D+2 之後機率無鑑別力故不列）")
+        lines.append(f"  （近一年高架次(≥{HIGH_SORTIE_THRESHOLD})日基準發生率 ~{base:.0f}%；"
+                     f"D+2 之後機率無鑑別力故不列）")
 
     errs = load_recent_errors()
     if not errs.empty:

@@ -734,9 +734,13 @@ function calculateAccuracyStats() {
             sumAbsError += Math.abs(error);
             sumSquaredError += error * error;
 
-            // Direction accuracy (using 30 as threshold)
-            const predHigh = predicted >= 30;
-            const actualHigh = actual >= 30;
+            // 門檻取自預測檔的 surge_threshold 欄位，不再寫死。
+            // 舊版寫死 30，但模型是用 20 訓練的；而且點預測從未達到 30，
+            // 這個「方向準確率」實際上退化成「實際值 <30 的天數比例」= 98%，
+            // 看起來很好但完全沒有資訊。
+            const thr = Number(row.surge_threshold) || 20;
+            const predHigh = predicted >= thr;
+            const actualHigh = actual >= thr;
             if (predHigh === actualHigh) correctDirection++;
             totalComparisons++;
         }
