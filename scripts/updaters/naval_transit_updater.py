@@ -148,8 +148,16 @@ class NavalTransitUpdater:
     # Load existing CSV
     # ------------------------------------------------------------------
     def _load_existing(self) -> List[Dict[str, str]]:
-        """載入現有的 naval_transits.csv"""
+        """載入現有的 naval_transits.csv
+
+        欄位以檔案實際表頭為準，不是以 FIELDNAMES 為準。原本用 FIELDNAMES
+        （只有 9 欄）逐 index 讀，第 9 欄之後的 Ship_Type、Hull_Number、
+        Mission_Note、Date_Precision、Date_Note、Source、Country_Confidence
+        在讀入時就被丟掉，再由 _save() 依同一份 FIELDNAMES 覆寫整個檔案 ——
+        等於每跑一次新聞管線，sync_pipeline 前一天補進去的結構化欄位就全數清空。
+        """
         rows: List[Dict[str, str]] = []
+        self.fieldnames = list(self.FIELDNAMES)
         if not self.csv_path.exists():
             return rows
         with open(self.csv_path, "r", encoding="utf-8-sig") as f:
@@ -157,11 +165,18 @@ class NavalTransitUpdater:
             header = next(reader, None)
             if not header:
                 return rows
+            self.fieldnames = [col.strip() for col in header]
+            # 保險：程式碼要求的欄位若檔案沒有，補在後面而不是靜默丟棄。
+            # 跳過 FIELDNAMES 裡那個空字串欄名 —— 檔案裡它是 'Unnamed: 8'
+            # （pandas 寫回時產生的），照補會多出一個無名的尾欄。
+            for col in self.FIELDNAMES:
+                if col and col not in self.fieldnames:
+                    self.fieldnames.append(col)
             for line in reader:
                 if not line or not any(cell.strip() for cell in line):
                     continue
                 row = {}
-                for i, col in enumerate(self.FIELDNAMES):
+                for i, col in enumerate(self.fieldnames):
                     row[col] = line[i].strip() if i < len(line) else ""
                 rows.append(row)
         return rows
@@ -293,14 +308,23 @@ class NavalTransitUpdater:
             return "9999/99/99"
 
     def _save(self, rows: List[Dict]) -> None:
-        """將資料寫回 CSV（按日期排序）"""
+        """將資料寫回 CSV（按日期排序）
+
+        欄位取自 _load_existing() 讀到的實際表頭，並聯集所有列身上出現過的欄位，
+        確保沒有任何欄位在寫回時被截掉。
+        """
         rows.sort(key=self._date_sort_key)
+        fieldnames = list(getattr(self, "fieldnames", None) or self.FIELDNAMES)
+        for row in rows:
+            for col in row:
+                if col not in fieldnames:
+                    fieldnames.append(col)
         with open(self.csv_path, "w", encoding="utf-8-sig", newline="") as f:
             writer = csv.writer(f)
             # 寫入標頭
-            writer.writerow(self.FIELDNAMES)
+            writer.writerow(fieldnames)
             for row in rows:
-                writer.writerow([row.get(col, "") for col in self.FIELDNAMES])
+                writer.writerow([row.get(col, "") for col in fieldnames])
 
     # ------------------------------------------------------------------
     # CSV → JSON articles (for news_classified.json)

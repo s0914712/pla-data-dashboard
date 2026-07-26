@@ -1,0 +1,222 @@
+# 資料流檢視與改善方案：爬蟲 → 資料表 → 預測
+
+本文檢視 `pla-data-dashboard` 從資料蒐集到預測輸出的完整流程，列出目前的實際
+行為、已在本次一併修掉的問題，以及建議後續處理的項目。
+
+檢視日期：2026-07-26。所有數字都是對 repo 內當下資料實測得出，不是估計。
+
+---
+
+## 1. 現況：資料流長什麼樣
+
+沒有資料庫。全 repo 沒有 SQLite / Postgres / Supabase / ORM / migration，
+`requirements.txt` 也沒有任何 DB driver。**「資料表」就是 `data/` 底下的 CSV 與
+JSON，由 GitHub Actions 每天 commit 進 git**，靜態 HTML 儀表板直接讀這些檔案。
+git history 本身就是交易紀錄——`scripts/analysis/build_pit_features.py` 正是靠
+`git` 快照重建 point-in-time 特徵。
+
+| 來源 | 入口 | 產出 | 排程 (UTC) |
+|---|---|---|---|
+| 國防部 共機架次 | `scraper.py` (Selenium) | `data/JapanandBattleship.csv` | `update_data.yml` `0 0` |
+| 日本防衛省 統幕 | `scraper_japan_mod.py` (PyPDF2) | 同上 ＋ `data/pdf_texts/`, `data/logs/strait_conflicts.json` | `scrape_japan_mod.yml` `0 6` |
+| MSA 12 個海事局 航警 | `scripts/scrape_nav_warnings.py` | `data/navigation_warnings/*` | `scrape_nav_warnings.yml` `15 2` |
+| 中央社 / 新華社 / 微博 | `scripts/main.py` + `scripts/scrapers/` | `data/news_classified.json` | `daily_update.yml` `15 0` 等 |
+| Windy 機場天氣 | `scripts/scrapers/weather_scraper.py` | `data/airport_weather_forecast.csv` | `weather.yml` `30 0,12` |
+| 跨檔同步 | `scripts/sync_pipeline.py` | `merged_comprehensive_data_M.csv`, `naval_transits.csv` | `sync_pipeline.yml` `0 8` |
+| 預測 | `pla_7day_predictor.py` (CatBoost) | `data/predictions/latest_prediction.csv` | `daily_prediction.yml` `0 2` |
+| LINE 推播 | `scripts/send_message.py` | 兩張 PNG ＋ 一則文字 | `LINEcron.yml` `0 23` |
+
+這個「CSV as DB」架構本身是合理取捨：零運維成本、資料可直接被 GitHub Pages
+讀取、改動全都有 diff 可追。以下問題都不是「該換成資料庫」，而是這個架構下
+可以修好的具體缺陷。
+
+---
+
+## 2. 本次已修正的項目
+
+### 2.1 MSA 起訖日從未被結構化（造成 LINE 推播斷字）
+
+`NavigationWarning_scraper.parse_time_period()` 跑六條互相重疊的 regex，卻用
+`m.group()` 而非 `m.groups()`，capture group 全丟掉，最後 `return list(set(times))`。
+後果：
+
+- 同一則公告產生多個重疊片段，例如
+  `7月20日0600时至22日1200时; 2026年7月20日0600时至22日1200时`（45 字元）
+- 部分片段沒有月份（`24日0600时至1800时`），而 `set()` 沒有順序，殘缺片段可能排在最前
+- `military_exercises.csv` **沒有 start_date / end_date 欄位**，真正的日期解析
+  重複實作在 `pla_7day_predictor._parse_navwarn_window`
+- 下游 `send_message.py` 再套 `[:40]`（文字）與 `[:16]`（地圖圖例），必定切在迄日中間
+
+**已修**：新增 `scripts/nav_warning_dates.py` 集中解析，回傳結構化 `Period`
+（起日、迄日、時刻、是否為「每日」時段），並補上舊版完全沒有的英文格式
+`FROM 16 TO 17 MAR` / `... UTC TO ... UTC DAILY`。CSV/JSON 新增 `start_date`、
+`end_date` 欄位，`time_periods` 改存格式化後的短字串。`pla_7day_predictor` 端的
+重複實作應在後續改為呼叫同一模組。
+
+實測：86 筆歷史航警有時間資訊者 **51 → 68**。
+
+### 2.2 歷史資料不會自癒
+
+`merge_warnings()` 用 `drop_duplicates(subset='url', keep='first')`，既有列永遠
+不會被新抓的同一則覆蓋。這對保存歷史是對的（MSA 每個海事局只留最新一頁），
+但代表解析規則改善後舊資料永遠停在舊值。
+
+**已修**：新增 `redrive_periods()`，每次執行都對全部列從 `content_preview`
+重算起訖日；並提供 `--redrive-only` 讓規則改善後可以離線補資料——
+msa.gov.cn 自 2026-03 起對境外 IP 回 403，重爬這條路在 CI 上走不通。
+
+### 2.3 `content_preview` 被截斷在 500 字，連同日期一起丟掉
+
+`extract_core_content()` 找不到航警編號時直接 `return text[:500]`，而 `text` 是整頁
+body（含「English 首页 机构职能…」導覽列），公告本體被擠到截斷點之後。
+
+實測：86 筆中有 **24 筆長度剛好 500 且都含導覽列文字**，起訖日全數遺失。
+
+**已修**：加入正文錨點（`发布时间`／`来源`／`文号`／`航行警告`）先剝掉導覽列，
+上限由 500 提高到 1500（含座標列表的公告，座標本身就佔三四百字）。
+已經存下來的那 18 筆解不出來的仍留空——不猜。
+
+### 2.4 `naval_transits.csv` 每次新聞管線執行就掉 7 個欄位
+
+`NavalTransitUpdater.FIELDNAMES` 只列 9 欄，`_load_existing()` 依它逐 index 讀、
+`_save()` 依它覆寫整個檔案。CSV 實際有 16 欄，於是 `Ship_Type`、`Hull_Number`、
+`Mission_Note`、`Date_Precision`、`Date_Note`、`Source`、`Country_Confidence`
+**每跑一次就被清空**，隔天 `sync_pipeline.step_enrich_naval` 再補回來，補了又掉。
+
+**已修**：改以檔案實際表頭為準，並聯集所有列出現過的欄位。實測 round-trip 後
+`Ship_Type` 保留 59/71 筆（原本 0 筆）。
+
+### 2.5 防衛省資料在日期列不存在時被丟棄
+
+`scraper_japan_mod.update_csv()` 遇到 CSV 沒有該日期時印 `找不到日期` 並
+`return False`，當天的解析結果直接消失。`JapanandBattleship.csv` 的日期列由
+`scraper.py`（國防部架次）建立，只要國防部當天沒發布或 Selenium 爬蟲失敗，
+防衛省的艦艇通報就永遠寫不進去。兩個來源不保證同日都有資料，不該互為前提。
+
+**已修**：改為補一列（架次欄留 NA，代表未觀測而非 0）並依日期排序。
+
+### 2.6 艦型辨識：字典未收錄一律變成「未提及」
+
+`_extract_ship_classes()` 只做 50 筆手工字典的子字串比對，未命中回「未提及」。
+實測 152 份 PDF 中，`ジャンカイⅢ級`（江凱III/054A）、`ユーシェン級`（玉申/075
+兩棲攻擊艦）、`クズネツォフ級`（庫茲涅佐夫級航艦）等 8 種艦級原文明明寫了
+卻被記成「未提及」。
+
+**已修**：補上 12 筆字典條目，並加入 `〈片假名〉級〈艦種〉` 的原文回退（標 `※`
+表示未翻譯）。回退對每一份文件都執行，不是只在字典全數落空時——一份編隊
+通報常同時提到多艘不同艦級，只要一艘在字典裡，其餘就會被整批吞掉。
+目前僅剩 2 種艦級需要原文標示。
+
+### 2.7 `military_exercises.json` 不是合法 JSON
+
+`json.dump` 把 pandas 的 NaN 寫成裸的 `NaN`，任何非 Python 的消費端（含瀏覽器
+`fetch`）都會解析失敗。**已修**：文字欄位缺值統一寫空字串。
+
+---
+
+## 3. 建議後續處理（本次未動）
+
+依「影響 × 風險」排序。
+
+### 3.1 預測用遞迴多步，D+2 之後的區間會塌陷 — 高影響
+
+`pla_7day_predictor.predict_7_days()` 第 1176 行 `current_window.append(pred_final)`
+把預測值餵回特徵窗，D+2..D+7 的 lag/rolling 特徵是建立在預測值而非實測值上。
+repo 內另一版模型 `pla_surge_model.py` 的 docstring 明確記錄了這件事：
+「遞迴會讓預測變異數逐日塌陷」，並改用 direct multi-horizon（每個 horizon 各訓
+一個模型）。
+
+同一份 docstring 還記錄：surge 機率只在 h=1 有鑑別力（ROC-AUC 0.764），h≥2 掉到
+0.45–0.57 等同亂猜；`scripts/analysis/backtest_predictor.py` 的檔頭則記錄現行
+上線模型「MAE 5.86，但 18 次 surge 一次都沒抓到」。
+
+**建議**：把 `pla_surge_model.SurgeForecaster` 接上線，或至少把
+`predict_7_days` 改成 direct multi-horizon。本次已先在 LINE 端把 D+2/D+3 的機率
+拿掉（只顯示 D+1 並標示基準發生率），避免把兩個亂數與一個有訊號的數字並排展示。
+
+### 3.2 預測器從 `raw.githubusercontent.com` 讀資料，而不是讀 checkout — 中高影響
+
+`pla_7day_predictor.py:112-116` 的 `DATA_SOURCES` 全部指向 main 分支的 raw URL。
+`daily_prediction.yml` 明明已經 checkout 了 repo，卻讀網路上的版本。兩個後果：
+
+- **時序競爭**：預測排在 `0 2`，`scrape_japan_mod` 在 `0 6`、`sync_pipeline` 在 `0 8`，
+  但 raw URL 有 CDN 快取，讀到的可能是更舊的版本，且無從得知讀到哪一版
+- **無法離線重現**：本地跑預測拿到的資料跟 CI 不同，回測結果無法對照
+
+**建議**：預設讀本機路徑，raw URL 只當 fallback。
+
+### 3.3 push 用 `git pull --rebase -X theirs`，可能丟掉本次抓到的列 — 中影響
+
+每個 workflow 的 push retry 都是：
+
+```bash
+git pull --rebase --autostash -X theirs origin main
+```
+
+rebase 期間 `-X theirs` 解在 **incoming upstream** 那一側，CSV 起衝突時會捨棄
+本次執行剛爬到的列。目前靠 `concurrency: group: csv-battleship-writers`
+（`update_data.yml`、`scrape_japan_mod.yml`、`sync_pipeline.yml` 三者皆已加入）
+降低碰撞機率，但 retry 路徑本身仍有損失資料的可能。
+
+**建議**：CSV 這種累積型檔案不要用 `-X` 自動解衝突，改成 rebase 失敗時重新讀取
+最新檔案、重跑一次 merge 邏輯（各 writer 的 merge 都已是冪等的）。
+
+### 3.4 `naval_transits` 只以日期去重，一天只能記一筆 — 中影響
+
+`NavalTransitUpdater._is_duplicate()` 只比對 `Date`，同一天有兩艘不同國家軍艦
+通過台海時，第二筆會被當成重複而丟棄。`add_naval_transit.py` 的 upsert 邏輯
+是對的，兩者行為不一致。
+
+**建議**：去重鍵改為 `(Date, Country, Hull_Number)`。
+
+### 3.5 航警地理圍籬只有 6/80 落在台灣海峽 — 中影響
+
+`pla_7day_predictor.NAVWARN_GEOFENCE = {21.0–28.5°N, 117.0–124.0°E}`，但爬蟲抓的是
+全部 12 個海事局（含渤海、南海、北部灣）。`audit_feature_sources.py` 的註解已記錄
+只有 6/80 落在圍籬內——`navwarn_active` / `navwarn_pub_3d` 這兩個 v2.8 特徵的
+有效樣本數低到難以支撐任何統計宣稱。
+
+**建議**：要嘛把爬蟲收斂到福建/廣東/浙江三個面向台海的海事局以提高訊噪比，
+要嘛保留全量但把特徵改成「按海區分開的多個欄位」，不要混成一個。
+
+### 3.6 儀表板的高架次門檻與模型不一致 — 低影響但會誤導
+
+`prediction.html:738-739` 用 `>= 30` 計算 direction accuracy，但模型的
+`HIGH_THRESHOLD = 25`（`pla_7day_predictor.py:128`），而未上線的
+`pla_surge_model.SURGE_THRESHOLD` 又是 20。三個地方三個數字。
+
+**建議**：統一為單一常數，由模型端輸出到 `latest_prediction.csv` 的 metadata，
+前端讀取而不是寫死。本次 `send_message.py` 已把門檻寫成具名常數
+`HIGH_SORTIE_THRESHOLD = 25` 並在推播文字中明示（「高架次(≥25)機率」），
+使用者至少能知道那個百分比在講什麼。
+
+### 3.7 `data/JapanandBattleship.csv` 的 `remark` / `備考` 語意分裂 — 低影響
+
+`remark` 原本是布林欄（1439 True / 133 False），後來被拿來存繁中敘述，於是
+`scraper_japan_mod.py:801-803` 註解說明新的敘述改寫進 `備考`。目前兩欄都有資料、
+語意重疊，`send_message.py` 兩邊都要讀。
+
+**建議**：一次性 migration 把敘述統一到 `備考`，`remark` 保留布林語意或直接移除。
+
+### 3.8 雜項
+
+- `scripts/scrapers/weather_report.csv` 是 1 byte 的空檔，誤 commit 進 scrapers 套件
+- `scraper_japan_mod.generate_pdf_urls()` 用暴力猜測 URL（每天試 `_01`..`_10`），
+  一天 300 次請求且無法得知是否漏抓。改成解析統幕的發表資料列表頁較可靠。
+
+---
+
+## 4. 驗證方式
+
+```bash
+pip install pandas matplotlib pillow requests httpx PyPDF2
+
+# MSA 起訖日：離線重算歷史資料
+python3 scripts/scrape_nav_warnings.py --redrive-only
+
+# LINE 推播全文與兩張圖（不實際推送）
+python3 scripts/send_message.py --dry-run
+
+# 防衛省解析規則對 PDF 快取重跑（不連線）
+python3 scripts/analysis/verify_strait_parsing.py --diff
+```
