@@ -24454,5 +24454,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-07-28",
+      "title": "#向前 向前#【向前·向前丨御剑】有些路，不是看见希望才坚持，而是坚持下去才有希望。来自陕西吴起的吴...",
+      "content": "#向前 向前#【向前·向前丨御剑】有些路，不是看见希望才坚持，而是坚持下去才有希望。来自陕西吴起的吴玉夫，觉得军校像另一个“吴起”——在这里落脚，在这里蓄力，在这里冲锋。导弹巡天背后不是一个人的力量，就像长征不是一个人的跋涉。为#纪念红军长征胜利90周年#，中国军网推出融媒体片《向前·向 ...全文",
+      "url": "https://m.weibo.cn/detail/5325598792615250",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "东部战区空军某部举办内部安全主题故事分享会，旨在加强官兵训练、消防及装备安全意识。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-27",
+      "title": "【#主题故事分享会登场# 】近日，东部战区空军某部举办“安全伴我行，同心创一流”主题故事分享会，来自...",
+      "content": "【#主题故事分享会登场# 】近日，东部战区空军某部举办“安全伴我行，同心创一流”主题故事分享会，来自一线岗位的官兵代表走上讲台，围绕训练、消防、车辆、用网、装备等热点安全话题展开分享。（董哲之、陈晨、李杨昊然、郑祺扬）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5325291939170977",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
