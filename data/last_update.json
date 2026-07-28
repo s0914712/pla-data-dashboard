@@ -1,11 +1,11 @@
 {
-  "last_update": "2026-07-27T04:07:22.608731",
+  "last_update": "2026-07-28T03:40:07.850069",
   "stats": {
-    "timestamp": "2026-07-27T04:01:48.907829",
+    "timestamp": "2026-07-28T03:34:35.552040",
     "days_back": 7,
     "sources": {
       "cna": {
-        "scraped": 41,
+        "scraped": 38,
         "status": "success"
       },
       "xinhua": {
@@ -13,18 +13,18 @@
         "status": "success"
       },
       "weibo": {
-        "scraped": 13,
+        "scraped": 14,
         "status": "success"
       }
     },
     "deduplication": {
-      "before": 67,
+      "before": 65,
       "after": 62,
-      "removed": 5
+      "removed": 3
     },
     "classification": {
       "total": 62,
-      "relevant": 45,
+      "relevant": 43,
       "status": "success"
     },
     "naval_transits": {
