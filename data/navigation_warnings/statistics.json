@@ -1,25 +1,25 @@
 {
-  "update_time": "2026-07-27T06:01:03.041620",
-  "total_warnings": 89,
-  "new_this_run": 1,
-  "with_coordinates": 83,
-  "with_time_periods": 71,
-  "with_start_date": 71,
+  "update_time": "2026-07-28T05:25:51.296471",
+  "total_warnings": 99,
+  "new_this_run": 10,
+  "with_coordinates": 93,
+  "with_time_periods": 81,
+  "with_start_date": 81,
   "date_range": {
     "earliest": "2026-03-15",
-    "latest": "2026-07-27"
+    "latest": "2026-07-28"
   },
   "by_channel": {
     "广西海事局": 12,
-    "辽宁海事局": 30,
+    "辽宁海事局": 33,
     "海南海事局": 16,
     "连云港海事局": 3,
-    "广东海事局": 6,
+    "广东海事局": 7,
     "天津海事局": 1,
     "上海海事局": 2,
     "河北海事局": 3,
-    "山东海事局": 6,
-    "浙江海事局": 8,
+    "山东海事局": 10,
+    "浙江海事局": 10,
     "福建海事局": 2
   }
 }
