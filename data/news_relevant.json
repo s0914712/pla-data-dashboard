@@ -25054,5 +25054,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中共中央军委推出融媒体片《制胜》，强调军队向强及战备能力，具有针对台海局势的威慑意图。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-07-29",
+      "title": "【思想解读类融媒体片《制胜》即将播出】新华社北京7月29日电　经中央军委批准，中央军委政治工作部联合...",
+      "content": "【思想解读类融媒体片《制胜》即将播出】新华社北京7月29日电　经中央军委批准，中央军委政治工作部联合中央网信办、中央广播电视总台，摄制思想解读类融媒体片《制胜》。该片从7月30日起在中央电视台综合频道播出。#人民军队制强向强# 《制胜》共6集，分别为《战旗所向》、《换羽之陆》、《挺进深蓝 ...全文",
+      "url": "https://m.weibo.cn/detail/5326056227866734",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "N/A",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "解放軍32520部隊進行油料火災撲救實戰化訓練，屬常規後勤與消防演練。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-07-29",
+      "title": "【#火灾扑救实战化演练登场# 】近日，32520部队组织油料火灾扑救实战训练。重点围绕消防服穿戴、石...",
+      "content": "【#火灾扑救实战化演练登场# 】近日，32520部队组织油料火灾扑救实战训练。重点围绕消防服穿戴、石棉被覆盖灭火、灭火器实操运用等基础科目进行，进一步提升官兵火灾应急处置实操水平。（詹大海、叶城均、何黄圣娴） #当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5326016714900091",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
