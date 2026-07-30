@@ -22,9 +22,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
 
-      # SurgeForecaster 只需要 scikit-learn 的 HistGradientBoosting，
-      # 不再需要 catboost 與 imbalanced-learn（SMOTE 已移除）。
+      # SurgeForecaster 只需要 scikit-learn 的 HistGradientBoosting。
+      # catboost 與 imbalanced-learn 是舊模型（影子對照組）才需要的，
+      # 裝在下一步，這樣它們裝失敗也不會影響正式預測。
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -38,11 +40,36 @@ jobs:
           echo "Files in data/predictions/:"
           ls -la data/predictions/ || echo "No predictions directory"
           echo ""
-          # 回滾方式：把下面這行換回 `python pla_7day_predictor.py`。
-          # 舊模型檔案保留未動，兩者輸出同一份 CSV schema。
+          # 這是唯一對外的正式預測，寫入 data/predictions/latest_prediction.csv。
+          # 回滾方式：把下面這行換回 `python pla_7day_predictor.py`
+          # （舊模型檔案保留未動，兩者輸出同一份 CSV schema）。
           python predict_surge_daily.py
           echo ""
           echo "=== Prediction script completed ==="
+
+      # ── 以下三步是新舊模型對照（影子運行），全部不得擋住正式預測 ──
+      # 舊模型每天跑同一份輸入，輸出到獨立檔案，只用來當對照組。
+      # 它比新模型多了 catboost/SMOTE 依賴與 4 個遠端資料來源，失敗機率天生較高，
+      # 所以整段都是 continue-on-error。
+      - name: Install legacy model dependencies (shadow)
+        continue-on-error: true
+        run: pip install catboost imbalanced-learn
+
+      - name: Run legacy predictor (shadow)
+        continue-on-error: true
+        run: |
+          echo "=== Legacy CatBoost predictor (shadow run) ==="
+          # 寫到暫存路徑而非影子檔本身：pla_7day_predictor.py 在例外時會把一列
+          # risk_level='ERROR' 的 CSV 寫到 --output，直接指向影子檔會把歷史蓋掉。
+          python pla_7day_predictor.py --output /tmp/legacy_candidate.csv
+          # 驗證通過才 promote，並與既有影子歷史合併
+          python scripts/analysis/compare_predictors.py --promote /tmp/legacy_candidate.csv
+          echo "=== Legacy shadow run completed ==="
+
+      - name: Build model comparison
+        continue-on-error: true
+        run: |
+          python scripts/analysis/compare_predictors.py
 
       - name: Verify and copy to history
         run: |
@@ -63,6 +90,15 @@ jobs:
           mkdir -p data/predictions/history
           DATE=$(date +%Y-%m-%d)
           cp data/predictions/latest_prediction.csv data/predictions/history/prediction_${DATE}.csv
+
+          # 影子模型的快照。不存在不算失敗 —— 它是對照組，不是產品。
+          if [ -f "data/predictions/legacy_prediction.csv" ]; then
+            cp data/predictions/legacy_prediction.csv \
+               data/predictions/history/legacy_prediction_${DATE}.csv
+            echo "Legacy shadow snapshot copied."
+          else
+            echo "No legacy_prediction.csv (shadow run may have failed) - continuing."
+          fi
 
           echo "Files copied successfully!"
 

@@ -54,6 +54,10 @@ NEWS_JSON = REPO_ROOT / "data" / "news_classified.json"
 NAV_WARN_JSON = REPO_ROOT / "data" / "navigation_warnings" / "military_exercises.json"
 JAPAN_MOD_CSV = REPO_ROOT / "data" / "JapanandBattleship.csv"
 PRED_CSV = REPO_ROOT / "data" / "predictions" / "latest_prediction.csv"
+# 舊 CatBoost 模型的影子輸出與新舊對照指標，由 daily_prediction.yml 每天產生。
+# 兩者都是「有就用、沒有就略過」——LINE 推播不能因為對照組缺檔就掛掉。
+LEGACY_PRED_CSV = REPO_ROOT / "data" / "predictions" / "legacy_prediction.csv"
+COMPARISON_JSON = REPO_ROOT / "data" / "predictions" / "model_comparison.json"
 CHART_OUT = REPO_ROOT / "data" / "charts" / "line_forecast_3day.png"
 CHART_REPO_PATH = "data/charts/line_forecast_3day.png"
 MAP_OUT = REPO_ROOT / "data" / "charts" / "nav_warning_map.png"
@@ -97,6 +101,11 @@ PROB_SIGNAL_HORIZON = 1
 # 取決於平常多久出現一次高架次日）
 BASE_RATE_WINDOW_DAYS = 365
 
+# 新舊模型對照的樣本門檻。低於此天數只報「並行第 N 日」，不報指標 ——
+# 3 天的 MAE 差距幾乎全是雜訊，但看到數字的人一定會把它當成結論。
+# 實際值以 model_comparison.json 的 min_n 為準，這裡只是後備。
+COMPARISON_MIN_N = 10
+
 
 # ============================================================
 # 資料讀取 / 摘要
@@ -119,10 +128,10 @@ def _safe_read_json(path):
         return None
 
 
-def load_forecast(days=FORECAST_DAYS):
-    """讀 latest_prediction.csv，回傳未來 N 天（尚無實際值）的預測列。"""
+def _load_forecast_csv(path, days, what):
+    """讀一份預測 CSV，回傳未來 N 天（尚無實際值）的預測列。"""
     try:
-        df = pd.read_csv(PRED_CSV, encoding="utf-8-sig")
+        df = pd.read_csv(path, encoding="utf-8-sig")
         df["date"] = pd.to_datetime(df["date"], errors="coerce")
         df = df.dropna(subset=["date"]).sort_values("date")
         future = df[df["actual_sorties"].isna()] if "actual_sorties" in df.columns else df
@@ -130,8 +139,24 @@ def load_forecast(days=FORECAST_DAYS):
             future = df
         return future.head(days).reset_index(drop=True)
     except Exception as e:
-        print(f"⚠️  讀取預測失敗: {e}")
+        print(f"⚠️  讀取{what}失敗: {e}")
         return pd.DataFrame()
+
+
+def load_forecast(days=FORECAST_DAYS):
+    """讀 latest_prediction.csv（線上正式模型）的未來 N 天預測。"""
+    return _load_forecast_csv(PRED_CSV, days, "預測")
+
+
+def load_legacy_forecast(days=FORECAST_DAYS):
+    """讀 legacy_prediction.csv（舊 CatBoost 影子模型）的未來 N 天預測。
+
+    這份檔案只是對照組，缺檔是預期情況（舊模型當日跑掛、或雙軌尚未上線），
+    所以回空 DataFrame 讓呼叫端安靜略過，不影響正式預測的顯示。
+    """
+    if not LEGACY_PRED_CSV.exists():
+        return pd.DataFrame()
+    return _load_forecast_csv(LEGACY_PRED_CSV, days, "舊模型預測")
 
 
 def summarize_forecast(fc):
@@ -168,6 +193,91 @@ def summarize_forecast(fc):
             for _, r in errs.iterrows())
         lines.append(f"  📉 過去 {len(errs)} 日誤差 MAE {mae:.1f}：{detail}")
     return "\n".join(lines)
+
+
+def _fmt_cell(cell):
+    """把 model_comparison.json 的一格預測轉成「13.4（0–31）」。缺值回 '—'。"""
+    if not isinstance(cell, dict) or cell.get("point") is None:
+        return "—"
+    lo, hi = cell.get("lower"), cell.get("upper")
+    if lo is None or hi is None:
+        return f"{cell['point']:.1f}"
+    return f"{cell['point']:.1f}（{lo:.0f}–{hi:.0f}）"
+
+
+def summarize_model_comparison():
+    """新舊模型對照區塊。
+
+    資料來自 data/predictions/model_comparison.json（daily_prediction.yml 產生）。
+    刻意不在這裡自己算指標：LINE workflow 只裝 requests/pandas/matplotlib/pillow，
+    不裝 sklearn，也不該為了算 MAE 去裝。缺檔一律降級成單行，絕不拋例外。
+    """
+    # 檔案不存在是預期狀態（雙軌尚未上線），不該印警告嚇人
+    if not COMPARISON_JSON.exists():
+        return ""
+    data = _safe_read_json(COMPARISON_JSON)
+    if not data:
+        return ""
+
+    legacy_label = data.get("models", {}).get("legacy", {}).get("label", "舊模型")
+    header = f"🆚 新舊模型對照（舊 {legacy_label} 影子運行）"
+
+    if not data.get("legacy_ok"):
+        return "🆚 新舊模型對照：舊模型今日無輸出，暫無對照資料"
+
+    lines = [header]
+    footnotes = []
+    if data.get("legacy_stale"):
+        asof = data.get("legacy_asof") or "不明"
+        lines.append(f"  ⚠️ 舊模型已多日未成功執行，以下沿用 {asof} 的版本")
+
+    for row in data.get("forecast", []):
+        try:
+            date_str = datetime.strptime(row["date"], "%Y-%m-%d").strftime("%m/%d")
+        except (KeyError, ValueError):
+            continue
+        lines.append(f"  {date_str}：新 {_fmt_cell(row.get('new'))}"
+                     f"｜舊 {_fmt_cell(row.get('legacy'))}")
+
+    n = data.get("n", 0)
+    min_n = data.get("min_n", COMPARISON_MIN_N)
+    new_m = data.get("models", {}).get("new", {})
+    old_m = data.get("models", {}).get("legacy", {})
+
+    if n <= 0:
+        # 雙軌剛上線時的正常狀態：兩邊都預測過、且已有實際值的日期還是 0 天
+        lines.append(f"  📐 尚未累積可比對的日數，需 {min_n} 日才開始評比")
+    elif n < min_n:
+        lines.append(f"  📐 已累積 {n} 日，樣本不足尚不評比（需 {min_n} 日）")
+    else:
+        def pair(key, fmt="{:.1f}", scale=1.0):
+            a, b = new_m.get(key), old_m.get(key)
+            if a is None or b is None:
+                return None
+            return f"新 {fmt.format(a * scale)}／舊 {fmt.format(b * scale)}"
+
+        parts = []
+        for label, key, fmt, scale in (
+                ("MAE", "MAE", "{:.1f}", 1.0),
+                ("90% 區間覆蓋率", "cov90", "{:.0f}%", 100.0),
+                # bias 慣例由 JSON 的 bias_convention 指定（預測−實際，正值為高估）。
+                # 這裡不做符號轉換，改在說明文字裡講清楚方向。
+                ("高估幅度", "bias", "{:+.1f}", 1.0)):
+            p = pair(key, fmt, scale)
+            if p:
+                parts.append(f"{label} {p}")
+        if parts:
+            lines.append(f"  📐 並行 N={n} 日：" + "，".join(parts))
+            footnotes.append("高估幅度為預測−實際，正值代表高估")
+
+    note = data.get("note")
+    if note:
+        footnotes.append(note)
+    if footnotes:
+        lines.append("  （" + "；".join(footnotes) + "）")
+
+    # 只有標題沒有任何內容時不佔簡報版面
+    return "\n".join(lines) if len(lines) > 1 else ""
 
 
 # 火砲/演習「公告」判定：需同時命中「射擊/演習類」與「航警/禁區類」關鍵字，
@@ -503,6 +613,13 @@ def compose_report_text(yesterday):
         f"📡【每日台海動態簡報】{today_str}",
         "",
         summarize_forecast(load_forecast()),
+    ]
+    # 新舊模型對照緊接主預測之後（高優先）。4900 字截斷是尾端截斷，
+    # 放在這裡就不會被切掉；被擠掉的會是最後面的新聞段落。
+    comparison = summarize_model_comparison()
+    if comparison:
+        sections += ["", comparison]
+    sections += [
         "",
         summarize_japan_mod(),
         "",
@@ -552,7 +669,7 @@ def high_sortie_base_rate(window_days=BASE_RATE_WINDOW_DAYS):
 def load_recent_errors(days=3):
     """取最近 N 天「已有實際值」的預測誤差。
 
-    latest_prediction.csv 每天由 pla_7day_predictor.run() 回填 actual_sorties
+    latest_prediction.csv 每天由 predict_surge_daily.merge_history() 回填 actual_sorties
     與 prediction_error，且同日期的舊預測會被當天的新預測取代，所以留在檔案裡
     的過去日期都是 h=1（前一日對隔天）的預測 —— 這正是誤差最有意義的那個 horizon。
     """
@@ -604,6 +721,7 @@ def generate_chart(days_history=30, days_forecast=FORECAST_DAYS, error_days=3):
                 "prob": "高架次機率", "no_signal": "D+2/D+3 機率無鑑別力，不顯示",
                 "past_pred": f"過去 {error_days} 日當時預測",
                 "base": "基準發生率",
+                "legacy": "舊模型（對照）",
             }
         else:
             plt.rcParams["font.sans-serif"] = ["DejaVu Sans"]
@@ -616,6 +734,7 @@ def generate_chart(days_history=30, days_forecast=FORECAST_DAYS, error_days=3):
                 "prob": "P(high)", "no_signal": "D+2/D+3 probability not skillful - omitted",
                 "past_pred": f"Predicted, last {error_days}d",
                 "base": "base rate",
+                "legacy": "Legacy model (shadow)",
             }
 
         fig, (ax, axe) = plt.subplots(
@@ -642,6 +761,14 @@ def generate_chart(days_history=30, days_forecast=FORECAST_DAYS, error_days=3):
         ax.fill_between(pred["date"], pred["lower_bound"].clip(lower=0),
                         pred["upper_bound"], color="#DC2626", alpha=0.12,
                         label=L["ci"])
+
+        # 舊模型（影子）的點預測。刻意只畫線不畫第二條區間帶：上面那條
+        # fill_between 已經佔掉版面，再疊一層兩條都會看不清楚。缺檔就整條略過。
+        legacy = load_legacy_forecast(days_forecast)
+        if not legacy.empty:
+            ax.plot(legacy["date"], legacy["predicted_sorties"],
+                    color="#6B7280", linewidth=1.4, marker="^", markersize=4,
+                    linestyle=":", label=L["legacy"], zorder=2)
 
         # 過去 3 日的預測點疊在實際線上，讓誤差長條圖有對照
         if not errs.empty:
