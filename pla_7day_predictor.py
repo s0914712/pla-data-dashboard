@@ -125,6 +125,9 @@ NAVWARN_LOCAL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
 NAVWARN_GEOFENCE = {'lat_min': 21.0, 'lat_max': 28.5, 'lon_min': 117.0, 'lon_max': 124.0}
 
 OUTPUT_PATH = 'data/predictions/latest_prediction.csv'
+# 預設 25 是這個模型上線時的行為，也是回滾基準 —— 不要改這個值。
+# 影子對照跑另一個門檻是靠 --high-threshold 20 傳入（見 daily_prediction.yml），
+# 因為新模型的 SURGE_THRESHOLD 是 20，門檻不同的兩個機率不能放在一起比。
 HIGH_THRESHOLD = 25
 PREDICTION_DAYS = 7
 
@@ -708,7 +711,11 @@ class PLAPredictor:
         df['time_weight'] = np.exp(-0.002 * days_ago)
         df['time_weight'] = df['time_weight'] / df['time_weight'].sum() * len(df)
 
-        df['is_high'] = (df[target] >= HIGH_THRESHOLD).astype(int)
+        # 用 self.high_threshold 而非模組全域 —— 原本寫死全域，等於 __init__ 的
+        # high_threshold 參數收了值卻從來沒被讀過，PLAPredictor(high_threshold=20)
+        # 完全沒有效果。這是門檻唯一被材料化的地方（特徵不含門檻衍生欄位），
+        # 所以改這裡之後，下游 SMOTE / 分類器 / predict_proba 全部自動跟上。
+        df['is_high'] = (df[target] >= self.high_threshold).astype(int)
         df = df.dropna(subset=['lag_30', 'ma_30', 'ema_14']).copy()
 
         self.latest_data = df
@@ -1189,6 +1196,10 @@ class PLAPredictor:
         predictions['model_version'] = '2.8.0'
         predictions['data_latest_date'] = self.latest_date.strftime('%Y-%m-%d')
         predictions['cv_mae'] = round(np.mean(self.cv_scores), 2) if self.cv_scores else None
+        # 記下 high_event_probability 是用哪個門檻算的。沒有這欄的話，thr=20 與
+        # thr=25 的輸出在檔案裡長得一模一樣，事後無從分辨，機率比較就會悄悄比錯。
+        # 欄名與新模型的 predict_surge_daily.py 一致。
+        predictions['surge_threshold'] = self.high_threshold
 
         # 初始化實際值欄位
         predictions['actual_sorties'] = np.nan
@@ -1269,11 +1280,14 @@ if __name__ == "__main__":
     parser.add_argument('--sorties', type=str, default=None, help='Path to sorties data')
     parser.add_argument('--political', type=str, default=None, help='Path to political events data')
     parser.add_argument('--output', type=str, default=OUTPUT_PATH, help='Output file path')
+    parser.add_argument('--high-threshold', type=int, default=HIGH_THRESHOLD,
+                        help='「高架次」門檻（架次）。預設 25 為本模型原本的行為；'
+                             '影子對照傳 20 以便與新模型的機率可比')
 
     args = parser.parse_args()
 
     try:
-        predictor = PLAPredictor(high_threshold=HIGH_THRESHOLD)
+        predictor = PLAPredictor(high_threshold=args.high_threshold)
         predictions = predictor.run(
             sorties_path=args.sorties,
             political_path=args.political,
