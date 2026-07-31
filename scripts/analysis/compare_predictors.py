@@ -18,13 +18,12 @@
     # 2) 計算對照指標，輸出給 LINE 端消費的 JSON
     python3 scripts/analysis/compare_predictors.py
 
-## 刻意只比點預測與區間
+## 這支腳本只管點預測與區間
 
-兩個模型的「高架次」門檻不同 —— 新模型 SURGE_THRESHOLD=20、舊模型 HIGH_THRESHOLD=25。
-`high_event_probability` 在兩邊回答的不是同一個問題，所以 PR-AUC / ROC-AUC / Brier
-放在一起比會是錯的。要比機率就得改舊模型的門檻，但那會動到回滾備案的行為，
-不值得。因此這裡只比 MAE / bias / pin90 / cov90 —— 而 cov90 正是當初換模型的主因
-（舊模型名目 90% 的區間實測只蓋到 54-62%）。
+機率的對照獨立在 scripts/analysis/probability_review.py，因為它需要一套完全不同的
+指標（Brier / 校準比 / 命中漏報）與一套不同的樣本門檻（高架次是稀有事件，
+正樣本累積得比日數慢得多）。這裡只比 MAE / bias / pin90 / cov90 ——
+而 cov90 正是當初換模型的主因（舊模型名目 90% 的區間實測只蓋到 54-62%）。
 """
 
 import argparse
@@ -217,7 +216,7 @@ def head_to_head(new_df, legacy_df, start=None, min_n=MIN_N):
         "legacy_asof": None,
         "bias_convention": BIAS_CONVENTION,
         # 消費端（LINE）會把這句包在全形括號裡，所以本身不要再帶括號
-        "note": "高架次門檻不同：新 ≥20、舊 ≥25，故不比較機率類指標",
+        "note": "此處只比點預測與區間；機率的對照見機率檢討區塊",
         "models": {"new": {"label": NEW_LABEL}, "legacy": {"label": LEGACY_LABEL}},
         "forecast": _forecast_rows(new_df, legacy_df),
     }

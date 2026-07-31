@@ -58,6 +58,7 @@ PRED_CSV = REPO_ROOT / "data" / "predictions" / "latest_prediction.csv"
 # 兩者都是「有就用、沒有就略過」——LINE 推播不能因為對照組缺檔就掛掉。
 LEGACY_PRED_CSV = REPO_ROOT / "data" / "predictions" / "legacy_prediction.csv"
 COMPARISON_JSON = REPO_ROOT / "data" / "predictions" / "model_comparison.json"
+PROB_REVIEW_JSON = REPO_ROOT / "data" / "predictions" / "probability_review.json"
 CHART_OUT = REPO_ROOT / "data" / "charts" / "line_forecast_3day.png"
 CHART_REPO_PATH = "data/charts/line_forecast_3day.png"
 MAP_OUT = REPO_ROOT / "data" / "charts" / "nav_warning_map.png"
@@ -170,19 +171,13 @@ def summarize_forecast(fc):
         pred = r.get("predicted_sorties", 0)
         lo = r.get("lower_bound", 0)
         hi = r.get("upper_bound", 0)
-        prob = r.get("high_event_probability", "")
-        # 機率只掛在 D+1。h>=2 的 surge 機率回測 AUC 約 0.5，寫出來只是誤導。
-        prob_str = ""
-        if i < PROB_SIGNAL_HORIZON and isinstance(prob, (int, float)) and prob == prob:
-            prob_str = f"，高架次(≥{HIGH_SORTIE_THRESHOLD})機率 {prob:.0f}%"
+        # 機率不再塞在這一行的括號裡 —— 它是整份簡報唯一有行動意義的數字，
+        # 被夾在點預測與區間之間是最不顯眼的位置。改由 summarize_surge_probability()
+        # 獨立成一個區塊。這裡只留點預測與區間。
         lines.append(
             f"  {emoji} {date_str}：約 {pred:.1f} 架次"
-            f"（90% 區間 {lo:.0f}–{hi:.0f}{prob_str}）"
+            f"（90% 區間 {lo:.0f}–{hi:.0f}）"
         )
-    base = high_sortie_base_rate()
-    if base is not None:
-        lines.append(f"  （近一年高架次(≥{HIGH_SORTIE_THRESHOLD})日基準發生率 ~{base:.0f}%；"
-                     f"D+2 之後機率無鑑別力故不列）")
 
     errs = load_recent_errors()
     if not errs.empty:
@@ -192,6 +187,164 @@ def summarize_forecast(fc):
             f'{r["predicted_sorties"]:.1f}（{r["prediction_error"]:+.1f}）'
             for _, r in errs.iterrows())
         lines.append(f"  📉 過去 {len(errs)} 日誤差 MAE {mae:.1f}：{detail}")
+    return "\n".join(lines)
+
+
+def _review():
+    """讀 probability_review.json。缺檔是預期狀態（尚未產生），安靜回 None。"""
+    if not PROB_REVIEW_JSON.exists():
+        return None
+    return _safe_read_json(PROB_REVIEW_JSON)
+
+
+def surge_threshold_in_use(fc):
+    """優先用預測檔裡記的門檻，讀不到才用常數。
+
+    HIGH_SORTIE_THRESHOLD 是跟 pla_surge_model.SURGE_THRESHOLD 手動同步的重複常數，
+    上游改了這裡沒改的話，推播會用錯的數字去描述機率在講什麼事件。
+    CSV 的 surge_threshold 欄是上游自己寫的，不會漂。
+    """
+    if not fc.empty and "surge_threshold" in fc.columns:
+        v = pd.to_numeric(fc["surge_threshold"], errors="coerce").dropna()
+        if not v.empty:
+            return int(v.iloc[0])
+    return HIGH_SORTIE_THRESHOLD
+
+
+_OUTCOME_TEXT = {
+    "hit": ("✅", "命中"),
+    "false_alarm": ("⚠️", "誤報"),
+    "miss": ("❌", "漏報"),
+    "correct_quiet": ("✅", "相符"),
+}
+
+
+def summarize_surge_probability(fc):
+    """D+1 高架次機率 —— 這是整份簡報的主角，獨立成塊。
+
+    只講 D+1。h>=2 的 surge 機率實測 ROC-AUC 0.45-0.57 等同亂猜，
+    上游 predict_surge_daily.py 直接寫 NaN，這裡是第二道防線。
+    """
+    if fc.empty:
+        return ""
+    r = fc.iloc[0]
+    prob = r.get("high_event_probability")
+    if not isinstance(prob, (int, float)) or prob != prob:   # NaN 防護
+        return ""
+
+    thr = surge_threshold_in_use(fc)
+    emoji = RISK_EMOJI.get(_s(r.get("risk_level")).upper(), "⚪")
+    risk = _s(r.get("risk_level")).upper() or "UNKNOWN"
+    lines = [f"🎯 明日({r['date']:%m/%d})高架次(≥{thr})機率 {prob:.0f}%　{emoji} {risk}"]
+
+    base = high_sortie_base_rate()
+    rev = _review()
+    cutoff = (rev or {}).get("alert_cutoff")
+    bits = []
+    if base is not None:
+        lift = prob / base if base > 0 else None
+        bits.append(f"基準發生率 ~{base:.0f}%"
+                    + (f" → {lift:.1f} 倍" if lift is not None else ""))
+    if cutoff is not None:
+        reached = prob / 100.0 >= cutoff
+        bits.append(("已達" if reached else "未達") + f"警示線（{cutoff * 100:.0f}%）")
+    bits.append("僅報 D+1")
+    lines.append("   " + "，".join(bits))
+
+    # 昨日回顧：單一事實，不是統計量，所以第一天就能顯示
+    daily = ((rev or {}).get("daily") or {}).get("new")
+    if daily:
+        icon, word = _OUTCOME_TEXT.get(daily["outcome"], ("•", daily["outcome"]))
+        try:
+            d = datetime.strptime(daily["date"], "%Y-%m-%d").strftime("%m/%d")
+        except ValueError:
+            d = daily["date"]
+        lines.append(f"   {icon} {d} 回顧：預告 {daily['prob'] * 100:.0f}%"
+                     f"（{'有' if daily['alerted'] else '無'}警示），"
+                     f"實際 {daily['actual']:.0f} 架次 → {word}")
+    return "\n".join(lines)
+
+
+def _model_prob_line(label, m):
+    """機率檢討裡的單一模型摘要行。"""
+    parts = [f"  {label}：Brier {m['brier']:.3f}（基準 {m['brier_base']:.3f}，"
+             f"技能 {m['brier_skill'] * 100:+.0f}%）"]
+    ratio = m.get("calibration_ratio")
+    verdict = ""
+    if ratio is not None:
+        if ratio > 1.4:
+            verdict = f" → 高估 {ratio:.1f} 倍"
+        elif ratio < 0.7:
+            verdict = f" → 低估 {1 / ratio:.1f} 倍"
+        else:
+            verdict = " → 校準良好"
+    parts.append(f"，平均預告 {m['mean_prob'] * 100:.0f}%／實際 "
+                 f"{m['observed_rate'] * 100:.0f}%{verdict}")
+    line = "".join(parts)
+    hit = (f"    警示 {m['alerts']} 次命中 {m['hits']} 次"
+           + (f"（精確率 {m['precision'] * 100:.0f}%）" if m.get("precision") is not None else "")
+           + f"，{m['n_positive']} 個高架次日抓到 {m['hits']} 個"
+           + (f"（召回率 {m['recall'] * 100:.0f}%）" if m.get("recall") is not None else ""))
+    return line + "\n" + hit
+
+
+def summarize_probability_review():
+    """機率檢討區塊：累積校準 + 兩模型對打 + 診斷。"""
+    rev = _review()
+    if not rev:
+        return ""
+
+    gates = rev.get("gates", {})
+    models = rev.get("models", {})
+    new_m, old_m = models.get("new", {}), models.get("legacy", {})
+
+    if not new_m.get("enough"):
+        n, npos = new_m.get("n", 0), new_m.get("n_positive", 0)
+        return (f"📋 機率檢討：已累積 {n} 日（高架次 {npos} 日），需 "
+                f"{gates.get('min_n', 30)} 日／{gates.get('min_positive', 5)} "
+                f"個高架次日才開始評比")
+
+    lines = [f"📋 機率檢討（近 {new_m['n']} 日，其中高架次 {new_m['n_positive']} 日）"]
+    lines.append(_model_prob_line("新模型", new_m))
+    if old_m.get("enough"):
+        lines.append(_model_prob_line("舊模型", old_m))
+
+    for d in rev.get("diagnostics", []):
+        if d.get("severity") in ("warn", "alert"):
+            icon = "🔴" if d["severity"] == "alert" else "⚠️"
+            lines.append(f"  {icon} {d['message']}")
+    return "\n".join(lines)
+
+
+def summarize_digest(period):
+    """週報／月報彙整。period: 'weekly' | 'monthly'。"""
+    rev = _review()
+    if not rev:
+        return ""
+    block = (rev.get("digest") or {}).get(period) or {}
+    d = block.get("new")
+    if not d:
+        return ""
+
+    title = "📅 週報（近 7 日）" if period == "weekly" else "🗓️ 月報（近 30 日）"
+    lines = [f"{title}：高架次 {d['n_positive']}/{d['n']} 日，"
+             f"警示 {d['alerts']} 次（命中 {d['hits']}、漏報 {d['misses']}）",
+             f"  平均預告 {d['mean_prob'] * 100:.0f}%／實際發生 "
+             f"{d['observed_rate'] * 100:.0f}%，"
+             f"期間最高預告 {d['max_prob'] * 100:.0f}%、最高實際 {d['max_actual']:.0f} 架次"]
+
+    old = block.get("legacy")
+    if old:
+        lines.append(f"  舊模型同期：平均預告 {old['mean_prob'] * 100:.0f}%，"
+                     f"警示 {old['alerts']} 次（命中 {old['hits']}、漏報 {old['misses']}）")
+
+    if period == "monthly":
+        buckets = (rev.get("calibration") or {}).get("new") or []
+        if buckets:
+            lines.append("  校準分桶（預告區間 → 實際發生率）：")
+            for b in buckets:
+                lines.append(f"    {b['range']}：{b['n']} 日 → "
+                             f"實際 {b['observed_rate'] * 100:.0f}%")
     return "\n".join(lines)
 
 
@@ -606,19 +759,43 @@ def summarize_news(yesterday):
     return "\n".join(lines)
 
 
-def compose_report_text(yesterday):
+def due_digest(now=None):
+    """今天要不要附彙整：週一出週報、每月 1 號出月報（台灣時間）。
+
+    刻意不開新的 workflow —— 週月報只是同一份 JSON 的不同切片，
+    為它多養一條排程與一組 secret 不划算。
+    """
+    now = now or datetime.now(TW_TZ)
+    if now.day == 1:
+        return "monthly"
+    if now.weekday() == 0:      # Monday
+        return "weekly"
+    return None
+
+
+def compose_report_text(yesterday, force_digest=None):
     """組整份簡報文字。"""
     today_str = datetime.now(TW_TZ).strftime("%Y/%m/%d")
+    fc = load_forecast()
     sections = [
         f"📡【每日台海動態簡報】{today_str}",
         "",
-        summarize_forecast(load_forecast()),
+        summarize_forecast(fc),
     ]
-    # 新舊模型對照緊接主預測之後（高優先）。4900 字截斷是尾端截斷，
-    # 放在這裡就不會被切掉；被擠掉的會是最後面的新聞段落。
-    comparison = summarize_model_comparison()
-    if comparison:
-        sections += ["", comparison]
+    # 機率是這份簡報唯一有行動意義的數字，緊跟在預測之後、其他所有東西之前。
+    # 4900 字截斷是尾端截斷，放在前面就不會被切掉。
+    for block in (summarize_surge_probability(fc),
+                  summarize_probability_review(),
+                  summarize_model_comparison()):
+        if block:
+            sections += ["", block]
+
+    period = force_digest or due_digest()
+    if period:
+        d = summarize_digest(period)
+        if d:
+            sections += ["", d]
+
     sections += [
         "",
         summarize_japan_mod(),
@@ -1398,13 +1575,15 @@ def main():
     parser = argparse.ArgumentParser(description="LINE 每日台海動態簡報")
     parser.add_argument("--dry-run", action="store_true",
                         help="只印出內容與產圖，不實際推播")
+    parser.add_argument("--force-digest", choices=["weekly", "monthly"],
+                        help="強制附上週報／月報（預覽用，不必等到週一或 1 號）")
     args = parser.parse_args()
 
     yesterday = (datetime.now(TW_TZ) - timedelta(days=1)).date()
     yesterday = datetime(yesterday.year, yesterday.month, yesterday.day)
 
     # 1. 組文字
-    report_text = compose_report_text(yesterday)
+    report_text = compose_report_text(yesterday, force_digest=args.force_digest)
     print("─" * 50)
     print(report_text)
     print("─" * 50)

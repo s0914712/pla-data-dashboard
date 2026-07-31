@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-30 13:10:03",
+  "generated_at": "2026-07-31 01:21:04",
   "n": 0,
   "min_n": 10,
   "legacy_ok": true,
   "legacy_stale": false,
-  "legacy_asof": "2026-07-30",
+  "legacy_asof": "2026-07-31",
   "bias_convention": "predicted_minus_actual",
-  "note": "高架次門檻不同：新 ≥20、舊 ≥25，故不比較機率類指標",
+  "note": "此處只比點預測與區間；機率的對照見機率檢討區塊",
   "models": {
     "new": {
       "label": "SurgeForecaster 3.0.0"

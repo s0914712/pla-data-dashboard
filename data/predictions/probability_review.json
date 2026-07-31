@@ -1,0 +1,105 @@
+{
+  "generated_at": "2026-07-31 01:21:05",
+  "threshold": 20,
+  "base_rate": 0.1749,
+  "alert_cutoff": 0.35,
+  "gates": {
+    "min_n": 30,
+    "min_positive": 5,
+    "min_positive_auc": 10
+  },
+  "note": "高架次為稀有事件（基準約 11%），正樣本少於 10 個時 Brier/AUC 不可信",
+  "daily": {
+    "new": {
+      "date": "2026-07-30",
+      "prob": 0.144,
+      "actual": 12.0,
+      "threshold": 20,
+      "alerted": false,
+      "happened": false,
+      "outcome": "correct_quiet"
+    },
+    "legacy": null
+  },
+  "models": {
+    "new": {
+      "label": "SurgeForecaster 3.0.0",
+      "n": 4,
+      "n_positive": 0,
+      "enough": false,
+      "enough_auc": false,
+      "window": [
+        "2026-07-27",
+        "2026-07-30"
+      ],
+      "alert_cutoff": 0.35,
+      "mean_prob": 0.0968,
+      "observed_rate": 0.0,
+      "calibration_ratio": null,
+      "alerts": 0,
+      "hits": 0,
+      "false_alarms": 0,
+      "misses": 0,
+      "precision": null,
+      "recall": null,
+      "alert_rate": 0.0
+    },
+    "legacy": {
+      "label": "CatBoost 2.8.0",
+      "n": 0,
+      "n_positive": 0,
+      "enough": false,
+      "enough_auc": false
+    }
+  },
+  "calibration": {
+    "new": [
+      {
+        "range": "0-10%",
+        "n": 2,
+        "mean_prob": 0.065,
+        "observed_rate": 0.0
+      },
+      {
+        "range": "10-20%",
+        "n": 2,
+        "mean_prob": 0.1285,
+        "observed_rate": 0.0
+      }
+    ],
+    "legacy": []
+  },
+  "digest": {
+    "weekly": {
+      "new": {
+        "days": 7,
+        "n": 4,
+        "n_positive": 0,
+        "alerts": 0,
+        "hits": 0,
+        "misses": 0,
+        "mean_prob": 0.0968,
+        "observed_rate": 0.0,
+        "max_prob": 0.144,
+        "max_actual": 12.0
+      },
+      "legacy": null
+    },
+    "monthly": {
+      "new": {
+        "days": 30,
+        "n": 4,
+        "n_positive": 0,
+        "alerts": 0,
+        "hits": 0,
+        "misses": 0,
+        "mean_prob": 0.0968,
+        "observed_rate": 0.0,
+        "max_prob": 0.144,
+        "max_actual": 12.0
+      },
+      "legacy": null
+    }
+  },
+  "diagnostics": []
+}

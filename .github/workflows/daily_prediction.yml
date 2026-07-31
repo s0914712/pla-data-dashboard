@@ -61,7 +61,11 @@ jobs:
           echo "=== Legacy CatBoost predictor (shadow run) ==="
           # 寫到暫存路徑而非影子檔本身：pla_7day_predictor.py 在例外時會把一列
           # risk_level='ERROR' 的 CSV 寫到 --output，直接指向影子檔會把歷史蓋掉。
-          python pla_7day_predictor.py --output /tmp/legacy_candidate.csv
+          #
+          # --high-threshold 20 只是為了讓機率與新模型可比（新模型 SURGE_THRESHOLD=20）。
+          # 舊模型自己的預設是 25。**回滾時不要帶這個 flag**，否則跑出來的就不是
+          # 當初上線的那個模型了。
+          python pla_7day_predictor.py --high-threshold 20 --output /tmp/legacy_candidate.csv
           # 驗證通過才 promote，並與既有影子歷史合併
           python scripts/analysis/compare_predictors.py --promote /tmp/legacy_candidate.csv
           echo "=== Legacy shadow run completed ==="
@@ -70,6 +74,13 @@ jobs:
         continue-on-error: true
         run: |
           python scripts/analysis/compare_predictors.py
+
+      # 機率檢討要在 compare_predictors 之後跑：後者負責把 actual_sorties
+      # 回填進影子檔，沒有實際值就沒有東西可以檢討。
+      - name: Build probability review
+        continue-on-error: true
+        run: |
+          python scripts/analysis/probability_review.py
 
       - name: Verify and copy to history
         run: |
