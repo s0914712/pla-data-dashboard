@@ -29215,5 +29215,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國人民解放軍東部戰區發布建軍九十九周年宣傳內容，強調軍隊戰力與國家安全，對台具有潛在威懾意涵。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-31",
+      "title": "#人民军队制胜向强# 家国安宁山河无恙！庆祝中国人民解放军建军九十九周年！#向百年#（来源：中国军号...",
+      "content": "#人民军队制胜向强# 家国安宁山河无恙！庆祝中国人民解放军建军九十九周年！#向百年#（来源：中国军号） 东部战区的微博视频",
+      "url": "https://m.weibo.cn/detail/5326714814077153",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
