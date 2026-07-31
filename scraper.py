@@ -9,7 +9,8 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import time
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
+import argparse
 import os
 
 # ==================== 設定區 ====================
@@ -69,6 +70,12 @@ def parse_date_from_text(text):
     """
     統一的日期解析函數，支援多種格式
     返回格式：YYYY/MM/DD 或 None
+
+    ⚠️ 只適用於「列表頁標題」這種單一日期的短字串。
+    不要拿來解析詳細頁內文 —— 內文的日期是一個區間
+    （「115年7月30日 0600時 至 115年7月31日 0600時止」），
+    本函數會回傳第一個匹配，也就是區間起點，比資料日期早一天。
+    內文請用 parse_report_date()。
     """
     date = None
     
@@ -100,6 +107,46 @@ def parse_date_from_text(text):
         return f"{west_year}/{month}/{day}"
     
     return None
+
+def parse_report_date(text):
+    """從詳細頁內文取「資料日期」＝報告區間的結束日（0600時止的那一天）。
+
+    國防部每份發布涵蓋「前一日 0600 至當日 0600」，內文寫成：
+
+        中華民國115年7月30日（星期四）0600時至115年7月31日（星期五）0600時止
+
+    列表頁標題用的是發布日 (115.07.31)，也就是區間結束日。兩條路徑必須回傳
+    同一天，否則同一份報告會因為走了哪條路徑而被標到不同日期 —— 而且因為
+    區間起點那天通常已存在於 CSV，去重時會被直接丟掉，症狀是「當天資料靜默消失」，
+    不會報錯，非常難發現。
+
+    回傳格式 YYYY/MM/DD，解析不出來回 None。
+    """
+    if not text:
+        return None
+
+    # 1) 點分格式（115.07.31）。內文偶爾也會出現，語意就是發布日，直接採用。
+    m = re.search(r'(\d{3})\.(\d{2})\.(\d{2})', text)
+    if m:
+        return f"{int(m.group(1)) + 1911}/{m.group(2)}/{m.group(3)}"
+
+    # 2) 明確比對「X 至 Y」的日期區間，取結束日 Y。
+    #    刻意不用「全文最後一個日期」——body_text 是整頁純文字，含導覽列與頁尾，
+    #    最後一個日期很可能根本不屬於這份報告。這裡限定兩個日期之間必須以「至」
+    #    相連且不跨句號，才視為同一個區間。
+    DATE = r'(\d{2,3})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日'
+    m = re.search(DATE + r'[^。]*?至[^。]*?' + DATE, text)
+    if m:
+        roc_year, month, day = m.group(4), m.group(5), m.group(6)
+        return f"{int(roc_year) + 1911}/{month.zfill(2)}/{day.zfill(2)}"
+
+    # 3) 沒有區間就退回第一個日期（單一日期的頁面，第一個就是它）
+    m = re.search(DATE, text)
+    if m:
+        return f"{int(m.group(1)) + 1911}/{m.group(2).zfill(2)}/{m.group(3).zfill(2)}"
+
+    return None
+
 
 def get_latest_date_from_csv():
     """從 CSV 讀取最新日期"""
@@ -139,18 +186,36 @@ def save_to_csv(new_data):
         df_existing = pd.DataFrame(columns=['date', 'pla_aircraft_sorties', 'plan_vessel_sorties'])
 
     df_new = pd.DataFrame(new_data, columns=['date', 'pla_aircraft_sorties', 'plan_vessel_sorties'])
-    df_combined = pd.concat([df_existing, df_new], ignore_index=True)
 
-    # 統一日期格式並去重
-    df_combined['date'] = pd.to_datetime(df_combined['date'], format='%Y/%m/%d')
-    df_combined = df_combined.sort_values('date')
-    df_combined['date'] = df_combined['date'].dt.strftime('%Y/%m/%d')
-    df_combined = df_combined.drop_duplicates(subset=['date'], keep='first')
+    # 日期正規化後當索引，才能逐欄對齊
+    for d in (df_existing, df_new):
+        d['date'] = pd.to_datetime(d['date'], format='%Y/%m/%d', errors='coerce')
+    df_existing = df_existing.dropna(subset=['date']).set_index('date')
+    df_new = df_new.dropna(subset=['date']).set_index('date')
 
-    df_combined.to_csv(CSV_FILE, index=False, encoding='utf-8-sig')
+    # 逐「欄」更新，不是整列取代。
+    #
+    # 這支爬蟲只產生 date / pla_aircraft_sorties / plan_vessel_sorties 三欄，
+    # 但 CSV 有 17 欄 —— 其餘 13 欄（空中、艦型、備考、國家…）是
+    # scraper_japan_mod.py 寫的。如果用 concat + drop_duplicates(keep='last')
+    # 整列取代，重爬某一天會把那 13 欄全部清成 NaN，靜默毀掉日本防衛省的資料。
+    # DataFrame.update 只用 other 的非 NA 值更新對得上的 index+欄位，正是要的語意。
+    overlap = df_existing.index.intersection(df_new.index)
+    if len(overlap):
+        df_existing.update(df_new.loc[overlap])
+
+    # 全新的日期才追加
+    fresh = df_new[~df_new.index.isin(df_existing.index)]
+    df_combined = pd.concat([df_existing, fresh]) if len(fresh) else df_existing
+
+    df_combined = df_combined.sort_index()
+    df_combined.index = df_combined.index.strftime('%Y/%m/%d')
+    df_combined.index.name = 'date'
+
+    df_combined.to_csv(CSV_FILE, encoding='utf-8-sig')
     print(f"成功寫入 {len(new_data)} 筆資料到 {CSV_FILE}")
 
-def main():
+def main(refresh_from=None):
     print(f"\n{'='*60}")
     print("開始爬取國防部資料...")
     print(f"{'='*60}\n")
@@ -161,6 +226,14 @@ def main():
     else:
         print(f"無現有資料，將爬取所有資料")
         latest_date = datetime.min
+
+    # --refresh-from：把「已存在就跳過」的界線往前推，讓指定日期之後的資料
+    # 重新爬一次並覆蓋。平常不會用到，是用來修正已經寫錯的日子 ——
+    # 沒有這個開關的話，save_to_csv 的 keep='last' 永遠不會被觸發，
+    # 因為既有日期在這裡就被 skip 掉了，根本走不到合併那一步。
+    if refresh_from:
+        latest_date = min(latest_date, refresh_from - timedelta(days=1))
+        print(f"♻️  重爬模式：{refresh_from.strftime('%Y/%m/%d')} 起的資料將被重新抓取並覆蓋")
 
     all_data = []
     processed_urls = set()
@@ -249,8 +322,10 @@ def main():
                             
                         body_text = detail_soup.body.get_text(separator="\n", strip=True)
 
-                        # 優先使用列表頁日期，若無則從詳細頁解析
-                        date = date_from_list if date_from_list else parse_date_from_text(body_text)
+                        # 優先使用列表頁日期，若無則從詳細頁解析。
+                        # 內文一定要用 parse_report_date（取區間結束日＝發布日），
+                        # 用 parse_date_from_text 會拿到區間起點，比列表頁早一天。
+                        date = date_from_list if date_from_list else parse_report_date(body_text)
 
                         # 跳過已處理過的日期（不同連結可能指向同一天）
                         if date and date in processed_dates:
@@ -346,4 +421,17 @@ def main():
     print(f"{'='*60}")
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description='國防部共機共艦動態爬蟲')
+    parser.add_argument('--refresh-from', metavar='YYYY/MM/DD', default=None,
+                        help='重新爬取此日期（含）之後的資料並覆蓋既有值，'
+                             '用於修正寫錯的日子。平常排程不需要此參數')
+    args = parser.parse_args()
+
+    refresh_from = None
+    if args.refresh_from:
+        try:
+            refresh_from = datetime.strptime(args.refresh_from, '%Y/%m/%d')
+        except ValueError:
+            parser.error(f"--refresh-from 格式應為 YYYY/MM/DD，收到 {args.refresh_from!r}")
+
+    main(refresh_from=refresh_from)
