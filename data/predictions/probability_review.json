@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-07-31 05:37:49",
+  "generated_at": "2026-08-01 05:30:07",
   "threshold": 20,
-  "base_rate": 0.1776,
-  "alert_cutoff": 0.355,
+  "base_rate": 0.1749,
+  "alert_cutoff": 0.35,
   "gates": {
     "min_n": 30,
     "min_positive": 5,
@@ -11,39 +11,39 @@
   "note": "高架次為稀有事件（基準約 11%），正樣本少於 10 個時 Brier/AUC 不可信",
   "daily": {
     "new": {
-      "date": "2026-07-31",
-      "prob": 0.164,
-      "actual": 27.0,
+      "date": "2026-08-01",
+      "prob": 0.076,
+      "actual": 5.0,
       "threshold": 20,
       "alerted": false,
-      "happened": true,
-      "outcome": "miss"
+      "happened": false,
+      "outcome": "correct_quiet"
     },
     "legacy": {
-      "date": "2026-07-31",
-      "prob": 0.667,
-      "actual": 27.0,
+      "date": "2026-08-01",
+      "prob": 0.525,
+      "actual": 5.0,
       "threshold": 20,
       "alerted": true,
-      "happened": true,
-      "outcome": "hit"
+      "happened": false,
+      "outcome": "false_alarm"
     }
   },
   "models": {
     "new": {
       "label": "SurgeForecaster 3.0.0",
-      "n": 5,
+      "n": 6,
       "n_positive": 1,
       "enough": false,
       "enough_auc": false,
       "window": [
         "2026-07-27",
-        "2026-07-31"
+        "2026-08-01"
       ],
-      "alert_cutoff": 0.355,
-      "mean_prob": 0.1102,
-      "observed_rate": 0.2,
-      "calibration_ratio": 0.551,
+      "alert_cutoff": 0.35,
+      "mean_prob": 0.1045,
+      "observed_rate": 0.1667,
+      "calibration_ratio": 0.627,
       "alerts": 0,
       "hits": 0,
       "false_alarms": 0,
@@ -51,39 +51,42 @@
       "precision": null,
       "recall": 0.0,
       "alert_rate": 0.0,
-      "brier": 0.1482,
-      "brier_base": 0.16,
-      "brier_skill": 0.0737
+      "brier": 0.1245,
+      "brier_base": 0.1389,
+      "brier_skill": 0.1038
     },
     "legacy": {
       "label": "CatBoost 2.8.0",
-      "n": 1,
+      "n": 2,
       "n_positive": 1,
       "enough": false,
       "enough_auc": false,
       "window": [
         "2026-07-31",
-        "2026-07-31"
+        "2026-08-01"
       ],
-      "alert_cutoff": 0.355,
-      "mean_prob": 0.667,
-      "observed_rate": 1.0,
-      "calibration_ratio": 0.667,
-      "alerts": 1,
+      "alert_cutoff": 0.35,
+      "mean_prob": 0.596,
+      "observed_rate": 0.5,
+      "calibration_ratio": 1.192,
+      "alerts": 2,
       "hits": 1,
-      "false_alarms": 0,
+      "false_alarms": 1,
       "misses": 0,
-      "precision": 1.0,
+      "precision": 0.5,
       "recall": 1.0,
-      "alert_rate": 1.0
+      "alert_rate": 1.0,
+      "brier": 0.1933,
+      "brier_base": 0.25,
+      "brier_skill": 0.227
     }
   },
   "calibration": {
     "new": [
       {
         "range": "0-10%",
-        "n": 2,
-        "mean_prob": 0.065,
+        "n": 3,
+        "mean_prob": 0.0687,
         "observed_rate": 0.0
       },
       {
@@ -96,9 +99,9 @@
     "legacy": [
       {
         "range": "50-100%",
-        "n": 1,
-        "mean_prob": 0.667,
-        "observed_rate": 1.0
+        "n": 2,
+        "mean_prob": 0.596,
+        "observed_rate": 0.5
       }
     ]
   },
@@ -106,25 +109,25 @@
     "weekly": {
       "new": {
         "days": 7,
-        "n": 5,
+        "n": 6,
         "n_positive": 1,
         "alerts": 0,
         "hits": 0,
         "misses": 1,
-        "mean_prob": 0.1102,
-        "observed_rate": 0.2,
+        "mean_prob": 0.1045,
+        "observed_rate": 0.1667,
         "max_prob": 0.164,
         "max_actual": 27.0
       },
       "legacy": {
         "days": 7,
-        "n": 1,
+        "n": 2,
         "n_positive": 1,
-        "alerts": 1,
+        "alerts": 2,
         "hits": 1,
         "misses": 0,
-        "mean_prob": 0.667,
-        "observed_rate": 1.0,
+        "mean_prob": 0.596,
+        "observed_rate": 0.5,
         "max_prob": 0.667,
         "max_actual": 27.0
       }
@@ -132,25 +135,25 @@
     "monthly": {
       "new": {
         "days": 30,
-        "n": 5,
+        "n": 6,
         "n_positive": 1,
         "alerts": 0,
         "hits": 0,
         "misses": 1,
-        "mean_prob": 0.1102,
-        "observed_rate": 0.2,
+        "mean_prob": 0.1045,
+        "observed_rate": 0.1667,
         "max_prob": 0.164,
         "max_actual": 27.0
       },
       "legacy": {
         "days": 30,
-        "n": 1,
+        "n": 2,
         "n_positive": 1,
-        "alerts": 1,
+        "alerts": 2,
         "hits": 1,
         "misses": 0,
-        "mean_prob": 0.667,
-        "observed_rate": 1.0,
+        "mean_prob": 0.596,
+        "observed_rate": 0.5,
         "max_prob": 0.667,
         "max_actual": 27.0
       }
