@@ -25654,5 +25654,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "解放軍第71集團軍於演訓一線舉辦建軍99周年慶祝活動，旨在激勵官兵士氣。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-01",
+      "title": "#人民军队制胜向强# 【开展主题活动庆祝建军99周年】#八一建军节# 来临之际，第71集团军某旅在演...",
+      "content": "#人民军队制胜向强# 【开展主题活动庆祝建军99周年】#八一建军节# 来临之际，第71集团军某旅在演训一线开展“庆祝建军99周年”主题活动，持续激发官兵赓续传统、矢志强军的热情。（宋方武、王松宇、汪益萱）",
+      "url": "https://m.weibo.cn/detail/5327043479994924",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國官媒慶祝解放軍建軍99週年，強調聽黨指揮與強軍目標，屬內部宣傳性質。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-01",
+      "title": "#八一建军节# 【中国人民解放军，99周岁生日快乐！】今天，是#中国人民解放军建军99周年#。九十九...",
+      "content": "#八一建军节# 【中国人民解放军，99周岁生日快乐！】今天，是#中国人民解放军建军99周年#。九十九载薪火赓续，九十九载步履铿锵。从长征路上的浴血冲锋，到强军征程中的步履铿锵，人民军队成立99周年来，始终做到听党指挥、能打胜仗、作风优良。山河永安家国无恙，#人民军队制胜向强# ！今天，让我们一 ...全文",
+      "url": "https://m.weibo.cn/detail/5326998181250073",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍航空兵某部舉辦建軍99周年歌詠比賽，旨在展現強軍興軍精神。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-07-31",
+      "title": "【#军歌嘹亮铭记抗战历史#】近日，东部战区空军航空兵某部为庆祝中国人民解放军建军99周年，隆重举行“...",
+      "content": "【#军歌嘹亮铭记抗战历史#】近日，东部战区空军航空兵某部为庆祝中国人民解放军建军99周年，隆重举行“铁心向党·征程如虹”主题歌咏比赛，全体官兵以真挚的情感、激昂的姿态、激昂的歌声展现强军兴军的壮丽篇章（洪炜锋、熊玉峰、余博麟、张欣）",
+      "url": "https://m.weibo.cn/detail/5326741490112381",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
