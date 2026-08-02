@@ -26014,5 +26014,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "無錫干休所舉辦八一建軍節聯歡會，旨在傳承長征精神與慶祝建軍節，屬內部文宣活動。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-01",
+      "title": "【#干休所庆八一联欢会登场#】#八一建军节# 来临之际，无锡第二离职干部休养所举办“传承不朽长征精神...",
+      "content": "【#干休所庆八一联欢会登场#】#八一建军节# 来临之际，无锡第二离职干部休养所举办“传承不朽长征精神，奋进新时代中国梦”主题联欢会他们邀请驻地社区志愿者和小学生欢聚一堂，载歌载舞，老少同乐，共叙军民鱼水深情，唱响强国强军时代凯歌。（ 陶演、孙海峰）",
+      "url": "https://m.weibo.cn/detail/5327103877711163",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
