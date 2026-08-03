@@ -26278,5 +26278,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍舉辦建軍99周年及長征勝利90周年書畫攝影展，旨在激勵官兵強軍信念。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-02",
+      "title": "#人民军队制胜向强#【#翰墨光影励斗志# 】#八一建军节# 来临之际，东部战区空军某部组织开展庆祝建...",
+      "content": "#人民军队制胜向强#【#翰墨光影励斗志# 】#八一建军节# 来临之际，东部战区空军某部组织开展庆祝建军99周年暨纪念红军长征胜利90周年书画摄影展。官兵在笔墨之间回望光辉历史，感悟永不褪色的长征精神和军人风骨，传承赓续红色精神，坚定矢志强军理想信念。 （周颖、张翼、黄维、季佳乐）",
+      "url": "https://m.weibo.cn/detail/5327511564846199",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "江蘇省淮安市舉辦慶祝八一建軍節的雙擁慰問演出，旨在鞏固軍政軍民團結。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-02",
+      "title": "#人民军队制胜向强# 【#军民联欢庆八一# 】#八一建军节# 来临之际，江苏省淮安市举办“赓续长征路...",
+      "content": "#人民军队制胜向强# 【#军民联欢庆八一# 】#八一建军节# 来临之际，江苏省淮安市举办“赓续长征路，共筑双拥情”庆“八一”双拥慰问演出，进一步巩固军政军民团结，营造尊军崇军的浓厚氛围。（作者：薛维高、叶富景、唐田、黄言）",
+      "url": "https://m.weibo.cn/detail/5327481365859362",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
