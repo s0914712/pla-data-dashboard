@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-02 05:29:52",
+  "generated_at": "2026-08-03 05:44:25",
   "threshold": 20,
   "base_rate": 0.1721,
   "alert_cutoff": 0.344,
@@ -11,18 +11,18 @@
   "note": "高架次為稀有事件（基準約 11%），正樣本少於 10 個時 Brier/AUC 不可信",
   "daily": {
     "new": {
-      "date": "2026-08-02",
-      "prob": 0.154,
-      "actual": 5.0,
+      "date": "2026-08-03",
+      "prob": 0.092,
+      "actual": 0.0,
       "threshold": 20,
       "alerted": false,
       "happened": false,
       "outcome": "correct_quiet"
     },
     "legacy": {
-      "date": "2026-08-02",
-      "prob": 0.343,
-      "actual": 5.0,
+      "date": "2026-08-03",
+      "prob": 0.238,
+      "actual": 0.0,
       "threshold": 20,
       "alerted": false,
       "happened": false,
@@ -32,18 +32,18 @@
   "models": {
     "new": {
       "label": "SurgeForecaster 3.0.0",
-      "n": 7,
+      "n": 8,
       "n_positive": 1,
       "enough": false,
       "enough_auc": false,
       "window": [
         "2026-07-27",
-        "2026-08-02"
+        "2026-08-03"
       ],
       "alert_cutoff": 0.344,
-      "mean_prob": 0.1116,
-      "observed_rate": 0.1429,
-      "calibration_ratio": 0.781,
+      "mean_prob": 0.1091,
+      "observed_rate": 0.125,
+      "calibration_ratio": 0.873,
       "alerts": 0,
       "hits": 0,
       "false_alarms": 0,
@@ -51,42 +51,42 @@
       "precision": null,
       "recall": 0.0,
       "alert_rate": 0.0,
-      "brier": 0.1101,
-      "brier_base": 0.1224,
-      "brier_skill": 0.101
+      "brier": 0.0974,
+      "brier_base": 0.1094,
+      "brier_skill": 0.1097
     },
     "legacy": {
       "label": "CatBoost 2.8.0",
-      "n": 3,
+      "n": 4,
       "n_positive": 1,
       "enough": false,
       "enough_auc": false,
       "window": [
         "2026-07-31",
-        "2026-08-02"
+        "2026-08-03"
       ],
       "alert_cutoff": 0.344,
-      "mean_prob": 0.5117,
-      "observed_rate": 0.3333,
-      "calibration_ratio": 1.535,
+      "mean_prob": 0.4433,
+      "observed_rate": 0.25,
+      "calibration_ratio": 1.773,
       "alerts": 2,
       "hits": 1,
       "false_alarms": 1,
       "misses": 0,
       "precision": 0.5,
       "recall": 1.0,
-      "alert_rate": 0.6667,
-      "brier": 0.1681,
-      "brier_base": 0.2222,
-      "brier_skill": 0.2438
+      "alert_rate": 0.5,
+      "brier": 0.1402,
+      "brier_base": 0.1875,
+      "brier_skill": 0.2523
     }
   },
   "calibration": {
     "new": [
       {
         "range": "0-10%",
-        "n": 3,
-        "mean_prob": 0.0687,
+        "n": 4,
+        "mean_prob": 0.0745,
         "observed_rate": 0.0
       },
       {
@@ -97,6 +97,12 @@
       }
     ],
     "legacy": [
+      {
+        "range": "20-30%",
+        "n": 1,
+        "mean_prob": 0.238,
+        "observed_rate": 0.0
+      },
       {
         "range": "30-50%",
         "n": 1,
@@ -120,20 +126,20 @@
         "alerts": 0,
         "hits": 0,
         "misses": 1,
-        "mean_prob": 0.1116,
+        "mean_prob": 0.1086,
         "observed_rate": 0.1429,
         "max_prob": 0.164,
         "max_actual": 27.0
       },
       "legacy": {
         "days": 7,
-        "n": 3,
+        "n": 4,
         "n_positive": 1,
         "alerts": 2,
         "hits": 1,
         "misses": 0,
-        "mean_prob": 0.5117,
-        "observed_rate": 0.3333,
+        "mean_prob": 0.4433,
+        "observed_rate": 0.25,
         "max_prob": 0.667,
         "max_actual": 27.0
       }
@@ -141,25 +147,25 @@
     "monthly": {
       "new": {
         "days": 30,
-        "n": 7,
+        "n": 8,
         "n_positive": 1,
         "alerts": 0,
         "hits": 0,
         "misses": 1,
-        "mean_prob": 0.1116,
-        "observed_rate": 0.1429,
+        "mean_prob": 0.1091,
+        "observed_rate": 0.125,
         "max_prob": 0.164,
         "max_actual": 27.0
       },
       "legacy": {
         "days": 30,
-        "n": 3,
+        "n": 4,
         "n_positive": 1,
         "alerts": 2,
         "hits": 1,
         "misses": 0,
-        "mean_prob": 0.5117,
-        "observed_rate": 0.3333,
+        "mean_prob": 0.4433,
+        "observed_rate": 0.25,
         "max_prob": 0.667,
         "max_actual": 27.0
       }
