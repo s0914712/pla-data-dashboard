@@ -26470,5 +26470,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.2,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-08-03",
+      "title": "【#八一送诊情暖桑榆#】#八一建军节# 来临之际，江苏省无锡军分区联合无锡市第二人民医院专家团队，走...",
+      "content": "【#八一送诊情暖桑榆#】#八一建军节# 来临之际，江苏省无锡军分区联合无锡市第二人民医院专家团队，走进江苏省军区无锡第四离职干部休养所，开展义诊服务。医疗团队专程上门为百岁抗战老兵、全国离退休先进个人潘宗道老首长诊疗。同时，他们为全体离休干部及军属提供诊疗检查与健康指导，将暖心医疗服 ...全文",
+      "url": "https://m.weibo.cn/detail/5327828654229604",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
