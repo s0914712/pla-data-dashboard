@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-04 05:17:04",
+  "generated_at": "2026-08-05 05:17:20",
   "threshold": 20,
-  "base_rate": 0.1721,
-  "alert_cutoff": 0.344,
+  "base_rate": 0.1749,
+  "alert_cutoff": 0.35,
   "gates": {
     "min_n": 30,
     "min_positive": 5,
@@ -11,74 +11,74 @@
   "note": "高架次為稀有事件（基準約 11%），正樣本少於 10 個時 Brier/AUC 不可信",
   "daily": {
     "new": {
-      "date": "2026-08-04",
-      "prob": 0.026,
-      "actual": 6.0,
+      "date": "2026-08-05",
+      "prob": 0.108,
+      "actual": 21.0,
       "threshold": 20,
       "alerted": false,
-      "happened": false,
-      "outcome": "correct_quiet"
+      "happened": true,
+      "outcome": "miss"
     },
     "legacy": {
-      "date": "2026-08-04",
-      "prob": 0.19,
-      "actual": 6.0,
+      "date": "2026-08-05",
+      "prob": 0.337,
+      "actual": 21.0,
       "threshold": 20,
       "alerted": false,
-      "happened": false,
-      "outcome": "correct_quiet"
+      "happened": true,
+      "outcome": "miss"
     }
   },
   "models": {
     "new": {
       "label": "SurgeForecaster 3.0.0",
-      "n": 9,
-      "n_positive": 1,
+      "n": 10,
+      "n_positive": 2,
       "enough": false,
       "enough_auc": false,
       "window": [
         "2026-07-27",
-        "2026-08-04"
+        "2026-08-05"
       ],
-      "alert_cutoff": 0.344,
-      "mean_prob": 0.0999,
-      "observed_rate": 0.1111,
-      "calibration_ratio": 0.899,
+      "alert_cutoff": 0.35,
+      "mean_prob": 0.1007,
+      "observed_rate": 0.2,
+      "calibration_ratio": 0.5035,
       "alerts": 0,
       "hits": 0,
       "false_alarms": 0,
-      "misses": 1,
+      "misses": 2,
       "precision": null,
       "recall": 0.0,
       "alert_rate": 0.0,
-      "brier": 0.0866,
-      "brier_base": 0.0988,
-      "brier_skill": 0.1229
+      "brier": 0.1575,
+      "brier_base": 0.16,
+      "brier_skill": 0.0154
     },
     "legacy": {
       "label": "CatBoost 2.8.0",
-      "n": 5,
-      "n_positive": 1,
+      "n": 6,
+      "n_positive": 2,
       "enough": false,
       "enough_auc": false,
       "window": [
         "2026-07-31",
-        "2026-08-04"
+        "2026-08-05"
       ],
-      "alert_cutoff": 0.344,
-      "mean_prob": 0.3926,
-      "observed_rate": 0.2,
-      "calibration_ratio": 1.963,
+      "alert_cutoff": 0.35,
+      "mean_prob": 0.3833,
+      "observed_rate": 0.3333,
+      "calibration_ratio": 1.15,
       "alerts": 2,
       "hits": 1,
       "false_alarms": 1,
-      "misses": 0,
+      "misses": 1,
       "precision": 0.5,
-      "recall": 1.0,
-      "alert_rate": 0.4,
-      "brier": 0.1194,
-      "brier_base": 0.16,
-      "brier_skill": 0.2539
+      "recall": 0.5,
+      "alert_rate": 0.3333,
+      "brier": 0.1727,
+      "brier_base": 0.2222,
+      "brier_skill": 0.2226
     }
   },
   "calibration": {
@@ -91,9 +91,9 @@
       },
       {
         "range": "10-20%",
-        "n": 4,
-        "mean_prob": 0.1437,
-        "observed_rate": 0.25
+        "n": 5,
+        "mean_prob": 0.1366,
+        "observed_rate": 0.4
       }
     ],
     "legacy": [
@@ -111,9 +111,9 @@
       },
       {
         "range": "30-50%",
-        "n": 1,
-        "mean_prob": 0.343,
-        "observed_rate": 0.0
+        "n": 2,
+        "mean_prob": 0.34,
+        "observed_rate": 0.5
       },
       {
         "range": "50-100%",
@@ -128,24 +128,24 @@
       "new": {
         "days": 7,
         "n": 7,
-        "n_positive": 1,
+        "n_positive": 2,
         "alerts": 0,
         "hits": 0,
-        "misses": 1,
-        "mean_prob": 0.1016,
-        "observed_rate": 0.1429,
+        "misses": 2,
+        "mean_prob": 0.1091,
+        "observed_rate": 0.2857,
         "max_prob": 0.164,
         "max_actual": 27.0
       },
       "legacy": {
         "days": 7,
-        "n": 5,
-        "n_positive": 1,
+        "n": 6,
+        "n_positive": 2,
         "alerts": 2,
         "hits": 1,
-        "misses": 0,
-        "mean_prob": 0.3926,
-        "observed_rate": 0.2,
+        "misses": 1,
+        "mean_prob": 0.3833,
+        "observed_rate": 0.3333,
         "max_prob": 0.667,
         "max_actual": 27.0
       }
@@ -153,29 +153,36 @@
     "monthly": {
       "new": {
         "days": 30,
-        "n": 9,
-        "n_positive": 1,
+        "n": 10,
+        "n_positive": 2,
         "alerts": 0,
         "hits": 0,
-        "misses": 1,
-        "mean_prob": 0.0999,
-        "observed_rate": 0.1111,
+        "misses": 2,
+        "mean_prob": 0.1007,
+        "observed_rate": 0.2,
         "max_prob": 0.164,
         "max_actual": 27.0
       },
       "legacy": {
         "days": 30,
-        "n": 5,
-        "n_positive": 1,
+        "n": 6,
+        "n_positive": 2,
         "alerts": 2,
         "hits": 1,
-        "misses": 0,
-        "mean_prob": 0.3926,
-        "observed_rate": 0.2,
+        "misses": 1,
+        "mean_prob": 0.3833,
+        "observed_rate": 0.3333,
         "max_prob": 0.667,
         "max_actual": 27.0
       }
     }
   },
-  "diagnostics": []
+  "diagnostics": [
+    {
+      "model": "新模型",
+      "severity": "info",
+      "code": "raw_gap",
+      "message": "新模型原始分類器膨脹 1.9 倍，校準器負擔偏重"
+    }
+  ]
 }

@@ -1,55 +1,42 @@
 {
-  "generated_at": "2026-08-04 05:17:02",
-  "n": 5,
+  "generated_at": "2026-08-05 05:17:19",
+  "n": 6,
   "min_n": 10,
   "legacy_ok": true,
   "legacy_stale": false,
-  "legacy_asof": "2026-08-04",
+  "legacy_asof": "2026-08-05",
   "bias_convention": "predicted_minus_actual",
   "note": "此處只比點預測與區間；機率的對照見機率檢討區塊",
   "models": {
     "new": {
       "label": "SurgeForecaster 3.0.0",
-      "MAE": 5.2,
-      "bias": -2.16,
-      "pin90": 3.464,
+      "MAE": 4.4167,
+      "bias": -1.8833,
+      "pin90": 2.9617,
       "cov90": 1.0,
-      "width": 23.6
+      "width": 24.8
     },
     "legacy": {
       "label": "CatBoost 2.8.0",
-      "MAE": 5.76,
-      "bias": -4.04,
-      "pin90": 4.496,
-      "cov90": 0.4,
-      "width": 7.78
+      "MAE": 6.9667,
+      "bias": -5.5333,
+      "pin90": 5.6967,
+      "cov90": 0.3333,
+      "width": 7.65
     }
   },
   "forecast": [
     {
-      "date": "2026-08-05",
-      "new": {
-        "point": 20.5,
-        "lower": 6.3,
-        "upper": 37.1
-      },
-      "legacy": {
-        "point": 8.0,
-        "lower": 3.4,
-        "upper": 10.4
-      }
-    },
-    {
       "date": "2026-08-06",
       "new": {
-        "point": 11.0,
+        "point": 11.3,
         "lower": 0.0,
-        "upper": 25.6
+        "upper": 27.9
       },
       "legacy": {
-        "point": 10.0,
-        "lower": 2.4,
-        "upper": 12.0
+        "point": 11.7,
+        "lower": 3.6,
+        "upper": 14.7
       }
     },
     {
@@ -57,17 +44,30 @@
       "new": {
         "point": 9.2,
         "lower": 0.0,
-        "upper": 23.9
+        "upper": 22.0
       },
       "legacy": {
-        "point": 8.0,
-        "lower": 1.4,
-        "upper": 21.7
+        "point": 6.5,
+        "lower": 1.2,
+        "upper": 13.3
+      }
+    },
+    {
+      "date": "2026-08-08",
+      "new": {
+        "point": 11.0,
+        "lower": 0.0,
+        "upper": 26.4
+      },
+      "legacy": {
+        "point": 6.4,
+        "lower": 1.0,
+        "upper": 14.0
       }
     }
   ],
   "window": [
     "2026-07-31",
-    "2026-08-04"
+    "2026-08-05"
   ]
 }
