@@ -26998,5 +26998,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍某部進行夏季高溫防暑與熱射病防治技能培訓，屬軍隊內部後勤保障訓練。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-05",
+      "title": "【#技能培训助力科学防暑# 】近日，东部战区空军某部开展高温相关病症防治技能培训，为夏季练兵保驾护航...",
+      "content": "【#技能培训助力科学防暑# 】近日，东部战区空军某部开展高温相关病症防治技能培训，为夏季练兵保驾护航。卫生队医师们现场示范热射病防治 “8-4-6” 救护法，助力科学防暑、安全施训。（胡陈建、吴先滔、黄维） #军营生活#",
+      "url": "https://m.weibo.cn/detail/5328553429434820",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
