@@ -68,6 +68,11 @@ LEGACY_COLUMNS = [
 NEW_COLUMNS = [
     "horizon", "surge_threshold", "prob_signal_valid",
     "high_event_probability_raw", "prob_calibrated",
+    # 回歸頭由 conformal 殘差推得的 P(>=門檻)。純監看，不參與 high_event_probability
+    # 的計算 —— 實測把它併進校準器會讓 PR-AUC 掉 10%，理由見
+    # pla_surge_model.conformal_surge_prob 的 docstring。留這一欄是為了讓下次
+    # 重提這個想法的人手上直接有並排紀錄。
+    "high_event_probability_point",
 ]
 
 
@@ -146,6 +151,8 @@ def build_rows(series, holidays):
             "prob_signal_valid": int(valid),
             "high_event_probability_raw": round(r["surge_probability_raw"] * 100, 1),
             "prob_calibrated": int(r["surge_calibrated"]),
+            "high_event_probability_point": round(
+                r["surge_probability_point"] * 100, 1),
         })
     return pd.DataFrame(rows)
 
@@ -176,6 +183,14 @@ def merge_history(predictions, series, output_path):
 
     combined["actual_sorties"] = combined["date"].map(actual)
     mask = combined["actual_sorties"].notna() & combined["predicted_sorties"].notna()
+    # 慣例：prediction_error = actual - predicted（正值 = 實際比預測高）。
+    #
+    # 這與 backtest_predictor.score() / model_comparison.json 的 bias 欄剛好相反，
+    # 那邊是 predicted - actual。兩者都沒錯，但混用過就會出事，所以記在這裡：
+    #   * CSV 這一欄是「給人看的誤差」，LINE 推播與 prediction.html 的誤差圖
+    #     都直接顯示它，翻號等於把所有既有畫面的正負對調 —— 不要為了統一而翻。
+    #   * 計分程式一律用 predicted - actual，並在輸出裡帶 bias_convention 欄標明。
+    # MAE/RMSE 對正負不敏感，兩邊算出來一致，會分歧的只有 bias。
     combined.loc[mask, "prediction_error"] = (
         combined.loc[mask, "actual_sorties"] - combined.loc[mask, "predicted_sorties"])
 
