@@ -27286,5 +27286,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.2,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中共官媒發布關於「閱海峽」的貼文，暗示對台海的軍事存在和控制。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-08-07",
+      "title": "#东部熄灯号#振翅天际，掌控云天。#阅海峡#",
+      "content": "#东部熄灯号#振翅天际，掌控云天。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5329399000867136",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.2,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-08-07",
+      "title": "【2026年#退役军人家庭全年医疗费用保险卡#升级上线！】近日，“退役军人医疗救助”项目捐赠暨“20...",
+      "content": "【2026年#退役军人家庭全年医疗费用保险卡#升级上线！】近日，“退役军人医疗救助”项目捐赠暨“2026退役军人家庭-全年医疗费用保险卡”升级上线启动仪式在国家退役军人服务中心举行，本年度同步推出退役军人家庭“住院医疗津贴保险卡”。今年，此项保障再次升级：“全年医疗费用保险卡”扣除免 ...全文",
+      "url": "https://m.weibo.cn/detail/5329391521631539",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區空軍某部組織短波報台車架設演練，檢驗遭敵打擊下機動力量應急響應能力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-07",
+      "title": "#直击东部战区练兵备战现场# 【 #锤炼应急响应能力# 】近日，东部战区空军某部着眼实战需求，组织短...",
+      "content": "#直击东部战区练兵备战现场# 【 #锤炼应急响应能力# 】近日，东部战区空军某部着眼实战需求，组织短波报台车架设演练，重点检验在遭敌打击等极端条件下机动力量应急响应能力，全面夯实备战打仗本领。（张子烨、张玉坤、赵厥骐、陈叶楠）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5329278205690425",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
