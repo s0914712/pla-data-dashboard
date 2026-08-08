@@ -174,10 +174,14 @@ def score(name, point, surge_p, actual, threshold=SURGE_THRESHOLD, budget=0.20,
     return row
 
 
-def baseline_scores(series, horizon, dates, actual, threshold):
+def baseline_scores(series, horizon, dates, actual, threshold, min_n=30):
     """樸素基準線。沒有基準線就無法判斷模型的複雜度是否買到了東西。
 
     全部只用 target_date - horizon 當天（含）以前的觀測，與模型同樣是因果的。
+
+    min_n 是「幾筆才值得報這條基準線」。回測窗預設 30；
+    probability_review 的週報窗只有 7 天，會自己傳較小的值 —— 那裡的用途是
+    「這週模型有沒有贏過複製昨天」，是單週敘述而非統計推論，門檻不同是刻意的。
     """
     out = []
     origin = dates - pd.Timedelta(days=horizon)
@@ -189,7 +193,7 @@ def baseline_scores(series, horizon, dates, actual, threshold):
     for name, pred in cands.items():
         p = pred.values.astype(float)
         m = ~np.isnan(p)
-        if m.sum() < 30:
+        if m.sum() < min_n:
             continue
         out.append(score(name, p[m], None, actual[m], threshold))
     return out

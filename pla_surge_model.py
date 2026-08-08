@@ -66,6 +66,39 @@ def _logit(p, eps=1e-6):
     return np.log(a / (1 - a)).reshape(-1, 1)
 
 
+def conformal_surge_prob(point, residuals, threshold):
+    """用 conformal 殘差分布把點預測轉成 P(Y >= threshold)。
+
+    問法是「把校準期的殘差加到今天的點預測上，有幾成會越過門檻？」——
+    回歸頭對 surge 這件事的看法，不需要任何新模型。
+
+    ## 這個值只做監看，不參與警報 —— 這是量過之後的決定
+
+    起因是 2026-08-05 的漏報：實際 21 架次，線上點預測 20.5（已達門檻），
+    分類器卻只給 10.8%，risk_level 因此是 LOW。看起來像「回歸頭知道、
+    分類器不知道，只是沒接線」。
+
+    把它接進 Platt（雙特徵：分類器輸出 + 本函式）實測過，181 天 / 21 個正樣本：
+
+        單特徵(現行)  PR-AUC 0.362  ROC 0.638  Brier 0.1010
+        雙特徵        PR-AUC 0.324  ROC 0.637  Brier 0.1009
+        純 conformal  PR-AUC 0.148  ROC 0.582  Brier 0.1077
+
+    PR-AUC 掉 10%，Brier 持平 —— 沒過驗收閘，所以沒有上線。原因在最後一列：
+    這個訊號本身的鑑別力遠低於分類器，而且與分類器高度相關，當第二個特徵
+    只是加噪音（配出來的 Platt 係數是負的）。
+
+    而那個 08-05 的「回歸頭早就知道」其實是倖存者偏誤：同一天在嚴格
+    walk-forward 下點預測只有 9.2，conformal 機率 0.094，一樣抓不到。
+    線上看到的 20.5 來自每日重訓的模型，不是可重現的訊號。
+
+    欄位留著（CSV 的 high_event_probability_point）是為了讓下次有人重提
+    這個想法時，手上直接有並排的紀錄可看，不必再猜。
+    """
+    residuals = np.asarray(residuals, dtype=float)
+    return float(np.mean(residuals >= (threshold - point)))
+
+
 def to_daily_series(df, date_col="date", value_col="pla_aircraft_sorties"):
     """整理成連續日曆序列。沒有紀錄的日子留 NaN（未觀測），不是 0。"""
     d = df[[date_col, value_col]].copy()
@@ -206,6 +239,9 @@ class HorizonModel:
         if self.calibrator is not None:
             surge_p = float(self.calibrator.predict_proba(_logit([surge_raw]))[0, 1])
 
+        # 只監看，不參與上面的機率 —— 理由見 conformal_surge_prob 的 docstring。
+        p_point = conformal_surge_prob(point, self.residuals, self.threshold)
+
         lo_q, hi_q = np.quantile(self.residuals, [0.05, 0.95])
         return {
             "horizon": self.horizon,
@@ -216,6 +252,8 @@ class HorizonModel:
             "surge_probability": surge_p,
             # 未校準的原始輸出，供上線後監看校準漂移
             "surge_probability_raw": surge_raw,
+            # 回歸頭推得的機率，單獨留一欄才看得出兩個訊號何時分歧
+            "surge_probability_point": p_point,
             "surge_calibrated": self.calibrator is not None,
             "surge_base_rate": self.surge_base_rate,
             "surge_signal_valid": self.horizon <= SIGNAL_HORIZON,
@@ -239,6 +277,22 @@ class SurgeForecaster:
         return [self.models[h].predict(series) for h in self.horizons]
 
 
+# 風險階梯：(等級, 絕對下限, 相對基準發生率的倍數)，由高到低。
+# 這是門檻的唯一定義處 —— probability_review.py 的 ladder_unreachable 診斷
+# 也讀這裡，不要在下游再寫一次 max(0.20, 1.3 * br)。
+RISK_LADDER = (
+    ("HIGH", 0.40, 3.0),
+    ("MEDIUM-HIGH", 0.30, 2.0),
+    ("MEDIUM", 0.20, 1.3),
+)
+
+
+def risk_thresholds(base_rate):
+    """各等級的實際切點：max(絕對下限, 倍數 x 基準發生率)。"""
+    return {name: max(floor, lift * base_rate)
+            for name, floor, lift in RISK_LADDER}
+
+
 def risk_level(surge_p, signal_valid, base_rate):
     """把 surge 機率轉成等級。
 
@@ -247,10 +301,8 @@ def risk_level(surge_p, signal_valid, base_rate):
     """
     if not signal_valid:
         return "UNKNOWN"
-    if surge_p >= max(0.40, 3 * base_rate):
-        return "HIGH"
-    if surge_p >= max(0.30, 2 * base_rate):
-        return "MEDIUM-HIGH"
-    if surge_p >= max(0.20, 1.3 * base_rate):
-        return "MEDIUM"
+    thresholds = risk_thresholds(base_rate)
+    for name, _, _ in RISK_LADDER:
+        if surge_p >= thresholds[name]:
+            return name
     return "LOW"

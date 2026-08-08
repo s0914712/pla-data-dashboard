@@ -203,6 +203,11 @@ def surge_threshold_in_use(fc):
     HIGH_SORTIE_THRESHOLD 是跟 pla_surge_model.SURGE_THRESHOLD 手動同步的重複常數，
     上游改了這裡沒改的話，推播會用錯的數字去描述機率在講什麼事件。
     CSV 的 surge_threshold 欄是上游自己寫的，不會漂。
+
+    不要改成 `from pla_surge_model import SURGE_THRESHOLD` 來消除這個重複：
+    pla_surge_model 在 import 時就會拉 sklearn，而 LINEcron.yml 只裝
+    requests/pandas/matplotlib/pillow，那樣會讓每日推播整個掛掉。
+    重複是刻意的，上面的 CSV 讀取才是真正的防漂移機制。
     """
     if not fc.empty and "surge_threshold" in fc.columns:
         v = pd.to_numeric(fc["surge_threshold"], errors="coerce").dropna()
@@ -298,22 +303,30 @@ def summarize_probability_review():
     models = rev.get("models", {})
     new_m, old_m = models.get("new", {}), models.get("legacy", {})
 
+    # 診斷分兩種，這裡不能一起關掉：
+    #   * calibration_drift / no_skill / alert_fatigue 是統計量，probability_review
+    #     那邊已經用 enough 擋過了，樣本不足時根本不會產生。
+    #   * ladder_unreachable / consecutive_misses / calibrator_off 是結構觀察，
+    #     不需要 MIN_N 就成立，而且正好是樣本累積期間最該講的事。
+    # 這個函式原本在樣本不足時直接 return，把後者也一起吞掉 —— 依 base rate
+    # 推算那是三個月的靜默期，等於警報機制壞掉的期間完全沒有人會知道。
+    warnings_ = [f"  {'🔴' if d['severity'] == 'alert' else '⚠️'} {d['message']}"
+                 for d in rev.get("diagnostics", [])
+                 if d.get("severity") in ("warn", "alert")]
+
     if not new_m.get("enough"):
         n, npos = new_m.get("n", 0), new_m.get("n_positive", 0)
-        return (f"📋 機率檢討：已累積 {n} 日（高架次 {npos} 日），需 "
+        head = (f"📋 機率檢討：已累積 {n} 日（高架次 {npos} 日），需 "
                 f"{gates.get('min_n', 30)} 日／{gates.get('min_positive', 5)} "
                 f"個高架次日才開始評比")
+        return "\n".join([head] + warnings_)
 
     lines = [f"📋 機率檢討（近 {new_m['n']} 日，其中高架次 {new_m['n_positive']} 日）"]
     lines.append(_model_prob_line("新模型", new_m))
     if old_m.get("enough"):
         lines.append(_model_prob_line("舊模型", old_m))
 
-    for d in rev.get("diagnostics", []):
-        if d.get("severity") in ("warn", "alert"):
-            icon = "🔴" if d["severity"] == "alert" else "⚠️"
-            lines.append(f"  {icon} {d['message']}")
-    return "\n".join(lines)
+    return "\n".join(lines + warnings_)
 
 
 def summarize_digest(period):
@@ -332,6 +345,20 @@ def summarize_digest(period):
              f"  平均預告 {d['mean_prob'] * 100:.0f}%／實際發生 "
              f"{d['observed_rate'] * 100:.0f}%，"
              f"期間最高預告 {d['max_prob'] * 100:.0f}%、最高實際 {d['max_actual']:.0f} 架次"]
+
+    # 點預測計分卡。單獨一個 MAE 沒有意義，要跟 persistence 並排才是結論，
+    # 所以這兩行綁在一起出現，不要只留 MAE。
+    pt = d.get("point")
+    if pt and pt.get("mae") is not None:
+        line = f"  點預測 MAE {pt['mae']}"
+        if pt.get("cov90") is not None:
+            line += f"，90% 區間覆蓋 {pt['cov90'] * 100:.0f}%"
+        lines.append(line)
+        base = (pt.get("baselines") or {}).get("persistence")
+        skill = pt.get("mae_skill_vs_persistence")
+        if base is not None and skill is not None:
+            lines.append(f"　　對照「複製昨天」MAE {base} → "
+                         f"{'優於' if skill > 0 else '劣於'} {abs(skill) * 100:.0f}%")
 
     old = block.get("legacy")
     if old:

@@ -42,6 +42,25 @@ from sklearn.metrics import average_precision_score, brier_score_loss, roc_auc_s
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 
+# 風險階梯的門檻定義。ladder_unreachable 診斷要用，而那條診斷比點預測計分卡
+# 重要，所以分開 import —— 不要讓計分卡的相依把診斷一起拖掉。
+try:
+    from pla_surge_model import risk_thresholds, to_daily_series
+    _LADDER_OK = True
+except Exception as _e:  # pragma: no cover - 只在依賴缺失時走到
+    print(f"⚠️  無法載入 pla_surge_model，階梯診斷將略過: {_e}")
+    _LADDER_OK = False
+
+# 點預測的計分沿用回測腳本那一套，不要在這裡重寫一份 MAE/cov90 —— 兩份實作
+# 遲早會漂開，而 bias 正負號慣例已經有過一次不一致的前例。
+# 載入失敗時只是少了點預測區塊，機率檢討本身照常輸出。
+try:
+    from scripts.analysis.backtest_predictor import baseline_scores, score
+    _POINT_OK = _LADDER_OK
+except Exception as _e:  # pragma: no cover - 只在依賴缺失時走到
+    print(f"⚠️  點預測計分模組載入失敗，將略過該區塊: {_e}")
+    _POINT_OK = False
+
 NEW_CSV = "data/predictions/latest_prediction.csv"
 LEGACY_CSV = "data/predictions/legacy_prediction.csv"
 SORTIES_CSV = "data/JapanandBattleship.csv"
@@ -68,6 +87,11 @@ MIN_POSITIVE_AUC = 10   # ROC/PR-AUC 另外要求
 
 BASE_RATE_WINDOW_DAYS = 365
 CALIBRATION_BINS = [(0, 10), (10, 20), (20, 30), (30, 50), (50, 100)]
+
+# ladder_unreachable 診斷的觀察窗。這條診斷判的是「階梯有沒有在動」，
+# 不是統計推論，所以門檻遠低於 MIN_N —— 連續一週摸不到 MEDIUM 就該講。
+LADDER_WINDOW_DAYS = 14
+LADDER_MIN_DAYS = 7
 
 
 def alert_threshold(base_rate):
@@ -137,6 +161,12 @@ def load_model_rows(path, threshold, version_prefix=None):
     for opt in ("high_event_probability_raw", "prob_calibrated"):
         if opt in df.columns:
             out[opt] = pd.to_numeric(df[opt].values, errors="coerce")
+    # 點預測欄位供 digest() 的計分卡使用。已解決的列都是 h=1（未來列沒有
+    # actual_sorties，前面已被濾掉），所以這裡拿到的一律是隔日預測。
+    for src, dst in (("predicted_sorties", "point"),
+                     ("lower_bound", "lower"), ("upper_bound", "upper")):
+        if src in df.columns:
+            out[dst] = pd.to_numeric(df[src].values, errors="coerce")
     return out.dropna(subset=["prob", "actual"]).sort_index()
 
 
@@ -296,10 +326,79 @@ def diagnostics(name, metrics, df, br):
             if cal.mean() > 0 and raw.mean() / cal.mean() > 1.5:
                 add("info", "raw_gap",
                     f"{name}原始分類器膨脹 {raw.mean() / cal.mean():.1f} 倍，校準器負擔偏重")
+
+    # 風險階梯不可達。
+    #
+    # 校準後的機率若整段窗口都摸不到 MEDIUM 切點，儀表板與 LINE 日報就會連日
+    # 顯示一個平靜的 🟢 LOW —— 讀起來像「模型說今天安全」，實際是「模型說不出話」。
+    # 這裡不去調低 risk_level() 的門檻：機率貼著基準發生率是模型確實沒有鑑別力的
+    # 誠實表現，把門檻搬下來只會把「沒有訊號」偽裝成「有訊號」。要修的是沉默，
+    # 不是門檻。
+    if br is not None and _LADDER_OK and len(df) >= LADDER_MIN_DAYS:
+        recent = df["prob"].tail(LADDER_WINDOW_DAYS)
+        medium_cut = risk_thresholds(br)["MEDIUM"]
+        if len(recent) >= LADDER_MIN_DAYS and recent.max() < medium_cut:
+            add("warn", "ladder_unreachable",
+                f"{name}近 {len(recent)} 日風險等級恆為 LOW"
+                f"（最高 {recent.max() * 100:.0f}%，MEDIUM 需 {medium_cut * 100:.0f}%）"
+                f"：階梯在此區間不具區分力，不代表低風險")
     return out
 
 
-def digest(df, days, br, threshold=THRESHOLD):
+def point_scorecard(sub, series, threshold=THRESHOLD):
+    """窗內點預測的計分卡：模型 vs 樸素基準線。
+
+    「MAE 2.8」單看沒有任何意義 —— 這個序列零膨脹又右尾，一個永遠預測低值的
+    模型也能拿到漂亮的 MAE。「MAE 2.8 對上 persistence 5.9」才是結論。
+    在這支腳本之前，pipeline 裡沒有任何地方會把兩者放在一起看。
+
+    bias 沿用 score() 的 predicted - actual 慣例（負值 = 系統性低估），
+    與 CSV 的 prediction_error 欄正負相反，那一欄是 actual - predicted。
+    """
+    if not _POINT_OK or series is None or sub.empty:
+        return None
+    if not {"point", "lower", "upper"}.issubset(sub.columns):
+        return None
+
+    s = sub.dropna(subset=["point", "lower", "upper", "actual"])
+    # 三筆以下連敘述都稱不上，不如不報。
+    if len(s) < 3:
+        return None
+
+    row = score("model", s["point"].values.astype(float), None,
+                s["actual"].values.astype(float), threshold,
+                lower=s["lower"].values.astype(float),
+                upper=s["upper"].values.astype(float))
+    out = {
+        "n": int(row["n"]),
+        "mae": _r(row["MAE"], 2),
+        "rmse": _r(row["RMSE"], 2),
+        "bias": _r(row["bias"], 2),
+        "pin90": _r(row["pin90"], 2),
+        "cov90": _r(row.get("cov90"), 3),
+        "width": _r(row.get("width"), 1),
+        "bias_convention": "predicted_minus_actual",
+    }
+
+    # 基準線用與模型同樣因果的資訊（只看 target_date - 1 當天以前）。
+    # min_n=1：週窗只有 7 天，回測用的 30 筆門檻在這裡會把所有基準線濾掉。
+    try:
+        bases = baseline_scores(series, 1, s.index,
+                                s["actual"].values.astype(float), threshold, min_n=1)
+    except Exception as e:
+        print(f"⚠️  基準線計算失敗，略過: {e}")
+        bases = []
+
+    out["baselines"] = {b["model"].replace("baseline ", ""): _r(b["MAE"], 2)
+                        for b in bases}
+    persistence = out["baselines"].get("persistence")
+    if persistence:
+        # >0 代表模型贏過「直接複製昨天」。這是整張計分卡唯一該先看的數字。
+        out["mae_skill_vs_persistence"] = _r(1 - row["MAE"] / persistence, 3)
+    return out
+
+
+def digest(df, days, br, threshold=THRESHOLD, series=None):
     """近 N 日彙整，給週報／月報用。"""
     if df.empty:
         return None
@@ -322,10 +421,11 @@ def digest(df, days, br, threshold=THRESHOLD):
         "observed_rate": _r(float(y.mean())),
         "max_prob": _r(p.max(), 3),
         "max_actual": _r(float(sub["actual"].max()), 1),
+        "point": point_scorecard(sub, series, threshold),
     }
 
 
-def build(new_df, legacy_df, br, threshold=THRESHOLD):
+def build(new_df, legacy_df, br, threshold=THRESHOLD, series=None):
     new_m = evaluate(new_df, br, threshold)
     old_m = evaluate(legacy_df, br, threshold)
     return {
@@ -349,10 +449,10 @@ def build(new_df, legacy_df, br, threshold=THRESHOLD):
             "legacy": calibration_buckets(legacy_df, threshold),
         },
         "digest": {
-            "weekly": {"new": digest(new_df, 7, br, threshold),
-                       "legacy": digest(legacy_df, 7, br, threshold)},
-            "monthly": {"new": digest(new_df, 30, br, threshold),
-                        "legacy": digest(legacy_df, 30, br, threshold)},
+            "weekly": {"new": digest(new_df, 7, br, threshold, series),
+                       "legacy": digest(legacy_df, 7, br, threshold, series)},
+            "monthly": {"new": digest(new_df, 30, br, threshold, series),
+                        "legacy": digest(legacy_df, 30, br, threshold, series)},
         },
         "diagnostics": (diagnostics("新模型", new_m, new_df, br)
                         + diagnostics("舊模型", old_m, legacy_df, br)),
@@ -387,6 +487,22 @@ def report(res):
         if m.get("roc_auc") is not None:
             print(f"  ROC-AUC {m['roc_auc']}｜PR-AUC {m['pr_auc']}")
 
+    weekly = (res.get("digest") or {}).get("weekly") or {}
+    pt = (weekly.get("new") or {}).get("point")
+    if pt:
+        print(f"\n■ 近 7 日點預測（新模型，n={pt['n']}）")
+        print(f"  MAE {pt['mae']}｜RMSE {pt['rmse']}｜bias {pt['bias']:+.2f}"
+              f"（predicted−actual，負值為低估）")
+        if pt.get("cov90") is not None:
+            print(f"  cov90 {pt['cov90'] * 100:.0f}%（名目 90%）｜平均區間寬度 {pt['width']}")
+        if pt.get("baselines"):
+            print("  基準線 MAE：" + "｜".join(
+                f"{k} {v}" for k, v in pt["baselines"].items()))
+        skill = pt.get("mae_skill_vs_persistence")
+        if skill is not None:
+            print(f"  對 persistence 的 MAE 技能 {skill * 100:+.0f}%"
+                  f" → {'優於' if skill > 0 else '劣於'}直接複製昨天")
+
     if res["diagnostics"]:
         print("\n■ 診斷")
         for d in res["diagnostics"]:
@@ -410,6 +526,15 @@ def main():
     actuals = load_actuals()
     br = base_rate(actuals, threshold=args.threshold)
 
+    # 基準線要的是「有缺口也照樣連續」的日曆序列（未觀測是 NaN 不是 0），
+    # 與回測用的是同一個函式，rolling/ewm 的語意才對得起來。
+    series = None
+    if _POINT_OK and os.path.exists(SORTIES_CSV):
+        try:
+            series = to_daily_series(pd.read_csv(SORTIES_CSV, encoding="utf-8-sig"))
+        except Exception as e:
+            print(f"⚠️  無法建立日曆序列，點預測基準線將略過: {e}")
+
     new_df = load_model_rows(args.new, args.threshold, NEW_VERSION_PREFIX)
     legacy_df = load_model_rows(args.legacy, args.threshold)
 
@@ -420,7 +545,7 @@ def main():
 
     new_df, legacy_df = trim(new_df), trim(legacy_df)
 
-    res = build(new_df, legacy_df, br, args.threshold)
+    res = build(new_df, legacy_df, br, args.threshold, series)
     report(res)
 
     if args.dry_run:
