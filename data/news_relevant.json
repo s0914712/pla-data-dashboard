@@ -27478,5 +27478,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "第71集團軍王杰部隊於瀕海訓練場進行灘頭作戰演練，旨在錘煉瀕海作戰能力。",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區發布練兵備戰現場，強調時刻準備戰鬥。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-10",
+      "title": "#直击东部战区练兵备战现场# 【#锤炼濒海作战能力# 】近日，第71集团军王杰部队挺进濒海训练场，滩...",
+      "content": "#直击东部战区练兵备战现场# 【#锤炼濒海作战能力# 】近日，第71集团军王杰部队挺进濒海训练场，滩头之上练兵热潮涌动，全面锤炼官兵濒海作战能力。（王广伟、凡春龙、万智奇）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5330274771535297",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
