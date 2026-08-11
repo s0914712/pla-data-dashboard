@@ -31975,5 +31975,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "N/A",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍某部進行水域救援技能培訓，屬非戰鬥性質的應急搶險訓練。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-11",
+      "title": "#直击东部战区练兵备战现场# 【#涉水救援技能培训#】锤炼应急硬本领，筑牢安全防护墙。近日，东部战区...",
+      "content": "#直击东部战区练兵备战现场# 【#涉水救援技能培训#】锤炼应急硬本领，筑牢安全防护墙。近日，东部战区空军某部开展实战化水域救援培训，针对季节性高发问题补齐抢险救援能力短板。培训现场，教员围绕冲锋艇操作驾驶、急救绳结打法运用、水中应急自救等实用课目开展教学，理论讲解结合实操示范，官兵逐 ...全文",
+      "url": "https://m.weibo.cn/detail/5330637159400840",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區發布戰地火炮演練與備戰相關內容",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區透過社群媒體發布火炮演練訊息，強調備戰狀態。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-10",
+      "title": "#东部熄灯号#战地火炮轰鸣，聚力砺剑备战。#阅海峡#",
+      "content": "#东部熄灯号#战地火炮轰鸣，聚力砺剑备战。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5330486165247080",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "武警福建總隊寧德支隊與地方藝術團舉辦軍地聯合文藝匯演，旨在增進軍民情誼。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-10",
+      "title": "【#军地联合文艺汇演精彩不要错过# 】歌舞飞扬，谱写军民鱼水情。近日，武警福建总队宁德支队联合宁德市...",
+      "content": "【#军地联合文艺汇演精彩不要错过# 】歌舞飞扬，谱写军民鱼水情。近日，武警福建总队宁德支队联合宁德市职工艺术团举办军地联合文艺汇演，进一步深厚了军地情谊，同时增强官兵和家属的荣誉感。（ 吴亮超、王杰、陈李涛）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5330365369289021",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
