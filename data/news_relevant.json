@@ -27574,5 +27574,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中国驻日使馆驳斥台湾所谓“国格”论，重申台湾非国家，是中国领土不可分割的一部分，并批评台湾方面自不量力。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-10",
+      "title": "中国驻日使馆：台湾非国家，不存在“国格”一说",
+      "content": "台湾方面自不量力四处刷存在感，只会自取其辱。 台湾地区所谓“驻日代表”日前声称，“国格”与地位遭到刻意矮化，令人遗憾且失望，并称已提出“严正抗议”。对此，发言人表示，台湾不是一个国家，不存在“国格”一说。世界上只有一个中国，台湾是中国领土不可分割的一部分，中华人民共和国政府是代表全中国的唯一合法政府，这是国际社会的基本共识。台湾方面自不量力四处刷存在感，只会自取其辱。发言人还表示，联合国对台湾的称谓是“中国台湾省”。",
+      "url": "https://www.news.cn/tw/20260810/abc52023c118432e8537cdc53ae13307/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "TW",
+    "sentiment_score": -0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-08-09",
+      "title": "台风“白海豚”通过台湾北部海面 已造成6人受伤",
+      "content": "截至当日下午2时，全台已发生632件灾情，造成6人受伤，部分地区发生货柜倒塌、公路落石等灾情。 台气象部门9日清晨发布豪雨特报及陆上强风特报。当日，受台风影响，桃园市复兴区、连江县停班停课，新竹县山区8所学校宣布停课。 台湾地区灾害应变中心统计，截至9日下午2时，全台已累计632件灾情，包括路树倒塌、道路隧道损毁等。 台北市灾害应变中心表示，截至下午4时30分，接获261件灾情通报，已处理246件，其余处理中。新北市政府表示，统计至中午12时，受理案件159件，已结案131件，处理中28件。桃园市消防局透露，截至下午3时30分，共接获68件灾情通报，正持续排除中。 基隆港西岸部分货柜9日因强风吹袭倾倒。基隆港务分公司表示，货柜倒塌碰撞门式起重机，损坏状况仍待确认，将待风势趋缓，10日再进场复原。 台湾地区气象部门9日表示，台风“白海豚”下午暴风圈略为缩小，但竹苗、台北山区仍要防范局部大豪雨，随着台风移动，预计9日傍晚至10日清晨马祖风雨最为显著。 该部门表示，不排除10日早晨解除海上警报。另外，预计10日清晨连江县、兰屿、绿岛等地风力达停班停课标准，具体停班停课安排将由各地依实际风雨与灾情评估后公布。",
+      "url": "https://www.news.cn/tw/20260809/143095a08e074a308c98eae75b92b37f/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
