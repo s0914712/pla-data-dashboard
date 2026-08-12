@@ -293,6 +293,20 @@ def risk_thresholds(base_rate):
             for name, floor, lift in RISK_LADDER}
 
 
+# 絕對階梯的警示線就是 MEDIUM-HIGH 那一列 —— 推播裡真的出現 🟠/🔴 的那條線。
+# 具名常數，讓下游不必自己知道「是哪一階」。
+ALERT_LEVEL = "MEDIUM-HIGH"
+
+
+def absolute_alert_threshold(base_rate):
+    """3.0 的警示線。probability_review 與驗收回測都該用這個，不要各自手抄。
+
+    在這之前 probability_review.py 自己寫了一份 ALERT_FLOOR=0.30/ALERT_LIFT=2.0，
+    與這裡是兩份定義 —— 改了 RISK_LADDER 而忘了改那邊，兩邊就會靜靜地分家。
+    """
+    return risk_thresholds(base_rate)[ALERT_LEVEL]
+
+
 def risk_level(surge_p, signal_valid, base_rate):
     """把 surge 機率轉成等級。
 
@@ -306,3 +320,192 @@ def risk_level(surge_p, signal_valid, base_rate):
         if surge_p >= thresholds[name]:
             return name
     return "LOW"
+
+
+# ============================================================
+# 3.1 自適應風險層（相對百分位）
+# ============================================================
+#
+# 上面那座階梯問的是「這個機率絕對值高不高」。它沒有壞，但在目前的機率尺度下
+# 整段不可達：base rate 0.169 時 MEDIUM 切點是 max(0.20, 1.3*0.169) = 0.22，
+# 而上線 16 天校準後機率最高只有 0.181 —— 於是模型認為「最近最值得注意」的那天
+# 仍然顯示 LOW。這不是模型沒訊號，是決策層與機率尺度不匹配。
+#
+# 這一層另外問：「今天這個機率，排在歷史 OOS 機率分布的第幾位？」
+# 機率本身一個位元都不改 —— 改的是怎麼解讀它。
+#
+# ## 為什麼這不是「把門檻搬下來」
+#
+# probability_review.py 的 ladder_unreachable 診斷寫過一條明確的拒絕：
+# 「要修的是沉默，不是門檻」。這一層沒有違反它：
+#
+#   1. 絕對階梯不下修。risk_level() 原封不動，其結果由呼叫端保留成
+#      risk_level_absolute，並仍以 combine_risk_levels() 參與最終等級 ——
+#      機率真的到 40% 時不必等百分位同意就是 HIGH。
+#   2. 百分位錨定 REFERENCE_WINDOW_DAYS 天的參考窗，不是錨定當週。真正的
+#      安靜期，當日機率打不過去年的第 80 百分位，警示率會自然掉到 20% 以下。
+#      警示率是「參考期平均 20%」，不是「每週固定 20%」—— 這是這個設計不會
+#      把沉默偽裝成訊號的關鍵。
+#   3. 上線前必須通過回測閘：無鑑別力的模型在 20% budget 下 recall 期望值
+#      就是 20%。閘門要求明顯高於它，過不了就不該上。
+# ── 上線開關 ──────────────────────────────────────────────
+#
+# False = shadow 模式：百分位照算、照寫進 CSV、probability_review 照並列比較，
+#         但 risk_level 仍由絕對階梯決定，使用者看到的東西與 3.0 完全相同。
+#
+# 為什麼預設關著（2026-08-11 實測，1519 列 walk-forward OOS）：
+#
+#   評估窗    警示率   召回   召回倍數   3.0召回   ROC-AUC   Brier技能
+#    365天    15.1%  33.9%    2.25x    30.6%    0.674     +4.9%   ✅
+#    730天    28.7%  40.1%    1.40x    10.5%    0.608     +2.3%   ❌
+#   1095天    19.9%  27.3%    1.37x     6.6%    0.568     +0.6%   ❌
+#   1285天    17.9%  24.0%    1.35x     6.5%    0.551     -2.7%   ❌
+#
+# 4 個窗只有 1 個通過「召回倍數 >= 2x」。擋住的不是決策層 —— 3.1 在每個窗都
+# 大幅贏過 3.0 —— 而是模型本身的鑑別力隨窗口拉長由 0.674 掉到 0.551。
+#
+# 而且在目前這段線上資料上，3.1 的輸出與 3.0 逐日相同：16 天全部零警示。
+# 2026-08-08 的 18.1% 對「往前 365 天的 OOS 分布」只排第 46 百分位（警示線 29.6%），
+# 因為近一年含有活躍得多的時段，最近幾週是真的安靜。兩次 surge 的機率本身也低
+# （07-31 的 16.4% 排 37th、08-05 的 10.8% 排 18th）—— 那是模型沒看到，不是門檻擋掉。
+#
+# 所以先影子運行累積證據。要上線只需把這個常數改成 True，
+# risk_level、LINE 推播的百分位敘述會一起生效，不必動其他地方。
+ADAPTIVE_RISK_ENABLED = False
+
+ALERT_BUDGET = 0.20
+REFERENCE_WINDOW_DAYS = 365
+# 參考分布的最小樣本數。少於這個數，百分位的解析度比雜訊還粗
+# （120 天在 base rate 0.17 下約 20 個正樣本，與 CONFORMAL_WINDOW 同量級）。
+MIN_REFERENCE_N = 120
+
+# 百分位階梯：(等級, 百分位下限)，由高到低。與 RISK_LADDER 同樣順序 load-bearing。
+#
+# MEDIUM-HIGH 的切點寫成 1 - ALERT_BUDGET，不另外寫死 0.80。
+# backtest_predictor.score() 用 budget=0.20 取「機率排名前 20%」判定模型的 surge
+# 偵測能力，但線上發警報用的是完全另一套絕對門檻 —— 3.1 要修的就是這個不一致。
+# 兩者必須是同一個常數，否則哪天有人調了 budget，回測與線上又會默默分家。
+PERCENTILE_LADDER = (
+    ("HIGH", 0.95),
+    ("MEDIUM-HIGH", 1 - ALERT_BUDGET),
+    ("MEDIUM", 0.60),
+)
+
+# 等級由低到高。combine_risk_levels() 用它比大小，UNKNOWN 不在其中 —— 它不是
+# 一個「比 LOW 低」的等級，而是「這個問題沒有答案」，所以單獨處理。
+_LEVEL_ORDER = ("LOW", "MEDIUM", "MEDIUM-HIGH", "HIGH")
+
+
+def risk_percentile(surge_p, reference, min_n=MIN_REFERENCE_N):
+    """surge_p 在 reference 分布中的百分位（0..1）；樣本不足回 None。
+
+    用 mid-rank（小於的比例 + 一半的相等比例）而不是單純 (ref < p).mean()。
+    機率會在少數幾個值上叢集（同一個 refit 窗內特徵相近的日子輸出幾乎相同），
+    純 < 比較會把一整叢並列的日子全部壓到叢集底部的百分位。
+    """
+    if surge_p is None:
+        return None
+    ref = np.asarray(reference, dtype=float)
+    ref = ref[~np.isnan(ref)]
+    if len(ref) < min_n:
+        return None
+    below = float(np.mean(ref < surge_p))
+    ties = float(np.mean(ref == surge_p))
+    return below + 0.5 * ties
+
+
+def percentile_threshold(reference, budget=ALERT_BUDGET, min_n=MIN_REFERENCE_N):
+    """警示線的絕對機率值：參考分布的第 (1 - budget) 百分位。
+
+    只為了可稽核 —— 讓讀報表的人看得到「今天的 top 20% 到底是幾 %」。
+    判定警示與否一律走百分位，不走這個值，兩者在 tie 上的行為才一致。
+    """
+    ref = np.asarray(reference, dtype=float)
+    ref = ref[~np.isnan(ref)]
+    if len(ref) < min_n:
+        return None
+    return float(np.quantile(ref, 1 - budget))
+
+
+def percentile_risk_level(pct):
+    """百分位 → 等級。pct 為 None（樣本不足）時回 UNKNOWN。"""
+    if pct is None:
+        return "UNKNOWN"
+    for name, floor in PERCENTILE_LADDER:
+        if pct >= floor:
+            return name
+    return "LOW"
+
+
+def combine_risk_levels(a, b):
+    """取較高的等級。UNKNOWN 代表「這一側沒有意見」，回另一側。
+
+    絕對階梯與百分位階梯回答的是不同問題，兩邊都有理由單獨觸發：
+    機率真的到 40% 就該是 HIGH（即使近期普遍更高而百分位不突出），
+    而機率 18% 卻是一年來最高的那天也該被看見。
+    """
+    if a == "UNKNOWN":
+        return b
+    if b == "UNKNOWN":
+        return a
+    return max(a, b, key=lambda x: _LEVEL_ORDER.index(x)
+               if x in _LEVEL_ORDER else -1)
+
+
+def adaptive_risk(surge_p, signal_valid, base_rate, reference=None,
+                  calibrated=True, budget=ALERT_BUDGET, min_n=MIN_REFERENCE_N,
+                  enabled=None):
+    """3.1 的唯一對外入口：絕對階梯 + 相對百分位。
+
+    回傳三個等級，語意不同，不要混用：
+
+        level_absolute  純絕對階梯 —— 恆等於 risk_level()，3.0 的行為
+        level_adaptive  max(絕對, 百分位) —— 3.1 開啟後會顯示的東西
+        level           實際該用哪一個，由 ADAPTIVE_RISK_ENABLED 決定
+
+    shadow 模式（預設）下 level == level_absolute，兩者並存讓我們可以每天記錄
+    「如果開了會怎樣」而不改變任何使用者看到的東西。
+
+    reference 是歷史 walk-forward OOS 機率（見 build_oos_probabilities.py）。
+    **只能傳入嚴格早於今天的 OOS 機率**，否則就是用未來資訊決定今天要不要警示。
+
+    calibrated=False 時不算百分位。Platt 校準器在 held-out 正樣本不足時不會啟用
+    （MIN_CALIBRATION_POSITIVES），那時的機率是 class_weight='balanced' 的原始
+    輸出，實測膨脹約 1.9 倍。把它拿去對校準後的參考分布排名，排出來的名次是
+    尺度差異而不是風險差異。
+
+    降級是安靜且安全的：signal_valid=False、reference 缺漏、樣本不足、未校準 ——
+    任一成立就退回純 risk_level()，也就是與 3.0 完全相同的行為。
+    """
+    absolute = risk_level(surge_p, signal_valid, base_rate)
+
+    pct = None
+    if signal_valid and calibrated and reference is not None:
+        pct = risk_percentile(surge_p, reference, min_n)
+
+    relative = percentile_risk_level(pct)
+    cut = (percentile_threshold(reference, budget, min_n)
+           if pct is not None else None)
+
+    ref_n = 0
+    if reference is not None:
+        ref = np.asarray(reference, dtype=float)
+        ref_n = int((~np.isnan(ref)).sum())
+
+    adaptive = combine_risk_levels(absolute, relative)
+    if enabled is None:
+        enabled = ADAPTIVE_RISK_ENABLED
+
+    return {
+        "level": adaptive if enabled else absolute,
+        "level_absolute": absolute,
+        "level_adaptive": adaptive,
+        "enabled": bool(enabled),
+        "percentile": pct,
+        "relative": relative,
+        # 警示 = 百分位進入前 budget。與 PERCENTILE_LADDER 的 MEDIUM-HIGH
+        # 切點同源，所以 alert 恆等於 relative in (MEDIUM-HIGH, HIGH)。
+        "alert": bool(pct is not None and pct >= 1 - budget),
+        "alert_threshold_prob": cut,
+        "reference_n": ref_n,
+    }

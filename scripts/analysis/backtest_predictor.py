@@ -68,7 +68,7 @@ def walk_forward(series, horizon, start, end, threshold=SURGE_THRESHOLD):
     target_dates = pd.DatetimeIndex(frame["_target_date"])
 
     points, surge_probs, actuals, dates = [], [], [], []
-    lowers, uppers = [], []
+    lowers, uppers, calibrateds = [], [], []
     cache = {}
     embargo = pd.Timedelta(days=horizon + 7)
 
@@ -121,6 +121,7 @@ def walk_forward(series, horizon, start, end, threshold=SURGE_THRESHOLD):
         surge_probs.append(p)
         actuals.append(y[i])
         dates.append(t)
+        calibrateds.append(calibrator is not None)
 
     return {
         "point": np.array(points),
@@ -129,6 +130,11 @@ def walk_forward(series, horizon, start, end, threshold=SURGE_THRESHOLD):
         "surge_p": np.array(surge_probs),
         "actual": np.array(actuals),
         "dates": pd.DatetimeIndex(dates),
+        # Platt 有沒有啟用。未校準的 surge_p 是 class_weight='balanced' 的原始
+        # 輸出（實測膨脹約 1.9 倍），與校準後的機率不是同一個尺度 —— 混進同一個
+        # 參考分布，百分位排出來的是尺度差異而不是風險差異。
+        # build_oos_probabilities.py 用它過濾；既有呼叫端只讀舊 key，不受影響。
+        "calibrated": np.array(calibrateds),
     }
 
 

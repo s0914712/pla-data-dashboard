@@ -278,6 +278,107 @@ rebase 期間 `-X theirs` 解在 **incoming upstream** 那一側，CSV 起衝突
 
 ---
 
+### 3.9 風險階梯不可達 — 3.1 自適應層已實作，**影子運行，未上線**
+
+**2026-08-11：`SurgeForecaster 3.1.0-shadow`。驗收未過，預設關閉。**
+
+#### 問題
+
+`probability_review.json` 的 `ladder_unreachable` 診斷每天都在講同一件事：
+base rate 0.169 下 `RISK_LADDER` 的 MEDIUM 切點是 `max(0.20, 1.3×0.169) = 0.22`，
+而 3.0 上線 16 天校準後機率最高只有 0.181。階梯整段摸不到，連日顯示 🟢 LOW，
+兩次 surge（07-31 實際 27、08-05 實際 21）全數漏報，recall 0。
+
+同時 `backtest_predictor.score()` 用 `budget=0.20`（機率排名前 20%）判定模型的
+surge 偵測能力 —— **回測的操作點與線上發警報的操作點是兩套標準。**
+
+#### 做法
+
+不動任何機率（Poisson 回歸 / 分類器 / Platt / conformal 一行未改），另外算
+「今天的機率排在歷史 walk-forward OOS 分布的第幾位」。`PERCENTILE_LADDER` 的
+MEDIUM-HIGH 切點直接寫成 `1 - ALERT_BUDGET`，與 `score()` 的 budget 是同一個常數。
+
+參考分布：`scripts/analysis/build_oos_probabilities.py` →
+`data/predictions/oos_probabilities.csv`（1519 列，2022-03-06 → 2026-08-11，92% 已校準）。
+`walk_forward()` 本來就在算這個，只是印完就丟。
+
+#### 為什麼增量 append 沒有 leakage
+
+對固定 target date `t`，`train_idx = np.where(target_dates < t - embargo)[0]` 只由 `t`
+之前的列決定，`key = len(train_idx) // REFIT_EVERY` 因此也只由過去決定。所以「今天重建」
+與「當時建」對舊日期逐位元相同。**實測：增量重跑既有最後 5 列，最大差異 2.8e-17。**
+
+#### 實測結果
+
+尺度一致性（線上每日重訓 vs OOS 每 7 天重訓，同 16 個日期）：
+線上平均 0.110／OOS 平均 0.105，平移 **+0.005**，Spearman 0.746 —— 通過。
+
+驗收閘（`--reference-window` 120/180/270/365/545 全掃，結論不隨參數改變）：
+
+| 評估窗 | 警示率 | 召回 | 召回倍數 | 3.0 召回 | ROC-AUC | Brier 技能 | |
+|---|---|---|---|---|---|---|---|
+| 365 天 | 15.1% | 33.9% | **2.25x** | 30.6% | 0.674 | +4.9% | ✅ |
+| 730 天 | 28.7% | 40.1% | 1.40x | 10.5% | 0.608 | +2.3% | ❌ |
+| 1095 天 | 19.9% | 27.3% | 1.37x | 6.6% | 0.568 | +0.6% | ❌ |
+| 1285 天 | 17.9% | 24.0% | 1.35x | 6.5% | 0.551 | −2.7% | ❌ |
+
+**閘門定義**：核心指標是 `召回倍數 = recall / alert_rate`（無鑑別力恆為 1.00x）。
+不用「recall >= 40%」是因為那只在警示率恰為 20% 時等價；自適應門檻的警示率會隨情勢
+漂移。另外 `precision = 召回倍數 × base_rate`，所以「precision >= 2x base rate」與
+「召回倍數 >= 2x」是同一條件，不是獨立閘門 —— 原本列成兩條是重複計分。
+
+#### 為什麼不上線
+
+**一、4 個窗只有 1 個過。** 擋住的不是決策層 —— 3.1 在每個窗都大幅贏過 3.0
+（召回 6.6→27.3%、10.5→40.1%）—— 而是模型鑑別力隨窗口拉長由 ROC-AUC 0.674 掉到
+0.551，最長窗的 Brier 技能是負的。§3.1 記載的 0.636~0.764 來自 2026 年的 160 天窗，
+那個水準在近一年成立，更早則否。
+
+**二、在目前這段線上資料上，3.1 與 3.0 逐日相同。** 把 16 天線上機率對「該日往前
+365 天」的 OOS 分布排名：
+
+| 日期 | P(high) | 實際 | 百分位 | 警示線 | 警示 |
+|---|---|---|---|---|---|
+| 07-31 | 16.4% | **27** | 37th | 30.5% | — |
+| 08-05 | 10.8% | **21** | 18th | 29.8% | — |
+| 08-08 | 18.1% | 14 | 46th | 29.6% | — |
+
+**16 天全部零警示。** 直覺上「18.1% 是上線以來最高」是在這 16 天內部排名；對過去
+365 天的 OOS 分布（p80 = 29.6%）它只排中段，因為近一年含有活躍得多的時段，
+最近幾週是真的安靜。這正是「安靜期警示率自然低於 budget」在運作，方向沒錯，
+但代價是提出的症狀在這份資料上沒有被修好。
+
+**三、兩次 surge 的機率本身就低**（16.4% 排 37th、10.8% 排 18th）。任何只改門檻的
+方案都救不回它們 —— 那是模型沒看到，不是門檻擋掉。與 §3.1 對 08-05 的結論一致。
+
+#### 目前的落地方式
+
+`pla_surge_model.ADAPTIVE_RISK_ENABLED = False`。百分位照算、照寫進 CSV（新欄
+`risk_level_adaptive` / `risk_percentile` / `relative_risk` / `alert` /
+`alert_threshold_prob` / `reference_n`），`probability_review` 每天把兩組操作點並列，
+但 `risk_level` 仍由絕對階梯決定。
+
+**實測驗證**：重跑後 183 列的 `predicted_sorties` / `lower_bound` / `upper_bound` /
+`high_event_probability` / `risk_level` **零格差異** —— 使用者看到的東西完全不變。
+
+要上線只需把該常數改成 `True`，`risk_level` 與 LINE 推播的百分位敘述會一起生效。
+判準：累積到 `MIN_N=30` 日／`MIN_POSITIVE=5` 個 surge 後，看 `probability_review.json`
+的 `models.new.operating_points.adaptive` 是否穩定達到召回倍數 2x。
+
+#### 順帶修掉的既有 bug（與 3.1 無關，本來就是錯的）
+
+- `prediction.html` 的 `getRiskBadgeClass()` 只認 LOW/MEDIUM/HIGH，
+  **`MEDIUM-HIGH` 與 `UNKNOWN` 都 fall through 成綠色 `badge-risk-low`** ——
+  D+2~D+7 的「模型說不出話」被畫成「模型說今天安全」
+- 同檔 `parseFloat('')` 對 h>=2 的空機率渲染出字面的 `NaN%`；表頭寫 95% CI，實際是 90%
+- `index.html` 風險圓環的 `counts` 只有三級，`MEDIUM-HIGH`/`UNKNOWN` 被靜默丟棄。
+  由於 D+2~D+7 恆為 UNKNOWN，這張「7 天分布圖」實際只畫了 1 天
+- `generate_threads_chart.py` 的 `risk_colors` 缺 `MEDIUM-HIGH`
+- `probability_review.py` 自己抄了一份 `ALERT_FLOOR=0.30`/`ALERT_LIFT=2.0`，
+  與 `RISK_LADDER` 是兩份定義。已改成 `absolute_alert_threshold()` 單一來源
+
+---
+
 ## 4. 驗證方式
 
 ```bash
@@ -297,6 +398,11 @@ python3 predict_surge_daily.py --dry-run
 
 # 回測：含樸素基準線、區間覆蓋率、Brier、pinball
 python3 scripts/analysis/backtest_predictor.py --days 365 --horizons 1,3 --refit 28
+
+# 3.1 自適應風險層（§3.9）
+python3 scripts/analysis/test_adaptive_risk.py            # 單元測試
+python3 scripts/analysis/build_oos_probabilities.py       # 增量 + 因果性自我驗證
+python3 scripts/analysis/backtest_adaptive_risk.py --days 365   # 三路操作點 + 閘門
 ```
 
 回測輸出的判讀順序：

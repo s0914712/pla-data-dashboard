@@ -128,8 +128,19 @@
             color: #333;
         }
 
+        .badge-risk-medium-high {
+            background-color: #ea580c;
+        }
+
         .badge-risk-high {
             background-color: #dc3545;
+        }
+
+        /* UNKNOWN 是 D+2~D+7：surge 機率實測 ROC-AUC 0.45-0.57，等同亂猜，
+           上游刻意不輸出。灰色代表「沒有答案」，不可以跟 LOW 的綠色混用 ——
+           那會把「模型說不出話」畫成「模型說今天安全」。 */
+        .badge-risk-unknown {
+            background-color: #6c757d;
         }
 
         .accuracy-card {
@@ -455,8 +466,9 @@
                         <th>Predicted</th>
                         <th>Actual</th>
                         <th>Error</th>
-                        <th>95% CI</th>
+                        <th>90% CI</th>
                         <th>High Prob.</th>
+                        <th>Percentile</th>
                         <th>Risk</th>
                     </tr>
                 </thead>
@@ -484,7 +496,9 @@
                 <ul>
                     <li><span class="badge badge-risk-low">LOW</span> - Normal activity expected</li>
                     <li><span class="badge badge-risk-medium">MEDIUM</span> - Elevated activity possible</li>
-                    <li><span class="badge badge-risk-high">HIGH</span> - High activity likely</li>
+                    <li><span class="badge badge-risk-medium-high">MEDIUM-HIGH</span> - Alert threshold (top 20% of historical risk)</li>
+                    <li><span class="badge badge-risk-high">HIGH</span> - High activity likely (top 5%)</li>
+                    <li><span class="badge badge-risk-unknown">UNKNOWN</span> - No usable signal (D+2 onward)</li>
                 </ul>
             </div>
         </div>
@@ -774,11 +788,17 @@ function showStaleDataWarning() {
 }
 
 function getRiskBadgeClass(level) {
+    // MEDIUM-HIGH 與 UNKNOWN 都是 risk_level 會實際回傳的值。
+    // 在 3.1 之前它們都 fall through 成綠色的 badge-risk-low ——
+    // MEDIUM-HIGH（LINE 端顯示 🟠）被畫成安全，UNKNOWN 也被畫成安全。
+    // 3.1 讓 MEDIUM-HIGH 成為主要警示等級，所以這裡不能再漏。
     switch(level?.toUpperCase()) {
         case 'LOW': return 'badge-risk-low';
         case 'MEDIUM': return 'badge-risk-medium';
-        case 'HIGH': return 'badge-risk-high';
-        default: return 'badge-risk-low';
+        case 'MEDIUM-HIGH': return 'badge-risk-medium-high';
+        case 'HIGH':
+        case 'CRITICAL': return 'badge-risk-high';
+        default: return 'badge-risk-unknown';
     }
 }
 
@@ -1142,6 +1162,18 @@ function renderTable() {
             errorHtml = `<span class="${errorClass}">${errNum > 0 ? '+' : ''}${errNum.toFixed(1)}</span>`;
         }
 
+        // D+2 起上游刻意把機率留空（h>=2 的 ROC-AUC 0.45-0.57，等同亂猜）。
+        // parseFloat('') 是 NaN，直接 toFixed 會印出字面的 "NaN%"。
+        const probNum = parseFloat(row.high_event_probability);
+        const probHtml = isFinite(probNum) ? `${probNum.toFixed(1)}%` : '-';
+
+        // 3.1：相對百分位。與絕對機率並列 —— 前者答「和平常比今天算不算異常」，
+        // 後者答「明天實際發生的機率多大」。兩個問題不同，都要顯示。
+        const pctNum = parseFloat(row.risk_percentile);
+        const pctHtml = isFinite(pctNum)
+            ? `${pctNum.toFixed(0)}<span class="text-muted small">th</span>`
+            : '-';
+
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td>${row.date}</td>
@@ -1150,7 +1182,8 @@ function renderTable() {
             <td>${actualVal}</td>
             <td>${errorHtml}</td>
             <td>${parseFloat(row.lower_bound).toFixed(0)} - ${parseFloat(row.upper_bound).toFixed(0)}</td>
-            <td>${parseFloat(row.high_event_probability).toFixed(1)}%</td>
+            <td>${probHtml}</td>
+            <td>${pctHtml}</td>
             <td><span class="badge ${badgeClass}">${row.risk_level}</span></td>
         `;
         tbody.appendChild(tr);

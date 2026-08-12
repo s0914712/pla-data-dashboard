@@ -32,6 +32,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas numpy scikit-learn
 
+      # 3.1 的參考分布：walk-forward OOS 機率，供風險百分位使用。
+      # 必須在正式預測之前跑，今天的門檻才會含到昨天為止的資料。
+      #
+      # continue-on-error 是刻意的：這一步失敗時 predict_surge_daily.py 會讀到
+      # 舊的（或沒有）參考檔，adaptive_risk() 安靜降級成 3.0 的純絕對階梯 ——
+      # 風險等級會偏保守，但預測本身完全不受影響，不該擋住正式預測。
+      - name: Update OOS reference distribution
+        continue-on-error: true
+        run: |
+          echo "=== Building walk-forward OOS reference ==="
+          python scripts/analysis/build_oos_probabilities.py
+          echo "=== OOS reference updated ==="
+
       - name: Run prediction
         run: |
           echo "=== Starting prediction script ==="

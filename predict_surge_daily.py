@@ -28,6 +28,24 @@ MAE 的最佳解是條件中位數，所以「最小化 MAE」等於「訓練模
 - 不對區間做事後加寬：conformal 已校準，再加寬會破壞它
 - h>=2 不輸出 surge 機率（risk_level 回 UNKNOWN）：實測 AUC 0.45-0.57
 
+## 3.1 Adaptive Risk（2026-08）—— shadow 模式
+
+起因：base rate 0.169 下 RISK_LADDER 的 MEDIUM 切點是 0.22，而上線 16 天校準後機率
+最高只有 0.181 —— 絕對階梯整段不可達，連日顯示 LOW，2 次 surge 全數漏報。
+
+3.1 保留全部機率計算不動（Poisson 回歸、Platt、conformal 一行未改），另外算「今天的
+機率排在歷史 walk-forward OOS 分布的第幾位」。警示點與 backtest_predictor.score() 的
+budget=0.20 統一成同一個常數（ALERT_BUDGET）—— 在這之前，回測判定模型能力的操作點
+與線上發警報的操作點是兩套標準。
+
+**但驗收沒過，所以預設是 shadow：**ADAPTIVE_RISK_ENABLED=False，risk_level 仍由絕對
+階梯決定，新欄位只記錄「如果開了會怎樣」。4 個評估窗只有近 365 天那個通過
+「召回倍數 >= 2x」；而且在目前這段安靜期，3.1 與 3.0 的輸出逐日相同（16 天全部零警示，
+08-08 的 18.1% 對前 365 天 OOS 只排第 46 百分位）。完整數字見 pla_surge_model.py 的
+ADAPTIVE_RISK_ENABLED 註解與 docs/data_pipeline_review.md §3.2。
+
+參考分布由 scripts/analysis/build_oos_probabilities.py 產生；缺檔時整層安靜降級。
+
 用法:
     python3 predict_surge_daily.py
     python3 predict_surge_daily.py --dry-run    # 只印，不寫檔
@@ -41,14 +59,16 @@ import numpy as np
 import pandas as pd
 
 from pla_surge_model import (
+    ADAPTIVE_RISK_ENABLED,
+    REFERENCE_WINDOW_DAYS,
     SIGNAL_HORIZON,
     SURGE_THRESHOLD,
     SurgeForecaster,
-    risk_level,
+    adaptive_risk,
     to_daily_series,
 )
 
-MODEL_VERSION = "3.0.0-surge"
+MODEL_VERSION = "3.1.0-shadow"
 PREDICTION_DAYS = 7
 
 SORTIES_LOCAL = "data/JapanandBattleship.csv"
@@ -56,6 +76,9 @@ SORTIES_URL = ("https://raw.githubusercontent.com/s0914712/pla-data-dashboard/"
                "main/data/JapanandBattleship.csv")
 HOLIDAYS_LOCAL = "data/cn_holidays.csv"
 OUTPUT_PATH = "data/predictions/latest_prediction.csv"
+# 3.1 的參考分布。由 scripts/analysis/build_oos_probabilities.py 產生並每日增量。
+# 缺檔不是錯誤 —— adaptive_risk() 會安靜降級成 3.0 的純絕對階梯。
+OOS_REFERENCE_PATH = "data/predictions/oos_probabilities.csv"
 
 # 輸出欄位順序必須與舊版一致 —— prediction.html、scripts/send_message.py
 # 與 daily_prediction.yml 都直接讀這些欄名。新欄位一律加在尾端。
@@ -73,6 +96,16 @@ NEW_COLUMNS = [
     # pla_surge_model.conformal_surge_prob 的 docstring。留這一欄是為了讓下次
     # 重提這個想法的人手上直接有並排紀錄。
     "high_event_probability_point",
+]
+# 3.1 自適應風險層（shadow）。一律加在尾端（見上）。
+#
+# ADAPTIVE_RISK_ENABLED = False 時，risk_level 仍由絕對階梯決定 —— 這一組欄位
+# 純粹是紀錄「如果開了會怎樣」，好讓 probability_review 每天把兩組操作點並列。
+# risk_level_adaptive 就是開啟後 risk_level 會變成的值；兩欄相同代表當天
+# 百分位沒有把等級推高。
+ADAPTIVE_COLUMNS = [
+    "risk_level_adaptive", "risk_percentile", "relative_risk",
+    "alert", "alert_threshold_prob", "reference_n",
 ]
 
 
@@ -105,7 +138,52 @@ def load_holidays():
         return set()
 
 
-def build_rows(series, holidays):
+def load_oos_reference(latest_date, path=OOS_REFERENCE_PATH):
+    """讀 3.1 的參考分布：h=1、已校準、且**嚴格早於今天**的 OOS 機率。
+
+    三道過濾各有理由，少一道就會出錯：
+
+      * horizon == SIGNAL_HORIZON —— 只有 h=1 會發警報，h>=2 的機率不具鑑別力。
+      * surge_calibrated == 1 —— Platt 沒啟用時機率是原始的 balanced 輸出，
+        實測膨脹約 1.9 倍，混進參考分布排出來的是尺度差異不是風險差異。
+      * target_date <= latest_date 且在 REFERENCE_WINDOW_DAYS 內 —— 前者防
+        leakage（參考分布不得含有預測目標日之後的資訊），後者讓門檻跟得上
+        模型行為的長期漂移。
+
+    缺檔／格式不符一律安靜回 None，adaptive_risk() 會退回 3.0 的行為。
+    """
+    if not os.path.exists(path):
+        print(f"    參考分布 {path} 不存在 —— 風險等級退回絕對階梯（3.0 行為）")
+        return None
+    try:
+        df = pd.read_csv(path, encoding="utf-8-sig")
+    except Exception as e:
+        print(f"⚠️  讀取參考分布失敗: {e}")
+        return None
+
+    need = {"target_date", "horizon", "surge_p", "surge_calibrated"}
+    if not need.issubset(df.columns):
+        print(f"⚠️  參考分布缺欄位，需要 {sorted(need)}")
+        return None
+
+    df["target_date"] = pd.to_datetime(df["target_date"], errors="coerce")
+    window_start = latest_date - pd.Timedelta(days=REFERENCE_WINDOW_DAYS)
+    df = df[(df["horizon"] == SIGNAL_HORIZON)
+            & (df["surge_calibrated"] == 1)
+            & df["target_date"].notna()
+            & (df["target_date"] <= latest_date)
+            & (df["target_date"] > window_start)]
+
+    ref = pd.to_numeric(df["surge_p"], errors="coerce").dropna().to_numpy()
+    if len(ref) == 0:
+        print("⚠️  參考分布在窗內沒有可用列")
+        return None
+    print(f"    參考分布 {len(ref)} 列（{window_start.date()} .. {latest_date.date()}）"
+          f"　p80={np.quantile(ref, 0.8):.3f}")
+    return ref
+
+
+def build_rows(series, holidays, reference=None):
     """訓練 + 產生未來 PREDICTION_DAYS 天的預測列。"""
     print(f"[2] 訓練 SurgeForecaster (門檻 >={SURGE_THRESHOLD}, "
           f"horizons 1..{PREDICTION_DAYS})")
@@ -125,6 +203,10 @@ def build_rows(series, holidays):
         d = pd.Timestamp(r["target_date"])
         valid = bool(r["surge_signal_valid"])
         prob = round(r["surge_probability"] * 100, 1)
+        # 3.1：機率一個位元都沒改，只是多問一句「這個機率排在歷史第幾位」。
+        risk = adaptive_risk(r["surge_probability"], valid, r["surge_base_rate"],
+                             reference=reference,
+                             calibrated=bool(r["surge_calibrated"]))
         rows.append({
             "date": d.strftime("%Y-%m-%d"),
             "day_of_week": d.strftime("%A"),
@@ -133,8 +215,7 @@ def build_rows(series, holidays):
             "upper_bound": round(r["upper"], 1),
             # h>=2 的機率不具鑑別力，寧可留空也不要輸出一個會被當真的數字
             "high_event_probability": prob if valid else np.nan,
-            "risk_level": risk_level(r["surge_probability"], valid,
-                                     r["surge_base_rate"]),
+            "risk_level": risk["level"],
             "is_cn_holiday": int(d.date() in holidays),
             "weather_adjustment": 1.0,      # 不再做天氣調整，保留欄位相容性
             "cn_stmt_7d": 0,                # 同上：特徵已移除，欄位保留
@@ -153,6 +234,14 @@ def build_rows(series, holidays):
             "prob_calibrated": int(r["surge_calibrated"]),
             "high_event_probability_point": round(
                 r["surge_probability_point"] * 100, 1),
+            "risk_level_adaptive": risk["level_adaptive"],
+            "risk_percentile": (np.nan if risk["percentile"] is None
+                                else round(risk["percentile"] * 100, 1)),
+            "relative_risk": risk["relative"],
+            "alert": int(risk["alert"]),
+            "alert_threshold_prob": (np.nan if risk["alert_threshold_prob"] is None
+                                     else round(risk["alert_threshold_prob"] * 100, 1)),
+            "reference_n": risk["reference_n"],
         })
     return pd.DataFrame(rows)
 
@@ -194,10 +283,10 @@ def merge_history(predictions, series, output_path):
     combined.loc[mask, "prediction_error"] = (
         combined.loc[mask, "actual_sorties"] - combined.loc[mask, "predicted_sorties"])
 
-    for col in LEGACY_COLUMNS + NEW_COLUMNS:
+    for col in LEGACY_COLUMNS + NEW_COLUMNS + ADAPTIVE_COLUMNS:
         if col not in combined.columns:
             combined[col] = np.nan
-    ordered = LEGACY_COLUMNS + NEW_COLUMNS
+    ordered = LEGACY_COLUMNS + NEW_COLUMNS + ADAPTIVE_COLUMNS
     extra = [c for c in combined.columns if c not in ordered]
     return combined[ordered + extra].sort_values("date").reset_index(drop=True)
 
@@ -206,14 +295,29 @@ def report(predictions, combined):
     print("\n" + "=" * 78)
     print(f"[{PREDICTION_DAYS}-Day Prediction] SurgeForecaster {MODEL_VERSION}")
     print("=" * 78)
-    print(f"{'Date':<12}{'Day':<11}{'Pred':>7}{'90% 區間':>16}{'P(high)':>10}  Risk")
+    print(f"{'Date':<12}{'Day':<11}{'Pred':>7}{'90% 區間':>16}{'P(high)':>10}"
+          f"{'百分位':>8}  Risk")
     print("-" * 78)
     for _, r in predictions.iterrows():
         ci = f"[{r['lower_bound']:.0f} - {r['upper_bound']:.0f}]"
         p = ("     -" if pd.isna(r["high_event_probability"])
              else f"{r['high_event_probability']:5.1f}%")
+        pct = ("      -" if pd.isna(r["risk_percentile"])
+               else f"{r['risk_percentile']:5.0f}th")
+        flag = " 🟠 ALERT" if r["alert"] else ""
         print(f"{r['date']:<12}{r['day_of_week']:<11}{r['predicted_sorties']:>7.1f}"
-              f"{ci:>16}{p:>10}  {r['risk_level']}")
+              f"{ci:>16}{p:>10}{pct:>8}  {r['risk_level']}{flag}")
+
+    d1 = predictions.iloc[0]
+    if not pd.isna(d1["risk_percentile"]):
+        # 兩個數字回答不同問題：絕對機率答「明天實際發生的機率多大」，
+        # 百分位答「和平常相比今天是不是異常值得注意」。兩者不矛盾。
+        state = "已啟用" if ADAPTIVE_RISK_ENABLED else "shadow，未套用"
+        print(f"\nD+1 相對百分位 第 {d1['risk_percentile']:.0f} 百分位"
+              f"（警示線 {d1['alert_threshold_prob']:.1f}%／參考 "
+              f"{int(d1['reference_n'])} 列）　相對階梯 {d1['relative_risk']}")
+        print(f"    3.1 若啟用會顯示 {d1['risk_level_adaptive']}"
+              f"（目前 {d1['risk_level']}）—— {state}")
 
     done = combined[combined["actual_sorties"].notna()
                     & combined["prediction_error"].notna()]
@@ -237,7 +341,8 @@ def main():
           f"  ({series.notna().sum()} 個觀測日 / {len(series)} 日曆日)")
 
     holidays = load_holidays()
-    predictions = build_rows(series, holidays)
+    reference = load_oos_reference(series.dropna().index.max())
+    predictions = build_rows(series, holidays, reference)
     combined = merge_history(predictions, series, args.output)
     report(predictions, combined)
 

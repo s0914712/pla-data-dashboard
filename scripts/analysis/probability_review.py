@@ -45,11 +45,21 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."
 # 風險階梯的門檻定義。ladder_unreachable 診斷要用，而那條診斷比點預測計分卡
 # 重要，所以分開 import —— 不要讓計分卡的相依把診斷一起拖掉。
 try:
-    from pla_surge_model import risk_thresholds, to_daily_series
+    from pla_surge_model import (
+        ADAPTIVE_RISK_ENABLED,
+        ALERT_BUDGET,
+        absolute_alert_threshold,
+        risk_thresholds,
+        to_daily_series,
+    )
     _LADDER_OK = True
 except Exception as _e:  # pragma: no cover - 只在依賴缺失時走到
     print(f"⚠️  無法載入 pla_surge_model，階梯診斷將略過: {_e}")
     _LADDER_OK = False
+    # 依賴缺失時仍要能標示 3.1 那一組的 budget，否則整份報表少一塊。
+    # 這是 pla_surge_model.ALERT_BUDGET 的值，只在後備路徑用到。
+    ALERT_BUDGET = 0.20
+    ADAPTIVE_RISK_ENABLED = False
 
 # 點預測的計分沿用回測腳本那一套，不要在這裡重寫一份 MAE/cov90 —— 兩份實作
 # 遲早會漂開，而 bias 正負號慣例已經有過一次不一致的前例。
@@ -73,12 +83,11 @@ THRESHOLD = 20
 # 只採計新模型（3.0.0-surge 起）的紀錄。latest_prediction.csv 裡 07-27 以前的 160 列
 # 是舊 CatBoost 回答「P(架次>=25)」，與新模型的「P(架次>=20)」不是同一個隨機變數，
 # 池在一起算會得到一個看起來很像數字的錯誤答案。
-NEW_VERSION_PREFIX = "3.0"
-
-# 警示線：與 pla_surge_model.risk_level() 的 MEDIUM-HIGH 切點同式，
-# 也就是推播裡真的出現 🟠/🔴 的那條線。兩個模型共用同一條線才公平。
-ALERT_FLOOR = 0.30
-ALERT_LIFT = 2.0
+#
+# 3.1 一併採計：它只改決策層，機率的計算路徑（Poisson 回歸 → 分類器 → Platt）
+# 一行未改，所以 3.0 與 3.1 的 high_event_probability 是同一個隨機變數，池在一起
+# 才對 —— 分開反而會把已累積的樣本砍掉，讓校準指標更久才可信。
+NEW_VERSION_PREFIX = ("3.0", "3.1")
 
 # 顯示門檻。寫進 JSON 讓 LINE 端照做，不要在兩邊各寫一次。
 MIN_N = 30              # 累積指標
@@ -94,9 +103,20 @@ LADDER_WINDOW_DAYS = 14
 LADDER_MIN_DAYS = 7
 
 
+# pla_surge_model 載入失敗時的後備切點。這是 RISK_LADDER 的 MEDIUM-HIGH 那一列
+# 在 2026-08 的值，只在依賴缺失時用到 —— 正常路徑一律走 absolute_alert_threshold()。
+_FALLBACK_FLOOR, _FALLBACK_LIFT = 0.30, 2.0
+
+
 def alert_threshold(base_rate):
-    """警示線：max(絕對下限, 倍數 × 基準發生率)，與 risk_level() 同式。"""
-    return max(ALERT_FLOOR, ALERT_LIFT * base_rate)
+    """3.0 的警示線 —— 直接取自 RISK_LADDER 的 MEDIUM-HIGH 那一列。
+
+    這裡原本自己抄了一份 max(0.30, 2.0 * br)，與 pla_surge_model 是兩份定義。
+    改了階梯而忘了改這裡，兩邊就會靜靜地分家 —— 現在只剩一個來源。
+    """
+    if _LADDER_OK:
+        return absolute_alert_threshold(base_rate)
+    return max(_FALLBACK_FLOOR, _FALLBACK_LIFT * base_rate)
 
 
 def load_actuals(path=SORTIES_CSV):
@@ -158,7 +178,10 @@ def load_model_rows(path, threshold, version_prefix=None):
         "prob": pd.to_numeric(df["high_event_probability"], errors="coerce").values / 100.0,
         "actual": pd.to_numeric(df["actual_sorties"], errors="coerce").values,
     }, index=pd.DatetimeIndex(df["date"]))
-    for opt in ("high_event_probability_raw", "prob_calibrated"):
+    for opt in ("high_event_probability_raw", "prob_calibrated",
+                # 3.1 的自適應警示欄。舊列沒有這些欄（值為 NaN），
+                # evaluate() 會據此判斷該不該報 adaptive 那一組指標。
+                "alert", "risk_percentile"):
         if opt in df.columns:
             out[opt] = pd.to_numeric(df[opt].values, errors="coerce")
     # 點預測欄位供 digest() 的計分卡使用。已解決的列都是 h=1（未來列沒有
@@ -176,8 +199,31 @@ def _r(v, nd=4):
     return round(float(v), nd)
 
 
+def _confusion(alert, y, npos):
+    """一個警示規則的四格與衍生率。"""
+    hits = int((alert & (y == 1)).sum())
+    return {
+        "alerts": int(alert.sum()),
+        "hits": hits,
+        "false_alarms": int((alert & (y == 0)).sum()),
+        "misses": int((~alert & (y == 1)).sum()),
+        "precision": _r(hits / alert.sum()) if alert.sum() else None,
+        "recall": _r(hits / npos) if npos else None,
+        "alert_rate": _r(alert.mean()),
+    }
+
+
 def evaluate(df, br, threshold=THRESHOLD):
-    """一個模型的累積機率表現。df 需有 prob / actual 欄。"""
+    """一個模型的累積機率表現。df 需有 prob / actual 欄。
+
+    3.1 起同時輸出兩組操作點：
+
+      absolute —— p >= max(0.30, 2.0 x base rate)，也就是 3.0 的固定切點
+      adaptive —— CSV 的 alert 欄，由當日之前的 OOS 機率分布取第 80 百分位
+
+    兩組共用同一組機率，所以 Brier/AUC/校準桶不分組（本來就一樣）。會分歧的只有
+    「哪幾天發了警報」—— 那正是 3.1 唯一改動的東西，並列才看得出改動買到了什麼。
+    """
     if df.empty:
         return {"n": 0, "n_positive": 0, "enough": False, "enough_auc": False}
 
@@ -200,14 +246,24 @@ def evaluate(df, br, threshold=THRESHOLD):
         "observed_rate": _r(observed),
         # 校準比 >1 代表系統性高估。這是最容易解讀、也最早會露餡的一個數字。
         "calibration_ratio": _r(p.mean() / observed) if observed > 0 else None,
-        "alerts": int(alert.sum()),
-        "hits": int((alert & (y == 1)).sum()),
-        "false_alarms": int((alert & (y == 0)).sum()),
-        "misses": int((~alert & (y == 1)).sum()),
-        "precision": _r((alert & (y == 1)).sum() / alert.sum()) if alert.sum() else None,
-        "recall": _r((alert & (y == 1)).sum() / npos) if npos else None,
-        "alert_rate": _r(alert.mean()),
     }
+    # 頂層仍保留 absolute 的四格，維持既有 JSON 消費者（send_message._model_prob_line）
+    # 的相容性；新的並列結構放在 operating_points 底下。
+    res.update(_confusion(alert, y, npos))
+    res["operating_points"] = {"absolute": dict(
+        label="3.0 絕對切點", cutoff=_r(cut, 3), **_confusion(alert, y, npos))}
+
+    if "alert" in df.columns and df["alert"].notna().any():
+        # 沒有百分位的列（參考分布還沒建到、或當日未校準）一律算「沒發警報」。
+        # 那是系統當下實際的行為，不是把它們當成不存在 —— n_with_percentile
+        # 讓讀的人看得出這一組裡有多少天其實是「不能警示」而非「不警示」。
+        ad = _confusion(df["alert"].fillna(0).astype(bool).values, y, npos)
+        live = _LADDER_OK and ADAPTIVE_RISK_ENABLED
+        res["operating_points"]["adaptive"] = dict(
+            label=f"3.1 相對百分位（top {100 * ALERT_BUDGET:.0f}%"
+                  f"{'' if live else '，shadow 未套用'}）",
+            enabled=bool(live),
+            n_with_percentile=int(df["alert"].notna().sum()), **ad)
 
     if 0 < npos < n:
         # Brier 要跟「全押基準發生率」比才有意義：一個永遠輸出基準值的常數模型
@@ -334,14 +390,27 @@ def diagnostics(name, metrics, df, br):
     # 這裡不去調低 risk_level() 的門檻：機率貼著基準發生率是模型確實沒有鑑別力的
     # 誠實表現，把門檻搬下來只會把「沒有訊號」偽裝成「有訊號」。要修的是沉默，
     # 不是門檻。
+    # 3.1 起這條要分兩種情況。絕對階梯不可達仍然是事實，但如果相對階梯已經接手
+    # 在發警報，那就不再是「儀表板連日顯示平靜的 🟢」的那個問題 —— 沉默已經被修好，
+    # 此時掛著 warn 只會變成永久噪音。降級為 info，敘述也改成實際狀況。
     if br is not None and _LADDER_OK and len(df) >= LADDER_MIN_DAYS:
         recent = df["prob"].tail(LADDER_WINDOW_DAYS)
         medium_cut = risk_thresholds(br)["MEDIUM"]
         if len(recent) >= LADDER_MIN_DAYS and recent.max() < medium_cut:
-            add("warn", "ladder_unreachable",
-                f"{name}近 {len(recent)} 日風險等級恆為 LOW"
-                f"（最高 {recent.max() * 100:.0f}%，MEDIUM 需 {medium_cut * 100:.0f}%）"
-                f"：階梯在此區間不具區分力，不代表低風險")
+            adaptive_active = False
+            if "alert" in df.columns:
+                adaptive_active = bool(
+                    df["alert"].tail(LADDER_WINDOW_DAYS).fillna(0).sum() > 0)
+            if adaptive_active:
+                add("info", "ladder_unreachable_covered",
+                    f"{name}近 {len(recent)} 日絕對階梯不可達"
+                    f"（最高 {recent.max() * 100:.0f}%，MEDIUM 需 {medium_cut * 100:.0f}%），"
+                    f"已由相對百分位階梯接手發警報")
+            else:
+                add("warn", "ladder_unreachable",
+                    f"{name}近 {len(recent)} 日風險等級恆為 LOW"
+                    f"（最高 {recent.max() * 100:.0f}%，MEDIUM 需 {medium_cut * 100:.0f}%）"
+                    f"：階梯在此區間不具區分力，不代表低風險")
     return out
 
 
@@ -441,7 +510,7 @@ def build(new_df, legacy_df, br, threshold=THRESHOLD, series=None):
             "legacy": daily_review(legacy_df, br, threshold),
         },
         "models": {
-            "new": dict(label="SurgeForecaster 3.0.0", **new_m),
+            "new": dict(label="SurgeForecaster 3.1", **new_m),
             "legacy": dict(label="CatBoost 2.8.0", **old_m),
         },
         "calibration": {
@@ -482,8 +551,13 @@ def report(res):
               f"技能 {(m.get('brier_skill') or 0) * 100:+.0f}%）")
         print(f"  平均預告 {m['mean_prob'] * 100:.0f}%／實際 "
               f"{m['observed_rate'] * 100:.0f}%（校準比 {m.get('calibration_ratio')}）")
-        print(f"  警示 {m['alerts']} 次｜命中 {m['hits']}｜誤報 {m['false_alarms']}"
-              f"｜漏報 {m['misses']}")
+        for op in (m.get("operating_points") or {}).values():
+            rec = ("" if op.get("recall") is None
+                   else f"｜召回 {op['recall'] * 100:.0f}%")
+            pre = ("" if op.get("precision") is None
+                   else f"｜精確 {op['precision'] * 100:.0f}%")
+            print(f"  [{op['label']}] 警示 {op['alerts']} 次｜命中 {op['hits']}"
+                  f"｜誤報 {op['false_alarms']}｜漏報 {op['misses']}{rec}{pre}")
         if m.get("roc_auc") is not None:
             print(f"  ROC-AUC {m['roc_auc']}｜PR-AUC {m['pr_auc']}")
 

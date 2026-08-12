@@ -98,6 +98,23 @@ HIGH_SORTIE_THRESHOLD = 20
 # 這裡的過濾是第二道防線。
 PROB_SIGNAL_HORIZON = 1
 
+
+def _adaptive_enabled():
+    """3.1 相對百分位是否已啟用。
+
+    LINE workflow 不裝 sklearn，而 pla_surge_model 在模組層 import sklearn，
+    所以這裡必須容錯 —— 匯入失敗時回 False（維持 3.0 敘述），不是讓推播整個掛掉。
+    開關的唯一定義處是 pla_surge_model.ADAPTIVE_RISK_ENABLED。
+    """
+    try:
+        # sys.path 只有 scripts/（見檔頭），pla_surge_model 在 repo root
+        if str(REPO_ROOT) not in sys.path:
+            sys.path.append(str(REPO_ROOT))
+        from pla_surge_model import ADAPTIVE_RISK_ENABLED
+        return bool(ADAPTIVE_RISK_ENABLED)
+    except Exception:
+        return False
+
 # 計算基準發生率的回看天數（用來讓機率有比較基準：45% 是高是低，
 # 取決於平常多久出現一次高架次日）
 BASE_RATE_WINDOW_DAYS = 365
@@ -250,7 +267,21 @@ def summarize_surge_probability(fc):
         lift = prob / base if base > 0 else None
         bits.append(f"基準發生率 ~{base:.0f}%"
                     + (f" → {lift:.1f} 倍" if lift is not None else ""))
-    if cutoff is not None:
+
+    # 3.1 的相對百分位。這一行回答的問題與上面那個絕對機率不同 ——
+    # 「18%」答的是「明天實際發生的機率多大」，「第 92 百分位」答的是
+    # 「和平常相比，今天是不是異常值得注意」。兩者不矛盾。
+    #
+    # 但 3.1 目前是 shadow（ADAPTIVE_RISK_ENABLED=False，驗收未過），推播裡就不該
+    # 出現它 —— shadow 的意思是使用者看到的東西完全不變。百分位仍會寫進 CSV，
+    # 由 probability_review 每天並列比較。開關打開時這一行會自動生效。
+    pct = r.get("risk_percentile")
+    if _adaptive_enabled() and isinstance(pct, (int, float)) and pct == pct:
+        thr = r.get("alert_threshold_prob")
+        cut_txt = (f"，警示線 {thr:.0f}%"
+                   if isinstance(thr, (int, float)) and thr == thr else "")
+        bits.append(f"相對風險第 {pct:.0f} 百分位（警示線 top 20%{cut_txt}）")
+    elif cutoff is not None:
         reached = prob / 100.0 >= cutoff
         bits.append(("已達" if reached else "未達") + f"警示線（{cutoff * 100:.0f}%）")
     bits.append("僅報 D+1")

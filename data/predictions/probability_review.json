@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-11 03:46:06",
+  "generated_at": "2026-08-12 00:28:18",
   "threshold": 20,
   "base_rate": 0.1694,
   "alert_cutoff": 0.339,
@@ -31,7 +31,7 @@
   },
   "models": {
     "new": {
-      "label": "SurgeForecaster 3.0.0",
+      "label": "SurgeForecaster 3.1",
       "n": 16,
       "n_positive": 2,
       "enough": false,
@@ -51,6 +51,19 @@
       "precision": null,
       "recall": 0.0,
       "alert_rate": 0.0,
+      "operating_points": {
+        "absolute": {
+          "label": "3.0 絕對切點",
+          "cutoff": 0.339,
+          "alerts": 0,
+          "hits": 0,
+          "false_alarms": 0,
+          "misses": 2,
+          "precision": null,
+          "recall": 0.0,
+          "alert_rate": 0.0
+        }
+      },
       "brier": 0.1049,
       "brier_base": 0.1094,
       "brier_skill": 0.041
@@ -76,6 +89,19 @@
       "precision": 0.1429,
       "recall": 0.5,
       "alert_rate": 0.5833,
+      "operating_points": {
+        "absolute": {
+          "label": "3.0 絕對切點",
+          "cutoff": 0.339,
+          "alerts": 7,
+          "hits": 1,
+          "false_alarms": 6,
+          "misses": 1,
+          "precision": 0.1429,
+          "recall": 0.5,
+          "alert_rate": 0.5833
+        }
+      },
       "brier": 0.2258,
       "brier_base": 0.1389,
       "brier_skill": -0.6258

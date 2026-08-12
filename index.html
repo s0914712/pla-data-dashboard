@@ -1599,19 +1599,25 @@
             if (!ctx) return;
             const isMobile = window.innerWidth < 768;
 
-            const counts = { LOW: 0, MEDIUM: 0, HIGH: 0 };
+            // 五個桶都要在。在這之前只有 LOW/MEDIUM/HIGH，於是 MEDIUM-HIGH 與
+            // UNKNOWN 被靜默丟棄 —— 而 D+2~D+7 一律是 UNKNOWN，等於這張「7 天風險
+            // 分布圖」實際上只畫了 1 天，看起來卻像畫了 7 天。
+            const counts = { LOW: 0, MEDIUM: 0, 'MEDIUM-HIGH': 0, HIGH: 0, UNKNOWN: 0 };
             predictions.forEach(p => {
-                const r = (p.risk_level || 'LOW').toUpperCase();
-                if (counts[r] !== undefined) counts[r]++;
+                let r = (p.risk_level || 'UNKNOWN').toUpperCase();
+                if (r === 'CRITICAL') r = 'HIGH';
+                if (counts[r] === undefined) r = 'UNKNOWN';
+                counts[r]++;
             });
 
             riskDoughnutChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Low Risk', 'Medium Risk', 'High Risk'],
+                    labels: ['Low Risk', 'Medium Risk', 'Medium-High Risk', 'High Risk', 'No Signal (D+2~)'],
                     datasets: [{
-                        data: [counts.LOW, counts.MEDIUM, counts.HIGH],
-                        backgroundColor: ['#38ef7d', '#ffd200', '#f45c43'],
+                        data: [counts.LOW, counts.MEDIUM, counts['MEDIUM-HIGH'],
+                               counts.HIGH, counts.UNKNOWN],
+                        backgroundColor: ['#38ef7d', '#ffd200', '#ea580c', '#f45c43', '#adb5bd'],
                         borderWidth: 2,
                         borderColor: '#fff'
                     }]

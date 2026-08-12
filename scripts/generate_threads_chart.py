@@ -85,7 +85,11 @@ def generate_chart():
     )
 
     # ── risk-level dots ──
-    risk_colors = {"LOW": "#38ef7d", "MEDIUM": "#ffd200", "HIGH": "#eb3349"}
+    # MEDIUM-HIGH 是 3.1 的主要警示等級（也是 LINE 端的 🟠），缺了它會落到
+    # 灰色 fallback —— 看起來像「沒資料」而不是「已警示」。UNKNOWN 才該是灰的。
+    risk_colors = {"LOW": "#38ef7d", "MEDIUM": "#ffd200",
+                   "MEDIUM-HIGH": "#ea580c", "HIGH": "#eb3349",
+                   "CRITICAL": "#eb3349", "UNKNOWN": "#a0aec0"}
     for _, row in pred.iterrows():
         c = risk_colors.get(row["risk_level"], "#a0aec0")
         ax.scatter(row["date"], row["predicted_sorties"], color=c,
