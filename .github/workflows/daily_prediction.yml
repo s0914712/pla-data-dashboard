@@ -24,9 +24,7 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
-      # SurgeForecaster 只需要 scikit-learn 的 HistGradientBoosting。
-      # catboost 與 imbalanced-learn 是舊模型（影子對照組）才需要的，
-      # 裝在下一步，這樣它們裝失敗也不會影響正式預測。
+      # SurgeForecaster 與 Classifier 4 shadow 都只需要 sklearn / pandas / numpy。
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -41,16 +39,11 @@ jobs:
           ls -la data/predictions/ || echo "No predictions directory"
           echo ""
           # 這是唯一對外的正式預測，寫入 data/predictions/latest_prediction.csv。
-          # 回滾方式：把下面這行換回 `python pla_7day_predictor.py`
-          # （舊模型檔案保留未動，兩者輸出同一份 CSV schema）。
           python predict_surge_daily.py
           echo ""
           echo "=== Prediction script completed ==="
 
-      # ── 以下三步是新舊模型對照（影子運行），全部不得擋住正式預測 ──
-      # 舊模型每天跑同一份輸入，輸出到獨立檔案，只用來當對照組。
-      # 它比新模型多了 catboost/SMOTE 依賴與 4 個遠端資料來源，失敗機率天生較高，
-      # 所以整段都是 continue-on-error。
+      # ── 以下是既有 CatBoost 對照（影子運行），不得擋住正式預測 ──
       - name: Install legacy model dependencies (shadow)
         continue-on-error: true
         run: pip install catboost imbalanced-learn
@@ -59,28 +52,28 @@ jobs:
         continue-on-error: true
         run: |
           echo "=== Legacy CatBoost predictor (shadow run) ==="
-          # 寫到暫存路徑而非影子檔本身：pla_7day_predictor.py 在例外時會把一列
-          # risk_level='ERROR' 的 CSV 寫到 --output，直接指向影子檔會把歷史蓋掉。
-          #
-          # --high-threshold 20 只是為了讓機率與新模型可比（新模型 SURGE_THRESHOLD=20）。
-          # 舊模型自己的預設是 25。**回滾時不要帶這個 flag**，否則跑出來的就不是
-          # 當初上線的那個模型了。
           python pla_7day_predictor.py --high-threshold 20 --output /tmp/legacy_candidate.csv
-          # 驗證通過才 promote，並與既有影子歷史合併
           python scripts/analysis/compare_predictors.py --promote /tmp/legacy_candidate.csv
           echo "=== Legacy shadow run completed ==="
 
       - name: Build model comparison
         continue-on-error: true
-        run: |
-          python scripts/analysis/compare_predictors.py
+        run: python scripts/analysis/compare_predictors.py
 
-      # 機率檢討要在 compare_predictors 之後跑：後者負責把 actual_sorties
-      # 回填進影子檔，沒有實際值就沒有東西可以檢討。
       - name: Build probability review
         continue-on-error: true
+        run: python scripts/analysis/probability_review.py
+
+      # ── Classifier 4.0 Challenger shadow ──────────────────────────────
+      # B = production features + temporal/regime
+      # C = B + naval features
+      # 只寫獨立 shadow CSV/JSON，不修改 latest_prediction.csv、risk_level 或 gates。
+      - name: Run Classifier 4.0 challengers (shadow)
+        continue-on-error: true
         run: |
-          python scripts/analysis/probability_review.py
+          echo "=== Classifier 4.0 shadow comparison ==="
+          python scripts/analysis/classifier4_shadow.py
+          echo "=== Classifier 4.0 shadow completed ==="
 
       - name: Verify and copy to history
         run: |
@@ -97,18 +90,25 @@ jobs:
             exit 1
           fi
 
-          # 複製到歷史記錄 (以日期命名)
           mkdir -p data/predictions/history
           DATE=$(date +%Y-%m-%d)
           cp data/predictions/latest_prediction.csv data/predictions/history/prediction_${DATE}.csv
 
-          # 影子模型的快照。不存在不算失敗 —— 它是對照組，不是產品。
           if [ -f "data/predictions/legacy_prediction.csv" ]; then
             cp data/predictions/legacy_prediction.csv \
                data/predictions/history/legacy_prediction_${DATE}.csv
             echo "Legacy shadow snapshot copied."
           else
             echo "No legacy_prediction.csv (shadow run may have failed) - continuing."
+          fi
+
+          # Classifier 4 的每日摘要做快照；CSV 本身已是累積歷史，不重複 copy。
+          if [ -f "data/predictions/classifier4_comparison.json" ]; then
+            cp data/predictions/classifier4_comparison.json \
+               data/predictions/history/classifier4_comparison_${DATE}.json
+            echo "Classifier 4 shadow snapshot copied."
+          else
+            echo "No classifier4_comparison.json - continuing."
           fi
 
           echo "Files copied successfully!"
@@ -122,7 +122,6 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "Update daily prediction $(date +%Y-%m-%d)"
-            # Retry push with pull --rebase to handle concurrent updates
             for i in 1 2 3 4; do
               git push && break
               echo "Push failed (attempt $i/4), pulling latest changes..."
