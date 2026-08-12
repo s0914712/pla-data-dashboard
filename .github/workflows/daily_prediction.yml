@@ -72,7 +72,7 @@ jobs:
         continue-on-error: true
         run: |
           echo "=== Classifier 4.0 shadow comparison ==="
-          python scripts/analysis/classifier4_shadow.py
+          python -m scripts.analysis.classifier4_shadow
           echo "=== Classifier 4.0 shadow completed ==="
 
       - name: Verify and copy to history
