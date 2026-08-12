@@ -28726,5 +28726,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-08-11",
+      "title": "【#筑牢廉洁征兵防线# 】近日，江苏省无锡市锡山区人武部组织基层征兵工作人员开展警示教育，聚焦基层征...",
+      "content": "【#筑牢廉洁征兵防线# 】近日，江苏省无锡市锡山区人武部组织基层征兵工作人员开展警示教育，聚焦基层征兵关键环节和廉洁风险，设置专题授课、案例警示、政策宣讲等多项议程，重点围绕新下发的征兵工作人员职业道德准则进行宣讲，进一步拧紧廉洁征兵“思想螺丝”。（吴将、缪佳斌） #征兵季#",
+      "url": "https://m.weibo.cn/detail/5330727756631916",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
