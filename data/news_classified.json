@@ -34015,5 +34015,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "中國海軍紅河艦與印尼海軍護衛艦於台島以東海域進行海上通航演練。",
+      "Foreign_battleship": "",
+      "Political_statement": "中國海軍與印尼海軍在台灣島以東敏感海域進行聯合演練，具備向周邊展示軍事存在之意圖。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-12",
+      "title": "#中国印尼海军舰艇完成海上通航演练#【中国海军红河舰与印尼海军“莱”号护卫舰位台岛以东海域圆满完成通...",
+      "content": "#中国印尼海军舰艇完成海上通航演练#【中国海军红河舰与印尼海军“莱”号护卫舰位台岛以东海域圆满完成通航演练】8月12日上午，中国海军红河舰与印尼海军“莱”号护卫舰位台岛以东海域圆满完成所有预定科目，海上通航演练落下帷幕。抵达预定海域后，红河舰与印尼海军“莱”号护卫舰组成舰艇编队，围绕 ...全文",
+      "url": "https://m.weibo.cn/detail/5331176706284256",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
