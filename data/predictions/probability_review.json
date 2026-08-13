@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-12 04:10:11",
+  "generated_at": "2026-08-13 04:14:28",
   "threshold": 20,
   "base_rate": 0.1694,
   "alert_cutoff": 0.339,
@@ -11,39 +11,39 @@
   "note": "高架次為稀有事件（基準約 11%），正樣本少於 10 個時 Brier/AUC 不可信",
   "daily": {
     "new": {
-      "date": "2026-08-12",
-      "prob": 0.069,
-      "actual": 6.0,
+      "date": "2026-08-13",
+      "prob": 0.157,
+      "actual": 18.0,
       "threshold": 20,
       "alerted": false,
       "happened": false,
       "outcome": "correct_quiet"
     },
     "legacy": {
-      "date": "2026-08-12",
-      "prob": 0.188,
-      "actual": 6.0,
+      "date": "2026-08-13",
+      "prob": 0.512,
+      "actual": 18.0,
       "threshold": 20,
-      "alerted": false,
+      "alerted": true,
       "happened": false,
-      "outcome": "correct_quiet"
+      "outcome": "false_alarm"
     }
   },
   "models": {
     "new": {
       "label": "SurgeForecaster 3.0.0",
-      "n": 17,
+      "n": 18,
       "n_positive": 2,
       "enough": false,
       "enough_auc": false,
       "window": [
         "2026-07-27",
-        "2026-08-12"
+        "2026-08-13"
       ],
       "alert_cutoff": 0.339,
-      "mean_prob": 0.1071,
-      "observed_rate": 0.1176,
-      "calibration_ratio": 0.9105,
+      "mean_prob": 0.1099,
+      "observed_rate": 0.1111,
+      "calibration_ratio": 0.989,
       "alerts": 0,
       "hits": 0,
       "false_alarms": 0,
@@ -51,34 +51,34 @@
       "precision": null,
       "recall": 0.0,
       "alert_rate": 0.0,
-      "brier": 0.099,
-      "brier_base": 0.1038,
-      "brier_skill": 0.0463
+      "brier": 0.0949,
+      "brier_base": 0.0988,
+      "brier_skill": 0.0394
     },
     "legacy": {
       "label": "CatBoost 2.8.0",
-      "n": 13,
+      "n": 14,
       "n_positive": 2,
       "enough": false,
       "enough_auc": false,
       "window": [
         "2026-07-31",
-        "2026-08-12"
+        "2026-08-13"
       ],
       "alert_cutoff": 0.339,
-      "mean_prob": 0.4179,
-      "observed_rate": 0.1538,
-      "calibration_ratio": 2.7165,
-      "alerts": 7,
+      "mean_prob": 0.4246,
+      "observed_rate": 0.1429,
+      "calibration_ratio": 2.9725,
+      "alerts": 8,
       "hits": 1,
-      "false_alarms": 6,
+      "false_alarms": 7,
       "misses": 1,
-      "precision": 0.1429,
+      "precision": 0.125,
       "recall": 0.5,
-      "alert_rate": 0.5385,
-      "brier": 0.2112,
-      "brier_base": 0.1302,
-      "brier_skill": -0.622
+      "alert_rate": 0.5714,
+      "brier": 0.2148,
+      "brier_base": 0.1224,
+      "brier_skill": -0.7542
     }
   },
   "calibration": {
@@ -91,9 +91,9 @@
       },
       {
         "range": "10-20%",
-        "n": 10,
-        "mean_prob": 0.1376,
-        "observed_rate": 0.2
+        "n": 11,
+        "mean_prob": 0.1394,
+        "observed_rate": 0.1818
       }
     ],
     "legacy": [
@@ -117,9 +117,9 @@
       },
       {
         "range": "50-100%",
-        "n": 5,
-        "mean_prob": 0.6354,
-        "observed_rate": 0.2
+        "n": 6,
+        "mean_prob": 0.6148,
+        "observed_rate": 0.1667
       }
     ]
   },
@@ -132,25 +132,25 @@
         "alerts": 0,
         "hits": 0,
         "misses": 0,
-        "mean_prob": 0.1163,
+        "mean_prob": 0.121,
         "observed_rate": 0.0,
         "max_prob": 0.181,
-        "max_actual": 14.0,
+        "max_actual": 18.0,
         "point": {
           "n": 7,
-          "mae": 3.27,
-          "rmse": 3.62,
-          "bias": 0.64,
-          "pin90": 1.38,
+          "mae": 3.47,
+          "rmse": 3.81,
+          "bias": 0.44,
+          "pin90": 1.56,
           "cov90": 1.0,
-          "width": 24.2,
+          "width": 24.0,
           "bias_convention": "predicted_minus_actual",
           "baselines": {
-            "persistence": 5.0,
-            "EMA-14": 4.96,
-            "median-28": 5.21
+            "persistence": 5.71,
+            "EMA-14": 5.88,
+            "median-28": 5.64
           },
-          "mae_skill_vs_persistence": 0.346
+          "mae_skill_vs_persistence": 0.392
         }
       },
       "legacy": {
@@ -160,83 +160,83 @@
         "alerts": 4,
         "hits": 0,
         "misses": 0,
-        "mean_prob": 0.4476,
+        "mean_prob": 0.4181,
         "observed_rate": 0.0,
-        "max_prob": 0.718,
-        "max_actual": 14.0,
+        "max_prob": 0.691,
+        "max_actual": 18.0,
         "point": {
           "n": 7,
-          "mae": 3.04,
-          "rmse": 3.34,
-          "bias": -0.84,
-          "pin90": 1.86,
-          "cov90": 0.429,
-          "width": 7.2,
+          "mae": 3.71,
+          "rmse": 4.17,
+          "bias": -1.51,
+          "pin90": 2.46,
+          "cov90": 0.286,
+          "width": 6.8,
           "bias_convention": "predicted_minus_actual",
           "baselines": {
-            "persistence": 5.0,
-            "EMA-14": 4.96,
-            "median-28": 5.21
+            "persistence": 5.71,
+            "EMA-14": 5.88,
+            "median-28": 5.64
           },
-          "mae_skill_vs_persistence": 0.391
+          "mae_skill_vs_persistence": 0.35
         }
       }
     },
     "monthly": {
       "new": {
         "days": 30,
-        "n": 17,
+        "n": 18,
         "n_positive": 2,
         "alerts": 0,
         "hits": 0,
         "misses": 2,
-        "mean_prob": 0.1071,
-        "observed_rate": 0.1176,
+        "mean_prob": 0.1099,
+        "observed_rate": 0.1111,
         "max_prob": 0.181,
         "max_actual": 27.0,
         "point": {
-          "n": 17,
-          "mae": 3.79,
-          "rmse": 4.91,
-          "bias": -0.89,
-          "pin90": 2.25,
+          "n": 18,
+          "mae": 3.81,
+          "rmse": 4.87,
+          "bias": -1.07,
+          "pin90": 2.33,
           "cov90": 1.0,
-          "width": 23.8,
+          "width": 23.9,
           "bias_convention": "predicted_minus_actual",
           "baselines": {
-            "persistence": 6.71,
-            "EMA-14": 6.42,
-            "median-28": 5.74
+            "persistence": 7.0,
+            "EMA-14": 6.67,
+            "median-28": 6.08
           },
-          "mae_skill_vs_persistence": 0.435
+          "mae_skill_vs_persistence": 0.456
         }
       },
       "legacy": {
         "days": 30,
-        "n": 13,
+        "n": 14,
         "n_positive": 2,
-        "alerts": 7,
+        "alerts": 8,
         "hits": 1,
         "misses": 1,
-        "mean_prob": 0.4179,
-        "observed_rate": 0.1538,
+        "mean_prob": 0.4246,
+        "observed_rate": 0.1429,
         "max_prob": 0.718,
         "max_actual": 27.0,
         "point": {
-          "n": 13,
-          "mae": 4.85,
-          "rmse": 6.84,
-          "bias": -3.01,
-          "pin90": 3.63,
-          "cov90": 0.385,
-          "width": 7.4,
+          "n": 14,
+          "mae": 5.01,
+          "rmse": 6.85,
+          "bias": -3.29,
+          "pin90": 3.82,
+          "cov90": 0.357,
+          "width": 7.5,
           "bias_convention": "predicted_minus_actual",
           "baselines": {
-            "persistence": 7.54,
-            "EMA-14": 6.84,
-            "median-28": 6.19
+            "persistence": 7.86,
+            "EMA-14": 7.13,
+            "median-28": 6.61
           },
-          "mae_skill_vs_persistence": 0.356
+          "mae_skill_vs_persistence": 0.363
         }
       }
     }
