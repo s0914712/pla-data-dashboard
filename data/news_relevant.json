@@ -29566,5 +29566,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "N/A",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍舉行飛行員停飛儀式，屬於部隊內部人員更替與傳承的常規軍事宣傳。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-13",
+      "title": "【#向蓝天告别#】近日，东部战区空军某部为停飞飞行员举行“向蓝天告别”仪式。停飞飞行员身披“光荣停飞...",
+      "content": "【#向蓝天告别#】近日，东部战区空军某部为停飞飞行员举行“向蓝天告别”仪式。停飞飞行员身披“光荣停飞”绶带，深情告别并肩作战数十载的战机，郑重将飞行头盔交托给年轻一代，嘱托他们接续奋斗、苦练精飞，磨砺胜战本领、守护祖国蓝天。官兵代表向停飞飞行员献花致敬，停飞飞行员代表发言，深情回望 ...全文",
+      "url": "https://m.weibo.cn/detail/5331452532097457",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
