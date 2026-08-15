@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-14 04:10:42",
+  "generated_at": "2026-08-15 02:53:47",
   "threshold": 20,
   "base_rate": 0.1694,
   "alert_cutoff": 0.339,
@@ -11,18 +11,18 @@
   "note": "高架次為稀有事件（基準約 11%），正樣本少於 10 個時 Brier/AUC 不可信",
   "daily": {
     "new": {
-      "date": "2026-08-14",
-      "prob": 0.244,
-      "actual": 9.0,
+      "date": "2026-08-15",
+      "prob": 0.094,
+      "actual": 4.0,
       "threshold": 20,
       "alerted": false,
       "happened": false,
       "outcome": "correct_quiet"
     },
     "legacy": {
-      "date": "2026-08-14",
-      "prob": 0.58,
-      "actual": 9.0,
+      "date": "2026-08-15",
+      "prob": 0.432,
+      "actual": 4.0,
       "threshold": 20,
       "alerted": true,
       "happened": false,
@@ -32,18 +32,18 @@
   "models": {
     "new": {
       "label": "SurgeForecaster 3.0.0",
-      "n": 19,
+      "n": 20,
       "n_positive": 2,
       "enough": false,
       "enough_auc": false,
       "window": [
         "2026-07-27",
-        "2026-08-14"
+        "2026-08-15"
       ],
       "alert_cutoff": 0.339,
-      "mean_prob": 0.1169,
-      "observed_rate": 0.1053,
-      "calibration_ratio": 1.111,
+      "mean_prob": 0.1158,
+      "observed_rate": 0.1,
+      "calibration_ratio": 1.158,
       "alerts": 0,
       "hits": 0,
       "false_alarms": 0,
@@ -51,42 +51,42 @@
       "precision": null,
       "recall": 0.0,
       "alert_rate": 0.0,
-      "brier": 0.093,
-      "brier_base": 0.0942,
-      "brier_skill": 0.0124
+      "brier": 0.0888,
+      "brier_base": 0.09,
+      "brier_skill": 0.0133
     },
     "legacy": {
       "label": "CatBoost 2.8.0",
-      "n": 15,
+      "n": 16,
       "n_positive": 2,
       "enough": false,
       "enough_auc": false,
       "window": [
         "2026-07-31",
-        "2026-08-14"
+        "2026-08-15"
       ],
       "alert_cutoff": 0.339,
-      "mean_prob": 0.435,
-      "observed_rate": 0.1333,
-      "calibration_ratio": 3.2625,
-      "alerts": 9,
+      "mean_prob": 0.4348,
+      "observed_rate": 0.125,
+      "calibration_ratio": 3.4785,
+      "alerts": 10,
       "hits": 1,
-      "false_alarms": 8,
+      "false_alarms": 9,
       "misses": 1,
-      "precision": 0.1111,
+      "precision": 0.1,
       "recall": 0.5,
-      "alert_rate": 0.6,
-      "brier": 0.2229,
-      "brier_base": 0.1156,
-      "brier_skill": -0.929
+      "alert_rate": 0.625,
+      "brier": 0.2206,
+      "brier_base": 0.1094,
+      "brier_skill": -1.0172
     }
   },
   "calibration": {
     "new": [
       {
         "range": "0-10%",
-        "n": 7,
-        "mean_prob": 0.0636,
+        "n": 8,
+        "mean_prob": 0.0674,
         "observed_rate": 0.0
       },
       {
@@ -117,9 +117,9 @@
       },
       {
         "range": "30-50%",
-        "n": 4,
-        "mean_prob": 0.3655,
-        "observed_rate": 0.25
+        "n": 5,
+        "mean_prob": 0.3788,
+        "observed_rate": 0.2
       },
       {
         "range": "50-100%",
@@ -138,25 +138,25 @@
         "alerts": 0,
         "hits": 0,
         "misses": 0,
-        "mean_prob": 0.1324,
+        "mean_prob": 0.12,
         "observed_rate": 0.0,
         "max_prob": 0.244,
         "max_actual": 18.0,
         "point": {
           "n": 7,
-          "mae": 4.23,
-          "rmse": 4.67,
-          "bias": 1.83,
-          "pin90": 1.38,
+          "mae": 4.39,
+          "rmse": 4.79,
+          "bias": 2.81,
+          "pin90": 1.07,
           "cov90": 1.0,
-          "width": 24.5,
+          "width": 23.9,
           "bias_convention": "predicted_minus_actual",
           "baselines": {
-            "persistence": 6.43,
-            "EMA-14": 5.91,
-            "median-28": 5.21
+            "persistence": 6.57,
+            "EMA-14": 6.02,
+            "median-28": 4.43
           },
-          "mae_skill_vs_persistence": 0.342
+          "mae_skill_vs_persistence": 0.332
         }
       },
       "legacy": {
@@ -166,83 +166,83 @@
         "alerts": 4,
         "hits": 0,
         "misses": 0,
-        "mean_prob": 0.4023,
+        "mean_prob": 0.3817,
         "observed_rate": 0.0,
         "max_prob": 0.58,
         "max_actual": 18.0,
         "point": {
           "n": 7,
-          "mae": 3.99,
-          "rmse": 4.37,
-          "bias": -0.64,
-          "pin90": 2.25,
+          "mae": 3.91,
+          "rmse": 4.27,
+          "bias": 1.03,
+          "pin90": 1.55,
           "cov90": 0.286,
-          "width": 6.8,
+          "width": 6.3,
           "bias_convention": "predicted_minus_actual",
           "baselines": {
-            "persistence": 6.43,
-            "EMA-14": 5.91,
-            "median-28": 5.21
+            "persistence": 6.57,
+            "EMA-14": 6.02,
+            "median-28": 4.43
           },
-          "mae_skill_vs_persistence": 0.38
+          "mae_skill_vs_persistence": 0.404
         }
       }
     },
     "monthly": {
       "new": {
         "days": 30,
-        "n": 19,
+        "n": 20,
         "n_positive": 2,
         "alerts": 0,
         "hits": 0,
         "misses": 2,
-        "mean_prob": 0.1169,
-        "observed_rate": 0.1053,
+        "mean_prob": 0.1158,
+        "observed_rate": 0.1,
         "max_prob": 0.244,
         "max_actual": 27.0,
         "point": {
-          "n": 19,
+          "n": 20,
           "mae": 4.0,
-          "rmse": 5.04,
-          "bias": -0.62,
-          "pin90": 2.25,
+          "rmse": 5.0,
+          "bias": -0.39,
+          "pin90": 2.16,
           "cov90": 1.0,
           "width": 24.1,
           "bias_convention": "predicted_minus_actual",
           "baselines": {
-            "persistence": 7.11,
-            "EMA-14": 6.34,
-            "median-28": 5.87
+            "persistence": 7.0,
+            "EMA-14": 6.25,
+            "median-28": 5.72
           },
-          "mae_skill_vs_persistence": 0.437
+          "mae_skill_vs_persistence": 0.429
         }
       },
       "legacy": {
         "days": 30,
-        "n": 15,
+        "n": 16,
         "n_positive": 2,
-        "alerts": 9,
+        "alerts": 10,
         "hits": 1,
         "misses": 1,
-        "mean_prob": 0.435,
-        "observed_rate": 0.1333,
+        "mean_prob": 0.4348,
+        "observed_rate": 0.125,
         "max_prob": 0.718,
         "max_actual": 27.0,
         "point": {
-          "n": 15,
-          "mae": 4.94,
-          "rmse": 6.7,
-          "bias": -2.81,
-          "pin90": 3.59,
-          "cov90": 0.333,
-          "width": 7.3,
+          "n": 16,
+          "mae": 4.98,
+          "rmse": 6.63,
+          "bias": -2.28,
+          "pin90": 3.4,
+          "cov90": 0.312,
+          "width": 7.1,
           "bias_convention": "predicted_minus_actual",
           "baselines": {
-            "persistence": 7.93,
-            "EMA-14": 6.68,
-            "median-28": 6.3
+            "persistence": 7.75,
+            "EMA-14": 6.55,
+            "median-28": 6.09
           },
-          "mae_skill_vs_persistence": 0.377
+          "mae_skill_vs_persistence": 0.357
         }
       }
     }
@@ -252,7 +252,7 @@
       "model": "新模型",
       "severity": "info",
       "code": "raw_gap",
-      "message": "新模型原始分類器膨脹 2.0 倍，校準器負擔偏重"
+      "message": "新模型原始分類器膨脹 1.9 倍，校準器負擔偏重"
     }
   ]
 }
