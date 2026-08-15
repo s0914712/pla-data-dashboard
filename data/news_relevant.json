@@ -29638,5 +29638,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中共東部戰區透過社群媒體發布軍事訓練內容，以「匍匐越低，離敵人越近」暗示針對台灣的軍事準備與威脅。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-14",
+      "title": "#东部熄灯号#匍匐越低，离敌人越近。#阅海峡#",
+      "content": "#东部熄灯号#匍匐越低，离敌人越近。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5331935716181024",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "N/A",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍舉行強軍思想讀書會，官兵分享讀書心得，旨在激勵士氣。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-14",
+      "title": "【#读书激人奋进# 】近日，东部战区空军某部举行强军思想读书会。来自基层一线、不同岗位的6组官兵，围...",
+      "content": "【#读书激人奋进# 】近日，东部战区空军某部举行强军思想读书会。来自基层一线、不同岗位的6组官兵，围绕“忠诚”“长征”“政绩”主题，通过情景演绎、访谈思辨、沉浸体验等形式，分享读书心得，激励大家从书本中汲取奋进养分。（彭迪奎）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5331814920749461",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
