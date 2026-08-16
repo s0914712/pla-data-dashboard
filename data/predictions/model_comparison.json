@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-08-15 02:53:46",
+  "generated_at": "2026-08-16 03:01:38",
   "n": 16,
   "min_n": 10,
   "legacy_ok": true,
   "legacy_stale": false,
-  "legacy_asof": "2026-08-15",
+  "legacy_asof": "2026-08-16",
   "bias_convention": "predicted_minus_actual",
   "note": "此處只比點預測與區間；機率的對照見機率檢討區塊",
   "models": {
@@ -35,7 +35,7 @@
       },
       "legacy": {
         "point": 1.8,
-        "lower": 1.4,
+        "lower": 1.5,
         "upper": 7.7
       }
     },
@@ -47,9 +47,9 @@
         "upper": 17.8
       },
       "legacy": {
-        "point": 1.6,
-        "lower": 0.7,
-        "upper": 5.2
+        "point": 1.5,
+        "lower": 0.8,
+        "upper": 5.0
       }
     },
     {
@@ -60,9 +60,9 @@
         "upper": 22.8
       },
       "legacy": {
-        "point": 3.4,
+        "point": 3.3,
         "lower": 1.1,
-        "upper": 7.7
+        "upper": 7.2
       }
     }
   ],
