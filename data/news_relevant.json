@@ -29758,5 +29758,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-08-16",
+      "title": "【泥石流来袭！#子弟兵紧急转移受困群众#】8月14日，浙江省长兴县遭遇强降雨，该县龙山街道川步村、水...",
+      "content": "【泥石流来袭！#子弟兵紧急转移受困群众#】8月14日，浙江省长兴县遭遇强降雨，该县龙山街道川步村、水口乡江排村突发泥石流险情。巨石滚落、道路中断，300余名群众被困。无锡联勤保障中心某团闻令而动，紧急出动多台运输车投入救援。官兵克服山路崎岖、道路损毁、次生灾害风险大等困难，在单程10公里的 ...全文",
+      "url": "https://m.weibo.cn/detail/5332449107380438",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
