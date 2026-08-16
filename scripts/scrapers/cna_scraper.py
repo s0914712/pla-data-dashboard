@@ -25,16 +25,18 @@ class CNAScraper(BaseScraper):
     SERPAPI_URL = "https://serpapi.com/search.json"
     
     # 搜尋關鍵字 - 精準聚焦台海軍事活動
+    #
+    # 每個 query 就是一次 SerpAPI 計費請求，所以這裡用 Google 的 OR 語法把原本
+    # 九個各自獨立的關鍵字合併成兩組主題查詢（9 credits/day → 2 credits/day）。
+    # 合併不會放寬收錄標準：真正的過濾在 _is_relevant_title() 做，跨 query 的
+    # 重複結果也已由 run() 依 URL 去重。
     KEYWORDS = [
-        "共機 site:cna.com.tw",           # 共軍飛機活動
-        "美艦台海 site:cna.com.tw",        # 美艦通過台海
-        "軍演 台海 site:cna.com.tw",       # 軍事演習
-        "軍售台灣 site:cna.com.tw",        # 對台軍售
-        "訪台 site:cna.com.tw",           # 官員訪台
-        "東部戰區 site:cna.com.tw",       # 東部戰區公告
-        "實彈射擊 site:cna.com.tw",        # 實彈射擊公告（海事局/航行警告）
-        "航行警告 site:cna.com.tw",        # 海事局航行警告 / 禁航公告
-        "禁航 海域 site:cna.com.tw",       # 劃設禁航區
+        # 第一組：共軍動態與台海軍事活動
+        "(共機 OR 共艦 OR 共軍 OR 解放軍 OR 美艦 OR 軍演 OR 東部戰區 OR 台海) "
+        "site:cna.com.tw",
+        # 第二組：航行警告類公告，以及軍售／訪台等對外互動
+        "(實彈射擊 OR 航行警告 OR 禁航 OR 海事局 OR 軍售 OR 軍購 OR 訪台) "
+        "site:cna.com.tw",
     ]
 
     def __init__(self, timeout: int = 30, delay: float = 1.5):
@@ -269,14 +271,15 @@ class CNAScraper(BaseScraper):
         """
         print(f"[{self.name}] 🚀 開始任務 (SerpAPI 模式)")
         print(f"[{self.name}] 📅 追蹤過去 {days_back} 天內容")
-        print(f"[{self.name}] 🔑 使用 {len(self.KEYWORDS)} 個搜尋關鍵字")
+        print(f"[{self.name}] 🔑 使用 {len(self.KEYWORDS)} 組合併查詢"
+              f"（= {len(self.KEYWORDS)} 次 SerpAPI 計費請求）")
         
         raw_articles = []
         collected_urls = set()
 
         # 使用 SerpAPI 搜尋所有關鍵字
         for i, query in enumerate(self.KEYWORDS, 1):
-            print(f"\n[{self.name}] [{i}/{len(self.KEYWORDS)}] 處理關鍵字...")
+            print(f"\n[{self.name}] [{i}/{len(self.KEYWORDS)}] 處理查詢...")
             articles = self._search_with_serpapi(query, days_back)
             
             for article in articles:
