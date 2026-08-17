@@ -1349,6 +1349,342 @@
     }
   },
   {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "JP",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "台湾多个团体举行论坛，批评日本右翼扩张与“新型军国主义”，认为日本介入台海议题将威胁区域和平。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-16",
+      "title": "台湾团体：警惕日本“新型军国主义”危害台海安全",
+      "content": "台湾多个团体8月15日通过论坛、座谈会等形式发声，反对日本“新型军国主义”妄动，呼吁警惕相关动向对台海安全的危害。 当天，以“团结亚洲人民，遏止日本新型军国主义扩张”为主题的华夏文化经贸论坛在台北举行。活动由华夏文化经贸协会、统一联盟党等约10家政党、团体联合主办。来自海峡两岸及香港地区、日本、澳大利亚等地的十余位与会专家学者呼吁，两岸同胞与亚洲各国人民应携手遏制日本右翼扩张野心，维护东亚地区和平稳定。 这是8月15日在台北拍摄的华夏文化经贸论坛现场。 新华社发 论坛主持人、统一联盟党主席王永表示，日本首相高市早苗此前公然宣称“台湾有事”可能构成日本可行使集体自卫权的“存亡危机事态”，暗示可能武力介入台海问题。这是日本加速再军事化妄动的关键动向之一，显示日本当局正在不断试图突破和平宪法和“专守防卫”规制，恐对台海安全、东亚和平造成严重冲击。 8月15日，统一联盟党主席王永在台北举行的华夏文化经贸论坛现场发言。 新华社发 日本山口大学名誉教授纐缬厚在书面发言中表示，当下日本政坛右倾化加剧，当局执政思路充满武力优先的军国主义色彩，所谓“新型帝国主义”并非夸大其词。他呼吁，日本政府必须正视历史罪责，停止煽动对抗。 澳大利亚地缘政治风险专家迪克比·雷恩视频致辞表示，日军对外侵略的历史给整个亚太地区造成极其深重的灾难。许多史料证实，澳大利亚民众与士兵曾饱受日本侵略战争的苦难。如今，日本强推修改和平宪法，“开启了极为危险的先例”。我们绝不愿意看到新一轮军国主义扩张，那只会引发更多冲突。世界最需要的是减少纷争、维持和平，完善区域治理体系至关重要，而中国大陆在全球治理诸多领域都起到引领作用。 同日，“日本军国主义岂是孤魂野鬼”专题研讨会在台中举行。活动由台湾抗日志士亲属协进会、李苍降教育基金会、辜金良文化基金会、人间出版社联合主办，台湾抗日志士后人、历史学者、教师、学生等30余人参会。 抗日志士李苍降之女李素慧说，她的家族有着极为深刻且血泪交织的抗日记忆，先贤先烈们用青春与热血写下了不屈的历史。今天回顾这段历史，不仅是为了追思，更是为了将抗日精神代代相传。她表示，面对当前日本右翼势力蠢动、军国主义死灰复燃动向，希望岛内有识之士帮助年轻人树立正确的民族观、历史观。 李素慧说，我们是中华民族的一分子，历史教训不容遗忘，要传承前人留给我们的精神资产，并在面对未来挑战时，坚定我们的民族立场与信念。 “日本有军国主义复辟的危险势头，台湾有‘台独’势力分裂国家民族的危险图谋。”抗日志士后人萧开平说，面对民进党当局在岛内大肆推行“去中国化”，今天我们更需要站出来，让更多台湾民众认识到“我们的祖国是中国”。 8月15日，抗日志士后人萧开平在台中举行的“日本军国主义岂是孤魂野鬼”专题研讨会现场发言。 新华社记者 黄扬 摄 日前，统一联盟党、劳动党等多个岛内政党、团体在“日本台湾交流协会”办公场所前集会抗议，高喊“汲取历史教训”“军国主义死路一条”“维护亚洲和平”等口号。 劳动党主席吴荣元在现场表示，日本发动侵华战争造成3500多万中国军民伤亡，还曾在台湾殖民统治50年，给两岸同胞带来深重灾难。他强调，台湾是中国的台湾，铭记历史是为了珍惜和平，两岸民众理应同心协力反对外部势力干涉，维护台海和平稳定，谋求完成国家统一。",
+      "url": "https://www.news.cn/tw/20260816/bb50f8d3f6df45b5b11c9dce111aeaf9/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.7,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國國防部發言人強調「台獨」是死局，重申反對台獨分裂活動的強硬立場。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-14",
+      "title": "国防部：“台独”死局演不赢、改不了",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
+      "url": "https://www.news.cn/tw/20260814/b911b280aa36411c99bfee3367434707/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "CN",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "台当局以法规为由查扣大陆品牌机车，引发民众批评其政治操弄及双重标准，阻碍两岸民间交流。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-08-13",
+      "title": "台当局查扣首辆入台“张雪机车”  民众批滥权阻两岸交流",
+      "content": "民众批评此举是政治操弄，滥用权力限阻两岸交流。 今年3月以来，“张雪机车”在世界超级机车锦标赛多次夺冠，成为“机车之岛”台湾的热议话题，夺冠同款的量产820RR令不少台湾车迷神往。据了解，岛内落地的首台“张雪机车”820RR系网名“小飞哥”的台湾工程师王先生与网络博主“米亚”将整车拆解后分批运输回台、历时一个半月亲手组装而成，一经展览便引发围观热潮。 王先生12日首度通过社交媒体公开回应，车辆并非以整车方式进口，而是从广州购买后拆解零件，再混用其他厂牌零件于台湾加工组装，强调“所有的报单都可以查验核对”，并已配合相关部门将车辆带回调查。 按照台有关部门现行规定，大陆重型机车整车及引擎“属于不准输入项目”。 台经济事务主管部门声称，业者于台湾组装成车同样涉及相关法规，必须事先申请许可，且还要符合不得妨害所谓“安全”及经济等条件。该部门还称，若开放大陆重机相关产业进入，可能对岛内产业及市场秩序造成冲击，因此即使业者提出相关申请，主管机关也不会核发许可。 “张雪机车”被查扣消息传出，引发民众质疑与不满。有网友讽刺道：“如果忽然让台湾发现大陆机车这么好、这么超值，那之前所有的抹黑努力，岂不是前功尽弃！”还有网友怒批：“台湾已经是绿色恐怖时代。” 更有民众指出，民进党当局不允许来自大陆的机车整车输入，但对日本、欧美等其他国家或地区产制的整车机车大门敞开，这种行为完全是“双重标准”。 “民进党究竟在怕什么？”在台北经营一家摩托车行的陈先生认为，当局对于一台私藏展示的组装摩托车如此大动干戈，“恐怕还是因为政治的原因”。 台湾车评人谢宗桓在社交平台发文质疑，台主管单位动用跨部门力量查缉阵仗之大，好像面对的不是摩托车。 面对台湾车友多次询问“什么时候卖来台湾”，“张雪机车”创始人张雪曾表示非常想赴台湾开店，并承诺未来台湾车主将和大陆车主享受完全一样的售后保障服务，还期待在台湾与车友环岛骑行。张雪的表态受到两岸网友好评。 然而，台经济事务主管部门却对此公开阻挠，扬言将查处所谓违规投资。谢宗桓分析，台当局真正担心的是台湾消费者有机会亲眼看到“大陆制造”现在到底发展到什么程度。",
+      "url": "https://www.news.cn/tw/20260813/733810c3d0ac46e7be8257e3074df1d7/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "中國海軍紅河艦與印尼海軍護衛艦於台島以東海域進行海上通航演練，科目包含通信、編隊運動及海上補給。",
+      "Foreign_battleship": "",
+      "Political_statement": "中印尼海軍透過聯合演練展示務實合作，共同維護地區和平穩定。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-08-12",
+      "title": "中国海军红河舰与印尼海军“莱”号护卫舰位台岛以东海域圆满完成海上通航演练",
+      "content": "演练期间，两国军舰组成舰艇编队，围绕海上通信、编队运动、海上补给及分航仪式等科目开展实兵演练。红河舰官兵熟练运用特殊战术信号简语、信号旗语等，与印尼海军“莱”号护卫舰进行海上通联与指令传达。双方按照预先拟制的演练方案，灵活机动，协同配合，顺利完成所有演练目标。 此次中国印尼海军海上通航演练，充分展示了双方务实合作、共同维护地区和平稳定的积极意愿和行动能力。 8月12日，中国海军红河舰与印尼海军“莱”号护卫舰占领补给阵位后开展海上补给演练（视频截图）。新华社发（李眺 摄） 8月12日，中国海军红河舰与印尼海军“莱”号护卫舰占领补给阵位后开展海上补给演练（视频截图）。新华社发（李眺 摄）",
+      "url": "http://www.news.cn/tw/20260812/d8c2be5cb291434c91ba537ca752a45e/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中方敦促太平洋岛国论坛秘书处恪守一个中国原则，反对台湾参与国际组织活动，要求妥善处理涉台问题。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-11",
+      "title": "外交部：敦促太平洋岛国论坛秘书处恪守一个中国原则",
+      "content": "有记者问：据了解，太平洋岛国论坛一名官员称，台湾代表将出席8月30日至9月4日在帕劳举行的太平洋岛国论坛领导人会议。去年因中方抗议，台湾方面被禁止参加所罗门群岛主办的太平洋岛国论坛领导人会议。中方对此有何评论？ 郭嘉昆表示，在中国台湾地区参与国际组织活动问题上，中方立场是一贯、明确的，即必须按照一个中国原则处理，这也是联合国大会第2758号决议确认的国际关系基本准则和国际社会普遍共识。 郭嘉昆说：“中方敦促太平洋岛国论坛秘书处恪守一个中国原则，妥善处理涉台问题，避免影响中国和论坛关系健康稳定发展。”",
+      "url": "https://www.news.cn/tw/20260811/f48282fe51c9411581ac1830315f5b41/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "兩岸企業家峰會於昆山舉辦青年論壇，強調兩岸在AI領域合作前景廣闊，呼籲青年共同推動民族復興與產業融合。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-15",
+      "title": "2026两岸青年企业家菁英论坛暨两岸青年研学交流活动在昆山举办",
+      "content": "此次活动由两岸企业家峰会主办，主题是“青创成就梦想 AI赋能未来”，约450名两岸青年企业家代表、青年学生等嘉宾参加活动。 活动开场，播放了《山海同心 青创未来》视频短片，展现了两岸融合的生动画卷。随后，台商代表、两岸青年携手智能机器人表演了音乐情景剧《AI在昆山》，精彩呈现了两岸青年携手深耕AI领域的动人故事。 为了让两岸青年更好把握人工智能带来的发展机遇，主办方邀请清华大学电子工程系长聘教授汪玉，正崴集团总经理郭守富，浪潮集团总工程师、浪潮云董事长肖雪，分别围绕人工智能产业发展趋势、两岸青年企业家传承与创新、人工智能赋能经济社会高质量发展作主旨分享。他们认为，两岸人工智能领域合作前景广阔，期盼两岸青年企业家共同绘就人工智能产业融合发展的美好蓝图。 嘉宾分享环节后，两岸企业家峰会双方理事长向两岸青年企业家、青年学子深情寄语。峰会大陆方面理事长郭金龙表示，两岸同根同源、同文同种，在人工智能领域各有优势，理应加强合作、融合发展，用中华民族的聪明才智引领科技浪潮。 “人工智能是年轻的事业，也是年轻人的事业。”郭金龙勉励两岸青年，勇担时代重任，在人工智能的广阔赛道上释放青春潜能，共同为强国建设、民族复兴伟业贡献青春力量。 现场的热烈氛围，让峰会台湾方面理事长刘兆玄深感两岸企业合作“薪火相传、生生不息”。他动情地说，全球经济与科技正经历深刻变革，希望两岸青年勇于跨界融合，开展深度交流，找到可以携手共创事业的伙伴。两岸企业家峰会将持续为两岸青年搭建交流平台，做青年创业与发展道路上的坚强后盾。 作为大陆台商投资最活跃、台企最密集、两岸经贸文化交流最频繁的城市之一，苏州累计吸引台企超1.5万家、实际使用台资超390亿美元。江苏省委常委、苏州市委书记范波在致辞中表示，将持续推动对台交流合作，搭好创新创业舞台，升级一站式服务平台，让在苏台胞安心发展、舒心生活。 当天下午，还组织了两岸青年企业家参访昆山人工智能领域重点企业、台湾大学生走进企业研学交流等活动。",
+      "url": "https://www.news.cn/tw/20260815/fb5812996771419bb0f62dc958dffd2f/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區聯勤保障中心進行自救互救抽考，包含止血、包扎、心肺復蘇及搬運轉移等戰傷救護訓練。",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區強調練兵備戰，透過戰傷救護訓練為後續遂行任務奠定基礎，展現時刻準備戰鬥的姿態。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-17",
+      "title": "#直击东部战区练兵备战现场#【#自救互救训练抽考登场# 】近日，无锡联勤保障中心某团开展自救互救抽考...",
+      "content": "#直击东部战区练兵备战现场#【#自救互救训练抽考登场# 】近日，无锡联勤保障中心某团开展自救互救抽考，重点通过止血、包扎、心肺复苏、搬运转移等科目，对日常训练情况进行检查评估，为后续遂行任务中高效处置伤情奠定基础。（何黄圣娴）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5332811487379588",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中共東部戰區透過社群媒體發布軍事訓練內容，以「匍匐越低，離敵人越近」暗示針對台灣的軍事準備與威脅。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-14",
+      "title": "#东部熄灯号#匍匐越低，离敌人越近。#阅海峡#",
+      "content": "#东部熄灯号#匍匐越低，离敌人越近。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5331935716181024",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區空軍警衛連組織“最強警衛兵”比武，強調練兵備戰與勝戰本領。",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區透過官媒發布練兵備戰訊息，強調時刻準備戰鬥。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-14",
+      "title": "#直击东部战区练兵备战现场# 【#最强警卫兵比武登场# 】近日，东部战区空军某部警卫连组织“最强警卫...",
+      "content": "#直击东部战区练兵备战现场# 【#最强警卫兵比武登场# 】近日，东部战区空军某部警卫连组织“最强警卫兵”比武。从团体协作到单人作战，每一名选手都斗志昂扬，经受体能和技能的考验，展示胜战本领。（吴宇东、王添、黄文涛、吴海洋）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5331724323259103",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "中國東部戰區發布氣墊登陸艇訓練動態，暗示兩棲突擊演練。",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區透過社群媒體發布軍事訓練內容，強調突擊使命，對台施加軍事壓力。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-13",
+      "title": "#东部熄灯号#浪花飞溅，使命如山。气垫之上，突击起点。#阅海峡#",
+      "content": "#东部熄灯号#浪花飞溅，使命如山。气垫之上，突击起点。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5331573328316137",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "陸軍第71集團軍某旅防空兵分隊進行全要素實彈射擊考核，檢驗對空抗擊能力。",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區發布練兵備戰現場，強調時刻準備戰鬥。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-13",
+      "title": "#直击东部战区练兵备战现场#【#弓满弦张射天狼#】硝烟弥漫，炮声震天。近日，陆军第71集团军某旅防空...",
+      "content": "#直击东部战区练兵备战现场#【#弓满弦张射天狼#】硝烟弥漫，炮声震天。近日，陆军第71集团军某旅防空兵分队组织开展全要素实弹射击考核，全面检验防空分队在复杂战场环境下的整体作战效能和全时域对空抗击能力。（赵钱松、兰坤、黄振宇）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5331361935396132",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中共東部戰區透過社群媒體發布具軍事威脅暗示的貼文，以「獵手」與「瞄準」隱喻對台軍事壓力。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-12",
+      "title": "#东部熄灯号#瞄准镜里没有风，只有一击必中的沉静。晚安，孤独的猎手。#阅海峡#",
+      "content": "#东部熄灯号#瞄准镜里没有风，只有一击必中的沉静。晚安，孤独的猎手。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5331210940975630",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區空軍部隊進行刺殺對抗訓練，強調近戰肉搏與備戰能力。",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區發布練兵備戰現場畫面，強調時刻準備戰鬥，展現對台軍事威懾意圖。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-12",
+      "title": "#直击东部战区练兵备战现场#【#砥砺官兵血性胆气# 】近日，东部战区空军某部组织刺杀对抗训练，砥砺近...",
+      "content": "#直击东部战区练兵备战现场#【#砥砺官兵血性胆气# 】近日，东部战区空军某部组织刺杀对抗训练，砥砺近战肉搏的血性胆气与克敌制胜的过硬本领。#时刻准备战斗#（吴梓豪、蒋炎森、钱明祺、陈叶楠）",
+      "url": "https://m.weibo.cn/detail/5330999548053960",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "解放軍東部戰區發布軍事訓練動態，暗示針對台海的突擊演練。",
+      "Foreign_battleship": "",
+      "Political_statement": "解放軍東部戰區透過社群媒體發布軍事訓練貼文，強調突擊方向，具備軍事威懾意圖。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-11",
+      "title": "#东部熄灯号#草丛深处，每一片叶子都在见证突击的方向。#阅海峡#",
+      "content": "#东部熄灯号#草丛深处，每一片叶子都在见证突击的方向。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5330848553110544",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
     "category": "Military_Exercise",
     "is_relevant": true,
     "country1": "CN",
@@ -2333,78 +2669,6 @@
     }
   },
   {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "TW",
-    "country2": "CN",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "台当局以法规为由查扣大陆品牌机车，引发民众批评其政治操弄及双重标准，阻碍两岸民间交流。"
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-08-13",
-      "title": "台当局查扣首辆入台“张雪机车”  民众批滥权阻两岸交流",
-      "content": "民众批评此举是政治操弄，滥用权力限阻两岸交流。 今年3月以来，“张雪机车”在世界超级机车锦标赛多次夺冠，成为“机车之岛”台湾的热议话题，夺冠同款的量产820RR令不少台湾车迷神往。据了解，岛内落地的首台“张雪机车”820RR系网名“小飞哥”的台湾工程师王先生与网络博主“米亚”将整车拆解后分批运输回台、历时一个半月亲手组装而成，一经展览便引发围观热潮。 王先生12日首度通过社交媒体公开回应，车辆并非以整车方式进口，而是从广州购买后拆解零件，再混用其他厂牌零件于台湾加工组装，强调“所有的报单都可以查验核对”，并已配合相关部门将车辆带回调查。 按照台有关部门现行规定，大陆重型机车整车及引擎“属于不准输入项目”。 台经济事务主管部门声称，业者于台湾组装成车同样涉及相关法规，必须事先申请许可，且还要符合不得妨害所谓“安全”及经济等条件。该部门还称，若开放大陆重机相关产业进入，可能对岛内产业及市场秩序造成冲击，因此即使业者提出相关申请，主管机关也不会核发许可。 “张雪机车”被查扣消息传出，引发民众质疑与不满。有网友讽刺道：“如果忽然让台湾发现大陆机车这么好、这么超值，那之前所有的抹黑努力，岂不是前功尽弃！”还有网友怒批：“台湾已经是绿色恐怖时代。” 更有民众指出，民进党当局不允许来自大陆的机车整车输入，但对日本、欧美等其他国家或地区产制的整车机车大门敞开，这种行为完全是“双重标准”。 “民进党究竟在怕什么？”在台北经营一家摩托车行的陈先生认为，当局对于一台私藏展示的组装摩托车如此大动干戈，“恐怕还是因为政治的原因”。 台湾车评人谢宗桓在社交平台发文质疑，台主管单位动用跨部门力量查缉阵仗之大，好像面对的不是摩托车。 面对台湾车友多次询问“什么时候卖来台湾”，“张雪机车”创始人张雪曾表示非常想赴台湾开店，并承诺未来台湾车主将和大陆车主享受完全一样的售后保障服务，还期待在台湾与车友环岛骑行。张雪的表态受到两岸网友好评。 然而，台经济事务主管部门却对此公开阻挠，扬言将查处所谓违规投资。谢宗桓分析，台当局真正担心的是台湾消费者有机会亲眼看到“大陆制造”现在到底发展到什么程度。",
-      "url": "https://www.news.cn/tw/20260813/733810c3d0ac46e7be8257e3074df1d7/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": 0.1,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "中國海軍紅河艦與印尼海軍護衛艦於台島以東海域進行海上通航演練，科目包含通信、編隊運動及海上補給。",
-      "Foreign_battleship": "",
-      "Political_statement": "中印尼海軍透過聯合演練展示務實合作，共同維護地區和平穩定。"
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-08-12",
-      "title": "中国海军红河舰与印尼海军“莱”号护卫舰位台岛以东海域圆满完成海上通航演练",
-      "content": "演练期间，两国军舰组成舰艇编队，围绕海上通信、编队运动、海上补给及分航仪式等科目开展实兵演练。红河舰官兵熟练运用特殊战术信号简语、信号旗语等，与印尼海军“莱”号护卫舰进行海上通联与指令传达。双方按照预先拟制的演练方案，灵活机动，协同配合，顺利完成所有演练目标。 此次中国印尼海军海上通航演练，充分展示了双方务实合作、共同维护地区和平稳定的积极意愿和行动能力。 8月12日，中国海军红河舰与印尼海军“莱”号护卫舰占领补给阵位后开展海上补给演练（视频截图）。新华社发（李眺 摄） 8月12日，中国海军红河舰与印尼海军“莱”号护卫舰占领补给阵位后开展海上补给演练（视频截图）。新华社发（李眺 摄）",
-      "url": "http://www.news.cn/tw/20260812/d8c2be5cb291434c91ba537ca752a45e/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CN_Statement",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.5,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "中方敦促太平洋岛国论坛秘书处恪守一个中国原则，反对台湾参与国际组织活动，并以此作为处理涉台问题的准则。"
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-08-11",
-      "title": "外交部：敦促太平洋岛国论坛秘书处恪守一个中国原则",
-      "content": "有记者问：据了解，太平洋岛国论坛一名官员称，台湾代表将出席8月30日至9月4日在帕劳举行的太平洋岛国论坛领导人会议。去年因中方抗议，台湾方面被禁止参加所罗门群岛主办的太平洋岛国论坛领导人会议。中方对此有何评论？ 郭嘉昆表示，在中国台湾地区参与国际组织活动问题上，中方立场是一贯、明确的，即必须按照一个中国原则处理，这也是联合国大会第2758号决议确认的国际关系基本准则和国际社会普遍共识。 郭嘉昆说：“中方敦促太平洋岛国论坛秘书处恪守一个中国原则，妥善处理涉台问题，避免影响中国和论坛关系健康稳定发展。”",
-      "url": "https://www.news.cn/tw/20260811/f48282fe51c9411581ac1830315f5b41/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
     "category": "CN_Statement",
     "is_relevant": true,
     "country1": "CN",
@@ -2424,150 +2688,6 @@
       "content": "台湾方面自不量力四处刷存在感，只会自取其辱。 台湾地区所谓“驻日代表”日前声称，“国格”与地位遭到刻意矮化，令人遗憾且失望，并称已提出“严正抗议”。对此，发言人表示，台湾不是一个国家，不存在“国格”一说。世界上只有一个中国，台湾是中国领土不可分割的一部分，中华人民共和国政府是代表全中国的唯一合法政府，这是国际社会的基本共识。台湾方面自不量力四处刷存在感，只会自取其辱。发言人还表示，联合国对台湾的称谓是“中国台湾省”。",
       "url": "https://www.news.cn/tw/20260810/abc52023c118432e8537cdc53ae13307/c.html",
       "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.4,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "東部戰區空軍警衛連組織“最強警衛兵”比武，強調練兵備戰與勝戰本領。",
-      "Foreign_battleship": "",
-      "Political_statement": "東部戰區透過官媒發布練兵備戰訊息，強調時刻準備戰鬥。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-08-14",
-      "title": "#直击东部战区练兵备战现场# 【#最强警卫兵比武登场# 】近日，东部战区空军某部警卫连组织“最强警卫...",
-      "content": "#直击东部战区练兵备战现场# 【#最强警卫兵比武登场# 】近日，东部战区空军某部警卫连组织“最强警卫兵”比武。从团体协作到单人作战，每一名选手都斗志昂扬，经受体能和技能的考验，展示胜战本领。（吴宇东、王添、黄文涛、吴海洋）#时刻准备战斗#",
-      "url": "https://m.weibo.cn/detail/5331724323259103",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "中國東部戰區發布氣墊艇突擊訓練內容，暗示針對台海的軍事準備。",
-      "Foreign_battleship": "",
-      "Political_statement": "東部戰區透過社群媒體發布軍事訓練動態，強調突擊使命，具備軍事威懾意圖。"
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-08-13",
-      "title": "#东部熄灯号#浪花飞溅，使命如山。气垫之上，突击起点。#阅海峡#",
-      "content": "#东部熄灯号#浪花飞溅，使命如山。气垫之上，突击起点。#阅海峡#",
-      "url": "https://m.weibo.cn/detail/5331573328316137",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "陸軍第71集團軍某旅防空兵分隊進行全要素實彈射擊考核，檢驗對空抗擊能力。",
-      "Foreign_battleship": "",
-      "Political_statement": "東部戰區發布練兵備戰現場，強調時刻準備戰鬥。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-08-13",
-      "title": "#直击东部战区练兵备战现场#【#弓满弦张射天狼#】硝烟弥漫，炮声震天。近日，陆军第71集团军某旅防空...",
-      "content": "#直击东部战区练兵备战现场#【#弓满弦张射天狼#】硝烟弥漫，炮声震天。近日，陆军第71集团军某旅防空兵分队组织开展全要素实弹射击考核，全面检验防空分队在复杂战场环境下的整体作战效能和全时域对空抗击能力。（赵钱松、兰坤、黄振宇）#时刻准备战斗#",
-      "url": "https://m.weibo.cn/detail/5331361935396132",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "中共東部戰區透過社群媒體發布具軍事威脅暗示的貼文，以「獵手」與「瞄準」隱喻對台軍事壓力。"
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-08-12",
-      "title": "#东部熄灯号#瞄准镜里没有风，只有一击必中的沉静。晚安，孤独的猎手。#阅海峡#",
-      "content": "#东部熄灯号#瞄准镜里没有风，只有一击必中的沉静。晚安，孤独的猎手。#阅海峡#",
-      "url": "https://m.weibo.cn/detail/5331210940975630",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "東部戰區空軍部隊進行刺殺對抗訓練，強調近戰肉搏與備戰能力。",
-      "Foreign_battleship": "",
-      "Political_statement": "東部戰區發布練兵備戰現場畫面，強調時刻準備戰鬥，展現對台軍事威懾意圖。"
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-08-12",
-      "title": "#直击东部战区练兵备战现场#【#砥砺官兵血性胆气# 】近日，东部战区空军某部组织刺杀对抗训练，砥砺近...",
-      "content": "#直击东部战区练兵备战现场#【#砥砺官兵血性胆气# 】近日，东部战区空军某部组织刺杀对抗训练，砥砺近战肉搏的血性胆气与克敌制胜的过硬本领。#时刻准备战斗#（吴梓豪、蒋炎森、钱明祺、陈叶楠）",
-      "url": "https://m.weibo.cn/detail/5330999548053960",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "解放軍東部戰區發布軍事訓練動態，暗示針對台海的突擊演練。",
-      "Foreign_battleship": "",
-      "Political_statement": "解放軍東部戰區透過社群媒體發布軍事訓練內容，強調突擊方向，具備軍事威懾意圖。"
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-08-11",
-      "title": "#东部熄灯号#草丛深处，每一片叶子都在见证突击的方向。#阅海峡#",
-      "content": "#东部熄灯号#草丛深处，每一片叶子都在见证突击的方向。#阅海峡#",
-      "url": "https://m.weibo.cn/detail/5330848553110544",
-      "source": "weibo",
       "category": "",
       "sentiment": ""
     }
@@ -29643,30 +29763,6 @@
     "category": "CCP_news_and_blog",
     "is_relevant": true,
     "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "中共東部戰區透過社群媒體發布軍事訓練內容，以「匍匐越低，離敵人越近」暗示針對台灣的軍事準備與威脅。"
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-08-14",
-      "title": "#东部熄灯号#匍匐越低，离敌人越近。#阅海峡#",
-      "content": "#东部熄灯号#匍匐越低，离敌人越近。#阅海峡#",
-      "url": "https://m.weibo.cn/detail/5331935716181024",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
     "country2": "N/A",
     "sentiment_score": 0.0,
     "sentiment_label": "neutral",
@@ -29716,30 +29812,6 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.7,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "中國國防部發言人強調「台獨」是死局，重申反對台獨分裂活動的強硬立場。"
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-08-14",
-      "title": "国防部：“台独”死局演不赢、改不了",
-      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
-      "url": "https://www.news.cn/tw/20260814/b911b280aa36411c99bfee3367434707/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
     "sentiment_score": 0.6,
     "sentiment_label": "positive",
     "extracted_data": {
@@ -29779,30 +29851,6 @@
       "content": "【泥石流来袭！#子弟兵紧急转移受困群众#】8月14日，浙江省长兴县遭遇强降雨，该县龙山街道川步村、水口乡江排村突发泥石流险情。巨石滚落、道路中断，300余名群众被困。无锡联勤保障中心某团闻令而动，紧急出动多台运输车投入救援。官兵克服山路崎岖、道路损毁、次生灾害风险大等困难，在单程10公里的 ...全文",
       "url": "https://m.weibo.cn/detail/5332449107380438",
       "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": 0.6,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "兩岸企業家峰會於昆山舉辦青年論壇，強調兩岸在AI領域合作前景廣闊，呼籲青年共同推動民族復興與產業融合。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-08-15",
-      "title": "2026两岸青年企业家菁英论坛暨两岸青年研学交流活动在昆山举办",
-      "content": "此次活动由两岸企业家峰会主办，主题是“青创成就梦想 AI赋能未来”，约450名两岸青年企业家代表、青年学生等嘉宾参加活动。 活动开场，播放了《山海同心 青创未来》视频短片，展现了两岸融合的生动画卷。随后，台商代表、两岸青年携手智能机器人表演了音乐情景剧《AI在昆山》，精彩呈现了两岸青年携手深耕AI领域的动人故事。 为了让两岸青年更好把握人工智能带来的发展机遇，主办方邀请清华大学电子工程系长聘教授汪玉，正崴集团总经理郭守富，浪潮集团总工程师、浪潮云董事长肖雪，分别围绕人工智能产业发展趋势、两岸青年企业家传承与创新、人工智能赋能经济社会高质量发展作主旨分享。他们认为，两岸人工智能领域合作前景广阔，期盼两岸青年企业家共同绘就人工智能产业融合发展的美好蓝图。 嘉宾分享环节后，两岸企业家峰会双方理事长向两岸青年企业家、青年学子深情寄语。峰会大陆方面理事长郭金龙表示，两岸同根同源、同文同种，在人工智能领域各有优势，理应加强合作、融合发展，用中华民族的聪明才智引领科技浪潮。 “人工智能是年轻的事业，也是年轻人的事业。”郭金龙勉励两岸青年，勇担时代重任，在人工智能的广阔赛道上释放青春潜能，共同为强国建设、民族复兴伟业贡献青春力量。 现场的热烈氛围，让峰会台湾方面理事长刘兆玄深感两岸企业合作“薪火相传、生生不息”。他动情地说，全球经济与科技正经历深刻变革，希望两岸青年勇于跨界融合，开展深度交流，找到可以携手共创事业的伙伴。两岸企业家峰会将持续为两岸青年搭建交流平台，做青年创业与发展道路上的坚强后盾。 作为大陆台商投资最活跃、台企最密集、两岸经贸文化交流最频繁的城市之一，苏州累计吸引台企超1.5万家、实际使用台资超390亿美元。江苏省委常委、苏州市委书记范波在致辞中表示，将持续推动对台交流合作，搭好创新创业舞台，升级一站式服务平台，让在苏台胞安心发展、舒心生活。 当天下午，还组织了两岸青年企业家参访昆山人工智能领域重点企业、台湾大学生走进企业研学交流等活动。",
-      "url": "https://www.news.cn/tw/20260815/fb5812996771419bb0f62dc958dffd2f/c.html",
-      "source": "xinhua",
       "category": "",
       "sentiment": ""
     }
