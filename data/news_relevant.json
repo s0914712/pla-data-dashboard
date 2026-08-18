@@ -29974,5 +29974,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-08-17",
+      "title": "【#小雄鹰军事夏令营开营# 】军营磨羽翼，少年当自强。近日，92752部队第九届“小雄鹰”军事夏令营...",
+      "content": "【#小雄鹰军事夏令营开营# 】军营磨羽翼，少年当自强。近日，92752部队第九届“小雄鹰”军事夏令营开营。百余名军娃相聚军营，亲身感受部队氛围、学习基础军事技能、磨练坚强意志，在汗水与欢笑中度过一段充实难忘暑假生活。（郝政达、王振泽、杨朔、杨涛）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5332902083560406",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
