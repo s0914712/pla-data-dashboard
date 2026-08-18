@@ -1359,7 +1359,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "台湾多个团体举行论坛，批评日本右翼扩张与“新型军国主义”，认为日本介入台海议题将威胁区域和平。"
+      "Political_statement": "台湾多个团体举办论坛，批评日本右翼扩张及“新型军国主义”，认为日本介入台海的言论威胁区域和平。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1445,30 +1445,6 @@
     }
   },
   {
-    "category": "CN_Statement",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.5,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "中方敦促太平洋岛国论坛秘书处恪守一个中国原则，反对台湾参与国际组织活动，要求妥善处理涉台问题。"
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-08-11",
-      "title": "外交部：敦促太平洋岛国论坛秘书处恪守一个中国原则",
-      "content": "有记者问：据了解，太平洋岛国论坛一名官员称，台湾代表将出席8月30日至9月4日在帕劳举行的太平洋岛国论坛领导人会议。去年因中方抗议，台湾方面被禁止参加所罗门群岛主办的太平洋岛国论坛领导人会议。中方对此有何评论？ 郭嘉昆表示，在中国台湾地区参与国际组织活动问题上，中方立场是一贯、明确的，即必须按照一个中国原则处理，这也是联合国大会第2758号决议确认的国际关系基本准则和国际社会普遍共识。 郭嘉昆说：“中方敦促太平洋岛国论坛秘书处恪守一个中国原则，妥善处理涉台问题，避免影响中国和论坛关系健康稳定发展。”",
-      "url": "https://www.news.cn/tw/20260811/f48282fe51c9411581ac1830315f5b41/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
     "category": "CCP_news_and_blog",
     "is_relevant": true,
     "country1": "CN",
@@ -1479,7 +1455,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "兩岸企業家峰會於昆山舉辦青年論壇，強調兩岸在AI領域合作前景廣闊，呼籲青年共同推動民族復興與產業融合。"
+      "Political_statement": "兩岸企業家峰會於昆山舉辦青年論壇，強調兩岸在AI領域的合作前景與融合發展，鼓勵青年共同參與民族復興。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1497,13 +1473,85 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區空軍進行實戰化機動補網演練，強化應急響應與電磁偵搜能力。",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區強調時刻準備戰鬥，以實戰化演訓提升對台軍事威懾與作戰能力。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-18",
+      "title": "#直击东部战区练兵备战现场#【#从难从严开展实战化演训#】近日，东部战区空军某部以自身使命任务为牵引...",
+      "content": "#直击东部战区练兵备战现场#【#从难从严开展实战化演训#】近日，东部战区空军某部以自身使命任务为牵引，从难从严开展实战化机动补网演练，锤炼部队应急响应和电磁侦搜能力。（张常超、韦磊、马池、褚文聪）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5333173875247643",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
     "sentiment_score": -0.4,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "東部戰區聯勤保障中心進行自救互救抽考，包含止血、包扎、心肺復蘇及搬運轉移等戰傷救護訓練。",
+      "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "東部戰區強調練兵備戰，透過戰傷救護訓練為後續遂行任務奠定基礎，展現時刻準備戰鬥的姿態。"
+      "Political_statement": "東部戰區官方微博發布，暗示對台海周邊軍事設施或管線進行監控與戰備檢查，具有軍事威懾意圖。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-08-17",
+      "title": "#东部熄灯号# 光柱丈量每一寸管线，双手确认每一处节点。#阅海峡#",
+      "content": "#东部熄灯号# 光柱丈量每一寸管线，双手确认每一处节点。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5333022880301527",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區透過歷史戰役宣傳，隱喻對抗與軍事鬥爭意志，藉由「以弱搏強」敘事對台進行心理戰與威懾。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-08-17",
+      "title": "【#东部战区发布重磅视频黄桥烧饼胜利的味道#】1940年的#黄桥战役#，是新四军在苏北敌后打出的一场...",
+      "content": "【#东部战区发布重磅视频黄桥烧饼胜利的味道#】1940年的#黄桥战役#，是新四军在苏北敌后打出的一场经典战役。面对韩德勤部三万重兵合围，七千健儿以弱搏强、以少胜多，不仅粉碎了国民党顽固派“聚歼新四军”的图谋，更为建立苏北抗日根据地、打开华中抗战新局面奠定了基础。今天，东部战区新媒体“战鼓 ...全文",
+      "url": "https://m.weibo.cn/detail/5332999705200792",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區無錫聯勤保障中心進行自救互救抽考，包含止血、包扎、心肺復蘇及搬運轉移等戰傷救護訓練。",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區透過練兵備戰現場報導，強調時刻準備戰鬥，為遂行任務進行戰傷救護評估。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1525,11 +1573,11 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "",
+      "Military_exercise": "東部戰區發布軍事訓練相關貼文，強調戰術訓練與對敵意識。",
       "Foreign_battleship": "",
-      "Political_statement": "中共東部戰區透過社群媒體發布軍事訓練內容，以「匍匐越低，離敵人越近」暗示針對台灣的軍事準備與威脅。"
+      "Political_statement": "東部戰區透過社群媒體發布軍事訓練內容，隱含對台軍事威懾意圖。"
     },
-    "confidence": 0.98,
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-08-14",
       "title": "#东部熄灯号#匍匐越低，离敌人越近。#阅海峡#",
@@ -1573,9 +1621,9 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "中國東部戰區發布氣墊登陸艇訓練動態，暗示兩棲突擊演練。",
+      "Military_exercise": "中國東部戰區發布氣墊艇突擊訓練相關內容，暗示針對台海的軍事準備。",
       "Foreign_battleship": "",
-      "Political_statement": "東部戰區透過社群媒體發布軍事訓練內容，強調突擊使命，對台施加軍事壓力。"
+      "Political_statement": "東部戰區透過社群媒體發布軍事訓練動態，強調突擊使命，具備對台軍事威懾意圖。"
     },
     "confidence": 0.98,
     "original_article": {
@@ -1625,7 +1673,7 @@
       "Foreign_battleship": "",
       "Political_statement": "中共東部戰區透過社群媒體發布具軍事威脅暗示的貼文，以「獵手」與「瞄準」隱喻對台軍事壓力。"
     },
-    "confidence": 0.95,
+    "confidence": 0.98,
     "original_article": {
       "date": "2026-08-12",
       "title": "#东部熄灯号#瞄准镜里没有风，只有一击必中的沉静。晚安，孤独的猎手。#阅海峡#",
@@ -1656,6 +1704,30 @@
       "content": "#直击东部战区练兵备战现场#【#砥砺官兵血性胆气# 】近日，东部战区空军某部组织刺杀对抗训练，砥砺近战肉搏的血性胆气与克敌制胜的过硬本领。#时刻准备战斗#（吴梓豪、蒋炎森、钱明祺、陈叶楠）",
       "url": "https://m.weibo.cn/detail/5330999548053960",
       "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中方敦促太平洋岛国论坛秘书处恪守一个中国原则，反对台湾参与国际组织活动，要求妥善处理涉台问题。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-11",
+      "title": "外交部：敦促太平洋岛国论坛秘书处恪守一个中国原则",
+      "content": "有记者问：据了解，太平洋岛国论坛一名官员称，台湾代表将出席8月30日至9月4日在帕劳举行的太平洋岛国论坛领导人会议。去年因中方抗议，台湾方面被禁止参加所罗门群岛主办的太平洋岛国论坛领导人会议。中方对此有何评论？ 郭嘉昆表示，在中国台湾地区参与国际组织活动问题上，中方立场是一贯、明确的，即必须按照一个中国原则处理，这也是联合国大会第2758号决议确认的国际关系基本准则和国际社会普遍共识。 郭嘉昆说：“中方敦促太平洋岛国论坛秘书处恪守一个中国原则，妥善处理涉台问题，避免影响中国和论坛关系健康稳定发展。”",
+      "url": "https://www.news.cn/tw/20260811/f48282fe51c9411581ac1830315f5b41/c.html",
+      "source": "xinhua",
       "category": "",
       "sentiment": ""
     }
