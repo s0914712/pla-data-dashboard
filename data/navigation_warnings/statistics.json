@@ -1,10 +1,10 @@
 {
-  "update_time": "2026-08-18T03:08:59.723376",
-  "total_warnings": 174,
-  "new_this_run": 4,
-  "with_coordinates": 167,
-  "with_time_periods": 153,
-  "with_start_date": 153,
+  "update_time": "2026-08-19T03:11:00.917176",
+  "total_warnings": 176,
+  "new_this_run": 2,
+  "with_coordinates": 168,
+  "with_time_periods": 155,
+  "with_start_date": 155,
   "date_range": {
     "earliest": "2026-03-15",
     "latest": "2026-08-18"
@@ -14,7 +14,7 @@
     "辽宁海事局": 47,
     "海南海事局": 44,
     "连云港海事局": 6,
-    "广东海事局": 21,
+    "广东海事局": 23,
     "天津海事局": 3,
     "上海海事局": 2,
     "河北海事局": 4,
