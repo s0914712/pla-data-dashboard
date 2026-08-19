@@ -29998,5 +29998,81 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-08-19",
+      "title": "#直击东部战区练兵备战现场#【#装备质量专项整治#】近日，东部战区空军某场站聚焦运输投送行业，集中开...",
+      "content": "#直击东部战区练兵备战现场#【#装备质量专项整治#】近日，东部战区空军某场站聚焦运输投送行业，集中开展装备质量专项整治工作。有效提升了装备的完好率和出勤率，为高效完成军事运输投送任务奠定了坚实基础。（周必伟、张琛、李凯）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5333536263112483",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-08-18",
+      "title": "#东部熄灯号#履带碾过滩涂，身后是深蓝，身前是冲锋的方向。#阅海峡#",
+      "content": "#东部熄灯号#履带碾过滩涂，身后是深蓝，身前是冲锋的方向。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5333385267906694",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-08-18",
+      "title": "【制胜铁拳！#96A式主战坦克高清画面来了#】它“火力猛”——适配多型弹种，有效压制敌方前沿火力，摧...",
+      "content": "【制胜铁拳！#96A式主战坦克高清画面来了#】它“火力猛”——适配多型弹种，有效压制敌方前沿火力，摧毁敌坚固防御工事，支撑集群纵深突击；它“打得准”——搭载先进火控系统，可在全天候全时段及复杂地形条件下实现动对动精准射击；它“防护强”——采用先进复合式装甲，配备主动干扰装置，抵御常规 ...全文",
+      "url": "https://m.weibo.cn/detail/5333338172692032",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {},
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-08-18",
+      "title": "【#炎炎夏日送清凉#】近日，东部战区空军某场站创新打造一线冷饮室，深入空勤人员群体和保障作业一线开展...",
+      "content": "【#炎炎夏日送清凉#】近日，东部战区空军某场站创新打造一线冷饮室，深入空勤人员群体和保障作业一线开展“送清凉”服务，得到了驻训空勤人员和一线保障官兵的一致好评，为提振官兵精神状态、深化练兵备战提供有力保障。（杨煌、金少明、雷文强、陈志豪）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5333264475881666",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
