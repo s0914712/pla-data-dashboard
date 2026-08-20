@@ -30131,5 +30131,101 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區空軍進行野外應急阻力傘包裝考核，旨在提升實戰化應急保障能力。",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區透過官媒宣傳練兵備戰，強調提升應急保障硬實力。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-08-20",
+      "title": "#直击东部战区练兵备战现场#【#野外应急阻力伞包装考核进行中#】近日，东部战区空军某场站组织野外应急...",
+      "content": "#直击东部战区练兵备战现场#【#野外应急阻力伞包装考核进行中#】近日，东部战区空军某场站组织野外应急阻力伞包装。在模拟环境下，救生装具员理伞衣、捋伞绳、折叠封包，严格按照规程完成全套包装作业，考官现场计时、逐项检查，速度与质量双重检验。立足岗位实训，进一步锤炼应急保障硬实力。（赵映、 ...全文",
+      "url": "https://m.weibo.cn/detail/5333898650453109",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.8,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區發布夜間實彈射擊演練相關內容，強調對抗來犯之敵。",
+      "Foreign_battleship": "",
+      "Political_statement": "中共東部戰區透過社群媒體發布軍事威懾訊息，以強硬語氣警告潛在對手。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-19",
+      "title": "#东部熄灯号#怒吼撕碎夜空，每一道火舌都是对来犯之敌的回答。#阅海峡#",
+      "content": "#东部熄灯号#怒吼撕碎夜空，每一道火舌都是对来犯之敌的回答。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5333747656034936",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區透過宣傳軍事教官個人事蹟，旨在強化部隊戰鬥意志與對台威懾氛圍。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-08-19",
+      "title": "【#武教头闻金州#，带你读懂什么是真正的高手】 他出身武校，曾拿下北京市52公斤级散打亚军。入伍后，...",
+      "content": "【#武教头闻金州#，带你读懂什么是真正的高手】 他出身武校，曾拿下北京市52公斤级散打亚军。入伍后，他带着一身本事和傲气，在军营里“打”出一片新天地。今天，#东部战区#新媒体“战鼓”专栏带你走近“战星”——“武教头”闻金州，带你见识什么叫“真正的高手”。#战鼓砺气# （东部战区融媒体中心， ...全文",
+      "url": "https://m.weibo.cn/detail/5333699461648319",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.8,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-19",
+      "title": "【#萌娃夏令营圆满落幕#】近日，东部战区空军某部军娃夏令营活动圆满落幕。一众萌娃化身小小军人，沉浸式...",
+      "content": "【#萌娃夏令营圆满落幕#】近日，东部战区空军某部军娃夏令营活动圆满落幕。一众萌娃化身小小军人，沉浸式体验军营生活。此次夏令营让军娃们沉浸式感受军营风采，在欢乐与历练中播种担当、收获成长。（樊宗荣、沈鑫、岳文杰、褚文聪）",
+      "url": "https://m.weibo.cn/detail/5333626859555076",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
