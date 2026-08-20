@@ -913,6 +913,26 @@ def download_pdf(url):
 
 def is_target_navy_pdf(pdf_text):
     """判斷 PDF 是否為中國或俄羅斯海軍艦艇動向相關，排除統計/非動向報告"""
+    # 排除：災害派遣速報。
+    #
+    # 這是 2026/07/29 之後資料整批失真的元兇。熊本地震（7/28）後，統合幕僚監部
+    # 每天發一份災害派遣速報，內容形如「海自艦艇４隻（ぶんご、げんかい…）が
+    # 八代港に入港」「海自掃海母艦『うらが』」，剛好命中下面那組只看單詞的寬鬆
+    # 關鍵字（'艦艇'、'補給艦'、'護衛艦'），於是被當成中俄艦艇動向通報解析成
+    # 「未知海軍4艘艦艇航行」。這種速報的編號又通常排在當天最後（_02、_03），
+    # update_csv 是後寫覆蓋前寫，結果連同一天真正的通報一起蓋掉 ——
+    # 例如 p20260730_01.pdf 明明寫著中国海軍ジャンカイⅡ級フリゲート及び
+    # レンハイ級ミサイル駆逐艦通過宮古海峽北上東海，CSV 上卻只剩「未提及」。
+    if '災害派遣' in pdf_text:
+        return False
+    # 必要條件：統幕的中俄動向通報一律以「〜の動向について」為題
+    # （中国海軍艦艇／中国軍機／ロシア海軍艦艇／ロシア軍機の動向について）。
+    # 沒有「動向」二字的都不是動向通報：日米比共同訓練、多国間共同訓練への參加、
+    # 派遣海賊対処行動水上部隊的出入港通報，全都會提到艦艇與艦種而被誤收
+    # （實測 201 份快取 PDF，這條規則剔除 9 份自衛隊自身活動通報，
+    #   且沒有誤殺任何一份真正的動向通報）。
+    if '動向' not in pdf_text:
+        return False
     # 排除：海賊対処哨戒機活動報告
     if '海賊対処' in pdf_text and ('哨戒機' in pdf_text or 'Ｐ－３Ｃ' in pdf_text or 'P-3C' in pdf_text):
         return False
@@ -922,6 +942,40 @@ def is_target_navy_pdf(pdf_text):
     china_keywords = ['中国', '艦艇', '海軍', '護衛艦', '駆逐艦', '空母', '補給艦']
     russia_keywords = ['ロシア', 'ロシア海軍', 'ロシア連邦', '露海軍', 'ウダロイ', 'スラヴァ', 'ステレグシチー']
     return any(kw in pdf_text for kw in china_keywords + russia_keywords)
+
+
+def collect_day_texts(date, cache):
+    """取出同一天所有『動向通報』PDF 的文字，依編號排序。
+
+    防衛省一天可能發多份通報（p20260730_01、_02…），而 update_csv 是
+    後寫覆蓋前寫 —— 誰最後被處理，那天的 CSV 就只剩誰。7/29 之後每天都
+    多一份災害派遣速報排在最後，真正的艦艇通報就這樣被洗掉。
+
+    改成把當天所有動向通報併起來再分析：0/1 欄位自然變成 OR、艦型變成
+    聯集，而且因為讀的是快取而非「本次執行新抓到的」，同一天的通報就算
+    分成兩次執行才抓齊，結果也一樣（冪等）。
+    """
+    compact = date.replace('/', '').replace('-', '')
+    prefix = f'p{compact}_'
+    texts = []
+    for name in sorted(cache):
+        if not name.startswith(prefix):
+            continue
+        text = (cache[name] or {}).get('text')
+        if text and is_target_navy_pdf(text):
+            texts.append(text)
+    return texts
+
+
+def merge_day_text(date, cache, fallback_text=None):
+    """把當天所有動向通報併成一段文字。回傳 (文字, 併入份數)。
+
+    快取沒東西時退回單份文字（份數以 0 表示「沒走合併路徑」）。
+    """
+    texts = collect_day_texts(date, cache)
+    if not texts:
+        return fallback_text, 0
+    return '\n'.join(texts), len(texts)
 
 
 def extract_text_from_pdf(pdf_url):
@@ -1170,6 +1224,126 @@ def update_csv(date, data):
         return False
 
 
+# 由本爬蟲寫入、因此可以安全重算的欄位。
+#
+# 不含 remark：那是舊有欄位，混有布林值與人工文字。
+#
+# 也不含四個海峽欄位。海峽有自己的權威來源 —— rebuild_strait_columns()
+# 會把通過記在「實際通過日」而非報告日（防衛省常晚 1~3 天發布），還會從
+# 補述回溯補上沒有自己 PDF 的日子。analyze_with_rules() 一律記在報告日，
+# 在這裡寫回去等於把那些修正抹掉。海峽要重算請跑 --rebuild-straits。
+SCRAPER_OWNED_COLUMNS = [
+    c for c in BINARY_FIELDS if c not in STRAIT_JP_PATTERNS
+] + ['艦型', '備考', '國家']
+
+# 判斷 CSV 上的備考是否為本爬蟲產生（_generate_remark 的固定句型），
+# 用來決定「該日已無有效通報」時可不可以清掉。人工填的備考不動。
+_GENERATED_REMARK_RE = re.compile(r'^(?:中國|俄羅斯|中國、俄羅斯|未知)海軍.*(?:航行|通過)。$')
+
+
+def rebuild_reports(target_dates=None):
+    """用現行判讀規則，對文字快取裡的每一天重算並回填整列分析結果。
+
+    rebuild_strait_columns 只重算四個海峽欄位，修不了 艦型／備考／國家／
+    0/1 欄位裡的既有錯誤資料（例如災害派遣速報被誤讀成「未知海軍4艘艦艇
+    航行」）。這個模式補上那一段。
+
+    只碰 SCRAPER_OWNED_COLUMNS；且「該日已無有效通報」時，僅在備考看得出
+    是本爬蟲產生的情況下才清空，避免動到人工修正。
+    """
+    print("=" * 60)
+    print("🔧 通報重算模式（依現行規則重跑快取 PDF，回填整列分析結果）")
+    print("=" * 60)
+
+    if not os.path.exists(CSV_FILE):
+        print(f"❌ CSV 不存在: {CSV_FILE}")
+        return
+
+    cache = load_text_cache()
+    if not cache:
+        print(f"⚠️ 文字快取為空: {PDF_TEXT_CACHE}")
+        return
+    print(f"📄 文字快取: {len(cache)} 份")
+
+    dates = set()
+    for name in cache:
+        m = re.match(r'p(\d{4})(\d{2})(\d{2})_\d+\.pdf', name)
+        if m:
+            dates.add('/'.join(m.groups()))
+    if target_dates:
+        wanted = {d.replace('-', '/') for d in target_dates}
+        dates &= wanted
+    dates = sorted(dates)
+    print(f"📅 涵蓋日期: {len(dates)} 天"
+          f"（{dates[0]} ~ {dates[-1]}）" if dates else "📅 無可重算的日期")
+    if not dates:
+        return
+
+    df = pd.read_csv(CSV_FILE, encoding='utf-8-sig')
+    for col in SCRAPER_OWNED_COLUMNS:
+        if col not in df.columns:
+            df[col] = pd.NA
+
+    rewritten = cleared = untouched = 0
+    for date in dates:
+        mask = df['date'] == date
+        texts = collect_day_texts(date, cache)
+
+        if not texts:
+            if not mask.any():
+                continue
+            # 舊版把生成的描述寫進 remark，改版後才改寫 備考；兩邊都要看，
+            # 否則 7/20~7/25 那批（描述留在 remark、備考是空的）會漏清。
+            columns = list(SCRAPER_OWNED_COLUMNS)
+            generated = None
+            for col in ('備考', 'remark'):
+                if col not in df.columns:
+                    continue
+                value = df.loc[mask, col].iloc[0]
+                if isinstance(value, str) and _GENERATED_REMARK_RE.match(value.strip()):
+                    generated = value.strip()
+                    if col not in columns:
+                        columns.append(col)
+            if generated is not None:
+                df.loc[mask, columns] = pd.NA
+                cleared += 1
+                print(f"  🧹 {date} 當天無動向通報，清除誤寫的分析結果"
+                      f"（原備註：{generated}）")
+            else:
+                untouched += 1
+            continue
+
+        analysis = analyze_with_rules('\n'.join(texts), date)
+        analysis.pop('valid_report', None)
+
+        if not mask.any():
+            new_row = {col: pd.NA for col in df.columns}
+            new_row['date'] = date
+            df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+            df = df.sort_values(
+                'date', key=lambda s_: pd.to_datetime(s_, format='mixed', errors='coerce')
+            ).reset_index(drop=True)
+            mask = df['date'] == date
+            print(f"  ➕ {date} 原不在 CSV，已新增列")
+
+        for key, value in analysis.items():
+            if key in SCRAPER_OWNED_COLUMNS and key in df.columns:
+                df.loc[mask, key] = value
+        # 舊版留在 remark 的生成描述會與新的 備考 並存且內容不同，清掉舊的那份
+        if 'remark' in df.columns:
+            legacy = df.loc[mask, 'remark'].iloc[0]
+            if isinstance(legacy, str) and _GENERATED_REMARK_RE.match(legacy.strip()):
+                df.loc[mask, 'remark'] = pd.NA
+        rewritten += 1
+        merged = f"（併 {len(texts)} 份）" if len(texts) > 1 else ""
+        print(f"  ✓ {date}{merged} → {analysis.get('國家')} / "
+              f"{analysis.get('艦型')} / {analysis.get('備考')}")
+
+    df.to_csv(CSV_FILE, index=False, encoding='utf-8-sig')
+    print(f"\n✅ 完成：重寫 {rewritten} 列、清除 {cleared} 列、"
+          f"保留人工資料 {untouched} 列")
+
+
 def rebuild_strait_columns(target_dates=None, use_cache=True):
     """重新分析歷史記錄中所有 PDF，依新規則回填 CSV 的四個海峽欄位。
 
@@ -1378,6 +1552,15 @@ def main():
     """主程式"""
     import time
 
+    if os.getenv('REBUILD_REPORTS') == '1' or '--rebuild-reports' in sys.argv:
+        raw_dates = os.getenv('REBUILD_DATES', '')
+        for arg in sys.argv:
+            if arg.startswith('--dates='):
+                raw_dates = arg.split('=', 1)[1]
+        dates = [d.strip() for d in raw_dates.split(',') if d.strip()]
+        rebuild_reports(target_dates=dates or None)
+        return
+
     if os.getenv('REBUILD_STRAITS') == '1' or '--rebuild-straits' in sys.argv:
         # 可指定要重跑的日期（逗號分隔），不指定則沿用歷史記錄裡的全部 PDF。
         raw_dates = os.getenv('REBUILD_DATES', '')
@@ -1517,12 +1700,19 @@ def main():
         print(f"    📄 提取文本: {len(pdf_text)} 字")
 
         # 分析（規則 or LLM）
+        # 以「當天全部動向通報的合併文字」而非單份 PDF 進行分析，
+        # 否則同一天的第二份通報會把第一份的結果整列覆蓋掉。
+        day_text, day_count = merge_day_text(date, run_text_cache,
+                                             fallback_text=pdf_text)
+        if day_count > 1:
+            print(f"    🧩 併入當天 {day_count} 份動向通報一起分析")
+
         if USE_LLM and APERTIS_API_KEY:
             print(f"    🤖 AI 分析中...", end=" ")
-            analysis = analyze_with_apertis(pdf_text, date)
+            analysis = analyze_with_apertis(day_text, date)
         else:
             print(f"    📋 規則分析中...", end=" ")
-            analysis = analyze_with_rules(pdf_text, date)
+            analysis = analyze_with_rules(day_text, date)
 
         if not analysis:
             print("失敗\n")

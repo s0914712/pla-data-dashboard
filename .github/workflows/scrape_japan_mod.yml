@@ -10,6 +10,10 @@ on:
         description: '海峽欄位回填模式：重抓歷史 PDF，只更新四個海峽欄位與國家欄位，不動艦型/備考等人工修正'
         type: boolean
         default: false
+      rebuild_reports:
+        description: '通報重算模式：依現行判讀規則重跑 data/pdf_texts 快取，回填艦型/備考/國家/0-1 欄位（不動四個海峽欄位，那個請用 rebuild_straits）'
+        type: boolean
+        default: false
       rebuild_dates:
         description: '指定要回填的日期（逗號分隔，如 2025-07-24,2026-01-15）。留空則沿用 history 裡的全部 PDF。history 只回溯到 2026-02-18，更早的日期一定要用這個。'
         type: string
@@ -38,8 +42,10 @@ jobs:
 
     - name: Run Japan MOD scraper
       env:
-        # 指定了日期就一定是回填模式，不必兩個選項都勾
-        REBUILD_STRAITS: ${{ (inputs.rebuild_straits || inputs.rebuild_dates != '') && '1' || '0' }}
+        # 指定了日期就一定是回填模式，不必兩個選項都勾。
+        # rebuild_reports 會被優先處理（見 scraper_japan_mod.main）。
+        REBUILD_REPORTS: ${{ inputs.rebuild_reports && '1' || '0' }}
+        REBUILD_STRAITS: ${{ (inputs.rebuild_straits || (inputs.rebuild_dates != '' && !inputs.rebuild_reports)) && '1' || '0' }}
         REBUILD_DATES: ${{ inputs.rebuild_dates }}
       run: python scraper_japan_mod.py
       
