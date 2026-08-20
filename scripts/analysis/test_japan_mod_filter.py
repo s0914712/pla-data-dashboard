@@ -13,6 +13,9 @@ p20260730_01.pdf（中国海軍ジャンカイⅡ級・レンハイ級通過宮�
    部隊出入港通報全都當成中俄艦艇動向。
 2. 同一天多份通報時，update_csv() 是後寫覆蓋前寫。災害派遣速報編號
    通常排在最後，於是把當天真正的艦艇通報整列蓋掉。
+3. 修好 1、2 之後才浮出來的第三個問題：scripts/send_message.py 讀的是
+   舊欄位 remark，而 scraper 寫的是「備考」。remark 上殘留的改版前描述
+   被回填清掉後，LINE 推播就掉回 2026/03 的通報（見 [7]）。
 
 樣本全部取自 data/pdf_texts/japan_mod_texts.json（專案內的離線快取），
 所以這支測試不需要網路。
@@ -130,6 +133,38 @@ def main():
     contains("ハイジウ１０１級サルベージ救難艦",
              S._extract_ship_classes(cache["p20260709_01.pdf"]["text"]),
              ["※ハイジウ１０１級サルベージ救難艦"])
+
+    print("\n[7] LINE 推播讀得到最新通報（scripts/send_message.py）")
+    # scraper 寫的是「備考」，send_message 舊版只讀 remark。remark 上還留著
+    # 改版前寫進去的舊描述時看不出來；那些殘留被回填清掉之後，推播就掉回
+    # 2026/03 的通報 —— 使用者實際收到的就是這個。
+    try:
+        sys.path.insert(0, os.path.join(REPO_ROOT, "scripts"))
+        import send_message as M
+    except Exception as exc:                    # matplotlib 等相依缺席時
+        print(f"  ⚠️ 略過：無法載入 send_message（{exc}）")
+    else:
+        check("備考 優先", M._japan_remark({"備考": "甲", "remark": "乙"}), "甲")
+        check("備考 空則回頭找 remark",
+              M._japan_remark({"備考": "", "remark": "乙"}), "乙")
+        # remark 是舊有布林欄位，那些值不是描述文字
+        check("remark 的布林值不當描述",
+              M._japan_remark({"備考": "", "remark": "False"}), "")
+
+        import pandas as pd
+        df = pd.read_csv(M.JAPAN_MOD_CSV, encoding="utf-8-sig")
+        df["_d"] = pd.to_datetime(df["date"], format="mixed", errors="coerce")
+        newest = max(
+            (r["_d"] for _, r in df.iterrows() if M._japan_remark(r)),
+            default=None,
+        )
+        summary = M.summarize_japan_mod()
+        ok = newest is not None and newest.strftime("%Y/%m/%d") in summary
+        print(f"  {'✅' if ok else '❌'} 推播內容含最新一筆通報日 "
+              f"{newest.strftime('%Y/%m/%d') if newest is not None else '—'}")
+        if not ok:
+            print("     " + summary.replace("\n", "\n     "))
+            FAILURES.append("推播內容含最新一筆通報日")
 
     print("\n" + "=" * 60)
     if FAILURES:

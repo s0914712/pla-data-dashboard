@@ -640,6 +640,25 @@ def _japan_locations(row):
     return found
 
 
+# 通報描述文字有兩個欄位：備考（現行）與 remark（舊版）。
+#
+# scraper_japan_mod.py 早就改成寫入「備考」了 —— remark 是舊有欄位，
+# 混著布林值（1439 筆 True / 133 筆 False）與早期 LLM 產生的中文描述，
+# 寫進去會蓋掉原本的語意。但這裡三處判讀還在只看 remark，先前之所以
+# 沒出事，是因為 remark 上還留著改版前寫進去的舊描述。
+#
+# 那些殘留在回填時被清掉之後，「remark 非空的最新日期」就掉回
+# 2026/03/06（真的只有那個年代的列還留著 LLM 描述），LINE 推播於是
+# 天天推一則三月的通報。備考優先、remark 後備，兩邊都認。
+def _japan_remark(row):
+    """通報描述：優先取備考，沒有才回頭找 remark。"""
+    for col in ("備考", "remark"):
+        text = _s(row.get(col)).strip()
+        if text and text not in ("False", "True", "nan"):
+            return text
+    return ""
+
+
 def _japan_report_line(row, prefix="  • "):
     """單筆防衛省通報：日期｜國家｜艘數｜艦型｜地點｜方向。"""
     date_str = _s(row.get("date")).strip()
@@ -649,10 +668,10 @@ def _japan_report_line(row, prefix="  • "):
     if country and country not in ("nan", "未知"):
         bits.append(country)
 
-    # 艘數只能從 remark 文字取。plan_vessel_sorties 是國防部通報的「共艦」
+    # 艘數只能從通報描述文字取。plan_vessel_sorties 是國防部通報的「共艦」
     # 每日艘數（由 scraper.py 寫入），跟防衛省這一則通報的艦艇數無關 ——
     # 混用會出現「6 艘」配上「1艘艦艇航行」的自相矛盾。
-    m = re.search(r'(\d+)\s*艘', _s(row.get("remark")))
+    m = re.search(r'(\d+)\s*艘', _japan_remark(row))
     if m:
         bits.append(f"{m.group(1)} 艘")
 
@@ -685,8 +704,8 @@ def _japan_report_line(row, prefix="  • "):
     for d in detail:
         lines.append(f"      {d}")
 
-    remark = _s(row.get("remark")).strip()
-    if remark and remark not in ("False", "nan", "True"):
+    remark = _japan_remark(row)
+    if remark:
         lines.append(f"      {remark}")
     return "\n".join(lines)
 
@@ -698,12 +717,9 @@ def summarize_japan_mod(recent_days=3):
             return "🇯🇵 日本防衛省：無資料"
         df = pd.read_csv(JAPAN_MOD_CSV, encoding="utf-8-sig")
         df["_date"] = pd.to_datetime(df["date"], format="mixed", errors="coerce")
-        mask = (
-            df["_date"].notna()
-            & df["remark"].notna()
-            & (df["remark"].astype(str).str.strip() != "")
-            & (df["remark"].astype(str) != "False")
-        )
+        # 逐列取（備考 → remark 後備），空表也不會炸
+        df["_remark"] = [_japan_remark(r) for _, r in df.iterrows()]
+        mask = df["_date"].notna() & (df["_remark"] != "")
         valid = df[mask].sort_values("_date")   # 依日期排序，不靠列順序
         if valid.empty:
             return "🇯🇵 日本防衛省：近日無通報"
