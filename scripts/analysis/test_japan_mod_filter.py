@@ -108,8 +108,16 @@ def main():
     contains("2026/08/17 艦型為三份的聯集", merged["艦型"],
              ["無畏I級驅逐艦", "巴爾贊姆級情報收集艦", "イゴリ・ベロウソフ級潜水艦救難艦"])
 
-    print("\n[4] 當天只有災害派遣速報時，不該產出任何艦艇資料")
-    check("2026/08/19 無動向通報", S.collect_day_texts("2026/08/19", cache), [])
+    print("\n[4] 災害派遣速報不會被併進當天的動向通報")
+    # 不寫死「某天沒有動向通報」—— 防衛省可能事後補發（2026/08/19 起初
+    # 只有 _01 災害派遣，隔天才多了 _02 中国軍機の動向），那種斷言會隨
+    # 資料更新而失效。這裡測的是真正的不變式：不管當天還有什麼，
+    # collect_day_texts() 收到的文字裡不能有災害派遣速報。
+    quake_dates = sorted({f"{k[1:5]}/{k[5:7]}/{k[7:9]}"
+                          for k, v in cache.items() if "災害派遣" in v["text"]})
+    leaked = [d for d in quake_dates
+              if any("災害派遣" in t for t in S.collect_day_texts(d, cache))]
+    check(f"{len(quake_dates)} 個有災害派遣速報的日期都沒混入", leaked, [])
 
     print("\n[5] 艦型只取本次航跡，不吃過往指涉")
     # p20260730_01：本次是ジャンカイⅡ級（546）與レンハイ級（101）兩艘。
