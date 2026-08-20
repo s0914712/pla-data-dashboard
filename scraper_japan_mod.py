@@ -255,7 +255,13 @@ def _detect_country(text):
     和無法判定的報告全部算成解放軍。實測 2026 年有多筆俄羅斯艦艇
     （守護級、杜布納級、維什尼亞級）混在資料裡，若無國家欄位就無法
     在下游篩掉。判定不出來時回傳「未知」，由使用端決定怎麼處理。
+
+    只看本次航跡（見 _current_voyage_text）。末尾示意圖的「既公表」船團常是
+    另一國的艦艇，照全文判會讓一份純中国海軍的通報變成「中國、俄羅斯」——
+    實測 p20260803_01 就是這樣：圖例「：中国及びロシア海軍艦艇（既公表）」
+    講的是 7/16、7/19 那趟已公布的中俄混編，本次通報的三艘全是中國海軍。
     """
+    text = _current_voyage_text(text)
     has_china = '中国' in text
     has_russia = 'ロシア' in text or '露海軍' in text
     if has_china and has_russia:
@@ -265,6 +271,13 @@ def _detect_country(text):
     if has_china:
         return '中國'
     return '未知'
+
+
+# 合併同一天多份通報時的文件分隔符。用 ASCII 換頁符（form feed）而非換行，
+# 因為 _current_voyage_text() 得逐「份」切掉末尾的「行動概要」示意圖 ——
+# 若只用 '\n' 接起來，split('行動概要')[0] 會把第二份之後的通報整個丟掉
+# （實測 8/17 那天三份通報只剩第一份的艦型）。
+DOCUMENT_SEPARATOR = '\n\x0c\n'
 
 
 def _split_sentences(text):
@@ -291,7 +304,7 @@ def _split_sentences(text):
     整句判為過往指涉的話，連本次航跡也會被丟掉。因此在「なお」處再切
     一刀，讓補述自成一段，前半的本次航跡得以保留。
     """
-    joined = re.sub(r'[\r\n]+', '', text)
+    joined = re.sub(r'[\r\n\x0c]+', '', text)
     segments = []
     for sentence in joined.split('。'):
         # 用 lookahead 保留「なお」在後段開頭，供 _is_prior_reference 判別
@@ -691,7 +704,14 @@ def _detect_straits(text, diagnostics=None, source=None):
 
 
 def _detect_direction(text):
-    """偵測航行方向：進（進入東海）/ 出（駛向太平洋）"""
+    """偵測航行方向：進（進入東海）/ 出（駛向太平洋）
+
+    只看本次航跡（見 _current_voyage_text）。過往指涉與示意圖裡的舊航次
+    幾乎都是反向的（出去過才回得來），照全文判會讓大半的通報都變成
+    「往返東海與太平洋」。實測 p20260721_01 本次只是在沖ノ鳥島附近航行
+    並實施射擊訓練，宮古海峽南進是なお補述裡 7/16 的事 —— 舊寫法卻標了「出」。
+    """
+    text = _current_voyage_text(text)
     entering = 0  # 進
     exiting = 0   # 出
 
@@ -729,15 +749,58 @@ def _detect_direction(text):
 # 例如「ルーヤンⅢ級ミサイル駆逐艦」。SHIP_CLASS_DICT 是手工維護的 50 筆對照，
 # 新艦級一出現就會落到「未提及」—— 原文明明寫了艦型，下游卻看不到。
 # 這裡把未收錄的艦級原樣保留（標記 ※ 表示未翻譯），至少不會憑空消失。
+# 艦級名不是純片假名：
+#   「キロ改級潜水艦」（9 份）、「アルタイ改級補給艦」（3 份）夾著漢字「改」，
+#   「ハイジウ１０１級サルベージ救難艦」的編號有三位，
+#   「イゴリ・ベロウソフ級潜水艦救難艦」中間有中黑點。
+# 舊式樣只認「片假名＋單一數字」，這些艦級一律靜默消失（キロ改級是潛艦，
+# 漏掉的成本不小）。
 _SHIP_CLASS_FALLBACK_RE = re.compile(
-    r'([ァ-ヴー]{2,12}[ⅠⅡⅢⅣⅤ0-9０-９]?)級\s*'
+    r'([ァ-ヴー・]{2,12}(?:改)?[ⅠⅡⅢⅣⅤ0-9０-９]{0,3})級\s*'
     # 艦種取最長：貪婪量詞才會吃到「潜水艦救難艦」而不是停在「潜水艦」
     r'([一-龥ぁ-んァ-ヴー]{0,10}(?:艦|艇|母|フリゲート|コルベット|タンカー))?'
 )
 
 
+# 「行動概要」是報告末尾的航跡示意圖。圖上同時標了「今回公表」與「既公表」
+# 兩組船團，文字抽出後只剩一串艦名，看不出哪組是哪組。
+DIAGRAM_SECTION_MARKER = '行動概要'
+
+# 示意圖的圖例，例如「：中国及びロシア海軍艦艇（既公表）」。PyPDF2 的文字順序
+# 不保證圖例排在「行動概要」之後，實測 p20260803_01 的圖例混進照片說明那一段，
+# 讓一份純中国海軍的通報被判成「中國、俄羅斯」。既公表＝先前已公布，照定義
+# 就不屬於本次航跡，直接依這個字眼濾掉即可（實測不影響任何一份的艦型）。
+DIAGRAM_PRIOR_LEGEND = '既公表'
+
+
+def _current_voyage_text(text):
+    """只留下描述「本次航跡」的部分，供艦型擷取使用。
+
+    海峽欄位早就靠 _is_prior_reference() 擋掉過往指涉，艦型欄位卻是拿全文
+    做關鍵字比對，於是把兩處不屬於本次航跡的艦級一起收進來：
+
+      1. 末尾「行動概要」示意圖裡的「既公表」船團。例：p20260817_02 通報的
+         只有 8/15 的ウダロイⅠ級一艘，圖上另外標了 8/4~8/5 那趟的スラバ級、
+         ステレグシチー級 —— 舊版把三種艦級都寫進 CSV。
+      2. 「なお、…ものと同一である」的身分識別補述。例：p20260730_01 的
+         フチ級補給艦（９０２）只出現在 6/27~6/28 那趟舊航次裡，本次通報的
+         是ジャンカイⅡ級與レンハイ級兩艘。
+
+    照片說明（「ジャンカイⅡ級フリゲート（艦番号「５４６」）」）在示意圖之前，
+    拍的都是本次確認的艦艇，因此保留 —— 那是本次艦型的冗餘佐證。
+    """
+    kept = []
+    for document in text.split(DOCUMENT_SEPARATOR):
+        body = document.split(DIAGRAM_SECTION_MARKER)[0]
+        kept.extend(seg for seg in _split_sentences(body)
+                    if not _is_prior_reference(seg)
+                    and DIAGRAM_PRIOR_LEGEND not in seg)
+    return '。'.join(kept)
+
+
 def _extract_ship_classes(text):
-    """從日文文本提取艦艇級別並翻譯為繁中"""
+    """從日文文本提取艦艇級別並翻譯為繁中（只看本次航跡，見 _current_voyage_text）"""
+    text = _current_voyage_text(text)
     found = []
     matched_jp = []
     for jp_name, zh_name in SHIP_CLASS_DICT.items():
@@ -769,7 +832,13 @@ def _extract_ship_classes(text):
 
 
 def _extract_ship_count(text):
-    """提取艦艇數量"""
+    """提取艦艇數量（只看本次航跡，見 _current_voyage_text）
+
+    過往指涉裡的「計６隻」講的是別次航行的編隊規模。不切掉的話，一份
+    「ウダロイⅠ級１隻」的通報會被算成 3 艘（p20260817_02），備考也會出現
+    「3艘」配上只列 1 種艦型這種前後不一致的句子。
+    """
+    text = _current_voyage_text(text)
     # 嘗試找 "計N隻" 或 "N隻" 的模式
     matches = re.findall(r'(?:計|合計)?\s*(\d+)\s*隻', text)
     if matches:
@@ -975,7 +1044,7 @@ def merge_day_text(date, cache, fallback_text=None):
     texts = collect_day_texts(date, cache)
     if not texts:
         return fallback_text, 0
-    return '\n'.join(texts), len(texts)
+    return DOCUMENT_SEPARATOR.join(texts), len(texts)
 
 
 def extract_text_from_pdf(pdf_url):
@@ -1313,7 +1382,7 @@ def rebuild_reports(target_dates=None):
                 untouched += 1
             continue
 
-        analysis = analyze_with_rules('\n'.join(texts), date)
+        analysis = analyze_with_rules(DOCUMENT_SEPARATOR.join(texts), date)
         analysis.pop('valid_report', None)
 
         if not mask.any():
