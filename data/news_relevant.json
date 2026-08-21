@@ -30952,5 +30952,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-08-20",
+      "title": "【#欢送军校新生入学#】近日，江苏省无锡市锡山区人武部举行2026年军校新生送学仪式，为即将奔赴军校...",
+      "content": "【#欢送军校新生入学#】近日，江苏省无锡市锡山区人武部举行2026年军校新生送学仪式，为即将奔赴军校报到的9名来自江苏省天一中学的优秀青年学子送行。军地领导与新学员及家属代表座谈交流，勉励大家珍惜军校学习机遇，厚植家国情怀，苦练军事本领。（吴将、缪佳斌）#高光时刻#",
+      "url": "https://m.weibo.cn/detail/5333989247945860",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
