@@ -142,7 +142,39 @@ def main():
              S._extract_ship_classes(cache["p20260709_01.pdf"]["text"]),
              ["※ハイジウ１０１級サルベージ救難艦"])
 
-    print("\n[7] LINE 推播讀得到最新通報（scripts/send_message.py）")
+    print("\n[7] 軍機通報不是艦艇通報")
+    # 「〜軍機の動向について」講的是 Ｙ－９情報収集機、ＴＢ－００１無人機，
+    # 一艘船都沒有。舊版 _extract_ship_count() 末尾的 max(count, 1) 會憑空
+    # 生出 1 艘，備考變成「中國海軍1艘艦艇航行」—— 8/18、8/19 推播出去的
+    # 就是這個。進/出 也只該記艦艇，不能被轟炸機航線點亮。
+    air = cache["p20260818_02.pdf"]["text"]          # Ｙ－９×１機、ＴＢ－００１×１機
+    check("軍機通報 艘數為 0", S._extract_ship_count(air), 0)
+    check("軍機通報 架數", S._extract_aircraft_count(air), 2)
+    r = S.analyze_with_rules(air, "2026/08/18")
+    check("軍機通報 備考不講艦艇", "艦艇" in r["備考"], False)
+    check("軍機通報 備考", r["備考"], "中國軍2架軍機活動。")
+    check("軍機通報 空中旗標亮起", r["空中"], 1)
+    # p20260627_03：「東シナ海から四国沖の太平洋にかけて」是轟炸機航線
+    r = S.analyze_with_rules(cache["p20260627_03.pdf"]["text"], "2026/06/27")
+    check("軍機航線不算艦艇出海", (r["進"], r["出"]), (0, 0))
+    # 艦艇通報照舊
+    check("艦艇通報 艘數不受影響",
+          S._extract_ship_count(cache["p20260730_01.pdf"]["text"]), 2)
+
+    print("\n[8] 同一天多份通報的艘數：以艦番号去重，不是取 max 也不是硬加")
+    # 2026/07/21 有 5 份，_01 與 _06 是同一批（艦番号 １０３／１２４／３４３／９０３）。
+    # 取 max → 4（漏掉其他三批）；直接相加 → 13（那四艘被算兩次）。
+    merged, count = S.merge_day_text("2026/07/21", cache)
+    check("2026/07/21 併入 5 份", count, 5)
+    check("2026/07/21 艘數", S._extract_ship_count(merged), 9)
+    # 2026/08/10 單份通報涵蓋 4隻／2隻／3隻 三批共 6 個艦番号，以舷號為準
+    merged, _ = S.merge_day_text("2026/08/10", cache)
+    check("2026/08/10 艘數以艦番号為準", S._extract_ship_count(merged), 6)
+    # 2026/08/17 三份中有一份沒給舷號（2隻），差額要另計
+    merged, _ = S.merge_day_text("2026/08/17", cache)
+    check("2026/08/17 艘數", S._extract_ship_count(merged), 4)
+
+    print("\n[9] LINE 推播讀得到最新通報（scripts/send_message.py）")
     # scraper 寫的是「備考」，send_message 舊版只讀 remark。remark 上還留著
     # 改版前寫進去的舊描述時看不出來；那些殘留被回填清掉之後，推播就掉回
     # 2026/03 的通報 —— 使用者實際收到的就是這個。

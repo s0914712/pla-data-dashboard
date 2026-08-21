@@ -671,9 +671,14 @@ def _japan_report_line(row, prefix="  • "):
     # 艘數只能從通報描述文字取。plan_vessel_sorties 是國防部通報的「共艦」
     # 每日艘數（由 scraper.py 寫入），跟防衛省這一則通報的艦艇數無關 ——
     # 混用會出現「6 艘」配上「1艘艦艇航行」的自相矛盾。
-    m = re.search(r'(\d+)\s*艘', _japan_remark(row))
+    text = _japan_remark(row)
+    m = re.search(r'(\d+)\s*艘', text)
     if m:
         bits.append(f"{m.group(1)} 艘")
+    # 「〜軍機の動向について」是航空器通報，一艘船都沒有，數的是架數
+    m = re.search(r'(\d+)\s*架', text)
+    if m:
+        bits.append(f"{m.group(1)} 架")
 
     acts = [name for col, name in ACTIVITY_LABELS if _on(row, col)]
     if acts:

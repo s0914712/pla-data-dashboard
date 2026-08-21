@@ -128,7 +128,11 @@ SHIP_CLASS_DICT = {
 # 注意：海峽欄位（與那國/宮古/大禹/對馬）改由 _detect_straits 處理，
 # 必須同時滿足「艦艇通過」語境，避免單純飛機飛經或順帶提及被誤判
 BINARY_FIELD_KEYWORDS = {
-    '空中': ['ヘリコプター', '艦載機', '航空機', '発着艦', '艦載ヘリ', '飛行活動'],
+    # 後半那組是「〜軍機の動向について」通報的措辭。少了它們，一份
+    # 中国軍機の動向（Ｙ－９情報収集機、ＴＢ－００１無人機）在 CSV 上
+    # 四個活動欄位全是 0，LINE 推播連「空中活動」都不會標。
+    '空中': ['ヘリコプター', '艦載機', '航空機', '発着艦', '艦載ヘリ', '飛行活動',
+            '軍機', '爆撃機', '戦闘機', '無人機', '情報収集機', '哨戒機'],
     '聯合演訓': ['共同訓練', '合同演習', '共同行動', '連合演習', '共同演習'],
     '艦通過': ['通過', '航行'],
     '航母活動': ['空母', '航空母艦', '遼寧', '山東', '福建',
@@ -711,9 +715,25 @@ def _detect_direction(text):
     「往返東海與太平洋」。實測 p20260721_01 本次只是在沖ノ鳥島附近航行
     並實施射擊訓練，宮古海峽南進是なお補述裡 7/16 的事 —— 舊寫法卻標了「出」。
     """
-    text = _current_voyage_text(text)
     entering = 0  # 進
     exiting = 0   # 出
+    for document in _iter_documents(text):
+        current = _current_voyage_text(document)
+        # 進/出 描述的是艦艇進出東海，與 艦通過 及四個海峽欄位同一組語意。
+        # 軍機通報的「東シナ海から四国沖の太平洋にかけて」講的是轟炸機航線，
+        # 不該記成艦艇出海（實測 p20260627_03、p20260628_01 就是這樣被標了「出」）。
+        if not current.strip() or _document_is_aircraft_report(current):
+            continue
+        e, x = _detect_direction_in_document(current)
+        entering |= e
+        exiting |= x
+    return entering, exiting
+
+
+def _detect_direction_in_document(text):
+    """單份通報的方向判定；text 須為已切好的本次航跡。"""
+    entering = 0
+    exiting = 0
 
     # 太平洋 → 東シナ海 = 進
     if re.search(r'太平洋.{0,15}(から|より).{0,25}東シナ海', text):
@@ -831,25 +851,109 @@ def _extract_ship_classes(text):
     return '、'.join(found)
 
 
+# 「〜軍機の動向について」通報講的是航空器，一艘船都沒有。
+# 統幕把艦艇與航空器分開發布，兩種通報的標題只差「機」一個字。
+AIRCRAFT_REPORT_MARKER = '軍機の動向'
+
+# 航空器數量：「Ｔｕ－９５）×１機」「情報収集機（Ｙ-９）×１機」。
+# 全形×與半形 x 都要認，數字全形亦然（\d 在 Python3 匹配全形數字）。
+AIRCRAFT_COUNT_RE = re.compile(r'[×✕xX]\s*(\d+)\s*機')
+
+VESSEL_COUNT_RE = re.compile(r'(?:計|合計)?\s*(\d+)\s*隻')
+
+# 艦番号（舷號）。統幕幾乎每艘都標，是同一天跨通報去重的唯一可靠依據。
+HULL_NUMBER_RE = re.compile(r'艦番号\s*「\s*(\d+)\s*」')
+
+
+def _document_is_aircraft_report(document):
+    """該份通報講的是航空器而非艦艇。
+
+    先看有沒有「N隻」：艦艇通報就算提到艦載ヘリ×１機也還是艦艇通報，
+    艘數優先。剩下的才依標題與「×N機」判為軍機通報。
+    """
+    if VESSEL_COUNT_RE.search(document):
+        return False
+    return AIRCRAFT_REPORT_MARKER in document or bool(AIRCRAFT_COUNT_RE.search(document))
+
+
+def _iter_documents(text):
+    """逐份走訪（合併同一天多份通報時）。"""
+    return text.split(DOCUMENT_SEPARATOR)
+
+
 def _extract_ship_count(text):
     """提取艦艇數量（只看本次航跡，見 _current_voyage_text）
 
     過往指涉裡的「計６隻」講的是別次航行的編隊規模。不切掉的話，一份
     「ウダロイⅠ級１隻」的通報會被算成 3 艘（p20260817_02），備考也會出現
     「3艘」配上只列 1 種艦型這種前後不一致的句子。
+
+    不能對合併後的全文取 max —— 同一天的多份通報講的是不同編隊，取 max
+    等於只算最大的那一份（2026/06/29 有 8 份通報，舊寫法只算出 3 艘）。
+    但也不能直接相加：統幕常在同一天為同一批艦艇發兩份通報（2026/07/21
+    的 _01 與 _06 都是艦番号１０３／１２４／３４３／９０３ 那四艘），
+    相加會變成 13 艘。
+
+    因此以艦番号（舷號）跨通報去重，沒標舷號的部分才用該份自己宣告的
+    艘數補上。同一份裡宣告艘數多於舷號數時（有些艦沒給舷號），差額另計；
+    反之若舷號比宣告的多（2026/08/10 一份通報涵蓋 4隻、2隻、3隻三個
+    批次共 6 個舷號），以舷號為準。
+
+    軍機通報一艘船都沒有，要整份跳過；否則末尾那個 max(count, 1) 會替
+    「中国軍機の動向について」憑空生出 1 艘，備考就變成「中國海軍1艘艦艇
+    航行」—— 8/18、8/19 推播給使用者的就是這個。
     """
-    text = _current_voyage_text(text)
-    # 嘗試找 "計N隻" 或 "N隻" 的模式
-    matches = re.findall(r'(?:計|合計)?\s*(\d+)\s*隻', text)
-    if matches:
-        return max(int(m) for m in matches)
-    # 退回：計算字典中出現的不同艦級數
-    count = sum(1 for jp_name in SHIP_CLASS_DICT if jp_name in text)
-    return max(count, 1)
+    hulls = set()          # 全日去重
+    extra = 0              # 沒標艦番号、只能靠該份自己的數字
+    for document in _iter_documents(text):
+        current = _current_voyage_text(document)
+        if not current.strip():
+            continue
+        if _document_is_aircraft_report(current):
+            continue
+
+        found = set(HULL_NUMBER_RE.findall(current))
+        hulls |= found
+
+        matches = VESSEL_COUNT_RE.findall(current)
+        if matches:
+            declared = max(int(m) for m in matches)
+        elif found:
+            declared = len(found)
+        else:
+            # 退回：計算字典中出現的不同艦級數
+            declared = max(sum(1 for jp_name in SHIP_CLASS_DICT if jp_name in current), 1)
+        # 該份宣告的艘數多過它標出的艦番号時，差額另計（有些艦沒給舷號）
+        extra += max(declared - len(found), 0)
+    return len(hulls) + extra
 
 
-def _generate_remark(country, ship_count, ship_classes, active_straits, entering, exiting):
+def _extract_aircraft_count(text):
+    """提取航空器架數；逐份相加，理由同 _extract_ship_count。"""
+    total = 0
+    for document in _iter_documents(text):
+        current = _current_voyage_text(document)
+        if not current.strip() or not _document_is_aircraft_report(current):
+            continue
+        matches = AIRCRAFT_COUNT_RE.findall(current)
+        total += sum(int(m) for m in matches) if matches else 1
+    return total
+
+
+def _generate_remark(country, ship_count, ship_classes, active_straits,
+                     entering, exiting, aircraft_count=0):
     """生成繁中備註（70字以內）"""
+    # 海峽
+    strait_parts = [STRAIT_NAMES_ZH[s] for s in active_straits if s in STRAIT_NAMES_ZH]
+    strait_str = '經' + '、'.join(strait_parts) if strait_parts else ''
+
+    # 一艘船都沒有的軍機通報，講「N艘艦艇航行」是憑空捏造。
+    # 統幕的「〜軍機の動向について」是獨立的通報類型，主語是航空器，
+    # 而且未必屬於海軍（Ｙ－９情報収集機、ＴＢ－００１無人機），
+    # 因此稱「中國軍」而非「中國海軍」，動詞也用「活動」而非「航行」。
+    if ship_count == 0 and aircraft_count > 0:
+        return f'{country}軍{aircraft_count}架軍機{strait_str}活動。'
+
     country_part = country + '海軍'
 
     # 艦艇描述
@@ -862,10 +966,6 @@ def _generate_remark(country, ship_count, ship_classes, active_straits, entering
     else:
         ships_part = f'{ship_count}艘艦艇'
 
-    # 海峽
-    strait_parts = [STRAIT_NAMES_ZH[s] for s in active_straits if s in STRAIT_NAMES_ZH]
-    strait_str = '經' + '、'.join(strait_parts) if strait_parts else ''
-
     # 方向
     if entering and exiting:
         dir_str = '往返東海與太平洋航行'
@@ -876,7 +976,9 @@ def _generate_remark(country, ship_count, ship_classes, active_straits, entering
     else:
         dir_str = '航行'
 
-    remark = f'{country_part}{ships_part}{strait_str}{dir_str}。'
+    # 同一天既有艦艇也有軍機通報時，兩者都要交代
+    air_part = f'，另有{aircraft_count}架軍機活動' if aircraft_count else ''
+    remark = f'{country_part}{ships_part}{strait_str}{dir_str}{air_part}。'
     if len(remark) > 70:
         remark = remark[:69] + '。'
     return remark
@@ -905,8 +1007,9 @@ def analyze_with_rules(pdf_text, date):
     ship_classes = _extract_ship_classes(pdf_text)
     result['艦型'] = ship_classes
 
-    # 艦艇數量
+    # 艦艇數量與航空器架數
     ship_count = _extract_ship_count(pdf_text)
+    aircraft_count = _extract_aircraft_count(pdf_text)
 
     # 活躍海峽
     active_straits = [f for f in ['與那國', '宮古', '大禹', '對馬'] if result.get(f) == 1]
@@ -915,7 +1018,8 @@ def analyze_with_rules(pdf_text, date):
     # remark 是舊有的布林欄位（1439 筆 True / 133 筆 False），把生成的
     # 中文描述寫進去會蓋掉原本的語意，也讓該欄位同時混有布林值與文字。
     result['備考'] = _generate_remark(country, ship_count, ship_classes,
-                                      active_straits, entering, exiting)
+                                      active_straits, entering, exiting,
+                                      aircraft_count)
 
     return result
 
