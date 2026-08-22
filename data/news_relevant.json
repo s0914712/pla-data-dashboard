@@ -31187,5 +31187,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "None",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "福建省泉州市豐澤區為18名軍校錄取新生舉行歡送儀式，旨在宣傳參軍報國氛圍。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-21",
+      "title": "【#军校新学员欢送仪式来了# 】青春满怀报国志，建功立业正当时。近日，福建省泉州市丰泽区征兵办为辖区...",
+      "content": "【#军校新学员欢送仪式来了# 】青春满怀报国志，建功立业正当时。近日，福建省泉州市丰泽区征兵办为辖区18名军校录取新生举行欢送仪式，激发莘莘学子携笔从戎、参军报国的热情，浓厚“参军光荣、报国有我”的社会氛围。（傅磊） #高光时刻#",
+      "url": "https://m.weibo.cn/detail/5334351635809362",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
