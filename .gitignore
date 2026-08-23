@@ -33,3 +33,11 @@ data/charts/nav_warning_map.png
 
 # PDF 原文快取是刻意提交的（供離線驗證判讀邏輯），不要忽略
 !data/pdf_texts/japan_mod_texts.json
+
+# Supabase / LINE assistant — 憑證絕不進 Git（.env.example 只有名稱，可提交）
+supabase/.env
+supabase/.env.local
+supabase/.temp/
+*service-account*.json
+*service_account*.json
+gcp-*.json
