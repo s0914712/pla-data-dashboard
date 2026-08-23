@@ -182,11 +182,31 @@ LINE userId 的 SHA-256。
 **今天 / 明天** 快捷鍵、**選其他日期**（LINE 原生 `datetimepicker`，滑選不必打字）、
 **查記事**、**使用說明**。看不懂的訊息也回這張卡，而不是丟一大串文字。
 
-日檢視同時列出兩件事：
+日檢視分三區列出：**【行程】【請假】【記事】**。
 
-- **行程**：直接查 Google Calendar 的 `events.list`（`singleEvents=true`），
+- **行程／請假**：都來自 Google Calendar 的 `events.list`（`singleEvents=true`），
   所以在手機日曆 App 裡直接新增、不經過小助手的事件也會列出。
 - **記事**：查 Supabase 的 `notes_for_date()`。
+
+**怎麼分辨會議與請假**：小助手建立的事件會在
+`extendedProperties.private.req_type` 留下類型；手機上直接新增的、以及這個
+欄位上線前建立的沒有，就退回看標題（`isLeaveTitle()`，與解析使用者輸入時
+用的是同一組關鍵字）。
+
+**只查其中一種**：
+
+```
+誰請假 ／ 請假名單 ／ 查請假        ← 預設今天
+明天誰請假 ／ 查請假 8/28 ／ 查 8/28 請假
+明天會議                            ← 只看會議
+```
+
+選單也有「今天誰請假」「明天誰請假」兩顆快捷鍵（postback 帶 `f=leave`）。
+
+> **刻意的取捨**：裸的「…請假」結尾**不會**被當成查詢 —— 計畫書 §5.1 把
+> 「請假 8/29」「明天請假」定義成建立語句，若被查詢吃掉，使用者就再也沒辦法
+> 用最自然的說法請假。沒有查／看／列出前綴時，必須用「誰請假」「請假名單」
+> 這種明確問法才算查詢。這條有測試守著。
 
 Google 讀取失敗時仍會列出記事，並在訊息尾端附上錯誤原因——兩邊分開容錯。
 
@@ -270,7 +290,7 @@ Edge Function 用自動注入的 service role key 繞過 RLS。
 
 ```bash
 cd supabase/functions/line-assistant
-deno test --allow-env lib/    # 65 個單元測試（解析器 + 驗簽 + 日檢視 + 選單 + 引導流程 + 修訂 + 顯示格式）
+deno test --allow-env lib/    # 75 個單元測試（解析器 + 驗簽 + 日檢視 + 選單 + 引導流程 + 修訂 + 行程／請假分區 + 顯示格式）
 deno check index.ts           # 型別檢查
 deno lint                     # 靜態檢查
 ```

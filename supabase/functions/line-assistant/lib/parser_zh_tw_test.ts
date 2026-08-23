@@ -232,17 +232,54 @@ Deno.test("記事的 targetDate 會帶進 parse 結果", () => {
 
 // --- 日檢視查詢 --------------------------------------------------------------
 
+function dayQuery(text: string, date: string, filter: "all" | "meeting" | "leave" = "all") {
+  assertEquals(parse(text, NOW), { kind: "day_query", value: { date, filter } });
+}
+
 Deno.test("日檢視：裸日期即查詢", () => {
-  assertEquals(parse("明天", NOW), { kind: "day_query", value: { date: "2026-08-24" } });
-  assertEquals(parse("今天", NOW), { kind: "day_query", value: { date: "2026-08-23" } });
-  assertEquals(parse("8/28", NOW), { kind: "day_query", value: { date: "2026-08-28" } });
+  dayQuery("明天", "2026-08-24");
+  dayQuery("今天", "2026-08-23");
+  dayQuery("8/28", "2026-08-28");
 });
 
 Deno.test("日檢視：帶前後綴的查詢", () => {
-  assertEquals(parse("明天行程", NOW), { kind: "day_query", value: { date: "2026-08-24" } });
-  assertEquals(parse("查 8/28", NOW), { kind: "day_query", value: { date: "2026-08-28" } });
-  assertEquals(parse("明天有什麼", NOW), { kind: "day_query", value: { date: "2026-08-24" } });
-  assertEquals(parse("查詢 下週一 的行程", NOW), { kind: "day_query", value: { date: "2026-08-24" } });
+  dayQuery("明天行程", "2026-08-24");
+  dayQuery("查 8/28", "2026-08-28");
+  dayQuery("明天有什麼", "2026-08-24");
+  dayQuery("查詢 下週一 的行程", "2026-08-24");
+});
+
+// --- 行程與請假查詢分開 ------------------------------------------------------
+
+Deno.test("只查請假：明確問法不需要日期，預設今天", () => {
+  dayQuery("誰請假", "2026-08-23", "leave");
+  dayQuery("請假名單", "2026-08-23", "leave");
+  dayQuery("查請假", "2026-08-23", "leave");
+});
+
+Deno.test("只查請假：類別詞在日期前後都認得", () => {
+  dayQuery("明天誰請假", "2026-08-24", "leave");
+  dayQuery("查請假 8/28", "2026-08-28", "leave");   // 類別詞在日期前
+  dayQuery("查 8/28 請假", "2026-08-28", "leave");  // 類別詞在日期後
+});
+
+Deno.test("只查會議", () => {
+  dayQuery("明天會議", "2026-08-24", "meeting");
+});
+
+Deno.test("「明天請假」仍然是建立，不是查詢", () => {
+  // 計畫書 §5.1 把「請假 8/29」當成建立語句。若被當成查詢，
+  // 使用者就再也沒辦法用最自然的說法請假了。
+  assertEquals(schedule("明天請假").reqType, "leave");
+  assertEquals(schedule("明天請假").isAllDay, true);
+  assertEquals(schedule("請假 8/29 全天").startDate, "2026-08-29");
+  assertEquals(schedule("請假 8/29").startDate, "2026-08-29");
+  // 裸的「請假」沒有日期 → 補問，不要偷偷變成查詢
+  assert(incomplete("請假").includes("日期"));
+});
+
+Deno.test("帶時間的會議不會被會議後綴吃掉", () => {
+  assertEquals(schedule("明天 09:00-10:00 會議").title, "會議");
 });
 
 Deno.test("日檢視：有日期以外的內容就不是查詢，交給行程解析", () => {

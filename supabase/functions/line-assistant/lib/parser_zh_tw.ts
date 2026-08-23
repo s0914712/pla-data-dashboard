@@ -280,6 +280,20 @@ const LEAVE_KEYWORD = /(請假|休假|補假|事假|病假|特休)/;
 const MENU_RE = /^(?:選單|menu|功能|查詢|動態|查什麼)$/i;
 /** 日檢視查詢的前綴與後綴，剝掉之後應只剩一個日期。 */
 const DAY_QUERY_LEAD = /^(?:查詢|查|看|顯示|列出)\s*/;
+/**
+ * 只看請假的兩種寫法。
+ *
+ * 刻意分成兩條：「明天請假」在計畫書 §5.1 是「我明天要請假」的建立語句，
+ * 不能被當成查詢。所以裸的「…請假」結尾只有在帶了查／看／列出前綴時才算
+ * 查詢；沒有前綴時必須用「誰請假」「請假名單」這種明確的問法。
+ */
+const DAY_QUERY_LEAVE_EXPLICIT = /\s*(?:誰請假|誰不在|請假名單|請假狀況|休假名單)$/;
+const DAY_QUERY_LEAVE_SUFFIX = /\s*的?(?:請假|休假)$/;
+/** 帶前綴時類別詞可能在日期前面：「查請假 8/28」。 */
+const DAY_QUERY_LEAVE_PREFIX = /^的?(?:請假|休假)\s*/;
+const DAY_QUERY_MEETING_PREFIX = /^的?(?:會議|開會)\s*/;
+/** 只看會議：「明天會議」。「行程」保留為全部，因為它是泛稱。 */
+const DAY_QUERY_MEETING = /\s*的?(?:會議|開會)$/;
 const DAY_QUERY_TAIL = /\s*(?:的?(?:行程|動態|排程|安排|活動|事情)|有什麼事?|有什麼|有啥|要做什麼)$/;
 
 /**
@@ -289,15 +303,42 @@ const DAY_QUERY_TAIL = /\s*(?:的?(?:行程|動態|排程|安排|活動|事情)|
  * 這樣「明天 09:00-10:30 週報會議」不會被誤判成查詢（拿掉日期後還有東西），
  * 而「明天」「明天行程」「查 8/28」會。
  */
-function tryDayQuery(text: string, today: YMD): string | null {
-  const stripped = text.replace(DAY_QUERY_LEAD, "").replace(DAY_QUERY_TAIL, "").trim();
-  if (!stripped) return null;
+function tryDayQuery(
+  text: string,
+  today: YMD,
+): { date: string; filter: "all" | "meeting" | "leave" } | null {
+  const hadLead = DAY_QUERY_LEAD.test(text);
+  let body = text.replace(DAY_QUERY_LEAD, "");
+
+  // 先看有沒有只查某一類的後綴；剝掉之後才輪到通用後綴
+  let filter: "all" | "meeting" | "leave" = "all";
+  if (DAY_QUERY_LEAVE_EXPLICIT.test(body)) {
+    filter = "leave";
+    body = body.replace(DAY_QUERY_LEAVE_EXPLICIT, "");
+  } else if (hadLead && DAY_QUERY_LEAVE_SUFFIX.test(body)) {
+    filter = "leave";
+    body = body.replace(DAY_QUERY_LEAVE_SUFFIX, "");
+  } else if (hadLead && DAY_QUERY_LEAVE_PREFIX.test(body)) {
+    filter = "leave";
+    body = body.replace(DAY_QUERY_LEAVE_PREFIX, "");
+  } else if (hadLead && DAY_QUERY_MEETING_PREFIX.test(body)) {
+    filter = "meeting";
+    body = body.replace(DAY_QUERY_MEETING_PREFIX, "");
+  } else if (DAY_QUERY_MEETING.test(body)) {
+    filter = "meeting";
+    body = body.replace(DAY_QUERY_MEETING, "");
+  }
+
+  const stripped = body.replace(DAY_QUERY_TAIL, "").trim();
+
+  // 「請假」「誰請假」單獨出現時沒有日期，預設查今天
+  if (!stripped) return filter === "all" ? null : { date: isoDate(today), filter };
 
   const hit = findDate(stripped, 0, today);
   if (!hit) return null;
 
   const remainder = cut(stripped, hit.start, hit.end);
-  return remainder === "" ? isoDate(hit.ymd) : null;
+  return remainder === "" ? { date: isoDate(hit.ymd), filter } : null;
 }
 
 /**
@@ -348,7 +389,7 @@ export function parse(raw: string, now: Date): ParseResult {
 
   // 4. 查詢某一天（必須只有日期，否則交給行程解析）
   const day = tryDayQuery(text, taipeiParts(now));
-  if (day) return { kind: "day_query", value: { date: day } };
+  if (day) return { kind: "day_query", value: day };
 
   // 5. 行程
   return parseSchedule(text, now);
@@ -489,6 +530,17 @@ function okSchedule(schedule: ParsedSchedule, now: Date, explicitYear: boolean):
     }
   }
   return { kind: "schedule", value: schedule };
+}
+
+/**
+ * 從標題判斷是不是請假。
+ *
+ * 供日檢視分區用。小助手建立的事件會在 extendedProperties 留下 req_type，
+ * 但手機日曆 App 直接新增的、以及這個欄位上線前建立的事件都沒有，
+ * 只能退回看標題 —— 跟解析使用者輸入時用的是同一組關鍵字。
+ */
+export function isLeaveTitle(summary: string): boolean {
+  return LEAVE_KEYWORD.test(summary);
 }
 
 /** 全天事件寫入 Google 時，end.date 為排除式（迄日 +1 天）。 */

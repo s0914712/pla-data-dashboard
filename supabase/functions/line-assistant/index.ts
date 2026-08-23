@@ -35,6 +35,7 @@ import {
   timePickCard,
   verifySignature,
 } from "./lib/line.ts";
+import type { DayFilter } from "./lib/line.ts";
 import type {
   CalendarRequestRow,
   DraftRow,
@@ -70,8 +71,10 @@ const HELP = [
   "· 挑日期 → 從當天清單選一筆 → 改時間／標題／地點、複製或刪除",
   "· 任何更動都會先給你「原本 → 改成」的確認卡",
   "",
-  "【看某一天有什麼】行程與記事一起列出",
+  "【看某一天有什麼】行程、請假、記事分區列出",
   "· 明天　／　明天行程　／　查 8/28",
+  "· 只看請假：誰請假　／　明天誰請假　／　查請假 8/28",
+  "· 只看會議：明天會議",
   "· 只 @ 我不打其他字 → 跳出功能選單",
   "",
   "【其他】/help 說明　/bind 綁定本群組（管理員）",
@@ -205,7 +208,7 @@ async function handleText(event: LineEvent): Promise<void> {
       return;
 
     case "day_query":
-      await showDayView(parsed.value.date, userId, groupId, replyToken);
+      await showDayView(parsed.value.date, parsed.value.filter, userId, groupId, replyToken);
       return;
 
     case "schedule":
@@ -364,6 +367,7 @@ async function showMenu(replyToken: string): Promise<void> {
  */
 async function showDayView(
   dateIso: string,
+  filter: DayFilter,
   userId: string,
   groupId: string | null,
   replyToken: string,
@@ -377,9 +381,12 @@ async function showDayView(
     console.error("listEvents failed:", calendarError);
   }
 
-  const notes = await db.listNotesForDate(db.scopeKeyFor(groupId, userId), dateIso);
+  // 只查請假時不必撈記事，少一次往返
+  const notes = filter === "all"
+    ? await db.listNotesForDate(db.scopeKeyFor(groupId, userId), dateIso)
+    : [];
 
-  let text = renderDayView(dateIso, events, notes);
+  let text = renderDayView(dateIso, events, notes, filter);
   if (calendarError) text += `\n\n⚠️ 行事曆讀取失敗：${calendarError}`;
   await replyText(replyToken, text);
 }
@@ -994,9 +1001,11 @@ async function handlePostback(event: LineEvent): Promise<void> {
       await replyText(replyToken, "日期格式不正確，請重新選一次。");
       return;
     }
+    const raw = params.get("f");
+    const filter: DayFilter = raw === "leave" || raw === "meeting" ? raw : "all";
     const groupId = event.source.groupId ?? null;
     if (groupId && !await db.isGroupAllowed(groupId)) return;
-    await showDayView(picked, userId, groupId, replyToken);
+    await showDayView(picked, filter, userId, groupId, replyToken);
     return;
   }
 

@@ -54,8 +54,11 @@ export type ParseResult =
   | { kind: "schedule"; value: ParsedSchedule }
   | { kind: "note"; value: ParsedNote }
   | { kind: "command"; value: { name: string; arg: string } }
-  /** 查詢某一天有什麼（行程 + 記事）。date 為 YYYY-MM-DD。 */
-  | { kind: "day_query"; value: { date: string } }
+  /**
+   * 查詢某一天有什麼。date 為 YYYY-MM-DD。
+   * filter 決定只看行程、只看請假，還是全部（含記事）。
+   */
+  | { kind: "day_query"; value: { date: string; filter: "all" | "meeting" | "leave" } }
   /** 叫出日期選單。 */
   | { kind: "menu" }
   | { kind: "incomplete"; reason: string }

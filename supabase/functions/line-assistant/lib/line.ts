@@ -308,6 +308,15 @@ export function mainMenuCard(todayIso: string, tomorrowIso: string): LineMessage
             ],
           },
           {
+            type: "box",
+            layout: "horizontal",
+            spacing: "sm",
+            contents: [
+              btn("今天誰請假", `act=day&f=leave&d=${todayIso}`, "查 今天請假"),
+              btn("明天誰請假", `act=day&f=leave&d=${tomorrowIso}`, "查 明天請假"),
+            ],
+          },
+          {
             type: "button",
             style: "secondary",
             height: "sm",
@@ -383,26 +392,59 @@ export function mainMenuCard(todayIso: string, tomorrowIso: string): LineMessage
   };
 }
 
-/** 把某一天的行程與記事組成一則文字訊息。 */
-export function renderDayView(dateIso: string, events: DayEvent[], notes: NoteRow[]): string {
+/** 日檢視只看其中一種，或全部。 */
+export type DayFilter = "all" | "meeting" | "leave";
+
+/**
+ * 把某一天的行程、請假與記事組成一則文字訊息。
+ *
+ * 行程與請假分區顯示 —— 混在一起時「請假（某某）」會淹沒在會議裡，
+ * 一眼看不出當天誰不在。filter 可以只列其中一種。
+ */
+export function renderDayView(
+  dateIso: string,
+  events: DayEvent[],
+  notes: NoteRow[],
+  filter: DayFilter = "all",
+): string {
+  const meetings = events.filter((e) => e.reqType === "meeting");
+  const leaves = events.filter((e) => e.reqType === "leave");
+  const showMeetings = filter === "all" || filter === "meeting";
+  const showLeaves = filter === "all" || filter === "leave";
+  const showNotes = filter === "all";
+
+  const when = (e: DayEvent) => e.isAllDay ? "全天" : `${e.startTime}-${e.endTime}`;
   const lines = [`📆 ${formatDate(dateIso)}`, ""];
 
-  lines.push(`【行程】${events.length === 0 ? "沒有安排" : ""}`);
-  for (const e of events) {
-    const when = e.isAllDay ? "全天" : `${e.startTime}-${e.endTime}`;
-    lines.push(`· ${when}　${e.summary}${e.location ? `（${e.location}）` : ""}`);
+  if (showMeetings) {
+    lines.push(`【行程】${meetings.length === 0 ? "沒有安排" : ""}`);
+    for (const e of meetings) {
+      lines.push(`· ${when(e)}　${e.summary}${e.location ? `（${e.location}）` : ""}`);
+    }
   }
 
-  lines.push("", `【記事】${notes.length === 0 ? "沒有記事" : ""}`);
-  for (const n of notes) {
-    // target_date 是 null 代表這是當天寫下、但沒指明日期的記事
-    const mark = n.target_date ? "" : "（當天記錄）";
-    lines.push(`· #${n.seq}　${n.content}${mark}`);
+  if (showLeaves) {
+    if (showMeetings) lines.push("");
+    lines.push(`【請假】${leaves.length === 0 ? "沒有人請假" : `${leaves.length} 人`}`);
+    for (const e of leaves) {
+      lines.push(`· ${when(e)}　${e.summary}`);
+    }
   }
 
-  if (events.length === 0 && notes.length === 0) {
-    lines.push("", "這一天目前是空的。");
+  if (showNotes) {
+    lines.push("", `【記事】${notes.length === 0 ? "沒有記事" : ""}`);
+    for (const n of notes) {
+      // target_date 是 null 代表這是當天寫下、但沒指明日期的記事
+      const mark = n.target_date ? "" : "（當天記錄）";
+      lines.push(`· #${n.seq}　${n.content}${mark}`);
+    }
   }
+
+  const nothing = (!showMeetings || meetings.length === 0) &&
+    (!showLeaves || leaves.length === 0) &&
+    (!showNotes || notes.length === 0);
+  if (nothing) lines.push("", "這一天目前是空的。");
+
   return lines.join("\n");
 }
 

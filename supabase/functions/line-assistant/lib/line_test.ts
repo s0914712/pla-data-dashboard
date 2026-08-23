@@ -14,6 +14,7 @@ const {
   verifySignature, stripMentions, isAddressedToBot, describeWhen, formatDate, mainMenuCard,
   timePickCard, hhmm, addMinutes,
   datePickCard, eventPickerCarousel, editActionCard, editConfirmCard, describeEvent,
+  renderDayView,
 } = await import("./line.ts");
 
 async function sign(body: string, secret = SECRET): Promise<string> {
@@ -257,7 +258,7 @@ Deno.test("describeEvent：UTC 進來也要顯示成台北時間", () => {
 Deno.test("事件挑選輪播：帶得出 event id，且不超過 12 顆", () => {
   const many = Array.from({ length: 20 }, (_, i) => ({
     id: `evt-${i}`, summary: `會議 ${i}`, location: null,
-    isAllDay: false, startTime: "09:00", endTime: "10:00",
+    isAllDay: false, startTime: "09:00", endTime: "10:00", reqType: "meeting" as const,
   }));
   const card = eventPickerCarousel("2026-08-25", many);
   const bubbles = JSON.parse(JSON.stringify(card)).contents.contents;
@@ -268,7 +269,8 @@ Deno.test("事件挑選輪播：帶得出 event id，且不超過 12 顆", () =>
 Deno.test("事件挑選輪播：event id 有做 URL 編碼", () => {
   // Google 的 id 通常是英數，但含特殊字元時不能污染 postback 的 query
   const card = eventPickerCarousel("2026-08-25", [{
-    id: "a&b=c", summary: "測試", location: null, isAllDay: true, startTime: null, endTime: null,
+    id: "a&b=c", summary: "測試", location: null, isAllDay: true,
+    startTime: null, endTime: null, reqType: "meeting" as const,
   }]);
   const json = JSON.stringify(card);
   assert(json.includes("act=ed_pick&e=a%26b%3Dc"), json);
@@ -309,4 +311,58 @@ Deno.test("日期選擇卡", () => {
   assert(json.includes('"mode":"date"'), json);
   assert(json.includes("act=et_d"), json);
   assert(json.includes('"initial":"2026-08-25"'), json);
+});
+
+// --- 行程與請假分區 ----------------------------------------------------------
+
+const MEETING = {
+  id: "m1", summary: "兵力協調會", location: "第一會議室", isAllDay: false,
+  startTime: "14:00", endTime: "15:00", reqType: "meeting" as const,
+};
+const LEAVE = {
+  id: "l1", summary: "請假（陳彥名）", location: null, isAllDay: true,
+  startTime: null, endTime: null, reqType: "leave" as const,
+};
+const NOTE = {
+  id: "n1", seq: 3, source_type: "group" as const, group_id: "G", user_id: "U",
+  scope_key: "g:G", content: "帶識別證", tags: [], target_date: "2026-08-25",
+  created_at: "2026-08-23T00:00:00+00:00", deleted_at: null,
+};
+
+Deno.test("日檢視：行程與請假各自成區", () => {
+  const out = renderDayView("2026-08-25", [MEETING, LEAVE], [NOTE]);
+  assert(out.includes("【行程】"), out);
+  assert(out.includes("【請假】"), out);
+  assert(out.includes("【記事】"), out);
+  // 請假不能混在行程區裡
+  const 行程區 = out.slice(out.indexOf("【行程】"), out.indexOf("【請假】"));
+  assert(行程區.includes("兵力協調會"), 行程區);
+  assert(!行程區.includes("陳彥名"), "請假跑進行程區了");
+  assert(out.includes("【請假】1 人"), "請假區要標人數");
+});
+
+Deno.test("日檢視：只查請假時不列行程與記事", () => {
+  const out = renderDayView("2026-08-25", [MEETING, LEAVE], [NOTE], "leave");
+  assert(out.includes("【請假】"), out);
+  assert(!out.includes("【行程】"), out);
+  assert(!out.includes("【記事】"), out);
+  assert(out.includes("陳彥名"), out);
+  assert(!out.includes("兵力協調會"), out);
+});
+
+Deno.test("日檢視：沒有人請假時講清楚", () => {
+  const out = renderDayView("2026-08-25", [MEETING], [], "all");
+  assert(out.includes("【請假】沒有人請假"), out);
+});
+
+Deno.test("日檢視：只查請假且真的沒人 → 空的一天", () => {
+  const out = renderDayView("2026-08-25", [MEETING], [NOTE], "leave");
+  assert(out.includes("沒有人請假"), out);
+  assert(out.includes("這一天目前是空的"), out);
+});
+
+Deno.test("選單有「誰請假」快捷鍵，且帶 f=leave", () => {
+  const json = JSON.stringify(mainMenuCard("2026-08-23", "2026-08-24"));
+  assert(json.includes("act=day&f=leave&d=2026-08-23"), json);
+  assert(json.includes("act=day&f=leave&d=2026-08-24"), json);
 });

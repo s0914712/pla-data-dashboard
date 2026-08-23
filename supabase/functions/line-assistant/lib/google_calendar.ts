@@ -7,7 +7,7 @@
  */
 
 import { requireEnv } from "./env.ts";
-import { exclusiveEndDate } from "./parser_zh_tw.ts";
+import { exclusiveEndDate, isLeaveTitle } from "./parser_zh_tw.ts";
 import type { CalendarRequestRow } from "./types.ts";
 
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
@@ -174,7 +174,9 @@ export async function insertEvent(
 
   const body: Record<string, unknown> = {
     summary,
-    extendedProperties: { private: { request_id: req.id, source: "line-assistant" } },
+    extendedProperties: {
+      private: { request_id: req.id, source: "line-assistant", req_type: req.req_type },
+    },
   };
   if (req.location) body.location = req.location;
   if (req.note) body.description = `備註：${req.note}`;
@@ -234,6 +236,8 @@ export interface DayEvent {
   /** 時段事件的 HH:MM（Asia/Taipei）；全天事件為 null。 */
   startTime: string | null;
   endTime: string | null;
+  /** 會議或請假。優先看 extendedProperties，沒有才退回看標題。 */
+  reqType: "meeting" | "leave";
 }
 
 /**
@@ -269,8 +273,22 @@ export async function listEvents(dateIso: string, timezone: string): Promise<Day
       isAllDay,
       startTime: isAllDay ? null : localHhmm(item.start?.dateTime),
       endTime: isAllDay ? null : localHhmm(item.end?.dateTime),
+      reqType: classify(item),
     };
   });
+}
+
+/**
+ * 判斷一筆事件是會議還是請假。
+ *
+ * 小助手建立的會在 extendedProperties.private.req_type 留下答案；
+ * 手機日曆 App 直接新增的、以及這個欄位上線前建立的沒有，退回看標題。
+ */
+// deno-lint-ignore no-explicit-any
+function classify(item: any): "meeting" | "leave" {
+  const tagged = item?.extendedProperties?.private?.req_type;
+  if (tagged === "leave" || tagged === "meeting") return tagged;
+  return isLeaveTitle(String(item?.summary ?? "")) ? "leave" : "meeting";
 }
 
 /**
