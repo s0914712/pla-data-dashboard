@@ -121,7 +121,11 @@ export interface NoteRow {
   deleted_at: string | null;
 }
 
-/** 引導式建立行程的暫存草稿（見 migration schedule_drafts）。 */
+/** 草稿目前在跑哪一種流程。 */
+export type DraftMode =
+  | "create" | "copy" | "edit_time" | "edit_title" | "edit_location" | "delete";
+
+/** 引導式建立／修訂的暫存草稿（見 migration schedule_drafts）。 */
 export interface DraftRow {
   scope_key: string;
   user_id: string;
@@ -131,5 +135,11 @@ export interface DraftRow {
   /** Postgres time 欄位讀回來是 "HH:MM:SS"。 */
   start_time: string | null;
   end_time: string | null;
+  mode: DraftMode;
+  /** 修訂／複製／刪除時指向的 Google event id。 */
+  event_id: string | null;
+  /** copy 時是原標題；edit_title 時是使用者剛打的新標題。 */
+  payload_title: string | null;
+  payload_location: string | null;
   updated_at: string;
 }

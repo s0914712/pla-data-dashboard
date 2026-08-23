@@ -2,7 +2,7 @@
 
 import { env, requireEnv } from "./env.ts";
 import type { CalendarRequestRow, LineEvent, NoteRow } from "./types.ts";
-import type { DayEvent } from "./google_calendar.ts";
+import type { DayEvent, FullEvent } from "./google_calendar.ts";
 
 const REPLY_URL = "https://api.line.me/v2/bot/message/reply";
 const PUSH_URL = "https://api.line.me/v2/bot/message/push";
@@ -340,6 +340,21 @@ export function mainMenuCard(todayIso: string, tomorrowIso: string): LineMessage
             },
           },
 
+          {
+            type: "button",
+            style: "secondary",
+            height: "sm",
+            action: {
+              type: "datetimepicker",
+              label: "修訂／刪除既有行程",
+              data: "act=ed_date",
+              mode: "date",
+              initial: todayIso,
+              min: "2020-01-01",
+              max: "2035-12-31",
+            },
+          },
+
           { type: "separator", margin: "md" },
           { type: "text", text: "記事", size: "sm", weight: "bold", margin: "sm" },
           {
@@ -437,6 +452,50 @@ export function timePickCard(
   };
 }
 
+/**
+ * 引導流程的日期選擇卡。與 timePickCard 同一組樣式，只是 mode=date。
+ */
+export function datePickCard(
+  title: string,
+  subtitle: string,
+  data: string,
+  initial: string,
+  label: string,
+): LineMessage {
+  return {
+    type: "flex",
+    altText: title,
+    contents: {
+      type: "bubble",
+      body: {
+        type: "box",
+        layout: "vertical",
+        spacing: "md",
+        contents: [
+          { type: "text", text: title, weight: "bold", size: "lg" },
+          { type: "text", text: subtitle, size: "sm", color: "#888888", wrap: true },
+          { type: "separator" },
+          {
+            type: "button",
+            style: "primary",
+            height: "sm",
+            action: {
+              type: "datetimepicker", label, data, mode: "date",
+              initial, min: "2020-01-01", max: "2035-12-31",
+            },
+          },
+          {
+            type: "button",
+            style: "secondary",
+            height: "sm",
+            action: { type: "postback", label: "取消", data: "act=ed_cancel", displayText: "取消" },
+          },
+        ],
+      },
+    },
+  };
+}
+
 /** "HH:MM:SS"（Postgres time）或 "HH:MM" 都收，一律回 "HH:MM"。 */
 export function hhmm(time: string): string {
   return time.slice(0, 5);
@@ -448,4 +507,167 @@ export function addMinutes(time: string, minutes: number): string {
   const total = (h * 60 + m + minutes) % (24 * 60);
   const pad = (n: number) => String(n).padStart(2, "0");
   return `${pad(Math.floor(total / 60))}:${pad(total % 60)}`;
+}
+
+// --- 修訂既有行程 ------------------------------------------------------------
+
+/** 一天的事件清單，每筆一顆泡泡加「選這筆」按鈕。 */
+export function eventPickerCarousel(dateIso: string, events: DayEvent[]): LineMessage {
+  // LINE carousel 上限 12 顆泡泡
+  const bubbles = events.slice(0, 12).map((e) => ({
+    type: "bubble",
+    size: "kilo",
+    body: {
+      type: "box",
+      layout: "vertical",
+      spacing: "sm",
+      contents: [
+        { type: "text", text: e.isAllDay ? "全天" : `${e.startTime}-${e.endTime}`, size: "xs", color: "#888888" },
+        { type: "text", text: e.summary, weight: "bold", size: "sm", wrap: true, maxLines: 3 },
+        ...(e.location
+          ? [{ type: "text", text: `📍 ${e.location}`, size: "xxs", color: "#888888", wrap: true }]
+          : []),
+      ],
+    },
+    footer: {
+      type: "box",
+      layout: "vertical",
+      contents: [{
+        type: "button",
+        style: "primary",
+        height: "sm",
+        action: {
+          type: "postback",
+          label: "選這筆",
+          data: `act=ed_pick&e=${encodeURIComponent(e.id)}`,
+          displayText: `修訂：${e.summary}`,
+        },
+      }],
+    },
+  }));
+
+  return {
+    type: "flex",
+    altText: `${formatDate(dateIso)} 有 ${events.length} 筆行程，請選一筆修訂`,
+    contents: { type: "carousel", contents: bubbles },
+  };
+}
+
+/** 選定一筆之後，問要對它做什麼。 */
+export function editActionCard(event: FullEvent): LineMessage {
+  const when = event.isAllDay
+    ? `${formatDate(event.startDate!)} 全天`
+    : `${splitLocalIso(event.startAt!).date} ${splitLocalIso(event.startAt!).time}-${splitLocalIso(event.endAt!).time}`;
+
+  const act = (label: string, data: string, style = "secondary", color?: string) => ({
+    type: "button",
+    style,
+    height: "sm",
+    ...(color ? { color } : {}),
+    action: { type: "postback", label, data, displayText: label },
+  });
+
+  return {
+    type: "flex",
+    altText: `要對「${event.summary}」做什麼？`,
+    contents: {
+      type: "bubble",
+      body: {
+        type: "box",
+        layout: "vertical",
+        spacing: "md",
+        contents: [
+          { type: "text", text: "要改什麼？", weight: "bold", size: "lg" },
+          { type: "text", text: event.summary, size: "sm", wrap: true },
+          { type: "text", text: when, size: "xs", color: "#888888" },
+          ...(event.location
+            ? [{ type: "text", text: `📍 ${event.location}`, size: "xs", color: "#888888", wrap: true }]
+            : []),
+          { type: "separator" },
+          act("改時間／日期", "act=ed_time", "primary"),
+          act("改標題", "act=ed_title"),
+          act("改地點", "act=ed_loc"),
+          act("複製成新的一筆", "act=ed_copy"),
+          { type: "separator", margin: "sm" },
+          act("刪除這筆行程", "act=ed_del", "primary", "#c62828"),
+          act("取消", "act=ed_cancel"),
+        ],
+      },
+    },
+  };
+}
+
+/**
+ * 修訂確認卡：原本 → 變更後，兩相對照再決定。
+ *
+ * 跟新建一樣，任何寫入前都要有這一步（計畫書 §1.2）；
+ * 刪除因為不可逆，額外把標題重述一次。
+ */
+export function editConfirmCard(
+  heading: string,
+  before: string,
+  after: string,
+  destructive = false,
+): LineMessage {
+  const row = (label: string, value: string, color: string) => ({
+    type: "box",
+    layout: "baseline",
+    spacing: "sm",
+    contents: [
+      { type: "text", text: label, color: "#888888", size: "sm", flex: 2 },
+      { type: "text", text: value, wrap: true, size: "sm", flex: 5, color },
+    ],
+  });
+
+  return {
+    type: "flex",
+    altText: `${heading}：${after}`,
+    contents: {
+      type: "bubble",
+      body: {
+        type: "box",
+        layout: "vertical",
+        spacing: "md",
+        contents: [
+          { type: "text", text: heading, weight: "bold", size: "lg", color: destructive ? "#c62828" : undefined },
+          { type: "separator" },
+          {
+            type: "box",
+            layout: "vertical",
+            spacing: "sm",
+            contents: [
+              row("原本", before, "#888888"),
+              row(destructive ? "將刪除" : "改成", after, destructive ? "#c62828" : "#000000"),
+            ],
+          },
+        ],
+      },
+      footer: {
+        type: "box",
+        layout: "horizontal",
+        spacing: "sm",
+        contents: [
+          {
+            type: "button",
+            style: "primary",
+            ...(destructive ? { color: "#c62828" } : {}),
+            action: { type: "postback", label: destructive ? "確認刪除" : "確認修改", data: "act=ed_apply" },
+          },
+          {
+            type: "button",
+            style: "secondary",
+            action: { type: "postback", label: "取消", data: "act=ed_cancel" },
+          },
+        ],
+      },
+    },
+  };
+}
+
+/** 把一筆 Google 事件的時間渲染成人類可讀字串，供修訂前後對照。 */
+export function describeEvent(event: FullEvent): string {
+  if (event.isAllDay) return `${formatDate(event.startDate!)} 全天`;
+  const s = splitLocalIso(event.startAt!);
+  const e = splitLocalIso(event.endAt!);
+  return s.date === e.date ? `${s.date} ${s.time}-${e.time}` : `${s.date} ${s.time} 至 ${e.date} ${e.time}`;
 }

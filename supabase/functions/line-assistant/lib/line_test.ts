@@ -13,6 +13,7 @@ Deno.env.set("LINE_CHANNEL_SECRET", SECRET);
 const {
   verifySignature, stripMentions, isAddressedToBot, describeWhen, formatDate, mainMenuCard,
   timePickCard, hhmm, addMinutes,
+  datePickCard, eventPickerCarousel, editActionCard, editConfirmCard, describeEvent,
 } = await import("./line.ts");
 
 async function sign(body: string, secret = SECRET): Promise<string> {
@@ -234,4 +235,78 @@ Deno.test("跨日判斷：結束不晚於開始就是隔天", () => {
   assert("01:00" <= "22:00", "字串比較足以判斷同日先後");
   assert(!("15:00" <= "14:00"));
   assert("14:00" <= "14:00", "相同時間視為跨日，避免產生零長度事件");
+});
+
+// --- 修訂既有行程 ------------------------------------------------------------
+
+const EVT = {
+  id: "abc123xyz", summary: "兵力協調會", location: "第一會議室", isAllDay: false,
+  // 資料庫／Google 回來的都可能是 UTC，這裡刻意用 UTC 當 fixture
+  startAt: "2026-08-25T06:00:00+00:00", endAt: "2026-08-25T07:00:00+00:00",
+  startDate: null, endDate: null,
+};
+
+Deno.test("describeEvent：UTC 進來也要顯示成台北時間", () => {
+  assertEquals(describeEvent(EVT), "2026/08/25（週二） 14:00-15:00");
+  assertEquals(
+    describeEvent({ ...EVT, isAllDay: true, startAt: null, endAt: null, startDate: "2026-08-29", endDate: "2026-08-30" }),
+    "2026/08/29（週六） 全天",
+  );
+});
+
+Deno.test("事件挑選輪播：帶得出 event id，且不超過 12 顆", () => {
+  const many = Array.from({ length: 20 }, (_, i) => ({
+    id: `evt-${i}`, summary: `會議 ${i}`, location: null,
+    isAllDay: false, startTime: "09:00", endTime: "10:00",
+  }));
+  const card = eventPickerCarousel("2026-08-25", many);
+  const bubbles = JSON.parse(JSON.stringify(card)).contents.contents;
+  assertEquals(bubbles.length, 12, "LINE carousel 上限是 12");
+  assert(JSON.stringify(card).includes("act=ed_pick&e=evt-0"));
+});
+
+Deno.test("事件挑選輪播：event id 有做 URL 編碼", () => {
+  // Google 的 id 通常是英數，但含特殊字元時不能污染 postback 的 query
+  const card = eventPickerCarousel("2026-08-25", [{
+    id: "a&b=c", summary: "測試", location: null, isAllDay: true, startTime: null, endTime: null,
+  }]);
+  const json = JSON.stringify(card);
+  assert(json.includes("act=ed_pick&e=a%26b%3Dc"), json);
+  assert(!json.includes("e=a&b=c"), "未編碼會把 postback 參數切斷");
+});
+
+Deno.test("修訂動作卡：五種操作都在", () => {
+  const json = JSON.stringify(editActionCard(EVT));
+  for (const a of ["act=ed_time", "act=ed_title", "act=ed_loc", "act=ed_copy", "act=ed_del", "act=ed_cancel"]) {
+    assert(json.includes(a), `缺少 ${a}`);
+  }
+  assert(json.includes("兵力協調會"), "要顯示目前的標題");
+  assert(json.includes("14:00-15:00"), "要顯示目前的時間（台北）");
+});
+
+Deno.test("修訂確認卡：一定有 原本 → 改成 兩行與確認鍵", () => {
+  const json = JSON.stringify(editConfirmCard("確認改時間", "舊時間", "新時間"));
+  assert(json.includes("原本") && json.includes("舊時間"), json);
+  assert(json.includes("改成") && json.includes("新時間"), json);
+  assert(json.includes("act=ed_apply"), "缺少套用鍵");
+  assert(json.includes("act=ed_cancel"), "缺少取消鍵");
+});
+
+Deno.test("刪除確認卡走破壞性樣式，文案不同", () => {
+  const json = JSON.stringify(editConfirmCard("確認刪除行程", "8/25 14:00-15:00", "兵力協調會", true));
+  assert(json.includes("將刪除"), "刪除卡的標籤要是「將刪除」而不是「改成」");
+  assert(json.includes("確認刪除"), json);
+  assert(json.includes("#c62828"), "破壞性操作要用紅色");
+});
+
+Deno.test("選單有修訂入口", () => {
+  const json = JSON.stringify(mainMenuCard("2026-08-23", "2026-08-24"));
+  assert(json.includes("act=ed_date"), "缺少修訂入口");
+});
+
+Deno.test("日期選擇卡", () => {
+  const json = JSON.stringify(datePickCard("改時間", "副標", "act=et_d", "2026-08-25", "選日期"));
+  assert(json.includes('"mode":"date"'), json);
+  assert(json.includes("act=et_d"), json);
+  assert(json.includes('"initial":"2026-08-25"'), json);
 });

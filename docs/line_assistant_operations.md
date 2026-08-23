@@ -136,6 +136,37 @@ groupId 不需手抄、不會出現在 log、也不用進 Secret。
 送出後走的是**完全相同的** `createRequest` 與確認卡流程，
 所以去重、原子確認、Google 冪等這些保護一個都沒少。
 
+### 修訂既有行程
+
+選單 →「修訂／刪除既有行程」→ 挑日期 → 當天事件以輪播卡列出 → 選一筆 → 決定要做什麼：
+
+| 動作 | 行為 |
+|---|---|
+| 改時間／日期 | 選新日期 → 開始 → 結束 → 確認 → `events.patch` 只送 `start`/`end` |
+| 改標題 | 輸入新標題 → 確認 → `events.patch` 只送 `summary` |
+| 改地點 | 輸入新地點 → 確認 → `events.patch` 只送 `location` |
+| 複製成新的一筆 | 沿用原標題與地點，選新日期時間 → 確認 → 建立**新**事件，原事件不動 |
+| 刪除 | 紅色確認卡 → `events.delete` |
+
+**可修訂的對象是日曆上所有事件**，不限小助手建立的 —— 事件清單直接來自
+`events.list`，`id` 帶進 postback，所以你在手機日曆 App 裡直接新增的也能改。
+
+**權限與建立一致**：白名單群組的任何成員都能修訂或刪除。每一筆都寫進
+`audit_logs`（`edit_edit_time`／`edit_delete` 等 action），`actor_hash` 是
+LINE userId 的 SHA-256。
+
+幾個刻意的設計：
+
+- **用 PATCH 不用 PUT** —— 只送要改的欄位，不會把使用者在日曆 App 上另外
+  填的參加者、提醒、描述洗掉。
+- **中間狀態存在草稿裡**（`mode` + `event_id`），所以 postback 不必一路
+  夾帶 event id，也不會超過 300 bytes 的上限。
+- **event id 有做 URL 編碼**再放進 postback，含特殊字元時不會把參數切斷。
+- **刪除回 410/404 視為成功** —— 對「把它刪掉」這個意圖來說結果相同，
+  重複按不會噴錯。
+- 建立流程的第一步會 `reset` 草稿，避免上一輪沒走完的修訂殘留 `mode`，
+  導致最後一步的文字被誤當成新標題。
+
 ### 日檢視：看某一天有什麼
 
 ```
@@ -185,7 +216,7 @@ Edge Function 用自動注入的 service role key 繞過 RLS。
 | `allowed_users` | 額外管理員／成員 |
 | `calendar_requests` | 待確認、結果、去重鍵 |
 | `notes` | 記事（軟刪除）。`target_date` 為推論出的歸屬日期，可為 null |
-| `schedule_drafts` | 引導式建立行程的中間狀態，一個人一個 scope 一張，逾時自動清除 |
+| `schedule_drafts` | 引導式建立**與修訂**的中間狀態（`mode` + `event_id`），一個人一個 scope 一張，逾時自動清除 |
 | `audit_logs` | 稽核。`actor_hash` 是 LINE userId 的 SHA-256，不留原始 ID |
 
 狀態機：`pending → processing → confirmed`；取消 `canceled`；失敗 `failed`；逾時 `expired`。
@@ -239,7 +270,7 @@ Edge Function 用自動注入的 service role key 繞過 RLS。
 
 ```bash
 cd supabase/functions/line-assistant
-deno test --allow-env lib/    # 57 個單元測試（解析器 + 驗簽 + 日檢視 + 選單 + 引導流程 + 顯示格式）
+deno test --allow-env lib/    # 65 個單元測試（解析器 + 驗簽 + 日檢視 + 選單 + 引導流程 + 修訂 + 顯示格式）
 deno check index.ts           # 型別檢查
 deno lint                     # 靜態檢查
 ```

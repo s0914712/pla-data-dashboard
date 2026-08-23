@@ -226,6 +226,8 @@ export async function probeAccess(): Promise<{ ok: boolean; detail: string }> {
 // --- 日檢視 ------------------------------------------------------------------
 
 export interface DayEvent {
+  /** Google event id —— 修訂流程靠這個指向同一筆事件。 */
+  id: string;
   summary: string;
   location: string | null;
   isAllDay: boolean;
@@ -261,6 +263,7 @@ export async function listEvents(dateIso: string, timezone: string): Promise<Day
   return (body.items ?? []).map((item: any): DayEvent => {
     const isAllDay = Boolean(item.start?.date);
     return {
+      id: String(item.id ?? ""),
       summary: String(item.summary ?? "(無標題)"),
       location: item.location ? String(item.location) : null,
       isAllDay,
@@ -281,4 +284,83 @@ function localHhmm(dateTime: string | undefined): string | null {
   if (Number.isNaN(ms)) return dateTime.slice(11, 16);
   const tpe = new Date(ms + 8 * 60 * 60_000);
   return `${String(tpe.getUTCHours()).padStart(2, "0")}:${String(tpe.getUTCMinutes()).padStart(2, "0")}`;
+}
+
+// --- 修訂既有事件 ------------------------------------------------------------
+
+/** 一筆事件的完整樣貌，供修訂前後對照。 */
+export interface FullEvent {
+  id: string;
+  summary: string;
+  location: string | null;
+  isAllDay: boolean;
+  /** 時段事件：原始帶位移的 ISO 字串；全天事件為 null。 */
+  startAt: string | null;
+  endAt: string | null;
+  /** 全天事件：start.date 與 end.date（後者是 Google 的排除式）。 */
+  startDate: string | null;
+  endDate: string | null;
+}
+
+// deno-lint-ignore no-explicit-any
+function toFullEvent(item: any): FullEvent {
+  const isAllDay = Boolean(item.start?.date);
+  return {
+    id: String(item.id ?? ""),
+    summary: String(item.summary ?? "(無標題)"),
+    location: item.location ? String(item.location) : null,
+    isAllDay,
+    startAt: isAllDay ? null : (item.start?.dateTime ?? null),
+    endAt: isAllDay ? null : (item.end?.dateTime ?? null),
+    startDate: isAllDay ? (item.start?.date ?? null) : null,
+    endDate: isAllDay ? (item.end?.date ?? null) : null,
+  };
+}
+
+export async function getEvent(eventId: string): Promise<FullEvent | null> {
+  const res = await callCalendar(
+    `/calendars/${encodeURIComponent(calendarId())}/events/${encodeURIComponent(eventId)}`,
+  );
+  if (!res.ok) {
+    await res.body?.cancel();
+    return null;
+  }
+  return toFullEvent(await res.json());
+}
+
+/**
+ * 局部更新一筆事件。用 PATCH 而不是 PUT —— 只送要改的欄位，
+ * 不會把使用者在日曆 App 上另外填的參加者、提醒、描述洗掉。
+ */
+export async function patchEvent(
+  eventId: string,
+  patch: Record<string, unknown>,
+): Promise<void> {
+  const res = await callCalendar(
+    `/calendars/${encodeURIComponent(calendarId())}/events/${encodeURIComponent(eventId)}`,
+    { method: "PATCH", body: JSON.stringify(patch) },
+  );
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(`Google Calendar ${res.status}: ${err?.error?.message ?? ""}`.trim());
+  }
+  await res.body?.cancel();
+}
+
+/**
+ * 刪除一筆事件。
+ *
+ * 410 Gone 代表「已經被刪掉了」—— 對「把它刪掉」這個意圖來說結果相同，
+ * 所以視為成功，重複按刪除不會噴錯。
+ */
+export async function deleteEvent(eventId: string): Promise<void> {
+  const res = await callCalendar(
+    `/calendars/${encodeURIComponent(calendarId())}/events/${encodeURIComponent(eventId)}`,
+    { method: "DELETE" },
+  );
+  if (!res.ok && res.status !== 410 && res.status !== 404) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(`Google Calendar ${res.status}: ${err?.error?.message ?? ""}`.trim());
+  }
+  await res.body?.cancel();
 }

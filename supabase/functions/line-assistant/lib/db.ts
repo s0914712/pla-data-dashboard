@@ -8,7 +8,9 @@
  * 不需要（也不可以）手動設成 secret。service role key 會繞過 RLS。
  */
 
-import type { CalendarRequestRow, DraftRow, NoteRow, RequestStatus, SourceType } from "./types.ts";
+import type {
+  CalendarRequestRow, DraftMode, DraftRow, NoteRow, RequestStatus, SourceType,
+} from "./types.ts";
 
 const REST = `${Deno.env.get("SUPABASE_URL")}/rest/v1`;
 const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
@@ -251,7 +253,8 @@ export async function softDeleteNote(id: string): Promise<void> {
 
 /**
  * 逐步寫入草稿。只帶這一步拿到的欄位，其餘由 SQL 端保留。
- * 重新挑日期時 SQL 會把時間清掉，避免沿用上一輪的殘值。
+ * reset=true 代表開一個新流程，會把上一輪殘留的欄位整個清掉。
+ * 重新挑日期時 SQL 也會把時間清掉，避免沿用上一輪的殘值。
  */
 export async function upsertDraft(args: {
   scope_key: string;
@@ -261,6 +264,11 @@ export async function upsertDraft(args: {
   date?: string | null;
   start?: string | null;
   end?: string | null;
+  mode?: DraftMode;
+  event_id?: string | null;
+  title?: string | null;
+  location?: string | null;
+  reset?: boolean;
 }): Promise<DraftRow> {
   return await request<DraftRow>("/rpc/upsert_draft", {
     method: "POST",
@@ -272,22 +280,27 @@ export async function upsertDraft(args: {
       p_date: args.date ?? null,
       p_start: args.start ?? null,
       p_end: args.end ?? null,
+      p_mode: args.mode ?? null,
+      p_event_id: args.event_id ?? null,
+      p_title: args.title ?? null,
+      p_location: args.location ?? null,
+      p_reset: args.reset ?? false,
     }),
   });
 }
 
-/** 只回傳三個欄位都齊、且還沒過期的草稿；順手清掉過期的。 */
-export async function takeReadyDraft(
+/** 取得尚未過期的草稿（不論完整與否），順手清掉過期的。 */
+export async function getDraft(
   scopeKey: string,
   userId: string,
   ttlMinutes: number,
 ): Promise<DraftRow | null> {
-  const row = await request<DraftRow | null>("/rpc/take_ready_draft", {
+  const row = await request<DraftRow | null>("/rpc/get_draft", {
     method: "POST",
     body: JSON.stringify({ p_scope_key: scopeKey, p_user_id: userId, p_ttl_min: ttlMinutes }),
   });
-  // 沒有草稿時 SQL 回傳的是 composite NULL，欄位會全是 null
-  return row && row.target_date ? row : null;
+  // 沒有草稿時 SQL 回傳 composite NULL，欄位會全是 null
+  return row && row.mode ? row : null;
 }
 
 export async function deleteDraft(scopeKey: string, userId: string): Promise<void> {
