@@ -1,7 +1,8 @@
 /** LINE Messaging API：簽章驗證、回覆、確認卡。 */
 
 import { env, requireEnv } from "./env.ts";
-import type { CalendarRequestRow, LineEvent } from "./types.ts";
+import type { CalendarRequestRow, LineEvent, NoteRow } from "./types.ts";
+import type { DayEvent } from "./google_calendar.ts";
 
 const REPLY_URL = "https://api.line.me/v2/bot/message/reply";
 const PUSH_URL = "https://api.line.me/v2/bot/message/push";
@@ -248,3 +249,84 @@ export async function displayName(event: LineEvent): Promise<string> {
 
 /** requireEnv 只在真的要送 Google 時才會用到，這裡 re-export 給 index.ts 方便使用。 */
 export { requireEnv };
+
+// --- 日檢視 ------------------------------------------------------------------
+
+/**
+ * 日期選單。
+ *
+ * 「選日期」用 LINE 原生的 datetimepicker action，使用者滑選即可，
+ * 不必手打日期；選完會以 postback.params.date 回傳 YYYY-MM-DD。
+ */
+export function dayMenuCard(todayIso: string, tomorrowIso: string): LineMessage {
+  const button = (label: string, date: string, style: string) => ({
+    type: "button",
+    style,
+    height: "sm",
+    action: { type: "postback", label, data: `act=day&d=${date}`, displayText: `查 ${label}` },
+  });
+
+  return {
+    type: "flex",
+    altText: "要看哪一天？",
+    contents: {
+      type: "bubble",
+      body: {
+        type: "box",
+        layout: "vertical",
+        spacing: "md",
+        contents: [
+          { type: "text", text: "要看哪一天？", weight: "bold", size: "lg" },
+          { type: "text", text: "會列出當天的行事曆行程與記事", size: "xs", color: "#888888", wrap: true },
+          { type: "separator" },
+          {
+            type: "box",
+            layout: "vertical",
+            spacing: "sm",
+            contents: [
+              button("今天", todayIso, "primary"),
+              button("明天", tomorrowIso, "primary"),
+              {
+                type: "button",
+                style: "secondary",
+                height: "sm",
+                action: {
+                  type: "datetimepicker",
+                  label: "選其他日期",
+                  data: "act=day",
+                  mode: "date",
+                  initial: todayIso,
+                  min: "2020-01-01",
+                  max: "2035-12-31",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  };
+}
+
+/** 把某一天的行程與記事組成一則文字訊息。 */
+export function renderDayView(dateIso: string, events: DayEvent[], notes: NoteRow[]): string {
+  const lines = [`📆 ${formatDate(dateIso)}`, ""];
+
+  lines.push(`【行程】${events.length === 0 ? "沒有安排" : ""}`);
+  for (const e of events) {
+    const when = e.isAllDay ? "全天" : `${e.startTime}-${e.endTime}`;
+    lines.push(`· ${when}　${e.summary}${e.location ? `（${e.location}）` : ""}`);
+  }
+
+  lines.push("", `【記事】${notes.length === 0 ? "沒有記事" : ""}`);
+  for (const n of notes) {
+    // target_date 是 null 代表這是當天寫下、但沒指明日期的記事
+    const mark = n.target_date ? "" : "（當天記錄）";
+    lines.push(`· #${n.seq}　${n.content}${mark}`);
+  }
+
+  if (events.length === 0 && notes.length === 0) {
+    lines.push("", "這一天目前是空的。");
+  }
+  return lines.join("\n");
+}

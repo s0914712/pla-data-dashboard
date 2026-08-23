@@ -11,19 +11,27 @@
 import { config, env, hasEnv, OPTIONAL_ENV, REQUIRED_ENV } from "./lib/env.ts";
 import * as db from "./lib/db.ts";
 import * as gcal from "./lib/google_calendar.ts";
-import { parse } from "./lib/parser_zh_tw.ts";
+import { addDays, isoDate, parse, taipeiParts } from "./lib/parser_zh_tw.ts";
 import {
   confirmCard,
+  dayMenuCard,
   describeWhen,
   displayName,
   hashActor,
   isAddressedToBot,
+  renderDayView,
   reply,
   replyText,
   stripMentions,
   verifySignature,
 } from "./lib/line.ts";
-import type { CalendarRequestRow, LineEvent, LineWebhookBody, ParsedSchedule } from "./lib/types.ts";
+import type {
+  CalendarRequestRow,
+  LineEvent,
+  LineWebhookBody,
+  ParsedNote,
+  ParsedSchedule,
+} from "./lib/types.ts";
 
 const HELP = [
   "📅 行程與記事小助手",
@@ -42,6 +50,10 @@ const HELP = [
   "· 記事 下週要交防務報告 #報告",
   "· 查記事 ／ 查記事 報告（關鍵字）",
   "· 刪記事 3",
+  "",
+  "【看某一天有什麼】行程與記事一起列出",
+  "· 明天　／　明天行程　／　查 8/28",
+  "· 選單（跳出日期選擇器）",
   "",
   "【其他】/help 說明　/bind 綁定本群組（管理員）",
   "",
@@ -144,6 +156,14 @@ async function handleText(event: LineEvent): Promise<void> {
       await handleNote(event.webhookEventId, parsed.value, userId, groupId, replyToken);
       return;
 
+    case "menu":
+      await showDayMenu(replyToken);
+      return;
+
+    case "day_query":
+      await showDayView(parsed.value.date, userId, groupId, replyToken);
+      return;
+
     case "schedule":
       await handleSchedule(event, parsed.value, text, userId, groupId, replyToken);
       return;
@@ -206,6 +226,11 @@ async function handleCommand(
   switch (name) {
     case "help":
       await replyText(replyToken, HELP);
+      return;
+
+    case "menu":
+    case "day":
+      await showDayMenu(replyToken);
       return;
 
     case "note_list":
@@ -272,11 +297,50 @@ async function diagnose(): Promise<string> {
   return lines.join("\n");
 }
 
+// --- 日檢視 ------------------------------------------------------------------
+
+function formatDateShort(iso: string): string {
+  return `${Number(iso.slice(5, 7))}/${Number(iso.slice(8, 10))}`;
+}
+
+async function showDayMenu(replyToken: string): Promise<void> {
+  const today = taipeiParts(new Date());
+  await reply(replyToken, [dayMenuCard(isoDate(today), isoDate(addDays(today, 1)))]);
+}
+
+/**
+ * 某一天的行程 + 記事。
+ *
+ * 行程直接查 Google Calendar（共用日曆是正式來源，手機上直接新增的事件也算），
+ * 記事查 Supabase。Google 掛掉時仍要能列出記事，所以兩邊分開容錯。
+ */
+async function showDayView(
+  dateIso: string,
+  userId: string,
+  groupId: string | null,
+  replyToken: string,
+): Promise<void> {
+  let events: Awaited<ReturnType<typeof gcal.listEvents>> = [];
+  let calendarError: string | null = null;
+  try {
+    events = await gcal.listEvents(dateIso, config.timezone);
+  } catch (err) {
+    calendarError = (err as Error).message;
+    console.error("listEvents failed:", calendarError);
+  }
+
+  const notes = await db.listNotesForDate(db.scopeKeyFor(groupId, userId), dateIso);
+
+  let text = renderDayView(dateIso, events, notes);
+  if (calendarError) text += `\n\n⚠️ 行事曆讀取失敗：${calendarError}`;
+  await replyText(replyToken, text);
+}
+
 // --- 記事 --------------------------------------------------------------------
 
 async function handleNote(
   webhookEventId: string,
-  value: { content: string; tags: string[] },
+  value: ParsedNote,
   userId: string,
   groupId: string | null,
   replyToken: string,
@@ -289,9 +353,11 @@ async function handleNote(
     scope_key: db.scopeKeyFor(groupId, userId),
     content: value.content,
     tags: value.tags,
+    target_date: value.targetDate,
   });
   await db.audit({ action: "note_create", actor_hash: await hashActor(userId), result: "ok" });
-  await replyText(replyToken, `📝 已記錄 #${note.seq}\n${note.content}`);
+  const dated = note.target_date ? `\n🗓 歸在 ${formatDateShort(note.target_date)}` : "";
+  await replyText(replyToken, `📝 已記錄 #${note.seq}\n${note.content}${dated}`);
 }
 
 async function handleNoteList(
@@ -386,6 +452,20 @@ async function handlePostback(event: LineEvent): Promise<void> {
 
   const params = new URLSearchParams(event.postback.data);
   const action = params.get("act");
+
+  // 日檢視：日期可能來自按鈕的 d=，也可能來自 datetimepicker 的 params.date
+  if (action === "day") {
+    const picked = event.postback.params?.date ?? params.get("d") ?? "";
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(picked)) {
+      await replyText(replyToken, "日期格式不正確，請重新選一次。");
+      return;
+    }
+    const groupId = event.source.groupId ?? null;
+    if (groupId && !await db.isGroupAllowed(groupId)) return;
+    await showDayView(picked, userId, groupId, replyToken);
+    return;
+  }
+
   const requestId = params.get("rid");
   // request_id 一律驗成 UUID，避免被當成任意查詢字串或 log injection
   if (!action || !requestId || !/^[0-9a-f-]{36}$/i.test(requestId)) return;

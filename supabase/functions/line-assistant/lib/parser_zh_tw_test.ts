@@ -6,7 +6,7 @@ function assertEquals<T>(actual: T, expected: T, msg = ""): void {
   const a = JSON.stringify(actual), b = JSON.stringify(expected);
   if (a !== b) throw new Error(`${msg}\n  actual:   ${a}\n  expected: ${b}`);
 }
-import { exclusiveEndDate, normalize, parse, taipeiParts } from "./parser_zh_tw.ts";
+import { exclusiveEndDate, inferDate, normalize, parse, taipeiParts } from "./parser_zh_tw.ts";
 import type { ParsedSchedule } from "./types.ts";
 
 // 固定「現在」= 2026-08-23 12:00 台北時間（週日）
@@ -194,4 +194,67 @@ Deno.test("斜線指令", () => {
 
 Deno.test("空白訊息 → unknown", () => {
   assertEquals(parse("   ", NOW).kind, "unknown");
+});
+
+// --- 日期誤判防護 ------------------------------------------------------------
+
+Deno.test("電話號碼不會被當成日期", () => {
+  // 02/2345 若被當成 2 月 23 日，就會憑空生出一筆行程
+  const r = parse("記事 值班電話 02/2345 6789", NOW);
+  assertEquals(r.kind, "note");
+  assertEquals((r as { value: { targetDate: string | null } }).value.targetDate, null);
+});
+
+Deno.test("緊鄰數字的日期樣式不採用", () => {
+  assertEquals(inferDate("分機 1234/5678", NOW), null);
+});
+
+// --- 記事日期推論 ------------------------------------------------------------
+
+Deno.test("記事：從內容推論日期", () => {
+  assertEquals(inferDate("明天要帶識別證", NOW), "2026-08-24");
+  assertEquals(inferDate("8/28 要交防務報告", NOW), "2026-08-28");
+  assertEquals(inferDate("下週一 交報告", NOW), "2026-08-24");
+});
+
+Deno.test("記事：推論不出日期時為 null", () => {
+  assertEquals(inferDate("下週要交防務報告", NOW), null);
+  assertEquals(inferDate("記得補送簽呈", NOW), null);
+});
+
+Deno.test("記事的 targetDate 會帶進 parse 結果", () => {
+  const r = parse("記事 明天要帶識別證", NOW);
+  assertEquals(r.kind, "note");
+  const v = (r as { value: { content: string; targetDate: string | null } }).value;
+  assertEquals(v.content, "明天要帶識別證");
+  assertEquals(v.targetDate, "2026-08-24");
+});
+
+// --- 日檢視查詢 --------------------------------------------------------------
+
+Deno.test("日檢視：裸日期即查詢", () => {
+  assertEquals(parse("明天", NOW), { kind: "day_query", value: { date: "2026-08-24" } });
+  assertEquals(parse("今天", NOW), { kind: "day_query", value: { date: "2026-08-23" } });
+  assertEquals(parse("8/28", NOW), { kind: "day_query", value: { date: "2026-08-28" } });
+});
+
+Deno.test("日檢視：帶前後綴的查詢", () => {
+  assertEquals(parse("明天行程", NOW), { kind: "day_query", value: { date: "2026-08-24" } });
+  assertEquals(parse("查 8/28", NOW), { kind: "day_query", value: { date: "2026-08-28" } });
+  assertEquals(parse("明天有什麼", NOW), { kind: "day_query", value: { date: "2026-08-24" } });
+  assertEquals(parse("查詢 下週一 的行程", NOW), { kind: "day_query", value: { date: "2026-08-24" } });
+});
+
+Deno.test("日檢視：有日期以外的內容就不是查詢，交給行程解析", () => {
+  // 這是最重要的一條：建立行程不能被誤判成查詢
+  assertEquals(schedule("明天 09:00-10:30 週報會議").title, "週報會議");
+  assertEquals(schedule("請假 8/29 全天").reqType, "leave");
+  assertEquals(parse("8/28 部務會議", NOW).kind, "incomplete");
+});
+
+Deno.test("選單關鍵字", () => {
+  assertEquals(parse("選單", NOW).kind, "menu");
+  assertEquals(parse("查詢", NOW).kind, "menu");
+  assertEquals(parse("menu", NOW).kind, "menu");
+  assertEquals(parse("/menu", NOW), { kind: "command", value: { name: "menu", arg: "" } });
 });

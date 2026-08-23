@@ -38,7 +38,7 @@ export interface LineEvent {
   replyToken?: string;
   source: LineSource;
   message?: LineTextMessage;
-  postback?: { data: string };
+  postback?: { data: string; params?: { date?: string; time?: string; datetime?: string } };
   deliveryContext?: { isRedelivery: boolean };
 }
 
@@ -52,10 +52,21 @@ export interface LineWebhookBody {
 /** 解析器回傳的結果之一。 */
 export type ParseResult =
   | { kind: "schedule"; value: ParsedSchedule }
-  | { kind: "note"; value: { content: string; tags: string[] } }
+  | { kind: "note"; value: ParsedNote }
   | { kind: "command"; value: { name: string; arg: string } }
+  /** 查詢某一天有什麼（行程 + 記事）。date 為 YYYY-MM-DD。 */
+  | { kind: "day_query"; value: { date: string } }
+  /** 叫出日期選單。 */
+  | { kind: "menu" }
   | { kind: "incomplete"; reason: string }
   | { kind: "unknown" };
+
+export interface ParsedNote {
+  content: string;
+  tags: string[];
+  /** 從內容推論出的「這件事是關於哪一天」，推論不出來為 null。 */
+  targetDate: string | null;
+}
 
 export interface ParsedSchedule {
   reqType: ReqType;
@@ -105,6 +116,7 @@ export interface NoteRow {
   scope_key: string;
   content: string;
   tags: string[];
+  target_date: string | null;
   created_at: string;
   deleted_at: string | null;
 }
