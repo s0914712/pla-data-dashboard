@@ -190,6 +190,7 @@ export async function insertNote(args: {
   scope_key: string;
   content: string;
   tags: string[];
+  target_date: string | null;
 }): Promise<NoteRow> {
   return await request<NoteRow>("/rpc/insert_note", {
     method: "POST",
@@ -201,19 +202,34 @@ export async function insertNote(args: {
       p_scope_key: args.scope_key,
       p_content: args.content,
       p_tags: args.tags,
+      p_target_date: args.target_date,
     }),
   });
 }
 
 export async function listNotes(scopeKey: string, keyword: string, limit = 10): Promise<NoteRow[]> {
   let path = `/notes?scope_key=eq.${encodeURIComponent(scopeKey)}&deleted_at=is.null` +
-    `&select=id,seq,content,tags,user_id,created_at&order=created_at.desc&limit=${limit}`;
+    `&select=id,seq,content,tags,target_date,user_id,created_at&order=created_at.desc&limit=${limit}`;
   if (keyword) {
     // ilike 的萬用字元與跳脫字元先處理掉，避免使用者輸入變成 pattern
     const safe = keyword.replace(/[\\%_]/g, (c) => `\\${c}`);
     path += `&content=ilike.*${encodeURIComponent(safe)}*`;
   }
   return await request<NoteRow[]>(path);
+}
+
+/**
+ * 某一天的記事。
+ *
+ * 歸戶邏輯放在 SQL function 裡（見 migration notes_for_date）而不是在這裡組
+ * PostgREST 的 or=(...) 巢狀過濾字串：SQL 那邊可以直接測，也不必在 URL 裡
+ * 手工跳脫帶時區位移的時間戳。
+ */
+export async function listNotesForDate(scopeKey: string, dateIso: string): Promise<NoteRow[]> {
+  return await request<NoteRow[]>("/rpc/notes_for_date", {
+    method: "POST",
+    body: JSON.stringify({ p_scope_key: scopeKey, p_date: dateIso }),
+  });
 }
 
 export async function findNoteBySeq(scopeKey: string, seq: number): Promise<NoteRow | null> {

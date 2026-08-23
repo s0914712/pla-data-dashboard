@@ -12,7 +12,10 @@ import type { CalendarRequestRow } from "./types.ts";
 
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
 const CAL_API = "https://www.googleapis.com/calendar/v3";
-const SCOPE = "https://www.googleapis.com/auth/calendar.events";
+const SCOPE = [
+  "https://www.googleapis.com/auth/calendar.events",
+  "https://www.googleapis.com/auth/calendar.readonly",
+].join(" ");
 
 interface ServiceAccount {
   client_email: string;
@@ -218,4 +221,64 @@ export async function probeAccess(): Promise<{ ok: boolean; detail: string }> {
   } catch (e) {
     return { ok: false, detail: (e as Error).message };
   }
+}
+
+// --- 日檢視 ------------------------------------------------------------------
+
+export interface DayEvent {
+  summary: string;
+  location: string | null;
+  isAllDay: boolean;
+  /** 時段事件的 HH:MM（Asia/Taipei）；全天事件為 null。 */
+  startTime: string | null;
+  endTime: string | null;
+}
+
+/**
+ * 列出某一天共用日曆上的所有事件。
+ *
+ * 直接查 Google 而不是查 calendar_requests，因為共用日曆才是正式來源 ——
+ * 這樣在手機日曆 App 裡直接新增的事件也會一起列出。
+ * singleEvents=true 會把重複性事件展開成當天的實例。
+ */
+export async function listEvents(dateIso: string, timezone: string): Promise<DayEvent[]> {
+  const params = new URLSearchParams({
+    timeMin: `${dateIso}T00:00:00+08:00`,
+    timeMax: `${dateIso}T23:59:59+08:00`,
+    singleEvents: "true",
+    orderBy: "startTime",
+    maxResults: "50",
+    timeZone: timezone,
+  });
+  const res = await callCalendar(`/calendars/${encodeURIComponent(calendarId())}/events?${params}`);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(`Google Calendar ${res.status}: ${err?.error?.message ?? ""}`.trim());
+  }
+  const body = await res.json();
+
+  // deno-lint-ignore no-explicit-any
+  return (body.items ?? []).map((item: any): DayEvent => {
+    const isAllDay = Boolean(item.start?.date);
+    return {
+      summary: String(item.summary ?? "(無標題)"),
+      location: item.location ? String(item.location) : null,
+      isAllDay,
+      startTime: isAllDay ? null : localHhmm(item.start?.dateTime),
+      endTime: isAllDay ? null : localHhmm(item.end?.dateTime),
+    };
+  });
+}
+
+/**
+ * Google 回傳的 dateTime 帶原始時區位移（例如 +08:00），直接取字串的 HH:MM 即可。
+ * 若來源是別的時區（例如手機在國外新增的事件），換算成 Asia/Taipei 再取。
+ */
+function localHhmm(dateTime: string | undefined): string | null {
+  if (!dateTime) return null;
+  if (dateTime.includes("+08:00")) return dateTime.slice(11, 16);
+  const ms = Date.parse(dateTime);
+  if (Number.isNaN(ms)) return dateTime.slice(11, 16);
+  const tpe = new Date(ms + 8 * 60 * 60_000);
+  return `${String(tpe.getUTCHours()).padStart(2, "0")}:${String(tpe.getUTCMinutes()).padStart(2, "0")}`;
 }

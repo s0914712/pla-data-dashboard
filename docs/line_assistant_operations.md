@@ -97,6 +97,7 @@ groupId 不需手抄、不會出現在 log、也不用進 Secret。
 
 ```
 記事 下週要交防務報告 #報告
+記事 明天要帶識別證          ← 自動歸在明天
 查記事
 查記事 報告
 刪記事 3
@@ -104,6 +105,37 @@ groupId 不需手抄、不會出現在 log、也不用進 Secret。
 
 記事的編號 scope 是「群組」或「個人私訊」，兩邊各自從 1 開始。
 只有原作者或管理員可以刪除，且是軟刪除（`deleted_at`）。
+
+**日期推論**：建立記事時會用行程解析器的同一套日期邏輯掃描內容
+（`inferDate()`），抓到就寫入 `target_date`，抓不到就是 `null`。
+日檢視據此歸戶：`target_date` 等於當天，或 `target_date` 為 null 且建立當天
+（台北時區）等於當天。掃描有防呆——數字前後緊鄰其他數字時不採用，
+所以「值班電話 02/2345」不會被當成 2 月 23 日。
+
+### 日檢視：看某一天有什麼
+
+```
+明天                    ← 裸日期即查詢
+明天行程
+查 8/28
+明天有什麼
+選單                    ← 跳出日期選擇卡
+```
+
+「選單」會回一張 Flex 卡片：**今天 / 明天** 兩個快捷鍵，加上
+**選其他日期**（LINE 原生 `datetimepicker`，滑選不必打字）。
+
+日檢視同時列出兩件事：
+
+- **行程**：直接查 Google Calendar 的 `events.list`（`singleEvents=true`），
+  所以在手機日曆 App 裡直接新增、不經過小助手的事件也會列出。
+- **記事**：查 Supabase 的 `notes_for_date()`。
+
+Google 讀取失敗時仍會列出記事，並在訊息尾端附上錯誤原因——兩邊分開容錯。
+
+**判斷「查詢」還是「建立」**：剝掉前後綴後，剩下的字必須剛好只有一個日期
+才算查詢。所以「明天 09:00-10:30 週報會議」是建立行程（拿掉日期後還有東西），
+「明天」「明天行程」是查詢。這條規則有測試守著，是最容易誤判的地方。
 
 ### 管理指令
 
@@ -126,7 +158,7 @@ Edge Function 用自動注入的 service role key 繞過 RLS。
 | `allowed_groups` | 群組白名單（`/bind` 寫入）|
 | `allowed_users` | 額外管理員／成員 |
 | `calendar_requests` | 待確認、結果、去重鍵 |
-| `notes` | 記事（軟刪除）|
+| `notes` | 記事（軟刪除）。`target_date` 為推論出的歸屬日期，可為 null |
 | `audit_logs` | 稽核。`actor_hash` 是 LINE userId 的 SHA-256，不留原始 ID |
 
 狀態機：`pending → processing → confirmed`；取消 `canceled`；失敗 `failed`；逾時 `expired`。
@@ -153,6 +185,8 @@ Edge Function 用自動注入的 service role key 繞過 RLS。
 | `Google Calendar 404` | `GOOGLE_CALENDAR_ID` 填成服務帳戶 email 或填錯 |
 | `google token 400 invalid_grant` | `GOOGLE_SERVICE_ACCOUNT_JSON` 的 `private_key` 換行壞掉（程式已自動處理 `\n` 字面值，若仍失敗請重新複製整份 JSON）|
 | 全天事件差一天 | 這是 Google `end.date` 排除式規格。DB 存含首尾，`exclusiveEndDate()` 負責 +1 天 |
+| 日檢視列不出行程但記事正常 | Google 讀取失敗，訊息尾端會有原因。服務帳戶需要 `calendar.readonly` scope（已內建）與日曆讀取權限 |
+| 記事沒歸到預期的日期 | 內容裡的日期沒被辨識，或被防呆擋掉。用「查記事」確認，必要時改寫成「記事 8/28 要交報告」|
 
 查 log：Supabase Dashboard → Edge Functions → `line-assistant` → Logs，
 或用 MCP 的 `query_logs`。log 刻意**不輸出**訊息原文、token、private key、原始 userId。
@@ -177,7 +211,7 @@ Edge Function 用自動注入的 service role key 繞過 RLS。
 
 ```bash
 cd supabase/functions/line-assistant
-deno test --allow-env lib/    # 40 個單元測試（解析器 + 驗簽 + 顯示格式）
+deno test --allow-env lib/    # 49 個單元測試（解析器 + 驗簽 + 日檢視 + 顯示格式）
 deno check index.ts           # 型別檢查
 deno lint                     # 靜態檢查
 ```
@@ -215,3 +249,4 @@ select cron.schedule('line-assistant-cleanup', '0 3 * * *', $$select public.clea
 | 語音／圖片辨識 | 先驗證文字流程 |
 | 無確認直接建立 | 避免自然語言歧義造成錯誤行程 |
 | AI 自然語言解析 | MVP 用規則式，成本 0 且錯誤可控 |
+| 一次看整週 | 目前一次一天；要看整週得逐日查 |

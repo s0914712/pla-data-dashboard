@@ -87,10 +87,28 @@ export function normalize(input: string): string {
 
 // --- 日期解析 ----------------------------------------------------------------
 
-const RE_YMD = /(\d{4})\s*[/\-.年]\s*(\d{1,2})\s*[/\-.月]\s*(\d{1,2})\s*[日號]?/;
-const RE_MD = /(\d{1,2})\s*[/月]\s*(\d{1,2})\s*[日號]?/;
-const RE_REL = /(今天|今日|本日|明天|明日|後天|大後天)/;
-const RE_WD = /(下下|下|這|本)?\s*(?:週|周|星期|禮拜)\s*([一二三四五六日天])/;
+const RE_YMD = /(\d{4})\s*[/\-.年]\s*(\d{1,2})\s*[/\-.月]\s*(\d{1,2})(?:\s*[日號])?/g;
+const RE_MD = /(\d{1,2})\s*[/月]\s*(\d{1,2})(?:\s*[日號])?/g;
+const RE_REL = /(今天|今日|本日|明天|明日|後天|大後天)/g;
+const RE_WD = /(下下|下|這|本)?\s*(?:週|周|星期|禮拜)\s*([一二三四五六日天])/g;
+
+/** 數字型日期前後不可緊鄰其他數字，否則電話 02/2345 之類會被誤判成 2 月 23 日。 */
+function digitAdjacent(text: string, start: number, end: number): boolean {
+  const before = text[start - 1];
+  const after = text[end];
+  const isDigit = (c: string | undefined) => c !== undefined && c >= "0" && c <= "9";
+  return isDigit(before) || isDigit(after);
+}
+
+/** 在 text[from..] 內逐一取出某個 pattern 的所有比對結果。 */
+function* scan(re: RegExp, text: string, from: number): Generator<RegExpExecArray> {
+  re.lastIndex = from;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text)) !== null) {
+    yield m;
+    if (m.index === re.lastIndex) re.lastIndex++;
+  }
+}
 
 const WD_INDEX: Record<string, number> = { 日: 0, 天: 0, 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6 };
 const REL_OFFSET: Record<string, number> = {
@@ -105,55 +123,58 @@ interface DateHit {
   end: number;
 }
 
-/** 從 text 的 from 位置起，找出第一個日期。找不到回 null。 */
+/**
+ * 從 text 的 from 位置起，找出第一個日期。找不到回 null。
+ *
+ * 四種寫法各自掃描、取第一個「合法」的比對（而不是第一個比對就放棄），
+ * 最後挑文字中出現位置最早的那個。
+ */
 function findDate(text: string, from: number, today: YMD): DateHit | null {
-  const slice = text.slice(from);
   const candidates: DateHit[] = [];
 
-  const ymd = RE_YMD.exec(slice);
-  if (ymd) {
-    const [y, m, d] = [Number(ymd[1]), Number(ymd[2]), Number(ymd[3])];
-    if (isValidYmd(y, m, d)) {
-      candidates.push({
-        ymd: { y, m, d }, explicitYear: true,
-        start: from + ymd.index, end: from + ymd.index + ymd[0].length,
-      });
-    }
-  }
-
-  const md = RE_MD.exec(slice);
-  if (md) {
-    const [m, d] = [Number(md[1]), Number(md[2])];
-    if (isValidYmd(today.y, m, d)) {
-      // 無年份：選「距現在最近且尚未過期」的未來日期（計畫書 §5.2）
-      let year = today.y;
-      if (toEpochDay({ y: year, m, d }) < toEpochDay(today)) year += 1;
-      candidates.push({
-        ymd: { y: year, m, d }, explicitYear: false,
-        start: from + md.index, end: from + md.index + md[0].length,
-      });
-    }
-  }
-
-  const rel = RE_REL.exec(slice);
-  if (rel) {
+  for (const m of scan(RE_YMD, text, from)) {
+    const [y, mo, d] = [Number(m[1]), Number(m[2]), Number(m[3])];
+    if (digitAdjacent(text, m.index, m.index + m[0].length)) continue;
+    if (!isValidYmd(y, mo, d)) continue;
     candidates.push({
-      ymd: addDays(today, REL_OFFSET[rel[1]]), explicitYear: false,
-      start: from + rel.index, end: from + rel.index + rel[0].length,
+      ymd: { y, m: mo, d }, explicitYear: true,
+      start: m.index, end: m.index + m[0].length,
     });
+    break;
   }
 
-  const wd = RE_WD.exec(slice);
-  if (wd) {
-    const target = WD_INDEX[wd[2]];
+  for (const m of scan(RE_MD, text, from)) {
+    const [mo, d] = [Number(m[1]), Number(m[2])];
+    if (digitAdjacent(text, m.index, m.index + m[0].length)) continue;
+    if (!isValidYmd(today.y, mo, d)) continue;
+    // 無年份：選「距現在最近且尚未過期」的未來日期（計畫書 §5.2）
+    let year = today.y;
+    if (toEpochDay({ y: year, m: mo, d }) < toEpochDay(today)) year += 1;
+    candidates.push({
+      ymd: { y: year, m: mo, d }, explicitYear: false,
+      start: m.index, end: m.index + m[0].length,
+    });
+    break;
+  }
+
+  for (const m of scan(RE_REL, text, from)) {
+    candidates.push({
+      ymd: addDays(today, REL_OFFSET[m[1]]), explicitYear: false,
+      start: m.index, end: m.index + m[0].length,
+    });
+    break;
+  }
+
+  for (const m of scan(RE_WD, text, from)) {
+    const target = WD_INDEX[m[2]];
     // 本週以週一為首日
     const mondayOffset = (weekdayOf(today) + 6) % 7;
     const thisMonday = addDays(today, -mondayOffset);
     const targetOffset = (target + 6) % 7; // 週一=0 ... 週日=6
     let hit: YMD;
-    if (wd[1] === "下") hit = addDays(thisMonday, targetOffset + 7);
-    else if (wd[1] === "下下") hit = addDays(thisMonday, targetOffset + 14);
-    else if (wd[1] === "這" || wd[1] === "本") hit = addDays(thisMonday, targetOffset);
+    if (m[1] === "下") hit = addDays(thisMonday, targetOffset + 7);
+    else if (m[1] === "下下") hit = addDays(thisMonday, targetOffset + 14);
+    else if (m[1] === "這" || m[1] === "本") hit = addDays(thisMonday, targetOffset);
     else {
       // 無前綴：最近一次（含今天）
       const delta = (target - weekdayOf(today) + 7) % 7;
@@ -161,8 +182,9 @@ function findDate(text: string, from: number, today: YMD): DateHit | null {
     }
     candidates.push({
       ymd: hit, explicitYear: false,
-      start: from + wd.index, end: from + wd.index + wd[0].length,
+      start: m.index, end: m.index + m[0].length,
     });
+    break;
   }
 
   if (candidates.length === 0) return null;
@@ -254,6 +276,41 @@ const NOTE_DELETE = /^(?:刪記事|删記事|刪除記事|刪筆記|刪除筆記
 const SCHEDULE_PREFIX = /^(?:新增|新增行程|建立|加入|安排|行程)\s*[:：]?\s*/;
 const LEAVE_KEYWORD = /(請假|休假|補假|事假|病假|特休)/;
 
+/** 叫出日期選單。 */
+const MENU_RE = /^(?:選單|menu|功能|查詢|動態|查什麼)$/i;
+/** 日檢視查詢的前綴與後綴，剝掉之後應只剩一個日期。 */
+const DAY_QUERY_LEAD = /^(?:查詢|查|看|顯示|列出)\s*/;
+const DAY_QUERY_TAIL = /\s*(?:的?(?:行程|動態|排程|安排|活動|事情)|有什麼事?|有什麼|有啥|要做什麼)$/;
+
+/**
+ * 判斷一則訊息是不是「查詢某一天」。
+ *
+ * 規則：剝掉前後綴後，剩下的字必須「剛好只有一個日期」。
+ * 這樣「明天 09:00-10:30 週報會議」不會被誤判成查詢（拿掉日期後還有東西），
+ * 而「明天」「明天行程」「查 8/28」會。
+ */
+function tryDayQuery(text: string, today: YMD): string | null {
+  const stripped = text.replace(DAY_QUERY_LEAD, "").replace(DAY_QUERY_TAIL, "").trim();
+  if (!stripped) return null;
+
+  const hit = findDate(stripped, 0, today);
+  if (!hit) return null;
+
+  const remainder = cut(stripped, hit.start, hit.end);
+  return remainder === "" ? isoDate(hit.ymd) : null;
+}
+
+/**
+ * 從一段文字推論「這件事是關於哪一天」，供記事使用。
+ *
+ * 直接重用行程解析的日期邏輯（明天／下週一／8-28 都通），
+ * 推論不出來時回 null —— 此時日檢視改以建立當天歸戶。
+ */
+export function inferDate(text: string, now: Date): string | null {
+  const hit = findDate(normalize(text), 0, taipeiParts(now));
+  return hit ? isoDate(hit.ymd) : null;
+}
+
 /**
  * 解析一則已去除 @mention 的訊息。
  *
@@ -283,10 +340,17 @@ export function parse(raw: string, now: Date): ParseResult {
     const content = text.replace(NOTE_PREFIX, "").trim();
     if (!content) return { kind: "incomplete", reason: "記事內容是空的。請試：記事 下週要交防務報告" };
     const tags = [...content.matchAll(/#([^\s#]+)/g)].map((m) => m[1]);
-    return { kind: "note", value: { content, tags } };
+    return { kind: "note", value: { content, tags, targetDate: inferDate(content, now) } };
   }
 
-  // 3. 行程
+  // 3. 日期選單
+  if (MENU_RE.test(text)) return { kind: "menu" };
+
+  // 4. 查詢某一天（必須只有日期，否則交給行程解析）
+  const day = tryDayQuery(text, taipeiParts(now));
+  if (day) return { kind: "day_query", value: { date: day } };
+
+  // 5. 行程
   return parseSchedule(text, now);
 }
 
