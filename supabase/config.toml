@@ -1,0 +1,8 @@
+# Supabase CLI 設定（僅供本機開發與手動部署使用）
+# 正式環境的 secrets 一律存在 Supabase Dashboard，不進 Git。
+project_id = "fyvaqwqnwgfutwfaaeei"
+
+[functions.line-assistant]
+# LINE webhook 不會附 Supabase JWT，來源驗證靠 X-Line-Signature 的 HMAC-SHA256。
+# 這個值必須是 false，否則 LINE 的請求會在進入函式前就被擋掉。
+verify_jwt = false
