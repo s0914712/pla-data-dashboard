@@ -278,13 +278,28 @@ deno lint                     # 靜態檢查
 整個函式**零外部依賴**（不用 supabase-js，直接打 PostgREST；Google JWT 用 Web Crypto 自簽），
 所以以上三個指令在任何 Deno 環境都能直接跑，不需要網路。
 
-部署：
+### 部署
+
+**正常情況走 CI**：`.github/workflows/deploy_supabase_function.yml` 會在
+`supabase/functions/**` 有變動時自動跑 `deno check` / `lint` / `test`，
+全過才部署。需要在 repo 加一個 Secret：
+
+| Secret | 從哪裡拿 |
+|---|---|
+| `SUPABASE_ACCESS_TOKEN` | https://supabase.com/dashboard/account/tokens |
+
+專案 ref 不是機密，直接寫在 workflow 與 `config.toml` 裡。
+
+手動部署（本機）：
 
 ```bash
 supabase functions deploy line-assistant --project-ref fyvaqwqnwgfutwfaaeei
 ```
 
 `verify_jwt = false` 已寫在 `supabase/config.toml`，CLI 會自動帶上。
+
+> 函式原始碼已超過 11 萬字元，不要再用人工複製貼上的方式部署 ——
+> 既慢又容易打錯字（實際發生過兩次註解字元被打錯）。CI 部署與 repo 逐位元組相同。
 
 ### 資料保留
 

@@ -1,0 +1,77 @@
+# 部署 LINE 小助手的 Edge Function。
+#
+# 為什麼需要這個：函式原始碼已經超過 11 萬字元，靠人工複製貼上部署既慢又
+# 容易打錯字（實際發生過兩次註解字元被打錯）。交給 CI 之後每次部署都與
+# repo 逐位元組相同。
+#
+# 與既有排程完全隔離：只在 supabase/functions/** 有變動時才跑，
+# 不碰 LINEcron 或任何資料抓取的 workflow。
+#
+# 需要的 GitHub Secret 只有一個：
+#   SUPABASE_ACCESS_TOKEN —— https://supabase.com/dashboard/account/tokens 產生
+# 專案 ref 不是機密，直接寫在下面（也已經在 supabase/config.toml 裡）。
+
+name: Deploy Supabase Edge Function
+
+on:
+  push:
+    branches:
+      - main
+      - claude/pla-data-dashboard-assistant-jvwoi0
+    paths:
+      - 'supabase/functions/**'
+      - 'supabase/config.toml'
+      - '.github/workflows/deploy_supabase_function.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-line-assistant
+  cancel-in-progress: false
+
+env:
+  SUPABASE_PROJECT_REF: fyvaqwqnwgfutwfaaeei
+
+jobs:
+  test:
+    name: 型別檢查與單元測試
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: deno check
+        working-directory: supabase/functions/line-assistant
+        run: deno check index.ts
+
+      - name: deno lint
+        working-directory: supabase/functions/line-assistant
+        run: deno lint
+
+      - name: deno test
+        working-directory: supabase/functions/line-assistant
+        run: deno test --allow-env lib/
+
+  deploy:
+    name: 部署到 Supabase
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: 部署 line-assistant
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          if [ -z "$SUPABASE_ACCESS_TOKEN" ]; then
+            echo "::error::缺少 SUPABASE_ACCESS_TOKEN，請到 repo 的 Settings → Secrets and variables → Actions 新增。"
+            exit 1
+          fi
+          # verify_jwt=false 已寫在 supabase/config.toml，CLI 會自動帶上。
+          # LINE 不會附 Supabase JWT，來源驗證靠 X-Line-Signature 的 HMAC。
+          supabase functions deploy line-assistant \
+            --project-ref "$SUPABASE_PROJECT_REF"
