@@ -253,22 +253,23 @@ export { requireEnv };
 // --- 日檢視 ------------------------------------------------------------------
 
 /**
- * 日期選單。
+ * 功能選單。
  *
+ * 群組內只 @ 小助手不打其他字時就回這張卡，比丟一大串文字說明好用。
  * 「選日期」用 LINE 原生的 datetimepicker action，使用者滑選即可，
  * 不必手打日期；選完會以 postback.params.date 回傳 YYYY-MM-DD。
  */
-export function dayMenuCard(todayIso: string, tomorrowIso: string): LineMessage {
-  const button = (label: string, date: string, style: string) => ({
+export function mainMenuCard(todayIso: string, tomorrowIso: string): LineMessage {
+  const btn = (label: string, data: string, displayText: string, style = "secondary") => ({
     type: "button",
     style,
     height: "sm",
-    action: { type: "postback", label, data: `act=day&d=${date}`, displayText: `查 ${label}` },
+    action: { type: "postback", label, data, displayText },
   });
 
   return {
     type: "flex",
-    altText: "要看哪一天？",
+    altText: "課表小助手功能選單",
     contents: {
       type: "bubble",
       body: {
@@ -276,33 +277,58 @@ export function dayMenuCard(todayIso: string, tomorrowIso: string): LineMessage 
         layout: "vertical",
         spacing: "md",
         contents: [
-          { type: "text", text: "要看哪一天？", weight: "bold", size: "lg" },
-          { type: "text", text: "會列出當天的行事曆行程與記事", size: "xs", color: "#888888", wrap: true },
+          { type: "text", text: "📅 課表小助手", weight: "bold", size: "lg" },
+          { type: "text", text: "選一個功能，或直接打字建立行程", size: "xs", color: "#888888", wrap: true },
           { type: "separator" },
+
+          { type: "text", text: "看某一天", size: "sm", weight: "bold", margin: "sm" },
           {
             type: "box",
-            layout: "vertical",
+            layout: "horizontal",
             spacing: "sm",
             contents: [
-              button("今天", todayIso, "primary"),
-              button("明天", tomorrowIso, "primary"),
-              {
-                type: "button",
-                style: "secondary",
-                height: "sm",
-                action: {
-                  type: "datetimepicker",
-                  label: "選其他日期",
-                  data: "act=day",
-                  mode: "date",
-                  initial: todayIso,
-                  min: "2020-01-01",
-                  max: "2035-12-31",
-                },
-              },
+              btn("今天", `act=day&d=${todayIso}`, "查 今天", "primary"),
+              btn("明天", `act=day&d=${tomorrowIso}`, "查 明天", "primary"),
+            ],
+          },
+          {
+            type: "button",
+            style: "secondary",
+            height: "sm",
+            action: {
+              type: "datetimepicker",
+              label: "選其他日期",
+              data: "act=day",
+              mode: "date",
+              initial: todayIso,
+              min: "2020-01-01",
+              max: "2035-12-31",
+            },
+          },
+
+          { type: "separator", margin: "md" },
+          { type: "text", text: "記事", size: "sm", weight: "bold", margin: "sm" },
+          {
+            type: "box",
+            layout: "horizontal",
+            spacing: "sm",
+            contents: [
+              btn("查記事", "act=notes", "查記事"),
+              btn("使用說明", "act=help", "/help"),
             ],
           },
         ],
+      },
+      footer: {
+        type: "box",
+        layout: "vertical",
+        contents: [{
+          type: "text",
+          text: "例：8/28 14:00-16:00 部務會議　請假 8/29 全天",
+          size: "xxs",
+          color: "#aaaaaa",
+          wrap: true,
+        }],
       },
     },
   };

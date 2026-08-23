@@ -10,9 +10,9 @@ function assertEquals<T>(actual: T, expected: T, msg = ""): void {
 const SECRET = "test-channel-secret";
 Deno.env.set("LINE_CHANNEL_SECRET", SECRET);
 
-const { verifySignature, stripMentions, isAddressedToBot, describeWhen, formatDate } = await import(
-  "./line.ts"
-);
+const {
+  verifySignature, stripMentions, isAddressedToBot, describeWhen, formatDate, mainMenuCard,
+} = await import("./line.ts");
 
 async function sign(body: string, secret = SECRET): Promise<string> {
   const key = await crypto.subtle.importKey(
@@ -139,4 +139,43 @@ Deno.test("postback data 只接受 UUID 形式的 rid", () => {
   assert(/^[0-9a-f-]{36}$/i.test(ok.get("rid")!));
   const bad = new URLSearchParams("act=confirm&rid=../../etc/passwd");
   assert(!/^[0-9a-f-]{36}$/i.test(bad.get("rid")!));
+});
+
+// --- 只 @ 小助手、後面沒打字 --------------------------------------------
+
+Deno.test("bare @mention 剝完後是空字串（這是回功能選單的觸發條件）", () => {
+  // LINE 常帶一個尾空白，兩種寫法都要歸為空
+  assertEquals(
+    stripMentions({ text: "@課表小助手", mention: { mentionees: [{ index: 0, length: 6 }] } }),
+    "",
+  );
+  assertEquals(
+    stripMentions({ text: "@課表小助手 ", mention: { mentionees: [{ index: 0, length: 6 }] } }),
+    "",
+  );
+  // 有打字就不是空，不走選單
+  assertEquals(
+    stripMentions({ text: "@課表小助手 明天", mention: { mentionees: [{ index: 0, length: 6 }] } }),
+    "明天",
+  );
+});
+
+Deno.test("功能選單卡的按鈕與 postback data", () => {
+  const card = mainMenuCard("2026-08-23", "2026-08-24");
+  assertEquals(card.type, "flex");
+  const json = JSON.stringify(card);
+  // 四個入口都要在
+  assert(json.includes("act=day&d=2026-08-23"), "今天");
+  assert(json.includes("act=day&d=2026-08-24"), "明天");
+  assert(json.includes("datetimepicker"), "日期選擇器");
+  assert(json.includes("act=notes"), "查記事");
+  assert(json.includes("act=help"), "使用說明");
+  // 選擇器的 data 不帶 d=，日期走 postback.params.date
+  const picker = JSON.parse(json).contents.body.contents.find(
+    // deno-lint-ignore no-explicit-any
+    (c: any) => c.action?.type === "datetimepicker",
+  );
+  assertEquals(picker.action.data, "act=day");
+  assertEquals(picker.action.mode, "date");
+  assertEquals(picker.action.initial, "2026-08-23");
 });

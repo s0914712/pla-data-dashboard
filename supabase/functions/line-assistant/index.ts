@@ -14,15 +14,16 @@ import * as gcal from "./lib/google_calendar.ts";
 import { addDays, isoDate, parse, taipeiParts } from "./lib/parser_zh_tw.ts";
 import {
   confirmCard,
-  dayMenuCard,
   describeWhen,
   displayName,
   hashActor,
   isAddressedToBot,
+  mainMenuCard,
   renderDayView,
   reply,
   replyText,
   stripMentions,
+  textMessage,
   verifySignature,
 } from "./lib/line.ts";
 import type {
@@ -53,7 +54,7 @@ const HELP = [
   "",
   "【看某一天有什麼】行程與記事一起列出",
   "· 明天　／　明天行程　／　查 8/28",
-  "· 選單（跳出日期選擇器）",
+  "· 只 @ 我不打其他字 → 跳出功能選單",
   "",
   "【其他】/help 說明　/bind 綁定本群組（管理員）",
   "",
@@ -133,6 +134,15 @@ async function handleText(event: LineEvent): Promise<void> {
   if (!isAddressedToBot(event)) return;
 
   const text = stripMentions(event.message!);
+
+  // 只 @ 了小助手、後面沒有內容 → 回功能選單。
+  // 群組白名單在這之前先擋掉，未綁定的群組仍然完全靜默。
+  if (text === "") {
+    if (groupId && !await db.isGroupAllowed(groupId)) return;
+    await showMenu(replyToken);
+    return;
+  }
+
   const parsed = parse(text, new Date());
 
   // /bind 必須在白名單檢查之前處理，否則新群組永遠綁不起來
@@ -157,7 +167,7 @@ async function handleText(event: LineEvent): Promise<void> {
       return;
 
     case "menu":
-      await showDayMenu(replyToken);
+      await showMenu(replyToken);
       return;
 
     case "day_query":
@@ -174,7 +184,11 @@ async function handleText(event: LineEvent): Promise<void> {
       return;
 
     case "unknown":
-      await replyText(replyToken, `看不懂這則訊息。\n\n${HELP}`);
+      // 有 @ 到我但看不懂 —— 回選單比丟一大串說明好用
+      await reply(replyToken, [
+        textMessage("看不懂這則訊息，這是我會的事："),
+        mainMenuCard(isoDate(taipeiParts(new Date())), isoDate(addDays(taipeiParts(new Date()), 1))),
+      ]);
       return;
   }
 }
@@ -230,7 +244,7 @@ async function handleCommand(
 
     case "menu":
     case "day":
-      await showDayMenu(replyToken);
+      await showMenu(replyToken);
       return;
 
     case "note_list":
@@ -303,9 +317,9 @@ function formatDateShort(iso: string): string {
   return `${Number(iso.slice(5, 7))}/${Number(iso.slice(8, 10))}`;
 }
 
-async function showDayMenu(replyToken: string): Promise<void> {
+async function showMenu(replyToken: string): Promise<void> {
   const today = taipeiParts(new Date());
-  await reply(replyToken, [dayMenuCard(isoDate(today), isoDate(addDays(today, 1)))]);
+  await reply(replyToken, [mainMenuCard(isoDate(today), isoDate(addDays(today, 1)))]);
 }
 
 /**
@@ -463,6 +477,18 @@ async function handlePostback(event: LineEvent): Promise<void> {
     const groupId = event.source.groupId ?? null;
     if (groupId && !await db.isGroupAllowed(groupId)) return;
     await showDayView(picked, userId, groupId, replyToken);
+    return;
+  }
+
+  if (action === "notes") {
+    const groupId = event.source.groupId ?? null;
+    if (groupId && !await db.isGroupAllowed(groupId)) return;
+    await handleNoteList("", userId, groupId, replyToken);
+    return;
+  }
+
+  if (action === "help") {
+    await replyText(replyToken, HELP);
     return;
   }
 

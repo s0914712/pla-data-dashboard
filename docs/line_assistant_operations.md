@@ -115,15 +115,17 @@ groupId 不需手抄、不會出現在 log、也不用進 Secret。
 ### 日檢視：看某一天有什麼
 
 ```
+@課表小助手             ← 只 @ 不打字，直接跳功能選單
 明天                    ← 裸日期即查詢
 明天行程
 查 8/28
 明天有什麼
-選單                    ← 跳出日期選擇卡
+選單
 ```
 
-「選單」會回一張 Flex 卡片：**今天 / 明天** 兩個快捷鍵，加上
-**選其他日期**（LINE 原生 `datetimepicker`，滑選不必打字）。
+**只 @ 小助手、後面不打任何字**就會回一張功能選單卡：
+**今天 / 明天** 快捷鍵、**選其他日期**（LINE 原生 `datetimepicker`，滑選不必打字）、
+**查記事**、**使用說明**。看不懂的訊息也回這張卡，而不是丟一大串文字。
 
 日檢視同時列出兩件事：
 
@@ -180,7 +182,7 @@ Edge Function 用自動注入的 service role key 繞過 RLS。
 |---|---|
 | LINE Verify 失敗 | `LINE_CHANNEL_SECRET` 沒設或設錯。用 `/diag` 確認（1:1 私訊也能下指令）|
 | 群組完全沒反應 | 沒 @ 到 bot；或群組沒 `/bind`；或「允許加入群組」沒開 |
-| bot 回罐頭訊息 | LINE OA Manager 的「自動回應訊息」沒停用 |
+| **每則訊息都回「感謝您的訊息！很抱歉，本帳號無法個別回覆用戶的訊息」** | 這**不是本專案的程式**（repo 內找不到這段文字），是 LINE 內建的自動回應。到 LINE Official Account Manager → 回應設定 → 把「自動回應訊息」**停用**。webhook 與它互不影響，關掉不會影響小助手 |
 | `Google Calendar 403` | 日曆沒分享給 `client_email`，或權限只給「查看」而非「變更活動」|
 | `Google Calendar 404` | `GOOGLE_CALENDAR_ID` 填成服務帳戶 email 或填錯 |
 | `google token 400 invalid_grant` | `GOOGLE_SERVICE_ACCOUNT_JSON` 的 `private_key` 換行壞掉（程式已自動處理 `\n` 字面值，若仍失敗請重新複製整份 JSON）|
@@ -211,7 +213,7 @@ Edge Function 用自動注入的 service role key 繞過 RLS。
 
 ```bash
 cd supabase/functions/line-assistant
-deno test --allow-env lib/    # 49 個單元測試（解析器 + 驗簽 + 日檢視 + 顯示格式）
+deno test --allow-env lib/    # 51 個單元測試（解析器 + 驗簽 + 日檢視 + 選單 + 顯示格式）
 deno check index.ts           # 型別檢查
 deno lint                     # 靜態檢查
 ```
