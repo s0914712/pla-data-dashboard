@@ -137,9 +137,25 @@ export function formatDate(isoDate: string): string {
   return `${y}/${String(m).padStart(2, "0")}/${String(d).padStart(2, "0")}（週${weekday}）`;
 }
 
-/** 2026-08-28T14:00:00+08:00 → { date: "2026/08/28（週五）", time: "14:00" } */
+/**
+ * 把任意帶時區位移的 ISO 字串轉成台北的日期與時分。
+ *
+ * 不能直接切字串 —— PostgREST 讀 timestamptz 是以 UTC 輸出的
+ * （寫進去的 2026-08-25T14:00:00+08:00 讀回來是 2026-08-25T06:00:00+00:00），
+ * 直接 slice 會顯示成 06:00。一律轉成瞬間再換算 +08:00。
+ */
 export function splitLocalIso(iso: string): { date: string; time: string } {
-  return { date: formatDate(iso.slice(0, 10)), time: iso.slice(11, 16) };
+  const ms = Date.parse(iso);
+  if (Number.isNaN(ms)) {
+    // 解析不了就退回原字串的樣子，至少不會顯示成空白
+    return { date: formatDate(iso.slice(0, 10)), time: iso.slice(11, 16) };
+  }
+  const t = new Date(ms + 8 * 60 * 60_000);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return {
+    date: formatDate(`${t.getUTCFullYear()}-${pad(t.getUTCMonth() + 1)}-${pad(t.getUTCDate())}`),
+    time: `${pad(t.getUTCHours())}:${pad(t.getUTCMinutes())}`,
+  };
 }
 
 /** 把待確認行程渲染成人類可讀的時間敘述。 */
@@ -307,6 +323,24 @@ export function mainMenuCard(todayIso: string, tomorrowIso: string): LineMessage
           },
 
           { type: "separator", margin: "md" },
+          { type: "text", text: "新增行程", size: "sm", weight: "bold", margin: "sm" },
+          {
+            type: "button",
+            style: "primary",
+            height: "sm",
+            color: "#2e7d32",
+            action: {
+              type: "datetimepicker",
+              label: "選日期建立行程",
+              data: "act=new_date",
+              mode: "date",
+              initial: todayIso,
+              min: "2020-01-01",
+              max: "2035-12-31",
+            },
+          },
+
+          { type: "separator", margin: "md" },
           { type: "text", text: "記事", size: "sm", weight: "bold", margin: "sm" },
           {
             type: "box",
@@ -355,4 +389,63 @@ export function renderDayView(dateIso: string, events: DayEvent[], notes: NoteRo
     lines.push("", "這一天目前是空的。");
   }
   return lines.join("\n");
+}
+
+// --- 引導式建立行程 ----------------------------------------------------------
+
+/**
+ * 引導流程的時間選擇卡。
+ *
+ * LINE 的 datetimepicker(mode="time") 會以 postback.params.time 回傳 "HH:mm"，
+ * 所以整個流程完全不用打字，直到最後一步輸入標題。
+ */
+export function timePickCard(
+  title: string,
+  subtitle: string,
+  data: string,
+  initial: string,
+  label: string,
+): LineMessage {
+  return {
+    type: "flex",
+    altText: title,
+    contents: {
+      type: "bubble",
+      body: {
+        type: "box",
+        layout: "vertical",
+        spacing: "md",
+        contents: [
+          { type: "text", text: title, weight: "bold", size: "lg" },
+          { type: "text", text: subtitle, size: "sm", color: "#888888", wrap: true },
+          { type: "separator" },
+          {
+            type: "button",
+            style: "primary",
+            height: "sm",
+            action: { type: "datetimepicker", label, data, mode: "time", initial },
+          },
+          {
+            type: "button",
+            style: "secondary",
+            height: "sm",
+            action: { type: "postback", label: "取消", data: "act=new_cancel", displayText: "取消" },
+          },
+        ],
+      },
+    },
+  };
+}
+
+/** "HH:MM:SS"（Postgres time）或 "HH:MM" 都收，一律回 "HH:MM"。 */
+export function hhmm(time: string): string {
+  return time.slice(0, 5);
+}
+
+/** 在起始時間上加 n 分鐘，用來當結束時間選擇器的預設值。 */
+export function addMinutes(time: string, minutes: number): string {
+  const [h, m] = hhmm(time).split(":").map(Number);
+  const total = (h * 60 + m + minutes) % (24 * 60);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${pad(Math.floor(total / 60))}:${pad(total % 60)}`;
 }

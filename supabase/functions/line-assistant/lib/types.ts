@@ -120,3 +120,16 @@ export interface NoteRow {
   created_at: string;
   deleted_at: string | null;
 }
+
+/** 引導式建立行程的暫存草稿（見 migration schedule_drafts）。 */
+export interface DraftRow {
+  scope_key: string;
+  user_id: string;
+  group_id: string | null;
+  source_type: SourceType;
+  target_date: string | null;
+  /** Postgres time 欄位讀回來是 "HH:MM:SS"。 */
+  start_time: string | null;
+  end_time: string | null;
+  updated_at: string;
+}

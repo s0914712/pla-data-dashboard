@@ -13,10 +13,13 @@ import * as db from "./lib/db.ts";
 import * as gcal from "./lib/google_calendar.ts";
 import { addDays, isoDate, parse, taipeiParts } from "./lib/parser_zh_tw.ts";
 import {
+  addMinutes,
   confirmCard,
   describeWhen,
   displayName,
+  formatDate,
   hashActor,
+  hhmm,
   isAddressedToBot,
   mainMenuCard,
   renderDayView,
@@ -24,6 +27,7 @@ import {
   replyText,
   stripMentions,
   textMessage,
+  timePickCard,
   verifySignature,
 } from "./lib/line.ts";
 import type {
@@ -51,6 +55,9 @@ const HELP = [
   "· 記事 下週要交防務報告 #報告",
   "· 查記事 ／ 查記事 報告（關鍵字）",
   "· 刪記事 3",
+  "",
+  "【不想打字】選單 →「選日期建立行程」",
+  "· 選日期 → 選開始 → 選結束 → 打標題，全程用選的",
   "",
   "【看某一天有什麼】行程與記事一起列出",
   "· 明天　／　明天行程　／　查 8/28",
@@ -155,6 +162,22 @@ async function handleText(event: LineEvent): Promise<void> {
   if (groupId && !await db.isGroupAllowed(groupId)) {
     console.info("skipped: group not allowlisted");
     return;
+  }
+
+  // 引導流程走到最後一步時，這則訊息就是標題。
+  // 斜線指令仍然放行，免得使用者被草稿困住。
+  if (!text.startsWith("/")) {
+    const scopeKey = db.scopeKeyFor(groupId, userId);
+    const draft = await db.takeReadyDraft(scopeKey, userId, config.pendingTtlMinutes);
+    if (draft) {
+      if (text === "取消") {
+        await db.deleteDraft(scopeKey, userId);
+        await replyText(replyToken, "已取消，沒有建立任何行程。");
+        return;
+      }
+      await finishDraft(event, draft, text, userId, groupId, replyToken);
+      return;
+    }
   }
 
   switch (parsed.kind) {
@@ -350,6 +373,145 @@ async function showDayView(
   await replyText(replyToken, text);
 }
 
+// --- 引導式建立行程 ----------------------------------------------------------
+
+/**
+ * 選單「選日期建立行程」按下去之後的三個步驟。
+ *
+ * 每一步都把結果寫進草稿再問下一題；三題答完就等使用者打標題
+ * （由 handleText 的草稿攔截接手）。
+ */
+async function handleDraftStep(
+  action: string,
+  event: LineEvent,
+  userId: string,
+  groupId: string | null,
+  replyToken: string,
+): Promise<void> {
+  const scopeKey = db.scopeKeyFor(groupId, userId);
+  const sourceType = groupId ? "group" : "user";
+
+  if (action === "new_cancel") {
+    await db.deleteDraft(scopeKey, userId);
+    await replyText(replyToken, "已取消，沒有建立任何行程。");
+    return;
+  }
+
+  if (action === "new_date") {
+    const date = event.postback?.params?.date ?? "";
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      await replyText(replyToken, "日期格式不正確，請重新選一次。");
+      return;
+    }
+    await db.upsertDraft({ scope_key: scopeKey, user_id: userId, group_id: groupId, source_type: sourceType, date });
+    await reply(replyToken, [timePickCard(
+      "① 開始時間",
+      `${formatDate(date)}\n這筆行程幾點開始？`,
+      "act=new_start",
+      "09:00",
+      "選開始時間",
+    )]);
+    return;
+  }
+
+  const picked = event.postback?.params?.time ?? "";
+  if (!/^\d{2}:\d{2}$/.test(picked)) {
+    await replyText(replyToken, "時間格式不正確，請重新選一次。");
+    return;
+  }
+
+  if (action === "new_start") {
+    const draft = await db.upsertDraft({
+      scope_key: scopeKey, user_id: userId, group_id: groupId, source_type: sourceType, start: picked,
+    });
+    if (!draft.target_date) {
+      await replyText(replyToken, "找不到剛才選的日期，請從選單重新開始。");
+      return;
+    }
+    await reply(replyToken, [timePickCard(
+      "② 結束時間",
+      `${formatDate(draft.target_date)} ${picked} 開始\n幾點結束？`,
+      "act=new_end",
+      addMinutes(picked, 60),
+      "選結束時間",
+    )]);
+    return;
+  }
+
+  // action === "new_end"
+  const draft = await db.upsertDraft({
+    scope_key: scopeKey, user_id: userId, group_id: groupId, source_type: sourceType, end: picked,
+  });
+  if (!draft.target_date || !draft.start_time) {
+    await replyText(replyToken, "草稿不完整，請從選單重新開始。");
+    return;
+  }
+  const start = hhmm(draft.start_time);
+  const crossDay = picked <= start;
+  await replyText(
+    replyToken,
+    `③ 最後一步\n${formatDate(draft.target_date)} ${start}-${picked}` +
+      (crossDay ? "（跨日到隔天）" : "") +
+      "\n\n請直接輸入這筆行程的標題，例如：兵力協調會\n（輸入「取消」可放棄）",
+  );
+}
+
+/**
+ * 草稿三步都選完，使用者打了標題 —— 組成行程並送出確認卡。
+ *
+ * 走的是跟手打訊息完全相同的 createRequest 與確認流程，
+ * 所以去重、原子確認、Google 冪等這些保護一個都沒少。
+ */
+async function finishDraft(
+  event: LineEvent,
+  draft: { target_date: string | null; start_time: string | null; end_time: string | null },
+  title: string,
+  userId: string,
+  groupId: string | null,
+  replyToken: string,
+): Promise<void> {
+  const date = draft.target_date!;
+  const start = hhmm(draft.start_time!);
+  const end = hhmm(draft.end_time!);
+
+  // 結束不晚於開始就視為跨日到隔天，跟手打訊息的規則一致
+  const endYmd = end <= start
+    ? isoDate(addDays(ymdOf(date), 1))
+    : date;
+
+  const created = await db.createRequest({
+    webhook_event_id: event.webhookEventId,
+    source_type: groupId ? "group" : "user",
+    group_id: groupId,
+    user_id: userId,
+    original_text: `[選單] ${date} ${start}-${end} ${title}`,
+    req_type: "meeting",
+    title,
+    location: null,
+    note: null,
+    is_all_day: false,
+    start_at: `${date}T${start}:00+08:00`,
+    end_at: `${endYmd}T${end}:00+08:00`,
+    start_date: null,
+    end_date: null,
+    expires_at: new Date(Date.now() + config.pendingTtlMinutes * 60_000).toISOString(),
+  });
+
+  await db.deleteDraft(db.scopeKeyFor(groupId, userId), userId);
+
+  if (created.status !== "pending") {
+    console.info(`redelivered draft finish, status ${created.status}`);
+    return;
+  }
+  await db.audit({ request_id: created.id, action: "request_create_guided", actor_hash: await hashActor(userId), result: "ok" });
+  await reply(replyToken, [confirmCard(created, await displayName(event))]);
+}
+
+function ymdOf(iso: string): { y: number; m: number; d: number } {
+  const [y, m, d] = iso.split("-").map(Number);
+  return { y, m, d };
+}
+
 // --- 記事 --------------------------------------------------------------------
 
 async function handleNote(
@@ -477,6 +639,14 @@ async function handlePostback(event: LineEvent): Promise<void> {
     const groupId = event.source.groupId ?? null;
     if (groupId && !await db.isGroupAllowed(groupId)) return;
     await showDayView(picked, userId, groupId, replyToken);
+    return;
+  }
+
+  // 引導式建立行程：選日期 → 選開始 → 選結束 → 打標題
+  if (action === "new_date" || action === "new_start" || action === "new_end" || action === "new_cancel") {
+    const groupId = event.source.groupId ?? null;
+    if (groupId && !await db.isGroupAllowed(groupId)) return;
+    await handleDraftStep(action, event, userId, groupId, replyToken);
     return;
   }
 

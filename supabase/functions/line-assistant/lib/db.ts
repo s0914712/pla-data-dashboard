@@ -8,7 +8,7 @@
  * 不需要（也不可以）手動設成 secret。service role key 會繞過 RLS。
  */
 
-import type { CalendarRequestRow, NoteRow, RequestStatus, SourceType } from "./types.ts";
+import type { CalendarRequestRow, DraftRow, NoteRow, RequestStatus, SourceType } from "./types.ts";
 
 const REST = `${Deno.env.get("SUPABASE_URL")}/rest/v1`;
 const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
@@ -245,6 +245,56 @@ export async function softDeleteNote(id: string): Promise<void> {
     headers: { Prefer: "return=minimal" },
     body: JSON.stringify({ deleted_at: new Date().toISOString() }),
   });
+}
+
+// --- 引導式建立的草稿 --------------------------------------------------------
+
+/**
+ * 逐步寫入草稿。只帶這一步拿到的欄位，其餘由 SQL 端保留。
+ * 重新挑日期時 SQL 會把時間清掉，避免沿用上一輪的殘值。
+ */
+export async function upsertDraft(args: {
+  scope_key: string;
+  user_id: string;
+  group_id: string | null;
+  source_type: SourceType;
+  date?: string | null;
+  start?: string | null;
+  end?: string | null;
+}): Promise<DraftRow> {
+  return await request<DraftRow>("/rpc/upsert_draft", {
+    method: "POST",
+    body: JSON.stringify({
+      p_scope_key: args.scope_key,
+      p_user_id: args.user_id,
+      p_group_id: args.group_id,
+      p_source_type: args.source_type,
+      p_date: args.date ?? null,
+      p_start: args.start ?? null,
+      p_end: args.end ?? null,
+    }),
+  });
+}
+
+/** 只回傳三個欄位都齊、且還沒過期的草稿；順手清掉過期的。 */
+export async function takeReadyDraft(
+  scopeKey: string,
+  userId: string,
+  ttlMinutes: number,
+): Promise<DraftRow | null> {
+  const row = await request<DraftRow | null>("/rpc/take_ready_draft", {
+    method: "POST",
+    body: JSON.stringify({ p_scope_key: scopeKey, p_user_id: userId, p_ttl_min: ttlMinutes }),
+  });
+  // 沒有草稿時 SQL 回傳的是 composite NULL，欄位會全是 null
+  return row && row.target_date ? row : null;
+}
+
+export async function deleteDraft(scopeKey: string, userId: string): Promise<void> {
+  await request(
+    `/schedule_drafts?scope_key=eq.${encodeURIComponent(scopeKey)}&user_id=eq.${encodeURIComponent(userId)}`,
+    { method: "DELETE", headers: { Prefer: "return=minimal" } },
+  );
 }
 
 // --- 稽核 --------------------------------------------------------------------

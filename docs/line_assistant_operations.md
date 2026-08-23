@@ -112,6 +112,30 @@ groupId 不需手抄、不會出現在 log、也不用進 Secret。
 （台北時區）等於當天。掃描有防呆——數字前後緊鄰其他數字時不採用，
 所以「值班電話 02/2345」不會被當成 2 月 23 日。
 
+### 引導式建立行程（不用打字）
+
+選單 →「選日期建立行程」→ 三步選完再打標題：
+
+```
+①  選日期    （datetimepicker，mode=date）
+②  選開始時間（mode=time）
+③  選結束時間（mode=time，預設是開始 +1 小時）
+④  輸入標題  ← 唯一需要打字的一步
+```
+
+前三步都是 postback，夾帶不了自由文字，所以中間狀態存在 `schedule_drafts`
+（primary key 是 `scope_key + user_id`，同群組不同人可以各自進行）。
+草稿 TTL 與待確認一致（`PENDING_TTL_MINUTES`，預設 15 分），
+`take_ready_draft()` 每次呼叫順手清掉過期的。
+
+第 ④ 步的攔截點在 `handleText`：白名單通過後，若該使用者有一張三欄位齊全的
+草稿，且訊息不是斜線指令，就把整則訊息當標題。輸入「取消」可放棄，
+每一張時間選擇卡上也都有取消鍵。
+
+結束時間不晚於開始就視為跨日到隔天，跟手打訊息的規則一致。
+送出後走的是**完全相同的** `createRequest` 與確認卡流程，
+所以去重、原子確認、Google 冪等這些保護一個都沒少。
+
 ### 日檢視：看某一天有什麼
 
 ```
@@ -161,6 +185,7 @@ Edge Function 用自動注入的 service role key 繞過 RLS。
 | `allowed_users` | 額外管理員／成員 |
 | `calendar_requests` | 待確認、結果、去重鍵 |
 | `notes` | 記事（軟刪除）。`target_date` 為推論出的歸屬日期，可為 null |
+| `schedule_drafts` | 引導式建立行程的中間狀態，一個人一個 scope 一張，逾時自動清除 |
 | `audit_logs` | 稽核。`actor_hash` 是 LINE userId 的 SHA-256，不留原始 ID |
 
 狀態機：`pending → processing → confirmed`；取消 `canceled`；失敗 `failed`；逾時 `expired`。
@@ -187,6 +212,7 @@ Edge Function 用自動注入的 service role key 繞過 RLS。
 | `Google Calendar 404` | `GOOGLE_CALENDAR_ID` 填成服務帳戶 email 或填錯 |
 | `google token 400 invalid_grant` | `GOOGLE_SERVICE_ACCOUNT_JSON` 的 `private_key` 換行壞掉（程式已自動處理 `\n` 字面值，若仍失敗請重新複製整份 JSON）|
 | 全天事件差一天 | 這是 Google `end.date` 排除式規格。DB 存含首尾，`exclusiveEndDate()` 負責 +1 天 |
+| **確認卡的時間比輸入的早 8 小時** | 已修正。成因是 PostgREST 讀 `timestamptz` 以 UTC 輸出（寫進去 `+08:00`，讀回來 `+00:00`），舊版 `splitLocalIso()` 直接切字串就拿到 UTC 的時分。現在一律 `Date.parse` 成瞬間再換算。注意**存進去的瞬間一直是對的**，Google 事件時間沒受影響，錯的只有顯示 |
 | 日檢視列不出行程但記事正常 | Google 讀取失敗，訊息尾端會有原因。服務帳戶需要 `calendar.readonly` scope（已內建）與日曆讀取權限 |
 | 記事沒歸到預期的日期 | 內容裡的日期沒被辨識，或被防呆擋掉。用「查記事」確認，必要時改寫成「記事 8/28 要交報告」|
 
@@ -213,7 +239,7 @@ Edge Function 用自動注入的 service role key 繞過 RLS。
 
 ```bash
 cd supabase/functions/line-assistant
-deno test --allow-env lib/    # 51 個單元測試（解析器 + 驗簽 + 日檢視 + 選單 + 顯示格式）
+deno test --allow-env lib/    # 57 個單元測試（解析器 + 驗簽 + 日檢視 + 選單 + 引導流程 + 顯示格式）
 deno check index.ts           # 型別檢查
 deno lint                     # 靜態檢查
 ```

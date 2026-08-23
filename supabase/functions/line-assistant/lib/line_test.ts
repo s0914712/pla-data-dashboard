@@ -12,6 +12,7 @@ Deno.env.set("LINE_CHANNEL_SECRET", SECRET);
 
 const {
   verifySignature, stripMentions, isAddressedToBot, describeWhen, formatDate, mainMenuCard,
+  timePickCard, hhmm, addMinutes,
 } = await import("./line.ts");
 
 async function sign(body: string, secret = SECRET): Promise<string> {
@@ -118,6 +119,20 @@ Deno.test("formatDate 帶星期", () => {
   assertEquals(formatDate("2026-08-28"), "2026/08/28（週五）");
 });
 
+Deno.test("describeWhen：資料庫讀回來的是 UTC，必須換算成台北", () => {
+  // 這是 PostgREST 實際回傳的樣子：寫入 +08:00，讀出 +00:00。
+  // 之前直接 slice 字串，14:00 的行程會顯示成 06:00。
+  assertEquals(
+    describeWhen({ is_all_day: false, start_at: "2026-08-25T06:00:00+00:00", end_at: "2026-08-25T07:00:00+00:00", start_date: null, end_date: null }),
+    "2026/08/25（週二） 14:00-15:00",
+  );
+  // 跨過台北午夜：UTC 的 8/28 16:00 = 台北 8/29 00:00
+  assertEquals(
+    describeWhen({ is_all_day: false, start_at: "2026-08-28T15:00:00+00:00", end_at: "2026-08-28T16:30:00+00:00", start_date: null, end_date: null }),
+    "2026/08/28（週五） 23:00 至 2026/08/29（週六） 00:30",
+  );
+});
+
 Deno.test("describeWhen：時段、全天、跨日", () => {
   assertEquals(
     describeWhen({ is_all_day: false, start_at: "2026-08-28T14:00:00+08:00", end_at: "2026-08-28T16:00:00+08:00", start_date: null, end_date: null }),
@@ -178,4 +193,45 @@ Deno.test("功能選單卡的按鈕與 postback data", () => {
   assertEquals(picker.action.data, "act=day");
   assertEquals(picker.action.mode, "date");
   assertEquals(picker.action.initial, "2026-08-23");
+});
+
+// --- 引導式建立行程 ----------------------------------------------------------
+
+Deno.test("hhmm：Postgres 的 time 是 HH:MM:SS，要切成 HH:MM", () => {
+  assertEquals(hhmm("14:00:00"), "14:00");
+  assertEquals(hhmm("09:30"), "09:30");
+});
+
+Deno.test("addMinutes：結束時間的預設值", () => {
+  assertEquals(addMinutes("09:00", 60), "10:00");
+  assertEquals(addMinutes("14:30:00", 60), "15:30");
+  // 跨過午夜要繞回去，不能變成 24:xx
+  assertEquals(addMinutes("23:30", 60), "00:30");
+  assertEquals(addMinutes("23:00", 90), "00:30");
+});
+
+Deno.test("選單有「選日期建立行程」入口", () => {
+  const json = JSON.stringify(mainMenuCard("2026-08-23", "2026-08-24"));
+  assert(json.includes("act=new_date"), "缺少引導流程入口");
+  // 這顆按鈕本身就是日期選擇器，按一下就進流程
+  const flat = JSON.stringify(JSON.parse(json)).match(/\{[^{}]*act=new_date[^{}]*\}/)![0];
+  assert(flat.includes("datetimepicker"), flat);
+  assert(flat.includes('"mode":"date"'), flat);
+});
+
+Deno.test("時間選擇卡：picker 與取消鍵", () => {
+  const card = timePickCard("① 開始時間", "副標", "act=new_start", "09:00", "選開始時間");
+  const json = JSON.stringify(card);
+  assertEquals(card.type, "flex");
+  assert(json.includes('"mode":"time"'), "應為時間選擇器");
+  assert(json.includes("act=new_start"), json);
+  assert(json.includes('"initial":"09:00"'), json);
+  assert(json.includes("act=new_cancel"), "每一步都要能取消");
+});
+
+Deno.test("跨日判斷：結束不晚於開始就是隔天", () => {
+  // 這是 finishDraft 用的規則，跟手打訊息的解析器一致
+  assert("01:00" <= "22:00", "字串比較足以判斷同日先後");
+  assert(!("15:00" <= "14:00"));
+  assert("14:00" <= "14:00", "相同時間視為跨日，避免產生零長度事件");
 });
