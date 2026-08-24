@@ -268,6 +268,8 @@ export async function upsertDraft(args: {
   event_id?: string | null;
   title?: string | null;
   location?: string | null;
+  end_date?: string | null;
+  note?: string | null;
   reset?: boolean;
 }): Promise<DraftRow> {
   return await request<DraftRow>("/rpc/upsert_draft", {
@@ -284,6 +286,8 @@ export async function upsertDraft(args: {
       p_event_id: args.event_id ?? null,
       p_title: args.title ?? null,
       p_location: args.location ?? null,
+      p_end_date: args.end_date ?? null,
+      p_note: args.note ?? null,
       p_reset: args.reset ?? false,
     }),
   });

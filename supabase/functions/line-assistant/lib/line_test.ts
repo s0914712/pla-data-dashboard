@@ -14,7 +14,7 @@ const {
   verifySignature, stripMentions, isAddressedToBot, describeWhen, formatDate, mainMenuCard,
   timePickCard, hhmm, addMinutes,
   datePickCard, eventPickerCarousel, editActionCard, editConfirmCard, describeEvent,
-  renderDayView,
+  renderDayView, leaveShapeCard, leaveReasonCard, describeLeave,
 } = await import("./line.ts");
 
 async function sign(body: string, secret = SECRET): Promise<string> {
@@ -365,4 +365,41 @@ Deno.test("選單有「誰請假」快捷鍵，且帶 f=leave", () => {
   const json = JSON.stringify(mainMenuCard("2026-08-23", "2026-08-24"));
   assert(json.includes("act=day&f=leave&d=2026-08-23"), json);
   assert(json.includes("act=day&f=leave&d=2026-08-24"), json);
+});
+
+// --- 引導式請假 --------------------------------------------------------------
+
+Deno.test("describeLeave：全天單日／跨多天／時段", () => {
+  assertEquals(describeLeave("2026-08-29", "2026-08-29", null, null), "2026/08/29（週六） 全天");
+  assertEquals(
+    describeLeave("2026-08-29", "2026-08-31", null, null),
+    "2026/08/29（週六） 至 2026/08/31（週一） 全天",
+  );
+  assertEquals(
+    describeLeave("2026-08-29", "2026-08-29", "13:30", "17:30"),
+    "2026/08/29（週六） 13:30-17:30",
+  );
+});
+
+Deno.test("請假方式卡：三種方式加取消", () => {
+  const json = JSON.stringify(leaveShapeCard("2026-08-29"));
+  for (const a of ["act=lv_allday", "act=lv_timed", "act=lv_multi", "act=lv_cancel"]) {
+    assert(json.includes(a), `缺少 ${a}`);
+  }
+  assert(json.includes("2026/08/29"), "要顯示選到的日期");
+});
+
+Deno.test("事由卡：可以不填，而且說清楚事由不會出現在標題", () => {
+  const json = JSON.stringify(leaveReasonCard("2026/08/29（週六） 全天"));
+  assert(json.includes("act=lv_skip"), "事由必須是選填");
+  assert(json.includes("act=lv_cancel"), json);
+  assert(json.includes("選填"), json);
+  // 計畫書 §12.2：請假理由可能涉及個資，要讓使用者知道它會寫到哪裡
+  assert(json.includes("說明欄"), "要說明事由寫進哪裡");
+  assert(json.includes("請假（姓名）"), "要說明標題只顯示什麼");
+});
+
+Deno.test("選單有請假入口", () => {
+  const json = JSON.stringify(mainMenuCard("2026-08-23", "2026-08-24"));
+  assert(json.includes("act=lv_date"), "缺少請假入口");
 });

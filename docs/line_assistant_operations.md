@@ -136,6 +136,35 @@ groupId 不需手抄、不會出現在 log、也不用進 Secret。
 送出後走的是**完全相同的** `createRequest` 與確認卡流程，
 所以去重、原子確認、Google 冪等這些保護一個都沒少。
 
+### 引導式請假（不用打字）
+
+選單 →「我要請假」：
+
+```
+① 選日期
+② 選方式    全天 ／ 指定時段 ／ 跨多天
+③ 寫事由    選填，可按「不填事由」略過
+④ 標準確認卡 → 按「確認建立」才寫進日曆
+```
+
+「指定時段」會再問開始與結束時間；「跨多天」會再問迄日（含當天，
+迄日早於起日會擋下來重選）。
+
+**事由的處理方式**（計畫書 §5.4、§12.2 的個資考量）：
+
+| 位置 | 內容 |
+|---|---|
+| Google `summary` | `請假（姓名）` —— 日曆格線上只看得到這個 |
+| Google `description` | `備註：<事由>` —— 要點進事件才看得到 |
+| `calendar_requests.original_text` | 只留流程與日期，**不含事由** |
+| `calendar_requests.note` | 事由本體，30 日後由 `cleanup_expired()` 一併處理 |
+
+事由是選填，卡片上也寫明它會寫到哪裡 —— 使用者在標示「事由」的欄位主動
+填寫即屬明確意願，等同計畫書裡「明確輸入備註：」的條件。
+
+最後一步刻意接回既有的 `createRequest` + 確認卡，所以去重、原子確認、
+Google 冪等這些保護一個都沒少。
+
 ### 修訂既有行程
 
 選單 →「修訂／刪除既有行程」→ 挑日期 → 當天事件以輪播卡列出 → 選一筆 → 決定要做什麼：
@@ -236,7 +265,7 @@ Edge Function 用自動注入的 service role key 繞過 RLS。
 | `allowed_users` | 額外管理員／成員 |
 | `calendar_requests` | 待確認、結果、去重鍵 |
 | `notes` | 記事（軟刪除）。`target_date` 為推論出的歸屬日期，可為 null |
-| `schedule_drafts` | 引導式建立**與修訂**的中間狀態（`mode` + `event_id`），一個人一個 scope 一張，逾時自動清除 |
+| `schedule_drafts` | 引導式建立、修訂**與請假**的中間狀態（`mode` + `event_id` + `end_date` + `payload_note`），一個人一個 scope 一張，逾時自動清除 |
 | `audit_logs` | 稽核。`actor_hash` 是 LINE userId 的 SHA-256，不留原始 ID |
 
 狀態機：`pending → processing → confirmed`；取消 `canceled`；失敗 `failed`；逾時 `expired`。
@@ -290,7 +319,7 @@ Edge Function 用自動注入的 service role key 繞過 RLS。
 
 ```bash
 cd supabase/functions/line-assistant
-deno test --allow-env lib/    # 75 個單元測試（解析器 + 驗簽 + 日檢視 + 選單 + 引導流程 + 修訂 + 行程／請假分區 + 顯示格式）
+deno test --allow-env lib/    # 79 個單元測試（解析器 + 驗簽 + 日檢視 + 選單 + 引導建立 + 引導請假 + 修訂 + 行程／請假分區 + 顯示格式）
 deno check index.ts           # 型別檢查
 deno lint                     # 靜態檢查
 ```

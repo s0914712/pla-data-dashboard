@@ -25,7 +25,10 @@ import {
   formatDate,
   hashActor,
   hhmm,
+  describeLeave,
   isAddressedToBot,
+  leaveReasonCard,
+  leaveShapeCard,
   mainMenuCard,
   renderDayView,
   reply,
@@ -63,6 +66,10 @@ const HELP = [
   "· 記事 下週要交防務報告 #報告",
   "· 查記事 ／ 查記事 報告（關鍵字）",
   "· 刪記事 3",
+  "",
+  "【請假】選單 →「我要請假」，全程用選的",
+  "· 選日期 → 全天／指定時段／跨多天 → 寫事由（可不填）",
+  "· 事由只寫進行事曆說明欄，標題只顯示「請假（姓名）」",
   "",
   "【不想打字】選單 →「選日期建立行程」",
   "· 選日期 → 選開始 → 選結束 → 打標題，全程用選的",
@@ -482,6 +489,8 @@ async function handleDraftStep(
 /** 這張草稿正在等使用者打字嗎？ */
 function draftAwaitsText(d: DraftRow): boolean {
   if (d.mode === "edit_title" || d.mode === "edit_location") return true;
+  // 請假：end_date 有值代表方式已選定，接下來等事由
+  if (d.mode === "leave") return !!d.end_date;
   // create 要三個時間欄位都選完才輪到打標題；copy 用原標題，不需要打字
   return d.mode === "create" && !!d.target_date && !!d.start_time && !!d.end_time;
 }
@@ -516,6 +525,11 @@ async function consumeDraftText(
       (isTitle ? current.summary : current.location) || "（未設定）",
       text,
     )]);
+    return;
+  }
+
+  if (draft.mode === "leave") {
+    await finishLeave(event, draft, text, userId, groupId, replyToken);
     return;
   }
 
@@ -576,6 +590,191 @@ async function finishDraft(
 function ymdOf(iso: string): { y: number; m: number; d: number } {
   const [y, m, d] = iso.split("-").map(Number);
   return { y, m, d };
+}
+
+// --- 引導式請假 --------------------------------------------------------------
+
+/**
+ * 選單「我要請假」按下去之後的步驟。
+ *
+ * 選日期 → 選方式（全天／指定時段／跨多天）→ 寫事由 → 標準確認卡。
+ * 最後一步刻意接回既有的 createRequest + confirmCard，
+ * 所以去重、原子確認、Google 冪等這些保護一個都沒少。
+ */
+async function handleLeaveStep(
+  action: string,
+  event: LineEvent,
+  userId: string,
+  groupId: string | null,
+  replyToken: string,
+): Promise<void> {
+  const scopeKey = db.scopeKeyFor(groupId, userId);
+  const sourceType: SourceType = groupId ? "group" : "user";
+  const base = { scope_key: scopeKey, user_id: userId, group_id: groupId, source_type: sourceType };
+
+  if (action === "lv_cancel") {
+    await db.deleteDraft(scopeKey, userId);
+    await replyText(replyToken, "已取消，沒有送出請假。");
+    return;
+  }
+
+  // 1. 選起始日期 → 問請假方式
+  if (action === "lv_date") {
+    const date = event.postback?.params?.date ?? "";
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      await replyText(replyToken, "日期格式不正確，請重新選一次。");
+      return;
+    }
+    await db.upsertDraft({ ...base, mode: "leave", date, reset: true });
+    await reply(replyToken, [leaveShapeCard(date)]);
+    return;
+  }
+
+  const draft = await db.getDraft(scopeKey, userId, config.pendingTtlMinutes);
+  if (!draft?.target_date || draft.mode !== "leave") {
+    await replyText(replyToken, "這個請假流程已經逾時，請從選單重新開始。");
+    return;
+  }
+  const startDate = draft.target_date;
+
+  switch (action) {
+    // 2-a. 全天：迄日就是起日，直接問事由
+    case "lv_allday":
+      await db.upsertDraft({ ...base, end_date: startDate });
+      await reply(replyToken, [leaveReasonCard(describeLeave(startDate, startDate, null, null))]);
+      return;
+
+    // 2-b. 指定時段：先問開始時間
+    case "lv_timed":
+      await reply(replyToken, [timePickCard(
+        "① 開始時間",
+        `${formatDate(startDate)}\n請假從幾點開始？`,
+        "act=lv_s", "09:00", "選開始時間",
+      )]);
+      return;
+
+    // 2-c. 跨多天：問迄日
+    case "lv_multi":
+      await reply(replyToken, [datePickCard(
+        "請假到哪一天",
+        `${formatDate(startDate)} 起\n請選最後一天（含當天）`,
+        "act=lv_edate",
+        startDate,
+        "選迄日",
+      )]);
+      return;
+
+    case "lv_s": {
+      const picked = event.postback?.params?.time ?? "";
+      if (!/^\d{2}:\d{2}$/.test(picked)) {
+        await replyText(replyToken, "時間格式不正確，請重新選一次。");
+        return;
+      }
+      await db.upsertDraft({ ...base, start: picked });
+      await reply(replyToken, [timePickCard(
+        "② 結束時間",
+        `${formatDate(startDate)} ${picked} 開始\n幾點結束？`,
+        "act=lv_e", addMinutes(picked, 60), "選結束時間",
+      )]);
+      return;
+    }
+
+    case "lv_e": {
+      const picked = event.postback?.params?.time ?? "";
+      if (!/^\d{2}:\d{2}$/.test(picked)) {
+        await replyText(replyToken, "時間格式不正確，請重新選一次。");
+        return;
+      }
+      // 同時寫 end_date，代表方式已選定，接下來等事由
+      const d = await db.upsertDraft({ ...base, end: picked, end_date: startDate });
+      if (!d.start_time) {
+        await replyText(replyToken, "找不到剛才選的開始時間，請從選單重新開始。");
+        return;
+      }
+      await reply(replyToken, [leaveReasonCard(
+        describeLeave(startDate, startDate, hhmm(d.start_time), picked),
+      )]);
+      return;
+    }
+
+    case "lv_edate": {
+      const endDate = event.postback?.params?.date ?? "";
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(endDate)) {
+        await replyText(replyToken, "日期格式不正確，請重新選一次。");
+        return;
+      }
+      if (endDate < startDate) {
+        await replyText(replyToken, `迄日不能早於起日（${formatDate(startDate)}）。請重新選一次。`);
+        return;
+      }
+      await db.upsertDraft({ ...base, end_date: endDate });
+      await reply(replyToken, [leaveReasonCard(describeLeave(startDate, endDate, null, null))]);
+      return;
+    }
+
+    // 3. 不填事由 → 直接送確認卡
+    case "lv_skip":
+      await finishLeave(event, draft, null, userId, groupId, replyToken);
+      return;
+  }
+}
+
+/**
+ * 請假流程收尾：組成待確認請求並送出標準確認卡。
+ *
+ * 事由走 note 欄位 —— insertEvent 只會把它寫進 Google 的 description，
+ * summary 仍然是「請假（姓名）」，日曆格線上看不到事由（計畫書 §5.4）。
+ */
+async function finishLeave(
+  event: LineEvent,
+  draft: DraftRow,
+  reason: string | null,
+  userId: string,
+  groupId: string | null,
+  replyToken: string,
+): Promise<void> {
+  const startDate = draft.target_date!;
+  const endDate = draft.end_date ?? startDate;
+  const timed = !!draft.start_time && !!draft.end_time;
+
+  let startAt: string | null = null;
+  let endAt: string | null = null;
+  if (timed) {
+    const start = hhmm(draft.start_time!);
+    const end = hhmm(draft.end_time!);
+    // 結束不晚於開始就視為跨日到隔天，跟其他流程的規則一致
+    const endYmd = end <= start ? isoDate(addDays(ymdOf(startDate), 1)) : startDate;
+    startAt = `${startDate}T${start}:00+08:00`;
+    endAt = `${endYmd}T${end}:00+08:00`;
+  }
+
+  const created = await db.createRequest({
+    webhook_event_id: event.webhookEventId,
+    source_type: groupId ? "group" : "user",
+    group_id: groupId,
+    user_id: userId,
+    // 原文只留流程與日期，不含事由 —— 事由是個資，只進 note 欄位
+    original_text: `[請假選單] ${startDate}${endDate !== startDate ? `~${endDate}` : ""}`,
+    req_type: "leave",
+    title: "請假",
+    location: null,
+    note: reason,
+    is_all_day: !timed,
+    start_at: startAt,
+    end_at: endAt,
+    start_date: timed ? null : startDate,
+    end_date: timed ? null : endDate,
+    expires_at: new Date(Date.now() + config.pendingTtlMinutes * 60_000).toISOString(),
+  });
+
+  await db.deleteDraft(db.scopeKeyFor(groupId, userId), userId);
+
+  if (created.status !== "pending") {
+    console.info(`redelivered leave finish, status ${created.status}`);
+    return;
+  }
+  await db.audit({ request_id: created.id, action: "request_create_leave", actor_hash: await hashActor(userId), result: "ok" });
+  await reply(replyToken, [confirmCard(created, await displayName(event))]);
 }
 
 // --- 修訂／複製／刪除既有行程 ------------------------------------------------
@@ -1014,6 +1213,14 @@ async function handlePostback(event: LineEvent): Promise<void> {
     const groupId = event.source.groupId ?? null;
     if (groupId && !await db.isGroupAllowed(groupId)) return;
     await handleDraftStep(action, event, userId, groupId, replyToken);
+    return;
+  }
+
+  // 引導式請假：選日期 → 選方式 → 寫事由
+  if (action?.startsWith("lv_")) {
+    const groupId = event.source.groupId ?? null;
+    if (groupId && !await db.isGroupAllowed(groupId)) return;
+    await handleLeaveStep(action, event, userId, groupId, replyToken);
     return;
   }
 

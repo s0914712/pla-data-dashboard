@@ -332,6 +332,24 @@ export function mainMenuCard(todayIso: string, tomorrowIso: string): LineMessage
           },
 
           { type: "separator", margin: "md" },
+          { type: "text", text: "請假", size: "sm", weight: "bold", margin: "sm" },
+          {
+            type: "button",
+            style: "primary",
+            height: "sm",
+            color: "#00695c",
+            action: {
+              type: "datetimepicker",
+              label: "我要請假",
+              data: "act=lv_date",
+              mode: "date",
+              initial: todayIso,
+              min: "2020-01-01",
+              max: "2035-12-31",
+            },
+          },
+
+          { type: "separator", margin: "md" },
           { type: "text", text: "新增行程", size: "sm", weight: "bold", margin: "sm" },
           {
             type: "button",
@@ -712,4 +730,105 @@ export function describeEvent(event: FullEvent): string {
   const s = splitLocalIso(event.startAt!);
   const e = splitLocalIso(event.endAt!);
   return s.date === e.date ? `${s.date} ${s.time}-${e.time}` : `${s.date} ${s.time} 至 ${e.date} ${e.time}`;
+}
+
+// --- 引導式請假 --------------------------------------------------------------
+
+/** 選完日期後問請假方式：全天、指定時段、還是跨多天。 */
+export function leaveShapeCard(dateIso: string): LineMessage {
+  const btn = (label: string, data: string, style = "secondary") => ({
+    type: "button",
+    style,
+    height: "sm",
+    action: { type: "postback", label, data, displayText: label },
+  });
+
+  return {
+    type: "flex",
+    altText: `${formatDate(dateIso)} 要請什麼假？`,
+    contents: {
+      type: "bubble",
+      body: {
+        type: "box",
+        layout: "vertical",
+        spacing: "md",
+        contents: [
+          { type: "text", text: "請假方式", weight: "bold", size: "lg" },
+          { type: "text", text: formatDate(dateIso), size: "sm", color: "#888888" },
+          { type: "separator" },
+          btn("全天", "act=lv_allday", "primary"),
+          btn("指定時段", "act=lv_timed"),
+          btn("跨多天", "act=lv_multi"),
+          { type: "separator", margin: "sm" },
+          btn("取消", "act=lv_cancel"),
+        ],
+      },
+    },
+  };
+}
+
+/**
+ * 最後一步：問事由。
+ *
+ * 事由是選填 —— 計畫書 §12.2 提醒請假理由可能涉及個人資料，
+ * 所以這裡給一個「不填事由」的出口，填了也只寫進 Google 的 description，
+ * 不會出現在日曆格線上的標題。
+ */
+export function leaveReasonCard(whenText: string): LineMessage {
+  return {
+    type: "flex",
+    altText: `${whenText} — 請輸入事由（可不填）`,
+    contents: {
+      type: "bubble",
+      body: {
+        type: "box",
+        layout: "vertical",
+        spacing: "md",
+        contents: [
+          { type: "text", text: "事由（選填）", weight: "bold", size: "lg" },
+          { type: "text", text: whenText, size: "sm", color: "#888888", wrap: true },
+          { type: "separator" },
+          {
+            type: "text",
+            text: "請直接輸入簡單事由，例如：家中有事、就醫。",
+            size: "sm",
+            wrap: true,
+          },
+          {
+            type: "text",
+            text: "事由只會寫進行事曆的說明欄，標題仍然只顯示「請假（姓名）」。",
+            size: "xxs",
+            color: "#888888",
+            wrap: true,
+          },
+          { type: "separator", margin: "sm" },
+          {
+            type: "button",
+            style: "secondary",
+            height: "sm",
+            action: { type: "postback", label: "不填事由", data: "act=lv_skip", displayText: "不填事由" },
+          },
+          {
+            type: "button",
+            style: "secondary",
+            height: "sm",
+            action: { type: "postback", label: "取消", data: "act=lv_cancel", displayText: "取消" },
+          },
+        ],
+      },
+    },
+  };
+}
+
+/** 把請假草稿的日期時間渲染成人類可讀字串（含首尾日）。 */
+export function describeLeave(
+  startDate: string,
+  endDate: string,
+  start: string | null,
+  end: string | null,
+): string {
+  if (start && end) return `${formatDate(startDate)} ${start}-${end}`;
+  return startDate === endDate
+    ? `${formatDate(startDate)} 全天`
+    : `${formatDate(startDate)} 至 ${formatDate(endDate)} 全天`;
 }

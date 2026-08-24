@@ -126,7 +126,7 @@ export interface NoteRow {
 
 /** 草稿目前在跑哪一種流程。 */
 export type DraftMode =
-  | "create" | "copy" | "edit_time" | "edit_title" | "edit_location" | "delete";
+  | "create" | "copy" | "edit_time" | "edit_title" | "edit_location" | "delete" | "leave";
 
 /** 引導式建立／修訂的暫存草稿（見 migration schedule_drafts）。 */
 export interface DraftRow {
@@ -138,9 +138,13 @@ export interface DraftRow {
   /** Postgres time 欄位讀回來是 "HH:MM:SS"。 */
   start_time: string | null;
   end_time: string | null;
+  /** 跨多天請假的迄日（含當天）。同時當成「請假方式已選定」的旗標。 */
+  end_date: string | null;
   mode: DraftMode;
   /** 修訂／複製／刪除時指向的 Google event id。 */
   event_id: string | null;
+  /** 請假事由。選填，寫進 Google 的 description 而不是 summary。 */
+  payload_note: string | null;
   /** copy 時是原標題；edit_title 時是使用者剛打的新標題。 */
   payload_title: string | null;
   payload_location: string | null;
