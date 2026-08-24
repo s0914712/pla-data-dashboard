@@ -36984,5 +36984,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": -0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區聯勤保障中心進行油庫火災撲救及管線搶修實操訓練。",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區透過實戰化訓練，提升部隊應急處置能力與安全穩定基礎。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-08-24",
+      "title": "#直击东部战区练兵备战现场#【#油库常见火灾扑救训练及管线抢修演习#】近日，无锡联勤保障中心某团结合...",
+      "content": "#直击东部战区练兵备战现场#【#油库常见火灾扑救训练及管线抢修演习#】近日，无锡联勤保障中心某团结合任务实际，统筹组织油库常见火灾扑救和管线抢修两项实操训练，全面锤炼官兵应急处置能力。通过两项训练，部队进一步提升了应急处置能力，夯实了安全稳定基础。（何黄圣娴、游小明、池盼勇） ...全文",
+      "url": "https://m.weibo.cn/detail/5335348201916187",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
