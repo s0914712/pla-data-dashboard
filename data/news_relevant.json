@@ -31739,5 +31739,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "武警江蘇總隊南京支隊進行警士選晉考核，旨在落實為戰育才與選人的導向。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-24",
+      "title": "【#选晋考核为战选人#】近日，武警江苏总队南京支队严密组织2026年夏秋季警士选晋考核，确保优中选优...",
+      "content": "【#选晋考核为战选人#】近日，武警江苏总队南京支队严密组织2026年夏秋季警士选晋考核，确保优中选优，立起为战育才、为战选人的鲜明导向。（杨兴、杨春周） #军营生活#",
+      "url": "https://m.weibo.cn/detail/5335438799144513",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
