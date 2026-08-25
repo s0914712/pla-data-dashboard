@@ -403,3 +403,40 @@ Deno.test("選單有請假入口", () => {
   const json = JSON.stringify(mainMenuCard("2026-08-23", "2026-08-24"));
   assert(json.includes("act=lv_date"), "缺少請假入口");
 });
+
+// --- 取消請假 ----------------------------------------------------------------
+
+Deno.test("挑選卡預設仍是修訂用（回歸保護）", () => {
+  const json = JSON.stringify(eventPickerCarousel("2026-08-25", [MEETING]));
+  assert(json.includes("act=ed_pick&e=m1"), json);
+  assert(json.includes("選這筆"), json);
+});
+
+Deno.test("挑選卡可換成取消請假用", () => {
+  const card = eventPickerCarousel("2026-08-29", [LEAVE], {
+    action: "lv_del_pick", label: "取消這筆", verb: "取消請假",
+  });
+  const json = JSON.stringify(card);
+  assert(json.includes("act=lv_del_pick&e=l1"), json);
+  assert(json.includes("取消這筆"), json);
+  assert(!json.includes("act=ed_pick"), "不該還帶著修訂的 postback");
+  assertEquals(card.altText, "2026/08/29（週六） 有 1 筆，請選一筆取消請假");
+});
+
+Deno.test("選單有取消請假入口", () => {
+  const json = JSON.stringify(mainMenuCard("2026-08-23", "2026-08-24"));
+  assert(json.includes("act=lv_del_date"), "缺少取消請假入口");
+  // 四個請假／行程入口彼此不能撞
+  for (const a of ["act=lv_date", "act=lv_del_date", "act=new_date", "act=ed_date"]) {
+    assert(json.includes(a), `缺少 ${a}`);
+  }
+});
+
+Deno.test("取消請假的確認卡走破壞性樣式", () => {
+  const json = JSON.stringify(editConfirmCard(
+    "確認取消請假", "2026/08/29（週六） 全天", "請假（陳彥名）", true,
+  ));
+  assert(json.includes("將刪除"), json);
+  assert(json.includes("act=ed_apply"), "要接回既有的套用流程");
+  assert(json.includes("#c62828"), "破壞性操作要用紅色");
+});

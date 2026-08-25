@@ -70,6 +70,7 @@ const HELP = [
   "【請假】選單 →「我要請假」，全程用選的",
   "· 選日期 → 全天／指定時段／跨多天 → 寫事由（可不填）",
   "· 事由只寫進行事曆說明欄，標題只顯示「請假（姓名）」",
+  "· 要銷假：選單 →「取消請假」→ 挑日期 → 只列當天請假 → 選一筆",
   "",
   "【不想打字】選單 →「選日期建立行程」",
   "· 選日期 → 選開始 → 選結束 → 打標題，全程用選的",
@@ -603,6 +604,7 @@ function ymdOf(iso: string): { y: number; m: number; d: number } {
  */
 async function handleLeaveStep(
   action: string,
+  params: URLSearchParams,
   event: LineEvent,
   userId: string,
   groupId: string | null,
@@ -627,6 +629,49 @@ async function handleLeaveStep(
     }
     await db.upsertDraft({ ...base, mode: "leave", date, reset: true });
     await reply(replyToken, [leaveShapeCard(date)]);
+    return;
+  }
+
+  // 取消請假：挑日期 → 只列當天請假 → 選一筆 → 確認刪除。
+  // 這兩步不需要既有草稿，所以放在下面的守衛之前。
+  if (action === "lv_del_date") {
+    const date = event.postback?.params?.date ?? "";
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      await replyText(replyToken, "日期格式不正確，請重新選一次。");
+      return;
+    }
+    let events: Awaited<ReturnType<typeof gcal.listEvents>>;
+    try {
+      events = await gcal.listEvents(date, config.timezone);
+    } catch (err) {
+      await replyText(replyToken, `讀取行事曆失敗：${(err as Error).message}`);
+      return;
+    }
+    const leaves = events.filter((e) => e.id && e.reqType === "leave");
+    if (leaves.length === 0) {
+      await replyText(replyToken, `${formatDate(date)} 沒有請假紀錄。`);
+      return;
+    }
+    await reply(replyToken, [eventPickerCarousel(date, leaves, {
+      action: "lv_del_pick", label: "取消這筆", verb: "取消請假",
+    })]);
+    return;
+  }
+
+  if (action === "lv_del_pick") {
+    const eventId = params.get("e") ?? "";
+    if (!eventId) return;
+    const target = await gcal.getEvent(eventId);
+    if (!target) {
+      await replyText(replyToken, "找不到那筆請假，可能已經被刪掉了。");
+      return;
+    }
+    // 借用修訂流程的刪除機制：寫一張 mode=delete 的草稿，
+    // 確認卡的 act=ed_apply 就會走到同一個 applyEdit。
+    await db.upsertDraft({ ...base, mode: "delete", event_id: eventId, reset: true });
+    await reply(replyToken, [editConfirmCard(
+      "確認取消請假", describeEvent(target), target.summary, true,
+    )]);
     return;
   }
 
@@ -1220,7 +1265,7 @@ async function handlePostback(event: LineEvent): Promise<void> {
   if (action?.startsWith("lv_")) {
     const groupId = event.source.groupId ?? null;
     if (groupId && !await db.isGroupAllowed(groupId)) return;
-    await handleLeaveStep(action, event, userId, groupId, replyToken);
+    await handleLeaveStep(action, params, event, userId, groupId, replyToken);
     return;
   }
 

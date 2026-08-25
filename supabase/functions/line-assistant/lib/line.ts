@@ -349,6 +349,21 @@ export function mainMenuCard(todayIso: string, tomorrowIso: string): LineMessage
             },
           },
 
+          {
+            type: "button",
+            style: "secondary",
+            height: "sm",
+            action: {
+              type: "datetimepicker",
+              label: "取消請假",
+              data: "act=lv_del_date",
+              mode: "date",
+              initial: todayIso,
+              min: "2020-01-01",
+              max: "2035-12-31",
+            },
+          },
+
           { type: "separator", margin: "md" },
           { type: "text", text: "新增行程", size: "sm", weight: "bold", margin: "sm" },
           {
@@ -571,8 +586,20 @@ export function addMinutes(time: string, minutes: number): string {
 
 // --- 修訂既有行程 ------------------------------------------------------------
 
-/** 一天的事件清單，每筆一顆泡泡加「選這筆」按鈕。 */
-export function eventPickerCarousel(dateIso: string, events: DayEvent[]): LineMessage {
+/**
+ * 一天的事件清單，每筆一顆泡泡加一顆按鈕。
+ *
+ * 修訂與取消請假共用這張卡，只是按鈕帶的 postback 不同 ——
+ * 版面邏輯（12 顆上限、時間、地點、id 編碼）沒必要抄兩份。
+ */
+export function eventPickerCarousel(
+  dateIso: string,
+  events: DayEvent[],
+  opts: { action?: string; label?: string; verb?: string } = {},
+): LineMessage {
+  const action = opts.action ?? "ed_pick";
+  const label = opts.label ?? "選這筆";
+  const verb = opts.verb ?? "修訂";
   // LINE carousel 上限 12 顆泡泡
   const bubbles = events.slice(0, 12).map((e) => ({
     type: "bubble",
@@ -598,9 +625,9 @@ export function eventPickerCarousel(dateIso: string, events: DayEvent[]): LineMe
         height: "sm",
         action: {
           type: "postback",
-          label: "選這筆",
-          data: `act=ed_pick&e=${encodeURIComponent(e.id)}`,
-          displayText: `修訂：${e.summary}`,
+          label,
+          data: `act=${action}&e=${encodeURIComponent(e.id)}`,
+          displayText: `${verb}：${e.summary}`,
         },
       }],
     },
@@ -608,7 +635,7 @@ export function eventPickerCarousel(dateIso: string, events: DayEvent[]): LineMe
 
   return {
     type: "flex",
-    altText: `${formatDate(dateIso)} 有 ${events.length} 筆行程，請選一筆修訂`,
+    altText: `${formatDate(dateIso)} 有 ${events.length} 筆，請選一筆${verb}`,
     contents: { type: "carousel", contents: bubbles },
   };
 }

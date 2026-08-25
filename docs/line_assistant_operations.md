@@ -165,6 +165,19 @@ groupId 不需手抄、不會出現在 log、也不用進 Secret。
 最後一步刻意接回既有的 `createRequest` + 確認卡，所以去重、原子確認、
 Google 冪等這些保護一個都沒少。
 
+### 取消請假（銷假）
+
+選單 →「取消請假」→ 挑日期 → **只列當天的請假**（會議不會混進來）→ 選一筆
+→ 紅色確認卡 → 刪除。
+
+技術上是借用修訂流程的刪除機制：選定後寫一張 `mode=delete` 的草稿，確認卡的
+`act=ed_apply` 就走到同一個 `applyEdit`，不另外寫一套刪除路徑。挑選輪播卡也
+和修訂共用（`eventPickerCarousel` 吃 `action`／`label`／`verb` 三個選項），
+版面邏輯只有一份。
+
+> 用「修訂／刪除既有行程」也刪得掉請假 —— 但那個入口寫著「行程」，清單又把
+> 會議和請假混在一起，等於藏起來了。這條直達路徑就是為了讓銷假好找。
+
 ### 修訂既有行程
 
 選單 →「修訂／刪除既有行程」→ 挑日期 → 當天事件以輪播卡列出 → 選一筆 → 決定要做什麼：
@@ -319,7 +332,7 @@ Edge Function 用自動注入的 service role key 繞過 RLS。
 
 ```bash
 cd supabase/functions/line-assistant
-deno test --allow-env lib/    # 79 個單元測試（解析器 + 驗簽 + 日檢視 + 選單 + 引導建立 + 引導請假 + 修訂 + 行程／請假分區 + 顯示格式）
+deno test --allow-env lib/    # 83 個單元測試（解析器 + 驗簽 + 日檢視 + 選單 + 引導建立 + 引導請假 + 取消請假 + 修訂 + 行程／請假分區 + 顯示格式）
 deno check index.ts           # 型別檢查
 deno lint                     # 靜態檢查
 ```
