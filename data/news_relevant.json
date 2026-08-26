@@ -31907,5 +31907,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-08-25",
+      "title": "台湾台东县海域发生5.5级地震",
+      "content": "另据台湾地区气象部门测定，8月25日15时0分左右，台湾地区东南海域发生5.8级地震，震中位于北纬22.63度、东经121.6度，即在台东县政府东南东方48.0公里，位于台湾东南部海域，震源深度13.1公里。 据台湾媒体报道，台东县绿岛地区有明显摇晃感，屏东、高雄、南投、彰化、台中、宜兰、苗栗等地感受轻微摇晃。记者在台北无明显震感。",
+      "url": "https://www.news.cn/tw/20260825/28d2fe977575403d926929b04fefa170/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
