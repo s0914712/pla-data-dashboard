@@ -31883,5 +31883,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.5,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-08-25",
+      "title": "【#军营献血传递爱心#】近日，无锡市中心血站血浆库存告急，向无锡军分区紧急求援。军分区迅速响应，组织...",
+      "content": "【#军营献血传递爱心#】近日，无锡市中心血站血浆库存告急，向无锡军分区紧急求援。军分区迅速响应，组织所属现役官兵、文职人员及职工开展无偿献血。采血现场，大家有序登记、体检、挽袖采血，以滚烫热血补足季节性血源缺口，彰显军民同心、守望相助的担当。（刘斌、孙海峰、陶演）",
+      "url": "https://m.weibo.cn/detail/5335801187009215",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
