@@ -32315,5 +32315,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍航空兵某旅組織新幹部前往長征出發地進行紅色教育與黨性學習。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-27",
+      "title": "【#从长征起点探寻信仰之源#】近日，东部战区空军航空兵某旅组织新干部奔赴中央红军长征出发地，通过聆听...",
+      "content": "【#从长征起点探寻信仰之源#】近日，东部战区空军航空兵某旅组织新干部奔赴中央红军长征出发地，通过聆听党课、参观史馆等方式，追寻红军长征足迹，在沉浸式研学中传承红色血脉、铸牢信仰之基。（傅强华、刘一鸣、宋英杰） #传承红色基因#",
+      "url": "https://m.weibo.cn/detail/5336525962739867",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
