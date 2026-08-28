@@ -32555,5 +32555,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍組織新排長崗前集訓，旨在提升基層軍官素質與部隊融入度。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-28",
+      "title": "【#岗前集训助力新排长快速成长# 】近日，东部战区空军某部组织新排长开展岗前集训。通过内务评比、飞行...",
+      "content": "【#岗前集训助力新排长快速成长# 】近日，东部战区空军某部组织新排长开展岗前集训。通过内务评比、飞行保障一线见习等方式，助力他们快速融入部队，献身强军使命。（刘钧、鲁骏、涂腾、郑祺扬） #你好新排长#",
+      "url": "https://m.weibo.cn/detail/5336888350081570",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
