@@ -1368,6 +1368,30 @@
     }
   },
   {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部偵獲共艦7艘及公務船6艘於台海周邊活動，國軍運用任務機、艦及岸置飛彈系統嚴密監控與應處。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-29",
+      "title": "中共7軍艦6公務船台海周邊活動國軍嚴密監控| 政治",
+      "content": "（中央社記者 吳書緯 台北29日電）國防部指出，自昨天上午6時至今天上午6時，偵獲共艦7艘及公務船6艘，持續在台海周邊活動，國軍嚴密監控與應處。 國防部上午發布中共解放軍台海周邊海、空域動態，指出至今天上午6時止，偵獲共艦7艘及公務船6艘，持續在台海周邊活動，國軍運用任務機、艦及岸置飛彈系統嚴密監控與應處。 國防部表示，自昨天上午6時至今天上午6時的期間內，未偵獲共機，因此無提供航跡圖。 根據國防部逐日所發布的中共解放軍台海周邊海、空域動態，國軍於23日上午9時5分至上午10時50分在台灣海峽空域偵獲中共2架次主戰機後，直至29日上午6時皆未再偵獲共機在台海周邊空域活動。（編輯：翟思嘉）1150829 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aipl/202608290030.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
     "category": "Not_Relevant",
     "is_relevant": false,
     "country1": "US",
@@ -1378,7 +1402,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "美日韓將於9月9日至11日舉行「自由之刃」（Freedom Edge）聯合軍演，旨在應對北韓核武與飛彈威脅。",
       "Foreign_battleship": "",
-      "Political_statement": "美日韓三方將在濟州島周邊海域進行聯合軍演，測試針對北韓的戰備狀態。"
+      "Political_statement": "美日韓三方將在濟州島以南及以東國際水域進行防衛性質演習，測試針對北韓的戰備狀態。"
     },
     "confidence": 0.98,
     "original_article": {
@@ -1386,30 +1410,6 @@
       "title": "美日韓將展開聯合軍演因應北韓核武飛彈威脅| 國際",
       "content": "（中央社首爾28日綜合外電報導）南韓今天表示，南韓、日本和美國將於9月9日至11日舉行聯合軍事演習，測試針對北韓飛彈與核武威脅的戰備狀態。 路透社報導，首爾聯合參謀本部發布聲明指出，這場名為「自由之刃」（Freedom Edge）的年度演習屬於防衛性質，將在南韓南部濟州島以南及以東的國際水域登場。 這場三方軍演登場前，美國總統川普縮減了與南韓一項重大聯合演習的規模，美國隨後並取消原定下個月舉行的海軍陸戰隊聯合演習。 川普將縮減軍演規模一事部分歸因於首爾當局拒絕在美伊戰爭中提供協助，並稱本月舉行的「乙支自由護盾」（Ulchi Freedom Shield）演習向北韓傳遞了錯誤訊息。川普一直試圖與北韓領導人金正恩舉行新的峰會。 川金兩人曾於2018年和2019年會面。（編譯： 李佩珊 ）1150828 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
       "url": "https://www.cna.com.tw/news/aopl/202608280039.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.4,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "偵獲共艦7艘及公務船6艘持續在台海周邊活動，國軍運用任務機、艦及岸置飛彈系統嚴密監控與應處。",
-      "Foreign_battleship": "",
-      "Political_statement": "國防部表示持續監控中共解放軍台海周邊海、空域動態，並運用任務機、艦及岸置飛彈系統嚴密應處。"
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-08-28",
-      "title": "7艘共艦6艘公務船擾台國軍嚴密監控應處| 政治",
-      "content": "（中央社記者 吳書緯 台北28日電）國防部指出，自昨天上午6時至今天上午6時，偵獲共艦7艘及公務船6艘，持續在台海周邊活動，國軍嚴密監控與應處。 國防部今天上午發布中共解放軍台海周邊海、空域動態，截至今天上午6時止，偵獲共艦7艘及公務船6艘，持續在台海周邊活動，國軍運用任務機、艦及岸置飛彈系統嚴密監控與應處。 國防部表示，自昨天上午6時至今天上午6時的期間內，未偵獲共機，因此無提供航跡圖。（編輯：潘羿菁）1150828 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
-      "url": "https://www.cna.com.tw/news/aipl/202608280040.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -1464,6 +1464,30 @@
     }
   },
   {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中共軍方公開徵集火箭軍採購領域違規線索，顯示火箭軍內部反腐整肅持續，影響其軍事戰備能力。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-08-26",
+      "title": "中共火箭軍再成反腐箭靶共軍公開徵集採購涉貪線索| 兩岸",
+      "content": "（中央社台北26日電）綜合路透社及觀察者網報導，中共軍方24日透過其招標平台「軍隊採購網」發布公告，指共軍為整治火箭軍採購領域問題，即日起至11月30日止向中國社會公開徵集火箭軍違規採購問題有關線索。火箭軍已是中共總書記習近平執行軍隊反腐的重災區，如今官方正進一步加強對軍方採購活動的審查。 根據公告，這項措施以「廣泛接受社會監督」為名公開徵集火箭軍違規採購問題有關訊息，受理範圍主要是火箭軍部隊的物資服務、工程、副食品、藥品耗材等採購活動有關違規問題，含招標代理機構經手的項目，且至少包括需求編制、採購評審、合約履行、網路採購等領域。 公告提到，可舉報者為參加火箭軍部隊採購的供應商、評審專家、招標代理機構、投標代理人，以及共軍內部與採購案相關人員。並強調舉報事項應附相關證據資料，且來源應合法合規、真實有效，否則不予受理。受理截止時間為今年11月30日。 習近平2012年11月接任中共總書記後，共軍一直是他大舉反腐的主要整肅對象之一。2023年，這場清洗行動進一步指向擁有核武器及飛彈、被視為共軍精銳戰力的火箭軍，導致火箭軍大批現任及退役高階將領落馬，其中包括出身火箭軍的前中國國防部長魏鳳和。 在這次公開徵集火箭軍採購涉貪線索前，共軍曾於2023年7月公開徵集2017年10月以來，在裝備採購招標評審活動中的違規、違紀問題線索，重點涵蓋操守缺失、拉幫結派、私下勾連、偏袒照顧、主動洩密及監管缺失等領域，被認為是引爆習近平大舉整肅共軍高層，導致眾多高階將領被查落馬的導火線。 此後，火箭軍曾於2025年8月28至31日接連發布180條公告，取消74名標案評審專家與116家供應商的資格，因為這些專家被認定為「評審錯誤影響結果」，其中有人因2016年標案的評審問題被究責。（編輯： 邱國強 /朱建陵）1150826 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/acn/202608260028.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
     "category": "Regional_Security",
     "is_relevant": true,
     "country1": "US",
@@ -1491,30 +1515,6 @@
     "category": "CCP_news_and_blog",
     "is_relevant": true,
     "country1": "CN",
-    "country2": "CN",
-    "sentiment_score": -0.4,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "中共軍方公開徵集火箭軍採購領域違規線索，顯示火箭軍內部反腐整肅持續，影響其軍事戰備能力。"
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-08-26",
-      "title": "中共火箭軍再成反腐箭靶共軍公開徵集採購涉貪線索| 兩岸",
-      "content": "（中央社台北26日電）綜合路透社及觀察者網報導，中共軍方24日透過其招標平台「軍隊採購網」發布公告，指共軍為整治火箭軍採購領域問題，即日起至11月30日止向中國社會公開徵集火箭軍違規採購問題有關線索。火箭軍已是中共總書記習近平執行軍隊反腐的重災區，如今官方正進一步加強對軍方採購活動的審查。 根據公告，這項措施以「廣泛接受社會監督」為名公開徵集火箭軍違規採購問題有關訊息，受理範圍主要是火箭軍部隊的物資服務、工程、副食品、藥品耗材等採購活動有關違規問題，含招標代理機構經手的項目，且至少包括需求編制、採購評審、合約履行、網路採購等領域。 公告提到，可舉報者為參加火箭軍部隊採購的供應商、評審專家、招標代理機構、投標代理人，以及共軍內部與採購案相關人員。並強調舉報事項應附相關證據資料，且來源應合法合規、真實有效，否則不予受理。受理截止時間為今年11月30日。 習近平2012年11月接任中共總書記後，共軍一直是他大舉反腐的主要整肅對象之一。2023年，這場清洗行動進一步指向擁有核武器及飛彈、被視為共軍精銳戰力的火箭軍，導致火箭軍大批現任及退役高階將領落馬，其中包括出身火箭軍的前中國國防部長魏鳳和。 在這次公開徵集火箭軍採購涉貪線索前，共軍曾於2023年7月公開徵集2017年10月以來，在裝備採購招標評審活動中的違規、違紀問題線索，重點涵蓋操守缺失、拉幫結派、私下勾連、偏袒照顧、主動洩密及監管缺失等領域，被認為是引爆習近平大舉整肅共軍高層，導致眾多高階將領被查落馬的導火線。 此後，火箭軍曾於2025年8月28至31日接連發布180條公告，取消74名標案評審專家與116家供應商的資格，因為這些專家被認定為「評審錯誤影響結果」，其中有人因2016年標案的評審問題被究責。（編輯： 邱國強 /朱建陵）1150826 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
-      "url": "https://www.cna.com.tw/news/acn/202608260028.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
     "country2": "TW",
     "sentiment_score": -0.4,
     "sentiment_label": "negative",
@@ -1522,7 +1522,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "7艘共艦及4艘公務船於台海周邊活動，國軍運用機艦及岸置飛彈系統監控。",
       "Foreign_battleship": "",
-      "Political_statement": "國防部強調運用任務機艦及岸置飛彈系統嚴密監控與應處共軍動態。"
+      "Political_statement": "國防部強調國軍運用任務機艦及岸置飛彈系統，對共艦活動進行嚴密監控與應處。"
     },
     "confidence": 0.98,
     "original_article": {
@@ -1546,7 +1546,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "美國因兵力調度受限及成本考量，取消原訂9月與南韓舉行的雙龍演習，並縮減乙支自由護盾演習規模。",
       "Foreign_battleship": "",
-      "Political_statement": "美國總統川普稱美韓聯合軍演昂貴且具敵意，並因南韓未參與伊朗行動及兵力調度問題調整演習。"
+      "Political_statement": "美國總統川普認為美韓聯合軍演昂貴且具敵意，並因南韓拒絕參與伊朗行動而縮減演習規模。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1584,78 +1584,6 @@
     }
   },
   {
-    "category": "Regional_Security",
-    "is_relevant": true,
-    "country1": "PH",
-    "country2": "JP",
-    "sentiment_score": 0.3,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "菲日ACSA生效，強化雙方軍事演習、訓練及人道援助之物資與後勤支援能力。",
-      "Foreign_battleship": "",
-      "Political_statement": "菲日雙方表示ACSA生效將強化全面戰略夥伴關係，促進印太地區自由開放、和平與穩定。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-08-22",
-      "title": "菲日ACSA生效提升軍演及人道援助能力| 國際",
-      "content": "（中央社記者 林行健 馬尼拉22日專電）菲日「物品勞務相互提供協定」（ACSA）今天生效，進一步強化兩國安全部隊之間的實務合作、互信及協同行動能力，有助於辦理聯合軍事演習以及人道援助行動。 日本駐菲律賓大使遠藤和也今天在社群平台X發文表示，在菲日ACSA於今天生效之際，兩國「進一步強化實務合作、相互信任及全面戰略夥伴關係」，促進區域和平、繁榮與穩定。 菲律賓國防部隨後也發布聲明歡迎ACSA生效，國防部發言人安多隆（Arsenio Andolong）指出，ACSA有助透過更有效率、協調性的物資及服務提供，強化雙邊行動合作，包括軍事演習與災難應變。 安多隆表示，這項協議也展現菲日「全面戰略夥伴關係」的實際落實，反映雙方互信，以及共同追求印太地區自由開放的目標。 今年1月15日，菲律賓外交部長拉薩洛（Maria Theresa Lazaro）與來訪的日本外務大臣茂木敏充簽署了ACSA。 這項協議進一步完備雙方安全合作的法律與後勤架構，讓菲律賓武裝部隊與日本自衛隊在舉行聯合軍事演習、訓練及其他合作活動期間，可相互提供糧食、燃料、彈藥補給、運輸和醫療等方面的支援。 拉薩洛當時表示，ACSA與2025年9月生效的菲日「相互准入協定」（RAA）相輔相成，提升雙方協同行動及戰備能力；RAA旨在簡化雙方部隊到對方領土參加聯合軍事演習及防務合作活動的程序。（編輯：陳承功）1150822 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
-      "url": "https://www.cna.com.tw/news/aopl/202608220123.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.4,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "中共18機艦船在台海周邊活動，其中3架次共機逾越海峽中線及進入北部空域。",
-      "Foreign_battleship": "",
-      "Political_statement": "國防部表示國軍運用任務機艦及岸置飛彈系統，對中共機艦活動進行嚴密監控與應處。"
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-08-22",
-      "title": "中共18機艦船台海周邊活動國軍嚴密監控應處| 政治",
-      "content": "（中央社記者 吳書緯 台北22日電）國防部表示，自昨天上午6時至今天上午6時，偵獲共機3架次逾越中線進入北部及西南空域，以及8艘共艦、7艘公務船，總計中共18機艦船持續在台海周邊活動，國軍嚴密監控與應處。 根據國防部今天公布的「中共解放軍進入台海周邊空域活動示意圖」，國軍於昨天下午4時50分至昨天晚間6時45分，在台灣海峽空域偵獲中共2架次主戰機逾越中線。 國軍於昨天下午3時30分至昨天下午5時50分，在台灣防空識別區（ADIZ）內的台灣北部空域偵獲中共1架直升機。 國防部指出，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：林淑媛）1150822 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
-      "url": "https://www.cna.com.tw/news/aipl/202608220073.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Foreign_battleship",
-    "is_relevant": true,
-    "country1": "US",
-    "country2": "CN",
-    "sentiment_score": -0.3,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "US P-8A Poseidon transit",
-      "Political_statement": "美國第七艦隊聲明飛越台海展現對自由開放印太承諾；中國軍方稱全程跟監，情況盡在掌握。"
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-08-22",
-      "title": "川習會擬9月登場美軍機飛越台海展現對印太承諾| 國際",
-      "content": "（中央社台北22日綜合外電報導）美國海軍一架P-8A海神式（Poseidon）巡邏機21日在國際空域飛越台灣海峽，美國第七艦隊表示，此舉「展現美國對自由開放印太地區的承諾」。 路透社報導，中國國家主席習近平預計9月訪問美國與美國總統川普會面。華府與北京尋求穩定受台灣、貿易爭端及科技限制等議題影響的雙邊關係。 美國第七艦隊在聲明中表示：「美國符合國際法在台灣海峽範圍內行動，維護所有國家的航行權利與自由。」 聲明還說：「軍機飛越台海展現美國對自由開放印太地區的承諾。美軍在國際法允許的任何地方飛行、航行與執行任務。」 中國「環球時報」（Global Times）引述軍方消息人士說法報導，中國軍方全程跟監警戒，「情況盡在掌握」。（編譯： 盧映孜 ）1150822 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
-      "url": "https://www.cna.com.tw/news/aopl/202608220032.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
     "category": "US_TW_Interaction",
     "is_relevant": true,
     "country1": "US",
@@ -1663,10 +1591,10 @@
     "sentiment_score": -0.6,
     "sentiment_label": "negative",
     "extracted_data": {
-      "US_Taiwan_interaction": "美國對台軍售（包括愛國者飛彈）因中東戰事消耗庫存，面臨嚴重交付延遲，影響台灣國防戰備。",
+      "US_Taiwan_interaction": "美國對台軍售（包括愛國者飛彈）因中東戰事消耗庫存，面臨嚴重延遲交付風險。",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "美方官員擔憂中東衝突削弱對中戰備能力，台灣官員對美方轉移重心表示憂慮。"
+      "Political_statement": "美軍因中東衝突導致軍備庫存吃緊，恐削弱對台軍售交付能力及印太地區戰備。"
     },
     "confidence": 0.98,
     "original_article": {
@@ -1704,78 +1632,6 @@
     }
   },
   {
-    "category": "TW_Statement",
-    "is_relevant": true,
-    "country1": "TW",
-    "country2": "TW",
-    "sentiment_score": -0.3,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "國防部對立法院未通過行政院版無人載具採購條例表達遺憾，強調該案依敵情威脅評估，旨在儘速籌建急需戰力以維護國家安全。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-08-27",
-      "title": "國防部：遺憾行政院版無人載具條例未通過| 政治",
-      "content": "（中央社記者 游凱翔 台北27日電）立法院會今天三讀通過「強化國防自主暨無人載具產業發展條例」，國防部表示，對於政院版未通過表達遺憾，政院版規劃的籌購案項、數量及期程，是依敵情威脅及戰力需求等因素綜合評估完成，可在最短時間兼顧科技迭代、戰力形成及建立國內產能。 立法院會今天下午開始處理無人載具條例草案等案，由於朝野黨團對於條文均無共識，上演表決大戰。歷經近3小時表決，藍白在人數優勢下通過法案名稱為「強化國防自主暨無人載具產業發展條例」，並明定主管機關為經濟部，涉及國防軍用採購事項，主管機關為國防部。 條例明定中央政府應循年度預算程序，連續6年、編列總額為新台幣2400億元，每年編列400億元為原則。 國防部晚間發布新聞稿表示，對於立法院未通過行政院版「國防自主無人載具採購特別條例」表達遺憾，政院版規劃的籌購裝備案項、數量及期程是依敵情威脅及戰力需求等因素，綜合評估完成；可在最短時間，兼顧科技迭代、戰力形成及建立國內產能，完成3項無人載具採購。 國防部說明，行政院版「國防自主無人載具採購特別條例」是為彌補原1兆2500億元特別預算遭刪除案項，期望以編列特別預算，籌建急需戰力。所有案項除由各聯合參謀部門，針對防衛作戰各階段需求進行深入研討，並協同友盟評估，以完備無人系統整體籌獲策略。 國防部強調，鑑於籌購無人系統的重要性與急迫性，國防部將依行政院指導，儘速編列無人戰力組建所需預算；亦期盼立法院在野黨團尊重國防專業，軍民同心維護國家安全。（編輯：林克倫）1150827 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
-      "url": "https://www.cna.com.tw/news/aipl/202608270286.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "US",
-    "country2": "TH",
-    "sentiment_score": 0.1,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "美國林肯號航艦結束中東部署，預計9月初停靠泰國巴達雅進行人員休整與補給。"
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-08-26",
-      "title": "美國林肯號航艦9月抵泰國巴達雅將迎接5000名美軍| 國際",
-      "content": "（中央社記者 李宗憲 曼谷26日專電）美國林肯號航空母艦預計9月初停靠泰國東部，約有5000名水兵與海軍陸戰隊員有機會上岸休整。巴達雅市政府今天表示，已準備迎接這批美軍人員，並指出這次到訪有望為旅遊相關產業帶來商機。 泰國官員曾表示，美國林肯號航空母艦（USS Abraham Lincoln）將於下週停靠泰國。此前，該艦在中東長時間部署，曾傳出艦上環境惡化，發生心理健康問題的消息。 泰國英文媒體「鮮新聞英文報」（Khaosod English）今天報導，林肯號航空母艦預計9月2日至6日停靠林查班港（Laem Chabang），艦上約5000名人員將有機會前往巴達雅。 巴達雅市長波拉梅特（Poramet Ngampichet）表示，市府已準備接待這批美軍人員，並將與巴達雅市警察、市府官員及相關海上單位協調，以維持遊客及美軍安全。 他說：「巴達雅過去曾接待造訪泰國東部海岸的美軍人員，當地旅遊業者已準備好迎接這些訪客。」 波拉梅特表示，這次到訪可望為餐廳、娛樂場所、交通及其他旅遊相關產業帶來商機。以每人消費1000至3000泰銖（約新台幣971元至2913元）估算，若約5000人都能上岸消費，可望帶動約500萬至1500萬泰銖消費。 不過，他也補充說，實際消費金額仍取決於有多少人獲准上岸，以及他們在當地停留多久。 路透社25日報導，林肯號航空母艦已連續超過200天沒有靠港，創下現代史上最長的連續海上部署紀錄。美國民主黨國會議員指出，這艘航艦已經於22日離開中東。 泰國是美國在東南亞唯一條約盟邦，自從1954年以來成為條約盟友，並於2003年獲指定為主要非北大西洋公約組織（NATO）盟國。兩國軍事關係一直緊密。（編輯：張芷瑄）1150826 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
-      "url": "https://www.cna.com.tw/news/aopl/202608260313.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "CN",
-    "country2": "None",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "孟加拉政府擬採購中國製J-10CE戰機以推動空軍現代化，深化與中國的軍事合作關係。"
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-08-27",
-      "title": "推動空軍現代化 孟加拉擬購中國J-10CE戰機",
-      "content": "（中央社孟加拉首都達卡26日綜合外電報導）孟加拉準備與中國就採購殲-10CE（J-10CE）戰機和攻擊直升機展開談判。總理的政策與戰略顧問札赫德（Zahed Ur Rahman）表示，一個政府小組正在擬定一份協議草案。 路透社報導，這項規劃中的軍購將是孟加拉多年來其中一次規模最大的國防採購案，也將進一步深化與北京的軍事關係。中國目前已是孟加拉最大的武器供應國。 自巴基斯坦表示2025年5月與印度衝突期間曾以J-10CE擊落包含法製飆風（Rafale）戰機在內多架印度戰機後，J-10CE便受到全球關注。印度始終否認戰機遭巴方擊落，但西方開源情報認為，當時至少有一架印軍飆風戰機被打下。 札赫德表示孟加拉注意到相關報導，中國戰機在去年這場印巴衝突裡有傲人作戰表現。 當地媒體報導，孟加拉正尋求空軍現代化，並考慮採購多達24架J-10CE戰機；J-10CE為中國J-10C的外銷型號，目前已知的使用國為巴基斯坦。 札赫德沒有透露孟加拉打算採購的架數、交易金額或交機時程。他表示，相關細節將透過談判決定。 路透社指出，過去20年來中國供應孟加拉軍艦、戰機、戰車及飛彈系統，使中國成為孟加拉最大的軍事裝備來源國。 孟加拉的「每日星報」（The Daily Star）報導，札赫德25日在每週例行記者會表示，孟加拉目前正進行中國製J-10CE戰機、攻擊直升機及無人機（UAV）系統的採購作業，以實現空軍現代化。 他說：「如果資金到位，這項採購案可能今年就會完成；如果沒有，就會到明年。」 札赫德舉去年印度在印巴衝突期間損失飆風戰機為例，認為J-10CE已獲實戰經驗，「（戰果）是由中國製J-10戰機所創。這個消息已獲確認」。 他表示，J-10CE在對抗飆風這款法製4.5代戰機中的表現良好，「孟加拉注意到了這點」。（編譯： 陳亦偉 ）1150827 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
-      "url": "https://www.cna.com.tw/news/aopl/202608270154.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
     "category": "US_TW_Interaction",
     "is_relevant": true,
     "country1": "US",
@@ -1783,10 +1639,10 @@
     "sentiment_score": 0.5,
     "sentiment_label": "positive",
     "extracted_data": {
-      "US_Taiwan_interaction": "美國威斯康辛州財務長李博訪台，並呼籲在台北設立貿易辦事處以深化經貿合作。",
+      "US_Taiwan_interaction": "美國威斯康辛州財務長李博訪台後，投書呼籲該州在台北設立貿易辦事處，以深化雙邊經貿合作與產業投資。",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "威斯康辛州財務長李博投書呼籲深化與台灣經貿關係，並建議在台北設立貿易辦事處以促進投資與就業。"
+      "Political_statement": "威斯康辛州財務長李博主張透過在台設立貿易辦事處，協助台企赴威州投資並創造就業機會，強化雙方經貿連結。"
     },
     "confidence": 0.98,
     "original_article": {
@@ -1827,12 +1683,12 @@
     "category": "Military_Exercise",
     "is_relevant": true,
     "country1": "CN",
-    "country2": "TW",
+    "country2": "CN",
     "sentiment_score": -0.4,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "中國廣東海事局於南海北部沿岸（茂名、惠來、湛江近海）發布3個航行警告，包含軍事活動及為期4天的實彈射擊演練。",
+      "Military_exercise": "中國廣東海事局於南海北部沿岸（茂名、惠來、湛江近海）發布3個航行警告，涵蓋軍事活動及為期4天的實彈射擊演練。",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
@@ -1923,6 +1779,30 @@
     "category": "Not_Relevant",
     "is_relevant": false,
     "country1": "CN",
+    "country2": "None",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "孟加拉政府擬採購中國製J-10CE戰機以推動空軍現代化，深化與中國的軍事合作關係。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-27",
+      "title": "推動空軍現代化 孟加拉擬購中國J-10CE戰機",
+      "content": "（中央社孟加拉首都達卡26日綜合外電報導）孟加拉準備與中國就採購殲-10CE（J-10CE）戰機和攻擊直升機展開談判。總理的政策與戰略顧問札赫德（Zahed Ur Rahman）表示，一個政府小組正在擬定一份協議草案。 路透社報導，這項規劃中的軍購將是孟加拉多年來其中一次規模最大的國防採購案，也將進一步深化與北京的軍事關係。中國目前已是孟加拉最大的武器供應國。 自巴基斯坦表示2025年5月與印度衝突期間曾以J-10CE擊落包含法製飆風（Rafale）戰機在內多架印度戰機後，J-10CE便受到全球關注。印度始終否認戰機遭巴方擊落，但西方開源情報認為，當時至少有一架印軍飆風戰機被打下。 札赫德表示孟加拉注意到相關報導，中國戰機在去年這場印巴衝突裡有傲人作戰表現。 當地媒體報導，孟加拉正尋求空軍現代化，並考慮採購多達24架J-10CE戰機；J-10CE為中國J-10C的外銷型號，目前已知的使用國為巴基斯坦。 札赫德沒有透露孟加拉打算採購的架數、交易金額或交機時程。他表示，相關細節將透過談判決定。 路透社指出，過去20年來中國供應孟加拉軍艦、戰機、戰車及飛彈系統，使中國成為孟加拉最大的軍事裝備來源國。 孟加拉的「每日星報」（The Daily Star）報導，札赫德25日在每週例行記者會表示，孟加拉目前正進行中國製J-10CE戰機、攻擊直升機及無人機（UAV）系統的採購作業，以實現空軍現代化。 他說：「如果資金到位，這項採購案可能今年就會完成；如果沒有，就會到明年。」 札赫德舉去年印度在印巴衝突期間損失飆風戰機為例，認為J-10CE已獲實戰經驗，「（戰果）是由中國製J-10戰機所創。這個消息已獲確認」。 他表示，J-10CE在對抗飆風這款法製4.5代戰機中的表現良好，「孟加拉注意到了這點」。（編譯： 陳亦偉 ）1150827 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aopl/202608270154.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "CN",
     "country2": "TW",
     "sentiment_score": 0.1,
     "sentiment_label": "neutral",
@@ -1954,7 +1834,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "新華社報導台灣青年在中國大陸發展的個人故事，屬於統戰宣傳性質，與台海軍事或政治局勢無直接關聯。"
+      "Political_statement": "新華社報導台灣青年在中國大陸的融合發展故事，屬於統戰宣傳性質，與台海軍事或政治局勢無直接關聯。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1978,7 +1858,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "中国国防部批评赖清德当局大幅提升防务支出是穷兵黩武，强调统一大势不可阻挡，解放军将坚决挫败台独图谋。"
+      "Political_statement": "中国国防部批评赖清德当局大幅提升防务支出是穷兵黩武，强调解决台湾问题的能力与手段将更丰富，并重申坚决挫败台独分裂图谋。"
     },
     "confidence": 0.98,
     "original_article": {
@@ -2074,7 +1954,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "国台办批评民进党当局抹黑大陆法律工具，指责其制造两岸对立、禁限大陆社交平台及侵犯民众隐私，称其行为不得人心。"
+      "Political_statement": "国台办批评民进党当局抹黑大陆法律工具，指责其制造两岸对立、阻碍交流，并反驳关于小红书禁令的诈骗数据为捏造。"
     },
     "confidence": 0.98,
     "original_article": {
@@ -2138,7 +2018,7 @@
   {
     "category": "CCP_news_and_blog",
     "is_relevant": true,
-    "country1": "CN",
+    "country1": "TW",
     "country2": "TW",
     "sentiment_score": -0.4,
     "sentiment_label": "negative",
@@ -2146,7 +2026,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "新党主席吴成典强调两岸必然统一，批评民进党“抗中”政策，主张台湾应走和平统一道路，并称“台独”是害台谎言。"
+      "Political_statement": "新党主席吴成典主张两岸必然统一，批评民进党政府抗中政策，并强调新党将致力于推动两岸和平统一。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -2212,6 +2092,318 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區發布演訓相關貼文，強調炮火演練與衛國擔當。",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區透過社群媒體發布軍事演訓內容，展現對台軍事威懾意圖。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-28",
+      "title": "#东部熄灯号# 炮火震彻原野，在苍茫大地上书写卫国担当。#阅海峡#",
+      "content": "#东部熄灯号# 炮火震彻原野，在苍茫大地上书写卫国担当。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5337009146560845",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": false,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍組織新排長崗前集訓，旨在提升基層軍官素質與部隊融入度。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-28",
+      "title": "【#岗前集训助力新排长快速成长# 】近日，东部战区空军某部组织新排长开展岗前集训。通过内务评比、飞行...",
+      "content": "【#岗前集训助力新排长快速成长# 】近日，东部战区空军某部组织新排长开展岗前集训。通过内务评比、飞行保障一线见习等方式，助力他们快速融入部队，献身强军使命。（刘钧、鲁骏、涂腾、郑祺扬） #你好新排长#",
+      "url": "https://m.weibo.cn/detail/5336888350081570",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "武警福建总队莆田支队举行群众性练兵比武，包含战伤救护、实用攀登等军事技能训练。",
+      "Foreign_battleship": "",
+      "Political_statement": "武警福建总队进行练兵比武，展示练兵成效。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-08-28",
+      "title": "【#群众性练兵比武火力全开# 】近日，武警福建总队莆田支队2026年群众性练兵比武暨创破纪录活动火热...",
+      "content": "【#群众性练兵比武火力全开# 】近日，武警福建总队莆田支队2026年群众性练兵比武暨创破纪录活动火热开启。来自基层单位的百余名官兵同台竞技，围绕田径竞速、团体接力、实用攀登、战伤救护、驾驶技术、精品菜制作等10类28个项目展开激烈比拼，展示练兵成效。（林亚森、杜正凯、张高棋、李东昇） ...全文",
+      "url": "https://m.weibo.cn/detail/5336797757310875",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": false,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍航空兵某旅組織新幹部前往紅軍長征出發地進行紅色教育與黨性學習。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-27",
+      "title": "【#从长征起点探寻信仰之源#】近日，东部战区空军航空兵某旅组织新干部奔赴中央红军长征出发地，通过聆听...",
+      "content": "【#从长征起点探寻信仰之源#】近日，东部战区空军航空兵某旅组织新干部奔赴中央红军长征出发地，通过聆听党课、参观史馆等方式，追寻红军长征足迹，在沉浸式研学中传承红色血脉、铸牢信仰之基。（傅强华、刘一鸣、宋英杰） #传承红色基因#",
+      "url": "https://m.weibo.cn/detail/5336525962739867",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "第72集团军某陆航旅组织多型直升机开展水上搜救实战化演练，重点训练低空搜寻、水面悬停及凌空吊救。",
+      "Foreign_battleship": "",
+      "Political_statement": "东部战区通过实战化演练锤炼机组应急抢险与协同救援能力，强调时刻准备战斗。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-27",
+      "title": "#直击东部战区练兵备战现场#【#直升机水上搜救实战演练来了# 】近日，第72集团军某陆航旅组织多型直...",
+      "content": "#直击东部战区练兵备战现场#【#直升机水上搜救实战演练来了# 】近日，第72集团军某陆航旅组织多型直升机开展水上搜救实战化演练。重点围绕低空搜寻、水面悬停、凌空吊救等重难点课目专攻精练，全方位锤炼机组应急抢险、协同救援的能力。（陈晔华 、张子航、张志敏、刘润南 ）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5336435365773944",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區陸軍部隊於海訓場進行理論宣講與強軍教育活動。",
+      "Foreign_battleship": "",
+      "Political_statement": "中共軍方透過宣講團在海訓場進行強軍思想教育，強化部隊備戰意識。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-08-26",
+      "title": "【#红色号令传沙场#】近日，福建省军区福州第一离职干部休养所“薪火宣讲团”联合东部战区陆军某部“红色...",
+      "content": "【#红色号令传沙场#】近日，福建省军区福州第一离职干部休养所“薪火宣讲团”联合东部战区陆军某部“红色传令”理论小分队，走进海训场传经送宝。 宣讲员们立足自身经历，深情讲述驻闽开国将军烽火往事、新时代强军英模先进事迹，并结合热点理论开展互动答疑，赢得官兵点赞。（林霞、柳思羽、方锴）  ...全文",
+      "url": "https://m.weibo.cn/detail/5336163574350230",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區空軍某部組織輕武器實彈射擊考核，強調練兵備戰。",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區發布練兵備戰現場畫面，強調時刻準備戰鬥。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-26",
+      "title": "#直击东部战区练兵备战现场#【#轻武器实弹射击考核热血登场# 】近日，东部战区空军某部组织轻武器实弹...",
+      "content": "#直击东部战区练兵备战现场#【#轻武器实弹射击考核热血登场# 】近日，东部战区空军某部组织轻武器实弹射击考核，全面检验官兵射击技能。（彭迪奎、唐寅、李柯、潘超）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5336072978170516",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "偵獲共艦7艘及公務船6艘持續在台海周邊活動，國軍運用任務機、艦及岸置飛彈系統嚴密監控與應處。",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部表示持續監控中共解放軍台海周邊海、空域動態，並運用任務機、艦及岸置飛彈系統嚴密應處。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-28",
+      "title": "7艘共艦6艘公務船擾台國軍嚴密監控應處| 政治",
+      "content": "（中央社記者 吳書緯 台北28日電）國防部指出，自昨天上午6時至今天上午6時，偵獲共艦7艘及公務船6艘，持續在台海周邊活動，國軍嚴密監控與應處。 國防部今天上午發布中共解放軍台海周邊海、空域動態，截至今天上午6時止，偵獲共艦7艘及公務船6艘，持續在台海周邊活動，國軍運用任務機、艦及岸置飛彈系統嚴密監控與應處。 國防部表示，自昨天上午6時至今天上午6時的期間內，未偵獲共機，因此無提供航跡圖。（編輯：潘羿菁）1150828 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aipl/202608280040.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Regional_Security",
+    "is_relevant": true,
+    "country1": "PH",
+    "country2": "JP",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "菲日ACSA生效，強化雙方軍事演習、訓練及人道援助之物資與後勤支援能力。",
+      "Foreign_battleship": "",
+      "Political_statement": "菲日雙方表示ACSA生效將強化全面戰略夥伴關係，促進印太地區自由開放、和平與穩定。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-22",
+      "title": "菲日ACSA生效提升軍演及人道援助能力| 國際",
+      "content": "（中央社記者 林行健 馬尼拉22日專電）菲日「物品勞務相互提供協定」（ACSA）今天生效，進一步強化兩國安全部隊之間的實務合作、互信及協同行動能力，有助於辦理聯合軍事演習以及人道援助行動。 日本駐菲律賓大使遠藤和也今天在社群平台X發文表示，在菲日ACSA於今天生效之際，兩國「進一步強化實務合作、相互信任及全面戰略夥伴關係」，促進區域和平、繁榮與穩定。 菲律賓國防部隨後也發布聲明歡迎ACSA生效，國防部發言人安多隆（Arsenio Andolong）指出，ACSA有助透過更有效率、協調性的物資及服務提供，強化雙邊行動合作，包括軍事演習與災難應變。 安多隆表示，這項協議也展現菲日「全面戰略夥伴關係」的實際落實，反映雙方互信，以及共同追求印太地區自由開放的目標。 今年1月15日，菲律賓外交部長拉薩洛（Maria Theresa Lazaro）與來訪的日本外務大臣茂木敏充簽署了ACSA。 這項協議進一步完備雙方安全合作的法律與後勤架構，讓菲律賓武裝部隊與日本自衛隊在舉行聯合軍事演習、訓練及其他合作活動期間，可相互提供糧食、燃料、彈藥補給、運輸和醫療等方面的支援。 拉薩洛當時表示，ACSA與2025年9月生效的菲日「相互准入協定」（RAA）相輔相成，提升雙方協同行動及戰備能力；RAA旨在簡化雙方部隊到對方領土參加聯合軍事演習及防務合作活動的程序。（編輯：陳承功）1150822 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aopl/202608220123.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "中共18機艦船在台海周邊活動，其中3架次共機逾越海峽中線及進入北部空域。",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部表示國軍運用任務機艦及岸置飛彈系統，對中共機艦活動進行嚴密監控與應處。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-22",
+      "title": "中共18機艦船台海周邊活動國軍嚴密監控應處| 政治",
+      "content": "（中央社記者 吳書緯 台北22日電）國防部表示，自昨天上午6時至今天上午6時，偵獲共機3架次逾越中線進入北部及西南空域，以及8艘共艦、7艘公務船，總計中共18機艦船持續在台海周邊活動，國軍嚴密監控與應處。 根據國防部今天公布的「中共解放軍進入台海周邊空域活動示意圖」，國軍於昨天下午4時50分至昨天晚間6時45分，在台灣海峽空域偵獲中共2架次主戰機逾越中線。 國軍於昨天下午3時30分至昨天下午5時50分，在台灣防空識別區（ADIZ）內的台灣北部空域偵獲中共1架直升機。 國防部指出，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：林淑媛）1150822 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aipl/202608220073.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Foreign_battleship",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "CN",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "US P-8A Poseidon transit",
+      "Political_statement": "美國第七艦隊聲明飛越台海展現對自由開放印太承諾；中國軍方稱全程跟監，情況盡在掌握。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-22",
+      "title": "川習會擬9月登場美軍機飛越台海展現對印太承諾| 國際",
+      "content": "（中央社台北22日綜合外電報導）美國海軍一架P-8A海神式（Poseidon）巡邏機21日在國際空域飛越台灣海峽，美國第七艦隊表示，此舉「展現美國對自由開放印太地區的承諾」。 路透社報導，中國國家主席習近平預計9月訪問美國與美國總統川普會面。華府與北京尋求穩定受台灣、貿易爭端及科技限制等議題影響的雙邊關係。 美國第七艦隊在聲明中表示：「美國符合國際法在台灣海峽範圍內行動，維護所有國家的航行權利與自由。」 聲明還說：「軍機飛越台海展現美國對自由開放印太地區的承諾。美軍在國際法允許的任何地方飛行、航行與執行任務。」 中國「環球時報」（Global Times）引述軍方消息人士說法報導，中國軍方全程跟監警戒，「情況盡在掌握」。（編譯： 盧映孜 ）1150822 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aopl/202608220032.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部對立法院未通過行政院版無人載具採購條例表達遺憾，強調該案依敵情威脅評估，旨在儘速籌建急需戰力以維護國家安全。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-08-27",
+      "title": "國防部：遺憾行政院版無人載具條例未通過| 政治",
+      "content": "（中央社記者 游凱翔 台北27日電）立法院會今天三讀通過「強化國防自主暨無人載具產業發展條例」，國防部表示，對於政院版未通過表達遺憾，政院版規劃的籌購案項、數量及期程，是依敵情威脅及戰力需求等因素綜合評估完成，可在最短時間兼顧科技迭代、戰力形成及建立國內產能。 立法院會今天下午開始處理無人載具條例草案等案，由於朝野黨團對於條文均無共識，上演表決大戰。歷經近3小時表決，藍白在人數優勢下通過法案名稱為「強化國防自主暨無人載具產業發展條例」，並明定主管機關為經濟部，涉及國防軍用採購事項，主管機關為國防部。 條例明定中央政府應循年度預算程序，連續6年、編列總額為新台幣2400億元，每年編列400億元為原則。 國防部晚間發布新聞稿表示，對於立法院未通過行政院版「國防自主無人載具採購特別條例」表達遺憾，政院版規劃的籌購裝備案項、數量及期程是依敵情威脅及戰力需求等因素，綜合評估完成；可在最短時間，兼顧科技迭代、戰力形成及建立國內產能，完成3項無人載具採購。 國防部說明，行政院版「國防自主無人載具採購特別條例」是為彌補原1兆2500億元特別預算遭刪除案項，期望以編列特別預算，籌建急需戰力。所有案項除由各聯合參謀部門，針對防衛作戰各階段需求進行深入研討，並協同友盟評估，以完備無人系統整體籌獲策略。 國防部強調，鑑於籌購無人系統的重要性與急迫性，國防部將依行政院指導，儘速編列無人戰力組建所需預算；亦期盼立法院在野黨團尊重國防專業，軍民同心維護國家安全。（編輯：林克倫）1150827 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aipl/202608270286.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "US",
+    "country2": "TH",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "美國林肯號航艦結束中東部署，預計9月初停靠泰國巴達雅進行人員休整與補給。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-26",
+      "title": "美國林肯號航艦9月抵泰國巴達雅將迎接5000名美軍| 國際",
+      "content": "（中央社記者 李宗憲 曼谷26日專電）美國林肯號航空母艦預計9月初停靠泰國東部，約有5000名水兵與海軍陸戰隊員有機會上岸休整。巴達雅市政府今天表示，已準備迎接這批美軍人員，並指出這次到訪有望為旅遊相關產業帶來商機。 泰國官員曾表示，美國林肯號航空母艦（USS Abraham Lincoln）將於下週停靠泰國。此前，該艦在中東長時間部署，曾傳出艦上環境惡化，發生心理健康問題的消息。 泰國英文媒體「鮮新聞英文報」（Khaosod English）今天報導，林肯號航空母艦預計9月2日至6日停靠林查班港（Laem Chabang），艦上約5000名人員將有機會前往巴達雅。 巴達雅市長波拉梅特（Poramet Ngampichet）表示，市府已準備接待這批美軍人員，並將與巴達雅市警察、市府官員及相關海上單位協調，以維持遊客及美軍安全。 他說：「巴達雅過去曾接待造訪泰國東部海岸的美軍人員，當地旅遊業者已準備好迎接這些訪客。」 波拉梅特表示，這次到訪可望為餐廳、娛樂場所、交通及其他旅遊相關產業帶來商機。以每人消費1000至3000泰銖（約新台幣971元至2913元）估算，若約5000人都能上岸消費，可望帶動約500萬至1500萬泰銖消費。 不過，他也補充說，實際消費金額仍取決於有多少人獲准上岸，以及他們在當地停留多久。 路透社25日報導，林肯號航空母艦已連續超過200天沒有靠港，創下現代史上最長的連續海上部署紀錄。美國民主黨國會議員指出，這艘航艦已經於22日離開中東。 泰國是美國在東南亞唯一條約盟邦，自從1954年以來成為條約盟友，並於2003年獲指定為主要非北大西洋公約組織（NATO）盟國。兩國軍事關係一直緊密。（編輯：張芷瑄）1150826 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aopl/202608260313.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
     "sentiment_score": 0.4,
     "sentiment_label": "positive",
     "extracted_data": {
@@ -2257,54 +2449,6 @@
   },
   {
     "category": "CCP_news_and_blog",
-    "is_relevant": false,
-    "country1": "CN",
-    "country2": "CN",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "東部戰區空軍組織新排長崗前集訓，旨在提升基層軍官素質與部隊融入度。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-08-28",
-      "title": "【#岗前集训助力新排长快速成长# 】近日，东部战区空军某部组织新排长开展岗前集训。通过内务评比、飞行...",
-      "content": "【#岗前集训助力新排长快速成长# 】近日，东部战区空军某部组织新排长开展岗前集训。通过内务评比、飞行保障一线见习等方式，助力他们快速融入部队，献身强军使命。（刘钧、鲁骏、涂腾、郑祺扬） #你好新排长#",
-      "url": "https://m.weibo.cn/detail/5336888350081570",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.3,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "武警福建总队莆田支队举行群众性练兵比武，涵盖战伤救护、实用攀登等军事技能训练。",
-      "Foreign_battleship": "",
-      "Political_statement": "武警福建总队通过练兵比武展示军事训练成效，福建作为对台前线，此类演训具有针对性威慑意涵。"
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-08-28",
-      "title": "【#群众性练兵比武火力全开# 】近日，武警福建总队莆田支队2026年群众性练兵比武暨创破纪录活动火热...",
-      "content": "【#群众性练兵比武火力全开# 】近日，武警福建总队莆田支队2026年群众性练兵比武暨创破纪录活动火热开启。来自基层单位的百余名官兵同台竞技，围绕田径竞速、团体接力、实用攀登、战伤救护、驾驶技术、精品菜制作等10类28个项目展开激烈比拼，展示练兵成效。（林亚森、杜正凯、张高棋、李东昇） ...全文",
-      "url": "https://m.weibo.cn/detail/5336797757310875",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
@@ -2329,54 +2473,6 @@
   },
   {
     "category": "CCP_news_and_blog",
-    "is_relevant": false,
-    "country1": "CN",
-    "country2": "CN",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "東部戰區空軍航空兵某旅組織新幹部前往紅軍長征出發地進行黨史教育與紅色基因傳承活動。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-08-27",
-      "title": "【#从长征起点探寻信仰之源#】近日，东部战区空军航空兵某旅组织新干部奔赴中央红军长征出发地，通过聆听...",
-      "content": "【#从长征起点探寻信仰之源#】近日，东部战区空军航空兵某旅组织新干部奔赴中央红军长征出发地，通过聆听党课、参观史馆等方式，追寻红军长征足迹，在沉浸式研学中传承红色血脉、铸牢信仰之基。（傅强华、刘一鸣、宋英杰） #传承红色基因#",
-      "url": "https://m.weibo.cn/detail/5336525962739867",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.4,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "第72集团军某陆航旅组织多型直升机开展水上搜救实战化演练，重点训练低空搜寻、水面悬停及凌空吊救。",
-      "Foreign_battleship": "",
-      "Political_statement": "东部战区通过实战化演练锤炼机组应急抢险与协同救援能力，强调时刻准备战斗。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-08-27",
-      "title": "#直击东部战区练兵备战现场#【#直升机水上搜救实战演练来了# 】近日，第72集团军某陆航旅组织多型直...",
-      "content": "#直击东部战区练兵备战现场#【#直升机水上搜救实战演练来了# 】近日，第72集团军某陆航旅组织多型直升机开展水上搜救实战化演练。重点围绕低空搜寻、水面悬停、凌空吊救等重难点课目专攻精练，全方位锤炼机组应急抢险、协同救援的能力。（陈晔华 、张子航、张志敏、刘润南 ）#时刻准备战斗#",
-      "url": "https://m.weibo.cn/detail/5336435365773944",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
@@ -2394,54 +2490,6 @@
       "title": "#东部熄灯号# 雄师驰险域，劲旅斩敌锋。#阅海峡#",
       "content": "#东部熄灯号# 雄师驰险域，劲旅斩敌锋。#阅海峡#",
       "url": "https://m.weibo.cn/detail/5336284370305615",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.3,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "東部戰區陸軍部隊於海訓場進行理論宣講與強軍教育活動。",
-      "Foreign_battleship": "",
-      "Political_statement": "中共軍方透過宣講團在海訓場進行強軍思想教育，強化部隊備戰意識。"
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-08-26",
-      "title": "【#红色号令传沙场#】近日，福建省军区福州第一离职干部休养所“薪火宣讲团”联合东部战区陆军某部“红色...",
-      "content": "【#红色号令传沙场#】近日，福建省军区福州第一离职干部休养所“薪火宣讲团”联合东部战区陆军某部“红色传令”理论小分队，走进海训场传经送宝。 宣讲员们立足自身经历，深情讲述驻闽开国将军烽火往事、新时代强军英模先进事迹，并结合热点理论开展互动答疑，赢得官兵点赞。（林霞、柳思羽、方锴）  ...全文",
-      "url": "https://m.weibo.cn/detail/5336163574350230",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.4,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "東部戰區空軍某部組織輕武器實彈射擊考核，強調練兵備戰。",
-      "Foreign_battleship": "",
-      "Political_statement": "東部戰區發布練兵備戰現場，強調時刻準備戰鬥。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-08-26",
-      "title": "#直击东部战区练兵备战现场#【#轻武器实弹射击考核热血登场# 】近日，东部战区空军某部组织轻武器实弹...",
-      "content": "#直击东部战区练兵备战现场#【#轻武器实弹射击考核热血登场# 】近日，东部战区空军某部组织轻武器实弹射击考核，全面检验官兵射击技能。（彭迪奎、唐寅、李柯、潘超）#时刻准备战斗#",
-      "url": "https://m.weibo.cn/detail/5336072978170516",
       "source": "weibo",
       "category": "",
       "sentiment": ""
