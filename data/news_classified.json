@@ -1372,6 +1372,30 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "偵獲8艘共艦、5艘公務船及3架次共機逾越海峽中線，侵擾北部及東部空域。",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部強調國軍運用任務機艦及岸置飛彈系統，對共軍侵擾行為進行嚴密監控與應處。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-30",
+      "title": "8艘共艦3架次共機擾台國軍嚴密監控| 政治",
+      "content": "（中央社記者 游凱翔 台北30日電）國防部發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲8艘共艦、5艘公務船，以及3架次共機越中線侵擾北部、東部空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲8艘共艦、5艘公務船及3架次共機逾越台灣海峽中線侵擾北部、東部空域，持續在台海周邊活動。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：蘇志宗）1150830 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aipl/202608300015.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
     "sentiment_score": -0.3,
     "sentiment_label": "negative",
     "extracted_data": {
@@ -1402,7 +1426,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "美日韓將於9月9日至11日舉行「自由之刃」（Freedom Edge）聯合軍演，旨在應對北韓核武與飛彈威脅。",
       "Foreign_battleship": "",
-      "Political_statement": "美日韓三方將在濟州島以南及以東國際水域進行防衛性質演習，測試針對北韓的戰備狀態。"
+      "Political_statement": "美日韓三方將在濟州島周邊海域進行聯合軍演，以測試針對北韓威脅的戰備狀態。"
     },
     "confidence": 0.98,
     "original_article": {
@@ -1410,6 +1434,30 @@
       "title": "美日韓將展開聯合軍演因應北韓核武飛彈威脅| 國際",
       "content": "（中央社首爾28日綜合外電報導）南韓今天表示，南韓、日本和美國將於9月9日至11日舉行聯合軍事演習，測試針對北韓飛彈與核武威脅的戰備狀態。 路透社報導，首爾聯合參謀本部發布聲明指出，這場名為「自由之刃」（Freedom Edge）的年度演習屬於防衛性質，將在南韓南部濟州島以南及以東的國際水域登場。 這場三方軍演登場前，美國總統川普縮減了與南韓一項重大聯合演習的規模，美國隨後並取消原定下個月舉行的海軍陸戰隊聯合演習。 川普將縮減軍演規模一事部分歸因於首爾當局拒絕在美伊戰爭中提供協助，並稱本月舉行的「乙支自由護盾」（Ulchi Freedom Shield）演習向北韓傳遞了錯誤訊息。川普一直試圖與北韓領導人金正恩舉行新的峰會。 川金兩人曾於2018年和2019年會面。（編譯： 李佩珊 ）1150828 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
       "url": "https://www.cna.com.tw/news/aopl/202608280039.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "偵獲共艦7艘及公務船6艘持續在台海周邊活動，國軍運用任務機、艦及岸置飛彈系統嚴密監控。",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部表示持續監控中共解放軍台海周邊海、空域動態，並運用任務機、艦及岸置飛彈系統應處。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-28",
+      "title": "7艘共艦6艘公務船擾台國軍嚴密監控應處| 政治",
+      "content": "（中央社記者 吳書緯 台北28日電）國防部指出，自昨天上午6時至今天上午6時，偵獲共艦7艘及公務船6艘，持續在台海周邊活動，國軍嚴密監控與應處。 國防部今天上午發布中共解放軍台海周邊海、空域動態，截至今天上午6時止，偵獲共艦7艘及公務船6艘，持續在台海周邊活動，國軍運用任務機、艦及岸置飛彈系統嚴密監控與應處。 國防部表示，自昨天上午6時至今天上午6時的期間內，未偵獲共機，因此無提供航跡圖。（編輯：潘羿菁）1150828 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aipl/202608280040.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -1426,7 +1474,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "中國前西部戰區司令趙宗岐上將因捲入軍隊反腐風暴，被撤銷全國政協委員資格及相關職務。"
+      "Political_statement": "中國前西部戰區司令趙宗岐上將因捲入軍隊反腐風暴，被撤銷全國政協常委及委員資格。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1474,7 +1522,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "中共軍方公開徵集火箭軍採購領域違規線索，顯示火箭軍內部反腐整肅持續，影響其軍事戰備能力。"
+      "Political_statement": "中共軍方公開徵集火箭軍採購領域涉貪線索，顯示火箭軍內部持續進行反腐整肅，反映軍隊管理與戰備穩定性面臨挑戰。"
     },
     "confidence": 0.9,
     "original_article": {
@@ -1498,7 +1546,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "美日韓將按原計畫舉行「自由之刃」（Freedom Edge）聯合軍演，旨在強化三國國防合作與互操作性。",
       "Foreign_battleship": "",
-      "Political_statement": "美軍太平洋司令部表示，將持續鞏固美日韓共同價值理念，以維護太平洋地區的和平與穩定。"
+      "Political_statement": "美軍太平洋司令部表示，將持續鞏固美日韓共同價值，強化國防合作以維護太平洋地區和平穩定。"
     },
     "confidence": 0.9,
     "original_article": {
@@ -1524,7 +1572,7 @@
       "Foreign_battleship": "",
       "Political_statement": "國防部強調國軍運用任務機艦及岸置飛彈系統，對共艦活動進行嚴密監控與應處。"
     },
-    "confidence": 0.98,
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-08-25",
       "title": "7艘共艦4艘公務船擾台國軍嚴密監控| 政治",
@@ -1546,7 +1594,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "美國因兵力調度受限及成本考量，取消原訂9月與南韓舉行的雙龍演習，並縮減乙支自由護盾演習規模。",
       "Foreign_battleship": "",
-      "Political_statement": "美國總統川普認為美韓聯合軍演昂貴且具敵意，並因南韓拒絕參與伊朗行動而縮減演習規模。"
+      "Political_statement": "美國總統川普稱美韓聯合軍演昂貴且具敵意，並因南韓未參與伊朗行動及兵力調度問題調整演習。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1591,10 +1639,10 @@
     "sentiment_score": -0.6,
     "sentiment_label": "negative",
     "extracted_data": {
-      "US_Taiwan_interaction": "美國對台軍售（包括愛國者飛彈）因中東戰事消耗庫存，面臨嚴重延遲交付風險。",
+      "US_Taiwan_interaction": "美國對台軍售（包括愛國者飛彈）因中東戰事消耗庫存，面臨嚴重交付延遲風險。",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "美軍因中東衝突導致軍備庫存吃緊，恐削弱對台軍售交付能力及印太地區戰備。"
+      "Political_statement": "美軍因中東衝突導致資源分配受限，影響對台軍備交付及印太地區戰備能力，引發盟友擔憂。"
     },
     "confidence": 0.98,
     "original_article": {
@@ -1632,6 +1680,30 @@
     }
   },
   {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "KP",
+    "country2": "KP",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "北韓進行國防部高層人事改組，努光鐵遭免職，金成基接任國防部長。"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-08-30",
+      "title": "北韓國防部長遭撤職軍方高層重新洗牌| 國際",
+      "content": "（中央社首爾30日綜合外電報導）北韓官方媒體今天報導，北韓國防部長已被免職，這是國家軍事領導層改組的一環。 北韓中央通信社（KCNA）報導，這項「結構性改組計畫」是在北韓領袖金正恩昨天主持的會議中決定的。 根據北韓中央通信社，努光鐵不僅被免去國防部長一職，在執政黨領導層中的職位也被降級為「軍需工業部第一副部長」。 北韓人民軍總政治局局長金成基（Kim Song Gi，音譯）獲任命為新任國防部長。 另一名高階官員、國防顧問朴正天（Pak Jong Chon）獲任中央軍事委員會副委員長，並躋身執政黨政治局。此外，當局還宣布其他多項升職任命。 北韓中央通信社在另篇報導指出，金正恩在昨天的典禮上讚揚科學家、研究人員及官員在國防科技領域取得進展，並授予他們國家最高榮譽。 北韓中央通信社報導，這些獲表揚人士為「解決開發新型作戰武器系統中具有劃時代意義的科學與技術問題」做出重大貢獻，但報導未說明相關系統的類型。（編譯： 陳昱婷 ）1150830 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aopl/202608300008.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
     "category": "US_TW_Interaction",
     "is_relevant": true,
     "country1": "US",
@@ -1642,7 +1714,7 @@
       "US_Taiwan_interaction": "美國威斯康辛州財務長李博訪台後，投書呼籲該州在台北設立貿易辦事處，以深化雙邊經貿合作與產業投資。",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "威斯康辛州財務長李博主張透過在台設立貿易辦事處，協助台企赴威州投資並創造就業機會，強化雙方經貿連結。"
+      "Political_statement": "威斯康辛州財務長李博主張透過在台設立貿易辦事處，協助台企赴美投資並創造就業，強化雙方經貿連結。"
     },
     "confidence": 0.98,
     "original_article": {
@@ -1650,54 +1722,6 @@
       "title": "美威斯康辛州財長訪台後投書籲設駐台貿易辦事處| 政治",
       "content": "（中央社記者 侯姿瑩 華盛頓26日專電）美國威斯康辛州財務長李博（John Leiber）7月訪台後，昨天於威州政經媒體WisPolitics發表專文，呼籲該州深化與台灣的經貿合作，並在台北設立貿易辦事處。 駐芝加哥台北經濟文化辦事處今天發布新聞稿表示，李博於7月20日至25日參加由辦事處籌組、伊利諾州副州長侯炳文（Grace Hou）率領的「美國中西部政治領袖訪問團」訪台。訪團成員橫跨伊利諾州、威斯康辛州、愛荷華州、密西根州、印第安納州及俄亥俄州等6州行政及立法部門。 辦事處指出，訪團在訪台期間拜會中央及地方政府高層、立法院，以及半導體、人工智慧、無人機及農業等產業，針對經貿、科技、農業和公共衛生等議題交流。 訪台行程結束後，李博以「深化和台灣的經濟關係可嘉惠威州民眾」（Closer economic ties with Taiwan could benefit Wisconsinites）為題撰文表示，台灣面積僅約威州的1/4，人口卻約為威州4倍，現已成為美國第4大貿易夥伴；台灣持續拓展全球經貿關係。 李博指出，擴大與台灣的貿易關係可進一步帶動威州產業發展，並創造更多就業機會，其中一個方法就是在台北設立貿易辦事處。全美已有許多州在台設有經貿辦事處，鄰近威州的明尼蘇達州、密西根州均已在台設處，伊利諾州也規劃今年在台設立辦事處。 他說，威州若能建立在台據點，可協助有意赴美投資的台灣企業了解當地地方政府法規等，並強化相關產業媒合。 李博表示，威州不應只著眼於大型投資案，而需要爭取台灣中小型企業赴威州投資，讓相關投資在威州創造並擴大就業機會。 駐芝加哥辦事處表示，台灣與威斯康辛州長期維持密切友好關係，今年適逢台、威州姊妹關係40週年，雙方在經貿、農業、教育、科技及人員交流等領域具有深厚合作基礎。 辦事處指出，美國中西部在先進製造、農業、人工智慧及新興科技等領域具有雄厚基礎及發展潛力，與台灣產業高度互補，「歡迎威州進一步強化在台經貿布局」。（編輯：唐聲揚）1150827 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
       "url": "https://www.cna.com.tw/news/aipl/202608270044.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Regional_Security",
-    "is_relevant": true,
-    "country1": "TW",
-    "country2": "EU",
-    "sentiment_score": 0.4,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "台灣教育部邀請15國34名歐洲官員訪台，透過華語學習與產業參訪，深化台灣與歐洲各國在教育、科技及經貿領域的夥伴關係與交流。"
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-08-26",
-      "title": "歐洲34官員訪台學華語走訪科技業探台灣軟硬實力| 生活",
-      "content": "（中央社記者 陳至中 台北26日電）教育部今年邀請來自15個歐洲國家、34名官員訪台研習，在12天的密集活動中學習華語，並實地走訪產業，見證台灣半導體科技產業的頂尖實力與關鍵人才優勢。 教育部今天發布新聞稿，近年為拉近與歐洲各國的關係，在駐歐盟兼駐比利時教育組的努力下，今年8月再次邀請政府官員來台，展開為期12天的研習活動。 今年接待行程由中山大學協助安排，結合教育、政治、經濟與社會文化等多元專題講座及密集課程，由專業師資引領各國官員學習華語。 教育部政務次長劉國偉期盼透過訪台行程，更深入了解台灣在經濟貿易、科學研究、教育文化等面向的多元發展，並持續拓展雙邊合作機會，共創更多交流成果。 劉國偉表示，在面對面對話中，歐洲官員瞭解台灣教育制度及當前教育政策推動方向，對校園推動AI應用的情形特別感興趣，後續在餐會時間也延續交流。 比利時佛拉蒙大區教育訓練部顧問克萊默（Jan De Craemer）代表團員感謝教育部、駐組及中山大學的細心安排。他表示，這次計畫所獲得的知識及建立的人際鏈結都非常珍貴，將在返回歐洲後持續擴大影響，進一步拉近台灣與歐洲各國的夥伴關係及情誼，並探索更多合作機會。（編輯：張銘坤）1150826 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
-      "url": "https://www.cna.com.tw/news/ahel/202608260091.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Military_Exercise",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "CN",
-    "sentiment_score": -0.4,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "中國廣東海事局於南海北部沿岸（茂名、惠來、湛江近海）發布3個航行警告，涵蓋軍事活動及為期4天的實彈射擊演練。",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-08-23",
-      "title": "中國連發3個航行警告南海軍事活動、實彈射擊| 兩岸",
-      "content": "（中央社記者 馮昭 上海23日電）中國廣東海事局連續兩天共發布3個在南海與軍事活動或實彈射擊有關的禁止駛入航行警告，軍事活動從今天中午開始至晚上8時結束，實彈射擊從24日清晨開始，最長持續4天。 根據中國海事局官網，廣東海事局22日晚間公告，今天中午12時至晚上8時在座標21-17.0N 111-18.8E，21-07.8N 111-21.4E，21-06.0N 111-13.8E，21-12.0N 111-13.6E連線海域，及21-12.6N 111-03.8E，21-08.0N 111-05.4E，21-12.8N 111-05.4E，21-08.0N 111-03.8E進行軍事活動，禁止駛入。對照海圖，上述座標位在廣東省西部的茂名市近海，屬南海北部沿岸。 廣東揭陽海事局21日公告，24日至27日每天上午6時30分至晚上6時30分，在南海以下四點連線海域內進行實彈射擊：23-04.55N 116-33.23E；23-06.72N 116-37.18E；23-01.17N 116-36.00E；23-04.00N 116-33.08E，禁止駛入。對照海圖，上述區域位在廣東省東部的惠來縣近海。 廣東湛江海事局在同一天公告，24日至28日每天上午8時至晚上6時，在南海以下四點連線海域內進行實彈射擊：20-53.0N，110-54.0E；20-53.0N，110-59.0E；20-48.0N，110-59.0E；20-48.0N，110-54.0E，禁止駛入。對照海圖，上述區域位在廣東省西部的湛江市近海。（編輯：張淑伶/邱國強）1150823 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
-      "url": "https://www.cna.com.tw/news/acn/202608230074.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -1810,7 +1834,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "本文為新華社關於台灣嘉義中元祭民俗活動的文化報導，強調兩岸民間文化淵源，不涉及軍事或政治衝突。"
+      "Political_statement": "本文為新華社關於台灣嘉義中元祭民俗文化的軟性報導，強調兩岸文化淵源，不涉及軍事或政治衝突。"
     },
     "confidence": 0.98,
     "original_article": {
@@ -1858,7 +1882,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "中国国防部批评赖清德当局大幅提升防务支出是穷兵黩武，强调解决台湾问题的能力与手段将更丰富，并重申坚决挫败台独分裂图谋。"
+      "Political_statement": "中国国防部批评赖清德当局大幅提升防务支出是穷兵黩武，强调统一大势不可阻挡，解放军将坚决挫败台独图谋。"
     },
     "confidence": 0.98,
     "original_article": {
@@ -1954,7 +1978,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "国台办批评民进党当局抹黑大陆法律工具，指责其制造两岸对立、阻碍交流，并反驳关于小红书禁令的诈骗数据为捏造。"
+      "Political_statement": "国台办批评民进党当局抹黑大陆法律工具，指责其制造两岸对立、阻碍交流，并反驳关于小红书禁令的诈骗数据为自编自导。"
     },
     "confidence": 0.98,
     "original_article": {
@@ -1978,7 +2002,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "国台办批评民进党当局阻挠两岸教育交流，并就厦金大桥建设议题指责台方立场，称民进党是两岸交流最大障碍。"
+      "Political_statement": "国台办批评民进党当局阻碍两岸教育交流，并针对厦金大桥建设议题指责台方缺乏诚意，强调民进党是两岸交流最大障碍。"
     },
     "confidence": 0.98,
     "original_article": {
@@ -2018,7 +2042,7 @@
   {
     "category": "CCP_news_and_blog",
     "is_relevant": true,
-    "country1": "TW",
+    "country1": "CN",
     "country2": "TW",
     "sentiment_score": -0.4,
     "sentiment_label": "negative",
@@ -2026,7 +2050,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "新党主席吴成典主张两岸必然统一，批评民进党政府抗中政策，并强调新党将致力于推动两岸和平统一。"
+      "Political_statement": "新党主席吴成典强调两岸必然统一，批评民进党“抗中”政策，主张台湾应走和平统一道路，并称“台独”是害台谎言。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -2064,30 +2088,6 @@
     }
   },
   {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "TW",
-    "country2": "TW",
-    "sentiment_score": -0.1,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 1.0,
-    "original_article": {
-      "date": "2026-08-23",
-      "title": "台湾南部持续强降雨 多地停班停课",
-      "content": "台南、高雄、屏东宣布23日停班停课，部分地区累计雨量接近300毫米。 台经济事务主管部门的“水利署”23日7时发布最新淹水警戒，高雄市与台南市多地拉响警报。 据悉，屏东县万丹乡22日晚累计雨量达299毫米，高雄部分地区也出现明显降雨。台南地区自当日深夜起降雨几乎未停，部分路段积水一度超过成人膝盖高度，有公路入口临时封闭。目前，台南市对部分积淹水较严重路段实施交通管制，抽水站及移动式抽水机组持续运转。 当地居民也加强防范。有台南市民说，22日晚曾遭遇积水，看到雨势再起便提前准备沙包，有人凌晨守在家门口，“担心水再度淹进家中”，部分车辆因来不及驶离积水路段故障。 目前，台湾南部雨势仍未完全缓解，相关部门持续监测降雨及各地灾情。台气象部门23日持续发布豪雨特报，并预估此轮降雨至少持续至25日清晨，嘉义以南仍是防范强降雨的重点区域。 关于第18号台风“沙德尔”，台气象部门表示，台风后续路径仍存在不确定性，将持续观察其对台湾天气的影响。台湾气象专家吴德荣推测，“沙德尔”有可能成为今年首个登陆台湾的台风。",
-      "url": "https://www.news.cn/tw/20260823/2b2ed9200a5a434d8bf45c5baae6fc18/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
     "category": "CCP_news_and_blog",
     "is_relevant": true,
     "country1": "CN",
@@ -2096,11 +2096,11 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "東部戰區發布演訓相關貼文，強調炮火演練與衛國擔當。",
+      "Military_exercise": "東部戰區發布演訓相關內容，強調炮火演練與衛國擔當。",
       "Foreign_battleship": "",
-      "Political_statement": "東部戰區透過社群媒體發布軍事演訓內容，展現對台軍事威懾意圖。"
+      "Political_statement": "東部戰區透過社群媒體發布軍事演訓訊息，展現對台軍事威懾姿態。"
     },
-    "confidence": 0.98,
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-08-28",
       "title": "#东部熄灯号# 炮火震彻原野，在苍茫大地上书写卫国担当。#阅海峡#",
@@ -2144,9 +2144,9 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "武警福建总队莆田支队举行群众性练兵比武，包含战伤救护、实用攀登等军事技能训练。",
+      "Military_exercise": "武警福建总队莆田支队举行群众性练兵比武，涵盖战伤救护、实用攀登等军事技能项目。",
       "Foreign_battleship": "",
-      "Political_statement": "武警福建总队进行练兵比武，展示练兵成效。"
+      "Political_statement": "武警福建总队通过练兵比武展示军事训练成效，福建作为对台前线，此类活动具有潜在军事威慑意涵。"
     },
     "confidence": 0.9,
     "original_article": {
@@ -2154,6 +2154,30 @@
       "title": "【#群众性练兵比武火力全开# 】近日，武警福建总队莆田支队2026年群众性练兵比武暨创破纪录活动火热...",
       "content": "【#群众性练兵比武火力全开# 】近日，武警福建总队莆田支队2026年群众性练兵比武暨创破纪录活动火热开启。来自基层单位的百余名官兵同台竞技，围绕田径竞速、团体接力、实用攀登、战伤救护、驾驶技术、精品菜制作等10类28个项目展开激烈比拼，展示练兵成效。（林亚森、杜正凯、张高棋、李东昇） ...全文",
       "url": "https://m.weibo.cn/detail/5336797757310875",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區發布軍事演訓相關宣傳，強調戰機與軍力部署以固守海空。",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區透過社群媒體發布軍事動態，暗示對台海周邊進行軍事威懾與戰備巡邏。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-27",
+      "title": "#东部熄灯号# 战鹰起，闯云天万里；铁翼扬，固万里长空。#阅海峡#",
+      "content": "#东部熄灯号# 战鹰起，闯云天万里；铁翼扬，固万里长空。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5336646758957389",
       "source": "weibo",
       "category": "",
       "sentiment": ""
@@ -2192,9 +2216,9 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "第72集团军某陆航旅组织多型直升机开展水上搜救实战化演练，重点训练低空搜寻、水面悬停及凌空吊救。",
+      "Military_exercise": "第72集团军某陆航旅开展多型直升机水上搜救实战化演练，重点演练低空搜寻、水面悬停、凌空吊救等课目。",
       "Foreign_battleship": "",
-      "Political_statement": "东部战区通过实战化演练锤炼机组应急抢险与协同救援能力，强调时刻准备战斗。"
+      "Political_statement": "东部战区通过练兵备战宣传，强调时刻准备战斗，展示对台军事威慑意图。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -2202,6 +2226,30 @@
       "title": "#直击东部战区练兵备战现场#【#直升机水上搜救实战演练来了# 】近日，第72集团军某陆航旅组织多型直...",
       "content": "#直击东部战区练兵备战现场#【#直升机水上搜救实战演练来了# 】近日，第72集团军某陆航旅组织多型直升机开展水上搜救实战化演练。重点围绕低空搜寻、水面悬停、凌空吊救等重难点课目专攻精练，全方位锤炼机组应急抢险、协同救援的能力。（陈晔华 、张子航、张志敏、刘润南 ）#时刻准备战斗#",
       "url": "https://m.weibo.cn/detail/5336435365773944",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.8,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區發布軍事宣傳貼文，暗示針對台海的軍事準備與威懾行動。",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區透過社群媒體發布軍事威懾言論，強調軍隊演練與針對性戰備。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-26",
+      "title": "#东部熄灯号# 雄师驰险域，劲旅斩敌锋。#阅海峡#",
+      "content": "#东部熄灯号# 雄师驰险域，劲旅斩敌锋。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5336284370305615",
       "source": "weibo",
       "category": "",
       "sentiment": ""
@@ -2242,7 +2290,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "東部戰區空軍某部組織輕武器實彈射擊考核，強調練兵備戰。",
       "Foreign_battleship": "",
-      "Political_statement": "東部戰區發布練兵備戰現場畫面，強調時刻準備戰鬥。"
+      "Political_statement": "東部戰區發布練兵備戰現場，強調時刻準備戰鬥。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -2260,21 +2308,93 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區發布演訓相關貼文，強調磨練戰力與針對性偵察。",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區透過社群媒體發布軍事威懾訊息，暗示針對台海的軍事準備。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-25",
+      "title": "#东部熄灯号# 卧峦磨利剑，凝神破敌踪。#阅海峡#",
+      "content": "#东部熄灯号# 卧峦磨利剑，凝神破敌踪。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5335921982441334",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Regional_Security",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "EU",
+    "sentiment_score": 0.4,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "台灣教育部邀請15國34名歐洲官員訪台，透過華語學習與產業參訪，深化台灣與歐洲各國在教育、科技及經貿領域的夥伴關係與交流。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-08-26",
+      "title": "歐洲34官員訪台學華語走訪科技業探台灣軟硬實力| 生活",
+      "content": "（中央社記者 陳至中 台北26日電）教育部今年邀請來自15個歐洲國家、34名官員訪台研習，在12天的密集活動中學習華語，並實地走訪產業，見證台灣半導體科技產業的頂尖實力與關鍵人才優勢。 教育部今天發布新聞稿，近年為拉近與歐洲各國的關係，在駐歐盟兼駐比利時教育組的努力下，今年8月再次邀請政府官員來台，展開為期12天的研習活動。 今年接待行程由中山大學協助安排，結合教育、政治、經濟與社會文化等多元專題講座及密集課程，由專業師資引領各國官員學習華語。 教育部政務次長劉國偉期盼透過訪台行程，更深入了解台灣在經濟貿易、科學研究、教育文化等面向的多元發展，並持續拓展雙邊合作機會，共創更多交流成果。 劉國偉表示，在面對面對話中，歐洲官員瞭解台灣教育制度及當前教育政策推動方向，對校園推動AI應用的情形特別感興趣，後續在餐會時間也延續交流。 比利時佛拉蒙大區教育訓練部顧問克萊默（Jan De Craemer）代表團員感謝教育部、駐組及中山大學的細心安排。他表示，這次計畫所獲得的知識及建立的人際鏈結都非常珍貴，將在返回歐洲後持續擴大影響，進一步拉近台灣與歐洲各國的夥伴關係及情誼，並探索更多合作機會。（編輯：張銘坤）1150826 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/ahel/202608260091.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
     "sentiment_score": -0.4,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "偵獲共艦7艘及公務船6艘持續在台海周邊活動，國軍運用任務機、艦及岸置飛彈系統嚴密監控與應處。",
+      "Military_exercise": "中國廣東海事局於南海北部沿岸（茂名、惠來、湛江近海）發布3個航行警告，涵蓋軍事活動及為期4天的實彈射擊演練。",
       "Foreign_battleship": "",
-      "Political_statement": "國防部表示持續監控中共解放軍台海周邊海、空域動態，並運用任務機、艦及岸置飛彈系統嚴密應處。"
+      "Political_statement": ""
     },
-    "confidence": 0.98,
+    "confidence": 0.95,
     "original_article": {
-      "date": "2026-08-28",
-      "title": "7艘共艦6艘公務船擾台國軍嚴密監控應處| 政治",
-      "content": "（中央社記者 吳書緯 台北28日電）國防部指出，自昨天上午6時至今天上午6時，偵獲共艦7艘及公務船6艘，持續在台海周邊活動，國軍嚴密監控與應處。 國防部今天上午發布中共解放軍台海周邊海、空域動態，截至今天上午6時止，偵獲共艦7艘及公務船6艘，持續在台海周邊活動，國軍運用任務機、艦及岸置飛彈系統嚴密監控與應處。 國防部表示，自昨天上午6時至今天上午6時的期間內，未偵獲共機，因此無提供航跡圖。（編輯：潘羿菁）1150828 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
-      "url": "https://www.cna.com.tw/news/aipl/202608280040.aspx",
+      "date": "2026-08-23",
+      "title": "中國連發3個航行警告南海軍事活動、實彈射擊| 兩岸",
+      "content": "（中央社記者 馮昭 上海23日電）中國廣東海事局連續兩天共發布3個在南海與軍事活動或實彈射擊有關的禁止駛入航行警告，軍事活動從今天中午開始至晚上8時結束，實彈射擊從24日清晨開始，最長持續4天。 根據中國海事局官網，廣東海事局22日晚間公告，今天中午12時至晚上8時在座標21-17.0N 111-18.8E，21-07.8N 111-21.4E，21-06.0N 111-13.8E，21-12.0N 111-13.6E連線海域，及21-12.6N 111-03.8E，21-08.0N 111-05.4E，21-12.8N 111-05.4E，21-08.0N 111-03.8E進行軍事活動，禁止駛入。對照海圖，上述座標位在廣東省西部的茂名市近海，屬南海北部沿岸。 廣東揭陽海事局21日公告，24日至27日每天上午6時30分至晚上6時30分，在南海以下四點連線海域內進行實彈射擊：23-04.55N 116-33.23E；23-06.72N 116-37.18E；23-01.17N 116-36.00E；23-04.00N 116-33.08E，禁止駛入。對照海圖，上述區域位在廣東省東部的惠來縣近海。 廣東湛江海事局在同一天公告，24日至28日每天上午8時至晚上6時，在南海以下四點連線海域內進行實彈射擊：20-53.0N，110-54.0E；20-53.0N，110-59.0E；20-48.0N，110-59.0E；20-48.0N，110-54.0E，禁止駛入。對照海圖，上述區域位在廣東省西部的湛江市近海。（編輯：張淑伶/邱國強）1150823 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/acn/202608230074.aspx",
       "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "TW",
+    "country2": "TW",
+    "sentiment_score": -0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-08-23",
+      "title": "台湾南部持续强降雨 多地停班停课",
+      "content": "台南、高雄、屏东宣布23日停班停课，部分地区累计雨量接近300毫米。 台经济事务主管部门的“水利署”23日7时发布最新淹水警戒，高雄市与台南市多地拉响警报。 据悉，屏东县万丹乡22日晚累计雨量达299毫米，高雄部分地区也出现明显降雨。台南地区自当日深夜起降雨几乎未停，部分路段积水一度超过成人膝盖高度，有公路入口临时封闭。目前，台南市对部分积淹水较严重路段实施交通管制，抽水站及移动式抽水机组持续运转。 当地居民也加强防范。有台南市民说，22日晚曾遭遇积水，看到雨势再起便提前准备沙包，有人凌晨守在家门口，“担心水再度淹进家中”，部分车辆因来不及驶离积水路段故障。 目前，台湾南部雨势仍未完全缓解，相关部门持续监测降雨及各地灾情。台气象部门23日持续发布豪雨特报，并预估此轮降雨至少持续至25日清晨，嘉义以南仍是防范强降雨的重点区域。 关于第18号台风“沙德尔”，台气象部门表示，台风后续路径仍存在不确定性，将持续观察其对台湾天气的影响。台湾气象专家吴德荣推测，“沙德尔”有可能成为今年首个登陆台湾的台风。",
+      "url": "https://www.news.cn/tw/20260823/2b2ed9200a5a434d8bf45c5baae6fc18/c.html",
+      "source": "xinhua",
       "category": "",
       "sentiment": ""
     }
@@ -2443,78 +2563,6 @@
       "content": "年逾九旬的王任生身着白色衬衣、深色西装外套，目光炯炯。这位老一辈台商回到故乡河南创业30余年，至今仍奔走在商业一线。 “洛阳是我的根，丹尼斯是这片土地上长出来的企业。”他缓步走上舞台，望着台下70余家品牌代表说。 1997年，祖籍河南洛阳的王任生从台湾回到故乡，在郑州人民路商圈开了第一家丹尼斯百货，一度创造“36个小时不打烊，单日营业额3.6亿元”的纪录。 20世纪90年代，中原消费市场正处于从计划经济向市场经济转型的过程中。省会郑州这座“火车拉来的城市”，人口集聚效应显现，商业环境逐步开放，台资企业迎来进入大陆市场的历史契机。 “有了河南经济发展，才有了丹尼斯的成就。”王任生常把这句话挂在嘴边。在他看来，企业30余年的成长，深深嵌入了中原大地的发展脉络。 2025年，河南全省地区生产总值和社会消费品零售总额分别达到6.66万亿元、2.9万亿元，均同比增长5.6%，为丹尼斯加大投资提供了稳定的市场预期。 8月15日，消费者在位于郑州丹尼斯大卫城的名创优品最高级别店态MINISO SPACE选购商品。新华社发 适逢国家“十五五”规划开局之年，丹尼斯集团近期发布未来五年发展规划，计划105亿元再投河南五座城市。 2015年，总投资20亿元的郑州丹尼斯大卫城开业，定位高端精品百货，2024年销售额达到107亿元，成为河南首家“百亿商场”。大卫城总经理常瑞程介绍，得益于河南的区位优势与市场潜力，大卫城汇聚起200余家品牌各类首店，成为高端潮奢商业地标，并形成跨区域客流，实现“一店带一片”的连带效应。 8月，洛阳九洲里街区品牌启幕。这个占地45亩、总建筑面积7.6万平方米、总投资7亿元的沉浸式互动街区，商业运营时段将从传统10时至22时拉长至次日凌晨，通过音乐潮玩、社交餐饮、非遗文创等业态，构建全时段消费场景。 “政策给足了，产业承接力要跟得上。”丹尼斯百货事业处总经理薄涛表示，省市两级密集出台存量商业盘活、消费提质系列政策，洛阳入选消费新业态、新模式、新场景试点城市，为九洲里这样的非标商业项目提供了重要发展窗口。 根据丹尼斯集团公布的投资计划，105亿元投资将在未来五年内逐步落地，围绕夜生活、户外街区、空中主题街区、主题市集、特色市集、艺术特展、亲子家庭、绿色生态等八大场景展开布局，推动企业从商品零售向生活方式运营转变。 从1997年的一家百货店，到如今拥有18家百货、70多家大卖场、500多家便利店，以及地产、物流、酒店、加工厂的综合零售集团……“丹尼斯是这片土地上长出来的企业”这句话，王任生说了30多年，也做了30多年。",
       "url": "https://www.news.cn/tw/20260822/78758de603f74cb185585b61b9d64208/c.html",
       "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "東部戰區發布軍事演訓相關宣傳，強調戰機與軍力部署以固守海空。",
-      "Foreign_battleship": "",
-      "Political_statement": "東部戰區透過社群媒體發布軍事動態，暗示對台海周邊進行軍事威懾與戰備巡邏。"
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-08-27",
-      "title": "#东部熄灯号# 战鹰起，闯云天万里；铁翼扬，固万里长空。#阅海峡#",
-      "content": "#东部熄灯号# 战鹰起，闯云天万里；铁翼扬，固万里长空。#阅海峡#",
-      "url": "https://m.weibo.cn/detail/5336646758957389",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.8,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "東部戰區發布軍事宣傳貼文，暗示針對台海的軍事準備與威懾行動。",
-      "Foreign_battleship": "",
-      "Political_statement": "東部戰區透過社群媒體發布軍事威懾言論，強調軍隊演練與針對性戰備。"
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-08-26",
-      "title": "#东部熄灯号# 雄师驰险域，劲旅斩敌锋。#阅海峡#",
-      "content": "#东部熄灯号# 雄师驰险域，劲旅斩敌锋。#阅海峡#",
-      "url": "https://m.weibo.cn/detail/5336284370305615",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "東部戰區發布演訓相關貼文，暗示針對台灣的軍事準備與偵察行動。",
-      "Foreign_battleship": "",
-      "Political_statement": "東部戰區透過社群媒體發布軍事威懾訊息，強調磨練戰力以應對敵方蹤跡。"
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-08-25",
-      "title": "#东部熄灯号# 卧峦磨利剑，凝神破敌踪。#阅海峡#",
-      "content": "#东部熄灯号# 卧峦磨利剑，凝神破敌踪。#阅海峡#",
-      "url": "https://m.weibo.cn/detail/5335921982441334",
-      "source": "weibo",
       "category": "",
       "sentiment": ""
     }
