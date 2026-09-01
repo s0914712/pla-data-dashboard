@@ -234,6 +234,29 @@ export async function listNotesForDate(scopeKey: string, dateIso: string): Promi
   });
 }
 
+/**
+ * 日期區間的記事。
+ *
+ * 關鍵字一併交給 SQL，limit 才會落在「符合條件的前 N 筆」上；
+ * 撈回來再過濾的話 limit 會先砍掉一批可能符合的。
+ */
+export async function listNotesInRange(
+  scopeKey: string,
+  fromIso: string,
+  toIso: string,
+  keyword: string,
+): Promise<NoteRow[]> {
+  return await request<NoteRow[]>("/rpc/notes_in_range", {
+    method: "POST",
+    body: JSON.stringify({
+      p_scope_key: scopeKey,
+      p_from: fromIso,
+      p_to: toIso,
+      p_keyword: keyword,
+    }),
+  });
+}
+
 export async function findNoteBySeq(scopeKey: string, seq: number): Promise<NoteRow | null> {
   const rows = await request<NoteRow[]>(
     `/notes?scope_key=eq.${encodeURIComponent(scopeKey)}&seq=eq.${seq}&deleted_at=is.null&select=*&limit=1`,

@@ -14,7 +14,7 @@ const {
   verifySignature, stripMentions, isAddressedToBot, describeWhen, formatDate, mainMenuCard,
   timePickCard, hhmm, addMinutes,
   datePickCard, eventPickerCarousel, editActionCard, editConfirmCard, describeEvent,
-  renderDayView, leaveShapeCard, leaveReasonCard, describeLeave,
+  renderDayView, leaveShapeCard, leaveReasonCard, describeLeave, taipeiDateIso,
 } = await import("./line.ts");
 
 async function sign(body: string, secret = SECRET): Promise<string> {
@@ -439,4 +439,36 @@ Deno.test("取消請假的確認卡走破壞性樣式", () => {
   assert(json.includes("將刪除"), json);
   assert(json.includes("act=ed_apply"), "要接回既有的套用流程");
   assert(json.includes("#c62828"), "破壞性操作要用紅色");
+});
+
+Deno.test("taipeiDateIso：PostgREST 的 UTC 輸出要換算成台北日期", () => {
+  // 台北 2026-08-31 04:00 存進去，讀回來是 UTC 的 08-30T20:00
+  assertEquals(taipeiDateIso("2026-08-30T20:00:00+00:00"), "2026-08-31");
+  assertEquals(taipeiDateIso("2026-08-30T10:00:00+00:00"), "2026-08-30");
+  // 已經帶 +08:00 的字串也要對
+  assertEquals(taipeiDateIso("2026-08-31T04:00:00+08:00"), "2026-08-31");
+  // 解析不了就退回前十個字，不要炸掉整張清單
+  assertEquals(taipeiDateIso("garbage-value-here"), "garbage-va");
+});
+
+Deno.test("選單：記事區有區間查詢入口", () => {
+  const json = JSON.stringify(mainMenuCard("2026-08-23", "2026-08-24"));
+  assert(json.includes('"act=nt_from"'), "缺少選日期區間的 datetimepicker");
+  assert(json.includes("選日期區間查記事"));
+  assert(json.includes(encodeURIComponent("本週")), "缺少本週記事按鈕");
+  assert(json.includes(encodeURIComponent("本月")), "缺少本月記事按鈕");
+  assert(json.includes('"act=notes"'), "最近 10 筆的入口不該消失");
+});
+
+Deno.test("datePickCard：取消按鈕預設仍是 ed_cancel", () => {
+  const json = JSON.stringify(datePickCard("t", "s", "act=ed_date", "2026-08-23", "選日期"));
+  assert(json.includes('"act=ed_cancel"'));
+});
+
+Deno.test("datePickCard：可以換掉取消按鈕的 postback", () => {
+  const json = JSON.stringify(
+    datePickCard("t", "s", "act=nt_to&s=2026-08-23", "2026-08-23", "選迄日", "act=nt_cancel"),
+  );
+  assert(json.includes('"act=nt_cancel"'));
+  assert(!json.includes('"act=ed_cancel"'));
 });

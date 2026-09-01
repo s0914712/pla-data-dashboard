@@ -11,7 +11,7 @@
 import { config, env, hasEnv, OPTIONAL_ENV, REQUIRED_ENV } from "./lib/env.ts";
 import * as db from "./lib/db.ts";
 import * as gcal from "./lib/google_calendar.ts";
-import { addDays, isoDate, parse, taipeiParts } from "./lib/parser_zh_tw.ts";
+import { addDays, isoDate, parse, parseNoteQuery, taipeiParts } from "./lib/parser_zh_tw.ts";
 import {
   addMinutes,
   confirmCard,
@@ -34,6 +34,7 @@ import {
   reply,
   replyText,
   stripMentions,
+  taipeiDateIso,
   textMessage,
   timePickCard,
   verifySignature,
@@ -54,6 +55,7 @@ const HELP = [
   "",
   "【行程】會先回確認卡，按下「確認建立」才寫進共用行事曆",
   "· 8/28 14:00-16:00 部務會議 地點：第一會議室",
+  "· 8/28 1400-1600 部務會議（四位數寫法，不用冒號）",
   "· 明天 09:00-10:30 週報會議",
   "· 下週一 下午2點-4點 專案檢討",
   "",
@@ -65,6 +67,10 @@ const HELP = [
   "【記事】直接記錄，不需確認",
   "· 記事 下週要交防務報告 #報告",
   "· 查記事 ／ 查記事 報告（關鍵字）",
+  "· 查記事 8/28　／　查記事 8/28-8/31（日期區間）",
+  "· 查記事 本週　本月　上週　最近7天",
+  "· 查記事 本週 報告（區間＋關鍵字）",
+  "· 選單 →「選日期區間查記事」可以用選的",
   "· 刪記事 3",
   "",
   "【請假】選單 →「我要請假」，全程用選的",
@@ -1145,23 +1151,77 @@ async function handleNote(
   await replyText(replyToken, `📝 已記錄 #${note.seq}\n${note.content}${dated}`);
 }
 
+/**
+ * 記事查詢。參數可以是關鍵字、單一日期、日期區間或期間詞，也可以混用：
+ *
+ *   查記事            → 最近 10 筆
+ *   查記事 報告        → 關鍵字
+ *   查記事 8/28       → 那一天
+ *   查記事 8/28-8/31  → 區間
+ *   查記事 本週 報告   → 區間 + 關鍵字
+ */
 async function handleNoteList(
-  keyword: string,
+  arg: string,
   userId: string,
   groupId: string | null,
   replyToken: string,
 ): Promise<void> {
-  const notes = await db.listNotes(db.scopeKeyFor(groupId, userId), keyword);
-  if (notes.length === 0) {
-    await replyText(replyToken, keyword ? `找不到含「${keyword}」的記事。` : "目前沒有記事。試試：記事 明天要帶識別證");
+  const q = parseNoteQuery(arg, new Date());
+  const scopeKey = db.scopeKeyFor(groupId, userId);
+
+  if (q.from && q.to) {
+    await replyNoteRange(q.from, q.to, q.keyword, scopeKey, replyToken);
     return;
   }
-  const header = keyword ? `📝 含「${keyword}」的記事（${notes.length} 筆）` : `📝 最近 ${notes.length} 筆記事`;
+
+  const notes = await db.listNotes(scopeKey, q.keyword);
+  if (notes.length === 0) {
+    await replyText(
+      replyToken,
+      q.keyword ? `找不到含「${q.keyword}」的記事。` : "目前沒有記事。試試：記事 明天要帶識別證",
+    );
+    return;
+  }
+  const header = q.keyword
+    ? `📝 含「${q.keyword}」的記事（${notes.length} 筆）`
+    : `📝 最近 ${notes.length} 筆記事`;
+  await replyText(replyToken, renderNotes(header, notes));
+}
+
+async function replyNoteRange(
+  fromIso: string,
+  toIso: string,
+  keyword: string,
+  scopeKey: string,
+  replyToken: string,
+): Promise<void> {
+  const span = fromIso === toIso
+    ? formatDateShort(fromIso)
+    : `${formatDateShort(fromIso)}～${formatDateShort(toIso)}`;
+  const notes = await db.listNotesInRange(scopeKey, fromIso, toIso, keyword);
+  if (notes.length === 0) {
+    const suffix = keyword ? `含「${keyword}」的` : "";
+    await replyText(replyToken, `${span} 沒有${suffix}記事。`);
+    return;
+  }
+  const header = keyword
+    ? `📝 ${span} 含「${keyword}」的記事（${notes.length} 筆）`
+    : `📝 ${span} 的記事（${notes.length} 筆）`;
+  await replyText(replyToken, renderNotes(header, notes));
+}
+
+/**
+ * 記事列表的共用排版。
+ *
+ * 日期優先用 target_date（記事內容提到的那一天），沒有才退回建立日期 ——
+ * 而 created_at 從 PostgREST 讀回來是 UTC，要換算成台北才不會差一天。
+ */
+function renderNotes(header: string, notes: { seq: number; content: string; target_date: string | null; created_at: string }[]): string {
   const lines = notes.map((n) => {
-    const date = n.created_at.slice(5, 10).replace("-", "/");
-    return `#${n.seq}　${date}　${n.content}`;
+    const iso = n.target_date ?? taipeiDateIso(n.created_at);
+    return `#${n.seq}　${formatDateShort(iso)}　${n.content}`;
   });
-  await replyText(replyToken, [header, "", ...lines, "", "刪除請輸入：刪記事 <編號>"].join("\n"));
+  return [header, "", ...lines, "", "刪除請輸入：刪記事 <編號>"].join("\n");
 }
 
 async function handleNoteDelete(
@@ -1280,7 +1340,47 @@ async function handlePostback(event: LineEvent): Promise<void> {
   if (action === "notes") {
     const groupId = event.source.groupId ?? null;
     if (groupId && !await db.isGroupAllowed(groupId)) return;
-    await handleNoteList("", userId, groupId, replyToken);
+    // q= 讓「本週記事」「本月記事」直接重用文字版的查詢語法
+    await handleNoteList(params.get("q") ?? "", userId, groupId, replyToken);
+    return;
+  }
+
+  // 記事區間查詢：選起日 → 選迄日。起日直接編進第二張卡的 postback，不用存草稿。
+  if (action === "nt_cancel") {
+    await replyText(replyToken, "已取消。");
+    return;
+  }
+
+  if (action === "nt_from" || action === "nt_to") {
+    const groupId = event.source.groupId ?? null;
+    if (groupId && !await db.isGroupAllowed(groupId)) return;
+
+    const picked = event.postback.params?.date ?? "";
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(picked)) {
+      await replyText(replyToken, "日期格式不正確，請重新選一次。");
+      return;
+    }
+
+    if (action === "nt_from") {
+      await reply(replyToken, [datePickCard(
+        "查記事：選迄日",
+        `起日 ${formatDateShort(picked)}，接著選要查到哪一天。`,
+        `act=nt_to&s=${picked}`,
+        picked,
+        "選迄日",
+        "act=nt_cancel",
+      )]);
+      return;
+    }
+
+    const start = params.get("s") ?? "";
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(start)) {
+      await replyText(replyToken, "找不到起日，請從選單重新選一次。");
+      return;
+    }
+    // 選反了就對調，不要回一個空清單讓人以為沒記事
+    const [from, to] = start <= picked ? [start, picked] : [picked, start];
+    await replyNoteRange(from, to, "", db.scopeKeyFor(groupId, userId), replyToken);
     return;
   }
 

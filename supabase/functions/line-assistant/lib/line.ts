@@ -158,6 +158,15 @@ export function splitLocalIso(iso: string): { date: string; time: string } {
   };
 }
 
+/** 同上，但只要 YYYY-MM-DD。記事列表用 created_at 顯示日期時需要。 */
+export function taipeiDateIso(iso: string): string {
+  const ms = Date.parse(iso);
+  if (Number.isNaN(ms)) return iso.slice(0, 10);
+  const t = new Date(ms + 8 * 60 * 60_000);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${t.getUTCFullYear()}-${pad(t.getUTCMonth() + 1)}-${pad(t.getUTCDate())}`;
+}
+
 /** 把待確認行程渲染成人類可讀的時間敘述。 */
 export function describeWhen(req: {
   is_all_day: boolean;
@@ -404,7 +413,30 @@ export function mainMenuCard(todayIso: string, tomorrowIso: string): LineMessage
             layout: "horizontal",
             spacing: "sm",
             contents: [
-              btn("查記事", "act=notes", "查記事"),
+              btn("本週記事", `act=notes&q=${encodeURIComponent("本週")}`, "查記事 本週"),
+              btn("本月記事", `act=notes&q=${encodeURIComponent("本月")}`, "查記事 本月"),
+            ],
+          },
+          {
+            type: "button",
+            style: "secondary",
+            height: "sm",
+            action: {
+              type: "datetimepicker",
+              label: "選日期區間查記事",
+              data: "act=nt_from",
+              mode: "date",
+              initial: todayIso,
+              min: "2020-01-01",
+              max: "2035-12-31",
+            },
+          },
+          {
+            type: "box",
+            layout: "horizontal",
+            spacing: "sm",
+            contents: [
+              btn("最近 10 筆", "act=notes", "查記事"),
               btn("使用說明", "act=help", "/help"),
             ],
           },
@@ -536,6 +568,7 @@ export function datePickCard(
   data: string,
   initial: string,
   label: string,
+  cancelData = "act=ed_cancel",
 ): LineMessage {
   return {
     type: "flex",
@@ -563,7 +596,7 @@ export function datePickCard(
             type: "button",
             style: "secondary",
             height: "sm",
-            action: { type: "postback", label: "取消", data: "act=ed_cancel", displayText: "取消" },
+            action: { type: "postback", label: "取消", data: cancelData, displayText: "取消" },
           },
         ],
       },

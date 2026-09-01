@@ -6,7 +6,7 @@ function assertEquals<T>(actual: T, expected: T, msg = ""): void {
   const a = JSON.stringify(actual), b = JSON.stringify(expected);
   if (a !== b) throw new Error(`${msg}\n  actual:   ${a}\n  expected: ${b}`);
 }
-import { exclusiveEndDate, inferDate, normalize, parse, taipeiParts } from "./parser_zh_tw.ts";
+import { exclusiveEndDate, inferDate, normalize, parse, parseNoteQuery, taipeiParts } from "./parser_zh_tw.ts";
 import type { ParsedSchedule } from "./types.ts";
 
 // 固定「現在」= 2026-08-23 12:00 台北時間（週日）
@@ -294,4 +294,175 @@ Deno.test("選單關鍵字", () => {
   assertEquals(parse("查詢", NOW).kind, "menu");
   assertEquals(parse("menu", NOW).kind, "menu");
   assertEquals(parse("/menu", NOW), { kind: "command", value: { name: "menu", arg: "" } });
+});
+
+// --- 四位數時間寫法 ----------------------------------------------------------
+
+Deno.test("四位數時間：1600-1700 不用冒號", () => {
+  const s = schedule("8/28 1600-1700 部務會議");
+  assertEquals(s.startAt, "2026-08-28T16:00:00+08:00");
+  assertEquals(s.endAt, "2026-08-28T17:00:00+08:00");
+  assertEquals(s.title, "部務會議");
+});
+
+Deno.test("四位數時間：前導零與非整點", () => {
+  const s = schedule("8/28 0830-0945 晨會");
+  assertEquals(s.startAt, "2026-08-28T08:30:00+08:00");
+  assertEquals(s.endAt, "2026-08-28T09:45:00+08:00");
+  assertEquals(s.title, "晨會");
+});
+
+Deno.test("四位數時間：到／至／~ 也算區間", () => {
+  for (const sep of ["到", "至", "~", " - "]) {
+    const s = schedule(`8/28 1600${sep}1700 部務會議`);
+    assertEquals(s.startAt, "2026-08-28T16:00:00+08:00", sep);
+    assertEquals(s.endAt, "2026-08-28T17:00:00+08:00", sep);
+  }
+});
+
+Deno.test("四位數時間：可以跟冒號寫法混用", () => {
+  const s = schedule("8/28 1600-17:30 部務會議");
+  assertEquals(s.endAt, "2026-08-28T17:30:00+08:00");
+});
+
+Deno.test("四位數時間：只有起始時間仍然補問", () => {
+  assert(incomplete("8/28 1600 部務會議").includes("結束時間"));
+});
+
+Deno.test("四位數時間：跨日", () => {
+  const s = schedule("8/28 2200-0100 夜間戰備");
+  assertEquals(s.startAt, "2026-08-28T22:00:00+08:00");
+  assertEquals(s.endAt, "2026-08-29T01:00:00+08:00");
+});
+
+Deno.test("四位數時間：緊鄰其他字元的數字不算時間", () => {
+  // 「第1200梯次」「A0930」都不該被讀成時間，所以這些訊息缺時間 → 補問
+  assert(incomplete("8/28 第1200梯次報到").includes("時間"));
+  assert(incomplete("8/28 電話分機0830轉3").includes("時間"));
+});
+
+Deno.test("四位數時間：不合法的時分不採用", () => {
+  // 2500 與 1265 都不是合法時間，仍視為缺時間
+  assert(incomplete("8/28 2500 部務會議").includes("時間"));
+  assert(incomplete("8/28 1265 部務會議").includes("時間"));
+});
+
+Deno.test("四位數時間：請假也適用", () => {
+  const s = schedule("請假 8/29 1330-1730");
+  assertEquals(s.reqType, "leave");
+  assertEquals(s.isAllDay, false);
+  assertEquals(s.startAt, "2026-08-29T13:30:00+08:00");
+});
+
+Deno.test("四位數時間：年份不會被當成時間", () => {
+  // 2026 年度預算的「2026」後面接的是「年」，不是邊界字元
+  const s = schedule("8/28 14:00-16:00 2026年度預算會議");
+  assertEquals(s.title, "2026年度預算會議");
+});
+
+// --- 記事日期區間查詢 --------------------------------------------------------
+
+Deno.test("記事查詢：沒有參數", () => {
+  assertEquals(parseNoteQuery("", NOW), { from: null, to: null, keyword: "" });
+});
+
+Deno.test("記事查詢：純關鍵字", () => {
+  assertEquals(parseNoteQuery("報告", NOW), { from: null, to: null, keyword: "報告" });
+});
+
+Deno.test("記事查詢：單一日期", () => {
+  assertEquals(parseNoteQuery("8/28", NOW), {
+    from: "2026-08-28", to: "2026-08-28", keyword: "",
+  });
+});
+
+Deno.test("記事查詢：日期區間", () => {
+  assertEquals(parseNoteQuery("8/28-8/31", NOW), {
+    from: "2026-08-28", to: "2026-08-31", keyword: "",
+  });
+  assertEquals(parseNoteQuery("8/28~8/31", NOW), {
+    from: "2026-08-28", to: "2026-08-31", keyword: "",
+  });
+  assertEquals(parseNoteQuery("8/28 到 8/31", NOW), {
+    from: "2026-08-28", to: "2026-08-31", keyword: "",
+  });
+});
+
+Deno.test("記事查詢：查過去的日期取最近的那一年", () => {
+  // 8/23 查 8/20 要的是三天前，不是明年的 8/20（建立行程才會往未來找）
+  assertEquals(parseNoteQuery("8/20", NOW).from, "2026-08-20");
+  // 反過來，接近年底的日期在年初查就要往前一年找
+  const jan = new Date("2026-01-05T04:00:00Z");
+  assertEquals(parseNoteQuery("12/28", jan).from, "2025-12-28");
+});
+
+Deno.test("記事查詢：跨年區間", () => {
+  const dec = new Date("2026-12-20T04:00:00Z");
+  assertEquals(parseNoteQuery("12/28-1/3", dec), {
+    from: "2026-12-28", to: "2027-01-03", keyword: "",
+  });
+});
+
+Deno.test("記事查詢：本週（週一到週日）", () => {
+  // NOW 是 2026-08-23 週日 → 本週為 8/17（一）～8/23（日）
+  assertEquals(parseNoteQuery("本週", NOW), {
+    from: "2026-08-17", to: "2026-08-23", keyword: "",
+  });
+  assertEquals(parseNoteQuery("上週", NOW).from, "2026-08-10");
+  assertEquals(parseNoteQuery("下週", NOW).to, "2026-08-30");
+});
+
+Deno.test("記事查詢：本月與上個月", () => {
+  assertEquals(parseNoteQuery("本月", NOW), {
+    from: "2026-08-01", to: "2026-08-31", keyword: "",
+  });
+  assertEquals(parseNoteQuery("上個月", NOW), {
+    from: "2026-07-01", to: "2026-07-31", keyword: "",
+  });
+  // 二月與跨年都要對
+  const jan = new Date("2026-01-15T04:00:00Z");
+  assertEquals(parseNoteQuery("上個月", jan), {
+    from: "2025-12-01", to: "2025-12-31", keyword: "",
+  });
+  const mar = new Date("2028-03-10T04:00:00Z");
+  assertEquals(parseNoteQuery("上個月", mar).to, "2028-02-29");
+});
+
+Deno.test("記事查詢：最近 N 天", () => {
+  assertEquals(parseNoteQuery("最近7天", NOW), {
+    from: "2026-08-17", to: "2026-08-23", keyword: "",
+  });
+  assertEquals(parseNoteQuery("近3天", NOW).from, "2026-08-21");
+  assertEquals(parseNoteQuery("最近一週", NOW).from, "2026-08-17");
+  assertEquals(parseNoteQuery("最近一個月", NOW).from, "2026-07-25");
+});
+
+Deno.test("記事查詢：區間加關鍵字", () => {
+  assertEquals(parseNoteQuery("本週 報告", NOW), {
+    from: "2026-08-17", to: "2026-08-23", keyword: "報告",
+  });
+  assertEquals(parseNoteQuery("8/28-8/31 報告", NOW), {
+    from: "2026-08-28", to: "2026-08-31", keyword: "報告",
+  });
+});
+
+Deno.test("記事查詢：下週一是單日，不是整個下週", () => {
+  // RE_PERIOD_WEEK 的 lookahead 要擋住「下週一」
+  assertEquals(parseNoteQuery("下週一", NOW), {
+    from: "2026-08-24", to: "2026-08-24", keyword: "",
+  });
+});
+
+Deno.test("記事查詢：相對日期", () => {
+  assertEquals(parseNoteQuery("明天", NOW).from, "2026-08-24");
+  assertEquals(parseNoteQuery("今天", NOW).to, "2026-08-23");
+});
+
+Deno.test("記事查詢：走得通整條 parse 路徑", () => {
+  assertEquals(parse("查記事 本週", NOW), {
+    kind: "command", value: { name: "note_list", arg: "本週" },
+  });
+  assertEquals(parse("查記事 8/28-8/31", NOW), {
+    kind: "command", value: { name: "note_list", arg: "8/28-8/31" },
+  });
 });

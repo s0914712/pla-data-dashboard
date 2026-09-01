@@ -129,7 +129,7 @@ interface DateHit {
  * 四種寫法各自掃描、取第一個「合法」的比對（而不是第一個比對就放棄），
  * 最後挑文字中出現位置最早的那個。
  */
-function findDate(text: string, from: number, today: YMD): DateHit | null {
+function findDate(text: string, from: number, today: YMD, nearest = false): DateHit | null {
   const candidates: DateHit[] = [];
 
   for (const m of scan(RE_YMD, text, from)) {
@@ -147,9 +147,18 @@ function findDate(text: string, from: number, today: YMD): DateHit | null {
     const [mo, d] = [Number(m[1]), Number(m[2])];
     if (digitAdjacent(text, m.index, m.index + m[0].length)) continue;
     if (!isValidYmd(today.y, mo, d)) continue;
-    // 無年份：選「距現在最近且尚未過期」的未來日期（計畫書 §5.2）
+    // 無年份：建立行程時選「距現在最近且尚未過期」的未來日期（計畫書 §5.2）；
+    // 查詢時改選「絕對距離最近」的那一年 —— 9/1 查 8/28 要的是四天前，
+    // 不是三百六十四天後。
     let year = today.y;
-    if (toEpochDay({ y: year, m: mo, d }) < toEpochDay(today)) year += 1;
+    if (nearest) {
+      let bestDist = Infinity;
+      for (const y of [today.y - 1, today.y, today.y + 1]) {
+        if (!isValidYmd(y, mo, d)) continue;
+        const dist = Math.abs(toEpochDay({ y, m: mo, d }) - toEpochDay(today));
+        if (dist < bestDist) { bestDist = dist; year = y; }
+      }
+    } else if (toEpochDay({ y: year, m: mo, d }) < toEpochDay(today)) year += 1;
     candidates.push({
       ymd: { y: year, m: mo, d }, explicitYear: false,
       start: m.index, end: m.index + m[0].length,
@@ -206,15 +215,8 @@ interface TimeHit {
   end: number;
 }
 
-function findTime(text: string, from: number): TimeHit | null {
-  const m = RE_TIME.exec(text.slice(from));
-  if (!m) return null;
-
-  let hh = Number(m[2]);
-  const mi = m[3] === "半" ? 30 : m[3] ? Number(m[3]) : 0;
-  if (hh > 23 || mi > 59) return null;
-
-  const meridiem = m[1];
+/** 套用上午／下午修正；回 null 表示這個組合不合法。 */
+function applyMeridiem(hh: number, meridiem: string | undefined): number | null {
   if (meridiem === "下午" || meridiem === "晚上" || meridiem === "傍晚" || meridiem === "深夜") {
     if (hh < 12) hh += 12;
   } else if (meridiem === "中午") {
@@ -222,12 +224,61 @@ function findTime(text: string, from: number): TimeHit | null {
   } else if (meridiem === "上午" || meridiem === "早上" || meridiem === "凌晨" || meridiem === "清晨") {
     if (hh === 12) hh = 0;
   }
-  if (hh > 23) return null;
+  return hh > 23 ? null : hh;
+}
+
+function findColonTime(text: string, from: number): TimeHit | null {
+  const m = RE_TIME.exec(text.slice(from));
+  if (!m) return null;
+
+  const rawHh = Number(m[2]);
+  const mi = m[3] === "半" ? 30 : m[3] ? Number(m[3]) : 0;
+  if (rawHh > 23 || mi > 59) return null;
+
+  const hh = applyMeridiem(rawHh, m[1]);
+  if (hh === null) return null;
 
   return {
-    hh, mi, hadMeridiem: meridiem !== undefined,
+    hh, mi, hadMeridiem: m[1] !== undefined,
     start: from + m.index, end: from + m.index + m[0].length,
   };
+}
+
+/**
+ * 四位數的軍用寫法：1600、0830、下午0400。
+ *
+ * 前後必須是空白、字串端或區間分隔符，否則「第1200梯次」「編號0830轉3」
+ * 這種含四位數字的字串會被讀成時間。冒號寫法沒有這個問題（冒號本身就是
+ * 夠強的訊號），所以只有這條需要邊界檢查。
+ */
+// 上下午與 \s* 綁在同一個非擷取群組裡：沒寫上下午時，比對必須從數字本身開始，
+// 否則「請假 1330-1730」的比對會從空白起算，邊界檢查看到的是「假」而不是空白。
+const RE_TIME_BARE = /(?:(上午|早上|凌晨|清晨|中午|下午|晚上|傍晚|深夜)\s*)?([01]\d|2[0-3])([0-5]\d)/g;
+const TOKEN_BOUNDARY = /[\s\-~至到,，、。]/;
+
+function findBareTime(text: string, from: number): TimeHit | null {
+  for (const m of scan(RE_TIME_BARE, text, from)) {
+    const start = m.index;
+    const end = m.index + m[0].length;
+    const before = text[start - 1];
+    const after = text[end];
+    if (before !== undefined && !TOKEN_BOUNDARY.test(before)) continue;
+    if (after !== undefined && !TOKEN_BOUNDARY.test(after)) continue;
+
+    const hh = applyMeridiem(Number(m[2]), m[1]);
+    if (hh === null) continue;
+    return { hh, mi: Number(m[3]), hadMeridiem: m[1] !== undefined, start, end };
+  }
+  return null;
+}
+
+/** 兩種寫法都掃，取文字中出現位置較早的那個。 */
+function findTime(text: string, from: number): TimeHit | null {
+  const colon = findColonTime(text, from);
+  const bare = findBareTime(text, from);
+  if (!colon) return bare;
+  if (!bare) return colon;
+  return bare.start < colon.start ? bare : colon;
 }
 
 const RANGE_SEP = /^\s*(?:-|~|to|至|到|~)\s*/i;
@@ -334,11 +385,113 @@ function tryDayQuery(
   // 「請假」「誰請假」單獨出現時沒有日期，預設查今天
   if (!stripped) return filter === "all" ? null : { date: isoDate(today), filter };
 
-  const hit = findDate(stripped, 0, today);
+  // 查詢一律用 nearest：9/1 打「查 8/28」問的是四天前，不會是明年的同一天
+  const hit = findDate(stripped, 0, today, true);
   if (!hit) return null;
 
   const remainder = cut(stripped, hit.start, hit.end);
   return remainder === "" ? { date: isoDate(hit.ymd), filter } : null;
+}
+
+// --- 記事查詢 ----------------------------------------------------------------
+
+export interface NoteQuery {
+  /** 日期區間（含首尾）；沒指定日期時兩個都是 null。 */
+  from: string | null;
+  to: string | null;
+  /** 剝掉日期之後剩下的字，當關鍵字用。 */
+  keyword: string;
+}
+
+const RE_PERIOD_WEEK = /^(本|這|这|上|下|下下)\s*(?:週|周|星期|禮拜)(?![一二三四五六日天])/;
+const RE_PERIOD_MONTH = /^(本|這|这|上|下)\s*個?\s*月/;
+const RE_RECENT_DAYS = /^(?:最近|近|過去)\s*(\d{1,3})\s*[天日]/;
+const RE_RECENT_WEEK = /^(?:最近|近|過去)\s*(?:一|1)?\s*(?:週|周|星期|禮拜)/;
+const RE_RECENT_MONTH = /^(?:最近|近|過去)\s*(?:一|1)?\s*個?\s*月/;
+
+const PERIOD_OFFSET: Record<string, number> = { 本: 0, 這: 0, 这: 0, 上: -1, 下: 1, 下下: 2 };
+
+/** 「本週」「上個月」「最近 7 天」這類期間詞。回 null 表示開頭不是期間詞。 */
+function tryPeriod(text: string, today: YMD): { from: YMD; to: YMD; end: number } | null {
+  const days = RE_RECENT_DAYS.exec(text);
+  if (days) {
+    const n = Math.max(1, Number(days[1]));
+    return { from: addDays(today, -(n - 1)), to: today, end: days[0].length };
+  }
+
+  const recentWeek = RE_RECENT_WEEK.exec(text);
+  if (recentWeek) return { from: addDays(today, -6), to: today, end: recentWeek[0].length };
+
+  const recentMonth = RE_RECENT_MONTH.exec(text);
+  if (recentMonth) return { from: addDays(today, -29), to: today, end: recentMonth[0].length };
+
+  const week = RE_PERIOD_WEEK.exec(text);
+  if (week) {
+    // 週一為首日，跟 RE_WD 的「本週」定義一致
+    const mondayOffset = (weekdayOf(today) + 6) % 7;
+    const monday = addDays(addDays(today, -mondayOffset), (PERIOD_OFFSET[week[1]] ?? 0) * 7);
+    return { from: monday, to: addDays(monday, 6), end: week[0].length };
+  }
+
+  const month = RE_PERIOD_MONTH.exec(text);
+  if (month) {
+    let y = today.y;
+    let m = today.m + (PERIOD_OFFSET[month[1]] ?? 0);
+    while (m < 1) { m += 12; y -= 1; }
+    while (m > 12) { m -= 12; y += 1; }
+    const first = { y, m, d: 1 };
+    const nextFirst = m === 12 ? { y: y + 1, m: 1, d: 1 } : { y, m: m + 1, d: 1 };
+    return { from: first, to: addDays(nextFirst, -1), end: month[0].length };
+  }
+
+  return null;
+}
+
+/**
+ * 解析「查記事」後面那段參數。
+ *
+ * 三種形態可以混用：期間詞（本週）、單日或日期區間（8/28、8/28-8/31），
+ * 剝掉之後剩下的字一律當關鍵字。純關鍵字時 from/to 都是 null，
+ * 由呼叫端退回「最近 N 筆」的舊行為。
+ */
+export function parseNoteQuery(rawArg: string, now: Date): NoteQuery {
+  const text = normalize(rawArg);
+  if (!text) return { from: null, to: null, keyword: "" };
+
+  const today = taipeiParts(now);
+
+  const period = tryPeriod(text, today);
+  if (period) {
+    return {
+      from: isoDate(period.from),
+      to: isoDate(period.to),
+      keyword: text.slice(period.end).trim(),
+    };
+  }
+
+  const first = findDate(text, 0, today, true);
+  if (!first) return { from: null, to: null, keyword: text };
+
+  let last = first;
+  let cutTo = first.end;
+  const sep = RANGE_SEP.exec(text.slice(first.end));
+  if (sep) {
+    const second = findDate(text, first.end + sep[0].length, today, true);
+    if (second && second.start === first.end + sep[0].length) {
+      last = second;
+      cutTo = second.end;
+    }
+  }
+
+  let from = first.ymd;
+  let to = last.ymd;
+  // 迄日早於起日：沒寫年份就當跨年（12/28-1/3），寫了年份就當使用者寫反了
+  if (toEpochDay(to) < toEpochDay(from)) {
+    if (last.explicitYear) [from, to] = [to, from];
+    else to = { ...to, y: to.y + 1 };
+  }
+
+  return { from: isoDate(from), to: isoDate(to), keyword: cut(text, first.start, cutTo) };
 }
 
 /**
