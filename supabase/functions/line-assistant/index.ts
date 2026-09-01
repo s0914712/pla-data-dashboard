@@ -11,26 +11,43 @@
 import { config, env, hasEnv, OPTIONAL_ENV, REQUIRED_ENV } from "./lib/env.ts";
 import * as db from "./lib/db.ts";
 import * as gcal from "./lib/google_calendar.ts";
-import { addDays, isoDate, parse, taipeiParts } from "./lib/parser_zh_tw.ts";
+import { addDays, isoDate, parse, parseNoteQuery, taipeiParts } from "./lib/parser_zh_tw.ts";
 import {
+  addMinutes,
   confirmCard,
-  dayMenuCard,
+  datePickCard,
+  describeEvent,
   describeWhen,
+  editActionCard,
+  editConfirmCard,
+  eventPickerCarousel,
   displayName,
+  formatDate,
   hashActor,
+  hhmm,
+  describeLeave,
   isAddressedToBot,
+  leaveReasonCard,
+  leaveShapeCard,
+  mainMenuCard,
   renderDayView,
   reply,
   replyText,
   stripMentions,
+  taipeiDateIso,
+  textMessage,
+  timePickCard,
   verifySignature,
 } from "./lib/line.ts";
+import type { DayFilter } from "./lib/line.ts";
 import type {
   CalendarRequestRow,
+  DraftRow,
   LineEvent,
   LineWebhookBody,
   ParsedNote,
   ParsedSchedule,
+  SourceType,
 } from "./lib/types.ts";
 
 const HELP = [
@@ -38,6 +55,7 @@ const HELP = [
   "",
   "【行程】會先回確認卡，按下「確認建立」才寫進共用行事曆",
   "· 8/28 14:00-16:00 部務會議 地點：第一會議室",
+  "· 8/28 1400-1600 部務會議（四位數寫法，不用冒號）",
   "· 明天 09:00-10:30 週報會議",
   "· 下週一 下午2點-4點 專案檢討",
   "",
@@ -49,11 +67,29 @@ const HELP = [
   "【記事】直接記錄，不需確認",
   "· 記事 下週要交防務報告 #報告",
   "· 查記事 ／ 查記事 報告（關鍵字）",
+  "· 查記事 8/28　／　查記事 8/28-8/31（日期區間）",
+  "· 查記事 本週　本月　上週　最近7天",
+  "· 查記事 本週 報告（區間＋關鍵字）",
+  "· 選單 →「選日期區間查記事」可以用選的",
   "· 刪記事 3",
   "",
-  "【看某一天有什麼】行程與記事一起列出",
+  "【請假】選單 →「我要請假」，全程用選的",
+  "· 選日期 → 全天／指定時段／跨多天 → 寫事由（可不填）",
+  "· 事由只寫進行事曆說明欄，標題只顯示「請假（姓名）」",
+  "· 要銷假：選單 →「取消請假」→ 挑日期 → 只列當天請假 → 選一筆",
+  "",
+  "【不想打字】選單 →「選日期建立行程」",
+  "· 選日期 → 選開始 → 選結束 → 打標題，全程用選的",
+  "",
+  "【修訂既有行程】選單 →「修訂／刪除既有行程」",
+  "· 挑日期 → 從當天清單選一筆 → 改時間／標題／地點、複製或刪除",
+  "· 任何更動都會先給你「原本 → 改成」的確認卡",
+  "",
+  "【看某一天有什麼】行程、請假、記事分區列出",
   "· 明天　／　明天行程　／　查 8/28",
-  "· 選單（跳出日期選擇器）",
+  "· 只看請假：誰請假　／　明天誰請假　／　查請假 8/28",
+  "· 只看會議：明天會議",
+  "· 只 @ 我不打其他字 → 跳出功能選單",
   "",
   "【其他】/help 說明　/bind 綁定本群組（管理員）",
   "",
@@ -133,6 +169,15 @@ async function handleText(event: LineEvent): Promise<void> {
   if (!isAddressedToBot(event)) return;
 
   const text = stripMentions(event.message!);
+
+  // 只 @ 了小助手、後面沒有內容 → 回功能選單。
+  // 群組白名單在這之前先擋掉，未綁定的群組仍然完全靜默。
+  if (text === "") {
+    if (groupId && !await db.isGroupAllowed(groupId)) return;
+    await showMenu(replyToken);
+    return;
+  }
+
   const parsed = parse(text, new Date());
 
   // /bind 必須在白名單檢查之前處理，否則新群組永遠綁不起來
@@ -147,6 +192,22 @@ async function handleText(event: LineEvent): Promise<void> {
     return;
   }
 
+  // 引導流程走到最後一步時，這則訊息就是標題。
+  // 斜線指令仍然放行，免得使用者被草稿困住。
+  if (!text.startsWith("/")) {
+    const scopeKey = db.scopeKeyFor(groupId, userId);
+    const draft = await db.getDraft(scopeKey, userId, config.pendingTtlMinutes);
+    if (draft && draftAwaitsText(draft)) {
+      if (text === "取消") {
+        await db.deleteDraft(scopeKey, userId);
+        await replyText(replyToken, "已取消，沒有更動任何行程。");
+        return;
+      }
+      await consumeDraftText(event, draft, text, userId, groupId, replyToken);
+      return;
+    }
+  }
+
   switch (parsed.kind) {
     case "command":
       await handleCommand(parsed.value.name, parsed.value.arg, userId, groupId, replyToken);
@@ -157,11 +218,11 @@ async function handleText(event: LineEvent): Promise<void> {
       return;
 
     case "menu":
-      await showDayMenu(replyToken);
+      await showMenu(replyToken);
       return;
 
     case "day_query":
-      await showDayView(parsed.value.date, userId, groupId, replyToken);
+      await showDayView(parsed.value.date, parsed.value.filter, userId, groupId, replyToken);
       return;
 
     case "schedule":
@@ -174,7 +235,11 @@ async function handleText(event: LineEvent): Promise<void> {
       return;
 
     case "unknown":
-      await replyText(replyToken, `看不懂這則訊息。\n\n${HELP}`);
+      // 有 @ 到我但看不懂 —— 回選單比丟一大串說明好用
+      await reply(replyToken, [
+        textMessage("看不懂這則訊息，這是我會的事："),
+        mainMenuCard(isoDate(taipeiParts(new Date())), isoDate(addDays(taipeiParts(new Date()), 1))),
+      ]);
       return;
   }
 }
@@ -230,7 +295,7 @@ async function handleCommand(
 
     case "menu":
     case "day":
-      await showDayMenu(replyToken);
+      await showMenu(replyToken);
       return;
 
     case "note_list":
@@ -303,9 +368,9 @@ function formatDateShort(iso: string): string {
   return `${Number(iso.slice(5, 7))}/${Number(iso.slice(8, 10))}`;
 }
 
-async function showDayMenu(replyToken: string): Promise<void> {
+async function showMenu(replyToken: string): Promise<void> {
   const today = taipeiParts(new Date());
-  await reply(replyToken, [dayMenuCard(isoDate(today), isoDate(addDays(today, 1)))]);
+  await reply(replyToken, [mainMenuCard(isoDate(today), isoDate(addDays(today, 1)))]);
 }
 
 /**
@@ -316,6 +381,7 @@ async function showDayMenu(replyToken: string): Promise<void> {
  */
 async function showDayView(
   dateIso: string,
+  filter: DayFilter,
   userId: string,
   groupId: string | null,
   replyToken: string,
@@ -329,11 +395,736 @@ async function showDayView(
     console.error("listEvents failed:", calendarError);
   }
 
-  const notes = await db.listNotesForDate(db.scopeKeyFor(groupId, userId), dateIso);
+  // 只查請假時不必撈記事，少一次往返
+  const notes = filter === "all"
+    ? await db.listNotesForDate(db.scopeKeyFor(groupId, userId), dateIso)
+    : [];
 
-  let text = renderDayView(dateIso, events, notes);
+  let text = renderDayView(dateIso, events, notes, filter);
   if (calendarError) text += `\n\n⚠️ 行事曆讀取失敗：${calendarError}`;
   await replyText(replyToken, text);
+}
+
+// --- 引導式建立行程 ----------------------------------------------------------
+
+/**
+ * 選單「選日期建立行程」按下去之後的三個步驟。
+ *
+ * 每一步都把結果寫進草稿再問下一題；三題答完就等使用者打標題
+ * （由 handleText 的草稿攔截接手）。
+ */
+async function handleDraftStep(
+  action: string,
+  event: LineEvent,
+  userId: string,
+  groupId: string | null,
+  replyToken: string,
+): Promise<void> {
+  const scopeKey = db.scopeKeyFor(groupId, userId);
+  const sourceType: SourceType = groupId ? "group" : "user";
+
+  if (action === "new_cancel") {
+    await db.deleteDraft(scopeKey, userId);
+    await replyText(replyToken, "已取消，沒有建立任何行程。");
+    return;
+  }
+
+  if (action === "new_date") {
+    const date = event.postback?.params?.date ?? "";
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      await replyText(replyToken, "日期格式不正確，請重新選一次。");
+      return;
+    }
+    // reset：如果上一輪留著沒走完的修訂草稿，這裡要整個清掉再開新局，
+    // 否則 mode 會殘留成 edit_*，最後一步的文字會被當成改標題。
+    await db.upsertDraft({
+      scope_key: scopeKey, user_id: userId, group_id: groupId, source_type: sourceType,
+      date, mode: "create", reset: true,
+    });
+    await reply(replyToken, [timePickCard(
+      "① 開始時間",
+      `${formatDate(date)}\n這筆行程幾點開始？`,
+      "act=new_start",
+      "09:00",
+      "選開始時間",
+    )]);
+    return;
+  }
+
+  const picked = event.postback?.params?.time ?? "";
+  if (!/^\d{2}:\d{2}$/.test(picked)) {
+    await replyText(replyToken, "時間格式不正確，請重新選一次。");
+    return;
+  }
+
+  if (action === "new_start") {
+    const draft = await db.upsertDraft({
+      scope_key: scopeKey, user_id: userId, group_id: groupId, source_type: sourceType, start: picked,
+    });
+    if (!draft.target_date) {
+      await replyText(replyToken, "找不到剛才選的日期，請從選單重新開始。");
+      return;
+    }
+    await reply(replyToken, [timePickCard(
+      "② 結束時間",
+      `${formatDate(draft.target_date)} ${picked} 開始\n幾點結束？`,
+      "act=new_end",
+      addMinutes(picked, 60),
+      "選結束時間",
+    )]);
+    return;
+  }
+
+  // action === "new_end"
+  const draft = await db.upsertDraft({
+    scope_key: scopeKey, user_id: userId, group_id: groupId, source_type: sourceType, end: picked,
+  });
+  if (!draft.target_date || !draft.start_time) {
+    await replyText(replyToken, "草稿不完整，請從選單重新開始。");
+    return;
+  }
+  const start = hhmm(draft.start_time);
+  const crossDay = picked <= start;
+  await replyText(
+    replyToken,
+    `③ 最後一步\n${formatDate(draft.target_date)} ${start}-${picked}` +
+      (crossDay ? "（跨日到隔天）" : "") +
+      "\n\n請直接輸入這筆行程的標題，例如：兵力協調會\n（輸入「取消」可放棄）",
+  );
+}
+
+/** 這張草稿正在等使用者打字嗎？ */
+function draftAwaitsText(d: DraftRow): boolean {
+  if (d.mode === "edit_title" || d.mode === "edit_location") return true;
+  // 請假：end_date 有值代表方式已選定，接下來等事由
+  if (d.mode === "leave") return !!d.end_date;
+  // create 要三個時間欄位都選完才輪到打標題；copy 用原標題，不需要打字
+  return d.mode === "create" && !!d.target_date && !!d.start_time && !!d.end_time;
+}
+
+/** 依草稿的 mode 決定這則文字是標題、還是新的標題／地點。 */
+async function consumeDraftText(
+  event: LineEvent,
+  draft: DraftRow,
+  text: string,
+  userId: string,
+  groupId: string | null,
+  replyToken: string,
+): Promise<void> {
+  const scopeKey = db.scopeKeyFor(groupId, userId);
+
+  if (draft.mode === "edit_title" || draft.mode === "edit_location") {
+    const current = draft.event_id ? await gcal.getEvent(draft.event_id) : null;
+    if (!current) {
+      await db.deleteDraft(scopeKey, userId);
+      await replyText(replyToken, "找不到那筆行程，可能已經被刪掉了。請從選單重新開始。");
+      return;
+    }
+    const isTitle = draft.mode === "edit_title";
+    await db.upsertDraft({
+      scope_key: scopeKey, user_id: userId, group_id: groupId,
+      source_type: groupId ? "group" : "user",
+      title: isTitle ? text : null,
+      location: isTitle ? null : text,
+    });
+    await reply(replyToken, [editConfirmCard(
+      isTitle ? "確認改標題" : "確認改地點",
+      (isTitle ? current.summary : current.location) || "（未設定）",
+      text,
+    )]);
+    return;
+  }
+
+  if (draft.mode === "leave") {
+    await finishLeave(event, draft, text, userId, groupId, replyToken);
+    return;
+  }
+
+  await finishDraft(event, draft, text, userId, groupId, replyToken);
+}
+
+/**
+ * 草稿三步都選完，使用者打了標題 —— 組成行程並送出確認卡。
+ *
+ * 走的是跟手打訊息完全相同的 createRequest 與確認流程，
+ * 所以去重、原子確認、Google 冪等這些保護一個都沒少。
+ */
+async function finishDraft(
+  event: LineEvent,
+  draft: { target_date: string | null; start_time: string | null; end_time: string | null },
+  title: string,
+  userId: string,
+  groupId: string | null,
+  replyToken: string,
+): Promise<void> {
+  const date = draft.target_date!;
+  const start = hhmm(draft.start_time!);
+  const end = hhmm(draft.end_time!);
+
+  // 結束不晚於開始就視為跨日到隔天，跟手打訊息的規則一致
+  const endYmd = end <= start
+    ? isoDate(addDays(ymdOf(date), 1))
+    : date;
+
+  const created = await db.createRequest({
+    webhook_event_id: event.webhookEventId,
+    source_type: groupId ? "group" : "user",
+    group_id: groupId,
+    user_id: userId,
+    original_text: `[選單] ${date} ${start}-${end} ${title}`,
+    req_type: "meeting",
+    title,
+    location: null,
+    note: null,
+    is_all_day: false,
+    start_at: `${date}T${start}:00+08:00`,
+    end_at: `${endYmd}T${end}:00+08:00`,
+    start_date: null,
+    end_date: null,
+    expires_at: new Date(Date.now() + config.pendingTtlMinutes * 60_000).toISOString(),
+  });
+
+  await db.deleteDraft(db.scopeKeyFor(groupId, userId), userId);
+
+  if (created.status !== "pending") {
+    console.info(`redelivered draft finish, status ${created.status}`);
+    return;
+  }
+  await db.audit({ request_id: created.id, action: "request_create_guided", actor_hash: await hashActor(userId), result: "ok" });
+  await reply(replyToken, [confirmCard(created, await displayName(event))]);
+}
+
+function ymdOf(iso: string): { y: number; m: number; d: number } {
+  const [y, m, d] = iso.split("-").map(Number);
+  return { y, m, d };
+}
+
+// --- 引導式請假 --------------------------------------------------------------
+
+/**
+ * 選單「我要請假」按下去之後的步驟。
+ *
+ * 選日期 → 選方式（全天／指定時段／跨多天）→ 寫事由 → 標準確認卡。
+ * 最後一步刻意接回既有的 createRequest + confirmCard，
+ * 所以去重、原子確認、Google 冪等這些保護一個都沒少。
+ */
+async function handleLeaveStep(
+  action: string,
+  params: URLSearchParams,
+  event: LineEvent,
+  userId: string,
+  groupId: string | null,
+  replyToken: string,
+): Promise<void> {
+  const scopeKey = db.scopeKeyFor(groupId, userId);
+  const sourceType: SourceType = groupId ? "group" : "user";
+  const base = { scope_key: scopeKey, user_id: userId, group_id: groupId, source_type: sourceType };
+
+  if (action === "lv_cancel") {
+    await db.deleteDraft(scopeKey, userId);
+    await replyText(replyToken, "已取消，沒有送出請假。");
+    return;
+  }
+
+  // 1. 選起始日期 → 問請假方式
+  if (action === "lv_date") {
+    const date = event.postback?.params?.date ?? "";
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      await replyText(replyToken, "日期格式不正確，請重新選一次。");
+      return;
+    }
+    await db.upsertDraft({ ...base, mode: "leave", date, reset: true });
+    await reply(replyToken, [leaveShapeCard(date)]);
+    return;
+  }
+
+  // 取消請假：挑日期 → 只列當天請假 → 選一筆 → 確認刪除。
+  // 這兩步不需要既有草稿，所以放在下面的守衛之前。
+  if (action === "lv_del_date") {
+    const date = event.postback?.params?.date ?? "";
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      await replyText(replyToken, "日期格式不正確，請重新選一次。");
+      return;
+    }
+    let events: Awaited<ReturnType<typeof gcal.listEvents>>;
+    try {
+      events = await gcal.listEvents(date, config.timezone);
+    } catch (err) {
+      await replyText(replyToken, `讀取行事曆失敗：${(err as Error).message}`);
+      return;
+    }
+    const leaves = events.filter((e) => e.id && e.reqType === "leave");
+    if (leaves.length === 0) {
+      await replyText(replyToken, `${formatDate(date)} 沒有請假紀錄。`);
+      return;
+    }
+    await reply(replyToken, [eventPickerCarousel(date, leaves, {
+      action: "lv_del_pick", label: "取消這筆", verb: "取消請假",
+    })]);
+    return;
+  }
+
+  if (action === "lv_del_pick") {
+    const eventId = params.get("e") ?? "";
+    if (!eventId) return;
+    const target = await gcal.getEvent(eventId);
+    if (!target) {
+      await replyText(replyToken, "找不到那筆請假，可能已經被刪掉了。");
+      return;
+    }
+    // 借用修訂流程的刪除機制：寫一張 mode=delete 的草稿，
+    // 確認卡的 act=ed_apply 就會走到同一個 applyEdit。
+    await db.upsertDraft({ ...base, mode: "delete", event_id: eventId, reset: true });
+    await reply(replyToken, [editConfirmCard(
+      "確認取消請假", describeEvent(target), target.summary, true,
+    )]);
+    return;
+  }
+
+  const draft = await db.getDraft(scopeKey, userId, config.pendingTtlMinutes);
+  if (!draft?.target_date || draft.mode !== "leave") {
+    await replyText(replyToken, "這個請假流程已經逾時，請從選單重新開始。");
+    return;
+  }
+  const startDate = draft.target_date;
+
+  switch (action) {
+    // 2-a. 全天：迄日就是起日，直接問事由
+    case "lv_allday":
+      await db.upsertDraft({ ...base, end_date: startDate });
+      await reply(replyToken, [leaveReasonCard(describeLeave(startDate, startDate, null, null))]);
+      return;
+
+    // 2-b. 指定時段：先問開始時間
+    case "lv_timed":
+      await reply(replyToken, [timePickCard(
+        "① 開始時間",
+        `${formatDate(startDate)}\n請假從幾點開始？`,
+        "act=lv_s", "09:00", "選開始時間",
+      )]);
+      return;
+
+    // 2-c. 跨多天：問迄日
+    case "lv_multi":
+      await reply(replyToken, [datePickCard(
+        "請假到哪一天",
+        `${formatDate(startDate)} 起\n請選最後一天（含當天）`,
+        "act=lv_edate",
+        startDate,
+        "選迄日",
+      )]);
+      return;
+
+    case "lv_s": {
+      const picked = event.postback?.params?.time ?? "";
+      if (!/^\d{2}:\d{2}$/.test(picked)) {
+        await replyText(replyToken, "時間格式不正確，請重新選一次。");
+        return;
+      }
+      await db.upsertDraft({ ...base, start: picked });
+      await reply(replyToken, [timePickCard(
+        "② 結束時間",
+        `${formatDate(startDate)} ${picked} 開始\n幾點結束？`,
+        "act=lv_e", addMinutes(picked, 60), "選結束時間",
+      )]);
+      return;
+    }
+
+    case "lv_e": {
+      const picked = event.postback?.params?.time ?? "";
+      if (!/^\d{2}:\d{2}$/.test(picked)) {
+        await replyText(replyToken, "時間格式不正確，請重新選一次。");
+        return;
+      }
+      // 同時寫 end_date，代表方式已選定，接下來等事由
+      const d = await db.upsertDraft({ ...base, end: picked, end_date: startDate });
+      if (!d.start_time) {
+        await replyText(replyToken, "找不到剛才選的開始時間，請從選單重新開始。");
+        return;
+      }
+      await reply(replyToken, [leaveReasonCard(
+        describeLeave(startDate, startDate, hhmm(d.start_time), picked),
+      )]);
+      return;
+    }
+
+    case "lv_edate": {
+      const endDate = event.postback?.params?.date ?? "";
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(endDate)) {
+        await replyText(replyToken, "日期格式不正確，請重新選一次。");
+        return;
+      }
+      if (endDate < startDate) {
+        await replyText(replyToken, `迄日不能早於起日（${formatDate(startDate)}）。請重新選一次。`);
+        return;
+      }
+      await db.upsertDraft({ ...base, end_date: endDate });
+      await reply(replyToken, [leaveReasonCard(describeLeave(startDate, endDate, null, null))]);
+      return;
+    }
+
+    // 3. 不填事由 → 直接送確認卡
+    case "lv_skip":
+      await finishLeave(event, draft, null, userId, groupId, replyToken);
+      return;
+  }
+}
+
+/**
+ * 請假流程收尾：組成待確認請求並送出標準確認卡。
+ *
+ * 事由走 note 欄位 —— insertEvent 只會把它寫進 Google 的 description，
+ * summary 仍然是「請假（姓名）」，日曆格線上看不到事由（計畫書 §5.4）。
+ */
+async function finishLeave(
+  event: LineEvent,
+  draft: DraftRow,
+  reason: string | null,
+  userId: string,
+  groupId: string | null,
+  replyToken: string,
+): Promise<void> {
+  const startDate = draft.target_date!;
+  const endDate = draft.end_date ?? startDate;
+  const timed = !!draft.start_time && !!draft.end_time;
+
+  let startAt: string | null = null;
+  let endAt: string | null = null;
+  if (timed) {
+    const start = hhmm(draft.start_time!);
+    const end = hhmm(draft.end_time!);
+    // 結束不晚於開始就視為跨日到隔天，跟其他流程的規則一致
+    const endYmd = end <= start ? isoDate(addDays(ymdOf(startDate), 1)) : startDate;
+    startAt = `${startDate}T${start}:00+08:00`;
+    endAt = `${endYmd}T${end}:00+08:00`;
+  }
+
+  const created = await db.createRequest({
+    webhook_event_id: event.webhookEventId,
+    source_type: groupId ? "group" : "user",
+    group_id: groupId,
+    user_id: userId,
+    // 原文只留流程與日期，不含事由 —— 事由是個資，只進 note 欄位
+    original_text: `[請假選單] ${startDate}${endDate !== startDate ? `~${endDate}` : ""}`,
+    req_type: "leave",
+    title: "請假",
+    location: null,
+    note: reason,
+    is_all_day: !timed,
+    start_at: startAt,
+    end_at: endAt,
+    start_date: timed ? null : startDate,
+    end_date: timed ? null : endDate,
+    expires_at: new Date(Date.now() + config.pendingTtlMinutes * 60_000).toISOString(),
+  });
+
+  await db.deleteDraft(db.scopeKeyFor(groupId, userId), userId);
+
+  if (created.status !== "pending") {
+    console.info(`redelivered leave finish, status ${created.status}`);
+    return;
+  }
+  await db.audit({ request_id: created.id, action: "request_create_leave", actor_hash: await hashActor(userId), result: "ok" });
+  await reply(replyToken, [confirmCard(created, await displayName(event))]);
+}
+
+// --- 修訂／複製／刪除既有行程 ------------------------------------------------
+
+/**
+ * 修訂流程的所有步驟。
+ *
+ * 入口是選單的「修訂／刪除既有行程」：挑日期 → 從當天事件挑一筆 → 決定要做什麼。
+ * 之後的中間狀態都存在同一張草稿裡（mode + event_id），所以 postback 不必
+ * 一路夾帶 event id。任何寫入 Google 之前一律要經過確認卡。
+ */
+async function handleEditStep(
+  action: string,
+  params: URLSearchParams,
+  event: LineEvent,
+  userId: string,
+  groupId: string | null,
+  replyToken: string,
+): Promise<void> {
+  const scopeKey = db.scopeKeyFor(groupId, userId);
+  const sourceType: SourceType = groupId ? "group" : "user";
+  const base = { scope_key: scopeKey, user_id: userId, group_id: groupId, source_type: sourceType };
+
+  // 1. 挑日期 → 列出當天事件讓使用者選
+  if (action === "ed_date") {
+    const date = event.postback?.params?.date ?? "";
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      await replyText(replyToken, "日期格式不正確，請重新選一次。");
+      return;
+    }
+    let events: Awaited<ReturnType<typeof gcal.listEvents>>;
+    try {
+      events = await gcal.listEvents(date, config.timezone);
+    } catch (err) {
+      await replyText(replyToken, `讀取行事曆失敗：${(err as Error).message}`);
+      return;
+    }
+    const pickable = events.filter((e) => e.id);
+    if (pickable.length === 0) {
+      await replyText(replyToken, `${formatDate(date)} 沒有行程可以修訂。`);
+      return;
+    }
+    await reply(replyToken, [eventPickerCarousel(date, pickable)]);
+    return;
+  }
+
+  // 2. 選定一筆 → 問要做什麼
+  if (action === "ed_pick") {
+    const eventId = params.get("e") ?? "";
+    if (!eventId) return;
+    const target = await gcal.getEvent(eventId);
+    if (!target) {
+      await replyText(replyToken, "找不到那筆行程，可能已經被刪掉了。");
+      return;
+    }
+    // 先把 event_id 記進草稿，後面幾步的 postback 就不必再夾帶
+    await db.upsertDraft({ ...base, mode: "edit_time", event_id: eventId, reset: true });
+    await reply(replyToken, [editActionCard(target)]);
+    return;
+  }
+
+  if (action === "ed_cancel") {
+    await db.deleteDraft(scopeKey, userId);
+    await replyText(replyToken, "已取消，沒有更動任何行程。");
+    return;
+  }
+
+  // 以下每一步都需要草稿裡的 event_id
+  const draft = await db.getDraft(scopeKey, userId, config.pendingTtlMinutes);
+  if (!draft?.event_id) {
+    await replyText(replyToken, "這個修訂流程已經逾時，請從選單重新開始。");
+    return;
+  }
+  const target = await gcal.getEvent(draft.event_id);
+  if (!target) {
+    await db.deleteDraft(scopeKey, userId);
+    await replyText(replyToken, "找不到那筆行程，可能已經被刪掉了。");
+    return;
+  }
+
+  switch (action) {
+    case "ed_title":
+      await db.upsertDraft({ ...base, mode: "edit_title" });
+      await replyText(replyToken, `目前標題：${target.summary}\n\n請直接輸入新的標題。\n（輸入「取消」可放棄）`);
+      return;
+
+    case "ed_loc":
+      await db.upsertDraft({ ...base, mode: "edit_location" });
+      await replyText(replyToken, `目前地點：${target.location ?? "（未設定）"}\n\n請直接輸入新的地點。\n（輸入「取消」可放棄）`);
+      return;
+
+    case "ed_del":
+      await db.upsertDraft({ ...base, mode: "delete" });
+      await reply(replyToken, [editConfirmCard(
+        "確認刪除行程", describeEvent(target), target.summary, true,
+      )]);
+      return;
+
+    case "ed_time":
+    case "ed_copy": {
+      const mode = action === "ed_copy" ? "copy" : "edit_time";
+      await db.upsertDraft({
+        ...base, mode, event_id: draft.event_id, reset: true,
+        title: target.summary, location: target.location,
+      });
+      await reply(replyToken, [datePickCard(
+        mode === "copy" ? "複製成新的一筆" : "改時間／日期",
+        mode === "copy"
+          ? `會沿用標題「${target.summary}」，先選新日期`
+          : `原本：${describeEvent(target)}\n請選新的日期`,
+        "act=et_d",
+        eventDateIso(target),
+        "選日期",
+      )]);
+      return;
+    }
+
+    // 3-1. 新日期 → 問開始時間
+    case "et_d": {
+      const date = event.postback?.params?.date ?? "";
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+        await replyText(replyToken, "日期格式不正確，請重新選一次。");
+        return;
+      }
+      await db.upsertDraft({ ...base, date });
+      await reply(replyToken, [timePickCard(
+        "① 開始時間", `${formatDate(date)}\n幾點開始？`, "act=et_s", "09:00", "選開始時間",
+      )]);
+      return;
+    }
+
+    // 3-2. 開始時間 → 問結束時間
+    case "et_s": {
+      const picked = event.postback?.params?.time ?? "";
+      if (!/^\d{2}:\d{2}$/.test(picked)) {
+        await replyText(replyToken, "時間格式不正確，請重新選一次。");
+        return;
+      }
+      const d = await db.upsertDraft({ ...base, start: picked });
+      if (!d.target_date) {
+        await replyText(replyToken, "找不到剛才選的日期，請從選單重新開始。");
+        return;
+      }
+      await reply(replyToken, [timePickCard(
+        "② 結束時間", `${formatDate(d.target_date)} ${picked} 開始\n幾點結束？`,
+        "act=et_e", addMinutes(picked, 60), "選結束時間",
+      )]);
+      return;
+    }
+
+    // 3-3. 結束時間 → 確認卡
+    case "et_e": {
+      const picked = event.postback?.params?.time ?? "";
+      if (!/^\d{2}:\d{2}$/.test(picked)) {
+        await replyText(replyToken, "時間格式不正確，請重新選一次。");
+        return;
+      }
+      const d = await db.upsertDraft({ ...base, end: picked });
+      if (!d.target_date || !d.start_time) {
+        await replyText(replyToken, "草稿不完整，請從選單重新開始。");
+        return;
+      }
+      const after = describeSpan(d.target_date, hhmm(d.start_time), picked);
+      await reply(replyToken, [editConfirmCard(
+        d.mode === "copy" ? "確認複製成新的一筆" : "確認改時間",
+        d.mode === "copy" ? `原行程：${describeEvent(target)}` : describeEvent(target),
+        d.mode === "copy" ? `新增一筆：${after}` : after,
+      )]);
+      return;
+    }
+
+    // 4. 套用
+    case "ed_apply":
+      await applyEdit(event, draft, target, userId, groupId, replyToken);
+      return;
+  }
+}
+
+/** 事件目前落在哪一天（台北），拿來當日期選擇器的預設值。 */
+function eventDateIso(target: gcal.FullEvent): string {
+  if (target.startDate) return target.startDate;
+  if (target.startAt) {
+    const ms = Date.parse(target.startAt);
+    if (!Number.isNaN(ms)) {
+      const t = new Date(ms + 8 * 60 * 60_000);
+      const pad = (n: number) => String(n).padStart(2, "0");
+      return `${t.getUTCFullYear()}-${pad(t.getUTCMonth() + 1)}-${pad(t.getUTCDate())}`;
+    }
+  }
+  return isoDate(taipeiParts(new Date()));
+}
+
+/** 把日期與起訖時分渲染成跟 describeEvent 一致的字串。 */
+function describeSpan(dateIso: string, start: string, end: string): string {
+  const endDate = end <= start ? isoDate(addDays(ymdOf(dateIso), 1)) : dateIso;
+  return describeWhen({
+    is_all_day: false,
+    start_at: `${dateIso}T${start}:00+08:00`,
+    end_at: `${endDate}T${end}:00+08:00`,
+    start_date: null,
+    end_date: null,
+  });
+}
+
+/**
+ * 按下確認之後真正寫進 Google。
+ *
+ * 每一種 mode 都寫 audit_logs；改時間用 PATCH 只送 start/end，
+ * 不會把使用者在日曆 App 上另外填的參加者、提醒洗掉。
+ */
+async function applyEdit(
+  event: LineEvent,
+  draft: DraftRow,
+  target: gcal.FullEvent,
+  userId: string,
+  groupId: string | null,
+  replyToken: string,
+): Promise<void> {
+  const scopeKey = db.scopeKeyFor(groupId, userId);
+  const actorHash = await hashActor(userId);
+  const tz = config.timezone;
+
+  try {
+    let done: string;
+
+    switch (draft.mode) {
+      case "edit_title": {
+        if (!draft.payload_title) throw new Error("新標題是空的");
+        await gcal.patchEvent(target.id, { summary: draft.payload_title });
+        done = `✅ 標題已改為\n${draft.payload_title}`;
+        break;
+      }
+      case "edit_location": {
+        if (!draft.payload_location) throw new Error("新地點是空的");
+        await gcal.patchEvent(target.id, { location: draft.payload_location });
+        done = `✅ 地點已改為\n${draft.payload_location}`;
+        break;
+      }
+      case "delete": {
+        await gcal.deleteEvent(target.id);
+        done = `🗑️ 已刪除\n${target.summary}\n${describeEvent(target)}`;
+        break;
+      }
+      case "edit_time": {
+        const { date, start, end, endDate } = draftSpan(draft);
+        await gcal.patchEvent(target.id, {
+          start: { dateTime: `${date}T${start}:00+08:00`, timeZone: tz },
+          end: { dateTime: `${endDate}T${end}:00+08:00`, timeZone: tz },
+        });
+        done = `✅ 時間已改為\n${target.summary}\n${describeSpan(date, start, end)}`;
+        break;
+      }
+      case "copy": {
+        const { date, start, end, endDate } = draftSpan(draft);
+        const created = await db.createRequest({
+          webhook_event_id: event.webhookEventId,
+          source_type: groupId ? "group" : "user",
+          group_id: groupId,
+          user_id: userId,
+          original_text: `[複製自 ${target.id}] ${date} ${start}-${end}`,
+          req_type: "meeting",
+          title: draft.payload_title ?? target.summary,
+          location: draft.payload_location ?? target.location,
+          note: null,
+          is_all_day: false,
+          start_at: `${date}T${start}:00+08:00`,
+          end_at: `${endDate}T${end}:00+08:00`,
+          start_date: null,
+          end_date: null,
+          expires_at: new Date(Date.now() + config.pendingTtlMinutes * 60_000).toISOString(),
+        });
+        const gid = await gcal.insertEvent(created, await displayName(event), tz);
+        await db.advanceStatus(created.id, "pending", "confirmed", { google_event_id: gid });
+        done = `✅ 已新增一筆\n${created.title}\n${describeSpan(date, start, end)}`;
+        break;
+      }
+      default:
+        await replyText(replyToken, "這個修訂流程還沒完成，請從選單重新開始。");
+        return;
+    }
+
+    await db.deleteDraft(scopeKey, userId);
+    await db.audit({ action: `edit_${draft.mode}`, actor_hash: actorHash, result: "ok" });
+    await replyText(replyToken, done);
+  } catch (err) {
+    const message = (err as Error).message;
+    console.error(`edit ${draft.mode} failed:`, message);
+    await db.audit({ action: `edit_${draft.mode}`, actor_hash: actorHash, result: "failed", detail: { message } });
+    await replyText(replyToken, `❌ 修訂失敗：${message}\n\n行程沒有被更動。請從選單重新開始。`);
+  }
+}
+
+/** 從草稿取出起訖，套用「結束不晚於開始就跨日」的共同規則。 */
+function draftSpan(draft: DraftRow): { date: string; start: string; end: string; endDate: string } {
+  const date = draft.target_date!;
+  const start = hhmm(draft.start_time!);
+  const end = hhmm(draft.end_time!);
+  const endDate = end <= start ? isoDate(addDays(ymdOf(date), 1)) : date;
+  return { date, start, end, endDate };
 }
 
 // --- 記事 --------------------------------------------------------------------
@@ -360,23 +1151,77 @@ async function handleNote(
   await replyText(replyToken, `📝 已記錄 #${note.seq}\n${note.content}${dated}`);
 }
 
+/**
+ * 記事查詢。參數可以是關鍵字、單一日期、日期區間或期間詞，也可以混用：
+ *
+ *   查記事            → 最近 10 筆
+ *   查記事 報告        → 關鍵字
+ *   查記事 8/28       → 那一天
+ *   查記事 8/28-8/31  → 區間
+ *   查記事 本週 報告   → 區間 + 關鍵字
+ */
 async function handleNoteList(
-  keyword: string,
+  arg: string,
   userId: string,
   groupId: string | null,
   replyToken: string,
 ): Promise<void> {
-  const notes = await db.listNotes(db.scopeKeyFor(groupId, userId), keyword);
-  if (notes.length === 0) {
-    await replyText(replyToken, keyword ? `找不到含「${keyword}」的記事。` : "目前沒有記事。試試：記事 明天要帶識別證");
+  const q = parseNoteQuery(arg, new Date());
+  const scopeKey = db.scopeKeyFor(groupId, userId);
+
+  if (q.from && q.to) {
+    await replyNoteRange(q.from, q.to, q.keyword, scopeKey, replyToken);
     return;
   }
-  const header = keyword ? `📝 含「${keyword}」的記事（${notes.length} 筆）` : `📝 最近 ${notes.length} 筆記事`;
+
+  const notes = await db.listNotes(scopeKey, q.keyword);
+  if (notes.length === 0) {
+    await replyText(
+      replyToken,
+      q.keyword ? `找不到含「${q.keyword}」的記事。` : "目前沒有記事。試試：記事 明天要帶識別證",
+    );
+    return;
+  }
+  const header = q.keyword
+    ? `📝 含「${q.keyword}」的記事（${notes.length} 筆）`
+    : `📝 最近 ${notes.length} 筆記事`;
+  await replyText(replyToken, renderNotes(header, notes));
+}
+
+async function replyNoteRange(
+  fromIso: string,
+  toIso: string,
+  keyword: string,
+  scopeKey: string,
+  replyToken: string,
+): Promise<void> {
+  const span = fromIso === toIso
+    ? formatDateShort(fromIso)
+    : `${formatDateShort(fromIso)}～${formatDateShort(toIso)}`;
+  const notes = await db.listNotesInRange(scopeKey, fromIso, toIso, keyword);
+  if (notes.length === 0) {
+    const suffix = keyword ? `含「${keyword}」的` : "";
+    await replyText(replyToken, `${span} 沒有${suffix}記事。`);
+    return;
+  }
+  const header = keyword
+    ? `📝 ${span} 含「${keyword}」的記事（${notes.length} 筆）`
+    : `📝 ${span} 的記事（${notes.length} 筆）`;
+  await replyText(replyToken, renderNotes(header, notes));
+}
+
+/**
+ * 記事列表的共用排版。
+ *
+ * 日期優先用 target_date（記事內容提到的那一天），沒有才退回建立日期 ——
+ * 而 created_at 從 PostgREST 讀回來是 UTC，要換算成台北才不會差一天。
+ */
+function renderNotes(header: string, notes: { seq: number; content: string; target_date: string | null; created_at: string }[]): string {
   const lines = notes.map((n) => {
-    const date = n.created_at.slice(5, 10).replace("-", "/");
-    return `#${n.seq}　${date}　${n.content}`;
+    const iso = n.target_date ?? taipeiDateIso(n.created_at);
+    return `#${n.seq}　${formatDateShort(iso)}　${n.content}`;
   });
-  await replyText(replyToken, [header, "", ...lines, "", "刪除請輸入：刪記事 <編號>"].join("\n"));
+  return [header, "", ...lines, "", "刪除請輸入：刪記事 <編號>"].join("\n");
 }
 
 async function handleNoteDelete(
@@ -460,9 +1305,87 @@ async function handlePostback(event: LineEvent): Promise<void> {
       await replyText(replyToken, "日期格式不正確，請重新選一次。");
       return;
     }
+    const raw = params.get("f");
+    const filter: DayFilter = raw === "leave" || raw === "meeting" ? raw : "all";
     const groupId = event.source.groupId ?? null;
     if (groupId && !await db.isGroupAllowed(groupId)) return;
-    await showDayView(picked, userId, groupId, replyToken);
+    await showDayView(picked, filter, userId, groupId, replyToken);
+    return;
+  }
+
+  // 引導式建立行程：選日期 → 選開始 → 選結束 → 打標題
+  if (action === "new_date" || action === "new_start" || action === "new_end" || action === "new_cancel") {
+    const groupId = event.source.groupId ?? null;
+    if (groupId && !await db.isGroupAllowed(groupId)) return;
+    await handleDraftStep(action, event, userId, groupId, replyToken);
+    return;
+  }
+
+  // 引導式請假：選日期 → 選方式 → 寫事由
+  if (action?.startsWith("lv_")) {
+    const groupId = event.source.groupId ?? null;
+    if (groupId && !await db.isGroupAllowed(groupId)) return;
+    await handleLeaveStep(action, params, event, userId, groupId, replyToken);
+    return;
+  }
+
+  // 修訂／複製／刪除既有行程
+  if (action?.startsWith("ed_") || action?.startsWith("et_")) {
+    const groupId = event.source.groupId ?? null;
+    if (groupId && !await db.isGroupAllowed(groupId)) return;
+    await handleEditStep(action, params, event, userId, groupId, replyToken);
+    return;
+  }
+
+  if (action === "notes") {
+    const groupId = event.source.groupId ?? null;
+    if (groupId && !await db.isGroupAllowed(groupId)) return;
+    // q= 讓「本週記事」「本月記事」直接重用文字版的查詢語法
+    await handleNoteList(params.get("q") ?? "", userId, groupId, replyToken);
+    return;
+  }
+
+  // 記事區間查詢：選起日 → 選迄日。起日直接編進第二張卡的 postback，不用存草稿。
+  if (action === "nt_cancel") {
+    await replyText(replyToken, "已取消。");
+    return;
+  }
+
+  if (action === "nt_from" || action === "nt_to") {
+    const groupId = event.source.groupId ?? null;
+    if (groupId && !await db.isGroupAllowed(groupId)) return;
+
+    const picked = event.postback.params?.date ?? "";
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(picked)) {
+      await replyText(replyToken, "日期格式不正確，請重新選一次。");
+      return;
+    }
+
+    if (action === "nt_from") {
+      await reply(replyToken, [datePickCard(
+        "查記事：選迄日",
+        `起日 ${formatDateShort(picked)}，接著選要查到哪一天。`,
+        `act=nt_to&s=${picked}`,
+        picked,
+        "選迄日",
+        "act=nt_cancel",
+      )]);
+      return;
+    }
+
+    const start = params.get("s") ?? "";
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(start)) {
+      await replyText(replyToken, "找不到起日，請從選單重新選一次。");
+      return;
+    }
+    // 選反了就對調，不要回一個空清單讓人以為沒記事
+    const [from, to] = start <= picked ? [start, picked] : [picked, start];
+    await replyNoteRange(from, to, "", db.scopeKeyFor(groupId, userId), replyToken);
+    return;
+  }
+
+  if (action === "help") {
+    await replyText(replyToken, HELP);
     return;
   }
 

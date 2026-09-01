@@ -2,7 +2,7 @@
 
 import { env, requireEnv } from "./env.ts";
 import type { CalendarRequestRow, LineEvent, NoteRow } from "./types.ts";
-import type { DayEvent } from "./google_calendar.ts";
+import type { DayEvent, FullEvent } from "./google_calendar.ts";
 
 const REPLY_URL = "https://api.line.me/v2/bot/message/reply";
 const PUSH_URL = "https://api.line.me/v2/bot/message/push";
@@ -137,9 +137,34 @@ export function formatDate(isoDate: string): string {
   return `${y}/${String(m).padStart(2, "0")}/${String(d).padStart(2, "0")}（週${weekday}）`;
 }
 
-/** 2026-08-28T14:00:00+08:00 → { date: "2026/08/28（週五）", time: "14:00" } */
+/**
+ * 把任意帶時區位移的 ISO 字串轉成台北的日期與時分。
+ *
+ * 不能直接切字串 —— PostgREST 讀 timestamptz 是以 UTC 輸出的
+ * （寫進去的 2026-08-25T14:00:00+08:00 讀回來是 2026-08-25T06:00:00+00:00），
+ * 直接 slice 會顯示成 06:00。一律轉成瞬間再換算 +08:00。
+ */
 export function splitLocalIso(iso: string): { date: string; time: string } {
-  return { date: formatDate(iso.slice(0, 10)), time: iso.slice(11, 16) };
+  const ms = Date.parse(iso);
+  if (Number.isNaN(ms)) {
+    // 解析不了就退回原字串的樣子，至少不會顯示成空白
+    return { date: formatDate(iso.slice(0, 10)), time: iso.slice(11, 16) };
+  }
+  const t = new Date(ms + 8 * 60 * 60_000);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return {
+    date: formatDate(`${t.getUTCFullYear()}-${pad(t.getUTCMonth() + 1)}-${pad(t.getUTCDate())}`),
+    time: `${pad(t.getUTCHours())}:${pad(t.getUTCMinutes())}`,
+  };
+}
+
+/** 同上，但只要 YYYY-MM-DD。記事列表用 created_at 顯示日期時需要。 */
+export function taipeiDateIso(iso: string): string {
+  const ms = Date.parse(iso);
+  if (Number.isNaN(ms)) return iso.slice(0, 10);
+  const t = new Date(ms + 8 * 60 * 60_000);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${t.getUTCFullYear()}-${pad(t.getUTCMonth() + 1)}-${pad(t.getUTCDate())}`;
 }
 
 /** 把待確認行程渲染成人類可讀的時間敘述。 */
@@ -253,22 +278,23 @@ export { requireEnv };
 // --- 日檢視 ------------------------------------------------------------------
 
 /**
- * 日期選單。
+ * 功能選單。
  *
+ * 群組內只 @ 小助手不打其他字時就回這張卡，比丟一大串文字說明好用。
  * 「選日期」用 LINE 原生的 datetimepicker action，使用者滑選即可，
  * 不必手打日期；選完會以 postback.params.date 回傳 YYYY-MM-DD。
  */
-export function dayMenuCard(todayIso: string, tomorrowIso: string): LineMessage {
-  const button = (label: string, date: string, style: string) => ({
+export function mainMenuCard(todayIso: string, tomorrowIso: string): LineMessage {
+  const btn = (label: string, data: string, displayText: string, style = "secondary") => ({
     type: "button",
     style,
     height: "sm",
-    action: { type: "postback", label, data: `act=day&d=${date}`, displayText: `查 ${label}` },
+    action: { type: "postback", label, data, displayText },
   });
 
   return {
     type: "flex",
-    altText: "要看哪一天？",
+    altText: "課表小助手功能選單",
     contents: {
       type: "bubble",
       body: {
@@ -276,31 +302,256 @@ export function dayMenuCard(todayIso: string, tomorrowIso: string): LineMessage 
         layout: "vertical",
         spacing: "md",
         contents: [
-          { type: "text", text: "要看哪一天？", weight: "bold", size: "lg" },
-          { type: "text", text: "會列出當天的行事曆行程與記事", size: "xs", color: "#888888", wrap: true },
+          { type: "text", text: "📅 課表小助手", weight: "bold", size: "lg" },
+          { type: "text", text: "選一個功能，或直接打字建立行程", size: "xs", color: "#888888", wrap: true },
           { type: "separator" },
+
+          { type: "text", text: "看某一天", size: "sm", weight: "bold", margin: "sm" },
           {
             type: "box",
-            layout: "vertical",
+            layout: "horizontal",
             spacing: "sm",
             contents: [
-              button("今天", todayIso, "primary"),
-              button("明天", tomorrowIso, "primary"),
-              {
-                type: "button",
-                style: "secondary",
-                height: "sm",
-                action: {
-                  type: "datetimepicker",
-                  label: "選其他日期",
-                  data: "act=day",
-                  mode: "date",
-                  initial: todayIso,
-                  min: "2020-01-01",
-                  max: "2035-12-31",
-                },
-              },
+              btn("今天", `act=day&d=${todayIso}`, "查 今天", "primary"),
+              btn("明天", `act=day&d=${tomorrowIso}`, "查 明天", "primary"),
             ],
+          },
+          {
+            type: "box",
+            layout: "horizontal",
+            spacing: "sm",
+            contents: [
+              btn("今天誰請假", `act=day&f=leave&d=${todayIso}`, "查 今天請假"),
+              btn("明天誰請假", `act=day&f=leave&d=${tomorrowIso}`, "查 明天請假"),
+            ],
+          },
+          {
+            type: "button",
+            style: "secondary",
+            height: "sm",
+            action: {
+              type: "datetimepicker",
+              label: "選其他日期",
+              data: "act=day",
+              mode: "date",
+              initial: todayIso,
+              min: "2020-01-01",
+              max: "2035-12-31",
+            },
+          },
+
+          { type: "separator", margin: "md" },
+          { type: "text", text: "請假", size: "sm", weight: "bold", margin: "sm" },
+          {
+            type: "button",
+            style: "primary",
+            height: "sm",
+            color: "#00695c",
+            action: {
+              type: "datetimepicker",
+              label: "我要請假",
+              data: "act=lv_date",
+              mode: "date",
+              initial: todayIso,
+              min: "2020-01-01",
+              max: "2035-12-31",
+            },
+          },
+
+          {
+            type: "button",
+            style: "secondary",
+            height: "sm",
+            action: {
+              type: "datetimepicker",
+              label: "取消請假",
+              data: "act=lv_del_date",
+              mode: "date",
+              initial: todayIso,
+              min: "2020-01-01",
+              max: "2035-12-31",
+            },
+          },
+
+          { type: "separator", margin: "md" },
+          { type: "text", text: "新增行程", size: "sm", weight: "bold", margin: "sm" },
+          {
+            type: "button",
+            style: "primary",
+            height: "sm",
+            color: "#2e7d32",
+            action: {
+              type: "datetimepicker",
+              label: "選日期建立行程",
+              data: "act=new_date",
+              mode: "date",
+              initial: todayIso,
+              min: "2020-01-01",
+              max: "2035-12-31",
+            },
+          },
+
+          {
+            type: "button",
+            style: "secondary",
+            height: "sm",
+            action: {
+              type: "datetimepicker",
+              label: "修訂／刪除既有行程",
+              data: "act=ed_date",
+              mode: "date",
+              initial: todayIso,
+              min: "2020-01-01",
+              max: "2035-12-31",
+            },
+          },
+
+          { type: "separator", margin: "md" },
+          { type: "text", text: "記事", size: "sm", weight: "bold", margin: "sm" },
+          {
+            type: "box",
+            layout: "horizontal",
+            spacing: "sm",
+            contents: [
+              btn("本週記事", `act=notes&q=${encodeURIComponent("本週")}`, "查記事 本週"),
+              btn("本月記事", `act=notes&q=${encodeURIComponent("本月")}`, "查記事 本月"),
+            ],
+          },
+          {
+            type: "button",
+            style: "secondary",
+            height: "sm",
+            action: {
+              type: "datetimepicker",
+              label: "選日期區間查記事",
+              data: "act=nt_from",
+              mode: "date",
+              initial: todayIso,
+              min: "2020-01-01",
+              max: "2035-12-31",
+            },
+          },
+          {
+            type: "box",
+            layout: "horizontal",
+            spacing: "sm",
+            contents: [
+              btn("最近 10 筆", "act=notes", "查記事"),
+              btn("使用說明", "act=help", "/help"),
+            ],
+          },
+        ],
+      },
+      footer: {
+        type: "box",
+        layout: "vertical",
+        contents: [{
+          type: "text",
+          text: "例：8/28 14:00-16:00 部務會議　請假 8/29 全天",
+          size: "xxs",
+          color: "#aaaaaa",
+          wrap: true,
+        }],
+      },
+    },
+  };
+}
+
+/** 日檢視只看其中一種，或全部。 */
+export type DayFilter = "all" | "meeting" | "leave";
+
+/**
+ * 把某一天的行程、請假與記事組成一則文字訊息。
+ *
+ * 行程與請假分區顯示 —— 混在一起時「請假（某某）」會淹沒在會議裡，
+ * 一眼看不出當天誰不在。filter 可以只列其中一種。
+ */
+export function renderDayView(
+  dateIso: string,
+  events: DayEvent[],
+  notes: NoteRow[],
+  filter: DayFilter = "all",
+): string {
+  const meetings = events.filter((e) => e.reqType === "meeting");
+  const leaves = events.filter((e) => e.reqType === "leave");
+  const showMeetings = filter === "all" || filter === "meeting";
+  const showLeaves = filter === "all" || filter === "leave";
+  const showNotes = filter === "all";
+
+  const when = (e: DayEvent) => e.isAllDay ? "全天" : `${e.startTime}-${e.endTime}`;
+  const lines = [`📆 ${formatDate(dateIso)}`, ""];
+
+  if (showMeetings) {
+    lines.push(`【行程】${meetings.length === 0 ? "沒有安排" : ""}`);
+    for (const e of meetings) {
+      lines.push(`· ${when(e)}　${e.summary}${e.location ? `（${e.location}）` : ""}`);
+    }
+  }
+
+  if (showLeaves) {
+    if (showMeetings) lines.push("");
+    lines.push(`【請假】${leaves.length === 0 ? "沒有人請假" : `${leaves.length} 人`}`);
+    for (const e of leaves) {
+      lines.push(`· ${when(e)}　${e.summary}`);
+    }
+  }
+
+  if (showNotes) {
+    lines.push("", `【記事】${notes.length === 0 ? "沒有記事" : ""}`);
+    for (const n of notes) {
+      // target_date 是 null 代表這是當天寫下、但沒指明日期的記事
+      const mark = n.target_date ? "" : "（當天記錄）";
+      lines.push(`· #${n.seq}　${n.content}${mark}`);
+    }
+  }
+
+  const nothing = (!showMeetings || meetings.length === 0) &&
+    (!showLeaves || leaves.length === 0) &&
+    (!showNotes || notes.length === 0);
+  if (nothing) lines.push("", "這一天目前是空的。");
+
+  return lines.join("\n");
+}
+
+// --- 引導式建立行程 ----------------------------------------------------------
+
+/**
+ * 引導流程的時間選擇卡。
+ *
+ * LINE 的 datetimepicker(mode="time") 會以 postback.params.time 回傳 "HH:mm"，
+ * 所以整個流程完全不用打字，直到最後一步輸入標題。
+ */
+export function timePickCard(
+  title: string,
+  subtitle: string,
+  data: string,
+  initial: string,
+  label: string,
+): LineMessage {
+  return {
+    type: "flex",
+    altText: title,
+    contents: {
+      type: "bubble",
+      body: {
+        type: "box",
+        layout: "vertical",
+        spacing: "md",
+        contents: [
+          { type: "text", text: title, weight: "bold", size: "lg" },
+          { type: "text", text: subtitle, size: "sm", color: "#888888", wrap: true },
+          { type: "separator" },
+          {
+            type: "button",
+            style: "primary",
+            height: "sm",
+            action: { type: "datetimepicker", label, data, mode: "time", initial },
+          },
+          {
+            type: "button",
+            style: "secondary",
+            height: "sm",
+            action: { type: "postback", label: "取消", data: "act=new_cancel", displayText: "取消" },
           },
         ],
       },
@@ -308,25 +559,336 @@ export function dayMenuCard(todayIso: string, tomorrowIso: string): LineMessage 
   };
 }
 
-/** 把某一天的行程與記事組成一則文字訊息。 */
-export function renderDayView(dateIso: string, events: DayEvent[], notes: NoteRow[]): string {
-  const lines = [`📆 ${formatDate(dateIso)}`, ""];
+/**
+ * 引導流程的日期選擇卡。與 timePickCard 同一組樣式，只是 mode=date。
+ */
+export function datePickCard(
+  title: string,
+  subtitle: string,
+  data: string,
+  initial: string,
+  label: string,
+  cancelData = "act=ed_cancel",
+): LineMessage {
+  return {
+    type: "flex",
+    altText: title,
+    contents: {
+      type: "bubble",
+      body: {
+        type: "box",
+        layout: "vertical",
+        spacing: "md",
+        contents: [
+          { type: "text", text: title, weight: "bold", size: "lg" },
+          { type: "text", text: subtitle, size: "sm", color: "#888888", wrap: true },
+          { type: "separator" },
+          {
+            type: "button",
+            style: "primary",
+            height: "sm",
+            action: {
+              type: "datetimepicker", label, data, mode: "date",
+              initial, min: "2020-01-01", max: "2035-12-31",
+            },
+          },
+          {
+            type: "button",
+            style: "secondary",
+            height: "sm",
+            action: { type: "postback", label: "取消", data: cancelData, displayText: "取消" },
+          },
+        ],
+      },
+    },
+  };
+}
 
-  lines.push(`【行程】${events.length === 0 ? "沒有安排" : ""}`);
-  for (const e of events) {
-    const when = e.isAllDay ? "全天" : `${e.startTime}-${e.endTime}`;
-    lines.push(`· ${when}　${e.summary}${e.location ? `（${e.location}）` : ""}`);
-  }
+/** "HH:MM:SS"（Postgres time）或 "HH:MM" 都收，一律回 "HH:MM"。 */
+export function hhmm(time: string): string {
+  return time.slice(0, 5);
+}
 
-  lines.push("", `【記事】${notes.length === 0 ? "沒有記事" : ""}`);
-  for (const n of notes) {
-    // target_date 是 null 代表這是當天寫下、但沒指明日期的記事
-    const mark = n.target_date ? "" : "（當天記錄）";
-    lines.push(`· #${n.seq}　${n.content}${mark}`);
-  }
+/** 在起始時間上加 n 分鐘，用來當結束時間選擇器的預設值。 */
+export function addMinutes(time: string, minutes: number): string {
+  const [h, m] = hhmm(time).split(":").map(Number);
+  const total = (h * 60 + m + minutes) % (24 * 60);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${pad(Math.floor(total / 60))}:${pad(total % 60)}`;
+}
 
-  if (events.length === 0 && notes.length === 0) {
-    lines.push("", "這一天目前是空的。");
-  }
-  return lines.join("\n");
+// --- 修訂既有行程 ------------------------------------------------------------
+
+/**
+ * 一天的事件清單，每筆一顆泡泡加一顆按鈕。
+ *
+ * 修訂與取消請假共用這張卡，只是按鈕帶的 postback 不同 ——
+ * 版面邏輯（12 顆上限、時間、地點、id 編碼）沒必要抄兩份。
+ */
+export function eventPickerCarousel(
+  dateIso: string,
+  events: DayEvent[],
+  opts: { action?: string; label?: string; verb?: string } = {},
+): LineMessage {
+  const action = opts.action ?? "ed_pick";
+  const label = opts.label ?? "選這筆";
+  const verb = opts.verb ?? "修訂";
+  // LINE carousel 上限 12 顆泡泡
+  const bubbles = events.slice(0, 12).map((e) => ({
+    type: "bubble",
+    size: "kilo",
+    body: {
+      type: "box",
+      layout: "vertical",
+      spacing: "sm",
+      contents: [
+        { type: "text", text: e.isAllDay ? "全天" : `${e.startTime}-${e.endTime}`, size: "xs", color: "#888888" },
+        { type: "text", text: e.summary, weight: "bold", size: "sm", wrap: true, maxLines: 3 },
+        ...(e.location
+          ? [{ type: "text", text: `📍 ${e.location}`, size: "xxs", color: "#888888", wrap: true }]
+          : []),
+      ],
+    },
+    footer: {
+      type: "box",
+      layout: "vertical",
+      contents: [{
+        type: "button",
+        style: "primary",
+        height: "sm",
+        action: {
+          type: "postback",
+          label,
+          data: `act=${action}&e=${encodeURIComponent(e.id)}`,
+          displayText: `${verb}：${e.summary}`,
+        },
+      }],
+    },
+  }));
+
+  return {
+    type: "flex",
+    altText: `${formatDate(dateIso)} 有 ${events.length} 筆，請選一筆${verb}`,
+    contents: { type: "carousel", contents: bubbles },
+  };
+}
+
+/** 選定一筆之後，問要對它做什麼。 */
+export function editActionCard(event: FullEvent): LineMessage {
+  const when = event.isAllDay
+    ? `${formatDate(event.startDate!)} 全天`
+    : `${splitLocalIso(event.startAt!).date} ${splitLocalIso(event.startAt!).time}-${splitLocalIso(event.endAt!).time}`;
+
+  const act = (label: string, data: string, style = "secondary", color?: string) => ({
+    type: "button",
+    style,
+    height: "sm",
+    ...(color ? { color } : {}),
+    action: { type: "postback", label, data, displayText: label },
+  });
+
+  return {
+    type: "flex",
+    altText: `要對「${event.summary}」做什麼？`,
+    contents: {
+      type: "bubble",
+      body: {
+        type: "box",
+        layout: "vertical",
+        spacing: "md",
+        contents: [
+          { type: "text", text: "要改什麼？", weight: "bold", size: "lg" },
+          { type: "text", text: event.summary, size: "sm", wrap: true },
+          { type: "text", text: when, size: "xs", color: "#888888" },
+          ...(event.location
+            ? [{ type: "text", text: `📍 ${event.location}`, size: "xs", color: "#888888", wrap: true }]
+            : []),
+          { type: "separator" },
+          act("改時間／日期", "act=ed_time", "primary"),
+          act("改標題", "act=ed_title"),
+          act("改地點", "act=ed_loc"),
+          act("複製成新的一筆", "act=ed_copy"),
+          { type: "separator", margin: "sm" },
+          act("刪除這筆行程", "act=ed_del", "primary", "#c62828"),
+          act("取消", "act=ed_cancel"),
+        ],
+      },
+    },
+  };
+}
+
+/**
+ * 修訂確認卡：原本 → 變更後，兩相對照再決定。
+ *
+ * 跟新建一樣，任何寫入前都要有這一步（計畫書 §1.2）；
+ * 刪除因為不可逆，額外把標題重述一次。
+ */
+export function editConfirmCard(
+  heading: string,
+  before: string,
+  after: string,
+  destructive = false,
+): LineMessage {
+  const row = (label: string, value: string, color: string) => ({
+    type: "box",
+    layout: "baseline",
+    spacing: "sm",
+    contents: [
+      { type: "text", text: label, color: "#888888", size: "sm", flex: 2 },
+      { type: "text", text: value, wrap: true, size: "sm", flex: 5, color },
+    ],
+  });
+
+  return {
+    type: "flex",
+    altText: `${heading}：${after}`,
+    contents: {
+      type: "bubble",
+      body: {
+        type: "box",
+        layout: "vertical",
+        spacing: "md",
+        contents: [
+          { type: "text", text: heading, weight: "bold", size: "lg", color: destructive ? "#c62828" : undefined },
+          { type: "separator" },
+          {
+            type: "box",
+            layout: "vertical",
+            spacing: "sm",
+            contents: [
+              row("原本", before, "#888888"),
+              row(destructive ? "將刪除" : "改成", after, destructive ? "#c62828" : "#000000"),
+            ],
+          },
+        ],
+      },
+      footer: {
+        type: "box",
+        layout: "horizontal",
+        spacing: "sm",
+        contents: [
+          {
+            type: "button",
+            style: "primary",
+            ...(destructive ? { color: "#c62828" } : {}),
+            action: { type: "postback", label: destructive ? "確認刪除" : "確認修改", data: "act=ed_apply" },
+          },
+          {
+            type: "button",
+            style: "secondary",
+            action: { type: "postback", label: "取消", data: "act=ed_cancel" },
+          },
+        ],
+      },
+    },
+  };
+}
+
+/** 把一筆 Google 事件的時間渲染成人類可讀字串，供修訂前後對照。 */
+export function describeEvent(event: FullEvent): string {
+  if (event.isAllDay) return `${formatDate(event.startDate!)} 全天`;
+  const s = splitLocalIso(event.startAt!);
+  const e = splitLocalIso(event.endAt!);
+  return s.date === e.date ? `${s.date} ${s.time}-${e.time}` : `${s.date} ${s.time} 至 ${e.date} ${e.time}`;
+}
+
+// --- 引導式請假 --------------------------------------------------------------
+
+/** 選完日期後問請假方式：全天、指定時段、還是跨多天。 */
+export function leaveShapeCard(dateIso: string): LineMessage {
+  const btn = (label: string, data: string, style = "secondary") => ({
+    type: "button",
+    style,
+    height: "sm",
+    action: { type: "postback", label, data, displayText: label },
+  });
+
+  return {
+    type: "flex",
+    altText: `${formatDate(dateIso)} 要請什麼假？`,
+    contents: {
+      type: "bubble",
+      body: {
+        type: "box",
+        layout: "vertical",
+        spacing: "md",
+        contents: [
+          { type: "text", text: "請假方式", weight: "bold", size: "lg" },
+          { type: "text", text: formatDate(dateIso), size: "sm", color: "#888888" },
+          { type: "separator" },
+          btn("全天", "act=lv_allday", "primary"),
+          btn("指定時段", "act=lv_timed"),
+          btn("跨多天", "act=lv_multi"),
+          { type: "separator", margin: "sm" },
+          btn("取消", "act=lv_cancel"),
+        ],
+      },
+    },
+  };
+}
+
+/**
+ * 最後一步：問事由。
+ *
+ * 事由是選填 —— 計畫書 §12.2 提醒請假理由可能涉及個人資料，
+ * 所以這裡給一個「不填事由」的出口，填了也只寫進 Google 的 description，
+ * 不會出現在日曆格線上的標題。
+ */
+export function leaveReasonCard(whenText: string): LineMessage {
+  return {
+    type: "flex",
+    altText: `${whenText} — 請輸入事由（可不填）`,
+    contents: {
+      type: "bubble",
+      body: {
+        type: "box",
+        layout: "vertical",
+        spacing: "md",
+        contents: [
+          { type: "text", text: "事由（選填）", weight: "bold", size: "lg" },
+          { type: "text", text: whenText, size: "sm", color: "#888888", wrap: true },
+          { type: "separator" },
+          {
+            type: "text",
+            text: "請直接輸入簡單事由，例如：家中有事、就醫。",
+            size: "sm",
+            wrap: true,
+          },
+          {
+            type: "text",
+            text: "事由只會寫進行事曆的說明欄，標題仍然只顯示「請假（姓名）」。",
+            size: "xxs",
+            color: "#888888",
+            wrap: true,
+          },
+          { type: "separator", margin: "sm" },
+          {
+            type: "button",
+            style: "secondary",
+            height: "sm",
+            action: { type: "postback", label: "不填事由", data: "act=lv_skip", displayText: "不填事由" },
+          },
+          {
+            type: "button",
+            style: "secondary",
+            height: "sm",
+            action: { type: "postback", label: "取消", data: "act=lv_cancel", displayText: "取消" },
+          },
+        ],
+      },
+    },
+  };
+}
+
+/** 把請假草稿的日期時間渲染成人類可讀字串（含首尾日）。 */
+export function describeLeave(
+  startDate: string,
+  endDate: string,
+  start: string | null,
+  end: string | null,
+): string {
+  if (start && end) return `${formatDate(startDate)} ${start}-${end}`;
+  return startDate === endDate
+    ? `${formatDate(startDate)} 全天`
+    : `${formatDate(startDate)} 至 ${formatDate(endDate)} 全天`;
 }

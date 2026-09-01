@@ -8,7 +8,9 @@
  * 不需要（也不可以）手動設成 secret。service role key 會繞過 RLS。
  */
 
-import type { CalendarRequestRow, NoteRow, RequestStatus, SourceType } from "./types.ts";
+import type {
+  CalendarRequestRow, DraftMode, DraftRow, NoteRow, RequestStatus, SourceType,
+} from "./types.ts";
 
 const REST = `${Deno.env.get("SUPABASE_URL")}/rest/v1`;
 const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
@@ -232,6 +234,29 @@ export async function listNotesForDate(scopeKey: string, dateIso: string): Promi
   });
 }
 
+/**
+ * 日期區間的記事。
+ *
+ * 關鍵字一併交給 SQL，limit 才會落在「符合條件的前 N 筆」上；
+ * 撈回來再過濾的話 limit 會先砍掉一批可能符合的。
+ */
+export async function listNotesInRange(
+  scopeKey: string,
+  fromIso: string,
+  toIso: string,
+  keyword: string,
+): Promise<NoteRow[]> {
+  return await request<NoteRow[]>("/rpc/notes_in_range", {
+    method: "POST",
+    body: JSON.stringify({
+      p_scope_key: scopeKey,
+      p_from: fromIso,
+      p_to: toIso,
+      p_keyword: keyword,
+    }),
+  });
+}
+
 export async function findNoteBySeq(scopeKey: string, seq: number): Promise<NoteRow | null> {
   const rows = await request<NoteRow[]>(
     `/notes?scope_key=eq.${encodeURIComponent(scopeKey)}&seq=eq.${seq}&deleted_at=is.null&select=*&limit=1`,
@@ -245,6 +270,71 @@ export async function softDeleteNote(id: string): Promise<void> {
     headers: { Prefer: "return=minimal" },
     body: JSON.stringify({ deleted_at: new Date().toISOString() }),
   });
+}
+
+// --- 引導式建立的草稿 --------------------------------------------------------
+
+/**
+ * 逐步寫入草稿。只帶這一步拿到的欄位，其餘由 SQL 端保留。
+ * reset=true 代表開一個新流程，會把上一輪殘留的欄位整個清掉。
+ * 重新挑日期時 SQL 也會把時間清掉，避免沿用上一輪的殘值。
+ */
+export async function upsertDraft(args: {
+  scope_key: string;
+  user_id: string;
+  group_id: string | null;
+  source_type: SourceType;
+  date?: string | null;
+  start?: string | null;
+  end?: string | null;
+  mode?: DraftMode;
+  event_id?: string | null;
+  title?: string | null;
+  location?: string | null;
+  end_date?: string | null;
+  note?: string | null;
+  reset?: boolean;
+}): Promise<DraftRow> {
+  return await request<DraftRow>("/rpc/upsert_draft", {
+    method: "POST",
+    body: JSON.stringify({
+      p_scope_key: args.scope_key,
+      p_user_id: args.user_id,
+      p_group_id: args.group_id,
+      p_source_type: args.source_type,
+      p_date: args.date ?? null,
+      p_start: args.start ?? null,
+      p_end: args.end ?? null,
+      p_mode: args.mode ?? null,
+      p_event_id: args.event_id ?? null,
+      p_title: args.title ?? null,
+      p_location: args.location ?? null,
+      p_end_date: args.end_date ?? null,
+      p_note: args.note ?? null,
+      p_reset: args.reset ?? false,
+    }),
+  });
+}
+
+/** 取得尚未過期的草稿（不論完整與否），順手清掉過期的。 */
+export async function getDraft(
+  scopeKey: string,
+  userId: string,
+  ttlMinutes: number,
+): Promise<DraftRow | null> {
+  const row = await request<DraftRow | null>("/rpc/get_draft", {
+    method: "POST",
+    body: JSON.stringify({ p_scope_key: scopeKey, p_user_id: userId, p_ttl_min: ttlMinutes }),
+  });
+  // 沒有草稿時 SQL 回傳 composite NULL，欄位會全是 null
+  return row && row.mode ? row : null;
+}
+
+export async function deleteDraft(scopeKey: string, userId: string): Promise<void> {
+  await request(
+    `/schedule_drafts?scope_key=eq.${encodeURIComponent(scopeKey)}&user_id=eq.${encodeURIComponent(userId)}`,
+    { method: "DELETE", headers: { Prefer: "return=minimal" } },
+  );
 }
 
 // --- 稽核 --------------------------------------------------------------------

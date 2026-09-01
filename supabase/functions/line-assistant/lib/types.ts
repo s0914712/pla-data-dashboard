@@ -54,8 +54,11 @@ export type ParseResult =
   | { kind: "schedule"; value: ParsedSchedule }
   | { kind: "note"; value: ParsedNote }
   | { kind: "command"; value: { name: string; arg: string } }
-  /** 查詢某一天有什麼（行程 + 記事）。date 為 YYYY-MM-DD。 */
-  | { kind: "day_query"; value: { date: string } }
+  /**
+   * 查詢某一天有什麼。date 為 YYYY-MM-DD。
+   * filter 決定只看行程、只看請假，還是全部（含記事）。
+   */
+  | { kind: "day_query"; value: { date: string; filter: "all" | "meeting" | "leave" } }
   /** 叫出日期選單。 */
   | { kind: "menu" }
   | { kind: "incomplete"; reason: string }
@@ -119,4 +122,31 @@ export interface NoteRow {
   target_date: string | null;
   created_at: string;
   deleted_at: string | null;
+}
+
+/** 草稿目前在跑哪一種流程。 */
+export type DraftMode =
+  | "create" | "copy" | "edit_time" | "edit_title" | "edit_location" | "delete" | "leave";
+
+/** 引導式建立／修訂的暫存草稿（見 migration schedule_drafts）。 */
+export interface DraftRow {
+  scope_key: string;
+  user_id: string;
+  group_id: string | null;
+  source_type: SourceType;
+  target_date: string | null;
+  /** Postgres time 欄位讀回來是 "HH:MM:SS"。 */
+  start_time: string | null;
+  end_time: string | null;
+  /** 跨多天請假的迄日（含當天）。同時當成「請假方式已選定」的旗標。 */
+  end_date: string | null;
+  mode: DraftMode;
+  /** 修訂／複製／刪除時指向的 Google event id。 */
+  event_id: string | null;
+  /** 請假事由。選填，寫進 Google 的 description 而不是 summary。 */
+  payload_note: string | null;
+  /** copy 時是原標題；edit_title 時是使用者剛打的新標題。 */
+  payload_title: string | null;
+  payload_location: string | null;
+  updated_at: string;
 }
