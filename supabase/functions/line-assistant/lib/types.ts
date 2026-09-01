@@ -50,16 +50,26 @@ export interface LineWebhookBody {
 // --- 解析結果 ---------------------------------------------------------------
 
 /** 解析器回傳的結果之一。 */
+/**
+ * 一次查詢要看什麼。記事與行程共用同一份條件 —— 「查記事」與「查行程」同義，
+ * 結果是同一份合併檢視。
+ */
+export interface QueryTarget {
+  /** 起訖日（含首尾）。兩個都是 null 代表只給了關鍵字，範圍由呼叫端決定。 */
+  from: string | null;
+  to: string | null;
+  /** 只看行程、只看請假，還是全部（含記事）。 */
+  filter: "all" | "meeting" | "leave";
+  /** 標題／內容關鍵字；沒有就是空字串。 */
+  keyword: string;
+}
+
 export type ParseResult =
   | { kind: "schedule"; value: ParsedSchedule }
   | { kind: "note"; value: ParsedNote }
   | { kind: "command"; value: { name: string; arg: string } }
-  /**
-   * 查詢某一天有什麼。date 為 YYYY-MM-DD。
-   * filter 決定只看行程、只看請假，還是全部（含記事）。
-   */
-  | { kind: "day_query"; value: { date: string; filter: "all" | "meeting" | "leave" } }
-  /** 叫出日期選單。 */
+  /** 查詢：某一天、某段日期，或只有關鍵字。見 QueryTarget。 */
+  | { kind: "day_query"; value: QueryTarget }
   | { kind: "menu" }
   | { kind: "incomplete"; reason: string }
   | { kind: "unknown" };

@@ -221,20 +221,6 @@ export async function listNotes(scopeKey: string, keyword: string, limit = 10): 
 }
 
 /**
- * 某一天的記事。
- *
- * 歸戶邏輯放在 SQL function 裡（見 migration notes_for_date）而不是在這裡組
- * PostgREST 的 or=(...) 巢狀過濾字串：SQL 那邊可以直接測，也不必在 URL 裡
- * 手工跳脫帶時區位移的時間戳。
- */
-export async function listNotesForDate(scopeKey: string, dateIso: string): Promise<NoteRow[]> {
-  return await request<NoteRow[]>("/rpc/notes_for_date", {
-    method: "POST",
-    body: JSON.stringify({ p_scope_key: scopeKey, p_date: dateIso }),
-  });
-}
-
-/**
  * 日期區間的記事。
  *
  * 關鍵字一併交給 SQL，limit 才會落在「符合條件的前 N 筆」上；

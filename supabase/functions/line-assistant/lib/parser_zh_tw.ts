@@ -5,7 +5,7 @@
  * 時間一律以 Asia/Taipei 解讀；台灣沒有日光節約時間，位移固定 +08:00。
  */
 
-import type { ParsedSchedule, ParseResult, ReqType } from "./types.ts";
+import type { ParsedSchedule, ParseResult, QueryTarget, ReqType } from "./types.ts";
 
 const TPE_OFFSET_MIN = 8 * 60;
 
@@ -320,9 +320,14 @@ function cut(text: string, from: number, to: number): string {
 // --- 主解析 ------------------------------------------------------------------
 
 const NOTE_PREFIX = /^(?:記事|記錄|記録|筆記|备忘|備忘|note)\s*[:：]?\s*/i;
-const NOTE_LIST = /^(?:查記事|查筆記|記事列表|筆記列表|我的記事|列出記事)\s*[:：]?\s*(.*)$/;
-/** 裸的「記事」「筆記」二字（後面沒有內容）視為查詢，而不是空記事。 */
-const NOTE_LIST_BARE = /^(?:記事|筆記|備忘)$/;
+/**
+ * 查詢指令。記事與行程共用同一個入口 —— 「查記事」與「查行程」完全同義，
+ * 查出來的都是同一份合併檢視（行程／請假／記事三區）。
+ */
+const QUERY_PREFIX =
+  /^(?:查記事|查筆記|記事列表|筆記列表|我的記事|列出記事|查行程|查排程|行程列表|排程列表|我的行程|列出行程)\s*[:：]?\s*(.*)$/;
+/** 裸的「記事」「行程」二字（後面沒有內容）視為查詢，而不是空記事。 */
+const QUERY_BARE = /^(?:記事|筆記|備忘|行程|排程)$/;
 const NOTE_DELETE = /^(?:刪記事|删記事|刪除記事|刪筆記|刪除筆記)\s*#?\s*(\d+)\s*$/;
 const SCHEDULE_PREFIX = /^(?:新增|新增行程|建立|加入|安排|行程)\s*[:：]?\s*/;
 const LEAVE_KEYWORD = /(請假|休假|補假|事假|病假|特休)/;
@@ -348,21 +353,18 @@ const DAY_QUERY_MEETING = /\s*的?(?:會議|開會)$/;
 const DAY_QUERY_TAIL = /\s*(?:的?(?:行程|動態|排程|安排|活動|事情)|有什麼事?|有什麼|有啥|要做什麼)$/;
 
 /**
- * 判斷一則訊息是不是「查詢某一天」。
+ * 判斷一則訊息是不是「查詢」（沒有指令詞的那種寫法）。
  *
- * 規則：剝掉前後綴後，剩下的字必須「剛好只有一個日期」。
+ * 規則：剝掉前後綴後，剩下的字必須「剛好只有一段日期」。
  * 這樣「明天 09:00-10:30 週報會議」不會被誤判成查詢（拿掉日期後還有東西），
- * 而「明天」「明天行程」「查 8/28」會。
+ * 而「明天」「明天行程」「查 8/28」「8/28-8/31」「本週」會。
  */
-function tryDayQuery(
-  text: string,
-  today: YMD,
-): { date: string; filter: "all" | "meeting" | "leave" } | null {
+function tryBareQuery(text: string, today: YMD): QueryTarget | null {
   const hadLead = DAY_QUERY_LEAD.test(text);
   let body = text.replace(DAY_QUERY_LEAD, "");
 
   // 先看有沒有只查某一類的後綴；剝掉之後才輪到通用後綴
-  let filter: "all" | "meeting" | "leave" = "all";
+  let filter: QueryTarget["filter"] = "all";
   if (DAY_QUERY_LEAVE_EXPLICIT.test(body)) {
     filter = "leave";
     body = body.replace(DAY_QUERY_LEAVE_EXPLICIT, "");
@@ -383,25 +385,35 @@ function tryDayQuery(
   const stripped = body.replace(DAY_QUERY_TAIL, "").trim();
 
   // 「請假」「誰請假」單獨出現時沒有日期，預設查今天
-  if (!stripped) return filter === "all" ? null : { date: isoDate(today), filter };
+  if (!stripped) {
+    return filter === "all" ? null : { from: isoDate(today), to: isoDate(today), filter, keyword: "" };
+  }
 
-  // 查詢一律用 nearest：9/1 打「查 8/28」問的是四天前，不會是明年的同一天
-  const hit = findDate(stripped, 0, today, true);
-  if (!hit) return null;
+  const span = parseSpan(stripped, today);
+  if (!span) return null;
 
-  const remainder = cut(stripped, hit.start, hit.end);
-  return remainder === "" ? { date: isoDate(hit.ymd), filter } : null;
+  // 日期以外還剩字 → 這是建立語句，交給行程解析
+  if (cut(stripped, span.start, span.end) !== "") return null;
+  return { from: isoDate(span.from), to: isoDate(span.to), filter, keyword: "" };
 }
 
-// --- 記事查詢 ----------------------------------------------------------------
+// --- 查詢參數 ----------------------------------------------------------------
 
-export interface NoteQuery {
-  /** 日期區間（含首尾）；沒指定日期時兩個都是 null。 */
-  from: string | null;
-  to: string | null;
-  /** 剝掉日期之後剩下的字，當關鍵字用。 */
-  keyword: string;
-}
+/**
+ * 只查請假／只查會議的類別詞，出現在日期前面時。
+ *
+ * 後面必須接空白、數字或字串結尾 —— 否則「查記事 請假流程」會把「請假」
+ * 當成類別詞剝掉，只剩「流程」當關鍵字。
+ */
+const QUERY_FILTER_PREFIX: [RegExp, QueryTarget["filter"]][] = [
+  [/^的?(?:請假|休假|不在)(?=$|[\s\d])\s*/, "leave"],
+  [/^的?(?:會議|開會)(?=$|[\s\d])\s*/, "meeting"],
+];
+/** 同上，出現在日期後面時。 */
+const QUERY_FILTER_SUFFIX: [RegExp, QueryTarget["filter"]][] = [
+  [/\s*的?(?:誰請假|誰不在|請假名單|請假狀況|休假名單|請假|休假)$/, "leave"],
+  [/\s*的?(?:會議|開會)$/, "meeting"],
+];
 
 const RE_PERIOD_WEEK = /^(本|這|这|上|下|下下)\s*(?:週|周|星期|禮拜)(?![一二三四五六日天])/;
 const RE_PERIOD_MONTH = /^(本|這|这|上|下)\s*個?\s*月/;
@@ -447,39 +459,35 @@ function tryPeriod(text: string, today: YMD): { from: YMD; to: YMD; end: number 
   return null;
 }
 
+interface DateSpan {
+  from: YMD;
+  to: YMD;
+  /** 這段日期在原字串中佔用的範圍，供呼叫端切掉後判斷還剩什麼。 */
+  start: number;
+  end: number;
+}
+
 /**
- * 解析「查記事」後面那段參數。
+ * 從一段文字裡找出「一天」或「一段日期」。
  *
- * 三種形態可以混用：期間詞（本週）、單日或日期區間（8/28、8/28-8/31），
- * 剝掉之後剩下的字一律當關鍵字。純關鍵字時 from/to 都是 null，
- * 由呼叫端退回「最近 N 筆」的舊行為。
+ * 期間詞（本週）只認開頭；單一日期與日期區間（8/28-8/31）可以出現在任何位置。
+ * 查詢一律用 nearest 解無年份的月日 —— 9/1 問 8/28 指的是四天前。
  */
-export function parseNoteQuery(rawArg: string, now: Date): NoteQuery {
-  const text = normalize(rawArg);
-  if (!text) return { from: null, to: null, keyword: "" };
-
-  const today = taipeiParts(now);
-
+function parseSpan(text: string, today: YMD): DateSpan | null {
   const period = tryPeriod(text, today);
-  if (period) {
-    return {
-      from: isoDate(period.from),
-      to: isoDate(period.to),
-      keyword: text.slice(period.end).trim(),
-    };
-  }
+  if (period) return { from: period.from, to: period.to, start: 0, end: period.end };
 
   const first = findDate(text, 0, today, true);
-  if (!first) return { from: null, to: null, keyword: text };
+  if (!first) return null;
 
   let last = first;
-  let cutTo = first.end;
+  let end = first.end;
   const sep = RANGE_SEP.exec(text.slice(first.end));
   if (sep) {
     const second = findDate(text, first.end + sep[0].length, today, true);
     if (second && second.start === first.end + sep[0].length) {
       last = second;
-      cutTo = second.end;
+      end = second.end;
     }
   }
 
@@ -490,8 +498,51 @@ export function parseNoteQuery(rawArg: string, now: Date): NoteQuery {
     if (last.explicitYear) [from, to] = [to, from];
     else to = { ...to, y: to.y + 1 };
   }
+  return { from, to, start: first.start, end };
+}
 
-  return { from: isoDate(from), to: isoDate(to), keyword: cut(text, first.start, cutTo) };
+/**
+ * 解析「查記事」「查行程」後面那段參數 —— 兩個指令完全同義。
+ *
+ * 三種成分可以任意組合：類別詞（請假／會議）、日期或期間、關鍵字。
+ *
+ *   （空）        → 今天
+ *   8/28          → 那一天
+ *   8/28-8/31     → 區間
+ *   本週          → 期間詞
+ *   報告          → 只有關鍵字，日期交給呼叫端決定預設範圍
+ *   本週 請假      → 區間 + 只看請假
+ *   本週 報告      → 區間 + 關鍵字
+ *
+ * 這裡不像 tryBareQuery 需要 hadLead 判斷 —— 使用者已經明確打了查詢指令，
+ * 「查記事 請假」不可能是「我要請假」。
+ */
+export function parseQueryArg(rawArg: string, now: Date): QueryTarget {
+  const today = taipeiParts(now);
+  let text = normalize(rawArg);
+  let filter: QueryTarget["filter"] = "all";
+
+  for (const [re, f] of QUERY_FILTER_SUFFIX) {
+    if (re.test(text)) { filter = f; text = text.replace(re, "").trim(); break; }
+  }
+  if (filter === "all") {
+    for (const [re, f] of QUERY_FILTER_PREFIX) {
+      if (re.test(text)) { filter = f; text = text.replace(re, "").trim(); break; }
+    }
+  }
+  text = text.replace(DAY_QUERY_TAIL, "").trim();
+
+  if (!text) return { from: isoDate(today), to: isoDate(today), filter, keyword: "" };
+
+  const span = parseSpan(text, today);
+  if (!span) return { from: null, to: null, filter, keyword: text };
+
+  return {
+    from: isoDate(span.from),
+    to: isoDate(span.to),
+    filter,
+    keyword: cut(text, span.start, span.end),
+  };
 }
 
 /**
@@ -525,10 +576,10 @@ export function parse(raw: string, now: Date): ParseResult {
   const del = NOTE_DELETE.exec(text);
   if (del) return { kind: "command", value: { name: "note_delete", arg: del[1] } };
 
-  if (NOTE_LIST_BARE.test(text)) return { kind: "command", value: { name: "note_list", arg: "" } };
+  if (QUERY_BARE.test(text)) return { kind: "day_query", value: parseQueryArg("", now) };
 
-  const list = NOTE_LIST.exec(text);
-  if (list) return { kind: "command", value: { name: "note_list", arg: list[1].trim() } };
+  const list = QUERY_PREFIX.exec(text);
+  if (list) return { kind: "day_query", value: parseQueryArg(list[1].trim(), now) };
 
   if (NOTE_PREFIX.test(text)) {
     const content = text.replace(NOTE_PREFIX, "").trim();
@@ -540,8 +591,8 @@ export function parse(raw: string, now: Date): ParseResult {
   // 3. 日期選單
   if (MENU_RE.test(text)) return { kind: "menu" };
 
-  // 4. 查詢某一天（必須只有日期，否則交給行程解析）
-  const day = tryDayQuery(text, taipeiParts(now));
+  // 4. 沒有指令詞的查詢（必須只有日期，否則交給行程解析）
+  const day = tryBareQuery(text, taipeiParts(now));
   if (day) return { kind: "day_query", value: day };
 
   // 5. 行程

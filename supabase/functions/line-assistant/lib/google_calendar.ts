@@ -7,7 +7,7 @@
  */
 
 import { requireEnv } from "./env.ts";
-import { exclusiveEndDate, isLeaveTitle } from "./parser_zh_tw.ts";
+import { addDays, exclusiveEndDate, isoDate, isLeaveTitle } from "./parser_zh_tw.ts";
 import type { CalendarRequestRow } from "./types.ts";
 
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
@@ -238,6 +238,10 @@ export interface DayEvent {
   endTime: string | null;
   /** 會議或請假。優先看 extendedProperties，沒有才退回看標題。 */
   reqType: "meeting" | "leave";
+  /** 事件涵蓋的第一天（Asia/Taipei）。區間檢視據此分日。 */
+  date: string;
+  /** 涵蓋的最後一天（**含**）。單日事件與 date 相同；跨日全天請假才會不同。 */
+  endDate: string;
 }
 
 /**
@@ -247,15 +251,36 @@ export interface DayEvent {
  * 這樣在手機日曆 App 裡直接新增的事件也會一起列出。
  * singleEvents=true 會把重複性事件展開成當天的實例。
  */
-export async function listEvents(dateIso: string, timezone: string): Promise<DayEvent[]> {
+export function listEvents(dateIso: string, timezone: string): Promise<DayEvent[]> {
+  return listEventsRange(dateIso, dateIso, timezone);
+}
+
+/**
+ * 列出一段日期區間內的事件，可選擇再加上關鍵字。
+ *
+ * keyword 走 Google 的 q 參數（全文比對標題、說明、地點），所以行程與記事
+ * 兩邊的關鍵字查詢是同一個語意。maxResults 隨天數放大但設上限，
+ * 免得查一整個月時把整包塞爆 LINE 的訊息長度。
+ */
+export async function listEventsRange(
+  fromIso: string,
+  toIso: string,
+  timezone: string,
+  keyword = "",
+): Promise<DayEvent[]> {
+  const days = Math.max(1, Math.round(
+    (Date.parse(`${toIso}T00:00:00Z`) - Date.parse(`${fromIso}T00:00:00Z`)) / 86_400_000,
+  ) + 1);
   const params = new URLSearchParams({
-    timeMin: `${dateIso}T00:00:00+08:00`,
-    timeMax: `${dateIso}T23:59:59+08:00`,
+    timeMin: `${fromIso}T00:00:00+08:00`,
+    timeMax: `${toIso}T23:59:59+08:00`,
     singleEvents: "true",
     orderBy: "startTime",
-    maxResults: "50",
+    maxResults: String(Math.min(250, days * 50)),
     timeZone: timezone,
   });
+  if (keyword) params.set("q", keyword);
+
   const res = await callCalendar(`/calendars/${encodeURIComponent(calendarId())}/events?${params}`);
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
@@ -266,6 +291,10 @@ export async function listEvents(dateIso: string, timezone: string): Promise<Day
   // deno-lint-ignore no-explicit-any
   return (body.items ?? []).map((item: any): DayEvent => {
     const isAllDay = Boolean(item.start?.date);
+    // 全天事件的 end.date 是排除式，往回一天才是實際的最後一天；
+    // 時段事件一律歸在開始那一天（跨夜的 22:00-01:00 也算前一天的事）。
+    const date = isAllDay ? String(item.start.date) : localDate(item.start?.dateTime);
+    const endDate = isAllDay ? inclusiveEnd(String(item.end?.date ?? item.start.date)) : date;
     return {
       id: String(item.id ?? ""),
       summary: String(item.summary ?? "(無標題)"),
@@ -274,8 +303,17 @@ export async function listEvents(dateIso: string, timezone: string): Promise<Day
       startTime: isAllDay ? null : localHhmm(item.start?.dateTime),
       endTime: isAllDay ? null : localHhmm(item.end?.dateTime),
       reqType: classify(item),
+      date,
+      endDate,
     };
   });
+}
+
+/** Google 全天事件的 end.date 是排除式，往回一天才是人看的最後一天。 */
+function inclusiveEnd(exclusive: string): string {
+  const [y, m, d] = exclusive.split("-").map(Number);
+  if (!y || !m || !d) return exclusive;
+  return isoDate(addDays({ y, m, d }, -1));
 }
 
 /**
@@ -295,6 +333,16 @@ function classify(item: any): "meeting" | "leave" {
  * Google 回傳的 dateTime 帶原始時區位移（例如 +08:00），直接取字串的 HH:MM 即可。
  * 若來源是別的時區（例如手機在國外新增的事件），換算成 Asia/Taipei 再取。
  */
+/** 帶位移的 ISO 字串 → 台北的 YYYY-MM-DD。 */
+function localDate(dateTime: string | undefined): string {
+  if (!dateTime) return "";
+  const ms = Date.parse(dateTime);
+  if (Number.isNaN(ms)) return dateTime.slice(0, 10);
+  const tpe = new Date(ms + 8 * 60 * 60_000);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${tpe.getUTCFullYear()}-${pad(tpe.getUTCMonth() + 1)}-${pad(tpe.getUTCDate())}`;
+}
+
 function localHhmm(dateTime: string | undefined): string | null {
   if (!dateTime) return null;
   if (dateTime.includes("+08:00")) return dateTime.slice(11, 16);

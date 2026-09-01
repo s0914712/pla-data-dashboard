@@ -14,7 +14,7 @@ const {
   verifySignature, stripMentions, isAddressedToBot, describeWhen, formatDate, mainMenuCard,
   timePickCard, hhmm, addMinutes,
   datePickCard, eventPickerCarousel, editActionCard, editConfirmCard, describeEvent,
-  renderDayView, leaveShapeCard, leaveReasonCard, describeLeave, taipeiDateIso,
+  renderDayView, renderRangeView, leaveShapeCard, leaveReasonCard, describeLeave, taipeiDateIso,
 } = await import("./line.ts");
 
 async function sign(body: string, secret = SECRET): Promise<string> {
@@ -185,7 +185,7 @@ Deno.test("功能選單卡的按鈕與 postback data", () => {
   assert(json.includes("act=day&d=2026-08-23"), "今天");
   assert(json.includes("act=day&d=2026-08-24"), "明天");
   assert(json.includes("datetimepicker"), "日期選擇器");
-  assert(json.includes("act=notes"), "查記事");
+  assert(json.includes("act=q&s="), "查詢快捷鍵");
   assert(json.includes("act=help"), "使用說明");
   // 選擇器的 data 不帶 d=，日期走 postback.params.date
   const picker = JSON.parse(json).contents.body.contents.find(
@@ -259,6 +259,7 @@ Deno.test("事件挑選輪播：帶得出 event id，且不超過 12 顆", () =>
   const many = Array.from({ length: 20 }, (_, i) => ({
     id: `evt-${i}`, summary: `會議 ${i}`, location: null,
     isAllDay: false, startTime: "09:00", endTime: "10:00", reqType: "meeting" as const,
+    date: "2026-08-25", endDate: "2026-08-25",
   }));
   const card = eventPickerCarousel("2026-08-25", many);
   const bubbles = JSON.parse(JSON.stringify(card)).contents.contents;
@@ -271,6 +272,7 @@ Deno.test("事件挑選輪播：event id 有做 URL 編碼", () => {
   const card = eventPickerCarousel("2026-08-25", [{
     id: "a&b=c", summary: "測試", location: null, isAllDay: true,
     startTime: null, endTime: null, reqType: "meeting" as const,
+    date: "2026-08-25", endDate: "2026-08-25",
   }]);
   const json = JSON.stringify(card);
   assert(json.includes("act=ed_pick&e=a%26b%3Dc"), json);
@@ -318,10 +320,12 @@ Deno.test("日期選擇卡", () => {
 const MEETING = {
   id: "m1", summary: "兵力協調會", location: "第一會議室", isAllDay: false,
   startTime: "14:00", endTime: "15:00", reqType: "meeting" as const,
+  date: "2026-08-25", endDate: "2026-08-25",
 };
 const LEAVE = {
   id: "l1", summary: "請假（陳彥名）", location: null, isAllDay: true,
   startTime: null, endTime: null, reqType: "leave" as const,
+  date: "2026-08-25", endDate: "2026-08-25",
 };
 const NOTE = {
   id: "n1", seq: 3, source_type: "group" as const, group_id: "G", user_id: "U",
@@ -361,10 +365,10 @@ Deno.test("日檢視：只查請假且真的沒人 → 空的一天", () => {
   assert(out.includes("這一天目前是空的"), out);
 });
 
-Deno.test("選單有「誰請假」快捷鍵，且帶 f=leave", () => {
+Deno.test("選單有「誰請假」快捷鍵", () => {
   const json = JSON.stringify(mainMenuCard("2026-08-23", "2026-08-24"));
   assert(json.includes("act=day&f=leave&d=2026-08-23"), json);
-  assert(json.includes("act=day&f=leave&d=2026-08-24"), json);
+  assert(json.includes(`act=q&s=${encodeURIComponent("本週請假")}`), json);
 });
 
 // --- 引導式請假 --------------------------------------------------------------
@@ -451,13 +455,15 @@ Deno.test("taipeiDateIso：PostgREST 的 UTC 輸出要換算成台北日期", ()
   assertEquals(taipeiDateIso("garbage-value-here"), "garbage-va");
 });
 
-Deno.test("選單：記事區有區間查詢入口", () => {
+Deno.test("選單：查詢區合併了行程與記事", () => {
   const json = JSON.stringify(mainMenuCard("2026-08-23", "2026-08-24"));
   assert(json.includes('"act=nt_from"'), "缺少選日期區間的 datetimepicker");
-  assert(json.includes("選日期區間查記事"));
-  assert(json.includes(encodeURIComponent("本週")), "缺少本週記事按鈕");
-  assert(json.includes(encodeURIComponent("本月")), "缺少本月記事按鈕");
-  assert(json.includes('"act=notes"'), "最近 10 筆的入口不該消失");
+  assert(json.includes("選日期區間"));
+  assert(json.includes(`act=q&s=${encodeURIComponent("本週")}`), "缺少本週按鈕");
+  assert(json.includes(`act=q&s=${encodeURIComponent("本月")}`), "缺少本月按鈕");
+  // 記事不再有自己的查詢區塊，查詢一律走同一個入口
+  assert(!json.includes("查記事"), "記事查詢應該已併入行程查詢");
+  assert(json.includes("查詢（行程・請假・記事）"), "查詢區要講明含哪三種");
 });
 
 Deno.test("datePickCard：取消按鈕預設仍是 ed_cancel", () => {
@@ -471,4 +477,90 @@ Deno.test("datePickCard：可以換掉取消按鈕的 postback", () => {
   );
   assert(json.includes('"act=nt_cancel"'));
   assert(!json.includes('"act=ed_cancel"'));
+});
+
+// --- 區間檢視（行程＋請假＋記事合併） ----------------------------------------
+
+const R_MEETING = {
+  id: "m1", summary: "兵力協調會", location: "第一會議室", isAllDay: false,
+  startTime: "14:00", endTime: "15:00", reqType: "meeting" as const,
+  date: "2026-08-18", endDate: "2026-08-18",
+};
+const R_LEAVE_MULTI = {
+  id: "l1", summary: "請假（陳彥名）", location: null, isAllDay: true,
+  startTime: null, endTime: null, reqType: "leave" as const,
+  date: "2026-08-19", endDate: "2026-08-21",
+};
+const R_NOTE = {
+  id: "n1", seq: 7, source_type: "group" as const, group_id: "G", user_id: "U",
+  scope_key: "g:G", content: "帶識別證", tags: [], target_date: "2026-08-18",
+  created_at: "2026-08-17T00:00:00+00:00", deleted_at: null,
+};
+
+Deno.test("區間檢視：行程、請假、記事列在同一則訊息裡", () => {
+  const out = renderRangeView("2026-08-17", "2026-08-23", [R_MEETING, R_LEAVE_MULTI], [R_NOTE]);
+  assert(out.includes("兵力協調會"), out);
+  assert(out.includes("請假（陳彥名）"), out);
+  assert(out.includes("帶識別證"), out);
+  assert(out.includes("08/18（週二）"), "要有當天的小標");
+  assert(out.includes("行程 1"), "結尾要有統計");
+});
+
+Deno.test("區間檢視：跨日請假在涵蓋到的每一天都出現", () => {
+  const out = renderRangeView("2026-08-17", "2026-08-23", [R_LEAVE_MULTI], []);
+  for (const day of ["08/19（週三）", "08/20（週四）", "08/21（週五）"]) {
+    assert(out.includes(day), `${day} 應該列出這筆跨日請假\n${out}`);
+  }
+  // 只掛在起日的話「本週誰不在」會漏掉後面兩天
+  assertEquals(out.split("請假（陳彥名）").length - 1, 3);
+});
+
+Deno.test("區間檢視：跨出查詢範圍的日子不列", () => {
+  // 請假 8/19-8/21，但只查到 8/20
+  const out = renderRangeView("2026-08-17", "2026-08-20", [R_LEAVE_MULTI], []);
+  assert(out.includes("08/19"), out);
+  assert(out.includes("08/20"), out);
+  assert(!out.includes("08/21"), "8/21 已經超出查詢範圍");
+});
+
+Deno.test("區間檢視：沒有內容的日子不佔行", () => {
+  const out = renderRangeView("2026-08-17", "2026-08-23", [R_MEETING], []);
+  assert(out.includes("▍08/18"), out);
+  // 標頭本來就會寫出起訖日，所以只檢查「當天小標」有沒有多出來
+  for (const empty of ["▍08/17", "▍08/19", "▍08/23"]) {
+    assert(!out.includes(empty), `空白的 ${empty} 不該出現`);
+  }
+  assertEquals(out.split("▍").length - 1, 1, "只有一天有內容");
+});
+
+Deno.test("區間檢視：filter 只留該看的那一種", () => {
+  const leaveOnly = renderRangeView("2026-08-17", "2026-08-23", [R_MEETING, R_LEAVE_MULTI], [R_NOTE], "leave");
+  assert(leaveOnly.includes("請假（陳彥名）"), leaveOnly);
+  assert(!leaveOnly.includes("兵力協調會"), "只看請假時不該有會議");
+  assert(!leaveOnly.includes("帶識別證"), "只看請假時不該有記事");
+  assert(leaveOnly.includes("只看請假"), "標頭要說明篩了什麼");
+});
+
+Deno.test("區間檢視：關鍵字會寫在標頭上", () => {
+  const out = renderRangeView("2026-08-17", "2026-08-23", [R_MEETING], [], "all", "協調");
+  assert(out.includes("含「協調」"), out);
+});
+
+Deno.test("區間檢視：完全沒資料時講清楚", () => {
+  const out = renderRangeView("2026-08-17", "2026-08-23", [], []);
+  assert(out.includes("這段期間沒有"), out);
+  assert(out.includes("08/17"), "範圍還是要顯示");
+});
+
+Deno.test("區間檢視：內容過多會截斷並提示", () => {
+  const many = Array.from({ length: 120 }, (_, i) => ({
+    ...R_MEETING,
+    id: `m${i}`,
+    summary: `會議 ${i}`,
+    date: `2026-08-${String(17 + (i % 7)).padStart(2, "0")}`,
+    endDate: `2026-08-${String(17 + (i % 7)).padStart(2, "0")}`,
+  }));
+  const out = renderRangeView("2026-08-17", "2026-08-23", many, []);
+  assert(out.includes("內容太多"), out.slice(-200));
+  assert(out.split("\n").length < 90, "截斷後不該還是超長");
 });

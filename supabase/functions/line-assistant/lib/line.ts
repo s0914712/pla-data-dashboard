@@ -158,7 +158,7 @@ export function splitLocalIso(iso: string): { date: string; time: string } {
   };
 }
 
-/** 同上，但只要 YYYY-MM-DD。記事列表用 created_at 顯示日期時需要。 */
+/** 同上，但只要 YYYY-MM-DD。區間檢視要用 created_at 把記事歸到正確的一天。 */
 export function taipeiDateIso(iso: string): string {
   const ms = Date.parse(iso);
   if (Number.isNaN(ms)) return iso.slice(0, 10);
@@ -306,7 +306,7 @@ export function mainMenuCard(todayIso: string, tomorrowIso: string): LineMessage
           { type: "text", text: "選一個功能，或直接打字建立行程", size: "xs", color: "#888888", wrap: true },
           { type: "separator" },
 
-          { type: "text", text: "看某一天", size: "sm", weight: "bold", margin: "sm" },
+          { type: "text", text: "查詢（行程・請假・記事）", size: "sm", weight: "bold", margin: "sm" },
           {
             type: "box",
             layout: "horizontal",
@@ -321,8 +321,17 @@ export function mainMenuCard(todayIso: string, tomorrowIso: string): LineMessage
             layout: "horizontal",
             spacing: "sm",
             contents: [
+              btn("本週", `act=q&s=${encodeURIComponent("本週")}`, "查行程 本週"),
+              btn("本月", `act=q&s=${encodeURIComponent("本月")}`, "查行程 本月"),
+            ],
+          },
+          {
+            type: "box",
+            layout: "horizontal",
+            spacing: "sm",
+            contents: [
               btn("今天誰請假", `act=day&f=leave&d=${todayIso}`, "查 今天請假"),
-              btn("明天誰請假", `act=day&f=leave&d=${tomorrowIso}`, "查 明天請假"),
+              btn("本週誰請假", `act=q&s=${encodeURIComponent("本週請假")}`, "查行程 本週請假"),
             ],
           },
           {
@@ -333,6 +342,20 @@ export function mainMenuCard(todayIso: string, tomorrowIso: string): LineMessage
               type: "datetimepicker",
               label: "選其他日期",
               data: "act=day",
+              mode: "date",
+              initial: todayIso,
+              min: "2020-01-01",
+              max: "2035-12-31",
+            },
+          },
+          {
+            type: "button",
+            style: "secondary",
+            height: "sm",
+            action: {
+              type: "datetimepicker",
+              label: "選日期區間",
+              data: "act=nt_from",
               mode: "date",
               initial: todayIso,
               min: "2020-01-01",
@@ -407,36 +430,20 @@ export function mainMenuCard(todayIso: string, tomorrowIso: string): LineMessage
           },
 
           { type: "separator", margin: "md" },
-          { type: "text", text: "記事", size: "sm", weight: "bold", margin: "sm" },
           {
-            type: "box",
-            layout: "horizontal",
-            spacing: "sm",
-            contents: [
-              btn("本週記事", `act=notes&q=${encodeURIComponent("本週")}`, "查記事 本週"),
-              btn("本月記事", `act=notes&q=${encodeURIComponent("本月")}`, "查記事 本月"),
-            ],
-          },
-          {
-            type: "button",
-            style: "secondary",
-            height: "sm",
-            action: {
-              type: "datetimepicker",
-              label: "選日期區間查記事",
-              data: "act=nt_from",
-              mode: "date",
-              initial: todayIso,
-              min: "2020-01-01",
-              max: "2035-12-31",
-            },
+            type: "text",
+            text: "記事直接打「記事 ⋯」就會記下來，查詢跟行程走同一個入口。",
+            size: "xxs",
+            color: "#888888",
+            wrap: true,
+            margin: "sm",
           },
           {
             type: "box",
             layout: "horizontal",
             spacing: "sm",
             contents: [
-              btn("最近 10 筆", "act=notes", "查記事"),
+              btn("最近記事", `act=q&s=${encodeURIComponent("最近7天")}`, "查行程 最近7天"),
               btn("使用說明", "act=help", "/help"),
             ],
           },
@@ -447,7 +454,7 @@ export function mainMenuCard(todayIso: string, tomorrowIso: string): LineMessage
         layout: "vertical",
         contents: [{
           type: "text",
-          text: "例：8/28 14:00-16:00 部務會議　請假 8/29 全天",
+          text: "例：8/28 1400-1600 部務會議　查行程 本週　記事 要帶識別證",
           size: "xxs",
           color: "#aaaaaa",
           wrap: true,
@@ -511,6 +518,105 @@ export function renderDayView(
   if (nothing) lines.push("", "這一天目前是空的。");
 
   return lines.join("\n");
+}
+
+/** 區間檢視的單日標題：08/17（週一）。 */
+function dayHeader(iso: string): string {
+  const [y, m, d] = iso.split("-").map(Number);
+  const weekday = WEEKDAYS[new Date(Date.UTC(y, m - 1, d)).getUTCDay()];
+  return `${String(m).padStart(2, "0")}/${String(d).padStart(2, "0")}（週${weekday}）`;
+}
+
+/** 只列出「有東西」的日子，避免查一整個月時洗出三十行空白。 */
+const RANGE_MAX_LINES = 70;
+
+/**
+ * 把一段日期內的行程、請假與記事合成一則訊息，依日分段。
+ *
+ * 與單日檢視的差別在密度：區間是拿來掃的，所以不分【行程】【請假】【記事】
+ * 三個標題，改成每行前面掛符號（請假 🏖、記事 📝、行程無），一天一段。
+ *
+ * 跨日的全天事件（例如請假 8/29-8/31）會在涵蓋到的每一天都出現一次 ——
+ * 只掛在起日的話，查「本週誰不在」就會漏掉週三開始的那幾天。
+ */
+export function renderRangeView(
+  fromIso: string,
+  toIso: string,
+  events: DayEvent[],
+  notes: NoteRow[],
+  filter: DayFilter = "all",
+  keyword = "",
+): string {
+  const showMeetings = filter === "all" || filter === "meeting";
+  const showLeaves = filter === "all" || filter === "leave";
+  const showNotes = filter === "all";
+
+  const byDay = new Map<string, string[]>();
+  const put = (day: string, line: string) => {
+    if (day < fromIso || day > toIso) return;
+    const bucket = byDay.get(day);
+    if (bucket) bucket.push(line);
+    else byDay.set(day, [line]);
+  };
+
+  let meetingCount = 0, leaveCount = 0;
+  for (const e of events) {
+    const isLeave = e.reqType === "leave";
+    if (isLeave ? !showLeaves : !showMeetings) continue;
+    if (isLeave) leaveCount++;
+    else meetingCount++;
+
+    const when = e.isAllDay ? "全天" : `${e.startTime}-${e.endTime}`;
+    const where = !isLeave && e.location ? `（${e.location}）` : "";
+    const line = `· ${isLeave ? "🏖 " : ""}${when}　${e.summary}${where}`;
+    // 跨日全天事件攤平到每一天；其餘只掛在自己那一天
+    for (let d = e.date; d <= e.endDate; d = nextDay(d)) {
+      put(d, line);
+      if (d === e.endDate) break;
+    }
+  }
+
+  if (showNotes) {
+    for (const n of notes) {
+      put(n.target_date ?? taipeiDateIso(n.created_at), `· 📝 #${n.seq}　${n.content}`);
+    }
+  }
+
+  const label = [
+    filter === "leave" ? "只看請假" : filter === "meeting" ? "只看行程" : "",
+    keyword ? `含「${keyword}」` : "",
+  ].filter(Boolean).join("・");
+
+  const head = `📆 ${dayHeader(fromIso)} ～ ${dayHeader(toIso)}${label ? `　${label}` : ""}`;
+  const days = [...byDay.keys()].sort();
+  if (days.length === 0) {
+    return `${head}\n\n這段期間沒有${label ? `${label}的` : ""}資料。`;
+  }
+
+  const lines = [head, ""];
+  let truncated = false;
+  let used = 0;
+  for (const day of days) {
+    const entries = byDay.get(day)!;
+    if (used + entries.length + 1 > RANGE_MAX_LINES) { truncated = true; break; }
+    lines.push(`▍${dayHeader(day)}`, ...entries, "");
+    used += entries.length + 1;
+  }
+
+  const tally = [
+    showMeetings ? `行程 ${meetingCount}` : "",
+    showLeaves ? `請假 ${leaveCount}` : "",
+    showNotes ? `記事 ${notes.length}` : "",
+  ].filter(Boolean).join("　");
+  lines.push(tally);
+  if (truncated) lines.push("（內容太多，只顯示前面幾天。請縮小日期範圍或加上關鍵字。）");
+
+  return lines.join("\n").trim();
+}
+
+function nextDay(iso: string): string {
+  const ms = Date.parse(`${iso}T00:00:00Z`) + 86_400_000;
+  return new Date(ms).toISOString().slice(0, 10);
 }
 
 // --- 引導式建立行程 ----------------------------------------------------------

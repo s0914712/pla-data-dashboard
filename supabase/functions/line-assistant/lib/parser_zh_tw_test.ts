@@ -6,7 +6,7 @@ function assertEquals<T>(actual: T, expected: T, msg = ""): void {
   const a = JSON.stringify(actual), b = JSON.stringify(expected);
   if (a !== b) throw new Error(`${msg}\n  actual:   ${a}\n  expected: ${b}`);
 }
-import { exclusiveEndDate, inferDate, normalize, parse, parseNoteQuery, taipeiParts } from "./parser_zh_tw.ts";
+import { exclusiveEndDate, inferDate, normalize, parse, parseQueryArg, taipeiParts } from "./parser_zh_tw.ts";
 import type { ParsedSchedule } from "./types.ts";
 
 // 固定「現在」= 2026-08-23 12:00 台北時間（週日）
@@ -181,10 +181,16 @@ Deno.test("記事：筆記也是前綴", () => {
   assertEquals(parse("筆記：明天記得帶識別證", NOW).kind, "note");
 });
 
-Deno.test("記事：查詢與刪除是指令", () => {
-  assertEquals(parse("查記事", NOW), { kind: "command", value: { name: "note_list", arg: "" } });
-  assertEquals(parse("查記事 報告", NOW), { kind: "command", value: { name: "note_list", arg: "報告" } });
+Deno.test("記事：刪除是指令；查詢已併進行程查詢", () => {
   assertEquals(parse("刪記事 12", NOW), { kind: "command", value: { name: "note_delete", arg: "12" } });
+  // 查記事＝查行程，兩個指令解出完全一樣的結果
+  assertEquals(parse("查記事", NOW), parse("查行程", NOW));
+  assertEquals(parse("查記事 本週", NOW), parse("查行程 本週", NOW));
+  assertEquals(parse("查記事 8/28", NOW), parse("查行程 8/28", NOW));
+  assertEquals(parse("查記事", NOW), {
+    kind: "day_query",
+    value: { from: "2026-08-23", to: "2026-08-23", filter: "all", keyword: "" },
+  });
 });
 
 Deno.test("斜線指令", () => {
@@ -233,7 +239,10 @@ Deno.test("記事的 targetDate 會帶進 parse 結果", () => {
 // --- 日檢視查詢 --------------------------------------------------------------
 
 function dayQuery(text: string, date: string, filter: "all" | "meeting" | "leave" = "all") {
-  assertEquals(parse(text, NOW), { kind: "day_query", value: { date, filter } });
+  assertEquals(parse(text, NOW), {
+    kind: "day_query",
+    value: { from: date, to: date, filter, keyword: "" },
+  });
 }
 
 Deno.test("日檢視：裸日期即查詢", () => {
@@ -360,109 +369,181 @@ Deno.test("四位數時間：年份不會被當成時間", () => {
   assertEquals(s.title, "2026年度預算會議");
 });
 
-// --- 記事日期區間查詢 --------------------------------------------------------
+// --- 查詢參數（查記事＝查行程）--------------------------------------------------------
 
-Deno.test("記事查詢：沒有參數", () => {
-  assertEquals(parseNoteQuery("", NOW), { from: null, to: null, keyword: "" });
-});
-
-Deno.test("記事查詢：純關鍵字", () => {
-  assertEquals(parseNoteQuery("報告", NOW), { from: null, to: null, keyword: "報告" });
-});
-
-Deno.test("記事查詢：單一日期", () => {
-  assertEquals(parseNoteQuery("8/28", NOW), {
-    from: "2026-08-28", to: "2026-08-28", keyword: "",
+Deno.test("查詢參數：沒有參數就是今天", () => {
+  assertEquals(parseQueryArg("", NOW), {
+    from: "2026-08-23", to: "2026-08-23", filter: "all", keyword: "",
   });
 });
 
-Deno.test("記事查詢：日期區間", () => {
-  assertEquals(parseNoteQuery("8/28-8/31", NOW), {
-    from: "2026-08-28", to: "2026-08-31", keyword: "",
-  });
-  assertEquals(parseNoteQuery("8/28~8/31", NOW), {
-    from: "2026-08-28", to: "2026-08-31", keyword: "",
-  });
-  assertEquals(parseNoteQuery("8/28 到 8/31", NOW), {
-    from: "2026-08-28", to: "2026-08-31", keyword: "",
+Deno.test("查詢參數：純關鍵字", () => {
+  assertEquals(parseQueryArg("報告", NOW), { from: null, to: null, filter: "all", keyword: "報告" });
+});
+
+Deno.test("查詢參數：單一日期", () => {
+  assertEquals(parseQueryArg("8/28", NOW), {
+    from: "2026-08-28", to: "2026-08-28", filter: "all", keyword: "",
   });
 });
 
-Deno.test("記事查詢：查過去的日期取最近的那一年", () => {
+Deno.test("查詢參數：日期區間", () => {
+  assertEquals(parseQueryArg("8/28-8/31", NOW), {
+    from: "2026-08-28", to: "2026-08-31", filter: "all", keyword: "",
+  });
+  assertEquals(parseQueryArg("8/28~8/31", NOW), {
+    from: "2026-08-28", to: "2026-08-31", filter: "all", keyword: "",
+  });
+  assertEquals(parseQueryArg("8/28 到 8/31", NOW), {
+    from: "2026-08-28", to: "2026-08-31", filter: "all", keyword: "",
+  });
+});
+
+Deno.test("查詢參數：查過去的日期取最近的那一年", () => {
   // 8/23 查 8/20 要的是三天前，不是明年的 8/20（建立行程才會往未來找）
-  assertEquals(parseNoteQuery("8/20", NOW).from, "2026-08-20");
+  assertEquals(parseQueryArg("8/20", NOW).from, "2026-08-20");
   // 反過來，接近年底的日期在年初查就要往前一年找
   const jan = new Date("2026-01-05T04:00:00Z");
-  assertEquals(parseNoteQuery("12/28", jan).from, "2025-12-28");
+  assertEquals(parseQueryArg("12/28", jan).from, "2025-12-28");
 });
 
-Deno.test("記事查詢：跨年區間", () => {
+Deno.test("查詢參數：跨年區間", () => {
   const dec = new Date("2026-12-20T04:00:00Z");
-  assertEquals(parseNoteQuery("12/28-1/3", dec), {
-    from: "2026-12-28", to: "2027-01-03", keyword: "",
+  assertEquals(parseQueryArg("12/28-1/3", dec), {
+    from: "2026-12-28", to: "2027-01-03", filter: "all", keyword: "",
   });
 });
 
-Deno.test("記事查詢：本週（週一到週日）", () => {
+Deno.test("查詢參數：本週（週一到週日）", () => {
   // NOW 是 2026-08-23 週日 → 本週為 8/17（一）～8/23（日）
-  assertEquals(parseNoteQuery("本週", NOW), {
-    from: "2026-08-17", to: "2026-08-23", keyword: "",
+  assertEquals(parseQueryArg("本週", NOW), {
+    from: "2026-08-17", to: "2026-08-23", filter: "all", keyword: "",
   });
-  assertEquals(parseNoteQuery("上週", NOW).from, "2026-08-10");
-  assertEquals(parseNoteQuery("下週", NOW).to, "2026-08-30");
+  assertEquals(parseQueryArg("上週", NOW).from, "2026-08-10");
+  assertEquals(parseQueryArg("下週", NOW).to, "2026-08-30");
 });
 
-Deno.test("記事查詢：本月與上個月", () => {
-  assertEquals(parseNoteQuery("本月", NOW), {
-    from: "2026-08-01", to: "2026-08-31", keyword: "",
+Deno.test("查詢參數：本月與上個月", () => {
+  assertEquals(parseQueryArg("本月", NOW), {
+    from: "2026-08-01", to: "2026-08-31", filter: "all", keyword: "",
   });
-  assertEquals(parseNoteQuery("上個月", NOW), {
-    from: "2026-07-01", to: "2026-07-31", keyword: "",
+  assertEquals(parseQueryArg("上個月", NOW), {
+    from: "2026-07-01", to: "2026-07-31", filter: "all", keyword: "",
   });
   // 二月與跨年都要對
   const jan = new Date("2026-01-15T04:00:00Z");
-  assertEquals(parseNoteQuery("上個月", jan), {
-    from: "2025-12-01", to: "2025-12-31", keyword: "",
+  assertEquals(parseQueryArg("上個月", jan), {
+    from: "2025-12-01", to: "2025-12-31", filter: "all", keyword: "",
   });
   const mar = new Date("2028-03-10T04:00:00Z");
-  assertEquals(parseNoteQuery("上個月", mar).to, "2028-02-29");
+  assertEquals(parseQueryArg("上個月", mar).to, "2028-02-29");
 });
 
-Deno.test("記事查詢：最近 N 天", () => {
-  assertEquals(parseNoteQuery("最近7天", NOW), {
-    from: "2026-08-17", to: "2026-08-23", keyword: "",
+Deno.test("查詢參數：最近 N 天", () => {
+  assertEquals(parseQueryArg("最近7天", NOW), {
+    from: "2026-08-17", to: "2026-08-23", filter: "all", keyword: "",
   });
-  assertEquals(parseNoteQuery("近3天", NOW).from, "2026-08-21");
-  assertEquals(parseNoteQuery("最近一週", NOW).from, "2026-08-17");
-  assertEquals(parseNoteQuery("最近一個月", NOW).from, "2026-07-25");
+  assertEquals(parseQueryArg("近3天", NOW).from, "2026-08-21");
+  assertEquals(parseQueryArg("最近一週", NOW).from, "2026-08-17");
+  assertEquals(parseQueryArg("最近一個月", NOW).from, "2026-07-25");
 });
 
-Deno.test("記事查詢：區間加關鍵字", () => {
-  assertEquals(parseNoteQuery("本週 報告", NOW), {
-    from: "2026-08-17", to: "2026-08-23", keyword: "報告",
+Deno.test("查詢參數：區間加關鍵字", () => {
+  assertEquals(parseQueryArg("本週 報告", NOW), {
+    from: "2026-08-17", to: "2026-08-23", filter: "all", keyword: "報告",
   });
-  assertEquals(parseNoteQuery("8/28-8/31 報告", NOW), {
-    from: "2026-08-28", to: "2026-08-31", keyword: "報告",
+  assertEquals(parseQueryArg("8/28-8/31 報告", NOW), {
+    from: "2026-08-28", to: "2026-08-31", filter: "all", keyword: "報告",
   });
 });
 
-Deno.test("記事查詢：下週一是單日，不是整個下週", () => {
+Deno.test("查詢參數：下週一是單日，不是整個下週", () => {
   // RE_PERIOD_WEEK 的 lookahead 要擋住「下週一」
-  assertEquals(parseNoteQuery("下週一", NOW), {
-    from: "2026-08-24", to: "2026-08-24", keyword: "",
+  assertEquals(parseQueryArg("下週一", NOW), {
+    from: "2026-08-24", to: "2026-08-24", filter: "all", keyword: "",
   });
 });
 
-Deno.test("記事查詢：相對日期", () => {
-  assertEquals(parseNoteQuery("明天", NOW).from, "2026-08-24");
-  assertEquals(parseNoteQuery("今天", NOW).to, "2026-08-23");
+Deno.test("查詢參數：相對日期", () => {
+  assertEquals(parseQueryArg("明天", NOW).from, "2026-08-24");
+  assertEquals(parseQueryArg("今天", NOW).to, "2026-08-23");
 });
 
-Deno.test("記事查詢：走得通整條 parse 路徑", () => {
-  assertEquals(parse("查記事 本週", NOW), {
-    kind: "command", value: { name: "note_list", arg: "本週" },
+Deno.test("查詢參數：走得通整條 parse 路徑", () => {
+  assertEquals(parse("查行程 本週", NOW), {
+    kind: "day_query",
+    value: { from: "2026-08-17", to: "2026-08-23", filter: "all", keyword: "" },
   });
   assertEquals(parse("查記事 8/28-8/31", NOW), {
-    kind: "command", value: { name: "note_list", arg: "8/28-8/31" },
+    kind: "day_query",
+    value: { from: "2026-08-28", to: "2026-08-31", filter: "all", keyword: "" },
+  });
+  // 裸的「行程」「記事」二字都是查詢，不是空記事
+  assertEquals(parse("行程", NOW).kind, "day_query");
+  assertEquals(parse("記事", NOW).kind, "day_query");
+});
+
+// --- 合併查詢：類別詞與關鍵字 ------------------------------------------------
+
+Deno.test("查詢參數：類別詞在日期前後都認得", () => {
+  assertEquals(parseQueryArg("本週請假", NOW), {
+    from: "2026-08-17", to: "2026-08-23", filter: "leave", keyword: "",
+  });
+  assertEquals(parseQueryArg("請假 本週", NOW).filter, "leave");
+  assertEquals(parseQueryArg("8/28 請假", NOW), {
+    from: "2026-08-28", to: "2026-08-28", filter: "leave", keyword: "",
+  });
+  assertEquals(parseQueryArg("明天會議", NOW), {
+    from: "2026-08-24", to: "2026-08-24", filter: "meeting", keyword: "",
+  });
+});
+
+Deno.test("查詢參數：只有類別詞就是今天", () => {
+  assertEquals(parseQueryArg("請假", NOW), {
+    from: "2026-08-23", to: "2026-08-23", filter: "leave", keyword: "",
+  });
+  assertEquals(parseQueryArg("誰請假", NOW).filter, "leave");
+});
+
+Deno.test("查詢參數：關鍵字裡的「請假」不算類別詞", () => {
+  // 「請假流程」是要找的字，不是「只看請假」
+  assertEquals(parseQueryArg("請假流程", NOW), {
+    from: null, to: null, filter: "all", keyword: "請假流程",
+  });
+});
+
+Deno.test("查詢參數：只有關鍵字時不給日期，範圍交給呼叫端", () => {
+  assertEquals(parseQueryArg("報告", NOW), {
+    from: null, to: null, filter: "all", keyword: "報告",
+  });
+});
+
+Deno.test("查詢：查記事與查行程完全同義", () => {
+  for (const arg of ["", "本週", "8/28", "8/28-8/31", "報告", "本週請假", "最近7天"]) {
+    assertEquals(
+      parse(`查記事 ${arg}`.trim(), NOW),
+      parse(`查行程 ${arg}`.trim(), NOW),
+      `「${arg}」兩個指令應該一樣`,
+    );
+  }
+});
+
+Deno.test("合併後仍然分得出建立與查詢", () => {
+  // 這幾條是界線：被查詢吃掉的話，使用者就沒辦法用最自然的說法建立了
+  assertEquals(parse("明天請假", NOW).kind, "schedule");
+  assertEquals(parse("請假 8/29-8/31", NOW).kind, "schedule");
+  assertEquals(schedule("明天 09:00-10:30 週報會議").title, "週報會議");
+  assertEquals(schedule("本週三 1400-1600 部務會議").title, "部務會議");
+  assertEquals(parse("記事 明天要帶識別證", NOW).kind, "note");
+});
+
+Deno.test("裸的日期區間也是查詢", () => {
+  assertEquals(parse("8/28-8/31", NOW), {
+    kind: "day_query",
+    value: { from: "2026-08-28", to: "2026-08-31", filter: "all", keyword: "" },
+  });
+  assertEquals(parse("本週", NOW), {
+    kind: "day_query",
+    value: { from: "2026-08-17", to: "2026-08-23", filter: "all", keyword: "" },
   });
 });
