@@ -32963,5 +32963,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍場站舉行退伍老兵軍車鑰匙交接儀式，屬軍隊內部常規人事與傳承活動。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-31",
+      "title": "【#退伍老兵与军车告别#】8月31日，东部战区空军某场站夏秋季退伍老兵将伴随多年的军车钥匙郑重移交新...",
+      "content": "【#退伍老兵与军车告别#】8月31日，东部战区空军某场站夏秋季退伍老兵将伴随多年的军车钥匙郑重移交新兵，完成使命交接。退伍前，老兵轻抚车身、回望营区，眼含热泪向战位庄严敬礼，满怀不舍告别军营。（周必伟、李凯）#若有战召必回#",
+      "url": "https://m.weibo.cn/detail/5338066111434227",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "N/A",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍某部舉行夏秋季退伍老兵告別儀式。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-08-31",
+      "title": "【#再见了军营#】当《驼铃》旋律飘荡在营区，老兵们满怀不舍面向军旗敬上最后一个军礼。8月31日，东部...",
+      "content": "【#再见了军营#】当《驼铃》旋律飘荡在营区，老兵们满怀不舍面向军旗敬上最后一个军礼。8月31日，东部战区空军某部夏秋季退伍老兵与战位和装备告别，为自己的军旅生涯画上圆满句号（徐雨农、仇复新整理） #退伍季#",
+      "url": "https://m.weibo.cn/detail/5338035912444227",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-08-31",
+      "title": "【#夏秋季退伍老兵向军旗告别# 】8月31日，武警第二机动总队某支队组织夏秋季士兵退役仪式。老兵们满...",
+      "content": "【#夏秋季退伍老兵向军旗告别# 】8月31日，武警第二机动总队某支队组织夏秋季士兵退役仪式。老兵们满怀不舍，向军旗敬上最后一个军礼。摘下的是肩章，不改的是赤诚。一声“到”，一生“到”。愿老兵转身奔赴新征程，乘风破浪，续写荣光！（王梦林、梁烨博、申勇联） #退伍季#",
+      "url": "https://m.weibo.cn/detail/5337991368671440",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
