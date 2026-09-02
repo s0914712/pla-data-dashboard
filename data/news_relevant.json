@@ -33275,5 +33275,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "該報導為關於台灣鶯歌陶瓷文化的文化類專題，不涉及軍事或政治衝突。"
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-09-01",
+      "title": "中国故事丨“台湾景德镇”莺歌的百年窑火与匠心",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
+      "url": "https://www.news.cn/tw/20260901/06361dce828f4ece9f42007e9c0d5a9c/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国台办感谢台湾各界对西藏吉隆灾害的慰问，并对台湾南部受灾民众表示慰问，愿提供必要协助，强调两岸同胞守望相助。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-09-02",
+      "title": "国台办：衷心感谢台各界对吉隆泥石流灾害表达关心慰问",
+      "content": "有记者问：8月26日，尼泊尔一侧发生泥石流，造成西藏日喀则市吉隆口岸人员伤亡、失联。灾害发生后，中国国民党主席郑丽文、台湾各界人士和在大陆台商台企纷纷表达关心与慰问，并向受灾地区和民众捐款。请问对此有何回应？ 发言人张晗答问表示，据了解，截至目前，没有台胞因灾伤亡、失联情况，我们会持续跟进、关注当地台胞情况，并及时提供必要协助。台湾各界人士和在大陆的台胞台企通过多种形式表达关心慰问，体现了两岸血浓于水、守望相助的同胞之情。我们对此表示衷心感谢。 她表示，近期，台湾南部遭受连续多次强降雨，严重影响当地民众的生产生活。我们对受灾同胞表示慰问并愿提供帮助，希望他们尽快恢复正常的生产生活秩序。（记者尚昊、王承昊）",
+      "url": "https://www.news.cn/tw/20260902/8e16eb80ddf34475918862425e1db6bc/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-09-01",
+      "title": "港澳台简讯：《黑神话：悟空》全球音乐会9月登陆台北",
+      "content": "该音乐会基于3A游戏《黑神话：悟空》打造。此次演出由来自大陆的艺术家与好莱坞电影乐团合作，精选部分游戏配乐和《云宫迅音》等19首经典曲目，融合交响乐、民乐、演唱与游戏画面，带领听众走入西游世界。 澳门影视产业服务中心试营运 澳门特区政府文化局1日表示，澳门影视产业服务中心即日起试营运，通过提供咨询及引介服务，协助澳门影视业界与内地有效对接，推动产业融合与市场拓展。文化局介绍，中心服务包括协助提供有关在内地从事影视行业的就业资讯及职位推介，向有意在内地开展业务的影视公司提供公司注册流程的指引和相关资讯等。 香港教育局局长开学日勉励学生勇于面对挑战 1日开学日，香港特区政府教育局局长蔡若莲勉励学生在新学年继续发掘个人专长，面对困难和挑战时要勇于尝试。蔡若莲表示，学生需要与时俱进，不断提升知识与技能。面对数字化浪潮，特区政府已发布《中小学数字教育发展蓝图》，并在优质教育基金预留20亿港元，支援各项数字教育策略的推展，以提升教育质量及培育创新人才，贡献教育强国建设。",
+      "url": "https://www.news.cn/tw/20260901/ca7735d4ad594f6eb758a1bcf832e206/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]

@@ -39144,5 +39144,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国台办感谢台湾各界对西藏吉隆灾害的慰问，并对台湾南部受灾民众表示慰问，愿提供必要协助，强调两岸同胞守望相助。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-09-02",
+      "title": "国台办：衷心感谢台各界对吉隆泥石流灾害表达关心慰问",
+      "content": "有记者问：8月26日，尼泊尔一侧发生泥石流，造成西藏日喀则市吉隆口岸人员伤亡、失联。灾害发生后，中国国民党主席郑丽文、台湾各界人士和在大陆台商台企纷纷表达关心与慰问，并向受灾地区和民众捐款。请问对此有何回应？ 发言人张晗答问表示，据了解，截至目前，没有台胞因灾伤亡、失联情况，我们会持续跟进、关注当地台胞情况，并及时提供必要协助。台湾各界人士和在大陆的台胞台企通过多种形式表达关心慰问，体现了两岸血浓于水、守望相助的同胞之情。我们对此表示衷心感谢。 她表示，近期，台湾南部遭受连续多次强降雨，严重影响当地民众的生产生活。我们对受灾同胞表示慰问并愿提供帮助，希望他们尽快恢复正常的生产生活秩序。（记者尚昊、王承昊）",
+      "url": "https://www.news.cn/tw/20260902/8e16eb80ddf34475918862425e1db6bc/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
