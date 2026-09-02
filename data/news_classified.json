@@ -39096,5 +39096,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "N/A",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-09-01",
+      "title": "【#深情欢送退伍老兵# 】9月1日清晨，第71集团军某旅为光荣退伍的老兵们举行了庄重而温情的送别仪式...",
+      "content": "【#深情欢送退伍老兵# 】9月1日清晨，第71集团军某旅为光荣退伍的老兵们举行了庄重而温情的送别仪式。清晨的车站，老兵们胸戴红花，部队领导与战友们列队相送，向他们敬上最后一个军礼。大家互道珍重，现场洋溢着浓浓的战友情与离别情。#若有战召必回# ！老兵们带着战友的嘱托与家乡的期望，踏上了人生 ...全文",
+      "url": "https://m.weibo.cn/detail/5338368104728093",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍舉行2026年秋季士兵退役儀式，屬於軍隊內部例行人事活動。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-09-01",
+      "title": "【#卸下肩章华丽转身#】近日，东部战区空军某部隆重举行2026年秋季士兵退役仪式。退役士兵身披绶带、...",
+      "content": "【#卸下肩章华丽转身#】近日，东部战区空军某部隆重举行2026年秋季士兵退役仪式。退役士兵身披绶带、胸戴红花，深情发表离队感言，与战友依依惜别。衷心祝愿退伍老兵前程似锦，再创辉煌！（智浩杰、柯胤全、马帅、李锐）#若有战召必回#",
+      "url": "https://m.weibo.cn/detail/5338337901808931",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
