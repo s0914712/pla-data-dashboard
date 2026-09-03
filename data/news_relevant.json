@@ -33539,5 +33539,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍某部組織官兵進行廉政教育，旨在加強內部紀律與思想建設。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-09-02",
+      "title": "【#筑牢廉洁思想防线#】近日，东部战区空军某部组织官兵前往驻地廉政教育基地参观见学，直观感受违纪违法...",
+      "content": "【#筑牢廉洁思想防线#】近日，东部战区空军某部组织官兵前往驻地廉政教育基地参观见学，直观感受违纪违法案例带来的深刻教训。此次活动以实景化教育敲响廉政警钟，进一步引导官兵树立清正廉洁的优良作风。（汪俊鹏、叶文才、宿文涛、褚文聪） #思想政治教育#",
+      "url": "https://m.weibo.cn/detail/5338700289933488",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
