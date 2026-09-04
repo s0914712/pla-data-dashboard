@@ -33659,5 +33659,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": -0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "武警第二机动某支队开展隐蔽机动、全域侦察、要点布控及协同突击等实战化演训。",
+      "Foreign_battleship": "",
+      "Political_statement": "武警部队开展实战化演训，旨在锤炼快速反应与协同作战能力。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-09-04",
+      "title": "【 #锤炼快速反应与协同作战能力# 】近日，武警第二机动某支队赴陌生地域开展复杂条件下实战化演训。重...",
+      "content": "【 #锤炼快速反应与协同作战能力# 】近日，武警第二机动某支队赴陌生地域开展复杂条件下实战化演训。重点围绕隐蔽机动、全域侦察、要点布控及协同突击等课目展开，让官兵在险局困局中锤炼快速反应与协同作战能力。（王梦林、罗宁新、王睿）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5339334468962115",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區發布軍事演訓相關宣傳，強調深藍礪劍與烈焰揚威，針對台海意味濃厚。",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區透過社群媒體發布軍事威懾性貼文，展示軍事力量。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-09-03",
+      "title": "#东部熄灯号#深蓝砺剑，烈焰扬威。#阅海峡#",
+      "content": "#东部熄灯号#深蓝砺剑，烈焰扬威。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5339183473756451",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "江蘇省無錫市惠山區成立人民武裝講師團，旨在加強當地學生的全民國防教育。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-09-03",
+      "title": "【#无锡市惠山区成立人民武装讲师团#】近日，江苏省无锡市惠山区在洛社高中举行人民武装讲师团聘任仪式，...",
+      "content": "【#无锡市惠山区成立人民武装讲师团#】近日，江苏省无锡市惠山区在洛社高中举行人民武装讲师团聘任仪式，10位来自各行业的代表获颁聘书。此举标志着惠山区全民国防教育迈上新台阶，为强化学生国防意识注入新动能。（杜铭鸿）",
+      "url": "https://m.weibo.cn/detail/5339062677274824",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]

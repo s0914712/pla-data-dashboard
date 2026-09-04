@@ -39528,5 +39528,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區發布軍事演訓相關宣傳，強調深藍礪劍與烈焰揚威，針對台海意味濃厚。",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區透過社群媒體發布軍事威懾性貼文，展示軍事力量。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-09-03",
+      "title": "#东部熄灯号#深蓝砺剑，烈焰扬威。#阅海峡#",
+      "content": "#东部熄灯号#深蓝砺剑，烈焰扬威。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5339183473756451",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
