@@ -1368,6 +1368,54 @@
     }
   },
   {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.4,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "新华社报道台湾半导体展中两岸企业交流，强调大陆企业积极参与，呼吁两岸共享产业合作机遇。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-09-04",
+      "title": "台湾半导体展举行 两岸业者盼共享产业新机遇",
+      "content": "这场汇聚逾1300家企业、4300多个展位的科技展会，吸引不少大陆企业携最新成果亮相，积极展示两岸共享产业新机遇的更多可能。 在黄山聚鑫新材料有限公司展位前，大小不一、颜色各异的材料样品整齐陈列，不时有台湾从业者驻足询问。 9月3日，在2026台湾半导体展上，黄山聚鑫新材料有限公司工作人员向台湾参展商介绍产品（手机照片）。 新华社记者 马欣然 摄 “许多台湾企业都对我们的展品很有兴趣，其中一些还是去年就来展台聊过的台湾朋友。”公司销售总监屈超说。这家专注于高性能聚酰亚胺材料的高新企业，是第二次参加台湾半导体展的“老朋友”。 “从芯片制造前端到后端封装，聚酰亚胺无处不在。”屈超介绍，聚鑫的材料不仅有成本优势，更有客制化服务、全程可追溯等优点。 “两岸应该有更大的产业合作空间。”屈超说，大陆材料进入台湾市场，可通过当地企业进一步加工并拓宽应用场景。 展会现场也有来自大陆的“新朋友”。台湾维佳科技公司的展柜中摆放着石英AR窗口片、镀金石英板等，在灯光照耀下显得晶莹剔透。这些产品来自连云港汇德石英玻璃有限公司，今年首次通过维佳科技代理展出。 这是9月3日在2026台湾半导体展上拍摄的连云港汇德石英玻璃有限公司产品（手机照片）。 新华社记者 马欣然 摄 “我们看好大陆石英制品的品质与潜力。”维佳科技总经理特助庄雅惠介绍，双方去年建立合作，今年借助展会平台，希望让更多台湾客户认识这些产品，进一步寻找应用场景。 “半导体产业对石英材料的需求贯穿很多环节。”她说，材料进入实际应用后，还需要精密加工等配套，“将优质的大陆产品带到现场，也是希望为台湾客户提供更多元的选择”。 对于维佳科技而言，代理也不只是把产品摆上货架。“先让客户认识产品、了解产品，再慢慢建立信任，合作才有机会走得更远。” 展会上，也有大陆企业积极展示更前沿的合作可能。来自张家港的安储科技有限公司专注研发配方型功能电子化学品和电子特气安全存储，主要服务于半导体制造领域。 “今年我们带来‘拳头产品’电子特气负压钢瓶，用于磷烷、砷烷等高纯电子特气的安全存储，相信在台湾市场具有较强竞争力。”安储科技市场策划总监井少卿说，公司已连续3年参展，“能感受到台湾客商的咨询热情”。 “在半导体产业的应用和市场层面，两岸具有很强的互补性。”台湾研发管理经理人协会秘书长罗怀家说。 2026台湾半导体展于9月2日至4日举行，由国际半导体产业协会主办，涵盖设备、材料、封装测试等完整半导体供应链，首届于1996年9月在台北举行。",
+      "url": "https://www.news.cn/tw/20260904/76e4708df74940ef941084a110042a1d/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "新華社引述巴新活動家觀點，強調台灣問題屬中國內政，反對台灣參與太平洋島國論壇及謀求主權國家身份。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-09-05",
+      "title": "全球瞭望丨巴新活动家：太平洋岛国不应干涉台湾问题",
+      "content": "文章摘要如下： 台湾问题是中国的内政，太平洋地区国家不应干涉。一个中国原则是国际社会普遍共识，也是大多数太平洋岛国作出的外交承诺。然而，部分太平洋岛国论坛成员领导人却允许台湾当局以某种身份参与论坛相关活动、出席相关会议。 太平洋岛国论坛能够走到今天，取得长足发展，正是因为我们始终坚持尊重民族自决、国家主权、领土完整及不干涉他国内政的原则。地区团结正是建立在这一基础之上。 太平洋岛国论坛应当聚焦的是气候变化、海平面上升、渔业资源过度捕捞、愈发严重的台风灾害、青年失业等问题。作为民间力量，我持续呼吁各方关注上述民生议题。 我们不能任由台湾当局的政治操弄来损害太平洋岛国的长远利益。我们反对台湾当局玩弄政治伎俩，反对其谋求以“主权国家”身份加入论坛，或者制造“两个中国”“一中一台”。",
+      "url": "https://www.news.cn/tw/20260905/bee80d774ced467d8c5a232dc2577be3/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
     "category": "CN_Statement",
     "is_relevant": true,
     "country1": "CN",
@@ -1402,7 +1450,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "中國自然資源部宣布在台灣島以東管轄海域進行海洋地球物理綜合調查，旨在掌握該海域地質特徵並強化管轄治理。"
+      "Political_statement": "中國自然資源部宣布在台灣島以東管轄海域進行海洋地球物理綜合調查，旨在掌握該海域地質特徵並為綜合治理提供依據。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1410,30 +1458,6 @@
       "title": "我国开展台湾岛以东管辖海域海洋地球物理综合调查",
       "content": "记者9月3日从自然资源部获悉，此次调查采用多学科同步调查手段，利用多波束、多道地震、海底地震、重磁等技术采集了包括海底地形、沉积地层、深部地质构造、地球物理场等海底环境基础数据，为我国进一步掌握该海域海底地质及地球物理特征，开展台湾岛以东海域海底沉积、构造以及深部地壳结构和动力演化过程等地质研究积累了数据，也为我国在该海域开展管辖海域综合治理提供了科学依据。",
       "url": "https://www.news.cn/tw/20260903/437b80b8d1e943ea9bfbfb4ff9b4adf5/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "中國海警於台灣島以東海域進行常態化執法巡查",
-      "Foreign_battleship": "",
-      "Political_statement": "中國海警宣稱在台灣島以東海域依法開展常態化執法巡查。"
-    },
-    "confidence": 0.98,
-    "original_article": {
-      "date": "2026-09-03",
-      "title": "中国海警位中国台湾岛以东海域依法开展常态化执法巡查",
-      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
-      "url": "https://www.news.cn/tw/20260903/e7b48147557149a680ce1f98cb566c68/c.html",
       "source": "xinhua",
       "category": "",
       "sentiment": ""
@@ -1450,7 +1474,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "国台办对台湾灾情表示慰问，强调两岸同胞情谊，并重申在坚持“九二共识”、反对“台独”基础上，持续推动两岸农渔产品交流及“小三通”往来。"
+      "Political_statement": "国台办对台湾灾情表示慰问，强调两岸同胞情谊，并重申在坚持“九二共识”、反对“台独”基础上，持续推动两岸农渔产品贸易及交流合作。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1492,13 +1516,13 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": 0.1,
-    "sentiment_label": "neutral",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "国台办强调在“九二共识”基础上推动两岸农渔产品贸易，欢迎台胞台企参与大陆产业发展，同时批评民进党罔顾民生。"
+      "Political_statement": "国台办强调在九二共识基础上推动两岸农渔产品贸易，欢迎台胞台企参与大陆产业发展，同时批评民进党罔顾民生。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1516,13 +1540,13 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": 0.5,
+    "sentiment_score": 0.3,
     "sentiment_label": "positive",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "中共中央台办主任宋涛表示，将充分发挥促进两岸交流合作政策效能，帮助台商台企分享大陆发展机遇，希望台湾同胞坚持一个中国原则和“九二共识”，反对“台独”和外来干涉。"
+      "Political_statement": "中共中央台辦主任宋濤呼籲台灣同胞堅持一個中國原則和九二共識，反對台獨，推動兩岸和平發展與統一。強調為台商提供發展機遇。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1540,37 +1564,13 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": 0.4,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "新华社报道台湾半导体展中两岸企业交流，强调大陆企业积极参与，呼吁两岸产业合作与共享机遇。"
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-09-04",
-      "title": "台湾半导体展举行 两岸业者盼共享产业新机遇",
-      "content": "这场汇聚逾1300家企业、4300多个展位的科技展会，吸引不少大陆企业携最新成果亮相，积极展示两岸共享产业新机遇的更多可能。 在黄山聚鑫新材料有限公司展位前，大小不一、颜色各异的材料样品整齐陈列，不时有台湾从业者驻足询问。 9月3日，在2026台湾半导体展上，黄山聚鑫新材料有限公司工作人员向台湾参展商介绍产品（手机照片）。 新华社记者 马欣然 摄 “许多台湾企业都对我们的展品很有兴趣，其中一些还是去年就来展台聊过的台湾朋友。”公司销售总监屈超说。这家专注于高性能聚酰亚胺材料的高新企业，是第二次参加台湾半导体展的“老朋友”。 “从芯片制造前端到后端封装，聚酰亚胺无处不在。”屈超介绍，聚鑫的材料不仅有成本优势，更有客制化服务、全程可追溯等优点。 “两岸应该有更大的产业合作空间。”屈超说，大陆材料进入台湾市场，可通过当地企业进一步加工并拓宽应用场景。 展会现场也有来自大陆的“新朋友”。台湾维佳科技公司的展柜中摆放着石英AR窗口片、镀金石英板等，在灯光照耀下显得晶莹剔透。这些产品来自连云港汇德石英玻璃有限公司，今年首次通过维佳科技代理展出。 这是9月3日在2026台湾半导体展上拍摄的连云港汇德石英玻璃有限公司产品（手机照片）。 新华社记者 马欣然 摄 “我们看好大陆石英制品的品质与潜力。”维佳科技总经理特助庄雅惠介绍，双方去年建立合作，今年借助展会平台，希望让更多台湾客户认识这些产品，进一步寻找应用场景。 “半导体产业对石英材料的需求贯穿很多环节。”她说，材料进入实际应用后，还需要精密加工等配套，“将优质的大陆产品带到现场，也是希望为台湾客户提供更多元的选择”。 对于维佳科技而言，代理也不只是把产品摆上货架。“先让客户认识产品、了解产品，再慢慢建立信任，合作才有机会走得更远。” 展会上，也有大陆企业积极展示更前沿的合作可能。来自张家港的安储科技有限公司专注研发配方型功能电子化学品和电子特气安全存储，主要服务于半导体制造领域。 “今年我们带来‘拳头产品’电子特气负压钢瓶，用于磷烷、砷烷等高纯电子特气的安全存储，相信在台湾市场具有较强竞争力。”安储科技市场策划总监井少卿说，公司已连续3年参展，“能感受到台湾客商的咨询热情”。 “在半导体产业的应用和市场层面，两岸具有很强的互补性。”台湾研发管理经理人协会秘书长罗怀家说。 2026台湾半导体展于9月2日至4日举行，由国际半导体产业协会主办，涵盖设备、材料、封装测试等完整半导体供应链，首届于1996年9月在台北举行。",
-      "url": "https://www.news.cn/tw/20260904/76e4708df74940ef941084a110042a1d/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
     "sentiment_score": -0.6,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "東部戰區發布炮兵實彈演練相關宣傳，強調武力威懾。",
+      "Military_exercise": "東部戰區發布炮兵實彈演練宣傳，強調武力威懾。",
       "Foreign_battleship": "",
-      "Political_statement": "東部戰區透過社群媒體發布軍事演練內容，以「炮嘯沙場」暗示對台軍事威懾。"
+      "Political_statement": "東部戰區透過社群媒體發布軍事演練內容，以炮火威懾意圖護衛國家安全。"
     },
     "confidence": 0.98,
     "original_article": {
@@ -1594,7 +1594,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "東部戰區空軍透過文藝演出提振官兵練兵備戰精氣神，針對台海方向的軍事準備意圖明顯。"
+      "Political_statement": "東部戰區空軍透過文藝巡演，旨在提振基層官兵「練兵備戰」的精氣神。"
     },
     "confidence": 0.9,
     "original_article": {
@@ -1616,7 +1616,7 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "武警第二机动总队赴陌生地域开展隐蔽机动、全域侦察、要点布控及协同突击等实战化演训。",
+      "Military_exercise": "武警第二机动总队开展隐蔽机动、全域侦察、要点布控及协同突击等实战化演训。",
       "Foreign_battleship": "",
       "Political_statement": "武警部队通过实战化演训锤炼快速反应与协同作战能力，强调时刻准备战斗。"
     },
@@ -1666,7 +1666,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "東部戰區空軍組織新排長崗前集訓，旨在加速培養合格指揮員，提升部隊戰備能力。"
+      "Political_statement": "東部戰區空軍組織新排長崗前集訓，旨在加速培養合格指揮員，提升部隊戰備與指揮能力。"
     },
     "confidence": 0.9,
     "original_article": {
@@ -1675,6 +1675,30 @@
       "content": "【#新排长岗前集训开始了# 】近日，东部战区空军某部组织新排长开展岗前集训。他们区分集中强训、当兵锻炼、机关见习、任务磨砺四个阶段，采取“依托课堂、体验感悟、实践锻炼”三段式培养模式，帮助新排长踢好“官之初”头三脚，加速实现从院校学员向合格指挥员的转变。（黄虎、叶明鑫、丘志蓬、施梦 ...全文",
       "url": "https://m.weibo.cn/detail/5338609693229550",
       "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "中國海警於台灣島以東海域進行常態化執法巡查",
+      "Foreign_battleship": "",
+      "Political_statement": "中國海警宣稱在台灣島以東海域依法開展常態化執法巡查。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-09-03",
+      "title": "中国海警位中国台湾岛以东海域依法开展常态化执法巡查",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
+      "url": "https://www.news.cn/tw/20260903/e7b48147557149a680ce1f98cb566c68/c.html",
+      "source": "xinhua",
       "category": "",
       "sentiment": ""
     }
