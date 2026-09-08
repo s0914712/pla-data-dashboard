@@ -34331,5 +34331,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "东部战区海军某部与地方单位开展环保主题党日活动，属于军民共建性质，不涉及台海军事行动。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-09-07",
+      "title": "【#军地开展主题党日活动# 】近日，东部战区海军某部联合浙江省玉环市大麦屿街道和海警部队，联合开展“...",
+      "content": "【#军地开展主题党日活动# 】近日，东部战区海军某部联合浙江省玉环市大麦屿街道和海警部队，联合开展“守护美丽海岸线，共建生态新玉环”#主题党日活动# 。军地通过垃圾清捡、环保宣讲、互动宣教等形式，创新军民共建活动载体，增强党日活动质效。（汪文豪、汪银银、王焕森、潘伟）",
+      "url": "https://m.weibo.cn/detail/5340512228737326",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
