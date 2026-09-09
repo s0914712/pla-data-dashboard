@@ -34523,5 +34523,77 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國台辦強調統一對台灣而言是必答題，展現強硬政治立場，對台施加政治壓力。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-09-09",
+      "title": "国台办：统一对台湾同胞而言不是选答题，而是必答题",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عربى Русс",
+      "url": "https://www.news.cn/tw/20260909/07220f0109c2479ba04f1e93931e130c/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國台辦發言人陳斌華批評民進黨當局抹黑大陸經濟，強調大陸仍是台商投資最佳選擇，兩岸經貿合作基礎穩固。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-09-09",
+      "title": "民进党当局称台商投资大陆要慎重 国台办回应",
+      "content": "有记者问，近日，民进党当局宣称，2025年台商对大陆投资较前一年下降59%，2026年上半年下降30%，大陆经济发展陷入困境，台商在大陆投资要慎重。请问对此有何评论? 发言人陈斌华答问表示，两岸经济联系紧密，共同利益基础扎实，两岸产业链、供应链稳定强韧。今年以来，我们有力应对地缘政治冲突，经贸摩擦等外部环境变化，延续了总体平稳、向新向优的发展态势，经济展现出蓬勃活力和强大韧性，为世界经济注入强劲动力和难能宝贵的确定性，也为加强两岸经济合作，深化融合发展不断提供新机遇，开拓新空间。大陆始终是广大台商台企投资兴业的最佳选择，创新发展的深厚沃土，抵御风险的强大依靠，民进党当局的抹黑、唱衰已经并将继续被证明是徒劳无功的。（记者许晓静、冀泽）",
+      "url": "https://www.news.cn/tw/20260909/3f9fd4930cda458f97494897d4a04da7/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "国台办发言人批评民进党当局渲染“抓共谍”戏码，指责其“反中抗中”政策加剧两岸对立与岛内“绿色恐怖”。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-09-09",
+      "title": "岛内绿营不断上演“抓共谍”戏码 国台办回应",
+      "content": "针对在民进党当局“反中抗中”政策催化下，岛内绿营近期不断上演“抓共谍”戏码，发言人陈斌华答问表示，民进党当局及“台独”势力在“逢中必反”“反中抗中”上越来越严重，从对台湾民众使用大陆用语如临大敌，到把个别简体字臆想成“间谍渗透”，可谓杯弓蛇影、草木皆兵。民进党当局所作所为不仅进一步损害两岸互信，而且加剧岛内社会“绿色恐怖”，必遭反对。（记者王承昊、覃朗）",
+      "url": "https://www.news.cn/tw/20260909/d45c7c03899e405180b54780edb960c8/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
