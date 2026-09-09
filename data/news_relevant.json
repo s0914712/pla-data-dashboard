@@ -34499,5 +34499,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "None",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍某部舉辦內部足球比賽，屬於軍隊文體活動，與台海局勢無直接軍事關聯。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-09-08",
+      "title": "【#军营足球赛火热开赛# 】近日，东部战区空军某部足球比赛火热开赛。赛场上，官兵精神饱满，奔跑抢断、...",
+      "content": "【#军营足球赛火热开赛# 】近日，东部战区空军某部足球比赛火热开赛。赛场上，官兵精神饱满，奔跑抢断、传接配合，攻防转换节奏紧凑，多次打出精彩进攻，展现了较高的攻防技术与顽强的战斗作风。  （郭政、刘程远、黄德斌、刘德凯）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5340874616865325",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
