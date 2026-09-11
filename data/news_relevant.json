@@ -34979,5 +34979,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-09-10",
+      "title": "【#清风下基层纪法演说会登场# 】近日，东部战区空军“清风下基层”纪法演说会在某场站举行。此举将推动...",
+      "content": "【#清风下基层纪法演说会登场# 】近日，东部战区空军“清风下基层”纪法演说会在某场站举行。此举将推动纪律教育直达基层一线，进一步引导官兵增强遵纪守法意识，夯实廉洁思想根基。（许成艺、李霖、雷文强、倪铭志）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5341599392334555",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
