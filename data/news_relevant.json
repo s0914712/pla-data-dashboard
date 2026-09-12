@@ -35123,5 +35123,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.2,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "江蘇省無錫市濱湖區人武部邀請老幹部為預定新兵開展國防教育與徵兵宣傳。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-09-11",
+      "title": "【#助力新兵走好军旅第一步#】近日，江苏省无锡市滨湖区人武部邀请94岁老干部钱锦树为预定新兵开展国防...",
+      "content": "【#助力新兵走好军旅第一步#】近日，江苏省无锡市滨湖区人武部邀请94岁老干部钱锦树为预定新兵开展国防教育。老首长深情讲述抗战时期的烽火岁月和矢志报国的军旅历程，勉励年轻一代听党话、跟党走，苦练胜战本领，立起新时代革命军人的好样子。（李永有、耿络络、侯文静、陶演） #征兵季#",
+      "url": "https://m.weibo.cn/detail/5341961780199943",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
