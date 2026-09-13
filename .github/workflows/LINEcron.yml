@@ -41,3 +41,12 @@ jobs:
           # 上傳預測圖取得公開 raw 網址（Actions 內建 token）
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/send_message.py
+
+      # Classifier 4.0 只讀 daily_prediction 已 commit 的 shadow JSON。
+      # 即使 shadow 尚未產生或推播失敗，也不能讓既有每日簡報失敗。
+      - name: 推播 Classifier 4.0 新舊模型對照（shadow）
+        continue-on-error: true
+        env:
+          LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINECHANNELACCESSTOKEN }}
+          LINE_USER_ID: ${{ secrets.USERID }}
+        run: python scripts/send_classifier4_shadow.py
