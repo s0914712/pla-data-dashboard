@@ -35315,5 +35315,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "武警第二機動總隊某支隊展開直升機融合訓練，涵蓋快速登機、空中機動、戰術搜索等課目，強化空地協同作戰能力。",
+      "Foreign_battleship": "",
+      "Political_statement": "武警部隊開展近似實戰的直升機融合訓練，標籤強調時刻準備戰鬥。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-09-14",
+      "title": "【神兵天降！ #直升机融合训练火热展开# 】铁翼飞旋，空地一体。近日，武警第二机动总队某支队开展直升...",
+      "content": "【神兵天降！ #直升机融合训练火热展开# 】铁翼飞旋，空地一体。近日，武警第二机动总队某支队开展直升机融合训练，将快速登机、空中机动、战术搜索、定点离机等课目融入战术背景连贯实施，参训队员在近似实战条件下锤炼快速投送和空地协同作战能力。（王梦林、陶用、梁烨博）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5342958347616673",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
