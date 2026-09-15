@@ -35507,5 +35507,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東海艦隊綜合服務隊赴頭門山海戰英雄艇開展文化服務，激發官兵練兵熱情。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-09-14",
+      "title": "【#飞舟跨海送精神食粮# 】近日，第 19 届 “东海强军文化先锋艇” 综合服务队来到头门山海战英雄...",
+      "content": "【#飞舟跨海送精神食粮# 】近日，第 19 届 “东海强军文化先锋艇” 综合服务队来到头门山海战英雄艇驻地，为官兵送来理论讲解、文艺演出、心理服务等一系列暖心服务，有效激发部队练兵热情。（丁斐煜、林庆港、孙柳飞、张方海） #军营生活#",
+      "url": "https://m.weibo.cn/detail/5343048944582975",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
