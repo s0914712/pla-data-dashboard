@@ -35747,5 +35747,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.2,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "老干部勉励2026年秋季新兵入营"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-09-15",
+      "title": "【#银发嘱托寄深情#】2026年秋季新兵即将入营之际，江苏省军区无锡第二离职干部休养所90岁以上高龄...",
+      "content": "【#银发嘱托寄深情#】2026年秋季新兵即将入营之际，江苏省军区无锡第二离职干部休养所90岁以上高龄的老干部、老阿姨，勉励新战士牢记初心使命、传承红色基因，在军营的大熔炉里淬火成钢，祝福他们在各自岗位上茁壮成长，早日成为合格的新时代革命军人。（耿络络、孙海峰、侯文静、陶演） #入伍季#  ...全文",
+      "url": "https://m.weibo.cn/detail/5343411336908550",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
