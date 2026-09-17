@@ -35987,5 +35987,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "江蘇省無錫市舉辦2026年秋季新兵歡送儀式"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-09-17",
+      "title": "【#欢送2026年秋季新兵入伍#】近日，江苏省无锡市锡山区隆重举行2026年秋季新兵欢送暨“新兵守国...",
+      "content": "【#欢送2026年秋季新兵入伍#】近日，江苏省无锡市锡山区隆重举行2026年秋季新兵欢送暨“新兵守国、老兵守家”结对仪式。68名新兵身着戎装、胸戴红花，庄严举起右拳宣誓，尽显报国之志。“铁流劲旅”老兵老党员工作室7名代表，与赴西藏等艰苦边远地区新兵结对，向他们传授军旅经验，关心帮扶军属。（吴 ...全文",
+      "url": "https://m.weibo.cn/detail/5344075709416167",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-09-16",
+      "title": "【#助力新兵走好军旅第一步# 】近日，江苏省无锡市梁溪区人武部严密组织预定新兵役前教育训练。通过专题...",
+      "content": "【#助力新兵走好军旅第一步# 】近日，江苏省无锡市梁溪区人武部严密组织预定新兵役前教育训练。通过专题授课、现地研学、入伍宣誓等活动，引导预定新兵淬炼思想、锤炼作风，厚植从军报国的理想信念，以昂扬姿态迎接军旅新征程。 （张进春、朱慧、相柯） #入伍季#",
+      "url": "https://m.weibo.cn/detail/5343773719527914",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
