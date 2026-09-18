@@ -1,7 +1,7 @@
 {
-  "last_update": "2026-09-17T04:56:03.071370",
+  "last_update": "2026-09-18T04:46:07.404163",
   "stats": {
-    "timestamp": "2026-09-17T04:51:43.279101",
+    "timestamp": "2026-09-18T04:42:38.944443",
     "days_back": 7,
     "sources": {
       "cna": {
@@ -19,12 +19,12 @@
     },
     "deduplication": {
       "before": 43,
-      "after": 34,
-      "removed": 9
+      "after": 43,
+      "removed": 0
     },
     "classification": {
-      "total": 34,
-      "relevant": 20,
+      "total": 43,
+      "relevant": 24,
       "status": "success"
     },
     "naval_transits": {
