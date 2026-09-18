@@ -36251,5 +36251,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-09-18",
+      "title": "【#欢送2026年秋季新兵入伍#】近日，江苏省南京市栖霞区隆重举行2026年秋季入伍新兵欢送大会，现...",
+      "content": "【#欢送2026年秋季新兵入伍#】近日，江苏省南京市栖霞区隆重举行2026年秋季入伍新兵欢送大会，现场处处洋溢着“当兵光荣、参军荣耀”的浓厚氛围，进一步激发了社会各界尊崇军人、支持国防的热情。（马泽宇、朱凌青） #入伍季#",
+      "url": "https://m.weibo.cn/detail/5344453197037781",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.2,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍某部舉行尊師重教表彰頒獎典禮。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-09-17",
+      "title": "【#共筑尊师重教风尚# 】榜样之光闪耀，奋进力量永续。近日，东部战区空军某部隆重举行“大力弘扬教育家...",
+      "content": "【#共筑尊师重教风尚# 】榜样之光闪耀，奋进力量永续。近日，东部战区空军某部隆重举行“大力弘扬教育家精神，共筑尊师重教风尚”暨教学数质量评比表彰颁奖典礼，向为战育人的教员们致敬。（陈堃、龚克凡、金圣琪、葛文烁 ） #军营生活#",
+      "url": "https://m.weibo.cn/detail/5344136107917552",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
