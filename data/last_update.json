@@ -1,15 +1,15 @@
 {
-  "last_update": "2026-09-18T04:46:07.404163",
+  "last_update": "2026-09-19T04:40:53.201604",
   "stats": {
-    "timestamp": "2026-09-18T04:42:38.944443",
+    "timestamp": "2026-09-19T04:36:51.559063",
     "days_back": 7,
     "sources": {
       "cna": {
-        "scraped": 18,
+        "scraped": 19,
         "status": "success"
       },
       "xinhua": {
-        "scraped": 15,
+        "scraped": 14,
         "status": "success"
       },
       "weibo": {
@@ -24,7 +24,7 @@
     },
     "classification": {
       "total": 43,
-      "relevant": 24,
+      "relevant": 27,
       "status": "success"
     },
     "naval_transits": {
