@@ -36419,5 +36419,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國94940部隊在全民國防教育日之際，為駐地小學開展國防教育課，強化學生國防意識。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-09-19",
+      "title": "【#国防教育进校园#】#全民国防教育日#来临之际， 94940部队以“传承长征精神，争做强国少年”为...",
+      "content": "【#国防教育进校园#】#全民国防教育日#来临之际， 94940部队以“传承长征精神，争做强国少年”为主题，为驻地小学的孩子们带来一场生动深刻的国防教育课，进一步强化大家的国防意识。（沈晓伟、李响、 李子豪）",
+      "url": "https://m.weibo.cn/detail/5344770286158969",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-09-18",
+      "title": "【#参观见学强使命#】近日，江西省铜鼓县人武部结合2026年“全民国防教育月”活动，组织下半年预定新...",
+      "content": "【#参观见学强使命#】近日，江西省铜鼓县人武部结合2026年“全民国防教育月”活动，组织下半年预定新兵走进湘赣边界秋收起义前敌委员会旧址、秋收起义纪念地开展参观见学活动，强化预定新兵国防意识。（李金波）",
+      "url": "https://m.weibo.cn/detail/5344498495783114",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
