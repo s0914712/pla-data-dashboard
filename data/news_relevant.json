@@ -36611,5 +36611,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": null,
+      "Military_exercise": null,
+      "Foreign_battleship": null,
+      "Political_statement": null
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-09-19",
+      "title": "【#为国防教育凝聚磅礴力量#】#全民国防教育日#来临之际，92371部队联合驻地单位，举办国防教育主...",
+      "content": "【#为国防教育凝聚磅礴力量#】#全民国防教育日#来临之际，92371部队联合驻地单位，举办国防教育主题展演，并开展“国防教育大家谈”主题讨论会，为国防教育凝聚磅礴力量。（孙柳飞、游子吟）",
+      "url": "https://m.weibo.cn/detail/5344860883649808",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
