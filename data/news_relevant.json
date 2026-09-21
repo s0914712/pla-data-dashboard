@@ -36731,5 +36731,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "武警第二機動總隊某支隊赴陌生地域開展樓房清剿實戰化演訓",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-09-21",
+      "title": "【#楼房清剿实战化演训火热展开#】连日来，武警第二机动总队某支队赴陌生地域开展楼房清剿实战化演训，进...",
+      "content": "【#楼房清剿实战化演训火热展开#】连日来，武警第二机动总队某支队赴陌生地域开展楼房清剿实战化演训，进一步强化官兵协同意识和分队整体作战效能。（孙新、王梦林）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5345495062675749",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
