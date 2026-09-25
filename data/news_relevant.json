@@ -37734,5 +37734,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國東部戰區透過微博宣傳持續練兵備戰，強調對台灣海峽的關注。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-09-24",
+      "title": "#东部熄灯号#练兵没有休止符，备战永远在路上。 #阅海峡#",
+      "content": "#东部熄灯号#练兵没有休止符，备战永远在路上。 #阅海峡#",
+      "url": "https://m.weibo.cn/detail/5346793619196473",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區海軍航空兵組織英模講堂，激勵官兵將崇敬轉化為練兵備戰實際行動。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-09-24",
+      "title": "【#学英模励斗志#】近日，东部战区海军航空兵某部组织 “英模讲堂” 主题教育，邀请对越自卫反击战 “...",
+      "content": "【#学英模励斗志#】近日，东部战区海军航空兵某部组织 “英模讲堂” 主题教育，邀请对越自卫反击战 “兰剑 - B” 突击队队长马权斌讲述战斗经历。老英雄话语铿锵、激情满怀。官兵与英雄面对面交流，感悟精神力量，赓续红色血脉。大家表示，将把对英雄先辈的崇敬转化为练兵备战实际行动，立足岗位苦练硬 ...全文",
+      "url": "https://m.weibo.cn/detail/5346672822455735",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
