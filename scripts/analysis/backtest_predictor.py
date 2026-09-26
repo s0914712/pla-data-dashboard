@@ -55,7 +55,7 @@ def walk_forward(series, horizon, start, end, threshold=SURGE_THRESHOLD):
     frame = frame[frame["_target"].notna()]
     target_dates = pd.DatetimeIndex(frame["_target_date"])
 
-    keys = ("point", "lower", "upper", "surge_p", "surge_rank", "zero_gated",
+    keys = ("point", "lower", "upper", "surge_p", "zero_gated",
             "actual", "dates")
     out = {k: [] for k in keys}
     cache = {}
@@ -79,7 +79,6 @@ def walk_forward(series, horizon, start, end, threshold=SURGE_THRESHOLD):
         out["lower"].append(r["lower"])
         out["upper"].append(r["upper"])
         out["surge_p"].append(r["surge_probability"])
-        out["surge_rank"].append(r["surge_rank"])
         out["zero_gated"].append(r["zero_gated"])
         out["actual"].append(frame["_target"].iloc[i])
         out["dates"].append(t)

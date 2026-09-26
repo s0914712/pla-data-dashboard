@@ -73,17 +73,13 @@ THRESHOLD = 20
 # 只採計新模型（3.0.0-surge 起）的紀錄。latest_prediction.csv 裡 07-27 以前的 160 列
 # 是舊 CatBoost 回答「P(架次>=25)」，與新模型的「P(架次>=20)」不是同一個隨機變數，
 # 池在一起算會得到一個看起來很像數字的錯誤答案。
-# 3.1.0 起改了校準窗與警示規則，但回答的仍是同一個 P(架次>=20)，所以 3.x 一起算。
+# 3.1.0 起改了校準窗與點預測，但機率回答的仍是同一個 P(架次>=20)，所以 3.x 一起算。
 NEW_VERSION_PREFIX = "3."
 
 # 警示線：與 pla_surge_model.risk_level() 的 MEDIUM-HIGH 切點同式，
 # 也就是推播裡真的出現 🟠/🔴 的那條線。兩個模型共用同一條線才公平。
 ALERT_FLOOR = 0.30
 ALERT_LIFT = 2.0
-# 新模型 3.1.0 起另有排名警示（pla_surge_model.ALERT_RANK），機率未達上面那條線
-# 也可能是 MEDIUM-HIGH。所以新模型一律以 CSV 的 risk_level 判定「有沒有警示」——
-# 那就是推播實際顯示的等級。與 pla_surge_model.ALERT_LEVELS 同。
-ALERT_LEVELS = ("HIGH", "MEDIUM-HIGH")
 
 # 顯示門檻。寫進 JSON 讓 LINE 端照做，不要在兩邊各寫一次。
 MIN_N = 30              # 累積指標
@@ -124,10 +120,8 @@ def base_rate(actuals, window_days=BASE_RATE_WINDOW_DAYS, threshold=THRESHOLD):
     return float((recent >= threshold).mean())
 
 
-def load_model_rows(path, threshold, version_prefix=None, alert_from_level=False):
+def load_model_rows(path, threshold, version_prefix=None):
     """讀一個模型已解決的機率紀錄：同時有機率與實際值的日期。
-
-    alert_from_level=True 時以 risk_level 欄判定警示（新模型用，見 ALERT_LEVELS）。
 
     只採計 surge_threshold 與本次比較門檻相符的列。舊模型在加上這個欄位之前寫出的
     紀錄沒有這一欄，無從得知是用哪個門檻算的 —— 一律排除，寧可少算也不要比錯。
@@ -165,8 +159,6 @@ def load_model_rows(path, threshold, version_prefix=None, alert_from_level=False
         "prob": pd.to_numeric(df["high_event_probability"], errors="coerce").values / 100.0,
         "actual": pd.to_numeric(df["actual_sorties"], errors="coerce").values,
     }, index=pd.DatetimeIndex(df["date"]))
-    if alert_from_level and "risk_level" in df.columns:
-        out["alert"] = df["risk_level"].astype(str).str.upper().isin(ALERT_LEVELS).values
     for opt in ("high_event_probability_raw", "prob_calibrated"):
         if opt in df.columns:
             out[opt] = pd.to_numeric(df[opt].values, errors="coerce")
@@ -177,13 +169,6 @@ def load_model_rows(path, threshold, version_prefix=None, alert_from_level=False
         if src in df.columns:
             out[dst] = pd.to_numeric(df[src].values, errors="coerce")
     return out.dropna(subset=["prob", "actual"]).sort_index()
-
-
-def alert_mask(df, cut):
-    """逐列是否警示：有 alert 欄（新模型的 risk_level）就用它，否則機率對警示線。"""
-    if "alert" in df.columns:
-        return df["alert"].values.astype(bool)
-    return df["prob"].values.astype(float) >= cut
 
 
 def _r(v, nd=4):
@@ -202,7 +187,7 @@ def evaluate(df, br, threshold=THRESHOLD):
     n, npos = len(y), int(y.sum())
     observed = float(y.mean())
     cut = alert_threshold(br if br is not None else observed)
-    alert = alert_mask(df, cut)
+    alert = p >= cut
 
     res = {
         "n": n,
@@ -271,7 +256,7 @@ def daily_review(df, br, threshold=THRESHOLD):
     p = float(row["prob"])
     actual = float(row["actual"])
     happened = actual >= threshold
-    alerted = bool(alert_mask(df.iloc[[-1]], alert_threshold(br if br is not None else 0.11))[0])
+    alerted = p >= alert_threshold(br if br is not None else 0.11)
     outcome = ("hit" if happened else "false_alarm") if alerted else (
         "miss" if happened else "correct_quiet")
     return {
@@ -289,12 +274,12 @@ def consecutive_misses(df, br, threshold=THRESHOLD):
     """由近到遠數，連續幾個高架次日沒被警示。"""
     if df.empty:
         return 0
-    alerts = alert_mask(df, alert_threshold(br if br is not None else 0.11))
+    cut = alert_threshold(br if br is not None else 0.11)
     k = 0
-    for actual, alerted in zip(df["actual"].values[::-1], alerts[::-1]):
-        if actual < threshold:
+    for _, r in df.iloc[::-1].iterrows():
+        if r["actual"] < threshold:
             continue          # 非高架次日不算，只看抓到沒
-        if alerted:
+        if r["prob"] >= cut:
             break
         k += 1
     return k
@@ -353,10 +338,7 @@ def diagnostics(name, metrics, df, br):
     if br is not None and _LADDER_OK and len(df) >= LADDER_MIN_DAYS:
         recent = df["prob"].tail(LADDER_WINDOW_DAYS)
         medium_cut = risk_thresholds(br)["MEDIUM"]
-        recent_alerts = alert_mask(df.tail(LADDER_WINDOW_DAYS), medium_cut).any() \
-            if "alert" in df.columns else False
-        if len(recent) >= LADDER_MIN_DAYS and recent.max() < medium_cut \
-                and not recent_alerts:
+        if len(recent) >= LADDER_MIN_DAYS and recent.max() < medium_cut:
             add("warn", "ladder_unreachable",
                 f"{name}近 {len(recent)} 日風險等級恆為 LOW"
                 f"（最高 {recent.max() * 100:.0f}%，MEDIUM 需 {medium_cut * 100:.0f}%）"
@@ -427,7 +409,8 @@ def digest(df, days, br, threshold=THRESHOLD, series=None):
         return None
     p = sub["prob"].values
     y = (sub["actual"].values >= threshold).astype(int)
-    alert = alert_mask(sub, alert_threshold(br if br is not None else 0.11))
+    cut = alert_threshold(br if br is not None else 0.11)
+    alert = p >= cut
     return {
         "days": days,
         "n": len(sub),
@@ -553,8 +536,7 @@ def main():
         except Exception as e:
             print(f"⚠️  無法建立日曆序列，點預測基準線將略過: {e}")
 
-    new_df = load_model_rows(args.new, args.threshold, NEW_VERSION_PREFIX,
-                             alert_from_level=True)
+    new_df = load_model_rows(args.new, args.threshold, NEW_VERSION_PREFIX)
     legacy_df = load_model_rows(args.legacy, args.threshold)
 
     def trim(d):

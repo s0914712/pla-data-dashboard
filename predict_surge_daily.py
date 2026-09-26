@@ -73,9 +73,8 @@ NEW_COLUMNS = [
     # pla_surge_model.conformal_surge_prob 的 docstring。留這一欄是為了讓下次
     # 重提這個想法的人手上直接有並排紀錄。
     "high_event_probability_point",
-    # 3.1.0 起：原始分數在校準窗中的百分位（>= ALERT_RANK 即警示），
-    # 以及點預測是否被零架次閘門改為 0。
-    "high_event_rank", "zero_gated",
+    # 3.1.0 起：點預測是否被零架次閘門改為 0。
+    "zero_gated",
 ]
 
 
@@ -137,7 +136,7 @@ def build_rows(series, holidays):
             # h>=2 的機率不具鑑別力，寧可留空也不要輸出一個會被當真的數字
             "high_event_probability": prob if valid else np.nan,
             "risk_level": risk_level(r["surge_probability"], valid,
-                                     r["surge_base_rate"], r["surge_rank"]),
+                                     r["surge_base_rate"]),
             "is_cn_holiday": int(d.date() in holidays),
             "weather_adjustment": 1.0,      # 不再做天氣調整，保留欄位相容性
             "cn_stmt_7d": 0,                # 同上：特徵已移除，欄位保留
@@ -156,7 +155,6 @@ def build_rows(series, holidays):
             "prob_calibrated": int(r["surge_calibrated"]),
             "high_event_probability_point": round(
                 r["surge_probability_point"] * 100, 1),
-            "high_event_rank": round(r["surge_rank"] * 100, 1) if valid else np.nan,
             "zero_gated": int(r["zero_gated"]),
         })
     return pd.DataFrame(rows)

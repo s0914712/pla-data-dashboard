@@ -251,16 +251,8 @@ def summarize_surge_probability(fc):
         bits.append(f"基準發生率 ~{base:.0f}%"
                     + (f" → {lift:.1f} 倍" if lift is not None else ""))
     if cutoff is not None:
-        # 3.1.0 起另有排名警示（原始分數在近一年前 10%），機率未達警示線也可能
-        # 是 MEDIUM-HIGH，這裡以 risk_level 為準，免得同一行寫「🟠」又寫「未達」。
-        rank = r.get("high_event_rank")
-        by_rank = (risk in ("HIGH", "MEDIUM-HIGH") and prob / 100.0 < cutoff
-                   and isinstance(rank, (int, float)) and rank == rank)
-        reached = prob / 100.0 >= cutoff or risk in ("HIGH", "MEDIUM-HIGH")
-        if by_rank:
-            bits.append(f"排名前 {max(1.0, 100 - rank):.0f}%（近一年），列入警示")
-        else:
-            bits.append(("已達" if reached else "未達") + f"警示線（{cutoff * 100:.0f}%）")
+        reached = prob / 100.0 >= cutoff
+        bits.append(("已達" if reached else "未達") + f"警示線（{cutoff * 100:.0f}%）")
     bits.append("僅報 D+1")
     lines.append("   " + "，".join(bits))
 

@@ -22,8 +22,8 @@
 
 6. 零架次 regime（3.1.0）：2026 的零架次日由往年 <6% 升到 26%，而 2024 以前
    的資料根本沒有記錄零架次。處理方式是零架次特徵 + 點預測時間衰減權重 +
-   零架次閘門（見 ZERO_GATE_PROB），並把 Platt 校準窗拉長到 365 天、另加
-   相對排名警示（見 CALIBRATION_WINDOW / ALERT_RANK）。前後回測比較見
+   零架次閘門（見 ZERO_GATE_PROB），並把 Platt 校準窗拉長到 365 天
+   （見 CALIBRATION_WINDOW）。前後回測比較見
    docs/zero_regime_backtest.md。
 
 Surge 只在 h=1 有訊號（ROC-AUC 0.764）；h>=2 掉到 0.45-0.57，等同亂猜。
@@ -58,13 +58,27 @@ MIN_CALIBRATION_POSITIVES = 8
 #     180 天  ROC-AUC 0.587  Brier 0.166
 #     365 天  ROC-AUC 0.618  Brier 0.162
 # 另試過把 zr28（零架次比例）當 Platt 第二特徵，沒有增益，未採用。
+#
+# 副作用：校準後機率很少超過 30%，MEDIUM-HIGH 以上的警示因此變得很少
+# （主要回測 813 天由 88 次降到 4 次）。舊版那 88 次在主要回測 precision 0.35
+# （基準 0.21），但到了 2022-07 → 2024-06 保留期是 113 次、lift 1.01，等同隨機 ——
+# 那些尖峰不穩定。這裡刻意不為了「有警示」去調低門檻（見 risk_level() 與
+# probability_review.py 的 ladder_unreachable 說明）。
 CALIBRATION_WINDOW = 365
 
-# 點預測的時間衰減權重半衰期（天）。2026 的活動型態（零架次日 26%、日均 7.4）
-# 與 2022-2025（零架次日 <6%、日均 ~14）明顯不同，等權訓練會讓模型持續高估。
-# 實測半衰期 90 / 180 / 365 天，全期 MAE 8.26 / 8.01 / 7.81（等權 8.06），取 365。
-# 只加在回歸頭：surge 分類器正樣本本來就少，再降權只會更不穩。
+# 點預測的時間衰減權重（半衰期，天）。None = 等權。
+# POINT_WEIGHT_ZERO_SHARE 不是 None 時，只在訓練集最後 ZERO_GATE_WINDOW 天的
+# 零架次比例 >= 這個值時才加權（零架次 regime），否則等權。
+#
+# 為什麼有條件：無條件加權在 2024-07 → 2026-09 回測 MAE -0.40（顯著），但在
+# 2022-07 → 2024-06 保留期 MAE +0.23 —— 型態沒變時壓低舊資料只是丟掉有用的歷史。
+# 180 天零架次比例在 2025 年以前最高 10%，2026-03 起 17-28%，0.15 落在兩者之間。
+#     （MAE 變化，相對 3.0.0）   主要回測         保留期
+#     無條件加權               -0.40            +0.23
+#     不加權                   -0.14            +0.01
+#     有條件加權（採用）        -0.17（顯著）     +0.01
 POINT_HALF_LIFE = 365
+POINT_WEIGHT_ZERO_SHARE = 0.15
 
 # 零架次閘門。條件是「原點當天為 0，且近 ZERO_GATE_WINDOW 天內，
 # 0 之後 h 天仍為 0 的比例 >= ZERO_GATE_PROB」，成立時點預測直接給 0。
@@ -75,21 +89,11 @@ POINT_HALF_LIFE = 365
 # 是 52%（中位數 0），而模型平均預測 6 架次。門檻 0.5 = 條件中位數為 0，
 # 此時預測 0 是 MAE 最佳解。
 #
-# 代價：pin90 由 4.39 → 4.45（略增低估懲罰）。零架次期間 MAE 7.12 → 3.68。
+# 2026 零架次期間 MAE 7.64 → 3.92，前一天為 0 的日子 5.58 → 4.06。
 ZERO_GATE_WINDOW = 180
 ZERO_GATE_PROB = 0.5
 ZERO_GATE_MIN_PAIRS = 5
 
-# 相對排名警示：今天的原始分類器分數落在校準窗樣本外分數的前 10%，
-# 風險等級至少 MEDIUM-HIGH（推播裡的警示線）。
-#
-# 為什麼需要：校準後的機率在 base rate ~12% 的期間幾乎摸不到 30% 絕對下限，
-# 換成 365 天校準窗後更是如此（回測全期只剩 17 次警示、recall 5%）。
-# 排名不受校準斜率影響。回測 813 天：
-#     現行階梯          87 次警示  命中 31  precision 0.36  recall 0.18
-#     365 校準 + 排名   87 次警示  命中 34  precision 0.39  recall 0.20
-# 前 5% 與 5-10% 的命中率沒有差異（0.25 vs 0.44，n=24），所以只設一階。
-ALERT_RANK = 0.90
 RANDOM_STATE = 42
 
 POINT_PARAMS = dict(
@@ -237,11 +241,22 @@ def feature_columns(frame):
             if c not in FEATURE_EXCLUDE and not c.startswith("_")]
 
 
-def recency_weights(target_dates, half_life=POINT_HALF_LIFE):
+def recency_weights(target_dates, half_life):
     """以最後一個目標日為基準的指數衰減權重。"""
     td = pd.DatetimeIndex(target_dates)
     age = (td.max() - td).days.values.astype(float)
     return 0.5 ** (age / half_life)
+
+
+def point_weights(train):
+    """點預測的樣本權重；None 代表等權。規則見 POINT_WEIGHT_ZERO_SHARE。"""
+    if POINT_HALF_LIFE is None:
+        return None
+    if POINT_WEIGHT_ZERO_SHARE is not None:
+        recent = train["_target"].values[-ZERO_GATE_WINDOW:]
+        if np.mean(recent == 0) < POINT_WEIGHT_ZERO_SHARE:
+            return None
+    return recency_weights(train["_target_date"], POINT_HALF_LIFE)
 
 
 def zero_gate(frame):
@@ -264,7 +279,6 @@ class HorizonModel:
         self.surge_base_rate = None
         self.calibrator = None     # Platt，把分類器輸出映回真實機率
         self.calibration_base_rate = None
-        self.raw_reference = None  # 校準窗的樣本外原始分數（已排序），排名用
 
     def fit(self, series):
         frame = build_features(series, self.horizon, self.threshold)
@@ -280,7 +294,7 @@ class HorizonModel:
         self.features = feature_columns(train)
         X = train[self.features].values
         y = train["_target"].values
-        w = recency_weights(train["_target_date"])
+        w = point_weights(train)
         y_surge = (y >= self.threshold).astype(int)
         self.surge_base_rate = float(y_surge.mean())
 
@@ -289,7 +303,8 @@ class HorizonModel:
         # 樣本外殘差當校準集。用樣本內殘差會嚴重低估區間寬度。
         n_cal = min(CONFORMAL_WINDOW, len(train) // 4)
         cal_model = HistGradientBoostingRegressor(**POINT_PARAMS).fit(
-            X[:-n_cal], y[:-n_cal], sample_weight=w[:-n_cal])
+            X[:-n_cal], y[:-n_cal],
+            sample_weight=None if w is None else w[:-n_cal])
         self.residuals = y[-n_cal:] - cal_model.predict(X[-n_cal:])
 
         # 機率校準。SURGE_PARAMS 用 class_weight='balanced'，那是為了讓分類器
@@ -303,7 +318,6 @@ class HorizonModel:
             cal_clf = HistGradientBoostingClassifier(**SURGE_PARAMS).fit(
                 X[:-n_pl], head)
             raw = cal_clf.predict_proba(X[-n_pl:])[:, 1]
-            self.raw_reference = np.sort(raw)
             self.calibration_base_rate = float(held.mean())
             if MIN_CALIBRATION_POSITIVES <= held.sum() < len(held):
                 self.calibrator = LogisticRegression().fit(_logit(raw), held)
@@ -335,11 +349,6 @@ class HorizonModel:
         surge_p = surge_raw
         if self.calibrator is not None:
             surge_p = self.calibrator.predict_proba(_logit(surge_raw))[:, 1]
-        if self.raw_reference is not None and len(self.raw_reference):
-            rank = (np.searchsorted(self.raw_reference, surge_raw, side="right")
-                    / len(self.raw_reference))
-        else:
-            rank = np.full(len(rows), np.nan)
         base = (self.calibration_base_rate if self.calibration_base_rate is not None
                 else self.surge_base_rate)
 
@@ -360,8 +369,6 @@ class HorizonModel:
                 "surge_probability": float(surge_p[i]),
                 # 未校準的原始輸出，供上線後監看校準漂移
                 "surge_probability_raw": float(surge_raw[i]),
-                # 原始分數在校準窗樣本外分數中的百分位，警示用（見 ALERT_RANK）
-                "surge_rank": float(rank[i]),
                 # 回歸頭推得的機率，只監看 —— 理由見 conformal_surge_prob 的 docstring。
                 "surge_probability_point": conformal_surge_prob(
                     float(model_point[i]), self.residuals, self.threshold),
@@ -405,25 +412,20 @@ def risk_thresholds(base_rate):
             for name, floor, lift in RISK_LADDER}
 
 
-ALERT_LEVELS = ("HIGH", "MEDIUM-HIGH")   # 推播裡出現 🟠/🔴 的等級
-
-
-def risk_level(surge_p, signal_valid, base_rate, surge_rank=None):
+def risk_level(surge_p, signal_valid, base_rate):
     """把 surge 機率轉成等級。
 
     門檻取自回測操作點：>=2x lift 才叫 HIGH。訊號無效的 horizon
     一律回 UNKNOWN，不要用一個 AUC 0.5 的數字去嚇人。
-    surge_rank >= ALERT_RANK 時至少 MEDIUM-HIGH（理由見 ALERT_RANK）。
+
+    3.1.0 曾試過「原始分數排名前 10% 即 MEDIUM-HIGH」：主要回測命中 +3（95% CI
+    -11..+16，雜訊），2022-07 → 2024-06 保留期警示率由 17% 暴增到 32%，
+    而且推播會出現「🟠 但機率 15%」。已撤回，見 docs/zero_regime_backtest.md。
     """
     if not signal_valid:
         return "UNKNOWN"
     thresholds = risk_thresholds(base_rate)
-    level = "LOW"
     for name, _, _ in RISK_LADDER:
         if surge_p >= thresholds[name]:
-            level = name
-            break
-    if surge_rank is not None and surge_rank == surge_rank \
-            and surge_rank >= ALERT_RANK and level not in ALERT_LEVELS:
-        level = "MEDIUM-HIGH"
-    return level
+            return name
+    return "LOW"
