@@ -73,7 +73,8 @@ THRESHOLD = 20
 # 只採計新模型（3.0.0-surge 起）的紀錄。latest_prediction.csv 裡 07-27 以前的 160 列
 # 是舊 CatBoost 回答「P(架次>=25)」，與新模型的「P(架次>=20)」不是同一個隨機變數，
 # 池在一起算會得到一個看起來很像數字的錯誤答案。
-NEW_VERSION_PREFIX = "3.0"
+# 3.1.0 起改了校準窗與點預測，但機率回答的仍是同一個 P(架次>=20)，所以 3.x 一起算。
+NEW_VERSION_PREFIX = "3."
 
 # 警示線：與 pla_surge_model.risk_level() 的 MEDIUM-HIGH 切點同式，
 # 也就是推播裡真的出現 🟠/🔴 的那條線。兩個模型共用同一條線才公平。
@@ -441,7 +442,7 @@ def build(new_df, legacy_df, br, threshold=THRESHOLD, series=None):
             "legacy": daily_review(legacy_df, br, threshold),
         },
         "models": {
-            "new": dict(label="SurgeForecaster 3.0.0", **new_m),
+            "new": dict(label="SurgeForecaster 3.x", **new_m),
             "legacy": dict(label="CatBoost 2.8.0", **old_m),
         },
         "calibration": {
