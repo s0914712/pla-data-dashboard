@@ -20,6 +20,12 @@
    直接 shift(1) 會讓 lag_1 不是「昨天」。缺失日保留 NaN，
    由 HistGradientBoosting 原生處理，不補零 — 沒回報 ≠ 零架次。
 
+6. 零架次 regime（3.1.0）：2026 的零架次日由往年 <6% 升到 26%，而 2024 以前
+   的資料根本沒有記錄零架次。處理方式是零架次特徵 + 點預測時間衰減權重 +
+   零架次閘門（見 ZERO_GATE_PROB），並把 Platt 校準窗拉長到 365 天、另加
+   相對排名警示（見 CALIBRATION_WINDOW / ALERT_RANK）。前後回測比較見
+   docs/zero_regime_backtest.md。
+
 Surge 只在 h=1 有訊號（ROC-AUC 0.764）；h>=2 掉到 0.45-0.57，等同亂猜。
 SIGNAL_HORIZON 就是用來標記這件事的，呼叫端應據此決定要不要顯示警報。
 """
@@ -44,6 +50,46 @@ MIN_TRAIN_ROWS = 400
 # 排序能力被校準本身破壞掉了。Platt 是嚴格單調的，AUC 完全不變，
 # 只把系統性偏移（class_weight='balanced' 造成的整體推高）拉回來。
 MIN_CALIBRATION_POSITIVES = 8
+# Platt 的校準窗（天），與 conformal 的 180 天分開。
+#
+# 180 天窗在 2026 零架次期偏多時（校準窗 24% 是零）把 Platt 斜率壓到 ~0.5，
+# 原始 50% 只映成 20%，而且每次重訓斜率都不同 —— 同一天內雖然單調，跨天排序
+# 卻被打亂。walk-forward（2024-07 → 2026-09，813 天，h=1）實測：
+#     180 天  ROC-AUC 0.587  Brier 0.166
+#     365 天  ROC-AUC 0.618  Brier 0.162
+# 另試過把 zr28（零架次比例）當 Platt 第二特徵，沒有增益，未採用。
+CALIBRATION_WINDOW = 365
+
+# 點預測的時間衰減權重半衰期（天）。2026 的活動型態（零架次日 26%、日均 7.4）
+# 與 2022-2025（零架次日 <6%、日均 ~14）明顯不同，等權訓練會讓模型持續高估。
+# 實測半衰期 90 / 180 / 365 天，全期 MAE 8.26 / 8.01 / 7.81（等權 8.06），取 365。
+# 只加在回歸頭：surge 分類器正樣本本來就少，再降權只會更不穩。
+POINT_HALF_LIFE = 365
+
+# 零架次閘門。條件是「原點當天為 0，且近 ZERO_GATE_WINDOW 天內，
+# 0 之後 h 天仍為 0 的比例 >= ZERO_GATE_PROB」，成立時點預測直接給 0。
+#
+# 為什麼不是學一個「明天是否為 0」的分類器：試過（全資料 / 僅 2024+ /
+# 時間加權），2026 的 ROC-AUC 只有 0.50-0.61 —— 2024 以前根本沒有記錄零架次，
+# 分類器學不到。但轉移機率本身訊號很強：2026 前一天為 0 時，隔天為 0 的機率
+# 是 52%（中位數 0），而模型平均預測 6 架次。門檻 0.5 = 條件中位數為 0，
+# 此時預測 0 是 MAE 最佳解。
+#
+# 代價：pin90 由 4.39 → 4.45（略增低估懲罰）。零架次期間 MAE 7.12 → 3.68。
+ZERO_GATE_WINDOW = 180
+ZERO_GATE_PROB = 0.5
+ZERO_GATE_MIN_PAIRS = 5
+
+# 相對排名警示：今天的原始分類器分數落在校準窗樣本外分數的前 10%，
+# 風險等級至少 MEDIUM-HIGH（推播裡的警示線）。
+#
+# 為什麼需要：校準後的機率在 base rate ~12% 的期間幾乎摸不到 30% 絕對下限，
+# 換成 365 天校準窗後更是如此（回測全期只剩 17 次警示、recall 5%）。
+# 排名不受校準斜率影響。回測 813 天：
+#     現行階梯          87 次警示  命中 31  precision 0.36  recall 0.18
+#     365 校準 + 排名   87 次警示  命中 34  precision 0.39  recall 0.20
+# 前 5% 與 5-10% 的命中率沒有差異（0.25 vs 0.44，n=24），所以只設一階。
+ALERT_RANK = 0.90
 RANDOM_STATE = 42
 
 POINT_PARAMS = dict(
@@ -150,6 +196,26 @@ def build_features(series, horizon, threshold=SURGE_THRESHOLD):
     # 回報密度：低密度期間的 lag 特徵較不可信，讓模型自己學到這點
     o["obs28"] = p.notna().rolling(28, min_periods=1).mean()
 
+    # 零架次 regime：目前連續幾天為 0、距上次有活動幾天、上次有活動的量。
+    # 缺值不算 0，也不延續連續天數。
+    is_zero = p == 0
+    o["zero_streak"] = is_zero.groupby((~is_zero).cumsum()).cumsum().astype(float)
+    pos = np.arange(len(p), dtype=float)
+    last_active = pd.Series(np.where(p > 0, pos, np.nan), index=p.index).ffill()
+    o["days_since_active"] = pos - last_active.values
+    o["last_active_val"] = p.where(p > 0).ffill()
+    o["zero3"] = is_zero.astype(float).mask(p.isna()).rolling(3, min_periods=1).sum()
+
+    # 零架次閘門用的轉移統計（以 _ 開頭，不進模型）。
+    # 配對 (o-h, o)，o 落在原點前 ZERO_GATE_WINDOW 天內 —— 全是原點當下已知。
+    prev_zero = p.shift(horizon) == 0
+    pair = prev_zero & p.notna()
+    stay = pair & is_zero
+    n_pair = pair.astype(float).rolling(ZERO_GATE_WINDOW, min_periods=1).sum()
+    o["_zero_pairs"] = n_pair
+    o["_zero_persist"] = (stay.astype(float).rolling(ZERO_GATE_WINDOW, min_periods=1).sum()
+                          / n_pair.replace(0, np.nan))
+
     target_dates = series.index + pd.Timedelta(days=horizon)
     o["dow"] = target_dates.dayofweek
     o["dow_sin"] = np.sin(2 * np.pi * target_dates.dayofweek / 7)
@@ -166,7 +232,23 @@ FEATURE_EXCLUDE = ("_target", "_target_date")
 
 
 def feature_columns(frame):
-    return [c for c in frame.columns if c not in FEATURE_EXCLUDE]
+    # 以 _ 開頭的是輔助欄（目標、閘門統計），不進模型
+    return [c for c in frame.columns
+            if c not in FEATURE_EXCLUDE and not c.startswith("_")]
+
+
+def recency_weights(target_dates, half_life=POINT_HALF_LIFE):
+    """以最後一個目標日為基準的指數衰減權重。"""
+    td = pd.DatetimeIndex(target_dates)
+    age = (td.max() - td).days.values.astype(float)
+    return 0.5 ** (age / half_life)
+
+
+def zero_gate(frame):
+    """零架次閘門是否成立（逐列布林）。定義見 ZERO_GATE_PROB。"""
+    return ((frame["lag0"] == 0)
+            & (frame["_zero_pairs"] >= ZERO_GATE_MIN_PAIRS)
+            & (frame["_zero_persist"] >= ZERO_GATE_PROB)).values
 
 
 class HorizonModel:
@@ -181,6 +263,8 @@ class HorizonModel:
         self.residuals = None      # 供 conformal 區間使用
         self.surge_base_rate = None
         self.calibrator = None     # Platt，把分類器輸出映回真實機率
+        self.calibration_base_rate = None
+        self.raw_reference = None  # 校準窗的樣本外原始分數（已排序），排名用
 
     def fit(self, series):
         frame = build_features(series, self.horizon, self.threshold)
@@ -189,10 +273,14 @@ class HorizonModel:
         if len(train) < MIN_TRAIN_ROWS:
             raise ValueError(
                 f"h={self.horizon} 訓練資料不足: {len(train)} < {MIN_TRAIN_ROWS}")
+        return self.fit_frame(train)
 
+    def fit_frame(self, train):
+        """由 build_features 的列訓練。回測直接呼叫這裡，確保與上線同一套作法。"""
         self.features = feature_columns(train)
         X = train[self.features].values
         y = train["_target"].values
+        w = recency_weights(train["_target_date"])
         y_surge = (y >= self.threshold).astype(int)
         self.surge_base_rate = float(y_surge.mean())
 
@@ -201,23 +289,28 @@ class HorizonModel:
         # 樣本外殘差當校準集。用樣本內殘差會嚴重低估區間寬度。
         n_cal = min(CONFORMAL_WINDOW, len(train) // 4)
         cal_model = HistGradientBoostingRegressor(**POINT_PARAMS).fit(
-            X[:-n_cal], y[:-n_cal])
+            X[:-n_cal], y[:-n_cal], sample_weight=w[:-n_cal])
         self.residuals = y[-n_cal:] - cal_model.predict(X[-n_cal:])
 
         # 機率校準。SURGE_PARAMS 用 class_weight='balanced'，那是為了讓分類器
         # 在稀疏正樣本下學得動，代價是輸出機率被整體推高 —— 實測 Brier 0.1230
         # 比「全押 base rate」的 0.0998 還差，也就是那個百分比本身不能當機率讀。
-        # 這裡用跟 conformal 同一段樣本外資料配 Platt 把它映射回真實頻率。
-        head, held = y_surge[:-n_cal], y_surge[-n_cal:]
-        if 0 < head.sum() < len(head) and \
-                MIN_CALIBRATION_POSITIVES <= held.sum() < len(held):
+        # 這裡用最後 CALIBRATION_WINDOW 天的樣本外輸出配 Platt 把它映射回真實頻率。
+        n_pl = min(CALIBRATION_WINDOW, len(train) // 4)
+        head, held = y_surge[:-n_pl], y_surge[-n_pl:]
+        self.calibrator = None
+        if 0 < head.sum() < len(head):
             cal_clf = HistGradientBoostingClassifier(**SURGE_PARAMS).fit(
-                X[:-n_cal], head)
-            raw = cal_clf.predict_proba(X[-n_cal:])[:, 1]
-            self.calibrator = LogisticRegression().fit(_logit(raw), held)
+                X[:-n_pl], head)
+            raw = cal_clf.predict_proba(X[-n_pl:])[:, 1]
+            self.raw_reference = np.sort(raw)
+            self.calibration_base_rate = float(held.mean())
+            if MIN_CALIBRATION_POSITIVES <= held.sum() < len(held):
+                self.calibrator = LogisticRegression().fit(_logit(raw), held)
 
         # 最終模型用全部資料重訓（標準 split-conformal 作法）
-        self.point = HistGradientBoostingRegressor(**POINT_PARAMS).fit(X, y)
+        self.point = HistGradientBoostingRegressor(**POINT_PARAMS).fit(
+            X, y, sample_weight=w)
         # 全零或全一時分類器無法訓練（極短序列才會發生）
         if 0 < y_surge.sum() < len(y_surge):
             self.surge = HistGradientBoostingClassifier(**SURGE_PARAMS).fit(X, y_surge)
@@ -226,38 +319,57 @@ class HorizonModel:
     def predict(self, series):
         """對序列最後一天當原點，預測 origin + horizon。"""
         frame = build_features(series, self.horizon, self.threshold)
-        row = frame.iloc[[-1]]
-        X = row[self.features].values
+        return self.predict_frame(frame.iloc[[-1]])[0]
 
-        point = float(max(0.0, self.point.predict(X)[0]))
+    def predict_frame(self, rows):
+        """對 build_features 的多列逐列預測，回傳 dict 串列。"""
+        X = rows[self.features].values
+        model_point = np.maximum(0.0, self.point.predict(X))
+        gated = zero_gate(rows)
+        points = np.where(gated, 0.0, model_point)
+
         if self.surge is not None:
-            surge_raw = float(self.surge.predict_proba(X)[0, 1])
+            surge_raw = self.surge.predict_proba(X)[:, 1]
         else:
-            surge_raw = self.surge_base_rate
-
+            surge_raw = np.full(len(rows), self.surge_base_rate)
         surge_p = surge_raw
         if self.calibrator is not None:
-            surge_p = float(self.calibrator.predict_proba(_logit([surge_raw]))[0, 1])
+            surge_p = self.calibrator.predict_proba(_logit(surge_raw))[:, 1]
+        if self.raw_reference is not None and len(self.raw_reference):
+            rank = (np.searchsorted(self.raw_reference, surge_raw, side="right")
+                    / len(self.raw_reference))
+        else:
+            rank = np.full(len(rows), np.nan)
+        base = (self.calibration_base_rate if self.calibration_base_rate is not None
+                else self.surge_base_rate)
 
-        # 只監看，不參與上面的機率 —— 理由見 conformal_surge_prob 的 docstring。
-        p_point = conformal_surge_prob(point, self.residuals, self.threshold)
-
+        # 區間以模型點預測為中心（閘門不改變不確定性：0 之後照樣可能反彈），
+        # 下緣再往下延伸到閘門點預測，確保點預測落在區間內。
         lo_q, hi_q = np.quantile(self.residuals, [0.05, 0.95])
-        return {
-            "horizon": self.horizon,
-            "target_date": row["_target_date"].iloc[0],
-            "point": point,
-            "lower": float(max(0.0, point + lo_q)),
-            "upper": float(point + hi_q),
-            "surge_probability": surge_p,
-            # 未校準的原始輸出，供上線後監看校準漂移
-            "surge_probability_raw": surge_raw,
-            # 回歸頭推得的機率，單獨留一欄才看得出兩個訊號何時分歧
-            "surge_probability_point": p_point,
-            "surge_calibrated": self.calibrator is not None,
-            "surge_base_rate": self.surge_base_rate,
-            "surge_signal_valid": self.horizon <= SIGNAL_HORIZON,
-        }
+        out = []
+        for i in range(len(rows)):
+            point = float(points[i])
+            out.append({
+                "horizon": self.horizon,
+                "target_date": rows["_target_date"].iloc[i],
+                "point": point,
+                "point_model": float(model_point[i]),
+                "zero_gated": bool(gated[i]),
+                "lower": float(min(point, max(0.0, model_point[i] + lo_q))),
+                "upper": float(model_point[i] + hi_q),
+                "surge_probability": float(surge_p[i]),
+                # 未校準的原始輸出，供上線後監看校準漂移
+                "surge_probability_raw": float(surge_raw[i]),
+                # 原始分數在校準窗樣本外分數中的百分位，警示用（見 ALERT_RANK）
+                "surge_rank": float(rank[i]),
+                # 回歸頭推得的機率，只監看 —— 理由見 conformal_surge_prob 的 docstring。
+                "surge_probability_point": conformal_surge_prob(
+                    float(model_point[i]), self.residuals, self.threshold),
+                "surge_calibrated": self.calibrator is not None,
+                "surge_base_rate": float(base),
+                "surge_signal_valid": self.horizon <= SIGNAL_HORIZON,
+            })
+        return out
 
 
 class SurgeForecaster:
@@ -293,16 +405,25 @@ def risk_thresholds(base_rate):
             for name, floor, lift in RISK_LADDER}
 
 
-def risk_level(surge_p, signal_valid, base_rate):
+ALERT_LEVELS = ("HIGH", "MEDIUM-HIGH")   # 推播裡出現 🟠/🔴 的等級
+
+
+def risk_level(surge_p, signal_valid, base_rate, surge_rank=None):
     """把 surge 機率轉成等級。
 
     門檻取自回測操作點：>=2x lift 才叫 HIGH。訊號無效的 horizon
     一律回 UNKNOWN，不要用一個 AUC 0.5 的數字去嚇人。
+    surge_rank >= ALERT_RANK 時至少 MEDIUM-HIGH（理由見 ALERT_RANK）。
     """
     if not signal_valid:
         return "UNKNOWN"
     thresholds = risk_thresholds(base_rate)
+    level = "LOW"
     for name, _, _ in RISK_LADDER:
         if surge_p >= thresholds[name]:
-            return name
-    return "LOW"
+            level = name
+            break
+    if surge_rank is not None and surge_rank == surge_rank \
+            and surge_rank >= ALERT_RANK and level not in ALERT_LEVELS:
+        level = "MEDIUM-HIGH"
+    return level
