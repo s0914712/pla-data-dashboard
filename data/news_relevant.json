@@ -38286,5 +38286,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.7,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-09-28",
+      "title": "【#榜样凝聚奋进力量#】一个榜样就是一面旗帜。近日，武警浙江总队丽水支队举行“丽水铸剑、匠心传薪”典...",
+      "content": "【#榜样凝聚奋进力量#】一个榜样就是一面旗帜。近日，武警浙江总队丽水支队举行“丽水铸剑、匠心传薪”典型访谈会暨文艺汇演。来自机关基层不同岗位的先进典型代表和来队军属，与官兵齐聚一堂，用亲身经历浇灌初心，激发奋进力量。#军营生活#  （张硕、周宣琦、肖海波）",
+      "url": "https://m.weibo.cn/detail/5348122374178472",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
