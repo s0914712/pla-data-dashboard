@@ -45019,5 +45019,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.5,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍某部與駐地舉辦軍地青年聯誼會"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-09-29",
+      "title": "【#军地联谊会真甜# 】月圆中秋遇青春，军营邂逅结良缘。中秋假期，东部战区空军某部与驻地有关部门联合...",
+      "content": "【#军地联谊会真甜# 】月圆中秋遇青春，军营邂逅结良缘。中秋假期，东部战区空军某部与驻地有关部门联合举办“星耀中秋聚军营·心赴芳华结良缘”军地青年联谊会会，60余名军地单身青年齐聚一堂，共赴这场青春浪漫的美好约会。（王思齐、黄忠杰、黄文涛）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5348484762044171",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
