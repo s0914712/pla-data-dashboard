@@ -45307,5 +45307,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.2,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中共中央台办副主任彭庆恩在“两岸创新发展周”致辞，强调“十五五”规划将为两岸经济合作注入新动能，呼吁台商台企扎根大陆，并坚持一个中国原则和“九二共识”，反对“台独”和外部势力干涉。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-09-30",
+      "title": "首届“两岸创新发展周”在上海举办",
+      "content": "活动包括一场主研讨会、5场平行研讨会及一系列配套活动，旨在深入贯彻落实“十五五”规划关于推动两岸经济合作、深化两岸融合发展的战略部署，依托上海高水平对外开放与科创优势，搭建两岸经济交流合作新平台，探索两岸产业创新融合新路径。 中共中央台办、国务院台办副主任彭庆恩在主研讨会开幕式暨启动仪式上致辞表示，“十五五”规划擘画了未来五年经济社会发展的宏伟蓝图，大陆市场空间广阔、产业体系完备、创新生态活跃、人才供给充足，必将为两岸经济合作和融合发展注入充沛新动能。台商台企要认清大势、抢抓机遇，坚定扎根大陆发展信心。希望广大台湾同胞坚持一个中国原则和“九二共识”，坚决反对“台独”分裂和外部势力干涉，共创祖国统一和民族复兴美好未来。 上海市副市长卢山在致辞中表示，上海将一如既往秉持“两岸一家亲”理念，尊重、关爱、造福台湾同胞，让台胞在这里工作更顺心、生活更舒心、发展更有信心。 国务院台办和上海市有关部门负责人，台湾主要工商团体负责人、产学研各界人士、重要台商代表等千余名两岸嘉宾参加活动。 首届“两岸创新发展周”5场平行研讨会分别聚焦消费品牌、青年农业、数智科技等两岸共同关注的话题，以及青年企业家、女企业家群体。 作为配套活动，“2026旺旺孝亲公益音乐会”28日举行，“以舞为桥 同心同行”第三届海峡两岸体育舞蹈公开赛29日启幕，分别为首届“两岸创新发展周”增添传统文化和现代时尚元素。",
+      "url": "https://www.news.cn/tw/20260930/baa7f6acf8cd44c7a59f26e869b855d1/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-09-30",
+      "title": "新华社快讯：台湾以东海域附近发生5.6级地震",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 应急 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 应急 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عرب",
+      "url": "https://www.news.cn/tw/20260930/7b932b9d2a77460e865b45c54d928d78/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
