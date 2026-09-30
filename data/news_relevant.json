@@ -38766,5 +38766,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區海軍某導彈快艇大隊組織開展烈士紀念日活動，緬懷先烈並傳承紅色基因。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-09-30",
+      "title": "#烈士纪念日#【#赓续红色血脉#】为什么战旗美如画，英雄的鲜血染红了它。近日，东部战区海军某导弹快艇...",
+      "content": "#烈士纪念日#【#赓续红色血脉#】为什么战旗美如画，英雄的鲜血染红了它。近日，东部战区海军某导弹快艇大队组织开展多种形式纪念活动，缅怀先烈，致敬英雄。回顾历史，汲取力量，他们走进荣誉室，于历史的沉淀中追忆英雄战史。崇尚英雄才会产生英雄，争做英雄才能英雄辈出，沿着英烈的足迹奋勇前行，他 ...全文",
+      "url": "https://m.weibo.cn/detail/5348847150172468",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中共東部戰區相關官方社群發布具有軍事暗示及威懾性質的貼文。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-09-29",
+      "title": "#东部熄灯号# 向前推进，把安全留给身后。#阅海峡#",
+      "content": "#东部熄灯号# 向前推进，把安全留给身后。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5348605558003551",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
