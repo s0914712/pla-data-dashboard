@@ -39150,5 +39150,101 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.2,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區陸軍某部於10月1日舉行升旗儀式慶祝中華人民共和國國慶。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-01",
+      "title": "#国庆节# 【#举行升旗仪式为祖国母亲庆生#】 10月1日，东部战区陆军某部隆重举行升旗仪式，为#新...",
+      "content": "#国庆节# 【#举行升旗仪式为祖国母亲庆生#】 10月1日，东部战区陆军某部隆重举行升旗仪式，为#新中国成立77周年#送上最真挚的祝福。伴随着雄壮的国歌声，五星红旗冉冉升起，全体官兵整齐列队、肃立敬礼，抒发对祖国的无限热爱与美好祝愿。（李振杰、胥书畅、陶德胜）",
+      "url": "https://m.weibo.cn/detail/5349209541708558",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍某部舉行向革命先烈敬獻花籃儀式"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-09-30",
+      "title": "#烈士纪念日#【#向革命先烈敬献花篮#】9月30日烈士纪念日，东部战区空军某部在军史长廊及缅怀先烈场...",
+      "content": "#烈士纪念日#【#向革命先烈敬献花篮#】9月30日烈士纪念日，东部战区空军某部在军史长廊及缅怀先烈场所举行向革命先烈敬献花篮仪式，缅怀革命先烈、传承英烈遗志。仪式现场，全体官兵肃穆静立、军容严整、神情庄重，怀着无比崇敬的深切缅怀之情，向革命先烈默哀致敬，瞻仰雕塑浮雕，在追忆峥嵘岁月中感 ...全文",
+      "url": "https://m.weibo.cn/detail/5348892448653654",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-09-30",
+      "title": "#烈士纪念日#【#感悟先烈精神筑牢忠诚底色#】近日，武警第二机动总队某支队组织官兵前往红军长征突破湘...",
+      "content": "#烈士纪念日#【#感悟先烈精神筑牢忠诚底色#】近日，武警第二机动总队某支队组织官兵前往红军长征突破湘江纪念碑园、湖州烈士陵园和航空卫士王伟纪念广场等红色场所开展缅怀先烈活动。官兵们通过聆听战斗故事、敬献鲜花和花篮、瞻仰烈士群雕、重温军人誓词，在沉浸式红色教育中感悟先烈精神，进一步筑牢 ...全文",
+      "url": "https://m.weibo.cn/detail/5348877349425017",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍官兵赴泉州市革命烈士陵園開展祭掃活動。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-09-30",
+      "title": "#烈士纪念日#【#缅怀革命先烈#】近日，东部战区空军某部组织官兵赴泉州市革命烈士陵园开展祭扫活动。官...",
+      "content": "#烈士纪念日#【#缅怀革命先烈#】近日，东部战区空军某部组织官兵赴泉州市革命烈士陵园开展祭扫活动。官兵们在烈士纪念碑前整齐列队、默哀致敬、敬献花圈，向革命英烈致以崇高敬意。随后组织重温入党誓词、参观革命展馆、聆听讲解等活动，引领官兵体悟革命先辈不畏牺牲、矢志报国的精神力量。（颜克成、 ...全文",
+      "url": "https://m.weibo.cn/detail/5348862253600684",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]

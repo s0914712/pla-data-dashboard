@@ -45787,5 +45787,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.2,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區陸軍某部於10月1日舉行升旗儀式慶祝中華人民共和國國慶。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-01",
+      "title": "#国庆节# 【#举行升旗仪式为祖国母亲庆生#】 10月1日，东部战区陆军某部隆重举行升旗仪式，为#新...",
+      "content": "#国庆节# 【#举行升旗仪式为祖国母亲庆生#】 10月1日，东部战区陆军某部隆重举行升旗仪式，为#新中国成立77周年#送上最真挚的祝福。伴随着雄壮的国歌声，五星红旗冉冉升起，全体官兵整齐列队、肃立敬礼，抒发对祖国的无限热爱与美好祝愿。（李振杰、胥书畅、陶德胜）",
+      "url": "https://m.weibo.cn/detail/5349209541708558",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
