@@ -39462,5 +39462,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.5,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-01",
+      "title": "#国庆节#【#同升一面旗共抒爱国情# 】10月1日，武警三明支队与驻地群众一起举行升旗仪式，为祖国母...",
+      "content": "#国庆节#【#同升一面旗共抒爱国情# 】10月1日，武警三明支队与驻地群众一起举行升旗仪式，为祖国母亲庆生，共同抒发爱国豪情。（易永亮、许鑫、王康汉） #我爱你中国#",
+      "url": "https://m.weibo.cn/detail/5349239736772321",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
