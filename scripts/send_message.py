@@ -135,7 +135,16 @@ def _load_forecast_csv(path, days, what):
         df = pd.read_csv(path, encoding="utf-8-sig")
         df["date"] = pd.to_datetime(df["date"], errors="coerce")
         df = df.dropna(subset=["date"]).sort_values("date")
-        future = df[df["actual_sorties"].isna()] if "actual_sorties" in df.columns else df
+        # 「未來」要以最新一次執行的資料截止日為界，不能只看 actual_sorties 是空的：
+        # 來源資料缺日（例如 08-16、08-31 沒有實際值）的舊預測列永遠回填不到，
+        # 會被當成「未來」排在最前面，把真正的 D+1~D+3 擠掉。
+        if "data_latest_date" in df.columns:
+            cutoff = pd.to_datetime(df["data_latest_date"], errors="coerce").max()
+            future = df[df["date"] > cutoff] if pd.notna(cutoff) else df.iloc[0:0]
+        else:
+            future = df[df["actual_sorties"].isna()] if "actual_sorties" in df.columns else df
+            if "actual_sorties" in df.columns and df["actual_sorties"].notna().any():
+                future = future[future["date"] > df.loc[df["actual_sorties"].notna(), "date"].max()]
         if future.empty:
             future = df
         return future.head(days).reset_index(drop=True)
