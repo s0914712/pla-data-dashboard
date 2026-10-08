@@ -40302,5 +40302,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-10-08",
+      "title": "【#主题文艺晚会励斗志# 】近日，武警福建总队南平支队举办国庆暨纪念长征胜利90周年主题文艺晚会，激...",
+      "content": "【#主题文艺晚会励斗志# 】近日，武警福建总队南平支队举办国庆暨纪念长征胜利90周年主题文艺晚会，激励官兵赓续红军血脉，奋进强军征程。（毛胤德、张煜梁、吴双磊）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5351746253357235",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
