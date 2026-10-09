@@ -40686,5 +40686,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍某部舉辦長征勝利90周年文藝晚會，激勵官兵勇擔使命。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-09",
+      "title": "【#长征胜利90周年##不忘初心，坚定信仰#】近日，东部战区空军某部隆重举办“征途如炬，胜战回响”长...",
+      "content": "【#长征胜利90周年##不忘初心，坚定信仰#】近日，东部战区空军某部隆重举办“征途如炬，胜战回响”长征胜利90周年文艺晚会。生动再现了红军血战湘江、强渡大渡河、飞夺泸定桥等经典战斗场景，沉浸式展现了革命先辈在绝境中坚守信仰、不畏艰险的崇高品格，激励全体官兵以长征精神为指引，勇担使命，砥砺 ...全文",
+      "url": "https://m.weibo.cn/detail/5352108640437757",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
