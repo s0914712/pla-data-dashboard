@@ -40878,5 +40878,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區空軍某部開展基層黨組織書記培訓暨戰時政治工作集訓考核",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍開展戰時政治工作集訓，強化基層政治幹部作戰指揮與處置能力。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-10",
+      "title": "【#锻造军政兼优基层政治干部队伍# 】近日，东部战区空军某部开展基层党组织书记培训暨战时政治工作集训...",
+      "content": "【#锻造军政兼优基层政治干部队伍# 】近日，东部战区空军某部开展基层党组织书记培训暨战时政治工作集训考核。他们按照“训考一体、以比促训”的思路，采用场景预设、带入处置的方式，将战斗指挥、情景答辩与党务业务有机融合，着力锻造军政兼优、全面过硬的基层政治干部队伍。（陈昕、叶明鑫、华彦翔 ...全文",
+      "url": "https://m.weibo.cn/detail/5352471028826362",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
