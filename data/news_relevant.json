@@ -41622,5 +41622,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "武警江苏总队南京支队后装专业群众性大练兵评比活动",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-13",
+      "title": "【#后装专业大练兵火热登场#】近日，武警江苏总队南京支队严密组织后装专业群众性大练兵评比活动，围绕专...",
+      "content": "【#后装专业大练兵火热登场#】近日，武警江苏总队南京支队严密组织后装专业群众性大练兵评比活动，围绕专业技能、军事考核等十余个科目同台竞技，全面锤炼保障效能，推进后装训练向实战化聚焦。(沈旭东、杨春周、安白苏拉、陈东锦) #当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5353558191899795",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
