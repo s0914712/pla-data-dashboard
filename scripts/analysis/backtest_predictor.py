@@ -21,11 +21,6 @@ import pandas as pd
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 warnings.filterwarnings("ignore")
 
-from sklearn.ensemble import (  # noqa: E402
-    HistGradientBoostingClassifier,
-    HistGradientBoostingRegressor,
-)
-from sklearn.linear_model import LogisticRegression  # noqa: E402
 from sklearn.metrics import (  # noqa: E402
     average_precision_score,
     brier_score_loss,
@@ -33,15 +28,10 @@ from sklearn.metrics import (  # noqa: E402
 )
 
 from pla_surge_model import (  # noqa: E402
-    CONFORMAL_WINDOW,
-    MIN_CALIBRATION_POSITIVES,
     MIN_TRAIN_ROWS,
-    POINT_PARAMS,
-    SURGE_PARAMS,
     SURGE_THRESHOLD,
-    _logit,
+    HorizonModel,
     build_features,
-    feature_columns,
     to_daily_series,
 )
 
@@ -57,18 +47,17 @@ def walk_forward(series, horizon, start, end, threshold=SURGE_THRESHOLD):
     """嚴格時序回測：訓練集只含 target_date - horizon - 7 天以前的樣本。
 
     那 7 天是 embargo，避免 rolling 特徵跨過訓練/測試邊界洩漏。
+    訓練與預測直接走 HorizonModel.fit_frame / predict_frame —— 這裡以前自己
+    複製了一份訓練流程，模型一改兩邊就會漂開，回測量到的就不是上線的行為。
     """
     frame = build_features(series, horizon, threshold)
     frame = frame[frame["ma28"].notna()]
     frame = frame[frame["_target"].notna()]
-
-    feats = feature_columns(frame)
-    X = frame[feats].values
-    y = frame["_target"].values
     target_dates = pd.DatetimeIndex(frame["_target_date"])
 
-    points, surge_probs, actuals, dates = [], [], [], []
-    lowers, uppers = [], []
+    keys = ("point", "lower", "upper", "surge_p", "zero_gated",
+            "actual", "dates")
+    out = {k: [] for k in keys}
     cache = {}
     embargo = pd.Timedelta(days=horizon + 7)
 
@@ -82,54 +71,21 @@ def walk_forward(series, horizon, start, end, threshold=SURGE_THRESHOLD):
         key = len(train_idx) // REFIT_EVERY
         if key not in cache:
             cache.clear()
-            Xtr, ytr = X[train_idx], y[train_idx]
-            ytr_surge = (ytr >= threshold).astype(int)
+            cache[key] = HorizonModel(horizon, threshold).fit_frame(
+                frame.iloc[train_idx])
+        r = cache[key].predict_frame(frame.iloc[[i]])[0]
 
-            # split-conformal 與 Platt 校準都要用「沒看過」的那一段，
-            # 作法必須與 HorizonModel.fit 一致，否則回測量到的不是上線的行為。
-            n_cal = min(CONFORMAL_WINDOW, len(train_idx) // 4)
-            cal_point = HistGradientBoostingRegressor(**POINT_PARAMS).fit(
-                Xtr[:-n_cal], ytr[:-n_cal])
-            residuals = ytr[-n_cal:] - cal_point.predict(Xtr[-n_cal:])
+        out["point"].append(r["point"])
+        out["lower"].append(r["lower"])
+        out["upper"].append(r["upper"])
+        out["surge_p"].append(r["surge_probability"])
+        out["zero_gated"].append(r["zero_gated"])
+        out["actual"].append(frame["_target"].iloc[i])
+        out["dates"].append(t)
 
-            calibrator = None
-            head_surge = ytr_surge[:-n_cal]
-            held = ytr_surge[-n_cal:]
-            if 0 < head_surge.sum() < len(head_surge) and \
-                    MIN_CALIBRATION_POSITIVES <= held.sum() < len(held):
-                cal_clf = HistGradientBoostingClassifier(**SURGE_PARAMS).fit(
-                    Xtr[:-n_cal], head_surge)
-                calibrator = LogisticRegression().fit(
-                    _logit(cal_clf.predict_proba(Xtr[-n_cal:])[:, 1]), held)
-
-            cache[key] = (
-                HistGradientBoostingRegressor(**POINT_PARAMS).fit(Xtr, ytr),
-                HistGradientBoostingClassifier(**SURGE_PARAMS).fit(Xtr, ytr_surge),
-                np.quantile(residuals, [0.05, 0.95]),
-                calibrator,
-            )
-        point_m, surge_m, (lo_q, hi_q), calibrator = cache[key]
-
-        x = X[i:i + 1]
-        pt = max(0.0, point_m.predict(x)[0])
-        p = surge_m.predict_proba(x)[0, 1]
-        if calibrator is not None:
-            p = float(calibrator.predict_proba(_logit([p]))[0, 1])
-        points.append(pt)
-        lowers.append(max(0.0, pt + lo_q))
-        uppers.append(pt + hi_q)
-        surge_probs.append(p)
-        actuals.append(y[i])
-        dates.append(t)
-
-    return {
-        "point": np.array(points),
-        "lower": np.array(lowers),
-        "upper": np.array(uppers),
-        "surge_p": np.array(surge_probs),
-        "actual": np.array(actuals),
-        "dates": pd.DatetimeIndex(dates),
-    }
+    res = {k: np.array(v) for k, v in out.items() if k != "dates"}
+    res["dates"] = pd.DatetimeIndex(out["dates"])
+    return res
 
 
 def pinball(actual, pred, q):
@@ -205,7 +161,9 @@ def load_deployed(dates):
         return None
     lp = pd.read_csv(PREDICTION_CSV, encoding="utf-8-sig")
     lp["date"] = pd.to_datetime(lp["date"])
-    lp = lp[lp["actual_sorties"].notna()].set_index("date")
+    # 訊號無效的日子（prob_signal_valid=0）機率欄是空的，sklearn 遇到 NaN 會直接報錯
+    lp = lp[lp["actual_sorties"].notna()
+            & lp["high_event_probability"].notna()].set_index("date")
     common = dates.intersection(lp.index)
     if len(common) < 10:
         return None

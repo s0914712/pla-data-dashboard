@@ -43,7 +43,7 @@ NEW_CSV = "data/predictions/latest_prediction.csv"
 LEGACY_CSV = "data/predictions/legacy_prediction.csv"
 OUTPUT_JSON = "data/predictions/model_comparison.json"
 
-NEW_LABEL = "SurgeForecaster 3.0.0"
+NEW_LABEL = "SurgeForecaster 3.x"
 LEGACY_LABEL = "CatBoost 2.8.0"
 
 # 少於這個天數不輸出指標。3 天的 MAE 差距幾乎全是雜訊，但看到數字的人一定會當結論。

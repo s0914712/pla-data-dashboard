@@ -48,7 +48,7 @@ from pla_surge_model import (
     to_daily_series,
 )
 
-MODEL_VERSION = "3.0.0-surge"
+MODEL_VERSION = "3.1.0-surge"
 PREDICTION_DAYS = 7
 
 SORTIES_LOCAL = "data/JapanandBattleship.csv"
@@ -73,6 +73,8 @@ NEW_COLUMNS = [
     # pla_surge_model.conformal_surge_prob 的 docstring。留這一欄是為了讓下次
     # 重提這個想法的人手上直接有並排紀錄。
     "high_event_probability_point",
+    # 3.1.0 起：點預測是否被零架次閘門改為 0。
+    "zero_gated",
 ]
 
 
@@ -153,6 +155,7 @@ def build_rows(series, holidays):
             "prob_calibrated": int(r["surge_calibrated"]),
             "high_event_probability_point": round(
                 r["surge_probability_point"] * 100, 1),
+            "zero_gated": int(r["zero_gated"]),
         })
     return pd.DataFrame(rows)
 
