@@ -42222,5 +42222,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍某部組織秋季入伍新兵队列会操"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-14",
+      "title": "【初露锋芒！#新兵队列会操火热登场#】近日，东部战区空军某部组织秋季入伍新兵队列会操，进一步夯实队列...",
+      "content": "【初露锋芒！#新兵队列会操火热登场#】近日，东部战区空军某部组织秋季入伍新兵队列会操，进一步夯实队列基础，以昂扬姿态稳步迈好军旅生涯每一步。（陈堃、丁超、张成名、葛文烁）#新兵训练#",
+      "url": "https://m.weibo.cn/detail/5353920580026742",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
