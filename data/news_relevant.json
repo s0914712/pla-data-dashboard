@@ -42366,5 +42366,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.2,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-15",
+      "title": "【#军营篮球赛火热开战# 】近日，东部战区空军航空兵某部“军营球王” 篮球挑战赛火热开赛，官兵在竞技...",
+      "content": "【#军营篮球赛火热开战# 】近日，东部战区空军航空兵某部“军营球王” 篮球挑战赛火热开赛，官兵在竞技中强体魄、砺血性、聚合力。（王紫箫、谢新耀、周士添）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5354282967892984",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
