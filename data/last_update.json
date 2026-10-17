@@ -1,7 +1,7 @@
 {
-  "last_update": "2026-10-16T04:34:17.464115",
+  "last_update": "2026-10-17T04:28:29.543965",
   "stats": {
-    "timestamp": "2026-10-16T04:30:30.858932",
+    "timestamp": "2026-10-17T04:23:47.252558",
     "days_back": 7,
     "sources": {
       "cna": {
@@ -19,11 +19,11 @@
     },
     "deduplication": {
       "before": 53,
-      "after": 52,
-      "removed": 1
+      "after": 53,
+      "removed": 0
     },
     "classification": {
-      "total": 52,
+      "total": 53,
       "relevant": 44,
       "status": "success"
     },
