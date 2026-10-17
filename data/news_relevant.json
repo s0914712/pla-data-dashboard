@@ -42486,5 +42486,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "解放軍第71集團軍舉辦長征勝利90周年歌咏比賽，回望歷史感悟信仰力量。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-16",
+      "title": "#长征胜利90周年# 【#举办歌咏比赛感悟信仰的力量# 】近日，第71集团军“太行劲旅”隆重举办“征...",
+      "content": "#长征胜利90周年# 【#举办歌咏比赛感悟信仰的力量# 】近日，第71集团军“太行劲旅”隆重举办“征途九十载，红歌映初心”歌咏比赛。参赛官兵精神振奋，歌声嘹亮，用饱满真挚的演唱回望长征史诗，感悟革命先辈“革命理想高于天”的信仰力量。（夏文杰、柯志圣、李晓龙、李佳鑫）",
+      "url": "https://m.weibo.cn/detail/5354645356021499",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
