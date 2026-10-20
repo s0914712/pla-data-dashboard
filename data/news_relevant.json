@@ -42846,5 +42846,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.2,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍某部舉辦籃球賽，旨在激勵官兵備戰打仗。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-19",
+      "title": "【#篮球比赛展风采# 】近日，东部战区空军某部举办纪念长征胜利90周年暨“砺剑杯”篮球赛，引导官兵从...",
+      "content": "【#篮球比赛展风采# 】近日，东部战区空军某部举办纪念长征胜利90周年暨“砺剑杯”篮球赛，引导官兵从伟大长征精神中汲取奋进力量，将赛场上的顽强拼搏精神转化为备战打仗的强大动力，在践行初心使命中走好新时代强军之路。（陈肖寒、林国熠）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5355732519092651",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
