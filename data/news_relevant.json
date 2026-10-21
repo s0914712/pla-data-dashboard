@@ -43278,5 +43278,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.99,
+    "original_article": {
+      "date": "2026-10-20",
+      "title": "台积电高雄厂区发生工安事故 3名工人罹难",
+      "content": "据初步调查结果，目前已有3名工人送医后不治，另1名伤者经急救后转入加护病房救治。 据台媒报道，事故发生于高雄市楠梓区台积电F22厂区新建工程。本案是承包商4名作业人员从事钢构吊挂安装作业时，疑似因3楼外侧钢构连结板螺栓断裂，导致作业人员与钢构组件自高处坠落。 台湾南部科学园区相关管理机构已派员现场调查，并要求停止施工、保全事故现场，以厘清事故原因及施工安全管理是否存在违规情形。 针对后续处理，台积电回应称，事发工地属于承包商施工范围，相关工程已自主停工，公司工地安全团队正配合主管部门调查，并督促、协助承包商处理后续事宜。",
+      "url": "https://www.news.cn/tw/20261020/eae61de65e234c38b8d3502b96ec1f2c/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
