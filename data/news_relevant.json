@@ -43662,5 +43662,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "習近平在紀念長征勝利90周年大會上發表重要講話，強調弘揚長征精神。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-22",
+      "title": "#长征胜利90周年总书记重要讲话金句#【学习新语｜习近平总书记在纪念长征胜利90周年大会重要讲话金句...",
+      "content": "#长征胜利90周年总书记重要讲话金句#【学习新语｜习近平总书记在纪念长征胜利90周年大会重要讲话金句】纪念中国工农红军长征胜利90周年大会22日上午在北京人民大会堂隆重举行。习近平总书记发表重要讲话强调，铭记历史方能开创未来。全党全军全国各族人民要更加紧密地团结在党中央周围，大力弘扬伟大长 ...全文",
+      "url": "https://m.weibo.cn/detail/5356861537650317",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
