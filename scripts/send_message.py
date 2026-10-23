@@ -1182,6 +1182,44 @@ def _parse_coords(coord_str):
     return pts
 
 
+def _fix_outlier_vertices(pts, tol=2.0):
+    """修正或剔除明顯筆誤的頂點（公告偶有漏打位數，如 19-18.3N 寫成 9-18.3N）。
+
+    以各頂點的中位數為基準，偏離超過 tol 度者先嘗試補回漏掉的位數
+    （緯度 ±10、經度 ±10/±100），仍不合理則丟棄該點，避免整個範圍被拉成長條。
+    """
+    if len(pts) < 3:
+        return pts
+    med_lat = sorted(p[0] for p in pts)[len(pts) // 2]
+    med_lon = sorted(p[1] for p in pts)[len(pts) // 2]
+
+    def ok(la, lo):
+        return abs(la - med_lat) <= tol and abs(lo - med_lon) <= tol
+
+    out = []
+    for la, lo in pts:
+        if ok(la, lo):
+            out.append((la, lo))
+            continue
+        cands = [(la + dla, lo + dlo) for dla in (0, 10, -10)
+                 for dlo in (0, 10, -10, 100, -100)]
+        fixed = next(((cla, clo) for cla, clo in cands if ok(cla, clo)), None)
+        if fixed:
+            print(f"⚠️  座標疑似筆誤，已修正：({la:.4f}, {lo:.4f}) → ({fixed[0]:.4f}, {fixed[1]:.4f})")
+            out.append(fixed)
+        else:
+            print(f"⚠️  座標偏離過大，已剔除：({la:.4f}, {lo:.4f})")
+    return out
+
+
+def _short_title(title, n):
+    """截短標題但保留「—」後的航警編號（如 MILITARY EXERCISES—HN193/26）。"""
+    if len(title) <= n or "—" not in title:
+        return title[:n]
+    head, code = title.rsplit("—", 1)
+    return f"{head[:max(n - len(code) - 1, 4)]}—{code}"
+
+
 def _zone_centroid(pts):
     """多邊形頂點的平均座標 (lat, lon)。"""
     return (sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts))
@@ -1213,7 +1251,7 @@ def _warning_coord_groups(w):
     優先用結構化 coordinates 欄（單一多邊形）；缺時退回 content_preview
     的度分座標解析（可含多個射擊區）。
     """
-    pts = _parse_coords(w.get("coordinates"))
+    pts = _fix_outlier_vertices(_parse_coords(w.get("coordinates")))
     if pts:
         return [pts], False
     groups = extract_coord_zones_from_text(w.get("content_preview"))
@@ -1267,7 +1305,7 @@ def select_range_warnings(yesterday, max_zones=8):
             cents.append(c)
             suffix = f"(區{gi})" if multi else ""
             zones.append({
-                "title": f"{title[:18]}{suffix}",
+                "title": f"{_short_title(title, 18)}{suffix}",
                 "channel": _s(w.get("channel")).strip(),
                 "period": warning_period_text(w) or _s(w.get("publish_date")).strip(),
                 "date": _s(w.get("publish_date")).strip(),
@@ -1324,6 +1362,7 @@ def extract_coord_zones_from_text(text, max_gap=25):
                 pending_lat = None
         # 僅保留東亞海域合理範圍，排除誤抓
         pts = [(la, lo) for la, lo in pts if 0 < la < 60 and 100 < lo < 150]
+        pts = _fix_outlier_vertices(pts)
         if pts:
             result.append(pts)
     return result
