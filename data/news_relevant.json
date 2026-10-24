@@ -43782,5 +43782,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.5,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "解放軍某旅赴社區開展便民服務"
+    },
+    "confidence": 0.99,
+    "original_article": {
+      "date": "2026-10-23",
+      "title": "【#爱民为民暖人心# 】近日，第71集团军某旅“抗洪抢险爱民模范连”深入驻地社区，开展测量血压、中医...",
+      "content": "【#爱民为民暖人心# 】近日，第71集团军某旅“抗洪抢险爱民模范连”深入驻地社区，开展测量血压、中医诊疗等便民服务，受到人民群众的点赞。（王志强、黄振宇）#军民鱼水情#",
+      "url": "https://m.weibo.cn/detail/5357182574133440",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
