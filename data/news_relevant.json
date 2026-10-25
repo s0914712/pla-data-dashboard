@@ -43998,5 +43998,101 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "台灣青年參訪平陸運河並參與桂台經貿文化合作論壇。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-24",
+      "title": "平陆运河通航一个多月，这位台湾青年已两次打卡",
+      "content": "在今年的国庆节，他与几位台湾青年一同来到了平陆运河，为祖国母亲献上了一份特殊的生日礼物。近日，他受邀参加第二十二届桂台经贸文化合作论坛，在论坛活动中参观平陆运河。这一次，同样怀着激动的心情，邱庆龄还看到了机遇。 记者：黄凯莹、孙闯 新华社音视频部制作",
+      "url": "https://www.news.cn/tw/20261024/a9aa53cedf98425a88599aea89a69214/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-10-22",
+      "title": "台湾发布台风“蔷琵”陆上警报",
+      "content": "据台湾气象部门观测，22日上午11时，“蔷琵”台风中心位于台湾南部的鹅銮鼻东南东方约520公里海面，以每小时15公里至20公里的速度向西北转北北西移动，中心气压925百帕，近中心最大风速每秒51米，七级风平均暴风半径320公里。 最新海上警戒范围包括巴士海峡、台湾东半部海面（含兰屿、绿岛）、台湾北部海面及台湾海峡南部。 截至22日上午，台东所属兰屿乡、绿岛乡已宣布22日中午12时起停止上班上课。澎湖海上交通22日全面停航，金门至厦门航线当天上午8时30分起双向停航。 台湾气象部门此前表示，“蔷琵”预计23日最接近台湾。受台风外围环流及东北季风影响，台湾多地风雨将逐渐增强。但台风北转路径仍存在变数，若移动速度减慢或路径进一步靠近台湾，风雨影响时间可能延长。 气象部门提醒，民众应密切关注台风最新动态，避免前往海边观浪或从事水上活动，并提前做好防风、防雨及防灾准备。",
+      "url": "https://www.news.cn/tw/20261022/86c1113531ef400eaadff27f760841cb/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-24",
+      "title": "Vlog丨两岸记者登岳阳楼，品忧乐精神",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 应急 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 应急 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عرب",
+      "url": "https://www.news.cn/tw/20261024/c3a714e6b032499f98a322424a4b4fe9/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-23",
+      "title": "民生为“鲜”：台湾渔产品登陆厦门",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 应急 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 应急 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عرب",
+      "url": "https://www.news.cn/tw/20261023/87d615e316da4ad7a442a8eabd571070/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
