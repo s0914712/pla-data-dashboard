@@ -43974,5 +43974,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-10-24",
+      "title": "#长征胜利90周年# 【#歌曲征途致敬伟大的长征# 】雪山、草地、枪林弹雨……90年前那段二万五千里...",
+      "content": "#长征胜利90周年# 【#歌曲征途致敬伟大的长征# 】雪山、草地、枪林弹雨……90年前那段二万五千里的跋涉，被谱进了一支悠扬深沉的旋律——《征途》。这首歌曲，为纪念红军长征胜利 90 周年而作。让我们在歌声里回望来时路，把先辈的旗帜，高高举过头顶。（西陆强军号） 西陆强军号的微博视频",
+      "url": "https://m.weibo.cn/detail/5357635420293018",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
