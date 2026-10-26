@@ -44214,5 +44214,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "在北京舉辦紀念孫中山先生誕辰160周年兩岸音樂會，強調兩岸文化交流與血脈同源。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-10-26",
+      "title": "纪念孙中山先生诞辰160周年两岸音乐会在京举办",
+      "content": "音乐会分为“山河回响”“天下为公”“血脉同源”“振兴中华”“同心致远”五个篇章，由北京民族乐团与台湾地区的民乐团联手演奏，中央民族歌舞团、宋庆龄和平天使艺术团共同演出。 《彩云追月》《外婆的澎湖湾》《我爱你中国》……众多耳熟能详的乐曲引得现场观众掌声连连，音乐堂内气氛热络，曲间欢呼不断。随着终曲《我的中国心》奏响，全场气氛达到高潮，台上台下同声高歌，共同唱响家国情怀。 “很多台湾的歌曲我们都很熟悉。”市民白先生带着妻儿一同来观赏音乐会，他说，在台湾光复纪念日当天，两岸乐团合奏纪念孙中山先生，意义非凡。 据悉，26日晚，音乐会还将在中国宋庆龄青少年科技文化交流中心未来剧院继续上演。 本场音乐会由海协会两岸交流基金、全国台联文化宣传部、五洲传播中心和中国宋庆龄青少年科技文化交流中心共同主办。",
+      "url": "https://www.news.cn/tw/20261026/8c24cce717124a1d8204175a5c31914d/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
