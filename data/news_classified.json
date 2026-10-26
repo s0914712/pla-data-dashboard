@@ -1387,24 +1387,24 @@
     }
   },
   {
-    "category": "Regional_Security",
+    "category": "Military_Exercise",
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.4,
+    "sentiment_score": -0.6,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "共艦5艘、公務船8艘持續在台海周邊活動",
+      "Military_exercise": "中國共軍共計6艘次共艦、9艘次公務船及3架次共機（1架逾越海峽中線）擾台，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。",
       "Foreign_battleship": "",
-      "Political_statement": "國軍運用任務機艦及岸置飛彈系統嚴密監控與應處"
+      "Political_statement": ""
     },
     "confidence": 0.95,
     "original_article": {
-      "date": "2026-10-25",
-      "title": "5艘共艦8艘公務船擾台國軍嚴密監控| 政治",
-      "content": "（中央社記者 游凱翔 台北25日電）國防部發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲5艘共艦、8艘公務船，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲5艘共艦、8艘公務船持續在台海周邊活動。期間並無偵獲共機。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：謝佳珍）1151025 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
-      "url": "https://www.cna.com.tw/news/aipl/202610250021.aspx",
+      "date": "2026-10-26",
+      "title": "6艘共艦9艘公務船擾台國軍嚴密監控| 政治",
+      "content": "（中央社記者 游凱翔 台北26日電）國防部發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲6艘共艦、9艘公務船，以及1架共機越中線侵擾西南及東部空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲6艘共艦、9艘公務船及3架次共機，其中1架共機逾越台灣海峽中線侵擾西南及東部空域。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：林家嫻）1151026 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aipl/202610260035.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -1413,8 +1413,8 @@
   {
     "category": "Not_Relevant",
     "is_relevant": false,
-    "country1": "RU",
-    "country2": "EU",
+    "country1": "EU",
+    "country2": "RU",
     "sentiment_score": 0.0,
     "sentiment_label": "neutral",
     "extracted_data": {
@@ -1423,7 +1423,7 @@
       "Foreign_battleship": "",
       "Political_statement": ""
     },
-    "confidence": 1.0,
+    "confidence": 0.99,
     "original_article": {
       "date": "2026-10-25",
       "title": "英法2500官兵德國軍演600傘兵空降展現北約防衛力| 國際",
@@ -1438,14 +1438,38 @@
     "category": "Regional_Security",
     "is_relevant": true,
     "country1": "CN",
-    "country2": "JP",
-    "sentiment_score": -0.6,
+    "country2": "TW",
+    "sentiment_score": -0.4,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "北京強化抗日敘事作為地緣政治工具，試圖牽制日本介入台海安全並削弱其正當性。"
+      "Political_statement": "國防部公布中共5艘共艦及8艘公務船持續在台海周邊活動，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-25",
+      "title": "5艘共艦8艘公務船擾台國軍嚴密監控| 政治",
+      "content": "（中央社記者 游凱翔 台北25日電）國防部發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲5艘共艦、8艘公務船，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲5艘共艦、8艘公務船持續在台海周邊活動。期間並無偵獲共機。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：謝佳珍）1151025 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aipl/202610250021.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Regional_Security",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "JP",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "北京強化抗日歷史敘事，將歷史作為地緣政治工具，試圖牽制日本介入台海安全並削弱其正當性。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1469,7 +1493,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "CN 共艦1艘及公務船5艘 transit",
-      "Political_statement": "國防部表示偵獲共艦1艘及公務船5艘持續在台海周邊活動，國軍運用任務機、艦及岸置飛彈系統嚴密監控與應處。"
+      "Political_statement": "中共1軍艦5公務船台海周邊活動，國軍嚴密監控與應處。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1491,9 +1515,9 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "",
+      "Military_exercise": "共艦3艘及公務船7艘持續在台海周邊活動，國軍嚴密監控與應處。",
       "Foreign_battleship": "",
-      "Political_statement": "中共持續派遣軍艦及公務船在台海周邊活動，國軍運用任務機、艦及岸置飛彈系統嚴密監控與應處。"
+      "Political_statement": ""
     },
     "confidence": 0.95,
     "original_article": {
@@ -1516,8 +1540,8 @@
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
-      "Foreign_battleship": "JP 日本海上保安廳8艘巡視船進入台海避風, CN 中國海警船尾隨監控",
-      "Political_statement": "海巡署指中國海警船尾隨日本避颱巡視船，企圖製造台海內水化假象，危害航行自由。"
+      "Foreign_battleship": "JP 日本海上保安廳巡視船 8艘 transit",
+      "Political_statement": "中國海警船尾隨日本避颱巡視船，海巡署批評中國企圖製造台海內水化假象，危害航行自由。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1539,11 +1563,11 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "美日大規模軍演「利劍」於日本多地登場，法國、德國等部隊首度參與，演練項目包括登船臨檢與機場起降。",
+      "Military_exercise": "美日大規模軍演「利劍」啟動，法國等國參與，共軍多艘艦艇在日本周邊海域及大隅海峽現蹤。",
       "Foreign_battleship": "",
-      "Political_statement": "美日舉行大規模「利劍」軍演期間，日本防衛省觀察到中國海軍艦艇頻繁現蹤並通過大隅海峽。"
+      "Political_statement": ""
     },
-    "confidence": 0.95,
+    "confidence": 0.92,
     "original_article": {
       "date": "2026-10-21",
       "title": "美日利劍大規模軍演共軍在日本周邊現蹤| 國際",
@@ -1563,7 +1587,7 @@
     "sentiment_label": "neutral",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "日美「利劍」（Keen Sword）聯合軍演期間，日本自衛隊C-2運輸機降落宮古機場發生機械故障影響民航。",
+      "Military_exercise": "日本自衛隊與美軍等部隊舉行大規模實兵演習「利劍」(Keen Sword)，期間自衛隊C-2運輸機發生故障。",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
@@ -1583,11 +1607,11 @@
     "is_relevant": true,
     "country1": "US",
     "country2": "CN",
-    "sentiment_score": -0.4,
+    "sentiment_score": -0.5,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "美日聯合軍演「利劍27」展開，美軍首次在距台灣僅110公里的與那國島部署NMESIS反艦飛彈系統，涵蓋台海周邊海域。",
+      "Military_exercise": "美日利劍27（Keen Sword 27）聯合軍演，美軍在與那國島部署NMESIS反艦飛彈系統，涵蓋台灣周邊海域",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
@@ -1611,9 +1635,9 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "6艘共艦、9艘公務船、23架次共機越中線侵擾北部、中部、西南及東部空域",
+      "Military_exercise": "6艘共艦、9艘公務船及23架次共機逾越台灣海峽中線侵擾北部、中部、西南及東部空域",
       "Foreign_battleship": "",
-      "Political_statement": "國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。"
+      "Political_statement": ""
     },
     "confidence": 0.98,
     "original_article": {
@@ -1631,13 +1655,13 @@
     "is_relevant": true,
     "country1": "US",
     "country2": "JP",
-    "sentiment_score": 0.2,
-    "sentiment_label": "neutral",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "美日聯合軍演「利劍」於石垣島舉行，美軍、日本自衛隊及澳洲、加拿大、法國、德國、荷蘭、紐西蘭、菲律賓部隊參與，韓國與英國擔任觀察員，演訓內容包含防空、飛彈防禦、後勤及海上作戰等。",
+      "Military_exercise": "美日聯合軍演「利劍27」（Keen Sword）在石垣島啟動，共有約4萬5000名日本自衛隊、1萬1000名美軍，以及澳洲、加拿大、法國、德國、荷蘭、紐西蘭、菲律賓部隊參與，韓國與英國以觀察員身分加入，演習著重於防空飛彈防禦、海上作戰及強化區域嚇阻力。",
       "Foreign_battleship": "",
-      "Political_statement": "美國太平洋司令部副司令羅威爾強調，嚇阻力需靠展現實力與凝聚力，透過持續訓練確認嚇阻侵略與危機衝突獲勝的實力。"
+      "Political_statement": ""
     },
     "confidence": 0.95,
     "original_article": {
@@ -1661,9 +1685,9 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "學者建議台灣建立台海安全國際敘事，借鏡烏克蘭法制，反制中共法律戰與灰色地帶行動，爭取國際維護台海和平。"
+      "Political_statement": "學者建議台灣建立台海安全國際敘事，借鏡烏克蘭制定國家抵抗法，反制中國法律戰與灰色地帶行動。"
     },
-    "confidence": 0.92,
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-10-20",
       "title": "學者盼台灣建立台海安全國際敘事爭取各國維護和平| 兩岸",
@@ -1678,14 +1702,14 @@
     "category": "Regional_Security",
     "is_relevant": true,
     "country1": "GB",
-    "country2": "TW",
+    "country2": "CN",
     "sentiment_score": -0.6,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "英國前外相赫格撰文指出台海危機風險升高，警告未來2年是關鍵，世界欠缺準備，北京可能透過封鎖或持續脅迫來達成目標。"
+      "Political_statement": "英國前外相赫格撰文指出，台海危機是國際間最缺乏應對準備的危機，未來2年風險升高，中國可能透過常態化脅迫與封鎖手段對台施壓。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1703,13 +1727,13 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "JP",
-    "sentiment_score": -0.6,
+    "sentiment_score": -0.4,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "中國軍方無人機通過台灣與與那國島上空，並在沖繩周邊頻繁活動，引發日本自衛隊戰機緊急升空因應。",
+      "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "日本防衛大臣表示中國無人機活動頻繁，強調因應無人機與新型作戰方式之必要性。"
+      "Political_statement": "日本防衛大臣指出中國軍方無人機頻繁通過台與與那國島上空，強調有必要因應無人機威脅並研議修訂安保文件。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1733,7 +1757,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "美日利劍軍演納入台海有事情境",
       "Foreign_battleship": "",
-      "Political_statement": "國防部長顧立雄肯定美日利劍軍演納入台海情境，認為周邊國家聯合演訓展現維護區域和平穩定決心。"
+      "Political_statement": "國防部長顧立雄肯定美日利劍軍演納入台海情境，認為周邊國家聯合演訓展現維護區域和平穩定的決心。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1747,24 +1771,24 @@
     }
   },
   {
-    "category": "Military_Exercise",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.5,
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "US",
+    "country2": "RU",
+    "sentiment_score": -0.8,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "偵獲6艘共艦、9艘公務船，及3架次共機越中線侵擾北部、中部及西南空域",
+      "Military_exercise": "",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
-    "confidence": 0.95,
+    "confidence": 1.0,
     "original_article": {
-      "date": "2026-10-19",
-      "title": "6艘共艦9艘公務船擾台國軍嚴密監控| 政治",
-      "content": "（中央社記者 游凱翔 台北19日電）國防部發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲6艘共艦、9艘公務船，及3架次共機越中線侵擾北部、中部及西南空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲6艘共艦、9艘公務船及5架次共機，其中3架次逾越台灣海峽中線侵擾北部、中部及西南空域。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：潘羿菁）1151019 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
-      "url": "https://www.cna.com.tw/news/aipl/202610190016.aspx",
+      "date": "2026-10-24",
+      "title": "伊朗：美軍任何情況下都禁入波斯灣| 國際",
+      "content": "（中央社德黑蘭24日綜合外電報導）伊朗今天表示，美軍艦艇無論在任何情況下都不准進入波斯灣，並稱美國總統川普（Donald Trump）會「帶著這個夢想進入墳墓」。 法新社報導，美國和以色列對伊朗發動新一輪攻勢的威脅日增，美國駐土耳其大使兼敘利亞事務特使巴瑞克（Tom Barrack）警告說，華府「絕對有可能」最快在這個週末就對伊朗發動打擊。 伊朗國家電視台報導， 伊朗武裝部隊參謀總長阿布杜拉希（Ali Abdollahi）表示：「我們無論在任何情況、任何時間下，都不允許美軍艦艇進入波斯灣。這位美國總統幻想著其武裝部隊進入波斯灣，他將帶著這個夢想進入墳墓。」 美國與以色列2月28日聯手空襲伊朗後，德黑蘭封鎖荷莫茲海峽（Strait of Hormuz）航運活動以示報復，這是通往波斯灣（Persian Gulf）的門戶，也是全球能源咽喉要道。美國對此採取因應措施，對伊朗港口與船隻實施海上封鎖。 另據路透社報導，川普昨天表示若伊朗不與美國達成協議，美方可能會對伊朗發動新一輪軍事行動。 2名高階伊朗安全官員透露，德黑蘭已經擬定詳細計畫，若美國和以色列再次攻擊伊朗，將以波斯灣地區的海底通訊電纜為攻擊目標。（編譯： 洪啓原 ）1151024 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aopl/202610240143.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -1773,15 +1797,15 @@
   {
     "category": "US_TW_Interaction",
     "is_relevant": true,
-    "country1": "TW",
-    "country2": "US",
+    "country1": "US",
+    "country2": "TW",
     "sentiment_score": -0.2,
     "sentiment_label": "neutral",
     "extracted_data": {
-      "US_Taiwan_interaction": "台灣對美軍購24案中，21案進度正常，3案（MK48重型魚雷、AGM-154C飛彈、F-16V BLK70戰機）因供應鏈及產線重啟因素延宕至117年完成。",
+      "US_Taiwan_interaction": "台灣對美軍購24案中，MK48重型魚雷、AGM-154C飛彈、F-16V BLK70戰機等3案因供應鏈與產線問題延宕，其餘21案進度正常。",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "國防部公布對美軍購案執行進度，24案中有3案因供應鏈與產線重啟延宕。"
+      "Political_statement": "國防部向立法院報告對美軍購案執行進度與延宕原因。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1802,10 +1826,10 @@
     "sentiment_score": 0.0,
     "sentiment_label": "neutral",
     "extracted_data": {
-      "US_Taiwan_interaction": "前白宮官員預估美國華府年底前將再對台軍售，可能分批進行；並分析美中領導人會談不致改變美台關係。",
+      "US_Taiwan_interaction": "前白宮官員預估美方年底前可能分批宣佈對台軍售，並指出川習會不會對美台關係產生重大改變。",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "前白宮官員表示美中領導人會談對穩定至關重要，但不預期對美台關係產生重大改變，並預測華府年底將宣布對台軍售。"
+      "Political_statement": "前白宮官員葛瑞分析川習會對美台關係影響，並預期華府年底前將對台軍售。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1819,25 +1843,49 @@
     }
   },
   {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "TW",
+    "category": "US_TW_Interaction",
+    "is_relevant": true,
+    "country1": "US",
     "country2": "TW",
-    "sentiment_score": 0.1,
+    "sentiment_score": 0.2,
     "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "美方退役上將率團擔任資深觀摩員觀摩漢光演習，提供聯合作戰能力建議",
+      "Military_exercise": "漢光演習",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部表示台美交流案有助精進國軍聯合作戰能力，預算依美方標準辦理。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-21",
+      "title": "國防部：美退將率團觀摩漢光演習提供聯合作戰建議| 政治",
+      "content": "（中央社記者 游凱翔 台北21日電）國防部表示，「資深觀摩員年度評估暨雙方交流」案是藉台美雙方研討漢光演習評估需求及觀摩執行細節，期間由美方退役上將任資深觀摩員，並納編專業軍、文職人員為觀摩團，依訓練目標及觀察所見，提供國軍精進聯合作戰能力建議。 國民黨立委馬文君日前在立法院提案指出，國防部參謀本部於今明兩年度執行「資深觀摩員年度評估暨雙方交流」案，需新台幣8243萬8000元預算，並凍結部分預算，要求國防部說明美方派遣層級及預期成效。 國防部透過書面報告回覆，「資深觀摩員年度評估暨雙方交流」案，是藉由台美雙方訂定年度整備會議項目，研討年度「漢光演習」評估需求及觀摩執行細節，演習期間由美方退役上將任資深觀摩員，並由太平洋司令部納編專業軍、文職人員為觀摩團，依訓練目標及觀察所見，提供國軍精進聯合作戰能力的建議，列入漢光演習總結報告，所獲致結論及建議事項成為國軍建軍備戰參考。 國防部說，預算編列依美國國防部聯合差旅規則「Joint Travel Regulation」（JTR）辦理，其每日住宿及日支費標準則依美國防部差旅管理辦公室（Defense Travel Management Office）及國務院公布的海外差旅日支費標準（OCONUS Foreign Per Diem Rate）辦理。 國防部強調，依年度軍事交流及演習觀摩需求，統一檢討各項經費及派遣層級，確保資源配置符合整體建軍目標；另也將各項交流成果及合作效益，納入後續預算編列及計畫修訂的參考，以落實軍購案預算效益管理。（編輯：林克倫）1151021 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aipl/202610210182.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": false,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": ""
+      "Political_statement": "北京舉辦紀念孫中山先生誕辰160周年兩岸音樂會，兩岸樂團聯手演出促進文化交流。"
     },
-    "confidence": 1.0,
+    "confidence": 0.9,
     "original_article": {
-      "date": "2026-10-19",
-      "title": "三上悠亞走訪台灣廟求月老盼理想型快出現| 娛樂",
-      "content": "（中央社記者 洪素津 台北19日電）三上悠亞球場舞蹈應援動作大，有觀眾反應走光疑慮，她今天回應表示不用擔心，上場前的保護措施做得很足；她分享近日走訪台灣廟宇求護身符放身上，告訴月老盼理想型趕快出現。 福爾摩沙夢想家啦啦隊「Formosa Sexy」成員三上悠亞今天出席內衣活動，提及跳應援舞的走光疑慮，她要粉絲不用擔心，「我都是有做了非常安全的措施，再怎麼樣用力地跳舞都是不會走光的，可能就是拍攝的光線問題」。 而問及在台灣的工作近況，三上悠亞希望有更多的機會來台灣工作，要大家多多進球場看她表演，「我的上班日都已經有公開了，所以大家一定要來球場看我喔！」 除了工作，三上悠亞的感情狀況也是大家關注焦點，她表示近日參拜台灣廟宇，有求護身符放在身上，笑稱也有去拜月老，「可是我好像許願的內容講錯了，我都在講工作，但是我想神明應該知道，我的理想型就是帥、溫柔、體貼的」。（編輯：李淑華）1151019 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
-      "url": "https://www.cna.com.tw/news/amov/202610190148.aspx",
-      "source": "cna",
+      "date": "2026-10-26",
+      "title": "纪念孙中山先生诞辰160周年两岸音乐会在京举办",
+      "content": "音乐会分为“山河回响”“天下为公”“血脉同源”“振兴中华”“同心致远”五个篇章，由北京民族乐团与台湾地区的民乐团联手演奏，中央民族歌舞团、宋庆龄和平天使艺术团共同演出。 《彩云追月》《外婆的澎湖湾》《我爱你中国》……众多耳熟能详的乐曲引得现场观众掌声连连，音乐堂内气氛热络，曲间欢呼不断。随着终曲《我的中国心》奏响，全场气氛达到高潮，台上台下同声高歌，共同唱响家国情怀。 “很多台湾的歌曲我们都很熟悉。”市民白先生带着妻儿一同来观赏音乐会，他说，在台湾光复纪念日当天，两岸乐团合奏纪念孙中山先生，意义非凡。 据悉，26日晚，音乐会还将在中国宋庆龄青少年科技文化交流中心未来剧院继续上演。 本场音乐会由海协会两岸交流基金、全国台联文化宣传部、五洲传播中心和中国宋庆龄青少年科技文化交流中心共同主办。",
+      "url": "https://www.news.cn/tw/20261026/8c24cce717124a1d8204175a5c31914d/c.html",
+      "source": "xinhua",
       "category": "",
       "sentiment": ""
     }
@@ -1853,7 +1901,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "台灣青年參與桂台經貿文化合作論壇並參訪平陸運河。"
+      "Political_statement": "台青參訪平陸運河並參與桂台經貿文化合作論壇"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1861,6 +1909,30 @@
       "title": "平陆运河通航一个多月，这位台湾青年已两次打卡",
       "content": "在今年的国庆节，他与几位台湾青年一同来到了平陆运河，为祖国母亲献上了一份特殊的生日礼物。近日，他受邀参加第二十二届桂台经贸文化合作论坛，在论坛活动中参观平陆运河。这一次，同样怀着激动的心情，邱庆龄还看到了机遇。 记者：黄凯莹、孙闯 新华社音视频部制作",
       "url": "https://www.news.cn/tw/20261024/a9aa53cedf98425a88599aea89a69214/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中共中央台办主任宋涛在台湾光复81周年座谈会上表示，坚决反对台独分裂和外部势力干涉，坚定推进祖国统一。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-26",
+      "title": "铭记光复历史 共盼统一梦圆——两岸同胞纪念台湾光复81周年",
+      "content": "纪念台湾光复81周年座谈会25日在福建省福州市举办。台湾抗日同胞遗属、在台牺牲的革命先烈后人、两岸青少年及港澳和海外代表，专家学者等共约200人参加。 中共中央台办、国务院台办主任宋涛表示，党和国家设立台湾光复纪念日，彰显我们捍卫国家主权和领土完整的坚定信心，巩固国际社会坚持一个中国的格局。两岸同胞要共同传承伟大抗战精神和伟大民族精神，坚决反对“台独”分裂和外部势力干涉。今年我们推进落实十项促进两岸交流合作的政策措施，深化两岸融合发展。我们坚定支持岛内爱国统一力量，坚定推进祖国统一，共襄民族复兴伟业。 中国国民党前主席、中华青雁和平教育基金会董事长洪秀柱表示，如果没有全体中华儿女浴血奋战，就没有台湾光复。台湾的前途系于中华民族伟大复兴，要坚决反对“台独”势力搞“去中国化”，期盼两岸同胞共同传承抗日先贤守护国土的精神，坚定朝和平统一的方向努力，为实现中华民族伟大复兴而努力奋斗。 与会嘉宾代表发言表示，两岸同胞要铭记历史，携手同心，捍卫台湾光复成果，反对“台独”分裂和外来干涉，共担祖国统一的历史责任，共创两岸美好未来和中华民族绵长福祉。 参加座谈会的台北市第一女子高级中学退休教师区桂芝说，民进党当局在岛内刻意淡化台湾光复的历史，不可原谅。台湾青年应主动追寻历史真相、作出理性判断。读懂抗日战争与台湾光复的历史，台湾青年才能认清自身的根脉，知晓中华民族历经的苦难，懂得如何防止历史悲剧重演。 同日，中国邮政发行《台湾光复纪念日》纪念邮票1套1枚。邮票图案融入长城、阿里山、日月潭、纪念日日期等元素，彰显捍卫国家主权和领土完整的坚定意志，蕴含共筑民族复兴光明前景的深刻内涵，全国多地邮政网点与集邮网厅掀起购买热潮。 松柏苍苍，群山肃穆。由台盟中央主办的“山河同根 光复铭记”纪念台湾光复81周年主题活动24日在北京西山国家森林公园无名英雄纪念广场举行。 纪念仪式上，众人沿石阶缓步拾级而上。广场正中，一座长14米、高4米的纪念碑巍然屹立，5组浮雕再现了隐蔽战线的5个战斗场景。参加活动的两岸同胞默哀、献花、鞠躬，共同追思先烈，期盼祖国早日完全统一。 台盟中央副主席兼秘书长江利平在活动纪念仪式上致辞表示，台湾光复是全民族抗战的伟大胜利成果，承载着两岸同胞护家卫国、坚守统一的家国情怀。必须坚决守护抗战历史成果、坚决反对“台独”，呼吁广大台胞坚守历史正道，共担统一使命、共襄复兴伟业。 活动现场，朱枫烈士外孙女徐云初深情追忆先辈坚定信念、以身许国的感人事迹。她表示，台湾光复的历史证明台湾是中国不可分割的一部分。无数英烈为祖国统一大业而血洒宝岛台湾，用生命诠释祖国必然统一的历史大势。“国土不可分，民族不可散。两岸中国人应共同努力，坚定守护中华民族共同家园。” 参加纪念仪式的台湾青年陈文成表示，国家设立台湾光复纪念日格外有意义，有助于唤起台湾同胞的历史认同，厚植两岸同胞的情感联结。期待更多台湾同胞特别是青年守护两岸共同历史记忆，接续先辈未竟之志，为推进祖国统一汇聚力量。 音乐短片《光复·共赴曙光》在北京发布，“赤子同心补金瓯”台胞抗日史料撷珍巡展在上海启动，“台湾义勇队抗战史实与精神内涵研讨活动”在浙江金华举行……连日来，一场场庄重而深情的纪念活动在各地接连登场，联结起两岸共同的历史记忆，奏响同心推进国家统一、共赴复兴征程的时代强音。 25日的台北中山堂广场，横幅舒展，人群肃立。在这座曾见证中国战区台湾省受降典礼、宣告日本50年殖民统治彻底结束的历史建筑前，抗日战争胜利暨台湾光复纪念碑静立，花圈簇拥。由统一联盟党、劳动党、台湾地区政治受难人互助会发起，20余个团体共同举办的台湾光复81周年纪念活动正在举行。 “张灯结彩喜洋洋，胜利歌儿大家唱。唱遍城市和村庄，台湾光复不能忘……”全场齐唱《台湾光复纪念歌》，人们追思抗日先烈，重温宝岛重回祖国怀抱的荣光。 统一联盟党副秘书长熊羿表示，台湾光复是全体中国人共同的历史记忆。历史不容遗忘，侵略者的罪行不能被抹去。希望更多台湾民众铭记这一日子及其背后承载的深远意义。 祖籍山东的台北市民游女士难掩激动之情。她回忆，父亲生前常教导子孙“我们是中国人”。面对当下岛内对光复纪念的忽视，她深感痛心，因此特意从家中赶来，以实际行动支持这场捍卫历史真相的纪念活动。 台湾《观察》杂志发行人纪欣表示，台湾光复纪念日到来之际，两岸同胞共同纪念台湾光复令人欣慰，“证明了两岸始终是不可分割的命运共同体”。 纪念仪式上，到场的台湾各界代表共同宣读声明，齐声呼出口号：“铭记历史、反对日本军国主义；守护和平、开创中华民族复兴！”致辞环节落幕，与会者列队肃立，向纪念碑深深三鞠躬。人们依次上前献花，向抗日先烈致敬。",
+      "url": "https://www.news.cn/tw/20261026/8317acbc1b5d4fe986dd48757d128b15/c.html",
       "source": "xinhua",
       "category": "",
       "sentiment": ""
@@ -1877,7 +1949,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "新華社發表時評紀念台灣光復，強調捍衛國家主權、統一與領土完整，重申兩岸根脈相連與祖國統一。"
+      "Political_statement": "新華社發表時評紀念台灣光復，強調捍衛國家主權、統一和領土完整，重申兩岸根脈相連與祖國統一。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1901,7 +1973,55 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "蕭開平表示台灣光復是永遠要記憶歷史"
+      "Political_statement": "大陸設立台灣光复紀念日意義深刻"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-10-25",
+      "title": "林光辉：大陆设立台湾光复纪念日意义深刻",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 应急 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 应急 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عرب",
+      "url": "https://www.news.cn/tw/20261025/0a90fd6c05f844bc84654958b2100d16/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "台灣知名作家藍博洲表示，台灣光復紀念日有助於對台灣民眾進行正確歷史教育與身份認同。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-10-25",
+      "title": "蓝博洲：台湾光复纪念日有助于正确的历史教育",
+      "content": "台湾知名作家、人间出版社发行人蓝博洲日前接受新华社记者采访时表示，台湾光复纪念日有助于对台湾民众进行正确的历史教育。有了正确的历史认识，才会有正确的身份认同。 记者：黄扬、马欣然 新华社音视频部 新华社对外部 联合制作",
+      "url": "https://www.news.cn/tw/20261025/bbf235a42cc74a8da3d212f3f0acc415/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "萧开平表示台湾光复是永远要记忆的历史。"
     },
     "confidence": 0.85,
     "original_article": {
@@ -1939,30 +2059,6 @@
     }
   },
   {
-    "category": "Not_Relevant",
-    "is_relevant": false,
-    "country1": "TW",
-    "country2": "TW",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": ""
-    },
-    "confidence": 1.0,
-    "original_article": {
-      "date": "2026-10-22",
-      "title": "台湾气象部门发布台风“蔷琵”海上警报",
-      "content": "根据最新数据，21日23时“蔷琵”中心位置在鹅銮鼻的东南东方约730公里处，以每小时14公里速度，向西北移动。近中心最大风速每秒55米，相当于16级风。 据预测，23日至24日将是台风对台湾影响较明显的时段。受台风外围环流与东北季风共同影响，台湾北部、东北部、宜兰及花莲地区需防范局部大雨或豪雨，北部山区不排除出现大豪雨等级降雨。 气象部门提醒，民众应持续关注最新台风路径及警报信息，避免前往山区、溪流及海岸等高风险区域，提前做好防台准备。",
-      "url": "https://www.news.cn/tw/20261022/cb7af66ae816490e931aedac4953d84f/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
     "category": "CN_Statement",
     "is_relevant": true,
     "country1": "CN",
@@ -1973,7 +2069,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "国台办表示将持续推进两岸卫生健康领域交流合作，落实台胞台企同等待遇与惠台利民政策。"
+      "Political_statement": "国台办表示将持续推进两岸卫生健康领域交流合作，落实台胞台企同等待遇，增进两岸同胞福祉。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1997,7 +2093,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "國台辦批評民進黨當局阻撓兩岸交流、製造綠色恐怖，並強調兩岸交流大潮流不可阻擋，同時呼籲台商台企把握新質生產力發展機遇。"
+      "Political_statement": "國台辦批評民進黨當局阻撓兩岸交流、禁止赴陸參加孫中山紀念活動，強調台海交流大潮流不可阻擋。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -2059,7 +2155,7 @@
     }
   },
   {
-    "category": "Not_Relevant",
+    "category": "CCP_news_and_blog",
     "is_relevant": false,
     "country1": "CN",
     "country2": "TW",
@@ -2069,9 +2165,9 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": ""
+      "Political_statement": "两岸记者登岳阳楼交流活动"
     },
-    "confidence": 0.99,
+    "confidence": 0.9,
     "original_article": {
       "date": "2026-10-24",
       "title": "Vlog丨两岸记者登岳阳楼，品忧乐精神",
@@ -2083,19 +2179,19 @@
     }
   },
   {
-    "category": "CCP_news_and_blog",
+    "category": "Not_Relevant",
     "is_relevant": false,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": 0.1,
+    "sentiment_score": 0.0,
     "sentiment_label": "neutral",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "台灣漁產品登陆廈門，屬兩岸民間經濟交流範疇。"
+      "Political_statement": ""
     },
-    "confidence": 0.9,
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-10-23",
       "title": "民生为“鲜”：台湾渔产品登陆厦门",
@@ -2107,31 +2203,7 @@
     }
   },
   {
-    "category": "CN_Statement",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": 0.6,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "中共中央台办主任宋涛表示，在坚持‘九二共识’、反对‘台独’基础上推进十项促进两岸交流合作政策，为台湾渔民谋福祉，呼吁共同反对台独。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-10-23",
-      "title": "台湾渔产品输入大陆仪式在厦门举行",
-      "content": "中共中央台办、国务院台办主任宋涛参加活动并致辞表示，为贯彻落实习近平总书记会见中国国民党主席郑丽文重要讲话精神，中央台办受权发布十项促进两岸交流合作的政策措施，并会同岛内有关方面，在坚持“九二共识”、反对“台独”政治基础上，持续推动十项措施落地见效，取得积极进展。国共两党、两岸同胞共同努力，完全可以为台湾农渔民解难题、找出路、谋生计、增福祉。希望广大台湾同胞坚守民族大义，坚决反对“台独”分裂和外部势力干涉，同大陆同胞携手维护台海和平稳定，守护中华民族共同家园，推动两岸关系和平发展、融合发展，共创民族复兴、国家统一的美好未来。 福建省委常委、秘书长吴偕林致辞表示，福建作为台湾农渔产品输入大陆的主通道，始终把“促进台湾农渔业和中小企业在闽发展”作为两岸融合发展示范区建设的一项重点任务。下一步将继续落细落实十项措施，推动闽台渔业合作走深走实，加快打造台胞台企登陆第一家园。 中国国民党副主席张荣恭表示，台湾渔获卖到大陆，不仅增进台湾基层渔民的福祉，也让大陆消费者多一种选择。两岸同胞彼此互惠，都能过上更加幸福美好的生活。中国国民党愿意和大家一起努力，推动两岸关系和平发展，增进两岸民生福祉。 国民党屏东县党部主任委员苏清泉在视频祝贺时表示，两岸在渔业资源和市场需求上具有高度的互补性，建立了深厚且不可或缺的合作基础。希望两岸共同促进经济繁荣，为下一代打造出更辉煌的大中华经济。 台湾渔会理事长谢龙隐等岛内渔业业者表示，两岸同属一个中国，两岸同胞是一家人，十项促进两岸交流合作的政策措施充分体现了大陆对台湾基层渔民福祉的关切，期待两岸渔业合作、融合发展取得新成效。 活动期间，两岸嘉宾为厦门台湾渔产品展售中心揭牌，并参观了两岸海洋美食市集。据统计，近日约350吨石斑鱼、午仔鱼等台湾特色渔产品陆续运抵厦门。",
-      "url": "https://www.news.cn/tw/20261023/f15cbb1d7ec24730a33c6499e39355c4/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
+    "category": "Not_Relevant",
     "is_relevant": false,
     "country1": "CN",
     "country2": "TW",
@@ -2141,7 +2213,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "第二十二屆桂台經貿文化合作論壇舉辦，強調深化兩岸經貿交流與惠台利民政策。"
+      "Political_statement": "第二十二屆桂台經貿文化合作論壇舉行，促進兩岸經貿交流與台商在陸發展。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -2149,30 +2221,6 @@
       "title": "桂台经贸文化合作论坛上的台企之声",
       "content": "论坛走过22年，已成为两岸同胞心手相连、产业协同发展的重要平台，见证了许多台商台企扎根大陆发展的故事。 这是10月20日拍摄的第二十二届桂台经贸文化合作论坛现场（手机照片）。新华社发（梁雨浪摄） 桂台两地地缘相近、人文相通。近年来，自治区出台了“广西80条措施”“广西30条措施”等惠台利民政策，持续深化桂台各领域合作。截至目前，全区累计注册登记涉台经营主体4500多家，电子信息、汽车配件、食品加工、现代特色农业等桂台合作产业集群不断壮大。 台青程俊是平果超能电子医疗器械科技有限公司经理，2008年他的父亲来到广西平果建厂，2020年他跨过海峡，追随父亲的脚步而来。 “初来乍到，陌生的环境让我有点不适应。但是广西乡亲淳朴热情，在这里看病就医、购房置业等和本地居民同等便利，很快就安下心来。”程俊说。 谈到为什么选择广西？程俊告诉记者，平果铝资源丰富，产品对接粤港澳大湾区和东盟市场方便，作为台资企业真切享受到了惠台利民政策举措“真金白银”的支持。 不过，最让他暖心的是相关部门始终把台胞当亲人、家人，用心用情为企业纾困解难、保驾护航。程俊说，厂房建设水气电配套受阻，有关部门现场办公，帮助解决难题；医疗器械装配专业用工短缺，当地政府也积极帮忙对接搭桥。在各方支持下，企业规模持续壮大，年产值已突破1.5亿元。 台商吴崇豪与儿子吴育名也是一对来桂发展的“父子兵”。他们在横州市中华茉莉园内创办了香香花园，打造集智慧农业、茉莉香氛精深加工、研学团建等于一体的农文旅融合综合体。 横州市是“世界茉莉花都”，茉莉花种植面积达18万亩，茉莉花产业综合年产值超190亿元。吴崇豪说，茉莉花是中国的名片之一，横州是发展茉莉花产业的好地方，企业正在茉莉香氛研发方面发力，希望助力茉莉香气飘向世界。 吴崇豪同时担任南宁市台湾同胞投资企业协会会长，协会成立32年来，为推动桂台经贸交流合作开展了大量工作。 吴崇豪说，在大陆发展30多年，真切感受到大陆对台企台商的暖心服务和政策支持，协会为台企搭建政策对接、融资支持的桥梁，帮助广大台商扎根大陆、安心经营。“我们也会经常组织台湾年轻人到广西来看看，推介大陆发展政策和机遇，推动两岸经贸和青年交流不断走深。” 10月20日，与会嘉宾在第二十二届桂台经贸文化合作论坛活动现场品尝特色农产品（手机照片）。新华社发（梁雨浪摄） 作为桂林女婿，陈闵富2010年来到广西南宁发展。“我们在这边生活都很习惯，孩子上学也很方便。”他说，早已把广西当作自己的第二故乡。 陈闵富是华徽（广西）新材料科技有限公司的总经理，近期他正关注公司核心项目锂电池隔膜的投产情况。“广西近年来引入不少新能源产业链龙头企业，公司的产品在本地就能找到买家，而且目前我们正从上游往下游延伸，抢抓机遇补全产业链关键环节。”他说。 为持续拓展新材料的研发应用，布局前沿赛道，陈闵富经常到高校和科研人员交流合作。如今，公司拥有1个博士创新站、2个科协工作站。“我们依托博士创新站，整合高校科研资源与企业实践平台，促进锂电池等领域产学研结合。”他说。 世纪工程平陆运河不久前建成通航，给在桂发展的许多台商拓展事业带来新希望。陈闵富说，公司采购原材料的成本更低，对外销售的红利扩大。“现在有了平陆运河，我们可以把销售路径延展到越南、马来西亚等地，而且运费降低后，产品的竞争力得到进一步提升。” 当前，广西正着力打造十大现代化支柱产业，以人工智能引领产业智能化、绿色化、融合化发展，并全面部署向海经济。 台湾区电机电子工业同业公会大陆副首席代表邱全成表示，以人工智能为媒，可以形成台湾能力、广西集成、东盟应用的合作方式，利用广西面向东盟的区位优势，强化桂台在人工智能集成验证和在地适配等方面的合作。 自2005年创办以来，桂台经贸文化合作论坛从早年的农业、加工制造合作，到如今聚焦人工智能与向海经济，始终与产业需求、区域战略同频共振。与会台商认为，两岸同胞同根同源，大陆经济向新向优，到大陆来交流和发展是许多台商台青的共同期待。",
       "url": "https://www.news.cn/tw/20261022/e4d2605fbebd40bbb8fbba0379a08e79/c.html",
-      "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": 0.6,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "舉辦桂台經貿文化合作论坛，推動兩岸產業協同發展與經貿交流。"
-    },
-    "confidence": 0.9,
-    "original_article": {
-      "date": "2026-10-21",
-      "title": "桂台经贸文化合作论坛见证两岸同胞心手相连",
-      "content": "论坛以“数智赋能新时代 桂台融合创未来”为主题，聚焦人工智能与向海经济。两岸政商界人士、专家学者等围绕产业合作相关内容开展研讨交流。 自2005年创办以来，桂台经贸文化合作论坛已成为两岸同胞心手相连、产业协同发展的重要平台和两岸经贸文化合作领域较具影响力的标志性交流品牌。 全国台企联常务副会长、台湾客家总商会荣誉会长韩萤焕表示，二十多年来，论坛促成大量台商投资广西的合作项目，台资连续多年成为广西境外资金的主要来源之一。这背后，是两地企业家彼此信任与携手，是实实在在的互利共赢。 台湾的资金、技术与管理经验，与广西的土地、市场与区位优势深度结合，实现从“加法”到“乘法”的增值，是两岸业内人士共同的期待。 广西壮族自治区发展改革委副主任林泽楠说，台湾在高端制造、精密加工、现代农业、现代服务业等领域优势突出，而广西拥有广阔的土地空间、充足的要素保障、庞大的腹地市场和便捷的出海通道，既能承接台湾优质产业转移，也能为台企打通“大陆腹地+东盟全域”的双向市场通道。 当前，广西正打造制造业十大现代化支柱产业，以人工智能引领产业智能化、绿色化、融合化发展，并全面部署向海经济。论坛的主题也随之变化，从早年的农业、加工制造合作，到如今聚焦人工智能与向海经济，始终与产业需求、区域战略同频共振。 海峡两岸经贸文化交流协会会长夏立言表示，台商最重视的就是一个稳定、可预期的经营环境。期待广西加大支持台胞台企的力度，协助企业掌握中国—东盟自贸区3.0版的新规则，让台商愿意来、留得住、发展得好。 近年来，配套政策持续加码，让台胞台企享受在大陆发展的同等待遇，中国—东盟产业合作区、西部陆海新通道等战略平台叠加发力，税收、土地等不断惠及台企，稳定、可预期的经营环境，吸引不少台商前来考察和落地发展。 涉及防城港、钦州、崇左的广西海峡两岸产业合作区是惠台利民发展的重要实践。广西壮族自治区园区投促中心主任肖潇介绍，合作区总规划面积95.67平方公里，三地片区产业各有侧重、错位发展，台胞和台资企业同等享受所在片区沿边临港产业园区、边境经济合作区等各类优惠政策。 全国台企联会长李政宏表示，未来将继续发挥桥梁纽带作用，组织更多台商台青走进广西、考察交流，助力已落地台企扎根发展、提质升级，推动桂台合作走深走实。 本届论坛10月19日至21日在南宁举行，由广西壮族自治区人民政府和国务院台湾事务办公室共同主办。",
-      "url": "https://www.news.cn/tw/20261021/8c2db430fbe64d80b7b631d282b651b6/c.html",
       "source": "xinhua",
       "category": "",
       "sentiment": ""
@@ -2197,6 +2245,30 @@
       "title": "#台湾光复纪念日# 【铭记光复历史，捍卫山河一统！#东部战区发布台湾光复纪念日主题海报#】1945年...",
       "content": "#台湾光复纪念日# 【铭记光复历史，捍卫山河一统！#东部战区发布台湾光复纪念日主题海报#】1945年10月25日，台湾重归祖国怀抱！台湾光复，是中国人民抗日战争胜利的重要成果，是中国政府恢复对台湾行使主权的重要铁证，是台湾作为中国一部分的重要史实和法理链条的重要一环。八十一载，时光荏苒，台湾 ...全文",
       "url": "https://m.weibo.cn/detail/5357808633252358",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "解放軍東部戰區海軍某大隊組織海上實戰化綜合演練，進行目標捕捉、參數解算、火力打击等科目",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區發布練兵備戰現場畫面，強調提升海上任務本領"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-26",
+      "title": "#直击东部战区练兵备战现场# 【#炮啸海天砺精兵#】连日来，海军某大队组织海上实战化综合演练，各战位...",
+      "content": "#直击东部战区练兵备战现场# 【#炮啸海天砺精兵#】连日来，海军某大队组织海上实战化综合演练，各战位官兵紧密配合，快速完成目标捕捉、参数解算、火力打击等科目演练，全面提升部队遂行多样化海上任务本领。（王贺秋、王永超、臧友森、杨晓慧）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5358178637185269",
       "source": "weibo",
       "category": "",
       "sentiment": ""
@@ -2235,9 +2307,9 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "",
+      "Military_exercise": "解放軍東部戰區發布備戰練兵相關貼文",
       "Foreign_battleship": "",
-      "Political_statement": "解放軍東部戰區官方發布具有軍事威脅意味的口號與標籤"
+      "Political_statement": "解放軍東部戰區強調強化軍事本領與戰備。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -2254,14 +2326,14 @@
     "category": "Not_Relevant",
     "is_relevant": false,
     "country1": "CN",
-    "country2": "CN",
+    "country2": null,
     "sentiment_score": 0.5,
     "sentiment_label": "positive",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "解放軍部隊深入社區開展便民服務，屬內部民生宣傳。"
+      "Political_statement": ""
     },
     "confidence": 0.99,
     "original_article": {
@@ -2275,7 +2347,7 @@
     }
   },
   {
-    "category": "CCP_news_and_blog",
+    "category": "Military_Exercise",
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
@@ -2283,11 +2355,11 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "東部戰區第73集團軍某旅炮兵分隊組織全要素、高強度、跨晝夜實彈射擊考核",
+      "Military_exercise": "中共東部戰區第73集團軍某旅炮兵分隊組織全要素、高強度、跨晝夜實彈射擊考核",
       "Foreign_battleship": "",
-      "Political_statement": "東部戰區練兵備戰，檢驗炮兵分隊複雜環境下精准火力打擊能力"
+      "Political_statement": ""
     },
-    "confidence": 0.95,
+    "confidence": 0.98,
     "original_article": {
       "date": "2026-10-23",
       "title": "#直击东部战区练兵备战现场# 【#全要素跨昼夜实弹演练震撼登场# 】近日，第73集团军某旅炮兵分队组...",
@@ -2307,9 +2379,9 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "",
+      "Military_exercise": "東部戰區官方社群發布強軍與練兵相關貼文",
       "Foreign_battleship": "",
-      "Political_statement": "解放軍東部戰區官方微博發布強軍與台海相關宣傳標語"
+      "Political_statement": "矢志强军淬铁拳，薪赓长征砺精兵"
     },
     "confidence": 0.95,
     "original_article": {
@@ -2327,13 +2399,13 @@
     "is_relevant": false,
     "country1": "CN",
     "country2": "CN",
-    "sentiment_score": 0.2,
+    "sentiment_score": 0.1,
     "sentiment_label": "neutral",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "習近平在紀念長征勝利90周年大會上發表講話，強調弘揚長征精神。"
+      "Political_statement": "習近平在紀念長征勝利90周年大會發表重要講話，強調弘揚長征精神。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -2357,7 +2429,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "東部戰區空軍某部舉行新飛行員入列儀式，激勵官兵投身強軍事業。"
+      "Political_statement": "東部戰區空軍某部舉行新飛行員入列儀式，強化身份認同與責任擔當。"
     },
     "confidence": 0.9,
     "original_article": {
@@ -2371,7 +2443,7 @@
     }
   },
   {
-    "category": "CCP_news_and_blog",
+    "category": "Military_Exercise",
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
@@ -2379,17 +2451,137 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "東部戰區空軍某部組織實戰化裝備保障演練，檢驗野外複雜條件下機動保障能力",
+      "Military_exercise": "東部戰區空軍某部組織實戰化裝備保障演練，檢驗野外機動保障能力。",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
-    "confidence": 0.95,
+    "confidence": 0.98,
     "original_article": {
       "date": "2026-10-22",
       "title": "#直击东部战区练兵备战现场#【#锤炼装备保障硬功#】近日，东部战区空军某部紧贴实战要求组织装备保障演...",
       "content": "#直击东部战区练兵备战现场#【#锤炼装备保障硬功#】近日，东部战区空军某部紧贴实战要求组织装备保障演练，检验官兵在野外复杂条件下的机动保障能力，进一步夯实备战打仗基础。（丁页天、张翔、吴新浙、陈叶楠）#时刻准备战斗#",
       "url": "https://m.weibo.cn/detail/5356729086510919",
       "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "偵獲6艘共艦、9艘公務船，及3架次共機越中線侵擾北部、中部及西南空域",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-19",
+      "title": "6艘共艦9艘公務船擾台國軍嚴密監控| 政治",
+      "content": "（中央社記者 游凱翔 台北19日電）國防部發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲6艘共艦、9艘公務船，及3架次共機越中線侵擾北部、中部及西南空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲6艘共艦、9艘公務船及5架次共機，其中3架次逾越台灣海峽中線侵擾北部、中部及西南空域。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：潘羿菁）1151019 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aipl/202610190016.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "TW",
+    "country2": "TW",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-10-19",
+      "title": "三上悠亞走訪台灣廟求月老盼理想型快出現| 娛樂",
+      "content": "（中央社記者 洪素津 台北19日電）三上悠亞球場舞蹈應援動作大，有觀眾反應走光疑慮，她今天回應表示不用擔心，上場前的保護措施做得很足；她分享近日走訪台灣廟宇求護身符放身上，告訴月老盼理想型趕快出現。 福爾摩沙夢想家啦啦隊「Formosa Sexy」成員三上悠亞今天出席內衣活動，提及跳應援舞的走光疑慮，她要粉絲不用擔心，「我都是有做了非常安全的措施，再怎麼樣用力地跳舞都是不會走光的，可能就是拍攝的光線問題」。 而問及在台灣的工作近況，三上悠亞希望有更多的機會來台灣工作，要大家多多進球場看她表演，「我的上班日都已經有公開了，所以大家一定要來球場看我喔！」 除了工作，三上悠亞的感情狀況也是大家關注焦點，她表示近日參拜台灣廟宇，有求護身符放在身上，笑稱也有去拜月老，「可是我好像許願的內容講錯了，我都在講工作，但是我想神明應該知道，我的理想型就是帥、溫柔、體貼的」。（編輯：李淑華）1151019 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/amov/202610190148.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "TW",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-10-22",
+      "title": "台湾气象部门发布台风“蔷琵”海上警报",
+      "content": "根据最新数据，21日23时“蔷琵”中心位置在鹅銮鼻的东南东方约730公里处，以每小时14公里速度，向西北移动。近中心最大风速每秒55米，相当于16级风。 据预测，23日至24日将是台风对台湾影响较明显的时段。受台风外围环流与东北季风共同影响，台湾北部、东北部、宜兰及花莲地区需防范局部大雨或豪雨，北部山区不排除出现大豪雨等级降雨。 气象部门提醒，民众应持续关注最新台风路径及警报信息，避免前往山区、溪流及海岸等高风险区域，提前做好防台准备。",
+      "url": "https://www.news.cn/tw/20261022/cb7af66ae816490e931aedac4953d84f/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中共中央台办主任宋涛表示，在坚持‘九二共识’、反对‘台独’基础上推进十项促进两岸交流合作政策，为台湾渔民谋福祉，呼吁共同反对台独。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-23",
+      "title": "台湾渔产品输入大陆仪式在厦门举行",
+      "content": "中共中央台办、国务院台办主任宋涛参加活动并致辞表示，为贯彻落实习近平总书记会见中国国民党主席郑丽文重要讲话精神，中央台办受权发布十项促进两岸交流合作的政策措施，并会同岛内有关方面，在坚持“九二共识”、反对“台独”政治基础上，持续推动十项措施落地见效，取得积极进展。国共两党、两岸同胞共同努力，完全可以为台湾农渔民解难题、找出路、谋生计、增福祉。希望广大台湾同胞坚守民族大义，坚决反对“台独”分裂和外部势力干涉，同大陆同胞携手维护台海和平稳定，守护中华民族共同家园，推动两岸关系和平发展、融合发展，共创民族复兴、国家统一的美好未来。 福建省委常委、秘书长吴偕林致辞表示，福建作为台湾农渔产品输入大陆的主通道，始终把“促进台湾农渔业和中小企业在闽发展”作为两岸融合发展示范区建设的一项重点任务。下一步将继续落细落实十项措施，推动闽台渔业合作走深走实，加快打造台胞台企登陆第一家园。 中国国民党副主席张荣恭表示，台湾渔获卖到大陆，不仅增进台湾基层渔民的福祉，也让大陆消费者多一种选择。两岸同胞彼此互惠，都能过上更加幸福美好的生活。中国国民党愿意和大家一起努力，推动两岸关系和平发展，增进两岸民生福祉。 国民党屏东县党部主任委员苏清泉在视频祝贺时表示，两岸在渔业资源和市场需求上具有高度的互补性，建立了深厚且不可或缺的合作基础。希望两岸共同促进经济繁荣，为下一代打造出更辉煌的大中华经济。 台湾渔会理事长谢龙隐等岛内渔业业者表示，两岸同属一个中国，两岸同胞是一家人，十项促进两岸交流合作的政策措施充分体现了大陆对台湾基层渔民福祉的关切，期待两岸渔业合作、融合发展取得新成效。 活动期间，两岸嘉宾为厦门台湾渔产品展售中心揭牌，并参观了两岸海洋美食市集。据统计，近日约350吨石斑鱼、午仔鱼等台湾特色渔产品陆续运抵厦门。",
+      "url": "https://www.news.cn/tw/20261023/f15cbb1d7ec24730a33c6499e39355c4/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "舉辦桂台經貿文化合作论坛，推動兩岸產業協同發展與經貿交流。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-10-21",
+      "title": "桂台经贸文化合作论坛见证两岸同胞心手相连",
+      "content": "论坛以“数智赋能新时代 桂台融合创未来”为主题，聚焦人工智能与向海经济。两岸政商界人士、专家学者等围绕产业合作相关内容开展研讨交流。 自2005年创办以来，桂台经贸文化合作论坛已成为两岸同胞心手相连、产业协同发展的重要平台和两岸经贸文化合作领域较具影响力的标志性交流品牌。 全国台企联常务副会长、台湾客家总商会荣誉会长韩萤焕表示，二十多年来，论坛促成大量台商投资广西的合作项目，台资连续多年成为广西境外资金的主要来源之一。这背后，是两地企业家彼此信任与携手，是实实在在的互利共赢。 台湾的资金、技术与管理经验，与广西的土地、市场与区位优势深度结合，实现从“加法”到“乘法”的增值，是两岸业内人士共同的期待。 广西壮族自治区发展改革委副主任林泽楠说，台湾在高端制造、精密加工、现代农业、现代服务业等领域优势突出，而广西拥有广阔的土地空间、充足的要素保障、庞大的腹地市场和便捷的出海通道，既能承接台湾优质产业转移，也能为台企打通“大陆腹地+东盟全域”的双向市场通道。 当前，广西正打造制造业十大现代化支柱产业，以人工智能引领产业智能化、绿色化、融合化发展，并全面部署向海经济。论坛的主题也随之变化，从早年的农业、加工制造合作，到如今聚焦人工智能与向海经济，始终与产业需求、区域战略同频共振。 海峡两岸经贸文化交流协会会长夏立言表示，台商最重视的就是一个稳定、可预期的经营环境。期待广西加大支持台胞台企的力度，协助企业掌握中国—东盟自贸区3.0版的新规则，让台商愿意来、留得住、发展得好。 近年来，配套政策持续加码，让台胞台企享受在大陆发展的同等待遇，中国—东盟产业合作区、西部陆海新通道等战略平台叠加发力，税收、土地等不断惠及台企，稳定、可预期的经营环境，吸引不少台商前来考察和落地发展。 涉及防城港、钦州、崇左的广西海峡两岸产业合作区是惠台利民发展的重要实践。广西壮族自治区园区投促中心主任肖潇介绍，合作区总规划面积95.67平方公里，三地片区产业各有侧重、错位发展，台胞和台资企业同等享受所在片区沿边临港产业园区、边境经济合作区等各类优惠政策。 全国台企联会长李政宏表示，未来将继续发挥桥梁纽带作用，组织更多台商台青走进广西、考察交流，助力已落地台企扎根发展、提质升级，推动桂台合作走深走实。 本届论坛10月19日至21日在南宁举行，由广西壮族自治区人民政府和国务院台湾事务办公室共同主办。",
+      "url": "https://www.news.cn/tw/20261021/8c2db430fbe64d80b7b631d282b651b6/c.html",
+      "source": "xinhua",
       "category": "",
       "sentiment": ""
     }
@@ -2749,30 +2941,6 @@
       "title": "中共23機艦船台海周邊活動國軍嚴密掌握應處| 政治",
       "content": "（中央社記者 吳書緯 台北17日電）國防部表示，自昨天上午6時至今天上午6時，偵獲共機9架次，其中5架次逾越中線進入北部、中部及西南空域，以及6艘共艦及8艘公務船，總計中共23機艦船持續在台海周邊活動，國軍嚴密監控與應處。 根據國防部今天公布的「中共解放軍進入台海周邊空域活動示意圖」，國軍於昨天上午9時10分至昨天下午5時45分，在台灣海峽空域偵獲中共5架次主戰機及直升機，其中1架次共機逾越中線。 國軍於昨天上午8時45分至昨天晚間7時40分，在台灣西南空域偵獲中共3架次輔戰機；國軍另於昨天下午4時40分至昨天晚間6時30分，在台灣防空識別區（ADIZ）內的台灣北部空域偵獲中共1架直升機。 國防部指出，國軍運用任務機、艦及岸置飛彈系統嚴密監控與應處。（編輯：翟思嘉）1151017 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
       "url": "https://www.cna.com.tw/news/aipl/202610170026.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "US_TW_Interaction",
-    "is_relevant": true,
-    "country1": "US",
-    "country2": "TW",
-    "sentiment_score": 0.3,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "美方派遣退役上將率團擔任資深觀摩員，觀摩漢光演習並提供聯合作戰建議",
-      "Military_exercise": "漢光演習美方觀摩團交流專案",
-      "Foreign_battleship": "",
-      "Political_statement": "國防部表示美退將率團觀摩漢光演習，提供國軍精進聯合作戰能力建議。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-10-21",
-      "title": "國防部：美退將率團觀摩漢光演習提供聯合作戰建議| 政治",
-      "content": "（中央社記者 游凱翔 台北21日電）國防部表示，「資深觀摩員年度評估暨雙方交流」案是藉台美雙方研討漢光演習評估需求及觀摩執行細節，期間由美方退役上將任資深觀摩員，並納編專業軍、文職人員為觀摩團，依訓練目標及觀察所見，提供國軍精進聯合作戰能力建議。 國民黨立委馬文君日前在立法院提案指出，國防部參謀本部於今明兩年度執行「資深觀摩員年度評估暨雙方交流」案，需新台幣8243萬8000元預算，並凍結部分預算，要求國防部說明美方派遣層級及預期成效。 國防部透過書面報告回覆，「資深觀摩員年度評估暨雙方交流」案，是藉由台美雙方訂定年度整備會議項目，研討年度「漢光演習」評估需求及觀摩執行細節，演習期間由美方退役上將任資深觀摩員，並由太平洋司令部納編專業軍、文職人員為觀摩團，依訓練目標及觀察所見，提供國軍精進聯合作戰能力的建議，列入漢光演習總結報告，所獲致結論及建議事項成為國軍建軍備戰參考。 國防部說，預算編列依美國國防部聯合差旅規則「Joint Travel Regulation」（JTR）辦理，其每日住宿及日支費標準則依美國防部差旅管理辦公室（Defense Travel Management Office）及國務院公布的海外差旅日支費標準（OCONUS Foreign Per Diem Rate）辦理。 國防部強調，依年度軍事交流及演習觀摩需求，統一檢討各項經費及派遣層級，確保資源配置符合整體建軍目標；另也將各項交流成果及合作效益，納入後續預算編列及計畫修訂的參考，以落實軍購案預算效益管理。（編輯：林克倫）1151021 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
-      "url": "https://www.cna.com.tw/news/aipl/202610210182.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
