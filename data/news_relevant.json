@@ -44334,5 +44334,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.1,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "福建省军区举办纪念红军长征胜利90周年活动，旨在传承红色基因，激励官兵。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-10-26",
+      "title": "【#红军后代话初心#】信仰照亮前路，薪火赓续新章。近日，福建省军区福州第一离职干部休养所联合福州市文...",
+      "content": "【#红军后代话初心#】信仰照亮前路，薪火赓续新章。近日，福建省军区福州第一离职干部休养所联合福州市文联，举办“不朽的丰碑”纪念中国工农红军长征胜利90周年红军后代讲红军分享会活动。驻榕官兵、文职人员、党员干部代表齐聚一堂，回望峥嵘岁月、汲取奋进力量。（柳思羽、叶冰斌、郑龙腾）",
+      "url": "https://m.weibo.cn/detail/5358269234413984",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
