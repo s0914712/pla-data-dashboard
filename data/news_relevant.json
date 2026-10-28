@@ -44454,5 +44454,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區海軍某岸勤部開展紀念長征主題故事分享會，激發官兵強軍鬥志。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-10-28",
+      "title": "【#长征薪火照海疆#】近日，东部战区海军某岸勤部开展“赓续长征血脉、争当岸勤先锋”主题故事分享会。他...",
+      "content": "【#长征薪火照海疆#】近日，东部战区海军某岸勤部开展“赓续长征血脉、争当岸勤先锋”主题故事分享会。他们将红军长征故事搬上舞台，引导官兵在回望峥嵘岁月中感悟伟大长征精神，不断激发扎根战位、矢志强军的昂扬斗志。（孙柳飞、张烨、张耀阳、何尉昊） #纪念红军长征胜利90周年#",
+      "url": "https://m.weibo.cn/detail/5358994010407204",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍某部舉辦「福劍杯」足球賽決賽，藉此展示體能訓練成果。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-27",
+      "title": "【#绿茵争锋强体魄#】近日，东部战区空军某部 “福剑杯” 足球赛历经一个多月激烈角逐迎来决赛。绿茵场...",
+      "content": "【#绿茵争锋强体魄#】近日，东部战区空军某部 “福剑杯” 足球赛历经一个多月激烈角逐迎来决赛。绿茵场上，球员们奋勇突击、攻势如潮，在高速奔跑与对抗拼抢中展示体能训练成果，为部队备战打仗、聚力打赢注入动力。（周颖、杨振华、张翼、戴志超）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5358631622019109",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]

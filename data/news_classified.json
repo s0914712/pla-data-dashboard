@@ -51638,5 +51638,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區海軍某岸勤部開展紀念長征主題故事分享會，激發官兵強軍鬥志。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-10-28",
+      "title": "【#长征薪火照海疆#】近日，东部战区海军某岸勤部开展“赓续长征血脉、争当岸勤先锋”主题故事分享会。他...",
+      "content": "【#长征薪火照海疆#】近日，东部战区海军某岸勤部开展“赓续长征血脉、争当岸勤先锋”主题故事分享会。他们将红军长征故事搬上舞台，引导官兵在回望峥嵘岁月中感悟伟大长征精神，不断激发扎根战位、矢志强军的昂扬斗志。（孙柳飞、张烨、张耀阳、何尉昊） #纪念红军长征胜利90周年#",
+      "url": "https://m.weibo.cn/detail/5358994010407204",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
