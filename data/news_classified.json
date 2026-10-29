@@ -51854,5 +51854,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "江蘇省軍區無錫第四離職幹部休養所組織紀念長征勝利90週年大會精神傳達學習。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-29",
+      "title": "【#长征薪火映丹心#】近日，江苏省军区无锡第四离职干部休养所组织纪念长征胜利90周年大会精神传达学习...",
+      "content": "【#长征薪火映丹心#】近日，江苏省军区无锡第四离职干部休养所组织纪念长征胜利90周年大会精神传达学习，引导官兵和文职人员赓续红色血脉、永葆纯洁本色，把学习成果转化为搞好老干部服务保障的实际行动。（范昊星、刘佳、张兆宇） #纪念红军长征胜利90周年#",
+      "url": "https://m.weibo.cn/detail/5359356398272777",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
