@@ -52094,5 +52094,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區海軍航空兵某部舉辦長征精神分享交流活動，激勵官兵強軍興軍。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-10-30",
+      "title": "【#长征精神分享交流活动来了#】近日，东部战区海军航空兵某部举办“赓续长征精神，奋进强军征程”分享交...",
+      "content": "【#长征精神分享交流活动来了#】近日，东部战区海军航空兵某部举办“赓续长征精神，奋进强军征程”分享交流活动。一幕幕场景重现红军湘江浴血、四渡赤水等烽火征程，彰显革命先辈绝境守初心、危难勇向前的信仰力量，激励官兵传承长征精神，奋力书写强军兴军新时代答卷。（杨圣龙、张德升、杨智超、郑敬 ...全文",
+      "url": "https://m.weibo.cn/detail/5359718786400448",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
