@@ -45246,5 +45246,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "解放軍第71集團軍分隊舉行長征精神宣講活動"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-02",
+      "title": "【#长征精神代代传承#】近日，第71集团军“朱德警卫团”某分队举行长征精神宣讲活动。官兵登上讲台，向...",
+      "content": "【#长征精神代代传承#】近日，第71集团军“朱德警卫团”某分队举行长征精神宣讲活动。官兵登上讲台，向战友深情讲述90多年前，该部跟随党中央浴血奋战，在长征中光荣完成遵义会议警卫等任务。学习讨论中，官兵们表示，要大力弘扬伟大长征精神，以实际行动打好实现建军一百年奋斗目标攻坚战。（宋方武、 ...全文",
+      "url": "https://m.weibo.cn/detail/5360805949473287",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
