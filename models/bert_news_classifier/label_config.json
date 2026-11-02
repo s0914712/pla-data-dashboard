@@ -32,8 +32,8 @@
     "neutral": 1,
     "positive": 2
   },
-  "best_cat_acc": 0.35374149659863946,
-  "best_sent_acc": 0.782312925170068,
+  "best_cat_acc": 0.46567164179104475,
+  "best_sent_acc": 0.7611940298507462,
   "pretrained_name": "bert-base-chinese",
   "max_len": 256
 }
