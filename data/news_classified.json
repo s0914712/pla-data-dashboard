@@ -1395,16 +1395,64 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "偵獲共艦7艘、公務船6艘及共機19架次（其中4架次侵擾西南及東部空域），國軍運用任務機艦及岸置飛彈系統嚴密監控。",
+      "Military_exercise": "偵獲6艘共艦、6艘公務船，以及31架次共機侵擾中部、西南及東部空域，國軍嚴密監控與應處。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-11-03",
+      "title": "6艘共艦31架次共機擾台國軍嚴密監控| 政治",
+      "content": "（中央社記者 游凱翔 台北3日電）國防部發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲6艘共艦、6艘公務船，以及31架次共機侵擾中部、西南及東部空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲6艘共艦、6艘公務船及49架次共機，其中31架次共機侵擾中部、西南及東部空域。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：楊凱翔）1151103 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aipl/202611030037.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "中國共軍7艘艦艇、6艘公務船及19架次共機侵擾台海周邊及西南、東部空域，國軍運用任務機艦及岸置飛彈系統監控應處。",
       "Foreign_battleship": "",
       "Political_statement": "國防部公布共機艦動態，強調國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。"
     },
-    "confidence": 0.98,
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-11-02",
       "title": "7艘共艦6艘公務船擾台國軍嚴密監控| 政治",
       "content": "（中央社記者 游凱翔 台北2日電）國防部發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲7艘共艦、6艘公務船，以及4架次共機侵擾西南及東部空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲7艘共艦、6艘公務船及19架次共機，其中4架次共機侵擾西南及東部空域。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：楊蘭軒）1151102 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
       "url": "https://www.cna.com.tw/news/aipl/202611020020.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Regional_Security",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "英國國會委員會報告示警，對中經貿過度依賴恐限縮英方在台海嚇阻中國侵略的行動自由。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-11-02",
+      "title": "英國國會：對中過度依賴恐限縮嚇阻、妨礙應對台海危機| 國際",
+      "content": "（中央社記者 陳韻聿 倫敦2日專電）英國國會商業、創新、科學暨貿易事務委員會今天發布 「中國與英國經濟」報告 ，部分內容關切中國企圖單方面改變台灣現狀。委員會示警，在經貿領域對中國形成的依賴恐限縮英方行動自由、影響在台海嚇阻中國的侵略行為。 報告指出，在關鍵進口貿易項目，英國對中國的依賴日益增加，而這正加劇英國面臨的經濟脅迫風險。一旦此趨勢持續，則面對中國具侵略性的行動，例如在台灣海峽，英國的行動自由恐受限制，繼而影響對中嚇阻。 委員會3月就英國經濟中的中國因素啟動調查，廣泛徵集政府官員、智庫、專家、企業界意見，今天發布逾百頁的總結報告，為政府提供施政建議。官方原則上應於60天內（明年1月初）發布正式書面回應。 委員會報告針對英國政府的對中政策提出不少批判，但許多是已被各界一再指出的問題，包括缺乏跨部會、跨領域及跨地方的協調一致和連貫性；政府決策透明度有待提升；各界需要更明確的實務指引，以及2024年7月上台的工黨政府迄今未兌現關於全面盤點對中關係（China audit）的競選承諾。 報告提到，英國政府還沒完備對中關係盤點，也還沒發布各界預期的新對中戰略，2024年旋即啟動與中國的重新接觸往來，並在今年1月迎來暌違8年後，首度有現任英國首相訪中，與之前緊張的英中關係有明顯差異。 英國政府去年6月宣告完成對中關係全面盤點，但今天的委員會報告指出，政府從未發布正式的盤點結論報告。 委員會主席、工黨籍國會議員伯恩（Liam Byrne）表示，當政府的對中政策是且走且做、缺乏長遠眼光，英國企業即難以妥善規劃未來。 他提到，政府的對中政策與作為導致英國錯失增進自身利益的機會、未能妥適管控風險，甚至發生拖到最後一刻才提出透明度和說服力皆有待加強的重要決策。 伯恩強調，英國必須更積極主動形塑、掌控自身與中國的關係，訂定「咬了會痛」的遊戲規則，無論是為了保護英國利益、管控風險、把握機遇或對抗不公平的市場行為，否則就得承受由北京或華府為倫敦作決定的風險。 報告有一章節關注「避免脅迫、依賴和強迫勞動，以及維持行動自由」。其中，在聚焦進出口貿易和供應鏈的部分，報告將中國企圖以單方面行動改變「台灣現狀」（the status quo in Taiwan）列為風險之一。 報告提到，中國是英國的第3大進口來源，僅次於美國和德國。COVID-19（2019冠狀病毒疾病）疫情之後，英國在關鍵領域對中國的進口依賴不降反升。 官方資訊顯示，2024至2025年期間，英國總計有4482個種類的進口貨品源自中國，其中有多達3380種屬於「脆弱（易受干擾的）供應鏈」、911種對英國「至關重要」，特別是化學品、機械設備和各式工業製品，影響英國的關鍵原材料、生技製藥、資通訊科技、能源系統，甚至國防需求。 此外，就算不是直接從中國進口，其他國際供應來源也對中國有不同程度的依賴。 英國央行英格蘭銀行（Bank of England）曾在2024年示警，英國對中國有「大量的隱性依賴」，而這主要是因為「由美國供應的中間產品含有來自中國的投入」。在2025年，中國依然是美國的第3大貿易夥伴。 另一個例子是英國健保體系使用的學名藥多達1/3是產自印度，但這些藥品的活性成分（有效成分）高達70%是源自中國。 除了在貨品貿易依賴中國作為供應源，英國在服務貿易也依賴中國作為出口市場，例如輸出教育服務。 報告舉例，中國學生是英國大學院校一大財源；在集結英國24所頂尖研究型大學的「羅素大學集團」（Russell Group）之中，中國學生在國際學生的占比高達42%。 儘管輿論曾就英國教育機構對中國學生的依賴表示關切，英國內政部和各校統計資料顯示，中國學生違規滯留、申請難民庇護和攜眷就讀的比例較低，移民管控相對容易。 考量英國對中經貿依賴情況，報告示警，台海危機恐對英國經濟造成「災難性的衝擊」。全球一年有高達20%的貿易航運，以及占比分別為3.9%的英國進、出口貿易，途經台灣海峽。 台海航運受干擾也牽動保險業和金融業，而倫敦正好是這兩個產業的國際重鎮。 荷莫茲海峽小百科 報告援引美國智庫榮鼎集團（Rhodium Group）的估計，指出台海封鎖可能給全球經濟造成至少2兆美元（約新台幣65兆元）的損失，且這個數字還沒計入各國反應措施及其他進一步效應。 此外，僅是台灣半導體供應遭截斷，全球經濟即恐需承受高達1.6兆美元的代價。 英國國會委員會建議政府為台海危機恐對本國經濟造成的衝擊盡速預作準備，務必確保含中小企業在內的英國業界以及公共服務單位，皆已備妥可行的緊急應變計畫。政府也應常態與產業界共同舉行供應鏈壓力測試演練，聚焦台海危機可能引發的衝擊。 報告另提到，考量台灣即將於2028年舉行總統選舉，英國已「沒有時間可浪費」。 報告援引專家說法，提到2028至2030年可能是台海風險高峰期，而這樣的評估與2028年的台灣大選結果有關。（編輯：田瑞華）1151102 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aopl/202611020323.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -1419,7 +1467,7 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "共軍出動7艘共艦、2艘公務船及32架次共機（其中26架次逾越台海中線）侵擾台灣北部、中部、西南及東部空域，國軍運用任務機艦及岸置飛彈系統嚴密監控。",
+      "Military_exercise": "中共派遣7艘共艦、2艘公務船及32架次共機（其中26架次逾越海峽中線）侵擾台灣北部、中部、西南及東部空域，國軍嚴密監控應處。",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
@@ -1445,7 +1493,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "學者分析習近平大規模清洗高階將領，致使解放軍失去干預政局能力，但揣摩上意可能增添台海情勢誤判風險。"
+      "Political_statement": "學者分析習近平大規模清洗解放軍高階將領，導致共軍失去干預政局能力，但揣摩上意恐增添危機誤判風險，短期內共軍犯台機率未提高。"
     },
     "confidence": 0.9,
     "original_article": {
@@ -1467,7 +1515,7 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "中共出動22架次軍機（其中18架次逾越中線及其延伸線）與共艦配合，進行所謂「聯合戰備警巡」擾台。",
+      "Military_exercise": "中共出動各型軍機22架次，其中18架次逾越海峽中線及其延伸線，配合共艦進行「聯合戰備警巡」，騷擾台灣周邊空、海域。",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
@@ -1487,13 +1535,13 @@
     "is_relevant": true,
     "country1": "US",
     "country2": "CN",
-    "sentiment_score": -0.3,
+    "sentiment_score": -0.4,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "美日韓外長會談強調台海和平穩定重要性，美方直指中國脅迫行為及中俄合作破壞印太穩定。"
+      "Political_statement": "美日韓外長會談強調維護台海和平穩定重要性，並直指中國在區域的脅迫行為與中俄合作破壞印太穩定。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1511,11 +1559,11 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.5,
+    "sentiment_score": -0.4,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "國防部偵獲共機13架次（6架次逾越中線）、共艦7艘及公務船2艘持續在台海周邊活動，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。",
+      "Military_exercise": "中共解放軍共計22機艦船持續在台海周邊活動，其中13架次共機（6架次逾越中線）、7艘共艦及2艘公務船遭國軍偵獲並嚴密監控應處。",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
@@ -1539,7 +1587,7 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "中共14機艦船持續在台海周邊活動，其中共機6架次（3架次逾越中線）、共艦7艘及公務船1艘，國軍運用任務機、艦及岸置飛彈系統嚴密監控與應處。",
+      "Military_exercise": "中共共計14機艦船持續在台海周邊活動，其中6架次共機，3架次逾越中線進入北部、東部及西南空域，另有7艘共艦及1艘公務船。",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
@@ -1565,7 +1613,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "日德領袖峰會聲明重申台海和平穩定重要性，台灣外交部表達歡迎並強調維護台海穩定已成國際共識。"
+      "Political_statement": "日德領袖峰會聲明重申台海和平穩定重要性，外交部表歡迎並指彰顯國際共識。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1582,30 +1630,6 @@
     "category": "Regional_Security",
     "is_relevant": true,
     "country1": "JP",
-    "country2": "TW",
-    "sentiment_score": 0.3,
-    "sentiment_label": "positive",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "日德峰會發表聯合聲明，重申維護台灣海峽和平穩定的重要性，並強調反對片面改變現狀。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-10-29",
-      "title": "日德峰會深化安全與經濟合作重申維護台海和平穩定| 國際",
-      "content": "（中央社記者 林尚縈 柏林28日專電）德國總理梅爾茨今天在東京與日本首相高市早苗會談，雙方發表聯合聲明，重申維護台灣海峽和平穩定的重要性，並同意加強國防、經濟安全及先進科技合作，因應地緣政治與經濟挑戰。 德國總理梅爾茨（Friedrich Merz）28日起訪問日本兩天，並與日本首相高市早苗舉行雙邊峰會。根據會後發布的日德領袖聯合聲明，兩國將進一步強化戰略夥伴關係，並重申歐洲大西洋與印太地區的安全及繁榮日益緊密相連。 在區域安全議題上，兩國領袖對東海及南海局勢表達嚴重關切，重申強烈反對任何以武力或脅迫方式片面改變現狀的企圖，並強調維護台灣海峽和平穩定的重要性，鼓勵以和平方式解決兩岸問題。 經濟安全也是此次峰會重點，聲明指出，雙方對關鍵礦物出口限制及報復性措施等經濟脅迫行為表達嚴重關切，並反對造成產能過剩及市場扭曲的非市場政策與做法。 聲明雖未直接點名中國，但相關議題與德國及日本近年面臨的中國稀土出口管制、產業競爭及供應鏈風險密切相關。 兩國領袖強調，將加強供應鏈韌性與產業競爭力，並在半導體、關鍵原物料、人工智慧（AI）、5G後續技術及6G、能源等領域擴大合作。 國防合作方面，日德同意儘早召開外交與國防部長「2+2」會談，並探索加強德國聯邦國防軍與日本自衛隊聯合演習等軍事合作的機會，同時推動無人系統等領域的國防工業與技術合作。 此外，雙方將加強反制外國資訊操弄與干預，針對社群媒體及生成式AI帶來的假訊息威脅，分享威脅評估、辨識方法及應對經驗，以提升民主社會的資訊韌性。 梅爾茨邀請日本擔任2028年德國漢諾威工業展夥伴國，高市早苗已接受邀請。雙方並計畫明年在柏林舉行第2屆日德政府間磋商，持續深化雙邊合作。 梅爾茨26日起率德國工業、科技、國防及能源企業代表團，展開為期一週的新加坡、日本及韓國訪問行程。 南德日報（SZ）分析，德國與亞洲夥伴皆面臨美國關稅政策、中國擴大國際影響力及俄羅斯侵略烏克蘭挑戰。德國政府因此希望強化與新加坡、日本及韓國等亞洲中等強國合作，共同維護以規則為基礎的國際秩序。（編輯：唐聲揚）1151029 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
-      "url": "https://www.cna.com.tw/news/aopl/202610290016.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "Regional_Security",
-    "is_relevant": true,
-    "country1": "JP",
     "country2": "CN",
     "sentiment_score": 0.2,
     "sentiment_label": "neutral",
@@ -1613,7 +1637,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "德國總理梅爾茨訪日強調聯合國憲章禁止動武原則適用台海，呼籲相關國家及地區審慎行事。"
+      "Political_statement": "德國總理梅爾茨訪日時強調聯合國憲章禁止動武原則適用台海，對台海緊張局勢升高表達憂慮。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1653,12 +1677,132 @@
   {
     "category": "Not_Relevant",
     "is_relevant": false,
-    "country1": "TW",
+    "country1": "US",
     "country2": "US",
-    "sentiment_score": 0.5,
+    "sentiment_score": -0.8,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-11-02",
+      "title": "佛州噴射客機墜毀釀9死州長形容如飛彈俯衝墜地道路砸出大洞| 國際",
+      "content": "（中央社佛羅里達州西棕櫚灘1日綜合外電報導）美國運輸部長達菲表示，一架商務噴射機今天在佛羅里達州南部一處住宅區墜毀，機上9人全數罹難，巨大的撞擊力道在道路砸出宛如隕石坑的巨洞，殘骸散落一地。 英國廣播公司新聞網（BBC News）報導，這起墜機意外發生地點在靠近克雷斯特黑文（Cresthaven）住宅區，距離美國總統川普位於棕櫚灘郡富人區的度假莊園海湖俱樂部（Mar-a-Lago）約14公里。 現場畫面顯示，住宅區道路出現一個宛如隕石坑的大洞，周邊竄出陣陣火苗，里爾60型（Learjet 60）的混凝土碎塊及殘骸散落四處。 美國聯邦航空總署（FAA）在聲明中表示，這架飛機從德州奧斯汀（Austin）起飛，原定飛往巴哈馬（Bahamas）。 美國媒體報導與飛行分析資料顯示，失事噴射機在墜毀前，以每秒數百英尺的速度急速俯衝。 社群媒體上流傳的未證實畫面顯示，疑似有行車紀錄器拍下墜機發生的瞬間。畫面中，多輛汽車原本正行駛於郊區的住宅區街道上，一架飛機突然以近乎垂直的角度俯衝撞擊地面，隨即爆炸成巨大的火球。 佛羅里達州州長迪尚特（Ron DeSantis）在事故發生後的記者會上告訴媒體：「看到那段影片令人震驚，飛機就像一枚飛彈般墜落，接著發生劇烈爆炸，碎片四處飛散。」 目前尚不清楚失事噴射機上載有何人。迪尚特指出：「截至目前為止，我們尚未接獲任何地面人員傷亡的通報。」 美國運輸部長達菲（Sean Duffy）形容這起事件為「極其慘烈的悲劇」，並表示聯邦航空總署正派遣團隊趕赴現場，協助國家運輸安全委員會（NTSB）展開調查。 棕櫚灘郡警局表示，事故發生在軍事大道（Military Trail），這是一條設有6線車道、沿線有商家及餐飲店的道路。 迪尚特與地方官員在記者會上表示，當局已疏散附近一處拖車住宅社區的600名居民。 官員指出，墜機衝擊力道對當地基礎設施造成重大損害，包括供水管線，事故路段至少要30天後才能重新開放。（編譯： 陳昱婷 ）1151102 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aopl/202611020050.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "JP",
+    "country2": "US",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "日本要求美方嚴格約束駐日美軍紀律，防範美軍違紀事件再度發生。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-02",
+      "title": "沖繩美軍再爆違紀事件日本要求美方嚴管駐軍紀律| 國際",
+      "content": "（中央社東京2日綜合外電報導）日本防衛大臣小泉進次郎今天表示，在一名美國陸戰隊員涉嫌殺害女性遭逮捕後，又有另一名美軍人員涉嫌在宵禁期間酒駕被捕，日本已要求美方嚴格約束駐日美軍紀律。 法新社報導，上個月初，一名美國陸戰隊員涉嫌在日本沖繩殺害一名女性後，駐沖繩美軍曾被禁止飲酒兩天，並實施為期30天的宵禁。 這起案件在日本引發眾怒，並再度掀起對美軍在沖繩大量駐紮的爭議。 小泉進次郎表示，另一名陸戰隊員涉嫌酒後駕車遭到逮捕。根據媒體報導，這起事件發生於10月31日。 小泉進次郎告訴記者：「我們已要求美方嚴格約束軍事人員的紀律，採取有效措施防止類似事件再度發生，並確保所有人完全遵守夜間宵禁規定。」 他補充說：「我們希望美方認真看待這起事件。」 上個月實施的宵禁規定，所有美軍人員午夜至清晨5時必須返回基地，或待在「基地外的住所」。 日本檢方上週已起訴涉嫌在沖繩殺害女性的美國陸戰隊員。 日本首相高市早苗告訴國會議員，政府已向美方提出強烈抗議，要求美方「全力配合調查」，並「嚴格約束駐日美軍人員」。 「讀賣新聞」報導，根據起訴書，這名20歲的嫌犯涉嫌於10月3日在一家飯店內，用電話線勒死來自那霸市的39歲女性。 美軍人員涉及的犯罪事件一直是美日兩國緊密安全同盟關係中的棘手問題，美國目前約有5萬4000名駐日美軍，其中大多駐紮在沖繩。（編譯： 劉文瑜 ）1151102 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aopl/202611020142.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "TW",
+    "country2": "TW",
+    "sentiment_score": 0.6,
     "sentiment_label": "positive",
     "extracted_data": {
-      "US_Taiwan_interaction": "OpenAI執行長阿特曼訪台並與鴻海董事長劉揚偉會面，深化AI基礎設施與硬體製造合作",
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "巴拉圭衛福部長訪台，盼借鏡台灣醫療制度深化人才培訓與合作。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-03",
+      "title": "巴拉圭衛福部長訪台盼借鏡台灣醫療制度深化人才培訓| 政治",
+      "content": "（中央社記者 賴于榛 台北3日電）巴拉圭衛生福利部部長弗列德等人近日應邀訪台，外交部長林佳龍宴請訪團時表示，希望台巴智慧醫療合作能開創新局，弗列德則說，期盼此行能借鏡台灣醫療制度等，進一步深化兩國醫事人才培訓與專業合作。 外交部今天透過新聞稿表示，弗列德（Isaías Fretes）11月1日至5日應政府邀請，首度率團來台訪問，林佳龍昨天在外交部午宴訪團，表達誠摯歡迎。 林佳龍席間指出，他去年7月訪問巴拉圭時，曾實地瞭解台巴重要公衛醫療計畫，如「醫療資訊管理效能提升計畫」（HIS）及亞松森綜合醫院援建案現況，樂見HIS系統已涵蓋巴國近9成醫療院所，政府也持續積極媒合國內一流醫院與亞松森醫院進行合作，期盼結合雙方醫療專業及資源，為台巴智慧醫療合作開創新局。 林佳龍也感謝巴拉圭政府在國際場域堅定支持台灣，尤其總統潘尼亞（Santiago Peña，另譯：貝尼亞）今年在聯合國大會鏗鏘有力的發言，充分展現台巴兩國深厚情誼，台灣銘感於心，誠盼弗列德明年在世界衛生大會（WHA）持續支持台灣，為台灣發聲。 弗列德則說，感謝台灣政府長期協助巴拉圭推動公衛體系現代化，且在智慧醫療、傳染病防治及全民健保等領域擁有豐富經驗及卓越成果，而教育及人才培育是國家醫衛體系永續發展的重要基石，期盼藉由此行交流，借鏡台灣醫療制度、醫療機構管理及營運經驗，進一步深化兩國醫事人才培訓與專業合作。 外交部指出，午宴期間，弗列德等人也與衛福部次長林靜儀、國泰綜合醫院院長簡志誠、三軍總醫院少將院長蔡宜廷、國立陽明交通大學教授陳適安、國合會秘書長黃玉霖及台灣智慧醫療產業代表，就醫學工程、人工智慧醫療軟體運用及遠距醫療等議題廣泛交換意見，在台期間也將參訪台大醫院、台北榮民總醫院、國泰醫院及三軍總醫院等。（編輯：蘇龍麒）1151103 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aipl/202611030065.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_TW_Interaction",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "TW",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "美台M109A7自走砲軍購案，國防部長顧立雄澄清美方提議改舊型M109A6升級重製為事實不符，強調已簽署發價書並將依節點執行。",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部長顧立雄表示M109A7自走砲採購案已簽署發價書並按節點執行，網傳美方提議改舊型升級與事實不符。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-03",
+      "title": "傳自走砲軍購美提議改二手升級案顧立雄：與事實不符| 政治",
+      "content": "（中央社記者 王承中 台北3日電）媒體報導指出，美方提議陸軍改採購舊型M109A6升級重製為新型A7自走砲，升級重製費用額外計價。國防部長顧立雄今天表示，M109A7自走砲的採購案已簽署發價書，也按照節點來執行，未獲知相關訊息，報導與事實不符，國防部會堅持採購M109A7自走砲。 上報2日報導指出，2025年12月美宣布對台軍售60輛M109A7自走砲與附屬裝備的採購案，陸軍於今年4月收到美方的發價書。據了解，9月上旬美方來函提議陸軍修改採購60輛M109A7自走砲這單項，為舊型M109A6升級重製為新型A7自走砲，但升級重製費用要額外計價，遭陸軍拒絕。 立法院會今天邀請行政院長卓榮泰、主計長陳淑姿、財政部長莊翠雲列席報告「115年度中央政府總預算追加預算案」編製經過並備質詢。 國民黨立委馬文君指出，面對美方的提案，陸軍已經強力表達不可能接受，請問民進黨政府、國防部是否會依照國軍建軍備戰的需求及對民眾的承諾，支持陸軍。 顧立雄表示，M109A7自走砲的採購案已簽署發價書，也按照節點來執行，媒體報導與事實不符，目前沒有發生這樣的事情。 馬文君指出，過去政府曾編列預算要買M109A6自走砲，美方也有提供發價書，但因為產能不足，美方要台灣改買海馬士多管火箭系統，當時政府也是吞了。如果未來真的遇到美方因產能不足，無法交付M109A7自走砲，請問國防部的作為為何。 顧立雄表示，國防部沒有獲知這樣的訊息，但國防部還是會依照國軍的戰備需求，堅持採購M109A7自走砲。（編輯：楊蘭軒）1151103 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aipl/202611030125.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Military_Exercise",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "金防部實施第4季太武操演，運用戰甲車及各式火砲對海空目標實彈射擊，模擬敵登陸及特攻作戰，應處灰色地帶威脅。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-03",
+      "title": "金防部清晨太武操演戰甲車火砲對海空實彈射擊| 政治",
+      "content": "（中央社記者 吳玟嶸 金門3日電）金防部今天清晨實施太武操演，運用戰甲車及各式火砲對海空目標實彈射擊。金防部表示，戮力戰訓整備，持續強化可恃戰力，並藉各項實戰化訓練提升快速應變制敵能力。 陸軍金門防衛指揮部今天實施第4季太武操演，轄屬金門守備大隊納編各部隊於金門峰上、后湖海域一線據點與陣地，實施「策應作戰」、「野戰防空」、「應援作戰」、「反特攻作戰」等實彈射擊。 根據金防部新聞資料，此次實彈射擊秉持實戰化訓練要求，採「實人、實物、實時、實地、實情、實作」方式，從實戰角度結合突發狀況，應處灰色地帶威脅，並模擬敵登陸及特攻作戰。 金防部表示，實彈射擊運用的建制武器，包含20機砲、42迫砲、105榴砲、105戰車砲、120迫砲、155加農砲、八吋榴砲等輕、重型武器，以實裝、實彈分散部署編織綿密火網，掩護戰甲車機動，實施動對靜及梯次射擊。 金防部指出，防空部隊及北碇守備隊也運用建制武器，配合金門守備大隊策應作戰，共同執行防護射擊，各單位全程運用「部隊覺知應用套件（TAK）」強化指通韌性，統合各部隊遂行協同作戰阻殲敵軍。 金防部表示，面對嚴峻敵情威脅，防區官兵戮力戰訓整備，持續強化可恃戰力，並藉各項實戰化訓練提升快速應變制敵能力，期能戰時發揮主場優勢，矢志捍衛國家主權與安全。（編輯：張雅淨）1151103 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aipl/202611030021.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "TW",
+    "country2": "US",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
       "Political_statement": ""
@@ -1685,7 +1829,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": ""
+      "Political_statement": "美國政府批准向烏克蘭出售500枚愛國者飛彈，強化其防空能力。"
     },
     "confidence": 0.98,
     "original_article": {
@@ -1751,13 +1895,13 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.4,
+    "sentiment_score": -0.3,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "福建海警位金門附近海域依法開展常態化執法巡查"
+      "Political_statement": "福建海警於金門附近海域依法開展常態化執法巡查"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1781,7 +1925,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "國防部發言人張曉剛表示解放軍將當好祖國統一的穩固底牌，堅決挫敗台獨分裂和外來干涉，並批評美台軍事勾連。"
+      "Political_statement": "解放军将当好祖国统一稳固底牌，坚决挫败台独分裂图谋与外来干涉，并敦促美方停止美台官方往来和军事联系。"
     },
     "confidence": 0.98,
     "original_article": {
@@ -1805,9 +1949,9 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "國台辦強調主權問題無模糊空間，批評民進黨當局阻撓兩岸交流、「以武謀獨」死路一條。"
+      "Political_statement": "国台办批评民进党当局阻挠两岸交流及挥霍血汗钱“以武谋独”，强调主权问题无模糊空间。"
     },
-    "confidence": 0.95,
+    "confidence": 0.98,
     "original_article": {
       "date": "2026-10-28",
       "title": "国台办：在大是大非问题上，不存在任何模糊空间",
@@ -1823,13 +1967,13 @@
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": 0.2,
+    "sentiment_score": 0.0,
     "sentiment_label": "neutral",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "國台辦強調持續推動惠台十項措施，促進兩岸農漁業合作與交流，並批評民進黨當局操弄抗中保台是兩岸交流攔路虎。"
+      "Political_statement": "國台辦表示將持續推動對台十項措施落地見效，助台農漁民開拓大陸市場，並批評民進黨當局渲染大陸威脅、阻撓兩岸交流。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1853,7 +1997,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "國台辦介紹台灣光復81周年紀念活動，強調兩岸同胞要銘記歷史、堅決反对“台獨”分裂和外来干涉，共担完成祖国统一的历史责任。"
+      "Political_statement": "國台辦介紹台灣光復81周年紀念活動，強調兩岸同胞要堅決反对“台独”分裂和外来干涉，共担完成祖国统一的历史责任。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1861,6 +2005,30 @@
       "title": "国台办介绍台湾光复81周年纪念活动",
       "content": "国务院台办发言人陈斌华28日在例行新闻发布会上应询介绍了有关情况。 陈斌华介绍，纪念台湾光复81周年座谈会10月25日在福建省福州市举办。与会两岸嘉宾高度评价设立台湾光复纪念日的重要意义，共同回顾包括台湾同胞在内的中华儿女众志成城、浴血奋战实现抗战胜利和台湾光复的光辉历程，深切缅怀为捍卫国家主权和领土完整英勇牺牲的仁人志士、先烈先贤，一致表示两岸同胞要铭记历史、携手同心，坚定捍卫台湾光复成果，坚决反对“台独”分裂和外来干涉，共担完成祖国统一的历史责任，共创中华民族绵长福祉。 他介绍，各地区各部门以各种形式纪念台湾光复81周年。10月25日，国务院台办微信、微博、今日头条、脸书等官方政务号发布MV《光复·共赴曙光》。中央广电总台、中国青年报社分别制播AI系列短剧《那些年，他守护宝岛》、专题纪录片《愿为民族致精诚》。全国台联在重庆举办“以正确认同 促进心灵契合”纪念台湾光复81周年座谈会。“沧海同舟 宝岛重光——福建与台湾光复档案文献展”在福州开展。纪念台湾光复81周年暨台湾义勇队抗战史实与精神内涵研讨活动在浙江金华举办。纪念台湾光复81周年暨台港澳企业政策说明会在辽宁沈阳举办。台盟中央在北京举办“山河同根 光复铭记”纪念台湾光复81周年主题活动。福建平潭综合实验区举办以“光复记忆·同心同行”为主题的台湾光复纪念日主题周系列活动。 他表示，在岛内，台湾各界有识之士和有关政党、团体于纪念日前后举办了多场纪念活动。这充分证明，两岸同胞血脉相连、骨肉相亲，对历史有共同的记忆，对民族有共同的责任，对未来有共同的期盼，这是任何人、任何势力都割裂不了也阻断不了的。 台湾光复81周年之际，岛内许多党派、社会团体纷纷举办纪念活动。陈斌华对此评论指出，台湾光复是抗战胜利的重要成果，也是台湾同胞洗刷耻辱、重见天日的历史起点。在台湾光复81周年、国家设立台湾光复纪念日1周年之际，岛内30多个政党、团体以不同形式举办纪念活动，回顾台湾光复历史，谴责日本殖民台湾累累罪行，强调“不能忘，常思量”，抨击民进党当局“台独”分裂行径，反对美、日等外部势力插手台湾问题，呼吁铭记历史、反对“台独”、促进统一、共谋复兴，发出了台湾同胞的正义之声。我们对此表示高度赞赏。",
       "url": "https://www.news.cn/tw/20261028/c0fd564aba4e47ffb50586f6b07ef883/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Not_Relevant",
+    "is_relevant": false,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.5,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "第十七屆大陸古籍藝術類圖書展在台灣舉辦，深化兩岸出版業交流與文化合作。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-11-02",
+      "title": "第十七届大陆古籍艺术类图书展在台湾开幕",
+      "content": "天龙书店台北店与台中店作为主要展区，迎来了众多爱书人与文化学者。 本届书展由上海书刊发行行业协会策划，上海香港三联书店有限公司携手台湾天龙文创出版事业有限公司共同主办。展览重点呈现《孟子》《百家姓》《三字经》等精装版古籍图书，并集中展示了涵盖人工智能版权治理、法律阐释及区域治理研究等多个前沿领域的学术著作，旨在进一步深化两岸出版业的深度交流，共同拓展华文出版市场的广度与深度。 活动期间，主办方特别安排了专题分享环节，重点推介《上海IP：全球城市形象数位传播与文化创新发展》与《文娱出海：中华文化国际传播的数位创新路径》两部新作。与会嘉宾围绕城市文化品牌建设、数字传播策略等展开深入探讨，剖析数字科技与创意产业如何为传统出版业开辟全新的发展空间，激发行业创新活力。 “此次展览的各类书籍，不仅为岛内读者提供了了解大陆学术出版最新成果的窗口，也进一步拓宽了两岸出版交流的渠道。”台湾天龙文创出版事业有限公司董事长沈荣裕表示，除了书展本身，近期团队还将走进多所台湾高校，开展经典古文导读讲座及赠书活动，让传统文化在校园中生根发芽。 台湾动漫文创产学联盟协会副理事长苏新益表示，在数字化浪潮下，出版业应积极拥抱数字科技，并与文创产业深度融合，通过推动内容创新与国际化传播，全面提升华文出版物在国际舞台上的竞争力。 “这一展览已成功举办十七届，充分证明了台湾读者对古籍类书籍的深厚情感。无论长幼，人们对中华文化内容有着天然的亲近感。”台湾时报文化出版企业股份有限公司董事长赵政岷认为，从传统古籍到当代学术专著，从纸质出版到数字传播，两岸出版界正积极探索更多元化的合作模式，推动中华文化的传承与国际传播，未来的交流必将更加紧密、深入。",
+      "url": "https://www.news.cn/tw/20261102/9b42f990dcd94a8dafb6287a0f654319/c.html",
       "source": "xinhua",
       "category": "",
       "sentiment": ""
@@ -1877,7 +2045,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "第十二届中华文化论坛在北京举行，强调坚定中华文化认同、反对台独分裂、促进心灵契合與祖国统一。"
+      "Political_statement": "第十二屆中華文化論壇在北京舉行，強調深化兩岸文化認同、堅守一個中國原則與「九二共識」、反對「台獨」分裂與外來干涉。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1891,7 +2059,7 @@
     }
   },
   {
-    "category": "CCP_news_and_blog",
+    "category": "Not_Relevant",
     "is_relevant": false,
     "country1": "CN",
     "country2": "TW",
@@ -1901,9 +2069,9 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "第十七屆海峽兩岸文博會在廈門啟幕，推動兩岸文化交流與傳統工藝合作。"
+      "Political_statement": "第十七屆海峽兩岸文博會於廈門啟幕，兩岸匠人攜手交流傳統文化。"
     },
-    "confidence": 0.95,
+    "confidence": 0.98,
     "original_article": {
       "date": "2026-10-29",
       "title": "第十七届海峡两岸文博会启幕",
@@ -1919,13 +2087,85 @@
     "is_relevant": false,
     "country1": "CN",
     "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "沙漠拥军书画院走进第71集团军某旅开展主题书画展。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-03",
+      "title": "【#长征主题书画展走进军营#】近日，沙漠拥军书画院走进第71集团军某旅，开展“翰墨颂长征，热血铸军魂...",
+      "content": "【#长征主题书画展走进军营#】近日，沙漠拥军书画院走进第71集团军某旅，开展“翰墨颂长征，热血铸军魂”主题双拥书画展。百余幅红色书画佳作生动再现长征峥嵘岁月、彰显强军情怀。官兵们沉浸式观展研学，在笔墨丹青中感悟长征精神、汲取奋进力量。（肖志勇、廖鹏、朱俊、廖浩广）  ...全文",
+      "url": "https://m.weibo.cn/detail/5361168337600809",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區空軍某部開展陣地防衛專項演練，圍繞戰術協同、陣地扼守等課目",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍展開陣地防衛專項演練，強化戰備意識與打贏本領。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-03",
+      "title": "#直击东部战区练兵备战现场#【#时刻紧绷战备弦#】近期，东部战区空军某部开展阵地防卫专项演练，重点围...",
+      "content": "#直击东部战区练兵备战现场#【#时刻紧绷战备弦#】近期，东部战区空军某部开展阵地防卫专项演练，重点围绕战术协同、阵地扼守等课目展开，进一步强化官兵战备意识，夯实部队打赢制胜本领。（褚文聪、李星雨、董昊、张麒麟）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5361077740897322",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "东部战区社群發布戰艦演訓與台海巡弋相關內容",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區發布戰備巡航及軍事威懾貼文"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-11-02",
+      "title": "#东部熄灯号# 惊涛拍岸催征鼓，战舰犁浪卫海疆。#阅海峡#",
+      "content": "#东部熄灯号# 惊涛拍岸催征鼓，战舰犁浪卫海疆。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5360926745952472",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": false,
+    "country1": "CN",
+    "country2": "CN",
     "sentiment_score": 0.1,
     "sentiment_label": "neutral",
     "extracted_data": {
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "解放軍第71集團軍分隊舉行長征精神宣講活動，弘揚長征精神。"
+      "Political_statement": "解放軍第71集團軍舉行長征精神宣講活動，弘揚長征精神。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1947,40 +2187,16 @@
     "sentiment_label": "neutral",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "東部戰區海軍某導彈快艇大隊舉辦軍體運動會",
+      "Military_exercise": "東部戰區海军某导弹快艇大队举办军体运动会，激发练兵热情",
       "Foreign_battleship": "",
-      "Political_statement": ""
+      "Political_statement": "東部戰區海軍舉辦軍體運動會，展現練兵備戰訓練成果"
     },
-    "confidence": 0.95,
+    "confidence": 0.9,
     "original_article": {
       "date": "2026-11-02",
       "title": "【#加钢淬火强体能#】近日，东部战区海军某导弹快艇大队联合兄弟单位举办军体运动会。数百名官兵齐聚赛场...",
       "content": "【#加钢淬火强体能#】近日，东部战区海军某导弹快艇大队联合兄弟单位举办军体运动会。数百名官兵齐聚赛场，同台竞技，在比拼中激发练兵热情，于争锋中练就过硬本领。（孙柳飞、张方海）#当兵就要练练练#",
       "url": "https://m.weibo.cn/detail/5360715352244653",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "中共東部戰區官方發布帶有軍事威脅意味的宣傳貼文"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-10-30",
-      "title": "#东部熄灯号# 把青春压进枪膛，把忠诚写进航迹。#阅海峡#",
-      "content": "#东部熄灯号# 把青春压进枪膛，把忠诚写进航迹。#阅海峡#",
-      "url": "https://m.weibo.cn/detail/5359839586287792",
       "source": "weibo",
       "category": "",
       "sentiment": ""
@@ -2019,9 +2235,9 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "東部戰區空軍某部汽車連組織多型車輛駕駛、故障排查、物質轉運等實訓",
+      "Military_exercise": "東部戰區空軍某部汽車連組織多型車輛駕駛、故障排查、物質轉運等科目實訓",
       "Foreign_battleship": "",
-      "Political_statement": "東部戰區練兵備戰現場，鍛造一專多能駕駛員隊伍，時刻準備戰鬥"
+      "Political_statement": "東部戰區練兵備戰，時刻準備戰鬥"
     },
     "confidence": 0.95,
     "original_article": {
@@ -2029,6 +2245,78 @@
       "title": "#直击东部战区练兵备战现场#【#锻造一专多能驾驶员队伍# 】近日，东部战区空军某部汽车连组织多型车辆...",
       "content": "#直击东部战区练兵备战现场#【#锻造一专多能驾驶员队伍# 】近日，东部战区空军某部汽车连组织多型车辆驾驶、故障排查、物资转运等科目实训，着力锻造一专多能驾驶员队伍。（陈建华、王紫箫、周士添、谢新耀）#时刻准备战斗#",
       "url": "https://m.weibo.cn/detail/5359628188648008",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": false,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "江蘇省軍區無錫第四離職幹部休養所組織紀念長征勝利90週年大會精神傳達學習。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-29",
+      "title": "【#长征薪火映丹心#】近日，江苏省军区无锡第四离职干部休养所组织纪念长征胜利90周年大会精神传达学习...",
+      "content": "【#长征薪火映丹心#】近日，江苏省军区无锡第四离职干部休养所组织纪念长征胜利90周年大会精神传达学习，引导官兵和文职人员赓续红色血脉、永葆纯洁本色，把学习成果转化为搞好老干部服务保障的实际行动。（范昊星、刘佳、张兆宇） #纪念红军长征胜利90周年#",
+      "url": "https://m.weibo.cn/detail/5359356398272777",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Regional_Security",
+    "is_relevant": true,
+    "country1": "JP",
+    "country2": "TW",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "日德峰會發表聯合聲明，重申維護台灣海峽和平穩定的重要性，並強調反對片面改變現狀。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-29",
+      "title": "日德峰會深化安全與經濟合作重申維護台海和平穩定| 國際",
+      "content": "（中央社記者 林尚縈 柏林28日專電）德國總理梅爾茨今天在東京與日本首相高市早苗會談，雙方發表聯合聲明，重申維護台灣海峽和平穩定的重要性，並同意加強國防、經濟安全及先進科技合作，因應地緣政治與經濟挑戰。 德國總理梅爾茨（Friedrich Merz）28日起訪問日本兩天，並與日本首相高市早苗舉行雙邊峰會。根據會後發布的日德領袖聯合聲明，兩國將進一步強化戰略夥伴關係，並重申歐洲大西洋與印太地區的安全及繁榮日益緊密相連。 在區域安全議題上，兩國領袖對東海及南海局勢表達嚴重關切，重申強烈反對任何以武力或脅迫方式片面改變現狀的企圖，並強調維護台灣海峽和平穩定的重要性，鼓勵以和平方式解決兩岸問題。 經濟安全也是此次峰會重點，聲明指出，雙方對關鍵礦物出口限制及報復性措施等經濟脅迫行為表達嚴重關切，並反對造成產能過剩及市場扭曲的非市場政策與做法。 聲明雖未直接點名中國，但相關議題與德國及日本近年面臨的中國稀土出口管制、產業競爭及供應鏈風險密切相關。 兩國領袖強調，將加強供應鏈韌性與產業競爭力，並在半導體、關鍵原物料、人工智慧（AI）、5G後續技術及6G、能源等領域擴大合作。 國防合作方面，日德同意儘早召開外交與國防部長「2+2」會談，並探索加強德國聯邦國防軍與日本自衛隊聯合演習等軍事合作的機會，同時推動無人系統等領域的國防工業與技術合作。 此外，雙方將加強反制外國資訊操弄與干預，針對社群媒體及生成式AI帶來的假訊息威脅，分享威脅評估、辨識方法及應對經驗，以提升民主社會的資訊韌性。 梅爾茨邀請日本擔任2028年德國漢諾威工業展夥伴國，高市早苗已接受邀請。雙方並計畫明年在柏林舉行第2屆日德政府間磋商，持續深化雙邊合作。 梅爾茨26日起率德國工業、科技、國防及能源企業代表團，展開為期一週的新加坡、日本及韓國訪問行程。 南德日報（SZ）分析，德國與亞洲夥伴皆面臨美國關稅政策、中國擴大國際影響力及俄羅斯侵略烏克蘭挑戰。德國政府因此希望強化與新加坡、日本及韓國等亞洲中等強國合作，共同維護以規則為基礎的國際秩序。（編輯：唐聲揚）1151029 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aopl/202610290016.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中共東部戰區官方發布帶有軍事威脅意味的宣傳貼文"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-10-30",
+      "title": "#东部熄灯号# 把青春压进枪膛，把忠诚写进航迹。#阅海峡#",
+      "content": "#东部熄灯号# 把青春压进枪膛，把忠诚写进航迹。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5359839586287792",
       "source": "weibo",
       "category": "",
       "sentiment": ""
@@ -2053,30 +2341,6 @@
       "title": "#东部熄灯号# 淬火百炼强本领，一腔热血护安邦。#阅海峡#",
       "content": "#东部熄灯号# 淬火百炼强本领，一腔热血护安邦。#阅海峡#",
       "url": "https://m.weibo.cn/detail/5359477193968695",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": false,
-    "country1": "CN",
-    "country2": "CN",
-    "sentiment_score": 0.0,
-    "sentiment_label": "neutral",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "江蘇省軍區無錫第四離職幹部休養所組織紀念長征勝利90週年大會精神傳達學習。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-10-29",
-      "title": "【#长征薪火映丹心#】近日，江苏省军区无锡第四离职干部休养所组织纪念长征胜利90周年大会精神传达学习...",
-      "content": "【#长征薪火映丹心#】近日，江苏省军区无锡第四离职干部休养所组织纪念长征胜利90周年大会精神传达学习，引导官兵和文职人员赓续红色血脉、永葆纯洁本色，把学习成果转化为搞好老干部服务保障的实际行动。（范昊星、刘佳、张兆宇） #纪念红军长征胜利90周年#",
-      "url": "https://m.weibo.cn/detail/5359356398272777",
       "source": "weibo",
       "category": "",
       "sentiment": ""

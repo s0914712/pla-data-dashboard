@@ -1,15 +1,15 @@
 {
-  "last_update": "2026-11-02T06:02:18.713632",
+  "last_update": "2026-11-03T06:48:59.887696",
   "stats": {
-    "timestamp": "2026-11-02T05:59:39.581281",
+    "timestamp": "2026-11-03T06:45:47.876088",
     "days_back": 7,
     "sources": {
       "cna": {
-        "scraped": 14,
+        "scraped": 20,
         "status": "success"
       },
       "xinhua": {
-        "scraped": 9,
+        "scraped": 10,
         "status": "success"
       },
       "weibo": {
@@ -18,12 +18,12 @@
       }
     },
     "deduplication": {
-      "before": 33,
-      "after": 32,
-      "removed": 1
+      "before": 40,
+      "after": 37,
+      "removed": 3
     },
     "classification": {
-      "total": 32,
+      "total": 37,
       "relevant": 26,
       "status": "success"
     },
