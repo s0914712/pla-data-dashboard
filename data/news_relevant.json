@@ -45414,5 +45414,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "解放軍第71集團軍某旅舉辦長征主題書畫展"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-03",
+      "title": "【#长征主题书画展走进军营#】近日，沙漠拥军书画院走进第71集团军某旅，开展“翰墨颂长征，热血铸军魂...",
+      "content": "【#长征主题书画展走进军营#】近日，沙漠拥军书画院走进第71集团军某旅，开展“翰墨颂长征，热血铸军魂”主题双拥书画展。百余幅红色书画佳作生动再现长征峥嵘岁月、彰显强军情怀。官兵们沉浸式观展研学，在笔墨丹青中感悟长征精神、汲取奋进力量。（肖志勇、廖鹏、朱俊、廖浩广）  ...全文",
+      "url": "https://m.weibo.cn/detail/5361168337600809",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
