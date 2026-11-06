@@ -46062,5 +46062,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.5,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-11-06",
+      "title": "【#危急时刻文职驾驶员挺身而出# 】近日，无锡第二离职干部休养所文职驾驶员瞿如锋途中突遇地方车辆失控...",
+      "content": "【#危急时刻文职驾驶员挺身而出# 】近日，无锡第二离职干部休养所文职驾驶员瞿如锋途中突遇地方车辆失控侧翻、人员被困。危急时刻，他临危不乱、快速处置，联合热心市民与交警协同救援，成功救出被困车主。事后，获救群众专程给他送来锦旗致谢。（陶演） #见义勇为#",
+      "url": "https://m.weibo.cn/detail/5362255501459660",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
