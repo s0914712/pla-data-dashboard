@@ -46182,5 +46182,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.5,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.99,
+    "original_article": {
+      "date": "2026-11-08",
+      "title": "#记者节#【#今天为兵记者点赞# 】在军营里，有这样一群人：扛起钢枪是战斗员，端起相机是报道员。镜头...",
+      "content": "#记者节#【#今天为兵记者点赞# 】在军营里，有这样一群人：扛起钢枪是战斗员，端起相机是报道员。镜头，是他们的钢枪；笔杆，是他们的弹药；幕后，是他们的常态；无声，是他们的告白。他们把战友的高光，定格成永不褪色的画面。今天，是第27个记者节，祝所有奋战在新闻一线的“兵记者”，节日快乐！ （ ...全文",
+      "url": "https://m.weibo.cn/detail/5362874580206155",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
