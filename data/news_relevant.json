@@ -46206,5 +46206,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "港澳台僑媒體在北京舉行採訪聯誼活動，共慶記者節並交流媒體發展。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-11-07",
+      "title": "港澳台侨媒体“共庆节日 携手前行”采访联谊活动在京举行",
+      "content": "来自港澳台地区和加拿大、罗马尼亚等国华文媒体，以及部分中央和北京市媒体共计40余名记者参加活动，共庆记者节，共话职责与担当。 香港中评社副总编辑兼北京记者站站长林艳表示，不管是来自港澳台，还是海外，我们的初心是相通的，就是记录时代、融通人心、减少隔阂、增进理解，希望往后我们继续以文字做桥，一起发出港澳台侨的声音，让更多的人真切地感受这片土地的发展与温度。 罗马尼亚《欧洲侨报》社长高进表示，当前，应进一步推动海外华文媒体的新媒体转型，创新传播方式、扩大海外影响力，同时吸引更多年轻一代投身华文媒体建设，加强人才培养，更好讲述中国故事和海外华侨华人故事。 活动中，媒体代表们参访了香山革命纪念馆等地，参加了香山红叶节和昌平“乡村文化嘉年华”活动，了解当地文旅融合发展和乡村振兴成果。中国记协还举办高质量建设新时代港澳台侨“记者之家”座谈会，围绕加强联系服务等内容听取意见建议。",
+      "url": "https://www.news.cn/tw/20261107/15584e62d1d84a648a95cc766c6eae56/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
