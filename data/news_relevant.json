@@ -46278,5 +46278,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-09",
+      "title": "【#无形战场保畅通#】近日，武警第二机动总队某支队组织指挥所通信要素综合演练，检验通信分队快速反应与...",
+      "content": "【#无形战场保畅通#】近日，武警第二机动总队某支队组织指挥所通信要素综合演练，检验通信分队快速反应与协同能力。（张涛、姚建刚、王梦林）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5363342664794326",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
