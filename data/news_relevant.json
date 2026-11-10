@@ -46446,5 +46446,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.5,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-10",
+      "title": "【#深山红土映丹心#】赓续红色血脉，情暖老区热土。近日，联勤保障部队第906医院“联勤军医老区行”专...",
+      "content": "【#深山红土映丹心#】赓续红色血脉，情暖老区热土。近日，联勤保障部队第906医院“联勤军医老区行”专家医疗队跨越千里、历时五天，深入庆元、龙泉等红色热土，把优质医疗资源、暖心医疗服务、先进诊疗技术送到大山深处，切实为山区群众排忧解难，以实际行动续写新时代军民鱼水深情。（齐永辉、张艺馨 ...全文",
+      "url": "https://m.weibo.cn/detail/5363705052660337",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.2,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 1.0,
+    "original_article": {
+      "date": "2026-11-09",
+      "title": "【重点关注！2027年#退役军人家庭防癌抗癌专属保险卡#全新升级】11月5日，“情暖老兵-2027年...",
+      "content": "【重点关注！2027年#退役军人家庭防癌抗癌专属保险卡#全新升级】11月5日，“情暖老兵-2027年度退役军人防癌抗癌项目上线暨公益捐赠仪式”在国家退役军人服务中心举行。退役军人家庭“防癌抗癌专属保险卡”每年报销额度最高可达360万元，不限年龄，本年度全新升级，新增多种特药以及罕见病药品种 ...全文",
+      "url": "https://m.weibo.cn/detail/5363415860121702",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
