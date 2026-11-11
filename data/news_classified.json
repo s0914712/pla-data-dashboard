@@ -54230,5 +54230,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.2,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍發布紀念人民空軍成立77周年宣傳內容，強調向戰圖強。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-11-11",
+      "title": "【#寻根逐梦砥砺奋飞# 】77载寻根铸魂，77载逐梦空天。人民空军坚守初心、向战图强，以砥砺奋飞的坚...",
+      "content": "【#寻根逐梦砥砺奋飞# 】77载寻根铸魂，77载逐梦空天。人民空军坚守初心、向战图强，以砥砺奋飞的坚实航迹，为祖国和人民构筑起一道道守卫长空的“钢铁长城”。东部战区空军某部制作海报，祝人民空军生日快乐！（范浩、刘国理、李先知）",
+      "url": "https://m.weibo.cn/detail/5364082539761263",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
