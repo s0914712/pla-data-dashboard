@@ -1387,15 +1387,63 @@
     }
   },
   {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部統計偵獲共艦7艘、公務船3艘及共機越中線侵擾，國軍運用任務機艦及岸置飛彈嚴密監控。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-11",
+      "title": "7艘共艦3艘公務船擾台國軍嚴密監控| 政治",
+      "content": "（中央社記者 游凱翔 台北11日電）國防部發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲7艘共艦、3艘公務船，以及2架次共機越中線侵擾西南空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲7艘共艦、3艘公務船及4架次共機，其中2架次共機逾越台灣海峽中線侵擾西南空域。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：張良知）1151111 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aipl/202611110035.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "Regional_Security",
+    "is_relevant": true,
+    "country1": "JP",
+    "country2": "CN",
+    "sentiment_score": 0.3,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "G7外長重申反對任何企圖以武力或脅迫單方面改變台海現狀的行為。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-10",
+      "title": "G7外長關切台海和平重申反對武力脅迫改變現狀| 政治",
+      "content": "（中央社巴黎9日綜合外電報導）根據日本外務省網站9日發布的聲明，G7外長在巴黎舉行會議，討論區域情勢及全球治理等國際挑戰。G7外長重申，反對任何企圖在台灣海峽以武力或脅迫單方面改變現狀的行為。 日本外務省網站指出，日本外相茂木敏充目前正在法國巴黎訪問，出席七大工業國集團（G7）外長會議。茂木敏充於當地時間11月9日中午12時15分起，參與以「危機與國際挑戰」為主題的會議，歷時約90分鐘。 G7外長在會中坦率交換意見，討論包括印太、非洲及拉丁美洲在內的區域情勢，以及全球治理等國際挑戰。 茂木敏充談及印太局勢時強調，有必要反對任何以武力或脅迫單方面改變現狀的企圖，歐洲－大西洋與印太地區的安全不可分割。 G7外長強調，必須以法治為基礎維護自由開放的印太地區，並重申強烈反對任何企圖以武力或脅迫單方面改變現狀的行為，包括在東海、南海及台灣海峽。（編譯： 陳正健 ）1151110 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aipl/202611100355.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
     "category": "Military_Exercise",
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.6,
+    "sentiment_score": -0.4,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "偵獲8艘共艦、1艘公務船及4架次共機擾台，國軍運用任務機艦及岸置飛彈系統嚴密監控",
+      "Military_exercise": "國防部偵獲8艘共艦、1艘公務船及4架次共機擾台，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
@@ -1411,15 +1459,15 @@
     }
   },
   {
-    "category": "CCP_news_and_blog",
+    "category": "Military_Exercise",
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.4,
+    "sentiment_score": -0.5,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "中共7艘共艦、1艘公務船及1架共機侵擾台灣北部空域，國軍運用任務機艦及岸置飛彈系統監控應處",
+      "Military_exercise": "偵獲7艘共艦、1艘公務船及1架共機侵擾北部空域，國軍嚴密監控與應處",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
@@ -1435,7 +1483,7 @@
     }
   },
   {
-    "category": "CCP_news_and_blog",
+    "category": "Military_Exercise",
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
@@ -1443,9 +1491,9 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "6艘共艦、2艘公務船及2架次共機侵擾西南空域",
+      "Military_exercise": "6艘共艦、2艘公務船及2架次共機侵擾台灣西南空域，國軍嚴密監控",
       "Foreign_battleship": "",
-      "Political_statement": "國防部表示共機艦擾台，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。"
+      "Political_statement": ""
     },
     "confidence": 0.95,
     "original_article": {
@@ -1467,7 +1515,7 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "中國可能正在進行一場大型、未預告的軍演，模擬包圍並孤立台灣，動員海軍與海警及其他政府部門船舶參與演練。",
+      "Military_exercise": "中國被揭露可能正在進行一場大型、未預告的「無聲」軍演，模擬包圍並孤立台灣，動員海軍、海警及多部門公務船舶，意圖削弱台灣防衛信心並演練反介入作戰。",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
@@ -1491,11 +1539,11 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "中共解放軍24機艦船持續在台海周邊活動，其中9架次逾越海峽中線進入北部及西南空域，國軍嚴密監控與應處。",
+      "Military_exercise": "中共24機艦船持續在台海周邊活動，其中共機11架次（9架次逾越中線）、共艦10艘及公務船3艘，國軍嚴密監控與應處。",
       "Foreign_battleship": "",
       "Political_statement": ""
     },
-    "confidence": 0.98,
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-11-07",
       "title": "中共24機艦船台海周邊活動國軍嚴密監控應處| 政治",
@@ -1517,7 +1565,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "中共20機艦船持續在台海周邊活動，國軍運用任務機、艦及岸置飛彈系統嚴密監控與應處。",
       "Foreign_battleship": "",
-      "Political_statement": "國防部公布共機共艦及公務船在台海周邊活動動態，國軍運用任務機艦與岸置飛彈嚴密監控。"
+      "Political_statement": "國防部公布共機共艦持續在台海周邊活動，國軍嚴密監控應處。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1539,17 +1587,233 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "8艘共艦、8艘公務船及19架次共機越中線侵擾台灣北部、中部、西南及東部空域",
+      "Military_exercise": "共軍出動8艘共艦、8艘公務船及19架次共機越過台海中線侵擾北部、中部、西南及東部空域",
       "Foreign_battleship": "",
-      "Political_statement": "國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。"
+      "Political_statement": ""
     },
-    "confidence": 0.95,
+    "confidence": 0.98,
     "original_article": {
       "date": "2026-11-05",
       "title": "8艘共艦19架次共機擾台國軍嚴密監控| 政治",
       "content": "（中央社記者 游凱翔 台北5日電）國防部發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲8艘共艦、8艘公務船，以及19架次共機越中線侵擾北部、中部、西南及東部空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲8艘共艦、8艘公務船及21架次共機，其中19架次共機逾越台灣海峽中線侵擾北部、中部、西南及東部空域。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：楊蘭軒）1151105 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
       "url": "https://www.cna.com.tw/news/aipl/202611050032.aspx",
       "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "TW_Statement",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "CN",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "移民署表示依規定審查陸客來台觀光，若有刻意違反對等尊嚴或矮化台灣之言行，得依法不予許可或補正文件。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-11",
+      "title": "陸客訪台訂房單有「中國台灣」遭退件移民署：依法審查符合規定| 社會",
+      "content": "（中央社記者 黃麗芸 台北11日電）有中國網友發文稱要來台觀光，卻因飯店訂房單出現「中國台灣」字樣遭退件。對此，內政部移民署今天表示，本案依法審查，並請申請人補正文件，符合相關規定。 中國網友在社群平台Threads發表圖文，表示因為要來台觀光，在線上申請「旅居海外大陸地區人民來台觀光入境許可」時，因飯店訂房單出現「中國台灣」字樣遭退件，並要求親筆書寫「尊重台灣為主權獨立之國家，台灣與中國互不隸屬」等文字，質疑「旅個行要這樣嗎」，引發網路熱議。 對此，移民署表示，是依據兩岸條例及觀光許可辦法等規定審查大陸地區人民申請來台觀光案件，審查時若發現有刻意違反對等尊嚴或矮化台灣的相關言行，得依法不予許可；已許可者，得撤銷或廢止其許可。 移民署說明，本案依法審查，並請申請人補正文件，符合相關規定。（編輯：蕭博文）1151111 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/asoc/202611110066.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "US_TW_Interaction",
+    "is_relevant": true,
+    "country1": "US",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "美國民主黨重掌國會後可能施壓川普解凍140億美元對台軍售",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "北京智庫認為民主黨施壓解凍對台軍售是選後面臨的頭號風險"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-06",
+      "title": "分析：民主黨重掌國會可能施壓川普解凍對台軍售| 國際",
+      "content": "（中央社記者 林宏翰 洛杉磯5日專電）美國期中選舉共和黨失利，路透社分析，民主黨重掌國會後，可能施壓川普解凍140億美元對台軍售；前中國外交官員認為，這是北京在選後面臨的「頭號風險」。 路透社今天報導，川普先前表示，暫緩140億美元對台軍售，是與中國國家主席習近平談判的籌碼。民主黨控制國會後，可能加大施壓，要求川普放行軍售。 北京智庫研究員、曾任中國外交部官員的沈偉中表示，中國勢必強烈反對，將此視為期中選舉後的「頭號風險」。 路透社以「川普政治聲勢受挫，中國短期受益、長期痛苦」為題，指出部分政治分析人士認為，共和黨敗選後，川普可能更加謹慎，避免破壞與北京的貿易休兵協議，讓中國在即將恢復的談判中取得優勢。 長期而言，路透社分析，2028年美國總統大選後，新政府可能對中國採取強硬的政策。 分析指出，川普目前與習近平維持友好，但民主黨前總統拜登曾在人權、台灣議題上多次激怒北京，國務卿盧比歐等共和黨潛在接班人也被認為對中立場更強硬。 美中貿易休兵協議明年1月到期，川普預計本月在深圳亞太經濟合作會議（APEC）峰會與習近平會面，12月再於邁阿密20國集團（G20）峰會碰面。 美國智庫捍衛民主基金會資深研究員辛格頓（Craig Singleton）指出，北京可能認為，川普比中國更需要達成貿易協議，因此在談判中要求美國降低關稅及讓步。但辛格頓警告，中國若誤判情勢，反而可能破壞習近平希望維持的穩定局面。 沈偉中表示，中國方面知道下任美國總統的政策可能與川普截然不同，若能再維持兩年穩定局勢，中國就有更多時間準備下一場貿易戰，甚至在台灣問題上與美國最終攤牌。 路透社引用分析人士指出，未來2年對中國而言也未必一帆風順，除了民主黨主導的國會可能對川普施壓，要求解凍對台軍售，川普在國內受到制衡下，可能更積極尋求外交成果。 經濟學人資訊社中國議題資深分析師Chim Lee指出，美中政策大方向不一定會改變，但川普可能採取更多非傳統外交手段，其中較令人擔憂的可能是伊朗戰爭擴大為區域衝突，導致國際油價持續飆漲，威脅中國能源安全，擾亂北京與中東國家的關係。（編輯：陳承功）1151106 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aopl/202611060021.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國外交部就巴紐政府要求「台北駐巴布亞紐幾內亞經濟办事处」摘牌更名及關閉一事做出回應。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-11-09",
+      "title": "外交部回应巴新政府关闭“台北驻巴新经济办事处”",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 应急 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 应急 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عرب",
+      "url": "https://www.news.cn/tw/20261109/bf2eabd93d19428c86bb53f401881069/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.2,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍舉辦軍營開放日活動，向駐地師生展示軍事訓練與武器裝備。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-11-11",
+      "title": "【#把参军种子播进心田#】在#人民空军成立77周年#到来之际，东部战区空军某场站组织军营开放日活动，...",
+      "content": "【#把参军种子播进心田#】在#人民空军成立77周年#到来之际，东部战区空军某场站组织军营开放日活动，邀请驻地学校师生走进营区。同学们观看空军宣传片，体验整理内务、武器分解结合、VR空战模拟等课目，“零距离”感受空军部队的训练生活与强军风采。VR体验区里，一名同学兴奋地说：“真过瘾！我长大了 ...全文",
+      "url": "https://m.weibo.cn/detail/5364067440527450",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.3,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍舉辦人民空軍生日快閃活動，演唱包含《我的戰鷹繞著寶島飛》等具有對台施壓意涵歌曲。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-11",
+      "title": "#以歌声守望长空#【#举办主题快闪展演活动庆祝人民空军生日# 】人民空军77周岁生日来临之际，东部战...",
+      "content": "#以歌声守望长空#【#举办主题快闪展演活动庆祝人民空军生日# 】人民空军77周岁生日来临之际，东部战区空军某部官兵代表走进驻地商场、车站等地举办“长空守望、山河无恙”主题快闪展演活动。活动现场，官兵、高校学生和市民齐聚一堂，唱响《我和我的祖国》《我的战鹰绕着宝岛飞》《我爱祖国的蓝天》， ...全文",
+      "url": "https://m.weibo.cn/detail/5364007045171018",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區部隊進行跨區機动與戰备訓練",
+      "Foreign_battleship": "",
+      "Political_statement": "解放軍東部戰區發布軍事動態貼文，展示車輪滾滾、鐵流赴疆場的軍演備戰意象。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-10",
+      "title": "#东部熄灯号#尘烟作甲，车轮滚滚，铁流千里赴疆场。#阅海峡#",
+      "content": "#东部熄灯号#尘烟作甲，车轮滚滚，铁流千里赴疆场。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5363825852547875",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區空軍某部組織防護應急演練，包含核生化偵察、噴灑洗消、淋浴洗消等課目。",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區練兵備戰，強調時刻準備戰鬥。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-10",
+      "title": "#直击东部战区练兵备战现场#【#防护演练砺尖兵# 】近日，东部战区空军某部组织防护应急演练。此次演练...",
+      "content": "#直击东部战区练兵备战现场#【#防护演练砺尖兵# 】近日，东部战区空军某部组织防护应急演练。此次演练聚焦实战砺兵，官兵闻令而动，围绕核生化侦察、喷洒洗消、淋浴洗消等课目，高效开展应急处置，全面锤炼部队处置突发险情、遂行多样化任务的能力。（叶龙健、周汇丰、杜祥玉）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5363614455431507",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "中共東部戰區官方發布具有戰备意涵的圖文宣傳",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區發布守望台海相關貼文"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-09",
+      "title": "#东部熄灯号#落日熔金，剪影如铁，守望这片海。#阅海峡#",
+      "content": "#东部熄灯号#落日熔金，剪影如铁，守望这片海。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5363463461012253",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.6,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "東部戰區空軍航空兵某旅組織跨昼夜飛行訓練，錘煉實戰能力",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-09",
+      "title": "#直击东部战区练兵备战现场#【#跨昼夜飞行砺硬功#】近日，东部战区空军航空兵某旅严密组织跨昼夜飞行训...",
+      "content": "#直击东部战区练兵备战现场#【#跨昼夜飞行砺硬功#】近日，东部战区空军航空兵某旅严密组织跨昼夜飞行训练，锤炼官兵实战能力。（艾粤林、汪建中、郭享）#时刻准备战斗#",
+      "url": "https://m.weibo.cn/detail/5363252067827882",
+      "source": "weibo",
       "category": "",
       "sentiment": ""
     }
@@ -1598,54 +1862,6 @@
       "content": "（中央社記者 游凱翔 台北4日電）國防部發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲7艘共艦、5艘公務船，以及14架次共機侵擾西南及東部空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲7艘共艦、5艘公務船及22架次共機，其中14架次共機侵擾西南及東部空域。 國防部強調，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：蘇龍麒）1151104 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
       "url": "https://www.cna.com.tw/news/aipl/202611040038.aspx",
       "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "US_TW_Interaction",
-    "is_relevant": true,
-    "country1": "US",
-    "country2": "TW",
-    "sentiment_score": -0.4,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "美國民主黨重掌國會後可能施壓川普解凍140億美元對台軍售，被北京視為頭號風險。",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "美中貿易與台灣議題面臨美國國會政治變數，中國憂心民主黨施壓解凍對台軍售。"
-    },
-    "confidence": 0.92,
-    "original_article": {
-      "date": "2026-11-06",
-      "title": "分析：民主黨重掌國會可能施壓川普解凍對台軍售| 國際",
-      "content": "（中央社記者 林宏翰 洛杉磯5日專電）美國期中選舉共和黨失利，路透社分析，民主黨重掌國會後，可能施壓川普解凍140億美元對台軍售；前中國外交官員認為，這是北京在選後面臨的「頭號風險」。 路透社今天報導，川普先前表示，暫緩140億美元對台軍售，是與中國國家主席習近平談判的籌碼。民主黨控制國會後，可能加大施壓，要求川普放行軍售。 北京智庫研究員、曾任中國外交部官員的沈偉中表示，中國勢必強烈反對，將此視為期中選舉後的「頭號風險」。 路透社以「川普政治聲勢受挫，中國短期受益、長期痛苦」為題，指出部分政治分析人士認為，共和黨敗選後，川普可能更加謹慎，避免破壞與北京的貿易休兵協議，讓中國在即將恢復的談判中取得優勢。 長期而言，路透社分析，2028年美國總統大選後，新政府可能對中國採取強硬的政策。 分析指出，川普目前與習近平維持友好，但民主黨前總統拜登曾在人權、台灣議題上多次激怒北京，國務卿盧比歐等共和黨潛在接班人也被認為對中立場更強硬。 美中貿易休兵協議明年1月到期，川普預計本月在深圳亞太經濟合作會議（APEC）峰會與習近平會面，12月再於邁阿密20國集團（G20）峰會碰面。 美國智庫捍衛民主基金會資深研究員辛格頓（Craig Singleton）指出，北京可能認為，川普比中國更需要達成貿易協議，因此在談判中要求美國降低關稅及讓步。但辛格頓警告，中國若誤判情勢，反而可能破壞習近平希望維持的穩定局面。 沈偉中表示，中國方面知道下任美國總統的政策可能與川普截然不同，若能再維持兩年穩定局勢，中國就有更多時間準備下一場貿易戰，甚至在台灣問題上與美國最終攤牌。 路透社引用分析人士指出，未來2年對中國而言也未必一帆風順，除了民主黨主導的國會可能對川普施壓，要求解凍對台軍售，川普在國內受到制衡下，可能更積極尋求外交成果。 經濟學人資訊社中國議題資深分析師Chim Lee指出，美中政策大方向不一定會改變，但川普可能採取更多非傳統外交手段，其中較令人擔憂的可能是伊朗戰爭擴大為區域衝突，導致國際油價持續飆漲，威脅中國能源安全，擾亂北京與中東國家的關係。（編輯：陳承功）1151106 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
-      "url": "https://www.cna.com.tw/news/aopl/202611060021.aspx",
-      "source": "cna",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CN_Statement",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.5,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "外交部回應巴布亞紐幾內亞政府決定糾正涉台錯誤做法，關閉「台北駐巴新經濟辦事處」。"
-    },
-    "confidence": 0.92,
-    "original_article": {
-      "date": "2026-11-09",
-      "title": "外交部回应巴新政府关闭“台北驻巴新经济办事处”",
-      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 应急 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 应急 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عرب",
-      "url": "https://www.news.cn/tw/20261109/bf2eabd93d19428c86bb53f401881069/c.html",
-      "source": "xinhua",
       "category": "",
       "sentiment": ""
     }
@@ -1742,78 +1958,6 @@
       "content": "国务院台办发言人朱凤莲4日在例行新闻发布会上介绍，台湾地区有30多家企业参加本届进博会，展位面积约4200平方米，涵盖食品日化、消费品、医疗健康、精密制造、现代服务等多个产业领域。我们欢迎更多台商台企充分利用好进博会这个重要平台，推介企业的产品、拓展大陆的内需市场、积极融入新发展格局，和大陆同胞一道共创共享中国式现代化发展成果。 商务部等四部门近日联合印发《关于进一步提高海南自由贸易港贸易自由化便利化水平的通知》。朱凤莲答问表示，该《通知》的出台实施，将进一步赋能海南自贸港建设，有效促进货物贸易优化升级、服务贸易自由便利和创新贸易新业态新模式加速形成。广大的台胞台企可以充分地分享有关政策红利。我们也希望广大台商台企能够把握发展机遇，参与海南自贸港建设。 厦门边检总站高崎边检站数据显示，截至10月26日15时，今年厦金“小三通”航线出入境旅客突破174万人次，其中台胞近140万人次，占比约八成，两项数据均超过去年全年，创下2023年复航以来单年度客流新高。朱凤莲就此答问指出，厦金“小三通”客运航线是连接闽台乡亲的亲情航线、民生通道。这条仅30分钟航程的海上黄金通道，目前保持每日往返24班次的公交化常态运营，节假日客流高峰增开班次。闽台乡亲往来厦金两地可以“早出晚归、当日往返”，厦金“同城生活圈”效应持续走深走实。 朱凤莲表示，值得关注的是，台胞通过厦金“小三通”客运航线往来的内涵不断丰富，出行事由从传统探亲团聚，拓展到商务洽谈、参访研学、文体交流、观光旅游等多个领域。今年经由这条航线入境的台胞“首来族”超过7万人，同比超过70%，暑期航线单月客运量首次突破20万人次，刷新通航以来单月客流量最高纪录。事实充分证明，两岸同胞走亲走近、双向交流是民心所向、大势所趋，融合发展的内生动力不断积蓄。我们乐见两岸民间交流热络向好，欢迎更多台湾乡亲常来大陆走走看看。 近日，台中旅展登场，其中赴大陆个人游受到岛内民众广泛关注。对此，朱凤莲表示，要和平、要发展、要交流、要合作是岛内社会主流民意，两岸同胞同文同种，台湾同胞向往大陆、希望来大陆旅游，是很自然的事。我们始终秉持“两岸一家亲”理念，为推动两岸人员往来和旅游交流合作创造更好条件，推出更多便利措施。 她表示，我们也注意到，近期越来越多台湾同胞从奔赴风景转向探寻文脉，“为一个馆、一场展赴一座城”，走进大陆各地博物馆，在触摸历史中感受中华文化的独特魅力。我们也热忱欢迎更多台湾同胞来一场说走就走的大陆之行，实地感受祖国大陆壮丽河山、厚重中华文化、蓬勃发展势头和温暖同胞情谊。 近日，台湾演员明道及其团队在上海遗失一只手包，当地交警主动联系归还。明道向上海交警送锦旗表达谢意，并表示“只有我们中国能做到，这说明我们的治安好，什么都没丢”，受到两岸网友广泛好评。朱凤莲就此答问表示，近年来，大陆各地按照党中央建设平安中国的有关部署要求，不断提升社会治理水平和民众安全感，可以说现在大陆是世界上最安全的地区之一。广大台湾同胞在大陆工作、生活，切身体会到安全感、幸福感。我们热忱欢迎更多台湾同胞特别是青年朋友来大陆“开箱”各种体验，实地了解大陆的万千气象和蓬勃活力。",
       "url": "https://www.news.cn/tw/20261104/aa63e57f7a174139841a8f50095a0859/c.html",
       "source": "xinhua",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "東部戰區空軍某部組織防護應急演練，包含核生化偵察、噴灑洗消、淋浴洗消等課目",
-      "Foreign_battleship": "",
-      "Political_statement": "東部戰區空軍開展實戰化防護演練，強調時刻準備戰鬥。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-11-10",
-      "title": "#直击东部战区练兵备战现场#【#防护演练砺尖兵# 】近日，东部战区空军某部组织防护应急演练。此次演练...",
-      "content": "#直击东部战区练兵备战现场#【#防护演练砺尖兵# 】近日，东部战区空军某部组织防护应急演练。此次演练聚焦实战砺兵，官兵闻令而动，围绕核生化侦察、喷洒洗消、淋浴洗消等课目，高效开展应急处置，全面锤炼部队处置突发险情、遂行多样化任务的能力。（叶龙健、周汇丰、杜祥玉）#时刻准备战斗#",
-      "url": "https://m.weibo.cn/detail/5363614455431507",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.3,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "",
-      "Foreign_battleship": "",
-      "Political_statement": "中共東部戰區發布涉台海軍事警示相關圖文貼文。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-11-09",
-      "title": "#东部熄灯号#落日熔金，剪影如铁，守望这片海。#阅海峡#",
-      "content": "#东部熄灯号#落日熔金，剪影如铁，守望这片海。#阅海峡#",
-      "url": "https://m.weibo.cn/detail/5363463461012253",
-      "source": "weibo",
-      "category": "",
-      "sentiment": ""
-    }
-  },
-  {
-    "category": "CCP_news_and_blog",
-    "is_relevant": true,
-    "country1": "CN",
-    "country2": "TW",
-    "sentiment_score": -0.6,
-    "sentiment_label": "negative",
-    "extracted_data": {
-      "US_Taiwan_interaction": "",
-      "Military_exercise": "東部戰區空軍航空兵某旅組織跨昼夜飛行訓練，強調實戰能力與備戰",
-      "Foreign_battleship": "",
-      "Political_statement": "東部戰區發布練兵備戰跨晝夜飛行訓練畫面，強調時刻準備戰鬥。"
-    },
-    "confidence": 0.95,
-    "original_article": {
-      "date": "2026-11-09",
-      "title": "#直击东部战区练兵备战现场#【#跨昼夜飞行砺硬功#】近日，东部战区空军航空兵某旅严密组织跨昼夜飞行训...",
-      "content": "#直击东部战区练兵备战现场#【#跨昼夜飞行砺硬功#】近日，东部战区空军航空兵某旅严密组织跨昼夜飞行训练，锤炼官兵实战能力。（艾粤林、汪建中、郭享）#时刻准备战斗#",
-      "url": "https://m.weibo.cn/detail/5363252067827882",
-      "source": "weibo",
       "category": "",
       "sentiment": ""
     }
