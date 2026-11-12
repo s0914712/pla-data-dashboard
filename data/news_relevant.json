@@ -46998,5 +46998,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-11-12",
+      "title": "【#练兵比武砺锋芒#】近日，武警浙江省总队舟山支队组织开展2026年度群众性练兵比武竞赛。百余名官兵...",
+      "content": "【#练兵比武砺锋芒#】近日，武警浙江省总队舟山支队组织开展2026年度群众性练兵比武竞赛。百余名官兵齐聚练兵场，围绕通用五项、攀登、刺杀、手榴弹投掷、自救互救等课目展开激烈角逐，在紧贴实战的高强度比拼中展示过硬本领。（李晗健、王翔）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5364429828129213",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
