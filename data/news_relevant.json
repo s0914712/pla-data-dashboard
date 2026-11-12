@@ -47022,5 +47022,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": null,
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-11",
+      "title": "台湾今年前九月近七成员工薪资低于平均数",
+      "content": "据统计，1月至9月全体受雇员工每月经常性薪资平均每人49152元（新台币，下同），年增2.93%，扣除物价后的每月实质经常性薪资平均数年增0.98%。 统计部门表示，影响低于平均薪资人数占比的因素，包括高薪族群拉高平均数、低薪员工人数变化，以及不同薪资水准员工的组成。 分行业看，不同行业差距较大，显示出“冷热不均”。数据显示，金融及保险业薪资水平最高，前三季度每月经常性薪资中位数达59900元；专业科学及技术服务业45308元。其他行业薪资较低，如住宿及餐营业中位数为35852元，其他服务业为30911元。",
+      "url": "https://www.news.cn/tw/20261111/84edbf417fbd4e44be0dda7dfc58473b/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
