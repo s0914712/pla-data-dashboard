@@ -47262,5 +47262,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "兩岸網友共創視頻宣傳活動"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-11-13",
+      "title": "两岸网友共创视频｜我们的城市有条中山路",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 应急 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 应急 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عرب",
+      "url": "https://www.news.cn/tw/20261113/5eabfa600aff43fea54d27b387a619b7/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "大陸戲曲名家于魁智、李胜素等人將赴台灣進行文化交流演出。"
+    },
+    "confidence": 0.98,
+    "original_article": {
+      "date": "2026-11-12",
+      "title": "于魁智、李胜素等大陆戏曲名家将来台献艺",
+      "content": "演出邀请方台湾传大艺术事业有限公司12日在台北举行记者会。据介绍，此次节目包括《四郎探母》《杨门女将》《太真外传》《红鬃烈马》等，好戏连台，让戏迷们过足瘾。 于魁智说，非常高兴再次来到台湾和广大观众见面。每次来台演出，都有许多台湾戏迷为我们加油鼓劲，这让我们非常感动。为了这次来台演出，我们做了精心筹划和准备，力争会聚更多名家来台“登台献艺”。 “这是我从1993年以来，第27次来到台湾演出。”于魁智表示，看到台湾的年轻观众越来越多，从中感受到中华文化的赓续传承。 演出团队由中国戏曲学院教授、名家，以及特邀的中国国家京剧院知名演员、演奏员等共80人组成。中国戏曲学院有着戏曲艺术家摇篮美誉，此次赴台演出阵容强大。除于魁智、李胜素两位名角外，主要优秀演员还包括青衣张晶、老旦李宏、花旦张艳红、老生贾劲松、武生孙亮等。另外，此次演出还邀请了多位中国国家京剧院优秀演员加盟演出。 台湾知名剧作家王安祈说，此次来台演出的节目都是经典老戏。特别是《太真外传》，既浪漫旖旎、又有宫廷氛围，相信即使是过往较少接触戏曲的年轻观众都会十分喜欢。",
+      "url": "https://www.news.cn/tw/20261112/c134954066074825a5bd403a700dff24/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
