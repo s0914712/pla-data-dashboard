@@ -47238,5 +47238,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.5,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "解放軍第71集團軍舉辦軍營官兵集体婚礼，旨在提升官兵幸福感並激發練兵熱情。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-13",
+      "title": "【#军营集体婚礼甜蜜来袭#】近日，第71集团军某旅隆重举办“山海为盟、战旗为证”集体婚礼，进一步提升...",
+      "content": "【#军营集体婚礼甜蜜来袭#】近日，第71集团军某旅隆重举办“山海为盟、战旗为证”集体婚礼，进一步提升官兵幸福感、归属感、获得感，激发官兵练兵热情。(步亚东、赵前松、黄振宇) #军营生活#",
+      "url": "https://m.weibo.cn/detail/5364792216518982",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
