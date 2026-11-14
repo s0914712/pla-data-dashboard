@@ -47406,5 +47406,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "TW",
+    "country2": "CN",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "台湾各界人士发起两岸和平倡议，主张和平优先、两岸人民福祉至上，探索产业合作，恢复双向观光，推动青年、学术、文化、教育交流，增进相互理解与善意。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-11-13",
+      "title": "台湾各界人士发起两岸和平倡议",
+      "content": "两岸和平倡议提出和平优先、两岸人民福祉至上，探索两岸产业合作新契机等主张。倡议还发出两岸立即恢复并扩大双向观光，排除交流障碍，积极推动青年、学术、文化、教育等交流，增进两岸同胞相互理解与善意等呼吁。 台湾民主文教基金会创办人关中对媒体表示，“和平、奋斗、救中国”是孙中山先生的遗训，我们今天的努力目标则是“和平奋斗保台湾”，只有和平才能保卫台湾。应该把和平理念转化成具体行动，因此决定向台湾社会发出呼吁。 中国国民党籍前民意代表丁守中在会上表示，两岸同胞同属中华民族，应当把这份民族认同转化为推动两岸和解、共生双赢的动力。 台湾海基会前副董事长邱进益表示，台海紧张的根源在于民进党“台独”党纲，“台独”与两岸和平水火不容，呼吁民进党废除“台独”党纲。他还建议，这份倡议未来可调整为两岸和平融合倡议，两岸不仅要追求和平，更要推动融合。",
+      "url": "https://www.news.cn/tw/20261113/ca90c2d9cc324cd595dced7874c52b0e/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
