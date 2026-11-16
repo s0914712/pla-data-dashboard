@@ -1395,16 +1395,16 @@
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "",
+      "Military_exercise": "中共14機艦船台海周邊活動，共機4架次逾越中線進入中部、西南及東部空域，另有7艘共艦及3艘公務船。",
       "Foreign_battleship": "",
-      "Political_statement": "國防部偵獲8艘共艦、3艘公務船及1架共機進入東部空域，國軍嚴密監控與應處。"
+      "Political_statement": ""
     },
     "confidence": 0.95,
     "original_article": {
-      "date": "2026-11-15",
-      "title": "8艘共艦1架共機擾台國軍嚴密監控| 政治",
-      "content": "（中央社記者 謝怡璇 台北15日電）國防部發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲8艘共艦、3艘公務船，及1架共機進入東部空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲8艘共艦、3艘公務船，以及1架共機進入東部空域。 國防部表示，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：楊蘭軒）1151115 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
-      "url": "https://www.cna.com.tw/news/aipl/202611150020.aspx",
+      "date": "2026-11-16",
+      "title": "中共14機艦船台海周邊活動國軍嚴密監控應處| 政治",
+      "content": "（中央社記者 吳書緯 台北16日電）國防部表示，自昨天上午6時至今天上午6時，偵獲共機4架次逾越中線進入中部、西南及東部空域，另有7艘共艦及3艘公務船，總計中共14機艦船持續在台海周邊活動，國軍嚴密監控與應處。 根據國防部今天公布的「中共解放軍進入台海周邊空域活動示意圖」，國軍於昨天上午9時30分至昨天下午4時55分，在台灣海峽空域偵獲中共1架無人機逾越中線；國軍另於昨天上午10時20分至昨天上午11時5分，在台灣南部空域偵獲中共1架直升機。 國軍於昨天上午7時20分至昨天上午8時50分，在台灣東部空域偵獲中共1架直升機，隨後於昨天中午12時5分至昨天下午3時10分，在台灣東部空域偵獲中共1架直升機。 國防部指出，國軍運用任務機、艦及岸置飛彈系統嚴密監控與應處。（編輯：楊蘭軒）1151116 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aipl/202611160028.aspx",
       "source": "cna",
       "category": "",
       "sentiment": ""
@@ -1418,7 +1418,7 @@
     "sentiment_score": 0.6,
     "sentiment_label": "positive",
     "extracted_data": {
-      "US_Taiwan_interaction": "台裔候任聯邦眾議員潘君達強調支持台灣自決權，維持台海現狀，並將加入「國會台灣連線」，提倡遵守「台灣關係法」及「六項保證」，呼籲增加台美雙邊接觸。",
+      "US_Taiwan_interaction": "台裔候任聯邦眾議員潘君達強調美國對台政策，支持台灣自決權，呼籲增加台美雙邊接觸、支持台灣參與國際事務，並將加入「國會台灣連線」。",
       "Military_exercise": "",
       "Foreign_battleship": "",
       "Political_statement": ""
@@ -1469,9 +1469,9 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "G7外長與歐盟發表聯合聲明強調維護台海和平穩定重要性，外交部表達感謝並指維護台海現狀已成國際共識。"
+      "Political_statement": "G7外長與歐盟聲明強調維護台海和平穩定重要性，外交部表示歡迎與感謝，認為維護台海現狀已是國際共識。"
     },
-    "confidence": 0.95,
+    "confidence": 0.98,
     "original_article": {
       "date": "2026-11-12",
       "title": "G7外長關切台海外交部：維護現狀是國際共識| 政治",
@@ -1517,7 +1517,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "陸委會主委邱垂正表示，台海和平最大威脅是中共對台政策，旨在消滅中華民國、併吞台灣，不放棄武力對台，呼籲各界認清中共本質。"
+      "Political_statement": "陸委會主委邱垂正表示，台海和平最大威脅是中共對台政策，旨在消滅中華民國、併吞台灣，不放棄武力對台，呼籲各界認清中共本質，不應指責台灣。"
     },
     "confidence": 0.95,
     "original_article": {
@@ -1541,7 +1541,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "美國對中國先進技術出口限制出現漏洞，中國軍方背景大學仍購得輝達H200晶片，引發華府對技術流向軍事用途的擔憂。"
+      "Political_statement": "美國對中國先進技術出口限制存在漏洞，中國軍方背景大學仍購得輝達H200晶片，引發華府對技術流向中國軍事現代化的擔憂。"
     },
     "confidence": 0.9,
     "original_article": {
@@ -1589,7 +1589,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "移民署依法審查陸客申請，若有矮化台灣言行得不予許可，並要求申請人補正文件，符合相關規定。"
+      "Political_statement": "移民署依法審查陸客申請，若有矮化台灣言行得不予許可，並要求申請人補正文件。"
     },
     "confidence": 0.9,
     "original_article": {
@@ -1631,7 +1631,7 @@
     "is_relevant": true,
     "country1": "US",
     "country2": "TW",
-    "sentiment_score": 0.7,
+    "sentiment_score": 0.6,
     "sentiment_label": "positive",
     "extracted_data": {
       "US_Taiwan_interaction": "美國西北各州聯合議會領袖團訪台，討論深化經貿投資、科技創新及能源合作，並表達對台灣的跨黨派支持。",
@@ -1685,9 +1685,9 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "国台办呼吁台胞参与祖国统一，强调人民军队将坚决粉碎“台独”分裂和外来干涉图谋，并提及两岸气象防灾合作。"
+      "Political_statement": "国台办呼吁台胞参与祖国统一事业，强调人民军队捍卫国家主权、统一，粉碎“台独”分裂和外来干涉图谋，并提及两岸气象防灾减灾合作。"
     },
-    "confidence": 0.9,
+    "confidence": 0.95,
     "original_article": {
       "date": "2026-11-11",
       "title": "国台办：希望广大台胞与大陆一道共创美好未来",
@@ -1747,25 +1747,25 @@
     }
   },
   {
-    "category": "CN_Statement",
+    "category": "CCP_news_and_blog",
     "is_relevant": true,
     "country1": "CN",
     "country2": "TW",
-    "sentiment_score": -0.5,
+    "sentiment_score": -0.3,
     "sentiment_label": "negative",
     "extracted_data": {
       "US_Taiwan_interaction": "",
-      "Military_exercise": "",
+      "Military_exercise": "东部战区海军某部组织“保障先锋”军体运动会，紧贴实战要求，磨砺斗志，激发血性，深化练兵备战。",
       "Foreign_battleship": "",
-      "Political_statement": "中國外交部回應巴布亞紐幾內亞政府關閉「台北駐巴新經濟辦事處」事件。"
+      "Political_statement": ""
     },
     "confidence": 0.9,
     "original_article": {
-      "date": "2026-11-09",
-      "title": "外交部回应巴新政府关闭“台北驻巴新经济办事处”",
-      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 应急 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 应急 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عرب",
-      "url": "https://www.news.cn/tw/20261109/bf2eabd93d19428c86bb53f401881069/c.html",
-      "source": "xinhua",
+      "date": "2026-11-16",
+      "title": "#直击东部战区练兵备战现场#【#向战冲锋砺精兵#】近日，东部战区海军某部组织第四届“保障先锋”军体运...",
+      "content": "#直击东部战区练兵备战现场#【#向战冲锋砺精兵#】近日，东部战区海军某部组织第四届“保障先锋”军体运动会。此次运动会紧贴实战要求，以赛场磨砺斗志，用竞技激发血性，多项赛会纪录被打破。官兵们用拼搏奋进之姿展现了“甘居幕后、勇毅前出”的良好风貌，为深化练兵备战注入强劲动能。（刘传博、何治 ...全文",
+      "url": "https://m.weibo.cn/detail/5365788782626139",
+      "source": "weibo",
       "category": "",
       "sentiment": ""
     }
@@ -1829,7 +1829,7 @@
       "US_Taiwan_interaction": "",
       "Military_exercise": "",
       "Foreign_battleship": "",
-      "Political_statement": "東部戰區微博發布帶有威脅意味的貼文，暗示對台海的軍事監視與潛在行動。"
+      "Political_statement": "東部戰區微博發布帶有威脅意味的貼文，暗示對台海的監視與潛在行動。"
     },
     "confidence": 0.9,
     "original_article": {
@@ -1886,6 +1886,54 @@
       "content": "#东部熄灯号#暗夜点兵，跑道如弦，战鹰呼啸破长空。#阅海峡#",
       "url": "https://m.weibo.cn/detail/5364188236486082",
       "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "國防部偵獲8艘共艦、3艘公務船及1架共機進入東部空域，國軍嚴密監控與應處。"
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-15",
+      "title": "8艘共艦1架共機擾台國軍嚴密監控| 政治",
+      "content": "（中央社記者 謝怡璇 台北15日電）國防部發布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲8艘共艦、3艘公務船，及1架共機進入東部空域，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。 國防部上午公布共機艦動態，統計自昨天上午6時起至今天上午6時止，偵獲8艘共艦、3艘公務船，以及1架共機進入東部空域。 國防部表示，國軍運用任務機艦及岸置飛彈系統嚴密監控與應處。（編輯：楊蘭軒）1151115 選擇與事實站在一起，您的每一份贊助，都是守護新聞自由的力量 下載中央社「一手新聞」APP，即時掌握最新消息 本網站之文字、圖片及影音，非經授權，不得轉載、公開播送或公開傳輸及利用。",
+      "url": "https://www.cna.com.tw/news/aipl/202611150020.aspx",
+      "source": "cna",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CN_Statement",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國外交部回應巴布亞紐幾內亞政府關閉「台北駐巴新經濟辦事處」事件。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-11-09",
+      "title": "外交部回应巴新政府关闭“台北驻巴新经济办事处”",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 应急 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 应急 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عرب",
+      "url": "https://www.news.cn/tw/20261109/bf2eabd93d19428c86bb53f401881069/c.html",
+      "source": "xinhua",
       "category": "",
       "sentiment": ""
     }
