@@ -47622,5 +47622,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.1,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-11-16",
+      "title": "【#赛场角逐砺尖兵#】近日，武警宁德支队2026年群众性练兵比武暨创破纪录活动火热开赛，百余名官兵围...",
+      "content": "【#赛场角逐砺尖兵#】近日，武警宁德支队2026年群众性练兵比武暨创破纪录活动火热开赛，百余名官兵围绕拔河、径赛、装备结合与无光识别等课目展开激烈角逐。赛场上，他们用速度、力量、团结、毅力，诠释青年官兵的血性胆气。（陈李涛、厚子豪）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5365879379853853",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
