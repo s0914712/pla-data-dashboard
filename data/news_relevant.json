@@ -47886,5 +47886,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "CN",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.95,
+    "original_article": {
+      "date": "2026-11-17",
+      "title": "【#孔雀蓝加钢淬火#】近日，武警第二机动总队某部组织新聘文职人员适岗培训。通过严密组织、精准施训、悉...",
+      "content": "【#孔雀蓝加钢淬火#】近日，武警第二机动总队某部组织新聘文职人员适岗培训。通过严密组织、精准施训、悉心帮教和量身定制“成长计划”，帮助他们扣好军旅“第一粒扣子”，加快实现从地方人员到军队人员的角色转变。（王伟、易小东、陈泽清）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5366241767457269",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
