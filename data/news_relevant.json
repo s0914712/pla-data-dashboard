@@ -48126,5 +48126,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-11-18",
+      "title": "【#警士晋升选拔硬核开考#】近日，武警江苏总队严密组织中高级警士晋升（延期）选拔考核。重点考察警士军...",
+      "content": "【#警士晋升选拔硬核开考#】近日，武警江苏总队严密组织中高级警士晋升（延期）选拔考核。重点考察警士军政素质与专业技能，切实把本领过硬的人才选出来、用起来。（梁国瑞、张志昊、叶松涛）",
+      "url": "https://m.weibo.cn/detail/5366604155847497",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
