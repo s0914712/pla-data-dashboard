@@ -48366,5 +48366,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "武警厦门支队组织群众性练兵暨创破纪录比武",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.85,
+    "original_article": {
+      "date": "2026-11-19",
+      "title": "【#群众性大练兵火热登场#】近日，武警厦门支队组织2026年度群众性练兵暨创破纪录比武，参赛官兵全力...",
+      "content": "【#群众性大练兵火热登场#】近日，武警厦门支队组织2026年度群众性练兵暨创破纪录比武，参赛官兵全力以赴，用拼搏与毅力诠释血性胆气，在激烈角逐中展示能打胜仗的过硬本领。（杨济源、周千益、李亮辉）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5366966543188479",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
