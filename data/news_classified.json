@@ -56270,5 +56270,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "JP",
+    "sentiment_score": -0.5,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "中國外交部要求日方在台灣問題上糾正錯誤言行。"
+    },
+    "confidence": 0.0,
+    "original_article": {
+      "date": "2026-11-20",
+      "title": "外交部：日方应在台湾问题上尽快纠正错误言行",
+      "content": "手机版 网站无障碍 PC版本 首页 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 健康 军事 访谈 视频 图片 政务 应急 法律 中央文件 手机版 网站地图 学习进行时 高层 时政 人事 国际 财经 网评 港澳 台湾 思客智库 全球连线 教育 科技 科创 量子 体育 文化 书画 健康 军事 访谈 视频 图片 政务 应急 法律 中央文件 金融 汽车 食品 人居 信息化 数字经济 学术中国 乡村振兴 银龄 溯源中国 城市 旅游 能源 会展 彩票 娱乐 时尚 悦读 公益 一带一路 亚太网 上市公司 文化产业 地方频道 北京 天津 河北 山西 辽宁 吉林 上海 江苏 浙江 安徽 福建 江西 山东 河南 湖北 湖南 广东 广西 海南 重庆 四川 贵州 云南 西藏 陕西 甘肃 青海 宁夏 新疆 内蒙古 黑龙江 多语种频道 English Español Français عربى Русский язык 日本語 한국어 Deutsch Português ENGLISH English Español Français عرب",
+      "url": "https://www.news.cn/tw/20261120/e8de0f7e8ba74904b9024d9ec0687d1c/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.6,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "海旅會攜手大陸五省在台南旅展推廣文創旅遊，旨在增進台灣民眾對大陸的熟悉感與親近感。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-11-20",
+      "title": "跟着文创去旅行   海旅会携手大陆五省亮相台南旅展",
+      "content": "记者在现场看到，主题展区入口处设有古风打卡点“陶然亭”，至圣先师、泰山、大熊猫、金丝猴、少林功夫、咏春拳等6幅代表性纱幔图分列两侧，典雅古朴，引人关注。 11月20日，观众在“跟着文创去旅行”主题展区前打卡。新华社记者 周文其 摄 台南市民许小姐掏出手机不停拍照。“现场布置充满传统文化之美，特别好看。”她说。许小姐是古代历史文化爱好者，此前已去过北京故宫、陕西兵马俑等地游览。“此次展览上的这些省份我还没去过，特意来看看，为未来的旅游计划做准备。”她告诉记者。 展区设置五省图文展示区、文创美物区、非遗体验区、茶席品茗区等区域，并提供潍坊风筝彩绘、杨家埠财神拓印、巧解鲁班锁等趣味体验活动。 “山东布老虎玩偶、四川大熊猫玩偶、三星堆冰箱贴，我都买了。”高雄市民王先生在文创区买了不少伴手礼。他说，这些小物品制作精美、很有大陆地方特色。“我尤其喜欢大熊猫，觉得特别可爱，在台湾已经近距离看过大熊猫，希望今后有机会去四川看到更多大熊猫。” 11月20日，观众在“跟着文创去旅行”主题展区内选购文创产品。新华社记者 周文其 摄 海旅会高雄办事分处介绍，将在好玩好看、有趣有料的互动中，让台湾民众尤其是青年一代增进对大陆广袤河山的熟悉感与亲近感，吸引他们跟着非遗文创开启大陆景点和博物馆的探索之旅。 2026台南旅展为期4天，展期至11月23日，预计观展人数达15万人次。",
+      "url": "https://www.news.cn/tw/20261120/0791290a27a74427a77c9029df6d200c/c.html",
+      "source": "xinhua",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
