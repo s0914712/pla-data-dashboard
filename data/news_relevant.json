@@ -48510,5 +48510,53 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.2,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "91678部队邀请心理咨询机构进军营，通过心理宣教、互动游戏等方式，帮助官兵缓解压力、提升情绪管理能力，为战斗力“赋能”。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-11-20",
+      "title": "【#心理服务进军营#】近日，91678部队邀请驻地心理咨询机构进军营，通过心理宣教、互动游戏、绘画解...",
+      "content": "【#心理服务进军营#】近日，91678部队邀请驻地心理咨询机构进军营，通过心理宣教、互动游戏、绘画解压等方式，帮助官兵缓解压力、提升情绪管理能力，为战斗力“赋能”。（范秋虹、马上凯、杨乐、刘星宇）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5367328931054806",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "暗示軍事訓練和備戰，強調在「硝煙味」中提升實力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-11-19",
+      "title": "#东部熄灯号# 风沙声里强本领，硝烟味中淬锋芒。#阅海峡#",
+      "content": "#东部熄灯号# 风沙声里强本领，硝烟味中淬锋芒。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5367087338884620",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]

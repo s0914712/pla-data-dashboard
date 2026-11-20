@@ -56246,5 +56246,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": -0.4,
+    "sentiment_label": "negative",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "暗示軍事訓練和備戰，強調在「硝煙味」中提升實力。",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-11-19",
+      "title": "#东部熄灯号# 风沙声里强本领，硝烟味中淬锋芒。#阅海峡#",
+      "content": "#东部熄灯号# 风沙声里强本领，硝烟味中淬锋芒。#阅海峡#",
+      "url": "https://m.weibo.cn/detail/5367087338884620",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
