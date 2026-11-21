@@ -1,0 +1,39 @@
+{
+  "run_timestamp": "2026-11-21T07:03:13.865848",
+  "end_timestamp": "2026-11-21T07:08:21.306012",
+  "duration_seconds": 307.4,
+  "success": true,
+  "stats": {
+    "timestamp": "2026-11-21T07:03:13.865848",
+    "days_back": 7,
+    "sources": {
+      "cna": {
+        "scraped": 25,
+        "status": "success"
+      },
+      "xinhua": {
+        "scraped": 8,
+        "status": "success"
+      },
+      "weibo": {
+        "scraped": 10,
+        "status": "success"
+      }
+    },
+    "deduplication": {
+      "before": 43,
+      "after": 38,
+      "removed": 5
+    },
+    "classification": {
+      "total": 38,
+      "relevant": 31,
+      "status": "success"
+    },
+    "naval_transits": {
+      "new_entries": 0,
+      "status": "success"
+    }
+  },
+  "console_output": "2026-11-21 07:03:13,866 Starting Daily News Update - 2026-11-21 07:03:13\n2026-11-21 07:03:13,866 Days back: 7\n2026-11-21 07:03:55,103 CNA: scraped 25 articles\n2026-11-21 07:04:16,100 Xinhua: scraped 8 articles\n2026-11-21 07:04:23,216 Weibo: scraped 10 posts\n2026-11-21 07:04:23,216 Total articles scraped: 43\n2026-11-21 07:04:44,376 Dedup: 43 → 38 (removed 5)\n2026-11-21 07:08:20,957 Classified: 38, Relevant: 31\n2026-11-21 07:08:21,122 Saved: data/news_classified.json, data/news_relevant.json\n2026-11-21 07:08:21,198 Naval transits updated: 0 new entries\n2026-11-21 07:08:21,305 Synced 73 transit records to JSON\n"
+}
