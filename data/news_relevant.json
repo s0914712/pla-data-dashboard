@@ -48942,5 +48942,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "TW",
+    "sentiment_score": 0.1,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "東部戰區空軍某部舉辦理論學習活動，引導官兵強軍建功立業。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-11-23",
+      "title": "【#兵言兵语话强军#】近日，东部战区空军某部举办第二届“理论的力量”大家谈活动，来自不同单位、不同专...",
+      "content": "【#兵言兵语话强军#】近日，东部战区空军某部举办第二届“理论的力量”大家谈活动，来自不同单位、不同专业的官兵代表上台分享学习理论的体会，进一步引导官兵矢志强军、建功立业的信心。（赵宏伟）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5368416094388694",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
