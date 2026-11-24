@@ -49110,5 +49110,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-11-24",
+      "title": "【#军体运动会现场大片超燃来袭#】近日，武警福建总队南平支队举办2026年度军事体育运动会，17个课...",
+      "content": "【#军体运动会现场大片超燃来袭#】近日，武警福建总队南平支队举办2026年度军事体育运动会，17个课目轮番展开，从组合400米障碍到武装5公里越野，从手榴弹运用投掷到携枪通过100米障碍，大家在同台竞技中看清自身短板，在相互追赶中激发训练热情。（丘晓云、毛胤德、张煜梁、吴双磊）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5368778481205602",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
