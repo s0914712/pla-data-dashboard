@@ -49206,5 +49206,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.2,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "东部战区海军某护卫舰支队举办“军港之夜”深蓝音乐节，旨在丰富军营文化生活，提振士气，为备战打仗注入精神动力。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-11-25",
+      "title": "【#青春旋律燃动军港#】为丰富军营文化生活，近日，东部战区海军某护卫舰支队举办“军港之夜”深蓝音乐节...",
+      "content": "【#青春旋律燃动军港#】为丰富军营文化生活，近日，东部战区海军某护卫舰支队举办“军港之夜”深蓝音乐节。官兵通过丰富多样的演出形式展现风采、提振士气，用青春旋律奏响强军战歌，为备战打仗注入强劲的精神动力。（杨海帆、吴帅广、代亚东、何小凯）#军营生活#",
+      "url": "https://m.weibo.cn/detail/5369140870907023",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
