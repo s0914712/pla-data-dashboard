@@ -1,28 +1,28 @@
 {
-  "generated_at": "2026-11-24 12:04:59",
-  "n": 115,
+  "generated_at": "2026-11-25 10:56:31",
+  "n": 116,
   "min_n": 10,
   "legacy_ok": true,
   "legacy_stale": false,
-  "legacy_asof": "2026-11-24",
+  "legacy_asof": "2026-11-25",
   "bias_convention": "predicted_minus_actual",
   "note": "此處只比點預測與區間；機率的對照見機率檢討區塊",
   "models": {
     "new": {
       "label": "SurgeForecaster 3.0.0",
-      "MAE": 5.5522,
-      "bias": -0.3574,
-      "pin90": 2.919,
-      "cov90": 0.913,
-      "width": 24.12
+      "MAE": 5.5586,
+      "bias": -0.3,
+      "pin90": 2.8993,
+      "cov90": 0.9138,
+      "width": 24.1026
     },
     "legacy": {
       "label": "CatBoost 2.8.0",
-      "MAE": 5.3913,
-      "bias": -2.6661,
-      "pin90": 3.7621,
-      "cov90": 0.4087,
-      "width": 8.9409
+      "MAE": 5.3802,
+      "bias": -2.6078,
+      "pin90": 3.7332,
+      "cov90": 0.4052,
+      "width": 8.9405
     }
   },
   "forecast": [
@@ -53,21 +53,21 @@
       }
     },
     {
-      "date": "2026-11-25",
+      "date": "2026-11-26",
       "new": {
-        "point": 6.3,
+        "point": 2.3,
         "lower": 0.0,
-        "upper": 22.1
+        "upper": 19.0
       },
       "legacy": {
-        "point": 4.1,
-        "lower": 0.9,
-        "upper": 9.8
+        "point": 3.6,
+        "lower": 0.2,
+        "upper": 12.7
       }
     }
   ],
   "window": [
     "2026-07-31",
-    "2026-11-24"
+    "2026-11-25"
   ]
 }
