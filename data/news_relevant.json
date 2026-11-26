@@ -49422,5 +49422,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": "",
+    "sentiment_score": 0.2,
+    "sentiment_label": "positive",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": "第73集团军某旅文艺轻骑兵为新兵送上暖心盛宴，旨在舒缓压力，提升士气。"
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-11-26",
+      "title": "【#轻骑送艺润兵心#】欢声笑语暖兵心。近日，第73集团军某旅文艺轻骑兵奔赴某基地，为新战友送上暖心盛...",
+      "content": "【#轻骑送艺润兵心#】欢声笑语暖兵心。近日，第73集团军某旅文艺轻骑兵奔赴某基地，为新战友送上暖心盛宴。星火乐队、拉丁舞、原创相声《新训》及男子舞蹈《淬火》等节目轮番上演，引发强烈共鸣。演出后，“知心姐姐”心理服务团队接续开展趣味团辅，帮助新兵舒缓压力。活动在全场齐唱《强军战歌》中推 ...全文",
+      "url": "https://m.weibo.cn/detail/5369503258771584",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
