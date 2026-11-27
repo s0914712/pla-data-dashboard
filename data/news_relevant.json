@@ -49662,5 +49662,29 @@
       "category": "",
       "sentiment": ""
     }
+  },
+  {
+    "category": "CCP_news_and_blog",
+    "is_relevant": true,
+    "country1": "CN",
+    "country2": null,
+    "sentiment_score": 0.0,
+    "sentiment_label": "neutral",
+    "extracted_data": {
+      "US_Taiwan_interaction": "",
+      "Military_exercise": "",
+      "Foreign_battleship": "",
+      "Political_statement": ""
+    },
+    "confidence": 0.9,
+    "original_article": {
+      "date": "2026-11-27",
+      "title": "【#赛场比武砺锋芒#】近日，武警第二机动总队某支队“常胜2026”群众性练兵比武竞赛暨军事体育运动会...",
+      "content": "【#赛场比武砺锋芒#】近日，武警第二机动总队某支队“常胜2026”群众性练兵比武竞赛暨军事体育运动会正式拉开帷幕。此次比武共设置20余个课目，参赛官兵在体能与技能的双重考验中展示过硬战斗本领。（梁烨博、郑重、林经展、罗宁新）#当兵就要练练练#",
+      "url": "https://m.weibo.cn/detail/5369865646639608",
+      "source": "weibo",
+      "category": "",
+      "sentiment": ""
+    }
   }
 ]
